@@ -10,12 +10,14 @@ Conventional Commits,四個 repo 同一套。完整版(type 的判準、body 怎
 ```
 
 ```text
-feat(bracket): 手機版改成分輪檢視
+feat(bracket): show one round at a time on phones
 
-- 完整樹在 375px 下必須捏放大才看得清,等於沒有手機版
-- 一次一輪,黏住輪次標題,左右滑動換輪
-- 桌機不受影響,1024px 以上仍是完整樹
+- the full tree needs pinch-zoom at 375px, which is the same as having no phone layout
+- one round per screen, sticky round header, swipe to move between rounds
+- desktop is untouched: 1024px and up still gets the full tree
 ```
+
+**訊息一律用英文。** type、scope、subject、body、footer 全部。這份規範本身和程式碼註解仍然是中文。
 
 **冒號前面沒有空格。** `feat(bracket) : xxx` 會被 commitlint 擋下來。
 
@@ -38,16 +40,32 @@ feat(bracket): 手機版改成分輪檢視
 | `deps` | 相依升級 |
 | `ci` | workflow |
 
+## 怎麼用、怎麼擋
+
+```bash
+pnpm install   # husky 的 hook 會在 prepare 時自動掛上
+pnpm cz        # 互動式產生訊息。不想用就自己照格式寫,一樣會被檢查
+```
+
+| 時機 | 跑什麼 |
+|---|---|
+| `pre-commit` | `lint-staged`(eslint --fix + prettier + `check-tokens.mjs`) |
+| `commit-msg` | `commitlint --edit` |
+
+`pnpm cz` 的選項和 commitlint 的規則寫在**同一個檔案**(`commitlint.config.mjs`)—— cz-git 會自己去讀 `scope-enum`,所以加 scope 只要改一個地方。
+
+**臨時要跳過**:`git commit --no-verify`。但 CI 會再跑一次。
+
 ## 這個 repo 特別要注意的
 
 **視覺改動的 subject 要說出理由,不能只說改了什麼。**
 
-`style(ui): 調整卡片間距` 沒有資訊。`fix(ui): 卡片間距改用 token,原本寫死的值在小螢幕會擠在一起` 才有 —— 半年後有人想改回去的時候,他看得到當初為什麼。
+`style(ui): adjust card spacing` 沒有資訊。`fix(ui): use spacing tokens on cards` 加上 body 寫「原本寫死的值在小螢幕會擠在一起」才有 —— 半年後有人想改回去的時候,他看得到當初為什麼。
 
 出現一次性 hex 值的 commit 應該被 CI 擋下來,不是靠 review 抓。
 
 ## 三條最容易忘的
 
-- subject 用祈使句、不加句號、72 字元以內
+- subject 用祈使句、小寫開頭、不加句號、72 字元以內(`subject-case` 有開,首字大寫會被擋)
 - body 講**為什麼**,不是改了哪些檔案
 - **PR 標題也要照這個格式** —— squash merge 之後它就是主線上的 commit message

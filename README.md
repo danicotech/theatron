@@ -58,6 +58,30 @@ docs/
 
 兩條都值得做成 CI 的 grep 檢查。視覺紀律靠自律撐不過三個月,靠 CI 可以。
 
+## 開發環境
+
+pnpm workspace,`packages/ui` 與 `web` 兩個成員。
+
+```bash
+pnpm install     # husky 的 hook 會在 prepare 時自動掛上
+pnpm lint        # eslint,含 packages/ui 的 import 邊界
+pnpm lint:custom # token 紀律檢查,見下面
+pnpm cz          # 互動式產生 commit 訊息
+```
+
+**`scripts/check-tokens.mjs` 擋的三件事都是功能的前提,不是風格潔癖:**
+
+| 擋什麼 | 不擋的話會怎樣 |
+|---|---|
+| 一次性 hex 值 | 換主題時那個元件變成一塊突兀的補丁 |
+| 引用第 1 層色階(`--plum-*` 等) | 同上,第 1 層正是主題會抽換的那層 |
+| 禁用字體清單 | 字體回到各家 AI 的預設落點 |
+| `packages/ui` 出現 `fetch` / API import | 元件庫綁死在這一場活動上 |
+
+`packages/ui/src/tokens/` 是唯一豁免 —— 第 1 層本來就該寫 hex,那是它的工作。
+
+ESLint 管不到 CSS 字串裡的顏色,所以這一段用獨立腳本;`packages/ui` 的 import 邊界則寫在 `eslint.config.mjs`。
+
 ## 主題是資料,不是程式碼
 
 ```text

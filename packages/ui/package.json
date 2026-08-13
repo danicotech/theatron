@@ -1,0 +1,10 @@
+{
+  "name": "@theatron/ui",
+  "version": "0.0.0",
+  "private": true,
+  "description": "純展示層:設計系統、design token、主題注入",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
