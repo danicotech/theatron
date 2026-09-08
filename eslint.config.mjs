@@ -5,7 +5,14 @@ import prettier from 'eslint-config-prettier';
 
 export default tseslint.config(
   {
-    ignores: ['**/dist/**', '**/.next/**', '**/node_modules/**', '.husky/**'],
+    // 生成的 client 不歸我們管:契約要改就去改 hestia/proto 再重跑 pnpm gen:api。
+    ignores: [
+      '**/dist/**',
+      '**/.next/**',
+      '**/node_modules/**',
+      '.husky/**',
+      'web/src/lib/api/gen/**',
+    ],
   },
 
   js.configs.recommended,

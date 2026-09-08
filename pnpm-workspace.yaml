@@ -1,3 +1,12 @@
 packages:
   - packages/*
   - web
+
+# @bufbuild/buf 的 postinstall 只是把平台專屬的 buf binary 接成 bin,
+# 沒有它 `pnpm gen:api` 會找不到指令。
+allowBuilds:
+  '@bufbuild/buf': true
+
+minimumReleaseAgeExclude:
+  - '@connectrpc/connect-web@2.2.0'
+  - '@connectrpc/connect@2.2.0'

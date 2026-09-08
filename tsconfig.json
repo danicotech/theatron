@@ -18,5 +18,5 @@
       "@theatron/ui/*": ["./packages/ui/src/*"]
     }
   },
-  "include": ["packages/*/src", "web/src", "*.mjs", "scripts"]
+  "include": ["packages/*/src", "web/src", "*.mjs", "scripts", "vitest.setup.ts"]
 }

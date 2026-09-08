@@ -1,0 +1,27 @@
+/* 第 1 層:原始值。 */
+/* 這是主題唯一會抽換的一層 —— 見 .claude/skills/tournament-design-system/theming.md。 */
+/* 除了這個資料夾與 theme/ 的注入邏輯,任何檔案都不該出現這些名字。 */
+/* check-tokens.mjs 會擋,不靠自律。 */
+
+/* 預設主題 arena-night。沒有 data-theme 的情況也吃得到,避免整頁沒有顏色。 */
+:root,
+[data-theme='arena-night'] {
+  --plum-900: #17101f;
+  --plum-800: #241a30;
+  --plum-700: #2f2340;
+  --plum-500: #4a3a5e;
+  --plum-300: #a292b5;
+  --plum-050: #f0e8f5;
+
+  --amber-400: #ffc145;
+  --mint-400: #3de0a8;
+  --rose-400: #ff4d6d;
+
+  /* 顯示字體與圓角尺度也是主題可換的,所以住在第 1 層。 */
+  /* 內文字體、等寬字體、間距、字級不在這裡 —— 它們不開放自訂。 */
+  --raw-font-display: 'Archivo', 'Noto Sans TC', system-ui, sans-serif;
+
+  --raw-radius-card: 10px;
+  --raw-radius-control: 6px;
+  --raw-radius-pill: 999px;
+}

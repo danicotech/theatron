@@ -1,0 +1,4 @@
+/* 三層 token 的第 1、2 層。web 只 import 這一個檔案。 */
+/* 第 3 層(元件變數)住在各元件自己的 *.module.css 裡,只在需要偏離時才建。 */
+@import './primitives.css';
+@import './semantic.css';

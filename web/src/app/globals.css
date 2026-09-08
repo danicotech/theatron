@@ -1,0 +1,49 @@
+/* 全站基礎。顏色一律走語意 slot,這裡不出現任何色值。 */
+/* 表面色與字體由 tokens/semantic.css 掛在 [data-theme] 上,<html> 帶著它。 */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-block-size: 100dvh;
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: 1.6;
+}
+
+/* 標題用 display 字體,而且要有字重層次 —— 全站只有 400/600 是 slop 的訊號。 */
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* 數字一律 mono + tabular-nums,不管在哪個元素裡。 */
+code,
+kbd,
+samp {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}

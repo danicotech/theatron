@@ -1,0 +1,147 @@
+/* /kitchen-sink 是驗收工具,不是產品頁面。 */
+/* 它自己也只能用語意 slot —— 不然「換主題有沒有破版」在這頁就看不出來。 */
+
+.page {
+  min-block-size: 100dvh;
+}
+
+.toolbar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-block-end: 1px solid var(--border-subtle);
+  background-color: var(--surface-base);
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.groupLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-mono-bold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* 舞台。寬度切換器改的是這個容器,不是視窗 —— */
+/* 元件本來就該依自己的容器排版,這裡順便驗證這件事。 */
+.stage {
+  container-type: inline-size;
+  margin-inline: auto;
+  padding: var(--space-6) var(--space-4);
+  border-inline: 1px solid var(--border-subtle);
+  min-block-size: 100%;
+}
+
+.section {
+  margin-block-end: var(--space-8);
+}
+
+.sectionHead {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-block-end: var(--space-2);
+  margin-block-end: var(--space-4);
+  border-block-end: 1px solid var(--border-subtle);
+}
+
+.sectionName {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-display);
+}
+
+.sectionNote {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.specimens {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+
+/* 元件用 container query,不看螢幕多寬。 */
+@container (min-width: 560px) {
+  .specimens {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (min-width: 900px) {
+  .specimens {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.specimen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  /* 標本框保持直角:它是規格表的欄位,不是卡片。 */
+  border: 1px dashed var(--border-subtle);
+}
+
+.specimenLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-mono);
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+/* 賠率單的欄位:等寬、右對齊、細線分隔、直角。 */
+.ledger {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.ledger th {
+  padding: var(--space-1) var(--space-2);
+  border-block-end: 1px solid var(--border-subtle);
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: start;
+  color: var(--text-secondary);
+}
+
+.ledger td {
+  padding: var(--space-2);
+  border-block-end: 1px solid var(--border-subtle);
+}
+
+.numeric {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}

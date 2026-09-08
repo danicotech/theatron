@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "@theatron/ui": ["../packages/ui/src/index.ts"],
+      "@theatron/ui/*": ["../packages/ui/src/*"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "next-env.d.ts", "next.config.ts", ".next/types/**/*.ts"]
+}

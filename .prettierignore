@@ -7,3 +7,9 @@ pnpm-lock.yaml
 # 它會把表格補成等寬、重排清單符號 —— 對中文文件只會製造 diff 噪音,
 # 而這些文件的可讀性本來就靠人看,不是靠對齊。
 *.md
+
+# 生成的 API client。格式由 protoc-gen-es 決定,不要跟它搶。
+web/src/lib/api/gen/
+
+# Next 產生的,不要跟它搶格式
+next-env.d.ts

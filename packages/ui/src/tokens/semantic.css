@@ -1,0 +1,101 @@
+/* 第 2 層:語意 slot。元件唯一能碰的一層。 */
+
+/* 為什麼掛在 [data-theme] 而不是 :root: */
+/* 主題可以套在任何一棵子樹上(/kitchen-sink 要同頁並列兩個主題)。 */
+/* 語意 slot 如果只宣告在 :root,子樹換掉第 1 層之後,第 2 層仍然解析成根節點的值, */
+/* 巢狀主題就會失效。掛在 [data-theme] 上,兩層才會一起跟著子樹走。 */
+[data-theme] {
+  /* 表面 */
+  --surface-base: var(--plum-900);
+  --surface-raised: var(--plum-800);
+  --surface-overlay: var(--plum-700);
+  --border-subtle: var(--plum-500);
+
+  /* 文字 */
+  --text-primary: var(--plum-050);
+  --text-secondary: var(--plum-300);
+
+  /* 語意 —— 職責唯一,不可挪用。 */
+  /* 換主題可以換色值,不能換職責。 */
+  --accent-money: var(--amber-400);
+  --state-win: var(--mint-400);
+  --state-live: var(--rose-400);
+
+  /* 字體三個角色,不新增。 */
+  /* --font-display 可由活動主題換掉;另外兩個不行。 */
+  /* --font-mono 不開放的理由:賠率欄位對齊是功能,不是風格。 */
+  --font-display: var(--raw-font-display);
+  --font-body: 'Noto Sans TC', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* 字重。刻意不是只有 400 / 600 兩級 —— 沒有層次是 slop 的訊號。 */
+  --weight-display: 800;
+  --weight-display-max: 900;
+  --weight-body: 400;
+  --weight-body-medium: 500;
+  --weight-body-bold: 700;
+  --weight-mono: 500;
+  --weight-mono-bold: 600;
+
+  /* 字級。不開放主題自訂 —— 一旦可調,每個活動的版面都會壞掉。 */
+  --text-micro: 11px;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-md: 15px;
+  --text-lg: 18px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+
+  /* 間距。同樣不開放自訂。 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* 圓角。主題可以等比縮放,0 = 全直角(硬派賽事)。 */
+  /* 不要什麼都圓角:表格、分隔線、賠率欄位保持直角,那是賠率表的語言。 */
+  --radius-card: var(--raw-radius-card);
+  --radius-control: var(--raw-radius-control);
+  --radius-pill: var(--raw-radius-pill);
+
+  /* 邊框一律 1px,不用陰影堆疊層次。 */
+  --border-hairline: 1px solid var(--border-subtle);
+
+  /* 動態只有三種。其他地方保持安靜。 */
+  --motion-hover: 150ms;
+  --motion-pulse: 1600ms;
+  --motion-draw: 500ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* 觸控目標下限(responsive.md 的品質底線)。 */
+  --hit-target: 44px;
+
+  /* 背景紋理由 data-texture 決定,預設沒有。 */
+  --surface-texture: none;
+
+  color: var(--text-primary);
+  background-color: var(--surface-base);
+  background-image: var(--surface-texture);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+}
+
+/* 競技場記分燈板:極淡的垂直網格條紋。 */
+[data-texture='grid'] {
+  --surface-texture: repeating-linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--border-subtle) 26%, transparent) 0 1px,
+    transparent 1px 6px
+  );
+}
+
+/* 掃描線:同一個語彙的橫向版本。 */
+[data-texture='scanline'] {
+  --surface-texture: repeating-linear-gradient(
+    0deg,
+    color-mix(in oklab, var(--border-subtle) 20%, transparent) 0 1px,
+    transparent 1px 4px
+  );
+}

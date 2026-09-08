@@ -3,5 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "description": "這場活動的前端",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.14.1",
+    "@connectrpc/connect": "^2.2.0",
+    "@connectrpc/connect-web": "^2.2.0",
+    "next": "^16.3.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "@theatron/ui": "workspace:*"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  }
 }

@@ -1,0 +1,27 @@
+# 從 hestia 的 proto 生成 TypeScript client。
+#
+# 專案鐵則 6:契約自動生成,禁止手寫共用型別。proto 是唯一來源,
+# 這裡只負責把它翻成 TS —— 生成結果不要手改,改契約請去 hestia/proto。
+#
+# 只跑 protoc-gen-es(protobuf-es v2)。Connect 的 client 不需要第二個 plugin:
+# @connectrpc/connect v2 直接吃 *_pb.ts 匯出的 service 描述,
+# 用 createClient(MeService, transport) 產生型別安全的 client。
+#
+#   pnpm gen:api
+#
+# 前提是 hestia 與 theatron 是同一層的兄弟目錄(inputs 走相對路徑)。
+version: v2
+clean: true
+managed:
+  enabled: false
+plugins:
+  # 走 node_modules 裡的 plugin,不需要另外裝 protoc。
+  - local: ['node', 'node_modules/@bufbuild/protoc-gen-es/bin/protoc-gen-es']
+    out: web/src/lib/api/gen
+    opt:
+      - target=ts
+      # 走 bundler 解析(tsconfig 的 moduleResolution: Bundler),
+      # 相對 import 一律不帶副檔名,跟 repo 其他地方一致。
+      - import_extension=none
+inputs:
+  - directory: ../hestia/proto

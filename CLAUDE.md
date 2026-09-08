@@ -25,7 +25,7 @@
 
 ## 元件檢視
 
-用一個路由(如 `/_components`),**不要用 Storybook** —— 多一套建置與相依。
+用一個路由(如 `/kitchen-sink`),**不要用 Storybook** —— 多一套建置與相依。
 
 ## Landing page
 

@@ -1,0 +1,14 @@
+{
+  "id": "summer-cup-2026",
+  "name": "夏季盃",
+  "primitives": {
+    "neutral": ["#0B1A17", "#132A24", "#1B3A31", "#2F6B58", "#8FBFAE", "#EAF5F0"],
+    "money": "#F2B705",
+    "win": "#5BD8A0",
+    "live": "#FF6B4A"
+  },
+  "displayFont": "Bebas Neue",
+  "radiusScale": 0,
+  "texture": "scanline",
+  "heroScene": "arena"
+}

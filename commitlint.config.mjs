@@ -66,7 +66,10 @@ export default {
       { value: 'test', name: 'test:     tests only' },
       { value: 'build', name: 'build:    build and dependencies' },
       { value: 'ci', name: 'ci:       workflows and CI config' },
-      { value: 'chore', name: 'chore:    none of the above -- usually means it was not classified' },
+      {
+        value: 'chore',
+        name: 'chore:    none of the above -- usually means it was not classified',
+      },
       { value: 'revert', name: 'revert:   revert' },
     ],
     useEmoji: false,

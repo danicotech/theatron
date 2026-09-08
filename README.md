@@ -4,7 +4,8 @@
 
 θέατρον,字面是「觀看的地方」,theatre 的字源。
 
-> **現況:骨架階段。** 目錄、元件邊界與設計規範已經定案,程式碼還沒進來。
+> **現況:地基階段。** 三層 token、主題注入、前三個元件、`/kitchen-sink` 與生成的 API client 已經進來;
+> 賽程樹、投注單、商店、後台、首頁還沒有。
 > 視覺規範在 [.claude/skills/tournament-design-system/](.claude/skills/tournament-design-system/),進版控、跟著 repo 走。
 > 架構決策的來源是 [hestia/docs/架構規劃書.md](https://github.com/danicotech/hestia/blob/main/docs/架構規劃書.md)。
 
@@ -64,8 +65,14 @@ pnpm workspace,`packages/ui` 與 `web` 兩個成員。
 
 ```bash
 pnpm install     # husky 的 hook 會在 prepare 時自動掛上
+pnpm gen:api     # 從 hestia/proto 生成 TS client(見下面「契約」)
+pnpm dev         # Next dev server,元件都在 /kitchen-sink
+pnpm build       # Next production build
+pnpm test        # vitest(元件、金額、契約)
+pnpm typecheck   # tsc --noEmit
 pnpm lint        # eslint,含 packages/ui 的 import 邊界
 pnpm lint:custom # token 紀律檢查,見下面
+pnpm format      # prettier
 pnpm cz          # 互動式產生 commit 訊息
 ```
 
@@ -119,15 +126,57 @@ tournaments.theme (JSONB)
 
 ## 契約:禁止手寫 API 型別
 
-活動 API 的來源是 themis 的 Go dto 型別,由 huma 匯出成 `themis/contracts/openapi.yaml`、再由 CI 發成 npm 套件,這裡用版本相依安裝。
+跨 repo 又跨語言,型別只要有第二份就一定會漂。所以這裡一行 API 型別都不寫。
 
-平台 API(身分、帳本)的來源在 [hestia/contracts/](https://github.com/danicotech/hestia/tree/main/contracts)。
+平台 API(身分、帳本、商店)的唯一來源是 **hestia 的 proto**。ConnectRPC 一套 proto
+同時服務 gRPC 與 HTTP/JSON,Go server 與這裡的 TS client 從同一份契約生成。
 
-跨 repo 又跨語言,型別只要有第二份就一定會漂。
+```bash
+pnpm gen:api     # buf generate,設定在 buf.gen.yaml
+```
+
+| | |
+|---|---|
+| 輸入 | `../hestia/proto`(hestia 與 theatron 要是同一層的兄弟目錄) |
+| 產出 | `web/src/lib/api/gen/`,**不要手改,也不用手動安裝 protoc** |
+| 工具 | `@bufbuild/buf` 與 `@bufbuild/protoc-gen-es` 都在 devDependencies 裡 |
+
+`@bufbuild/buf` 需要跑 postinstall 才會把平台專屬的 binary 接成 `buf` 指令,
+所以 `pnpm-workspace.yaml` 裡有一條 `allowBuilds`。沒有它 `pnpm gen:api` 會說找不到指令。
+
+Connect 的 client 不需要第二個 plugin:`@connectrpc/connect` v2 直接吃 `*_pb.ts`
+匯出的 service 描述。綁好的 client 在 [`web/src/lib/api/client.ts`](web/src/lib/api/client.ts),
+`credentials: 'include'` 是必要的 —— 登入流程把 OAuth state 綁在 HttpOnly cookie 上。
+
+改契約的流程是:改 `hestia/proto` → 在 hestia 跑 `buf lint` / `buf generate` → 回這裡跑 `pnpm gen:api`。
+
+### 金額不能碰 Number
+
+後端金額一律 `int64`(專案鐵則 3),protobuf 的 JSON 編碼把它寫成**字串**以保精度。
+JS 的 `number` 是 double,超過 2^53 - 1 就靜默失真 —— 不會丟錯,只會少錢。
+
+生成的型別在 TS 這側是 `bigint`,所以正確的做法是讓它一路是 `bigint` 或字串,
+只在顯示層格式化:
+
+```tsx
+const { balance } = await platformApi.me.getBalance({ currency: 'PT' });
+<Amount value={balance.amount} currency={balance.currency} />   // amount 是 bigint
+```
+
+`packages/ui/src/format/money.ts` 是唯一被允許決定「金額怎麼變成字串」的地方,
+它收 `bigint | string`、拒收 `number`,而且有一條測試掃它自己的原始碼,
+確保裡面不會冒出 `Number(` / `parseInt` / `toFixed` / `Intl.NumberFormat`。
 
 ## 元件檢視用一個路由,不用 Storybook
 
 `/kitchen-sink` 渲染每個元件的每種狀態,頂部放主題切換器和尺寸切換器。
+
+```bash
+pnpm dev    # → http://localhost:3000/kitchen-sink
+```
+
+寬度切換器改的是**舞台容器**的寬度,不是視窗 —— 元件本來就該依自己的容器排版,
+順便驗證這件事。主題切換器套的是子樹,所以同一頁可以直接比對兩個主題。
 
 成本約 2 天,Storybook 約 1 週外加長期維護。而且它跑在真的 app 裡、用真的 token,不會有「Storybook 裡好好的、app 裡壞掉」。新增主題時套上去捲一遍,就知道有沒有東西破版。
 

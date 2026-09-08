@@ -1,0 +1,93 @@
+/* 借的是票根 / 單據的結構:全大寫小字的標頭、細線分隔、直角欄位。 */
+/* 借的是排版紀律,不是泛黃紙張的材質。 */
+
+.card {
+  --card-bg: var(--surface-raised);
+  --card-border: var(--border-subtle);
+
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+
+  /* 卡片依自己的容器排版,不看螢幕多寬。同一張卡會出現在 340px 的 dock */
+  /* 與 600px 的主區,用視窗斷點會在 dock 裡排出桌機版佈局。 */
+  container-type: inline-size;
+}
+
+.overlay {
+  --card-bg: var(--surface-overlay);
+}
+
+/* 進行中:玫瑰色的細邊 + 標頭的脈動點。不是光暈,不是陰影。 */
+.live {
+  --card-border: var(--state-live);
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-block-end: 1px solid var(--border-subtle);
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-display);
+  letter-spacing: -0.01em;
+}
+
+.body {
+  padding: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+/* 齒孔虛線。票根撕線的來源,只用在卡片底部的動作區。 */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-block-start: 1px dashed var(--border-subtle);
+}
+
+.liveDot {
+  display: inline-block;
+  inline-size: 7px;
+  block-size: 7px;
+  margin-inline-end: var(--space-2);
+  border-radius: var(--radius-pill);
+  background-color: var(--state-live);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .liveDot {
+    animation: livePulse var(--motion-pulse) ease-in-out infinite;
+  }
+}
+
+@keyframes livePulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}

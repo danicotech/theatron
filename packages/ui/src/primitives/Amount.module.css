@@ -1,0 +1,60 @@
+/* 賠率單的語言:等寬數字、tabular-nums、右對齊、直角。 */
+/* 數字跳動時不左右晃是功能,不是風格 —— 所以 --font-mono 不開放主題自訂。 */
+
+.amount {
+  --amount-fg: var(--accent-money);
+
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono-bold);
+  color: var(--amount-fg);
+  /* 賠率欄位保持直角,不要圓角 */
+  border-radius: 0;
+}
+
+.neutral {
+  --amount-fg: var(--text-primary);
+}
+
+.win {
+  --amount-fg: var(--state-win);
+}
+
+.live {
+  --amount-fg: var(--state-live);
+}
+
+.muted {
+  --amount-fg: var(--text-secondary);
+}
+
+.value {
+  font-variant-numeric: tabular-nums;
+}
+
+.sm {
+  font-size: var(--text-xs);
+}
+
+.md {
+  font-size: var(--text-md);
+}
+
+.lg {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-mono);
+  letter-spacing: -0.02em;
+}
+
+/* 幣別是標籤不是數字,所以不用 mono,而且刻意比數字小一級。 */
+.currency {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}

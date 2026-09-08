@@ -1,0 +1,129 @@
+/* 第 3 層:元件變數。只在需要偏離語意 slot 時才建,而且只指向第 2 層。 */
+
+.button {
+  --button-bg: var(--surface-raised);
+  --button-bg-hover: var(--surface-overlay);
+  --button-fg: var(--text-primary);
+  --button-border: var(--border-subtle);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+
+  border: 1px solid var(--button-border);
+  border-radius: var(--radius-control);
+  background-color: var(--button-bg);
+  color: var(--button-fg);
+
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-bold);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-align: center;
+  white-space: nowrap;
+
+  cursor: pointer;
+  appearance: none;
+}
+
+/* 動態只有 hover 顏色轉換,而且要讓路給 prefers-reduced-motion。 */
+@media (prefers-reduced-motion: no-preference) {
+  .button {
+    transition:
+      background-color var(--motion-hover) var(--ease-standard),
+      border-color var(--motion-hover) var(--ease-standard),
+      color var(--motion-hover) var(--ease-standard);
+  }
+}
+
+.button:hover:not(:disabled) {
+  background-color: var(--button-bg-hover);
+}
+
+/* focus 一律用文字色,不借用語意色 —— 金色是錢,不是「你正在這裡」。 */
+.button:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* 動錢的操作。金色永遠代表錢。 */
+.money {
+  --button-bg: var(--accent-money);
+  --button-bg-hover: color-mix(in oklab, var(--accent-money) 84%, var(--surface-base));
+  --button-fg: var(--surface-base);
+  --button-border: var(--accent-money);
+}
+
+/* 危險操作(判定勝者、關商店)。預設是空心的,要按下去才是實心 —— */
+/* 誤觸的代價在這裡是結算所有注單。 */
+.danger {
+  --button-bg: transparent;
+  --button-bg-hover: var(--state-live);
+  --button-fg: var(--state-live);
+  --button-border: var(--state-live);
+}
+
+.danger:hover:not(:disabled) {
+  color: var(--surface-base);
+}
+
+.sm {
+  block-size: 32px;
+  padding-inline: var(--space-3);
+  font-size: var(--text-xs);
+}
+
+.md {
+  block-size: 40px;
+  padding-inline: var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.lg {
+  block-size: 48px;
+  padding-inline: var(--space-6);
+  font-size: var(--text-md);
+}
+
+/* 觸控裝置上一律吃到 44px。手機上按錯一顆按鈕的成本比桌機高。 */
+@media (pointer: coarse) {
+  .sm,
+  .md {
+    block-size: var(--hit-target);
+    min-inline-size: var(--hit-target);
+  }
+}
+
+.fullWidth {
+  inline-size: 100%;
+}
+
+/* 進行中脈動 —— 三種動態之一,不另外發明。 */
+.spinner {
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: var(--radius-pill);
+  background-color: currentcolor;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .spinner {
+    animation: pulse var(--motion-pulse) ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
