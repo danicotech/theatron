@@ -14,10 +14,13 @@ import { MeService } from './gen/hestia/platform/v1/me_pb';
 import { ShopService } from './gen/hestia/platform/v1/shop_pb';
 
 /**
- * 預設走同源 —— 瀏覽器打 Next 的 route handler,由它轉給 hestia。
- * 這樣 cookie 是同源的,而且 hestia 不必對外開放。
+ * 預設走同源 —— 瀏覽器打 Next 的 route handler(app/rpc/[...path]),
+ * 由它轉給 hestia。這樣 cookie 是同源的,而且 hestia 不必對外開放。
+ *
+ * 前綴必須與那支 route handler 的路徑一致。不能用根目錄:Connect 的路徑是
+ * `/<套件>.<服務>/<方法>`,掛在根目錄要一支 catch-all,會把頁面路由一起吃掉。
  */
-const baseUrl = process.env.NEXT_PUBLIC_PLATFORM_API_URL ?? '/';
+const baseUrl = process.env.NEXT_PUBLIC_PLATFORM_API_URL ?? '/rpc';
 
 export const platformTransport = createConnectTransport({
   baseUrl,
