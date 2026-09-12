@@ -1,32 +1,178 @@
-.shell {
+.home {
+  max-inline-size: 760px;
+  margin-inline: auto;
+  padding: var(--space-8) var(--space-4) calc(var(--space-8) * 2);
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  max-inline-size: 720px;
-  margin-inline: auto;
-  padding: var(--space-8) var(--space-4);
+  gap: var(--space-8);
 }
 
-.label {
+@media (min-width: 768px) {
+  .home {
+    padding-inline: var(--space-6);
+    padding-block-start: calc(var(--space-8) * 2);
+  }
+}
+
+/* 這一頁唯一的高音是對句。其他地方保持安靜。 */
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.eyebrow {
+  margin: 0;
   font-family: var(--font-mono);
   font-size: var(--text-micro);
-  font-weight: var(--weight-mono-bold);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  letter-spacing: 0.22em;
   color: var(--text-secondary);
 }
 
 .title {
-  font-size: var(--text-2xl);
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display-max);
+  font-size: clamp(38px, 9vw, 68px);
+  line-height: 1.05;
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
 }
 
-.lede {
+.couplet {
   margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-medium);
+  font-size: var(--text-lg);
+  line-height: 2;
+  letter-spacing: 0.1em;
   color: var(--text-secondary);
 }
 
-.links {
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-6);
+}
+
+.h2 {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+}
+
+.body {
+  margin: 0;
+  max-inline-size: 60ch;
+  font-size: var(--text-md);
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.body strong {
+  color: var(--text-primary);
+  font-weight: var(--weight-body-bold);
+}
+
+/* 引文是使用者的原話,給它一條朱線 —— 這是頁面上唯一被強調的一句。 */
+.quote {
+  margin: 0;
+  padding-inline-start: var(--space-4);
+  border-inline-start: 2px solid var(--state-live);
+  max-inline-size: 56ch;
+  font-size: var(--text-lg);
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  border: 1px solid var(--border-subtle);
+}
+
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 2.5em minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+
+.steps li + li {
+  border-block-start: 1px solid var(--border-subtle);
+}
+
+.steps li::before {
+  content: counter(step, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.stepName {
+  font-weight: var(--weight-body-bold);
+  color: var(--text-primary);
+}
+
+.stepNote {
+  grid-column: 2;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.enter {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-6);
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-target);
+  padding-inline: var(--space-6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-bold);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+.primary {
+  background-color: var(--surface-raised);
+  border-color: var(--text-primary);
+  box-shadow: inset 0 0 0 1px var(--text-primary);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .primary,
+  .secondary {
+    transition: background-color var(--motion-hover) var(--ease-standard);
+  }
+}
+
+.primary:hover,
+.secondary:hover {
+  background-color: var(--surface-overlay);
+}
+
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
 }
