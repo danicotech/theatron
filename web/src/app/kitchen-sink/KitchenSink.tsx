@@ -8,6 +8,8 @@ import {
   CardFooter,
   CardHeader,
   DEFAULT_THEME_ID,
+  PhaseTrack,
+  RankSigil,
   ThemeProvider,
   type EventTheme,
 } from '@theatron/ui';
@@ -45,6 +47,17 @@ function Specimen({ label, children }: { label: string; children: ReactNode }) {
     </div>
   );
 }
+
+// 《百業試鋒》的七個階段。放在 web 這一側 —— packages/ui 不知道賽事規則。
+const PHASES = [
+  { key: 'signup', label: '報名' },
+  { key: 'signup_closed', label: '報名截止' },
+  { key: 'ranking', label: '評段' },
+  { key: 'ranked', label: '段位公布', hint: '刻意排在抽籤之前,讓選手有異議可提' },
+  { key: 'drawing', label: '抽籤' },
+  { key: 'in_progress', label: '比賽中' },
+  { key: 'finished', label: '結束' },
+];
 
 export interface KitchenSinkProps {
   themes: readonly EventTheme[];
@@ -237,6 +250,38 @@ export function KitchenSink({ themes }: KitchenSinkProps) {
                 </tr>
               </tbody>
             </table>
+          </Specimen>
+        </Section>
+
+        <Section name="PhaseTrack" note="賽事階段是真的序列,所以這裡的編號帶資訊,不是裝飾">
+          <Specimen label="評段中(第 3 階段)">
+            <PhaseTrack steps={PHASES} current="ranking" />
+          </Specimen>
+          <Specimen label="抽籤中 —— 段位公布刻意排在抽籤之前">
+            <PhaseTrack steps={PHASES} current="drawing" />
+          </Specimen>
+          <Specimen label="已結束">
+            <PhaseTrack steps={PHASES} current="finished" />
+          </Specimen>
+        </Section>
+
+        <Section
+          name="RankSigil"
+          note="段位有高低,所以用刻度而不是四種顏色 —— 換主題與色盲都還讀得出順序"
+        >
+          <Specimen label="四段位">
+            <div className={styles.stack}>
+              <RankSigil level={1} total={4} name="開山" title="初試之境" />
+              <RankSigil level={2} total={4} name="斷水" title="初成之境" />
+              <RankSigil level={3} total={4} name="飛花" title="純熟之境" />
+              <RankSigil level={4} total={4} name="無我" title="歷戰之境" />
+            </div>
+          </Specimen>
+          <Specimen label="未評定 / 小尺寸">
+            <div className={styles.stack}>
+              <RankSigil level={0} total={4} name="" />
+              <RankSigil level={3} total={4} name="飛花" size="sm" />
+            </div>
           </Specimen>
         </Section>
       </div>

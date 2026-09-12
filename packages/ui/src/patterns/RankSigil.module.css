@@ -1,0 +1,82 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.sigil {
+  --sigil-on: var(--text-primary);
+  --sigil-off: var(--border-subtle);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* 刻度是直角的。賠率表的語言:表格、分隔線、刻度不圓角。 */
+.marks {
+  display: inline-flex;
+  gap: 2px;
+  align-items: flex-end;
+}
+
+.on,
+.off {
+  inline-size: 3px;
+  background-color: var(--sigil-off);
+}
+
+.on {
+  background-color: var(--sigil-on);
+}
+
+.text {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.name {
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-bold);
+  color: var(--text-primary);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.title {
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* 未評定不是一種段位,是還沒有段位 —— 刻度全暗,名稱也退到次要色。
+   用 state-live 標紅是錯的:那代表「正在發生」或「輸」,不是「待辦」。 */
+.unranked .name {
+  color: var(--text-secondary);
+  font-weight: var(--weight-body);
+}
+
+.md .on,
+.md .off {
+  block-size: 14px;
+}
+
+.md .name {
+  font-size: var(--text-md);
+}
+
+.md .title {
+  font-size: var(--text-xs);
+}
+
+.sm .on,
+.sm .off {
+  block-size: 10px;
+}
+
+.sm .name {
+  font-size: var(--text-sm);
+}
+
+.sm .title {
+  font-size: var(--text-micro);
+}

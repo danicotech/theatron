@@ -1,0 +1,162 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.track {
+  --track-line: var(--border-subtle);
+  --track-line-done: var(--text-secondary);
+
+  /* 手機放不下七個階段。橫向捲動 + 右側漸層提示還有東西 ——
+     responsive.md 要求橫向捲動區域要有視覺提示,不能讓人猜。 */
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  /* 遮罩只吃 alpha,實際顏色不影響結果 —— 所以用 currentColor 而不是寫死一個
+     黑色:它必然不透明,而且值仍然來自語意 slot。 */
+  mask-image: linear-gradient(
+    to right,
+    currentcolor 0,
+    currentcolor calc(100% - 24px),
+    transparent 100%
+  );
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .track {
+    mask-image: none;
+  }
+}
+
+.list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(92px, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-inline-size: max-content;
+}
+
+@media (min-width: 768px) {
+  .list {
+    min-inline-size: 0;
+  }
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 0 var(--space-2);
+  padding: var(--space-3) var(--space-3) var(--space-3) 0;
+}
+
+/* 連接線:從這一格的圓點往右接到下一格。最後一格不畫。 */
+.rail {
+  position: absolute;
+  inset-block-start: calc(var(--space-3) + 5px);
+  inset-inline-start: 10px;
+  inline-size: 100%;
+  block-size: 1px;
+  background-color: var(--track-line);
+}
+
+.step:last-child .rail {
+  display: none;
+}
+
+.done .rail {
+  background-color: var(--track-line-done);
+}
+
+.marker {
+  position: relative;
+  z-index: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 11px;
+  block-size: 11px;
+}
+
+.dot {
+  inline-size: 7px;
+  block-size: 7px;
+  border: 1px solid var(--track-line);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-base);
+}
+
+.done .dot {
+  border-color: var(--track-line-done);
+  background-color: var(--track-line-done);
+}
+
+/* 目前階段 = 正在發生。玫瑰色的職責就是「現在正在發生」,不挪用。 */
+.current .dot {
+  border-color: var(--state-live);
+  background-color: var(--state-live);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--state-live) 24%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .current .dot {
+    animation: phase-pulse var(--motion-pulse) ease-in-out infinite;
+  }
+}
+
+@keyframes phase-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--state-live) 24%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--state-live) 8%, transparent);
+  }
+}
+
+/* 編號用等寬:七個階段的編號要對齊成一條。 */
+.index {
+  grid-row: 1;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-mono);
+  color: var(--text-secondary);
+}
+
+.label {
+  grid-row: 2;
+  grid-column: 1 / -1;
+  margin-block-start: var(--space-1);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-body);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.done .label,
+.done .index {
+  color: var(--text-secondary);
+}
+
+.current .label {
+  color: var(--text-primary);
+  font-weight: var(--weight-body-bold);
+}
+
+.current .index {
+  color: var(--state-live);
+  font-weight: var(--weight-mono-bold);
+}
+
+.todo .label,
+.todo .index {
+  color: var(--border-subtle);
+}
