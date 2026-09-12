@@ -8,5 +8,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "next-env.d.ts", "next.config.ts", ".next/types/**/*.ts"]
+  "include": ["src", "next-env.d.ts", "next.config.ts", ".next/types/**/*.ts", "../vitest.setup.ts"]
 }

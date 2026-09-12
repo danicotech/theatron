@@ -1,0 +1,13 @@
+/* 「坐著做」的操作可以桌機優先(responsive.md),但 375px 不能破版。 */
+.page {
+  max-inline-size: 860px;
+  margin-inline: auto;
+  padding: var(--space-8) var(--space-4) var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-inline: var(--space-6);
+    padding-block-start: calc(var(--space-8) * 2);
+  }
+}

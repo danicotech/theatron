@@ -1,0 +1,164 @@
+/* 表單欄位借的是賠率單的對齊紀律:直角、細線、標籤全大寫小字。
+   不是把每一組欄位包成一張卡片 —— 卡片裡再包卡片是這個專案要避開的形狀。 */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-4);
+}
+
+.group:disabled {
+  opacity: 0.6;
+}
+
+.legend {
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.18em;
+  color: var(--text-secondary);
+}
+
+.groupNote {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  max-inline-size: 60ch;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-body-bold);
+  color: var(--text-primary);
+}
+
+/* 直角。賠率表的語言:輸入欄與表格欄位不圓角。 */
+.input {
+  inline-size: 100%;
+  min-block-size: var(--hit-target);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  background-color: var(--surface-raised);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+}
+
+.input::placeholder {
+  color: var(--border-subtle);
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 1px;
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--state-live);
+}
+
+/* 數字一律等寬 + tabular-nums。硬規則 2,沒有例外。 */
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.num {
+  text-align: end;
+}
+
+.help {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  max-inline-size: 56ch;
+}
+
+.help strong {
+  color: var(--text-primary);
+  font-weight: var(--weight-body-bold);
+}
+
+.row,
+.prizes {
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .prizes {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* 警告不是錯誤:欄位填得沒錯,只是後果現在講比賽後講便宜。 */
+.warn {
+  margin: 0;
+  padding: var(--space-3);
+  border-inline-start: 2px solid var(--accent-money);
+  background-color: color-mix(in oklab, var(--accent-money) 7%, transparent);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  max-inline-size: 66ch;
+}
+
+.warn strong {
+  color: var(--text-primary);
+  font-weight: var(--weight-body-bold);
+}
+
+.error {
+  margin: 0;
+  padding: var(--space-3);
+  border-inline-start: 2px solid var(--state-live);
+  background-color: color-mix(in oklab, var(--state-live) 8%, transparent);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-4);
+}
+
+.actionsNote {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  max-inline-size: 56ch;
+}
+
+@media (max-width: 767px) {
+  .actions > button {
+    inline-size: 100%;
+  }
+}
