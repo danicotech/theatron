@@ -20,7 +20,7 @@ import { ShopService } from './gen/hestia/platform/v1/shop_pb';
  * 前綴必須與那支 route handler 的路徑一致。不能用根目錄:Connect 的路徑是
  * `/<套件>.<服務>/<方法>`,掛在根目錄要一支 catch-all,會把頁面路由一起吃掉。
  */
-const baseUrl = process.env.NEXT_PUBLIC_PLATFORM_API_URL ?? '/rpc';
+const baseUrl = process.env.NEXT_PUBLIC_PLATFORM_API_URL ?? '/api';
 
 export const platformTransport = createConnectTransport({
   baseUrl,
