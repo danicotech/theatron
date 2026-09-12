@@ -29,8 +29,10 @@
 //
 // 通行碼沒有消失,只是不再是給選手看的東西:tournament_players.passcode_hash
 // 照舊產生並寫入(NOT NULL),它的同伴 passcode_issued_at 則是**已發出的
-// session 的作廢依據**。裁判的「重新產生通行碼」現在的意思是「把這個人
-// 現在所有的 session 全部踢掉」—— 棄賽之外的第二道槓桿。
+// session 的作廢依據**。裁判的「重新產生通行碼」會把這個人現在所有的
+// session 踢掉,但他可以立刻用遊戲ID 再進來 —— 那是「踢下線」,不是
+// 「擋在外面」。要擋在外面只有棄賽一條路,而棄賽單獨就夠(它同時讓
+// 現有 session 失效)。
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
 import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
@@ -42,15 +44,15 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file hestia/activity/v1/signup.proto.
  */
 export const file_hestia_activity_v1_signup: GenFile = /*@__PURE__*/
-  fileDesc("Ch9oZXN0aWEvYWN0aXZpdHkvdjEvc2lnbnVwLnByb3RvEhJoZXN0aWEuYWN0aXZpdHkudjEi8wEKD1JlZ2lzdGVyUmVxdWVzdBIXCg90b3VybmFtZW50X3NsdWcYASABKAkSDwoHZ2FtZV9pZBgCIAEoCRIUCgxkaXNwbGF5X25hbWUYAyABKAkSFAoMZGlzY29yZF9uYW1lGAQgASgJEjEKD3NlbGZfcmF0ZWRfcmFuaxgFIAEoDjIYLmhlc3RpYS5hY3Rpdml0eS52MS5SYW5rEhMKC2xhZGRlcl9yYW5rGAYgASgJEhQKDGxhZGRlcl9zY29yZRgHIAEoBRIRCglhcnRzX25vdGUYCCABKAkSGQoRYXZhaWxhYmlsaXR5X25vdGUYCSABKAkimQEKEFJlZ2lzdGVyUmVzcG9uc2USKgoGcGxheWVyGAEgASgLMhouaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllchIYChByZXR1cm5pbmdfZmVuY2VyGAMgASgIEi8KDXByZXZpb3VzX3JhbmsYBCABKA4yGC5oZXN0aWEuYWN0aXZpdHkudjEuUmFua0oECAIQA1IIcGFzc2NvZGUiSAoMTG9naW5SZXF1ZXN0EhcKD3RvdXJuYW1lbnRfc2x1ZxgBIAEoCRIPCgdnYW1lX2lkGAIgASgJSgQIAxAEUghwYXNzY29kZSI7Cg1Mb2dpblJlc3BvbnNlEioKBnBsYXllchgBIAEoCzIaLmhlc3RpYS5hY3Rpdml0eS52MS5QbGF5ZXIiDwoNTG9nb3V0UmVxdWVzdCIQCg5Mb2dvdXRSZXNwb25zZSIUChJHZXRNeVBsYXllclJlcXVlc3QivgEKE0dldE15UGxheWVyUmVzcG9uc2USKgoGcGxheWVyGAEgASgLMhouaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllchIyCgp0b3VybmFtZW50GAIgASgLMh4uaGVzdGlhLmFjdGl2aXR5LnYxLlRvdXJuYW1lbnQSNQoNY3VycmVudF9tYXRjaBgDIAEoCzIZLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaEgAiAEBQhAKDl9jdXJyZW50X21hdGNoIhwKGkJpbmRQbGF0Zm9ybUFjY291bnRSZXF1ZXN0IkkKG0JpbmRQbGF0Zm9ybUFjY291bnRSZXNwb25zZRIqCgZwbGF5ZXIYASABKAsyGi5oZXN0aWEuYWN0aXZpdHkudjEuUGxheWVyMucDCg1TaWdudXBTZXJ2aWNlElcKCFJlZ2lzdGVyEiMuaGVzdGlhLmFjdGl2aXR5LnYxLlJlZ2lzdGVyUmVxdWVzdBokLmhlc3RpYS5hY3Rpdml0eS52MS5SZWdpc3RlclJlc3BvbnNlIgASTgoFTG9naW4SIC5oZXN0aWEuYWN0aXZpdHkudjEuTG9naW5SZXF1ZXN0GiEuaGVzdGlhLmFjdGl2aXR5LnYxLkxvZ2luUmVzcG9uc2UiABJRCgZMb2dvdXQSIS5oZXN0aWEuYWN0aXZpdHkudjEuTG9nb3V0UmVxdWVzdBoiLmhlc3RpYS5hY3Rpdml0eS52MS5Mb2dvdXRSZXNwb25zZSIAEmAKC0dldE15UGxheWVyEiYuaGVzdGlhLmFjdGl2aXR5LnYxLkdldE15UGxheWVyUmVxdWVzdBonLmhlc3RpYS5hY3Rpdml0eS52MS5HZXRNeVBsYXllclJlc3BvbnNlIgASeAoTQmluZFBsYXRmb3JtQWNjb3VudBIuLmhlc3RpYS5hY3Rpdml0eS52MS5CaW5kUGxhdGZvcm1BY2NvdW50UmVxdWVzdBovLmhlc3RpYS5hY3Rpdml0eS52MS5CaW5kUGxhdGZvcm1BY2NvdW50UmVzcG9uc2UiAEJAWj5naXRodWIuY29tL2Rhbmljb3RlY2gvaGVzdGlhL2dlbi9oZXN0aWEvYWN0aXZpdHkvdjE7YWN0aXZpdHl2MWIGcHJvdG8z", [file_hestia_activity_v1_common]);
+  fileDesc("Ch9oZXN0aWEvYWN0aXZpdHkvdjEvc2lnbnVwLnByb3RvEhJoZXN0aWEuYWN0aXZpdHkudjEi8wEKD1JlZ2lzdGVyUmVxdWVzdBIXCg90b3VybmFtZW50X3NsdWcYASABKAkSDwoHZ2FtZV9pZBgCIAEoCRIUCgxkaXNwbGF5X25hbWUYAyABKAkSFAoMZGlzY29yZF9uYW1lGAQgASgJEjEKD3NlbGZfcmF0ZWRfcmFuaxgFIAEoDjIYLmhlc3RpYS5hY3Rpdml0eS52MS5SYW5rEhMKC2xhZGRlcl9yYW5rGAYgASgJEhQKDGxhZGRlcl9zY29yZRgHIAEoBRIRCglhcnRzX25vdGUYCCABKAkSGQoRYXZhaWxhYmlsaXR5X25vdGUYCSABKAkimQEKEFJlZ2lzdGVyUmVzcG9uc2USKgoGcGxheWVyGAEgASgLMhouaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllchIYChByZXR1cm5pbmdfZmVuY2VyGAMgASgIEi8KDXByZXZpb3VzX3JhbmsYBCABKA4yGC5oZXN0aWEuYWN0aXZpdHkudjEuUmFua0oECAIQA1IIcGFzc2NvZGUiSAoMTG9naW5SZXF1ZXN0EhcKD3RvdXJuYW1lbnRfc2x1ZxgBIAEoCRIPCgdnYW1lX2lkGAIgASgJSgQIAxAEUghwYXNzY29kZSI7Cg1Mb2dpblJlc3BvbnNlEioKBnBsYXllchgBIAEoCzIaLmhlc3RpYS5hY3Rpdml0eS52MS5QbGF5ZXIiDwoNTG9nb3V0UmVxdWVzdCIQCg5Mb2dvdXRSZXNwb25zZSIUChJHZXRNeVBsYXllclJlcXVlc3Qi+AEKE0dldE15UGxheWVyUmVzcG9uc2USKgoGcGxheWVyGAEgASgLMhouaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllchIyCgp0b3VybmFtZW50GAIgASgLMh4uaGVzdGlhLmFjdGl2aXR5LnYxLlRvdXJuYW1lbnQSNQoNY3VycmVudF9tYXRjaBgDIAEoCzIZLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaEgAiAEBEjgKDHJlZ2lzdHJhdGlvbhgEIAEoCzIiLmhlc3RpYS5hY3Rpdml0eS52MS5NeVJlZ2lzdHJhdGlvbkIQCg5fY3VycmVudF9tYXRjaCLIAQoOTXlSZWdpc3RyYXRpb24SFAoMZGlzcGxheV9uYW1lGAEgASgJEhQKDGRpc2NvcmRfbmFtZRgCIAEoCRIxCg9zZWxmX3JhdGVkX3JhbmsYAyABKA4yGC5oZXN0aWEuYWN0aXZpdHkudjEuUmFuaxITCgtsYWRkZXJfcmFuaxgEIAEoCRIUCgxsYWRkZXJfc2NvcmUYBSABKAUSEQoJYXJ0c19ub3RlGAYgASgJEhkKEWF2YWlsYWJpbGl0eV9ub3RlGAcgASgJIlUKGVVwZGF0ZVJlZ2lzdHJhdGlvblJlcXVlc3QSOAoMcmVnaXN0cmF0aW9uGAEgASgLMiIuaGVzdGlhLmFjdGl2aXR5LnYxLk15UmVnaXN0cmF0aW9uIoIBChpVcGRhdGVSZWdpc3RyYXRpb25SZXNwb25zZRIqCgZwbGF5ZXIYASABKAsyGi5oZXN0aWEuYWN0aXZpdHkudjEuUGxheWVyEjgKDHJlZ2lzdHJhdGlvbhgCIAEoCzIiLmhlc3RpYS5hY3Rpdml0eS52MS5NeVJlZ2lzdHJhdGlvbiIcChpCaW5kUGxhdGZvcm1BY2NvdW50UmVxdWVzdCJJChtCaW5kUGxhdGZvcm1BY2NvdW50UmVzcG9uc2USKgoGcGxheWVyGAEgASgLMhouaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllcjLeBAoNU2lnbnVwU2VydmljZRJXCghSZWdpc3RlchIjLmhlc3RpYS5hY3Rpdml0eS52MS5SZWdpc3RlclJlcXVlc3QaJC5oZXN0aWEuYWN0aXZpdHkudjEuUmVnaXN0ZXJSZXNwb25zZSIAEk4KBUxvZ2luEiAuaGVzdGlhLmFjdGl2aXR5LnYxLkxvZ2luUmVxdWVzdBohLmhlc3RpYS5hY3Rpdml0eS52MS5Mb2dpblJlc3BvbnNlIgASUQoGTG9nb3V0EiEuaGVzdGlhLmFjdGl2aXR5LnYxLkxvZ291dFJlcXVlc3QaIi5oZXN0aWEuYWN0aXZpdHkudjEuTG9nb3V0UmVzcG9uc2UiABJgCgtHZXRNeVBsYXllchImLmhlc3RpYS5hY3Rpdml0eS52MS5HZXRNeVBsYXllclJlcXVlc3QaJy5oZXN0aWEuYWN0aXZpdHkudjEuR2V0TXlQbGF5ZXJSZXNwb25zZSIAEnUKElVwZGF0ZVJlZ2lzdHJhdGlvbhItLmhlc3RpYS5hY3Rpdml0eS52MS5VcGRhdGVSZWdpc3RyYXRpb25SZXF1ZXN0Gi4uaGVzdGlhLmFjdGl2aXR5LnYxLlVwZGF0ZVJlZ2lzdHJhdGlvblJlc3BvbnNlIgASeAoTQmluZFBsYXRmb3JtQWNjb3VudBIuLmhlc3RpYS5hY3Rpdml0eS52MS5CaW5kUGxhdGZvcm1BY2NvdW50UmVxdWVzdBovLmhlc3RpYS5hY3Rpdml0eS52MS5CaW5kUGxhdGZvcm1BY2NvdW50UmVzcG9uc2UiAEJAWj5naXRodWIuY29tL2Rhbmljb3RlY2gvaGVzdGlhL2dlbi9oZXN0aWEvYWN0aXZpdHkvdjE7YWN0aXZpdHl2MWIGcHJvdG8z", [file_hestia_activity_v1_common]);
 
 /**
  * RegisterRequest 是一份報名表。
- *
+ * 
  * **只有 game_id 是必填的**(2026-09-13 定案)。其餘每一欄留空都能報名成功 ——
  * 報名的門檻要低到「知道自己遊戲ID 就能報」,任何一個多出來的必填欄位
  * 都會在報名頁上攔掉一部分人。
- *
+ * 
  * 選填的那些全是**給裁判評段用的參考資料** —— 御風羽要綜合論劍段位、積分、
  * 實戰經驗與整體 PVP 實力來評,所以表單問得比「你叫什麼」多;
  * 但問得多不等於要求得多,沒填就是裁判少一份參考。
@@ -132,7 +134,7 @@ export const RegisterRequestSchema: GenMessage<RegisterRequest> = /*@__PURE__*/
 
 /**
  * RegisterResponse 是報名的結果。
- *
+ * 
  * **刻意沒有通行碼**(2026-09-13):登入只要遊戲ID,所以回一組明碼通行碼
  * 只會讓人以為那是要保存的東西。欄位 2 保留不再使用,避免哪天被重新賦義
  * 而讓舊客戶端把新欄位當成通行碼顯示出來。
@@ -171,7 +173,7 @@ export const RegisterResponseSchema: GenMessage<RegisterResponse> = /*@__PURE__*
 
 /**
  * LoginRequest 只要遊戲ID。
- *
+ * 
  * 欄位 3 是原本的 passcode,保留不再使用:舊客戶端照送不會壞,但伺服器
  * 從此不看它,也不會有人把那個位置改成別的意思。
  *
@@ -276,6 +278,14 @@ export type GetMyPlayerResponse = Message<"hestia.activity.v1.GetMyPlayerRespons
    * @generated from field: optional hestia.activity.v1.Match current_match = 3;
    */
   currentMatch?: Match | undefined;
+
+  /**
+   * 我報名時填了什麼。Player 只帶對戰表要顯示的那幾欄,
+   * 論劍積分、常用武學、可出賽時段這些只有本人看得到。
+   *
+   * @generated from field: hestia.activity.v1.MyRegistration registration = 4;
+   */
+  registration?: MyRegistration | undefined;
 };
 
 /**
@@ -286,9 +296,126 @@ export const GetMyPlayerResponseSchema: GenMessage<GetMyPlayerResponse> = /*@__P
   messageDesc(file_hestia_activity_v1_signup, 7);
 
 /**
+ * MyRegistration 是選手自己填的那些欄位。讀寫共用同一個訊息 ——
+ * 「我填了什麼」與「我要改成什麼」是同一組東西,兩個訊息會漂。
+ * 
+ * **game_id 刻意不在裡面,而且不要加。** 它是登入用的身分、也是 fencers 的
+ * 自然鍵 —— 改它等於換一個人(既有的 session、往屆戰績、對戰表上的名字
+ * 會一起換掉)。要改得由裁判處理,不是自助。
+ * 
+ * 每一欄都是選填,**送什麼就是最終值**:留空代表「清掉這一欄」,
+ * 不是「不動這一欄」。沒有 field mask —— 這張表是一份完整的報名資料,
+ * 前端讀回整份、改幾欄、整份送回,沒有「只送改動部分」這個模式要支援。
+ *
+ * @generated from message hestia.activity.v1.MyRegistration
+ */
+export type MyRegistration = Message<"hestia.activity.v1.MyRegistration"> & {
+  /**
+   * 顯示名。留空時伺服器沿用 game_id(與報名同一條規則)。
+   *
+   * @generated from field: string display_name = 1;
+   */
+  displayName: string;
+
+  /**
+   * Discord 名稱。留空不會清掉跨屆檔案(fencers)上既有的那一份,
+   * 只清掉本屆的快照 —— 那份是裁判聯絡你的最後手段。
+   *
+   * @generated from field: string discord_name = 2;
+   */
+  discordName: string;
+
+  /**
+   * @generated from field: hestia.activity.v1.Rank self_rated_rank = 3;
+   */
+  selfRatedRank: Rank;
+
+  /**
+   * @generated from field: string ladder_rank = 4;
+   */
+  ladderRank: string;
+
+  /**
+   * 遊戲內積分(0 = 沒填)。
+   *
+   * @generated from field: int32 ladder_score = 5;
+   */
+  ladderScore: number;
+
+  /**
+   * @generated from field: string arts_note = 6;
+   */
+  artsNote: string;
+
+  /**
+   * @generated from field: string availability_note = 7;
+   */
+  availabilityNote: string;
+};
+
+/**
+ * Describes the message hestia.activity.v1.MyRegistration.
+ * Use `create(MyRegistrationSchema)` to create a new message.
+ */
+export const MyRegistrationSchema: GenMessage<MyRegistration> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_signup, 8);
+
+/**
+ * UpdateRegistrationRequest 改自己那一列。
+ * 
+ * **沒有「改誰」這個欄位**:對象一律是活動層 session 認定的那位選手。
+ * 帶 player_public_id 進來就等於開一支「改任何人的報名表」的 API,
+ * 而遊戲ID 是公開資訊,誰都登得進誰的帳號。
+ * 
+ * 只在 SIGNUP 階段開放,**由伺服器驗**:報名期一過,這份資料就是御風羽
+ * 評段的依據,改了等於在裁判眼皮底下換材料。階段不對回
+ * tournament_wrong_phase。
+ *
+ * @generated from message hestia.activity.v1.UpdateRegistrationRequest
+ */
+export type UpdateRegistrationRequest = Message<"hestia.activity.v1.UpdateRegistrationRequest"> & {
+  /**
+   * @generated from field: hestia.activity.v1.MyRegistration registration = 1;
+   */
+  registration?: MyRegistration | undefined;
+};
+
+/**
+ * Describes the message hestia.activity.v1.UpdateRegistrationRequest.
+ * Use `create(UpdateRegistrationRequestSchema)` to create a new message.
+ */
+export const UpdateRegistrationRequestSchema: GenMessage<UpdateRegistrationRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_signup, 9);
+
+/**
+ * @generated from message hestia.activity.v1.UpdateRegistrationResponse
+ */
+export type UpdateRegistrationResponse = Message<"hestia.activity.v1.UpdateRegistrationResponse"> & {
+  /**
+   * @generated from field: hestia.activity.v1.Player player = 1;
+   */
+  player?: Player | undefined;
+
+  /**
+   * 伺服器整理過(去空白、留空補預設)之後的實際內容。
+   * 回這一份而不是讓前端沿用自己送的:整理規則的權威在伺服器。
+   *
+   * @generated from field: hestia.activity.v1.MyRegistration registration = 2;
+   */
+  registration?: MyRegistration | undefined;
+};
+
+/**
+ * Describes the message hestia.activity.v1.UpdateRegistrationResponse.
+ * Use `create(UpdateRegistrationResponseSchema)` to create a new message.
+ */
+export const UpdateRegistrationResponseSchema: GenMessage<UpdateRegistrationResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_signup, 10);
+
+/**
  * BindPlatformAccountRequest 需要**同時**持有活動層 session(通行碼登入)
  * 與平台 Bearer(Discord OAuth 登入)。伺服器把兩個身分接起來。
- *
+ * 
  * 刻意不讓裁判代綁:綁定決定獎金匯到誰的帳戶,必須由本人雙重證明。
  *
  * @generated from message hestia.activity.v1.BindPlatformAccountRequest
@@ -301,7 +428,7 @@ export type BindPlatformAccountRequest = Message<"hestia.activity.v1.BindPlatfor
  * Use `create(BindPlatformAccountRequestSchema)` to create a new message.
  */
 export const BindPlatformAccountRequestSchema: GenMessage<BindPlatformAccountRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_signup, 8);
+  messageDesc(file_hestia_activity_v1_signup, 11);
 
 /**
  * @generated from message hestia.activity.v1.BindPlatformAccountResponse
@@ -318,7 +445,7 @@ export type BindPlatformAccountResponse = Message<"hestia.activity.v1.BindPlatfo
  * Use `create(BindPlatformAccountResponseSchema)` to create a new message.
  */
 export const BindPlatformAccountResponseSchema: GenMessage<BindPlatformAccountResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_signup, 9);
+  messageDesc(file_hestia_activity_v1_signup, 12);
 
 /**
  * SignupService 是選手側的報名與身分。
@@ -365,6 +492,16 @@ export const SignupService: GenService<{
     methodKind: "unary";
     input: typeof GetMyPlayerRequestSchema;
     output: typeof GetMyPlayerResponseSchema;
+  },
+  /**
+   * 修改自己的報名資料。只在 SIGNUP 階段開放,見 UpdateRegistrationRequest。
+   *
+   * @generated from rpc hestia.activity.v1.SignupService.UpdateRegistration
+   */
+  updateRegistration: {
+    methodKind: "unary";
+    input: typeof UpdateRegistrationRequestSchema;
+    output: typeof UpdateRegistrationResponseSchema;
   },
   /**
    * 把目前的活動層身分綁到平台帳號(領獎前必做)。

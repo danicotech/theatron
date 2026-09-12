@@ -143,3 +143,128 @@
   color: var(--text-primary);
   font-size: var(--text-sm);
 }
+
+/* ── 報名資料 ─────────────────────────────── */
+
+.reg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-6);
+}
+
+.regHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.h2 {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+/* 票根式的細線列表:標籤在左、內容在右,直角分隔。 */
+.regList {
+  margin: 0;
+  border: 1px solid var(--border-subtle);
+}
+
+.regRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+}
+
+.regRow + .regRow {
+  border-block-start: 1px solid var(--border-subtle);
+}
+
+@media (min-width: 640px) {
+  .regRow {
+    grid-template-columns: 10em minmax(0, 1fr);
+    gap: var(--space-4);
+    align-items: baseline;
+  }
+}
+
+.regRow dt {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+.regRow dd {
+  margin: 0;
+  min-inline-size: 0;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.multiline {
+  white-space: pre-wrap;
+}
+
+.blank {
+  color: var(--border-subtle);
+}
+
+.regNote {
+  margin: 0;
+  max-inline-size: 62ch;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.fields:disabled {
+  opacity: 0.6;
+}
+
+.formActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .formActions {
+    flex-direction: row;
+  }
+}
+
+/* legend 要存在(fieldset 的無障礙名稱),但這一段的標題已經在上面了。 */
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

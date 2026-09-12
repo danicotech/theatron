@@ -1,9 +1,9 @@
 'use client';
 
 import { Code, ConnectError } from '@connectrpc/connect';
-import { RankSigil } from '@theatron/ui';
+import { Button, RankSigil } from '@theatron/ui';
 import Link from 'next/link';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type FormEvent } from 'react';
 
 import { activityApi } from '../../lib/api/activity';
 import type {
@@ -12,7 +12,14 @@ import type {
   RankInfo,
   Tournament,
 } from '../../lib/api/gen/hestia/activity/v1/common_pb';
-import { PlayerStatus, TournamentPhase } from '../../lib/api/gen/hestia/activity/v1/common_pb';
+import {
+  PlayerStatus,
+  Rank,
+  TournamentPhase,
+} from '../../lib/api/gen/hestia/activity/v1/common_pb';
+import type { MyRegistration } from '../../lib/api/gen/hestia/activity/v1/signup_pb';
+
+import { readRegistration, RegistrationFields } from './RegistrationFields';
 
 import styles from './MyPlayer.module.css';
 
@@ -34,11 +41,21 @@ type State =
   | { kind: 'loading' }
   | { kind: 'anonymous' }
   | { kind: 'error'; message: string }
-  | { kind: 'ready'; player: Player; tournament: Tournament; match: Match | undefined };
+  | {
+      kind: 'ready';
+      player: Player;
+      tournament: Tournament;
+      match: Match | undefined;
+      registration: MyRegistration | undefined;
+    };
 
 export function MyPlayer({ slug }: MyPlayerProps) {
   const [state, setState] = useState<State>({ kind: 'loading' });
   const [ranks, setRanks] = useState<RankInfo[]>([]);
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const [selfRated, setSelfRated] = useState<Rank>(Rank.UNSPECIFIED);
 
   const load = useCallback(async () => {
     try {
@@ -49,7 +66,13 @@ export function MyPlayer({ slug }: MyPlayerProps) {
         setState({ kind: 'anonymous' });
         return;
       }
-      setState({ kind: 'ready', player, tournament, match: res.currentMatch });
+      setState({
+        kind: 'ready',
+        player,
+        tournament,
+        match: res.currentMatch,
+        registration: res.registration,
+      });
     } catch (err) {
       const ce = ConnectError.from(err);
       setState(
@@ -100,7 +123,28 @@ export function MyPlayer({ slug }: MyPlayerProps) {
     );
   }
 
-  const { player, tournament, match } = state;
+  const { player, tournament, match, registration } = state;
+  // 只有報名期能改。伺服器同樣擋一次 —— 這裡的判斷只是不要遞給人一顆
+  // 必然失敗的按鈕,不是防線。
+  const editable = tournament.phase === TournamentPhase.SIGNUP;
+
+  async function save(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (saving) return;
+    setSaving(true);
+    setSaveError(null);
+    try {
+      await activityApi.signup.updateRegistration({
+        registration: readRegistration(new FormData(e.currentTarget), selfRated),
+      });
+      setEditing(false);
+      await load();
+    } catch (err) {
+      setSaveError(ConnectError.from(err).message);
+    } finally {
+      setSaving(false);
+    }
+  }
   const rankIndex = ranks.findIndex((r) => r.rank === player.rank);
   const rankInfo = rankIndex < 0 ? undefined : ranks[rankIndex];
 
@@ -137,6 +181,84 @@ export function MyPlayer({ slug }: MyPlayerProps) {
         )}
       </dl>
 
+      <section className={styles.reg} aria-label="報名資料">
+        <div className={styles.regHead}>
+          <h2 className={styles.h2}>報名資料</h2>
+          {editable && !editing ? (
+            <Button
+              size="sm"
+              onClick={() => {
+                setSelfRated(registration?.selfRatedRank ?? Rank.UNSPECIFIED);
+                setSaveError(null);
+                setEditing(true);
+              }}
+            >
+              修改
+            </Button>
+          ) : null}
+        </div>
+
+        {editing ? (
+          <form
+            className={styles.form}
+            onSubmit={(e) => {
+              void save(e);
+            }}
+            noValidate
+          >
+            <fieldset className={styles.fields} disabled={saving}>
+              <legend className={styles.srOnly}>報名資料</legend>
+              <RegistrationFields
+                ranks={ranks}
+                selfRated={selfRated}
+                onSelfRated={setSelfRated}
+                defaults={registration}
+                displayNameHelp="對戰表上要怎麼稱呼你。留空就用遊戲ID。"
+              />
+            </fieldset>
+
+            {saveError === null ? null : (
+              <p className={styles.error} role="alert">
+                {saveError}
+              </p>
+            )}
+
+            <div className={styles.formActions}>
+              <Button type="submit" size="lg" loading={saving}>
+                儲存
+              </Button>
+              <Button
+                size="lg"
+                disabled={saving}
+                onClick={() => {
+                  setEditing(false);
+                }}
+              >
+                取消
+              </Button>
+            </div>
+          </form>
+        ) : (
+          <>
+            <dl className={styles.regList}>
+              <RegRow label="Discord 名稱" value={registration?.discordName} />
+              <RegRow label="自評段位" value={selfRatedName(ranks, registration?.selfRatedRank)} />
+              <RegRow
+                label="論劍"
+                value={ladderText(registration?.ladderRank, registration?.ladderScore)}
+              />
+              <RegRow label="常用武學 / PVP 經驗" value={registration?.artsNote} multiline />
+              <RegRow label="可出賽時段 / 備註" value={registration?.availabilityNote} multiline />
+            </dl>
+            {editable ? null : (
+              <p className={styles.regNote}>
+                報名已截止,這些內容不能再改 —— 御風羽正是照著它們評段。要更正請找御風羽。
+              </p>
+            )}
+          </>
+        )}
+      </section>
+
       <section className={styles.now} aria-label="現在該做什麼">
         <p className={styles.nowLine}>{nextStep(tournament.phase, player, match)}</p>
         <div className={styles.wallLinks}>
@@ -150,6 +272,39 @@ export function MyPlayer({ slug }: MyPlayerProps) {
       </section>
     </div>
   );
+}
+
+/** 沒填的欄位要看得出「沒填」,不是一片空白讓人以為壞了。 */
+function RegRow({
+  label,
+  value,
+  multiline = false,
+}: {
+  label: string;
+  value: string | undefined;
+  multiline?: boolean;
+}) {
+  const empty = value === undefined || value === '';
+  return (
+    <div className={styles.regRow}>
+      <dt>{label}</dt>
+      <dd className={[empty ? styles.blank : '', multiline ? styles.multiline : ''].join(' ')}>
+        {empty ? '未填' : value}
+      </dd>
+    </div>
+  );
+}
+
+function selfRatedName(ranks: RankInfo[], r: Rank | undefined): string {
+  if (r === undefined || r === Rank.UNSPECIFIED) return '';
+  return ranks.find((x) => x.rank === r)?.name ?? '';
+}
+
+function ladderText(rank: string | undefined, score: number | undefined): string {
+  const parts = [rank ?? '', score === undefined || score === 0 ? '' : String(score)].filter(
+    (x) => x !== '',
+  );
+  return parts.join(' · ');
 }
 
 function statusLabel(s: PlayerStatus): string {
