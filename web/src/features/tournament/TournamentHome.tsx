@@ -26,7 +26,21 @@ export interface TournamentHomeProps {
 
 export function TournamentHome({ slug }: TournamentHomeProps) {
   const [t, setT] = useState<Tournament | null>(null);
+  const [me, setMe] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // 進站與沒進站在畫面上長得一樣,是使用者實際回報的問題。
+  // 這一支失敗就是「沒進站」,不是錯誤 —— 這一頁本來就公開。
+  useEffect(() => {
+    void activityApi.signup
+      .getMyPlayer({})
+      .then((res) => {
+        setMe(res.player?.displayName ?? null);
+      })
+      .catch(() => {
+        setMe(null);
+      });
+  }, []);
 
   useEffect(() => {
     void activityApi.tournament
@@ -79,9 +93,15 @@ export function TournamentHome({ slug }: TournamentHomeProps) {
               報名參賽
             </Link>
           ) : null}
-          <Link className={styles.link} href={`/t/${slug}/login`}>
-            我已報名,進站
-          </Link>
+          {me === null ? (
+            <Link className={styles.link} href={`/t/${slug}/login`}>
+              我已報名,進站
+            </Link>
+          ) : (
+            <Link className={styles.link} href={`/t/${slug}/me`}>
+              我的報名({me})
+            </Link>
+          )}
           <Link className={styles.link} href={`/t/${slug}/rules`}>
             規則與讓武項目
           </Link>

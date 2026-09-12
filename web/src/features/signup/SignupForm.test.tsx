@@ -95,7 +95,7 @@ describe('PlayerLogin', () => {
     await userEvent.type(screen.getByLabelText('遊戲ID'), '李璃');
     await userEvent.click(screen.getByRole('button', { name: '進站' }));
     expect(api.login).toHaveBeenCalledWith({ tournamentSlug: 's', gameId: '李璃' });
-    expect(push).toHaveBeenCalledWith('/t/s');
+    expect(push).toHaveBeenCalledWith('/t/s/me');
   });
 
   it('空的遊戲ID 不送出', async () => {

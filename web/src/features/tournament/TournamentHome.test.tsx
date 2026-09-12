@@ -6,10 +6,13 @@ import { TournamentPhase } from '../../lib/api/gen/hestia/activity/v1/common_pb'
 
 import { TournamentHome } from './TournamentHome';
 
-const api = vi.hoisted(() => ({ getTournament: vi.fn() }));
+const api = vi.hoisted(() => ({ getTournament: vi.fn(), getMyPlayer: vi.fn() }));
 
 vi.mock('../../lib/api/activity', () => ({
-  activityApi: { tournament: { getTournament: api.getTournament } },
+  activityApi: {
+    tournament: { getTournament: api.getTournament },
+    signup: { getMyPlayer: api.getMyPlayer },
+  },
 }));
 
 function t(phase: TournamentPhase) {
@@ -27,6 +30,9 @@ function t(phase: TournamentPhase) {
 describe('TournamentHome', () => {
   beforeEach(() => {
     api.getTournament.mockReset();
+    api.getMyPlayer.mockReset();
+    // 預設當作沒進站 —— 這一頁是公開的,GetMyPlayer 失敗不是錯誤。
+    api.getMyPlayer.mockRejectedValue(new Error('unauthenticated'));
   });
 
   // 「現在該做什麼」是這一頁唯一要回答的問題,所以行動隨階段換,
@@ -60,6 +66,27 @@ describe('TournamentHome', () => {
       'href',
       '/t/s/rules',
     );
+  });
+
+  // 進站與沒進站在畫面上長得一樣,是使用者實際回報的問題。
+  it('沒進站時給的是進站入口', async () => {
+    api.getTournament.mockResolvedValue(t(TournamentPhase.SIGNUP));
+    render(<TournamentHome slug="s" />);
+    expect(await screen.findByRole('link', { name: '我已報名,進站' })).toHaveAttribute(
+      'href',
+      '/t/s/login',
+    );
+  });
+
+  it('進站後看得到自己是誰,連到我的報名', async () => {
+    api.getTournament.mockResolvedValue(t(TournamentPhase.SIGNUP));
+    api.getMyPlayer.mockResolvedValue({ player: { displayName: '李璃' } });
+    render(<TournamentHome slug="s" />);
+    expect(await screen.findByRole('link', { name: '我的報名(李璃)' })).toHaveAttribute(
+      'href',
+      '/t/s/me',
+    );
+    expect(screen.queryByRole('link', { name: '我已報名,進站' })).not.toBeInTheDocument();
   });
 
   it('沒有無障礙違規', async () => {

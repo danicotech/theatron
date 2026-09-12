@@ -40,7 +40,7 @@ export function PlayerLogin({ slug }: PlayerLoginProps) {
     setError(null);
     try {
       await activityApi.signup.login({ tournamentSlug: slug, gameId });
-      router.push(`/t/${slug}`);
+      router.push(`/t/${slug}/me`);
     } catch (err) {
       setError(ConnectError.from(err).message);
       setPending(false);
