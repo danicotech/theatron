@@ -39,3 +39,18 @@
 - 響應式:`responsive-ui`
 
 **注意**:通用視覺 skill(`frontend-design`、`modern-web-design`)刻意沒裝 —— 會跟 tournament-design-system 打架。
+
+### 從 MengTo/Skills 挑進來的(2026-09-12)
+
+上游完整鏡像在根目錄 `references/pro-skill/`(MIT),**只挑了三個掛進 `.claude/skills/`**,判準是「只收手法,不收方向」:
+
+- `design-first-ui-prompting` —— 把模糊想法寫成緊的 spec
+- `animation-systems` —— easing / duration 預設值、編排節奏、reduced-motion
+- `cinematic-scroll-storytelling` —— Lenis + GSAP ScrollTrigger、sticky stack、分段揭露
+
+同一批裡**刻意沒掛**兩個,理由與上面那條一致:
+
+- `build-awwwards-quality-sites` —— 要求「generate a materially new identity」,牴觸「視覺方向已經決定」
+- `build-threejs-scroll-worlds` —— 全 canvas vanilla three.js,牴觸「純 2D 先上線、混合走 R3F」
+
+要查它們的內容直接讀 `references/`,別重新掛載。細節見 `references/README.md`。
