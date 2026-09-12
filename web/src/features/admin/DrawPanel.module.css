@@ -1,0 +1,160 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+  inline-size: 100%;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.seed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.seedNote {
+  max-inline-size: 48ch;
+}
+
+.hint,
+.swapHint {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* 籤位列表借的是號碼牌:編號在最左、等寬、右對齊成一欄。 */
+.seats {
+  inline-size: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--border-subtle);
+}
+
+.seats li + li .seat {
+  border-block-start: 1px solid var(--border-subtle);
+}
+
+.seat {
+  inline-size: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-block-size: var(--hit-target);
+  padding: var(--space-2) var(--space-4);
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  text-align: start;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .seat {
+    transition: background-color var(--motion-hover) var(--ease-standard);
+  }
+}
+
+.seat:hover:not(:disabled) {
+  background-color: var(--surface-overlay);
+}
+
+.seat:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: -2px;
+}
+
+.seat:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.selected {
+  background-color: var(--surface-overlay);
+  box-shadow: inset 2px 0 0 0 var(--text-primary);
+}
+
+.seatNo {
+  inline-size: 2.5em;
+  flex: none;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono-bold);
+  font-size: var(--text-md);
+  color: var(--text-secondary);
+  text-align: end;
+}
+
+.seatName {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  font-weight: var(--weight-body-bold);
+  overflow-wrap: anywhere;
+}
+
+/* 輪空是這個人的狀態,不是警告,所以不用語意色。 */
+.bye {
+  flex: none;
+  padding: 2px var(--space-2);
+  border: 1px solid var(--border-subtle);
+  font-size: var(--text-micro);
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  inline-size: 100%;
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-4);
+}
+
+.confirmAsk {
+  margin: 0;
+  max-inline-size: 60ch;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+/* 現場的人拿的是手機,而這一組按鈕按錯的代價是把對戰表定死。 */
+.confirmRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+@media (min-width: 640px) {
+  .confirmRow {
+    flex-direction: row;
+  }
+}
+
+.error {
+  margin: 0;
+  inline-size: 100%;
+  padding: var(--space-3);
+  border-inline-start: 2px solid var(--state-live);
+  background-color: color-mix(in oklab, var(--state-live) 8%, transparent);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}

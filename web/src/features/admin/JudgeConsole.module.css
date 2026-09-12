@@ -1,0 +1,167 @@
+.console {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.22em;
+  color: var(--text-secondary);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display-max);
+  font-size: var(--text-2xl);
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+/* 票根式的事實列:細線分隔、全大寫小標、等寬數值。 */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
+  margin: 0;
+  border: 1px solid var(--border-subtle);
+}
+
+.fact {
+  padding: var(--space-2) var(--space-4);
+  border-inline-end: 1px solid var(--border-subtle);
+}
+
+.fact:last-child {
+  border-inline-end: 0;
+}
+
+.fact dt {
+  font-size: var(--text-micro);
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.fact dd {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-md);
+  color: var(--text-primary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.panel {
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-6);
+}
+
+.idle {
+  margin: 0;
+  max-inline-size: 62ch;
+  color: var(--text-secondary);
+  font-size: var(--text-md);
+}
+
+/* ── 需要登入 ─────────────────────────────── */
+
+.wall {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-6);
+}
+
+.wallLine {
+  margin: 0;
+  font-size: var(--text-md);
+  color: var(--text-primary);
+}
+
+.wallNote {
+  margin: 0 0 var(--space-2);
+  max-inline-size: 56ch;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.signin {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-target);
+  padding-inline: var(--space-6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  background-color: var(--surface-raised);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-bold);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .signin {
+    transition: background-color var(--motion-hover) var(--ease-standard);
+  }
+}
+
+.signin:hover {
+  background-color: var(--surface-overlay);
+}
+
+.signin:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+/* ── 推進階段 ─────────────────────────────── */
+
+.advance {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-4);
+}
+
+.advanceNote {
+  margin: 0;
+  max-inline-size: 60ch;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+@media (max-width: 639px) {
+  .advance > button {
+    inline-size: 100%;
+  }
+}
+
+.loading {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.error {
+  margin: 0;
+  padding: var(--space-3);
+  border-inline-start: 2px solid var(--state-live);
+  background-color: color-mix(in oklab, var(--state-live) 8%, transparent);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
