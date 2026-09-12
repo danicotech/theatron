@@ -2,6 +2,7 @@
 
 import { Code, ConnectError } from '@connectrpc/connect';
 import { Button, PhaseTrack } from '@theatron/ui';
+import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
 import { activityApi } from '../../lib/api/activity';
@@ -126,15 +127,12 @@ export function JudgeConsole({ slug }: JudgeConsoleProps) {
           <p className={styles.wallNote}>
             評段、抽籤、判定勝負都會進稽核紀錄,所以必須記在一個平台帳號上。
           </p>
-          {/* 帶 redirect 回到這一頁。少了它,裁判登入完會落在站台首頁,
-              得自己找路回來 —— 而他按登入的時候手上正有一件事要做。
-              值由伺服器的 CleanRedirect 驗(只收站內相對路徑),不是這裡說了算。 */}
-          <a
-            className={styles.signin}
-            href={`/api/auth/discord/start?redirect=${encodeURIComponent(`/judge/${slug}`)}`}
-          >
-            用 Discord 登入
-          </a>
+          {/* 帶回程回到這一頁。少了它,裁判登入完會落在別處,得自己找路回來 ——
+              而他按登入的時候手上正有一件事要做。登入頁提供兩種方式;
+              回程的值兩邊都會再驗一次,不是這裡說了算。 */}
+          <Link className={styles.signin} href={`/judge/login?next=/judge/${slug}`}>
+            登入
+          </Link>
         </section>
       ) : (
         <section className={styles.panel} aria-label={`${phaseLabelOf(phase)}的操作`}>

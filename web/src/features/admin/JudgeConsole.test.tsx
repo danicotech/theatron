@@ -85,9 +85,9 @@ describe('JudgeConsole', () => {
     render(<JudgeConsole slug="2026-baiye-shifeng" />);
 
     // 帶著回程:登入完要回到他原本要做事的那一頁。
-    expect(await screen.findByRole('link', { name: '用 Discord 登入' })).toHaveAttribute(
+    expect(await screen.findByRole('link', { name: '登入' })).toHaveAttribute(
       'href',
-      '/api/auth/discord/start?redirect=%2Fjudge%2F2026-baiye-shifeng',
+      '/judge/login?next=/judge/2026-baiye-shifeng',
     );
     expect(screen.queryByRole('button', { name: /推進到/ })).not.toBeInTheDocument();
   });
