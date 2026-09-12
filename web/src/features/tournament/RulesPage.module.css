@@ -1,0 +1,203 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.22em;
+  color: var(--text-secondary);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display-max);
+  font-size: var(--text-2xl);
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.lede {
+  margin: 0;
+  max-inline-size: 62ch;
+  font-size: var(--text-md);
+  color: var(--text-secondary);
+}
+
+.lede strong {
+  color: var(--text-primary);
+  font-weight: var(--weight-body-bold);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-6);
+}
+
+.h2 {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.h3 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.note {
+  margin: 0;
+  max-inline-size: 62ch;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.ranks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--border-subtle);
+}
+
+.rankRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+}
+
+.rankRow + .rankRow {
+  border-block-start: 1px solid var(--border-subtle);
+}
+
+.rankDesc {
+  margin: 0;
+  max-inline-size: 60ch;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* 賠率單的對齊紀律:直角、細線、數字等寬右對齊。 */
+.table {
+  border-collapse: collapse;
+  inline-size: 100%;
+  max-inline-size: 420px;
+  font-size: var(--text-sm);
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-subtle);
+  text-align: start;
+  font-weight: var(--weight-body);
+  color: var(--text-primary);
+}
+
+.table thead th {
+  font-size: var(--text-micro);
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.numCol {
+  text-align: end;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.table thead .numCol {
+  font-family: var(--font-body);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+}
+
+.items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--border-subtle);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 3.5em minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+
+.item + .item {
+  border-block-start: 1px solid var(--border-subtle);
+}
+
+/* BP 是這個賽事的貨幣,所以用代表錢的那個顏色。 */
+.cost {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono-bold);
+  font-size: var(--text-md);
+  color: var(--accent-money);
+  text-align: end;
+}
+
+.itemBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-inline-size: 0;
+}
+
+.itemName {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  font-weight: var(--weight-body-bold);
+  color: var(--text-primary);
+}
+
+.tag {
+  padding: 1px var(--space-2);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+
+.itemDesc {
+  max-inline-size: 60ch;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.error {
+  margin: 0;
+  padding: var(--space-3);
+  border-inline-start: 2px solid var(--state-live);
+  background-color: color-mix(in oklab, var(--state-live) 8%, transparent);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
