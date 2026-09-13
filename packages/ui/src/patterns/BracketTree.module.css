@@ -217,6 +217,64 @@
   }
 }
 
+/* 進行中的回合:掛在節點右上角,與脈動點同一組。 */
+.liveMark {
+  position: absolute;
+  inset-block-start: -10px;
+  inset-inline-end: -4px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.liveMark .liveDot {
+  position: static;
+}
+
+.liveRound {
+  padding: 0 var(--space-1);
+  background-color: var(--surface-base);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: var(--state-live);
+  white-space: nowrap;
+}
+
+/* ── 季軍戰 ──────────────────────────────────── */
+
+/* 與決賽同欄但不是晉級樹的一部分:虛線邊框說「另外加打的一場」。 */
+.thirdPlace {
+  border-style: dashed;
+}
+
+.kindTag {
+  padding: var(--space-1) var(--space-3) 0;
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.18em;
+  color: var(--text-secondary);
+}
+
+/* ── 比分 ────────────────────────────────────── */
+
+.score {
+  flex: none;
+  min-inline-size: 1.5em;
+  text-align: end;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+}
+
+.won .score {
+  color: var(--text-primary);
+  font-weight: var(--weight-body-bold);
+}
+
 @keyframes bracket-pulse {
   0%,
   100% {

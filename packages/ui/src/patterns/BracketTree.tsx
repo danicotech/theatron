@@ -41,6 +41,15 @@ export interface BracketMatchView {
   bottom?: BracketSeat | undefined;
   /** 在這條晉級路徑上(冠軍路徑會因此連成一條)。 */
   onWinnerPath?: boolean | undefined;
+  /**
+   * 季軍戰不在晉級樹上:與決賽同一欄、沒有連出去的線、標「季軍戰」。
+   * 預設 'bracket'。
+   */
+  kind?: 'bracket' | 'third_place' | undefined;
+  /** 多回合制的勝場數(上 : 下)。不給就不顯示 —— 單場定勝負沒有比分。 */
+  score?: { top: number; bottom: number } | undefined;
+  /** 進行中的回合編號;只在 state = 'live' 時有意義。 */
+  liveRound?: number | undefined;
   /** 點進去看細節;不給就不可點。 */
   href?: string | undefined;
 }
@@ -140,18 +149,29 @@ function MatchNode({
   label: string;
   last: boolean;
 }) {
+  const third = match.kind === 'third_place';
   const classes = [
     styles.node,
     styles[match.state],
     match.onWinnerPath === true ? styles.lit : '',
-    last ? styles.finalNode : '',
+    // 季軍戰的勝者不晉級,所以沒有連出去的線 —— 與決賽同樣是這一欄的終點。
+    last || third ? styles.finalNode : '',
+    third ? styles.thirdPlace : '',
   ].join(' ');
 
   const body = (
     <>
-      <Seat seat={match.top} />
-      <Seat seat={match.bottom} />
-      {match.state === 'live' ? <span className={styles.liveDot} aria-hidden="true" /> : null}
+      {third ? <span className={styles.kindTag}>季軍戰</span> : null}
+      <Seat seat={match.top} score={match.score?.top} />
+      <Seat seat={match.bottom} score={match.score?.bottom} />
+      {match.state === 'live' ? (
+        <span className={styles.liveMark}>
+          <span className={styles.liveDot} aria-hidden="true" />
+          {match.liveRound === undefined ? null : (
+            <span className={styles.liveRound}>第 {match.liveRound} 回合</span>
+          )}
+        </span>
+      ) : null}
     </>
   );
 
@@ -186,7 +206,7 @@ function SeatRank({ rank }: { rank: BracketSeat['rank'] }) {
 }
 
 /** 空位不是錯誤,是「上一輪還沒打完」。寫出來比留白好 —— 留白看起來像壞了。 */
-function Seat({ seat }: { seat: BracketSeat | undefined }) {
+function Seat({ seat, score }: { seat: BracketSeat | undefined; score?: number | undefined }) {
   if (seat === undefined) {
     return (
       <span className={[styles.seat, styles.empty].join(' ')}>
@@ -199,6 +219,12 @@ function Seat({ seat }: { seat: BracketSeat | undefined }) {
       <span className={styles.name}>{seat.name}</span>
       <SeatRank rank={seat.rank} />
       {seat.bye === true ? <span className={styles.bye}>輪空</span> : null}
+      {/* 勝場數是記分板的數字:mono + tabular,跳動時不左右晃(硬規則 2)。 */}
+      {score === undefined ? null : (
+        <span className={styles.score} aria-label={`勝 ${score} 回合`}>
+          {score}
+        </span>
+      )}
     </span>
   );
 }
