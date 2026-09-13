@@ -18,18 +18,18 @@ import { worldAsset } from './world';
  * 序幕不在這裡:那一章有自己的靜態殘旗海報(StaticPoster),因為它要畫的是
  * 一個**事件**(旗被劃破),不是一個地方。
  *
- * 板子用 `plate-*`,那是 design/jianzhong 為這一版生的四張,色盤對得上。
+ * 板子用 `plate-*`,那是 design/jianzhong 為這一版生的六張,色盤對得上。
  * 百業那一批雪景背景是另一個世界,不拿來頂替。
  */
 
-/** 哪一章站在哪一張板子前面。四張板子配六章,所以有兩章是共用的。 */
+/** 哪一章站在哪一張板子前面。六張板子配六章,一章一張。 */
 const PLATES: Readonly<Record<ChapterId, string | null>> = {
   // 序幕有自己的海報,不吃板子。
   '01': null,
   '02': 'plate-gate',
   '03': 'plate-hall',
-  '04': 'plate-hall',
-  '05': 'plate-approach',
+  '04': 'plate-wall',
+  '05': 'plate-plum',
   '06': 'plate-door',
   '07': 'plate-approach',
 };

@@ -39,6 +39,24 @@
       "source": "design/jianzhong/assets/generated/approach.webp"
     },
     {
+      "id": "plate-wall",
+      "file": "/world/plate-wall.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 137174,
+      "source": "design/jianzhong/assets/generated/wall.webp"
+    },
+    {
+      "id": "plate-plum",
+      "file": "/world/plate-plum.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 87782,
+      "source": "design/jianzhong/assets/generated/plum.webp"
+    },
+    {
       "id": "bg-night-crow-courtyard",
       "file": "/world/bg-night-crow-courtyard.webp",
       "width": 1672,
