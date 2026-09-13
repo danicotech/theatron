@@ -1,0 +1,21 @@
+.foot {
+  --foot-line: color-mix(in oklab, var(--border-subtle) 45%, transparent);
+
+  max-inline-size: calc(820px + var(--pad) * 2);
+  margin-inline: auto;
+  padding: var(--space-8) var(--pad) calc(var(--space-8) + env(safe-area-inset-bottom));
+}
+
+.rail {
+  display: block;
+  block-size: 1px;
+  margin-block-end: var(--space-4);
+  background-color: var(--foot-line);
+}
+
+.line {
+  margin: 0;
+  font-size: var(--text-micro);
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+}

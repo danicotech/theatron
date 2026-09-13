@@ -10,6 +10,10 @@
 html {
   color-scheme: dark;
   -webkit-text-size-adjust: 100%;
+  /* 導覽列是固定的,跳到頁內錨點時標題會落在它底下。多留的這一段放在 html 上,
+     是全站唯一的一處;元素自己的 scroll-margin 只負責它額外要閃開的東西
+     (例如讓武頁那條黏著的餘額計)。 */
+  scroll-padding-block-start: calc(var(--nav-h) + var(--space-4));
 }
 
 body {
@@ -29,6 +33,8 @@ h3 {
   font-weight: var(--weight-display);
   line-height: 1.15;
   letter-spacing: -0.02em;
+  /* 標題不留孤字。packages/ui 的元件不吃這份 globals,自己帶一份。 */
+  text-wrap: balance;
 }
 
 /* 數字一律 mono + tabular-nums,不管在哪個元素裡。 */
@@ -43,7 +49,48 @@ a {
   color: inherit;
 }
 
+/* 手機瀏覽器為了等雙擊縮放,會把每一次點擊延後 300ms。這些東西都不需要縮放。 */
+a,
+button,
+label,
+summary,
+[role='button'] {
+  touch-action: manipulation;
+}
+
 :focus-visible {
   outline: 2px solid var(--text-primary);
   outline-offset: 2px;
+}
+
+/* 跳過導覽列的連結:平常收在畫面外,鍵盤 focus 到它才落下來。
+   z-index 在導覽列(50)之上,不然它落下來會被霧面底蓋住。 */
+.skip-link {
+  position: fixed;
+  inset-block-start: var(--space-2);
+  inset-inline-start: var(--space-2);
+  z-index: 70;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--text-primary);
+  background-color: var(--surface-base);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transform: translateY(calc(-100% - var(--space-4)));
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* 導覽列與選單自己有捲動時讓路的動態;不想看到動的人,這些一律瞬間完成。
+   顆粒與暗角是靜態的,不在此列。 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

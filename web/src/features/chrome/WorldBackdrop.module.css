@@ -1,0 +1,44 @@
+/* 在根堆疊層的負 z-index:畫在 <html> 的底色之上、所有內容之下,
+   頁面不用為了壓過它而自己開 stacking context。 */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.plate {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  opacity: 0.32;
+  filter: saturate(0.85);
+}
+
+/* 上淡下濃:頁首讓場景透出來一點,往下讀表格的地方幾乎是純底色。 */
+.scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--surface-base) 58%, transparent) 0%,
+      color-mix(in oklab, var(--surface-base) 82%, transparent) 46%,
+      color-mix(in oklab, var(--surface-base) 94%, transparent) 100%
+    ),
+    radial-gradient(
+      110% 70% at 50% 50%,
+      transparent 20%,
+      color-mix(in oklab, var(--surface-base) 40%, transparent) 100%
+    );
+}
+
+/* 手機:1672px 的板子被裁到只剩中間一條,壓得更暗一點,字才不會落在亮處上。 */
+@media (max-width: 600px) {
+  .plate {
+    opacity: 0.24;
+  }
+}

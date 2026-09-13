@@ -1,0 +1,338 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.bar {
+  --nav-wash: color-mix(in oklab, var(--surface-base) 62%, transparent);
+  --nav-line: color-mix(in oklab, var(--border-subtle) 45%, transparent);
+
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 100%;
+  /* 瀏海底下那一段是額外長出來的,不是從 72px 裡切走的 ——
+     切走的話字標與漢堡會被擠到剩下不到 44px。 */
+  block-size: calc(var(--nav-h) + env(safe-area-inset-top));
+  /* 在 vignette(55)與 grain(60)之下:它們把整個畫面當一張圖處理,導覽列也在圖裡。 */
+  z-index: 50;
+  padding-inline: var(--pad);
+  padding-block-start: env(safe-area-inset-top);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bar {
+    transition: transform 450ms var(--ease-out);
+  }
+}
+
+/* 霧面底放在自己的圖層,不放在導覽列本體上。backdrop-filter 會把元素變成
+   position:fixed 子孫的包含區塊,而手機選單就掛在這條導覽列裡 ——
+   放在本體上,選單就會被量成 72px 高。 */
+.bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--nav-wash);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  opacity: 0;
+}
+
+.bar::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--pad);
+  inset-block-end: 0;
+  block-size: 1px;
+  background-color: var(--nav-line);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bar::before,
+  .bar::after {
+    transition: opacity 500ms linear;
+  }
+}
+
+.stuck::before,
+.stuck::after {
+  opacity: 1;
+}
+
+.hide {
+  transform: translate3d(0, -101%, 0);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  block-size: 100%;
+}
+
+/* ── 字標 ─────────────────────────────────── */
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 0 0 auto;
+  min-block-size: var(--hit-target);
+  justify-content: center;
+  line-height: 1;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-md);
+  letter-spacing: 0.26em;
+}
+
+.sub {
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* ── 桌機連結 ─────────────────────────────── */
+
+.links {
+  display: flex;
+  gap: clamp(18px, 2.6vw, 46px);
+  margin: 0 0 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-block-size: var(--hit-target);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-body-medium);
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .link {
+    transition: color var(--motion-hover) var(--ease-standard);
+  }
+}
+
+.link:hover {
+  color: var(--text-primary);
+}
+
+/* 現在在這一頁:玫瑰色的一條線。職責是「現在正在發生」,你在的這一頁就是現在。 */
+.link.on {
+  color: var(--text-primary);
+}
+
+.link.on::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: calc(50% - 0.9em);
+  block-size: 1px;
+  background-color: var(--state-live);
+}
+
+.link:focus-visible,
+.brand:focus-visible,
+.burger:focus-visible,
+.sheetLink:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+/* ── 漢堡 ─────────────────────────────────── */
+
+.burger {
+  display: none;
+  position: relative;
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+  inline-size: var(--hit-target);
+  block-size: var(--hit-target);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.burger i {
+  position: absolute;
+  inset-inline-end: 9px;
+  block-size: 1.5px;
+  background-color: currentcolor;
+}
+
+.burger i:nth-child(1) {
+  inset-block-start: 17px;
+  inline-size: 26px;
+}
+
+.burger i:nth-child(2) {
+  inset-block-start: 25px;
+  inline-size: 17px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .burger i {
+    transition:
+      inline-size 450ms var(--ease-out),
+      transform 450ms var(--ease-out);
+  }
+}
+
+.burger:hover i:nth-child(1) {
+  inline-size: 17px;
+}
+
+.burger:hover i:nth-child(2) {
+  inline-size: 26px;
+}
+
+/* 開著時兩條線交叉成 ×。 */
+.burger[aria-expanded='true'] i {
+  inline-size: 26px;
+  inset-block-start: 21px;
+}
+
+.burger[aria-expanded='true'] i:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.burger[aria-expanded='true'] i:nth-child(2) {
+  transform: rotate(-45deg);
+}
+
+/* ── 手機選單 ─────────────────────────────── */
+
+/* 右側整高的頁,不是下拉。用 100dvh 不用 100vh:手機瀏覽器的網址列收起來之前,
+   100vh 比可視區高,最後一個連結會被切掉。 */
+.sheet {
+  display: none;
+  position: fixed;
+  inset: 0;
+  block-size: 100dvh;
+  visibility: hidden;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background-color: color-mix(in oklab, var(--surface-base) 55%, transparent);
+  opacity: 0;
+  cursor: default;
+}
+
+.panel {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  inline-size: min(100%, 360px);
+  padding: calc(var(--nav-h) + env(safe-area-inset-top)) var(--pad)
+    calc(var(--space-8) + env(safe-area-inset-bottom));
+  border-inline-start: 1px solid var(--nav-line);
+  background-color: var(--surface-base);
+  overflow-y: auto;
+  /* 選單捲到底之後不要接著捲底下的頁面 —— 關掉選單會發現頁面已經跑掉了。 */
+  overscroll-behavior: contain;
+  transform: translate3d(100%, 0, 0);
+}
+
+.sheetOpen {
+  visibility: visible;
+}
+
+.sheetOpen .scrim {
+  opacity: 1;
+}
+
+.sheetOpen .panel {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sheet {
+    transition: visibility 0s linear 450ms;
+  }
+
+  .sheetOpen {
+    transition-delay: 0s;
+  }
+
+  .scrim {
+    transition: opacity 450ms var(--ease-out);
+  }
+
+  .panel {
+    transition: transform 450ms var(--ease-out);
+  }
+}
+
+.sheetLinks {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 選單裡的連結是大字襯線,一行一條線 —— 這是目錄頁,不是下拉清單。 */
+.sheetLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-block-size: calc(var(--hit-target) + var(--space-3));
+  border-block-end: 1px solid var(--nav-line);
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-xl);
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.sheetLink.on {
+  color: var(--text-primary);
+}
+
+.sheetLink.on::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: calc(-1 * var(--space-4));
+  inset-block: 35%;
+  inline-size: 2px;
+  background-color: var(--state-live);
+}
+
+@media (max-width: 820px) {
+  .links {
+    display: none;
+  }
+
+  .burger {
+    display: block;
+  }
+
+  .sheet {
+    display: block;
+  }
+}
