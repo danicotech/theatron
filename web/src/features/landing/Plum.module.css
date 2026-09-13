@@ -1,0 +1,73 @@
+/* 梅。第 3 層變數只指向第 2 層。 */
+
+.branch {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  pointer-events: none;
+}
+
+.fromLeft {
+  transform: scaleX(-1);
+}
+
+.wood,
+.twig {
+  fill: none;
+  /* 枯木褐。這個色盤裡唯一的暖色,只給木頭用 —— 給別的東西用會變成金。 */
+  stroke: var(--surface-wood);
+  stroke-linecap: round;
+}
+
+.wood {
+  stroke-width: 5;
+}
+
+.twig {
+  stroke-width: 2.5;
+  opacity: 0.82;
+}
+
+/* ─────────────────────────────────────────────────────── 花 */
+
+.blossom {
+  --bloom: 0;
+
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  overflow: visible;
+  /* 花苞是縮起來的一點,開花是它長出來。不是淡入 —— 淡入讀起來是「出現」,
+     不是「開」。 */
+  transform: scale(calc(0.42 + 0.58 * var(--bloom)));
+  transform-origin: center;
+}
+
+.petal {
+  /* 朱紅是整站唯一會滲的顏色:梅花與血墨共用它,所以序幕最後那一滴落在枯梅上、
+     梅開,在色彩上是同一件事的延續,不是換了一個主題色。 */
+  fill: color-mix(in oklab, var(--state-live) calc(28% + 62% * var(--bloom)), transparent);
+  stroke: color-mix(in oklab, var(--state-live) 60%, transparent);
+  stroke-width: 0.8;
+  /* 沒開的時候花瓣疊在一起,開的時候散出去。 */
+  transform: translateY(calc((1 - var(--bloom)) * 7px));
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.heart {
+  fill: color-mix(in oklab, var(--text-primary) calc(20% + 60% * var(--bloom)), transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .blossom,
+  .petal {
+    transition: transform var(--motion-reveal) var(--ease-out);
+  }
+
+  .petal {
+    transition:
+      transform var(--motion-reveal) var(--ease-out),
+      fill var(--motion-reveal) var(--ease-out);
+  }
+}

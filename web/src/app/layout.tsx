@@ -7,11 +7,11 @@ import './globals.css';
 
 import { Atmosphere } from '../features/chrome/Atmosphere';
 import { SiteNav } from '../features/chrome/SiteNav';
-import { baiyeShifengTheme } from '../theme/baiye-shifeng';
+import { jianzhongExtraCss, jianzhongTheme } from '../theme/jianzhong';
 
 export const metadata: Metadata = {
-  title: 'theatron',
-  description: '活動前端',
+  title: '劍塚',
+  description: '賽事公告',
 };
 
 // 三個字體角色,不新增。
@@ -24,15 +24,18 @@ const GOOGLE_FONTS =
   '?family=Archivo:wght@400;500;700;800;900' +
   '&family=IBM+Plex+Mono:wght@400;500;600' +
   '&family=Noto+Sans+TC:wght@400;500;700' +
-  // 顯示字體:活動主題(baiye-shifeng)換成了襯線體,見 web/src/theme。
+  // 顯示字體:活動主題(jianzhong)換成了襯線體,見 web/src/theme。
   '&family=Noto+Serif+TC:wght@600;900' +
   '&display=swap';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="zh-Hant" {...themeAttributes(baiyeShifengTheme)}>
+    <html lang="zh-Hant" {...themeAttributes(jianzhongTheme)}>
       <body>
-        <ThemeStyle theme={baiyeShifengTheme} />
+        <ThemeStyle theme={jianzhongTheme} />
+        {/* 朽木褐、劍光青、枯竹黃 —— 色盤有、但 EventTheme 的欄位裝不下的三個。
+            理由與注入方式見 web/src/theme/jianzhong.ts。 */}
+        <style dangerouslySetInnerHTML={{ __html: jianzhongExtraCss() }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="stylesheet" precedence="default" href={GOOGLE_FONTS} />

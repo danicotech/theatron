@@ -7,7 +7,7 @@
 
   position: fixed;
   inset: 0;
-  /* 最底層。文件在 1,近景在 3,軌道 45,導覽列 50,暗角與顆粒 55/60。 */
+  /* 最底層。文件在 1,墨暈 2,近景 3,軌道 45,導覽列 50,暗角與顆粒 55/60。 */
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
@@ -40,108 +40,18 @@
   object-fit: cover;
   object-position: center 42%;
   transform: translate3d(0, var(--scene-shift, 0), 0) scale(1.06);
+  /* 板子要退到夜色裡。3D 那一版的環境層本來就比這幾張暗一階,
+     不壓的話降級路徑會比正常路徑還亮,兩者讀起來不是同一個世界。 */
+  filter: brightness(0.66) saturate(0.82);
 }
 
-.fx {
-  position: absolute;
-  inset: 0;
-  inline-size: 100%;
-  block-size: 100%;
-  object-fit: cover;
-  object-position: center;
-  mix-blend-mode: screen;
-}
-
-/* 月亮不動。它是天上的東西,一動就變成貼紙。 */
-.moon {
-  inset: 0 0 auto auto;
-  inline-size: min(46vw, 420px);
-  block-size: auto;
-  opacity: 0.72;
-}
-
-/* 雪與花瓣是同一個動作的兩種速度:一整張圖慢慢往下走,走完一個身位重來。
-   用一張貼圖而不是幾十個 DOM 粒子 —— 粒子在手機上每格都要重排。
-   圖比視窗高一個行程,走到頭也不會在上下緣露出空白。 */
-.snow,
-.petals {
-  inset-block: -14% -14%;
-  block-size: 128%;
-  opacity: 0.5;
-}
-
-.glint {
-  opacity: 0.34;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .snow {
-    animation: drift 19s linear infinite;
-  }
-
-  .petals {
-    animation: drift 31s linear infinite;
-  }
-
-  /* 劍光只亮一次:它是一個事件,不是天氣。 */
-  .glint {
-    animation: glint 5200ms var(--ease-out) 1 both;
-  }
-}
-
-@keyframes drift {
-  from {
-    transform: translate3d(0, -12%, 0);
-  }
-
-  to {
-    transform: translate3d(0, 12%, 0);
-  }
-}
-
-@keyframes glint {
-  0% {
-    opacity: 0;
-  }
-
-  18% {
-    opacity: 0.5;
-  }
-
-  100% {
-    opacity: 0.2;
-  }
-}
-
-/* 場景是給人讀字用的底,不是主角:壓一層,亮處才不會把小字吃掉。
-   壓在圖上而不是把圖本身調淡 —— 調淡的圖在亮處仍然會透出來干擾。 */
+/* 一層夜色從下緣漫上來:字站在畫面下半,沒有這一層就得替每一段各鋪一塊底。 */
 .scrim {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(
-      color-mix(in oklab, var(--surface-base) 55%, transparent),
-      color-mix(in oklab, var(--surface-base) 34%, transparent) 46%,
-      color-mix(in oklab, var(--surface-base) 72%, transparent)
-    ),
-    radial-gradient(
-      120% 78% at 28% 42%,
-      color-mix(in oklab, var(--surface-base) 46%, transparent),
-      transparent 72%
-    );
-}
-
-/* 手機上背景要更暗:同一張圖在 375px 寬度下,文字佔掉的面積比例高得多。 */
-@media (max-width: 600px) {
-  .scrim {
-    background: linear-gradient(
-      color-mix(in oklab, var(--surface-base) 72%, transparent),
-      color-mix(in oklab, var(--surface-base) 58%, transparent) 42%,
-      color-mix(in oklab, var(--surface-base) 84%, transparent)
-    );
-  }
-
-  .moon {
-    inline-size: min(54vw, 260px);
-  }
+  background-image: linear-gradient(
+    color-mix(in oklab, var(--surface-base) 22%, transparent),
+    color-mix(in oklab, var(--surface-base) 62%, transparent) 46%,
+    color-mix(in oklab, var(--surface-base) 92%, transparent)
+  );
 }

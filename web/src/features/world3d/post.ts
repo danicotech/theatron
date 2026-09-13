@@ -21,7 +21,20 @@ import {
  * 而 composer 會帶進一整套 pass 的抽象與額外的全螢幕拷貝。
  *
  * 順序上唯一不能動的一條:**先加 bloom,再 ACES**。反過來的話 tonemap 已經把
- * 高光壓進 0..1,bloom 加上去只剩一層灰霧,燈籠就不會發光了。
+ * 高光壓進 0..1,bloom 加上去只剩一層灰霧,劍光就不會發光了。
+ *
+ * 《劍塚》這一版重調過,三個方向都是往下:
+ *
+ *  1. **閾值從 0.78 拉到 1.06。** 這是規格那條「只有劍身會發光」的落點。
+ *     0.78 的時候月亮、餘燼、木頭上的高光全部過得去,整個畫面浮一層光暈;
+ *     拉到 1 以上之後,唯一過得去的是 buildings.ts 裡那支 color 設到 2.9 的
+ *     劍身材質 —— 也就是說,bloom 的閾值與劍的亮度是**一組的**,改一個要
+ *     看另一個。
+ *  2. **曝光從 0.9 降到 0.74。** 這個世界比上一個世界冷也暗:一座沒有人點燈
+ *     的木屋,月亮是唯一的光源。
+ *  3. **暗部往霧青壓得更重。** 上一版暗部偏青、亮部偏暖,因為有十二盞燈籠。
+ *     這一版只剩一盞快熄的,所以亮部那一段的暖幾乎拿掉 —— 留一點點,
+ *     那一點點就是餘燼。
  *
  * 顆粒與暗角刻意**不在**這裡做 —— features/chrome/Atmosphere.tsx 已經用 CSS
  * 在整頁上鋪了一層。做兩次的結果不是「更有氛圍」,是糊。
@@ -101,9 +114,10 @@ void main() {
 
   float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
   c = mix(vec3(l), c, uSaturation);
-  // 暗部偏青、亮部偏暖:月光與燈火是這個世界僅有的兩種光,分色讓它們分得開。
-  c = mix(c, c * vec3(0.78, 1.02, 1.12), smoothstep(0.55, 0.0, l) * 0.7);
-  c = mix(c, c * vec3(1.04, 0.99, 0.95), smoothstep(0.5, 1.0, l) * 0.3);
+  // 暗部往霧青壓,亮部只留一點點暖 —— 那一點點是那盞快熄的燈籠,
+  // 而全場就只有它是暖的。分色讓月光與餘燼在同一格畫面裡分得開。
+  c = mix(c, c * vec3(0.68, 0.98, 1.16), smoothstep(0.62, 0.0, l) * 0.85);
+  c = mix(c, c * vec3(1.05, 0.98, 0.93), smoothstep(0.62, 1.0, l) * 0.16);
 
   c *= uFade;
   gl_FragColor = vec4(pow(max(c, 0.0), vec3(1.0 / 2.2)), 1.0);
@@ -171,8 +185,9 @@ export function createPost(renderer: WebGLRenderer, options: PostOptions): PostC
   const bright = new ShaderMaterial({
     uniforms: {
       tSource: { value: null },
-      uThreshold: { value: 0.78 },
-      uKnee: { value: 0.46 },
+      // 只有劍身過得去。見檔案開頭 —— 這個數字與 buildings.ts 的劍材質是一組的。
+      uThreshold: { value: 1.06 },
+      uKnee: { value: 0.34 },
     },
     vertexShader: QUAD_VS,
     fragmentShader: BRIGHT_FS,
@@ -194,10 +209,12 @@ export function createPost(renderer: WebGLRenderer, options: PostOptions): PostC
     uniforms: {
       tSource: { value: null },
       tBloom: { value: null },
-      uBloom: { value: 0.42 },
-      uAberration: { value: 1 },
-      uExposure: { value: 0.9 },
-      uSaturation: { value: 1.08 },
+      uBloom: { value: 0.55 },
+      uAberration: { value: 0.8 },
+      uExposure: { value: 1.02 },
+      // 彩度略低於 1:全場唯一的飽和色是梅花的朱紅,把整體拉高會讓朽木也
+      // 變成有顏色的,而朽木應該幾乎是灰的。
+      uSaturation: { value: 0.94 },
       uFade: { value: 1 },
     },
     vertexShader: QUAD_VS,

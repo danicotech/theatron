@@ -1,6 +1,6 @@
-/* 首頁的版面。第 3 層變數只指向第 2 層,顏色一律走語意 slot。
-   語法取自 references/kage-optimise:固定環境層、超大左對齊標題、直排 CJK、
-   細小字距的技術標籤、髮絲線、大量留白。這裡是把那套語法換成這個世界的字。 */
+/* 《劍塚》首頁的版面。第 3 層變數只指向第 2 層,顏色一律走語意 slot。
+   語法:固定的環境層、超大左對齊標題、細小字距的等寬標籤、髮絲線、大量留白。
+   這裡是把那套語法換成這個世界的字。 */
 
 /* ─────────────────────────────────────────────────────── 共用的小零件 */
 
@@ -16,7 +16,7 @@
   color: var(--text-secondary);
 }
 
-/* 整頁唯一的朱色點。它標的是「現在正在發生的這一屆」,不是裝飾。 */
+/* 整頁的朱色點。它標的是「現在正在發生的這一章」,不是裝飾。 */
 .dot {
   flex: 0 0 auto;
   inline-size: 5px;
@@ -30,38 +30,38 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ─────────────────────────────────────────────────────── 序 */
-
-.hero {
-  position: relative;
-  display: flex;
-  scroll-margin-block-start: var(--nav-h);
-  flex-direction: column;
-  min-block-size: 100svh;
-  /* 導覽列是固定的 72px,頁面自己留這麼多 —— 它不佔文件的位置。
-     底下留得比 kage 多:章節目錄是這一屏最後一塊字,而燈籠就站在同一個角落,
-     不讓出這段高度,第一章的標題就會被燈罩蓋掉。 */
-  padding: calc(var(--nav-h) + clamp(12px, 2.6vh, 34px)) var(--pad) clamp(90px, 16vh, 170px);
-  overflow-x: clip;
+/* 還沒定案的欄位。等寬、降一階對比 —— 它是一個**缺口**,不是一個值,
+   所以它要看起來跟旁邊真的值不一樣。 */
+.tba {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  letter-spacing: 0.18em;
+  color: var(--text-secondary);
 }
 
-.heroTop {
-  max-inline-size: min(590px, 92vw);
-}
+/* ─────────────────────────────────────────────────────── 01 序幕的字 */
 
 .heroTitle {
-  margin-block: var(--space-4) var(--space-6);
+  margin-block: var(--space-4) var(--space-3);
   font-family: var(--font-display);
   font-weight: var(--weight-display-max);
   font-size: var(--text-4xl);
   line-height: 1;
   /* 中文的字距要正的。負字距是拉丁字的作法,搬到漢字上會黏成一塊。 */
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: var(--text-primary);
   text-wrap: balance;
 }
 
-/* 這一頁唯一的高音是對句。其他地方保持安靜。 */
+.heroSub {
+  margin: 0 0 var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+}
+
+/* 這一頁唯一的高音是那一句定位。其他地方保持安靜。 */
 .couplet {
   margin: 0;
   /* CJK 的行長要用 em 量:1ch 是「0」的寬度,在中文裡只有半個字,
@@ -74,79 +74,10 @@
   color: var(--text-primary);
 }
 
-/* 直排的地名掛在右緣,像門柱上那一行字。
-   這裡刻意用實體屬性:邏輯屬性是對著**元素自己的**書寫模式解析的,
-   而這個元素是 vertical-rl —— inset-block-start 會變成「靠右」、
-   inset-inline-end 會變成「靠下」,整行字就掉到章節目錄上面去了。 */
-.verse {
-  position: absolute;
-  top: calc(var(--nav-h) + clamp(14px, 3vh, 42px));
-  right: var(--pad);
-  margin: 0;
-  writing-mode: vertical-rl;
-  font-family: var(--font-display);
-  font-weight: var(--weight-display);
-  font-size: clamp(24px, 3.2vw, 54px);
-  letter-spacing: 0.18em;
-  color: color-mix(in oklab, var(--text-primary) 58%, transparent);
-}
-
-.heroFoot {
-  margin-block-start: auto;
-  padding-block-start: clamp(60px, 18vh, 200px);
-}
-
-.cue {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin: 0 0 var(--space-4);
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
-  letter-spacing: 0.3em;
-  color: var(--text-secondary);
-}
-
-.cueTrack {
-  position: relative;
-  inline-size: 54px;
-  block-size: 1px;
-  overflow: hidden;
-  background-color: color-mix(in oklab, var(--border-subtle) 60%, transparent);
-}
-
-.cueTrack i {
-  position: absolute;
-  inset: 0;
-  background-color: var(--text-primary);
-  transform-origin: left;
-}
-
-/* 一條線掃過去就是「往下」。它是這一頁唯一一個會自己重複的動態,
-   因為它問的問題(還有嗎?)在讀者往下捲之前一直成立。 */
-@media (prefers-reduced-motion: no-preference) {
-  .cueTrack i {
-    animation: cue 2800ms cubic-bezier(0.65, 0, 0.35, 1) infinite;
-  }
-}
-
-@keyframes cue {
-  0% {
-    transform: scaleX(0);
-  }
-
-  42% {
-    transform: scaleX(1);
-  }
-
-  100% {
-    transform: scaleX(1) translateX(100%);
-  }
-}
-
 /* ─────────────────────────────────────────────────────── 章節 */
 
-.sec {
+.sec,
+.fin {
   position: relative;
   padding: clamp(88px, 15vh, 190px) var(--pad);
   /* 章節捷徑跳過來時,section 的頂緣不要停在固定導覽列底下。 */
@@ -156,8 +87,8 @@
   overflow-x: clip;
 }
 
-/* 章節自己的遮罩:把這一段的字從場景上抬起來。
-   上緣用遮罩收掉 —— 不收的話,一整屏還沒開始讀的場景就先被壓暗了。 */
+/* 章節自己的遮罩:把這一段的字從布景上抬起來。
+   上緣用遮罩收掉 —— 不收的話,一整屏還沒開始讀的布景就先被壓暗了。 */
 .sec::before,
 .fin::before {
   content: '';
@@ -214,7 +145,7 @@
   font-weight: var(--weight-display);
   font-size: var(--text-3xl);
   line-height: 1.1;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.1em;
   color: var(--text-primary);
   text-wrap: balance;
 }
@@ -241,23 +172,6 @@
   color: var(--text-secondary);
 }
 
-.body strong {
-  font-weight: var(--weight-body-bold);
-  color: var(--text-primary);
-}
-
-/* 引文是使用者的原話,給它一條朱線 —— 這是頁面上唯一被強調的一句。 */
-.quote {
-  margin: 0;
-  max-inline-size: 24em;
-  padding-inline-start: var(--space-4);
-  border-inline-start: 2px solid var(--state-live);
-  font-size: var(--text-lg);
-  line-height: 1.9;
-  letter-spacing: 0.04em;
-  color: var(--text-primary);
-}
-
 @media (min-width: 1024px) {
   .spread {
     grid-template-columns: minmax(0, 1.02fr) minmax(0, 1.15fr);
@@ -266,26 +180,26 @@
   }
 
   .h2 {
-    max-inline-size: 8em;
+    max-inline-size: 6em;
   }
 }
 
-/* ─────────────────────────────────────────────────────── 數字帶(壹) */
+/* ─────────────────────────────────────────────────────── 數字帶(02) */
 
 .facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0;
-  margin: clamp(46px, 8vh, 96px) 0 0;
+  margin: 0;
   border-block-start: 1px solid color-mix(in oklab, var(--border-subtle) 45%, transparent);
 }
 
 .fact {
-  /* 值在上、標籤在下,但 DOM 順序是標籤先 —— 朗讀出來要是「段位:4」。 */
+  /* 值在上、標籤在下,但 DOM 順序是標籤先 —— 朗讀出來要是「初賽:待公布」。 */
   display: flex;
   flex-direction: column-reverse;
   gap: var(--space-2);
-  min-block-size: 96px;
+  min-block-size: 92px;
   padding: var(--space-4) var(--space-4) var(--space-6);
   border-block-end: 1px solid color-mix(in oklab, var(--border-subtle) 45%, transparent);
 }
@@ -304,186 +218,48 @@
   margin: 0;
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-size: clamp(22px, 2.4vw, 34px);
+  font-size: clamp(18px, 2vw, 26px);
   font-weight: var(--weight-mono);
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
   color: var(--text-primary);
 }
 
-@media (min-width: 768px) {
-  .facts {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
+/* ─────────────────────────────────────────────────────── 06 報名 */
 
-  .fact:nth-child(odd) {
-    border-inline-end: 0;
-  }
-
-  .fact + .fact {
-    border-inline-start: 1px solid color-mix(in oklab, var(--border-subtle) 45%, transparent);
-  }
-}
-
-/* ─────────────────────────────────────────────────────── 段位卡(貳) */
-
-.cards {
+.signup {
   display: grid;
-  gap: var(--space-4);
-  margin: clamp(40px, 7vh, 84px) 0 0;
-  padding: 0;
-  list-style: none;
-  align-items: start;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  min-block-size: 0;
-  padding: var(--space-6) var(--space-4);
-  border: 1px solid color-mix(in oklab, var(--border-subtle) 45%, transparent);
-  background-color: color-mix(in oklab, var(--surface-raised) 62%, transparent);
-}
-
-.cardLine {
+  gap: var(--space-3);
   margin: 0;
-  font-size: var(--text-sm);
-  line-height: 1.75;
-  color: var(--text-secondary);
 }
 
-@media (min-width: 768px) {
-  .cards {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(10px, 1.4vw, 22px);
-  }
-
-  /* 階梯往上走:開山站在最低一階,無我站在最高的一階。
-     反過來排看起來一樣整齊,但它畫的是相反的意思。
-     手機上單欄排開時錯位自然消失 —— 那時「上下」已經在說同一件事。
-     用 margin 不用 transform:transform 那一格被出場動態佔著了,
-     兩邊搶同一個屬性的結果是卡片會在出場時先跳回對齊再落下去。 */
-  .card:nth-child(1) {
-    margin-block-start: clamp(54px, 9vw, 138px);
-  }
-
-  .card:nth-child(2) {
-    margin-block-start: clamp(36px, 6vw, 92px);
-  }
-
-  .card:nth-child(3) {
-    margin-block-start: clamp(18px, 3vw, 46px);
-  }
-}
-
-/* ─────────────────────────────────────────────────────── 六步(參) */
-
-.steps {
-  margin: clamp(40px, 7vh, 84px) 0 0;
-  padding: 0;
-  list-style: none;
-  border-block-start: 1px solid color-mix(in oklab, var(--border-subtle) 45%, transparent);
-}
-
-.step {
+.signupRow {
   display: grid;
-  grid-template-columns: 2.6em minmax(0, 1fr) auto;
+  grid-template-columns: 7em minmax(0, 1fr);
   align-items: baseline;
-  gap: var(--space-2) var(--space-3);
-  padding-block: var(--space-4);
-  border-block-end: 1px solid color-mix(in oklab, var(--border-subtle) 45%, transparent);
+  gap: var(--space-4);
+  padding-block: var(--space-2);
+  border-block-end: 1px solid color-mix(in oklab, var(--border-subtle) 40%, transparent);
 }
 
-.stepNum {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: var(--text-xs);
-  letter-spacing: 0.16em;
-  color: var(--text-secondary);
-}
-
-.stepName {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: var(--weight-display);
-  font-size: var(--text-lg);
-  letter-spacing: 0.06em;
-  color: var(--text-primary);
-}
-
-.stepNote {
-  grid-column: 2 / -1;
-  margin: 0;
-  font-size: var(--text-sm);
-  line-height: 1.7;
-  color: var(--text-secondary);
-}
-
-/* 誰做這件事。靠右、等寬小字 —— 賠率單上那一欄的位置。 */
-.stepWho {
-  grid-column: 3;
-  grid-row: 1;
-  text-align: end;
+.signupLabel {
   font-family: var(--font-mono);
   font-size: var(--text-micro);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.2em;
   color: var(--text-secondary);
 }
 
-@media (min-width: 1024px) {
-  .step {
-    grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1.25fr) 86px;
-    align-items: center;
-    gap: clamp(14px, 2.4vw, 40px);
-    padding-block: clamp(20px, 2.4vw, 30px);
-  }
-
-  .stepNote {
-    grid-column: 3;
-  }
-
-  .stepWho {
-    grid-column: 4;
-  }
-}
-
-/* ─────────────────────────────────────────────────────── 肆 · 赴約 */
-
-.fin {
-  position: relative;
-  display: flex;
-  scroll-margin-block-start: var(--nav-h);
-  flex-direction: column;
-  justify-content: center;
-  min-block-size: 100svh;
-  padding: clamp(88px, 15vh, 190px) var(--pad);
-  /* 山門站在畫面底下那一帶,入口的按鈕不能躲在它後面 ——
-     把整塊字往上推一個近景的高度,門就在字的下方開著。 */
-  padding-block-end: calc(clamp(88px, 15vh, 190px) + min(46svh, 460px));
-  overflow-x: clip;
-}
-
-.finTitle {
-  margin-block: var(--space-6) 0;
-  font-family: var(--font-display);
-  font-weight: var(--weight-display-max);
-  font-size: var(--text-4xl);
-  line-height: 1;
+.signupValue {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-md);
   letter-spacing: 0.08em;
   color: var(--text-primary);
 }
 
-.finLine {
-  margin: var(--space-6) 0 0;
-  max-inline-size: 18em;
-  font-size: var(--text-lg);
-  line-height: 1.9;
-  color: var(--text-secondary);
-}
-
 /* 沒開就說沒開,不要給一個會 404 的按鈕。 */
 .closed {
-  margin: clamp(32px, 5vh, 44px) 0 0;
+  margin: var(--space-4) 0 0;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.16em;
@@ -494,7 +270,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
-  margin-block-start: clamp(32px, 5vh, 44px);
+  margin-block-start: var(--space-6);
 }
 
 .cta {
@@ -530,6 +306,67 @@
   background-color: var(--surface-overlay);
 }
 
+/* ─────────────────────────────────────────────────────── 07 落款 */
+
+.fin {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 72svh;
+}
+
+.signOff {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 4vw, 56px);
+}
+
+.finTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display-max);
+  font-size: var(--text-4xl);
+  line-height: 1;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+}
+
+/* 落款上的那一顆印。整頁最後一個朱色。 */
+.finSeal {
+  flex: 0 0 auto;
+  display: block;
+  inline-size: clamp(56px, 9vw, 104px);
+}
+
+.credits {
+  display: grid;
+  gap: 0;
+  margin: clamp(38px, 6vh, 76px) 0 0;
+  border-block-start: 1px solid color-mix(in oklab, var(--border-subtle) 45%, transparent);
+}
+
+.creditRow {
+  display: grid;
+  grid-template-columns: 6em minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-4);
+  padding-block: var(--space-4);
+  border-block-end: 1px solid color-mix(in oklab, var(--border-subtle) 45%, transparent);
+}
+
+.creditLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.22em;
+  color: var(--text-secondary);
+}
+
+.creditValue {
+  margin: 0;
+  font-size: var(--text-md);
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+}
+
 /* ─────────────────────────────────────────────────────── 版權頁 */
 
 .foot {
@@ -537,8 +374,8 @@
   padding: clamp(50px, 8vh, 96px) var(--pad)
     calc(clamp(26px, 4vh, 40px) + env(safe-area-inset-bottom));
   border-block-start: 1px solid color-mix(in oklab, var(--border-subtle) 45%, transparent);
-  /* 漸層而不是一塊實色:版權頁是唯一站在近景前面的東西,實色的上緣會在山門
-     中間切出一條硬邊。讓它從細線那裡沉下去,門就是被夜色收走的。 */
+  /* 漸層而不是一塊實色:落款是唯一站在近景前面的東西,實色的上緣會在近景
+     中間切出一條硬邊。讓它從細線那裡沉下去,布景就是被夜色收走的。 */
   background-image: linear-gradient(
     color-mix(in oklab, var(--surface-base) 46%, transparent),
     color-mix(in oklab, var(--surface-base) 88%, transparent) 26%,
@@ -557,7 +394,7 @@
   font-family: var(--font-display);
   font-weight: var(--weight-display);
   font-size: var(--text-xl);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   color: var(--text-primary);
 }
 
@@ -619,6 +456,18 @@
 }
 
 @media (min-width: 768px) {
+  .facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .fact:nth-child(odd) {
+    border-inline-end: 0;
+  }
+
+  .fact + .fact {
+    border-inline-start: 1px solid color-mix(in oklab, var(--border-subtle) 45%, transparent);
+  }
+
   .footGrid {
     grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 0.6fr));
     gap: clamp(22px, 4vw, 60px);
@@ -628,31 +477,27 @@
 /* ─────────────────────────────────────────────────────── 手機 */
 
 @media (max-width: 600px) {
-  /* 直排字在 375px 上會壓到標題。首屏的字距已經是這一頁最緊的地方了。 */
-  .verse {
-    display: none;
-  }
-
   .couplet {
     font-size: var(--text-md);
     line-height: 1.95;
   }
 
-  .lead,
-  .quote {
+  .lead {
     font-size: var(--text-md);
   }
 
-  .heroFoot {
-    padding-block-start: clamp(40px, 12vh, 90px);
+  .signupRow,
+  .creditRow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
   }
 
-  /* 手機上的正文不低於 14px。等寬的技術標籤(章號、誰做的、頁尾小字)
-     維持 micro —— 那些是標籤,不是拿來讀的句子。 */
-  .cardLine,
-  .stepNote,
+  /* 手機上的正文不低於 14px。等寬的技術標籤(章號、頁尾小字)維持 micro ——
+     那些是標籤,不是拿來讀的句子。 */
+  .body,
   .footTag,
-  .footList a {
+  .footList a,
+  .creditValue {
     font-size: var(--text-md);
   }
 }

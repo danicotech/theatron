@@ -32,7 +32,7 @@ export interface Engine {
   resize(width: number, height: number): void;
   /** 降解析度。frame time 持續不好時由呼叫端叫。 */
   setPixelRatio(ratio: number): void;
-  /** 畫一格。dt 與 time 是秒,progress 是 0…4。 */
+  /** 畫一格。dt 與 time 是秒,progress 是 0…6(七章,見 camera.ts)。 */
   frame(dt: number, time: number, progress: number, pointerX: number, pointerY: number): void;
   /** 已經畫出過至少一格。用來決定什麼時候可以把 2D 的降級層收掉。 */
   readonly painted: boolean;
@@ -119,8 +119,11 @@ export function createEngine(options: EngineOptions): Engine {
       // 不想看到動的人根本走不到這裡(WorldScene 會走 2D 降級),但萬一
       // 偏好在執行期改變,intro 直接跳到底比讓它推一次軌安全。
       intro = options.reduced ? 1 : clamp(intro + dt / INTRO_SECONDS, 0, 1);
+      // 進度是**生的** —— 阻尼在相機軌裡面做,因為那是唯一知道「捲太快會
+      // 讓鏡頭反向轉」的地方,而 dt 也只有在那裡才配得上半衰期。
       rig.applyTo(camera, {
         progress,
+        dt,
         aspect: width / height,
         intro,
         pointerX,

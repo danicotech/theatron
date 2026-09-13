@@ -1,0 +1,166 @@
+/* 序幕。第 3 層變數只指向第 2 層,顏色一律走語意 slot。 */
+
+/* 章節比一屏高,裡面釘一個 100svh 的舞台 —— 高出來的那一段就是「刮」的行程。
+   三屏是製作契約定的(design/jianzhong/EXPERIENCE.md:「序幕固定 3 個視窗捲動範圍」):
+   再短會來不及讀完標題,再長會讓人以為頁面卡住。 */
+.chapter {
+  position: relative;
+  block-size: 400svh;
+  scroll-margin-block-start: var(--nav-h);
+}
+
+.stage {
+  --p: 0;
+  --tear: 0;
+  --bleed: 0;
+  --fall: 0;
+  --bloom: 0;
+  --shudder: 0;
+
+  position: sticky;
+  inset-block-start: 0;
+  display: block;
+  block-size: 100svh;
+  overflow: hidden;
+  background-color: var(--surface-base);
+}
+
+/* 可以拖著刮的那一塊。游標用 grab,因為它真的抓得住東西。 */
+.visual {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+}
+
+.visual[data-dragging] {
+  cursor: grabbing;
+  /* 拖曳中不要選到底下的任何東西(這一塊沒有字,但畫布以外的邊緣有)。 */
+  user-select: none;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  /* 第一格畫好才給 1。海報在下面墊著,所以這是交棒不是出現。 */
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .canvas {
+    transition: opacity var(--motion-reveal) var(--ease-out);
+  }
+}
+
+.lit {
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────────────────── 字 */
+
+/* 字站在畫布前面,靠左下 —— 旗在右上,兩個不搶同一塊。 */
+.type {
+  position: absolute;
+  inset-block-end: clamp(96px, 16vh, 190px);
+  inset-inline-start: var(--pad);
+  z-index: 2;
+  max-inline-size: min(560px, calc(100% - var(--pad) * 2));
+  /* 刺穿那一下整塊字跟著顫。位移很小 —— 大了就變成畫面在抖,不是被劍震到。 */
+  transform: translate3d(calc(var(--shudder) * 3px), 0, 0);
+}
+
+/* 字底下墊一層很淡的夜色。血墨滲開之後畫面右半整片紅,沒有這一層字會讀不出來。 */
+.type::before {
+  content: '';
+  position: absolute;
+  inset: -12% -8% -30% -12%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    110% 78% at 22% 62%,
+    color-mix(in oklab, var(--surface-base) 88%, transparent),
+    color-mix(in oklab, var(--surface-base) 54%, transparent) 52%,
+    transparent
+  );
+}
+
+/* ─────────────────────────────────────────────────────── 枯梅 */
+
+/* 最後一滴落在枯梅上,梅開。它在右下角,不擋字也不擋旗。 */
+.plum {
+  position: absolute;
+  inset-block-end: clamp(40px, 9vh, 110px);
+  inset-inline-end: clamp(28px, 7vw, 120px);
+  z-index: 2;
+  inline-size: clamp(46px, 7vw, 96px);
+  pointer-events: none;
+}
+
+/* 這一朵不寫 open,所以它吃繼承下來的 --bloom —— 舞台每格把數字寫在自己身上,
+   花不必為此重繪一次。 */
+.bud {
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--state-live) 40%, transparent));
+}
+
+/* ─────────────────────────────────────────────────────── 說明 */
+
+/* 3D 是看得到讀不到的,所以這一段戲自己說出正在發生什麼。 */
+.caption {
+  position: absolute;
+  inset-block-end: clamp(26px, 5vh, 52px);
+  inset-inline-start: var(--pad);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-mono);
+  letter-spacing: 0.24em;
+  color: var(--text-secondary);
+}
+
+/* 一個朱點標「現在在演哪一段」。整屏唯一的朱色小點。 */
+.mark {
+  flex: 0 0 auto;
+  inline-size: 5px;
+  block-size: 5px;
+  border-radius: var(--radius-pill);
+  background-color: var(--state-live);
+}
+
+/* ─────────────────────────────────────────────────────── 狀態 */
+
+/* loading 期間畫面上是海報加全部的字,不是空白,也沒有轉圈圈 ——
+   這一屏本來就有東西可看,加一個等待指示只是在說「你在等」。 */
+.stage[data-state='loading'] .canvas {
+  opacity: 0;
+}
+
+/* 3D 建不起來:海報留著,不留一塊黑畫布。 */
+.stage[data-state='error'] .canvas {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────── 手機 */
+
+@media (max-width: 600px) {
+  /* 390×844 上三屏的行程太長 —— 直式螢幕一屏的高度本來就多,
+     同樣三屏要滑的距離幾乎是桌機的兩倍。 */
+  .chapter {
+    block-size: 300svh;
+  }
+
+  .type {
+    inset-block-end: clamp(84px, 14vh, 150px);
+    max-inline-size: calc(100% - var(--pad) * 2);
+  }
+
+  .plum {
+    inset-block-end: clamp(26px, 6vh, 60px);
+    inline-size: clamp(38px, 12vw, 64px);
+  }
+}

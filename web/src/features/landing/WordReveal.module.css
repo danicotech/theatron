@@ -34,4 +34,16 @@
       opacity 500ms var(--ease-out) var(--unit-delay, 0ms),
       transform var(--motion-reveal) var(--ease-out) var(--unit-delay, 0ms);
   }
+
+  /* 捲動驅動的版本。每個字自己算「輪到我了沒」:
+       u = clamp(0, 進度 × 字數 − 我的序號, 1)
+     所以進度倒退時 u 也倒退 —— 字一筆一筆收回去,而不是倒著播一次動畫。
+     這裡沒有 transition,因為畫面本來就跟著手指走;加 transition 反而會讓
+     快速刮動的時候字追不上捲軸。 */
+  .scrubbed[data-rv-scrub] .unit {
+    --u: clamp(0, calc(var(--rv-scrub, 0) * var(--unit-count, 1) - var(--unit-index, 0)), 1);
+
+    opacity: var(--u);
+    transform: translate3d(0, calc((1 - var(--u)) * 108%), 0);
+  }
 }

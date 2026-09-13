@@ -1,0 +1,104 @@
+/* 橫貫畫面的梅枝與四個日期。第 3 層變數只指向第 2 層。 */
+
+.season {
+  position: relative;
+  margin-block-start: clamp(40px, 7vh, 90px);
+  padding-block: clamp(28px, 5vh, 64px);
+}
+
+/* 枝在字後面,橫過整塊。它是布景,所以不參與版面。 */
+.branch {
+  position: absolute;
+  inset-block-start: 18%;
+  inset-inline: -6%;
+  z-index: -1;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.dates {
+  display: grid;
+  gap: clamp(20px, 3.4vh, 34px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.node {
+  display: grid;
+  grid-template-columns: clamp(34px, 5vw, 54px) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(12px, 2vw, 22px);
+}
+
+.flower {
+  display: block;
+  inline-size: 100%;
+  /* 花苞掛在枝上,所以它比字略高一點 —— 對齊字的頂線會讓花浮在半空。 */
+  margin-block-start: -2px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-lg);
+  letter-spacing: 0.14em;
+  color: var(--text-primary);
+}
+
+.day {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-md);
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+}
+
+/* 到期/未到期/待公布。只靠花開不開說一件事實,對看不到形狀的人等於沒說。 */
+.status {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+}
+
+/* 已經到期的那一關,連字都亮起來 —— 它是這條時程上「現在」的位置。 */
+.node[data-date-state='due'] .day {
+  color: var(--state-live);
+}
+
+@media (min-width: 900px) {
+  .dates {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 32px);
+  }
+
+  .node {
+    /* 桌機上四朵沿枝排開,所以改成上下 —— 花在字的正上方,像真的掛在枝上。 */
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .flower {
+    inline-size: clamp(30px, 3vw, 44px);
+  }
+
+  /* 沿枝的高低錯落。平排四朵是圖表,不是枝。 */
+  .node:nth-child(2) {
+    margin-block-start: clamp(14px, 2vw, 30px);
+  }
+
+  .node:nth-child(3) {
+    margin-block-start: clamp(6px, 1vw, 14px);
+  }
+
+  .node:nth-child(4) {
+    margin-block-start: clamp(22px, 3vw, 46px);
+  }
+}

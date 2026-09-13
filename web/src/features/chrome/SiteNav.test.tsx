@@ -57,7 +57,7 @@ describe('SiteNav', () => {
   it('沒有賽事代號就只剩字標', async () => {
     const SiteNav = await loadNav('');
     render(<SiteNav />);
-    expect(screen.getByRole('link', { name: /百業試鋒/ })).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: /劍塚/ })).toHaveAttribute('href', '/');
     expect(screen.queryByRole('link', { name: '對戰表' })).not.toBeInTheDocument();
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });

@@ -1,0 +1,70 @@
+/* 靜態殘旗海報。第 3 層變數只指向第 2 層。 */
+
+.poster {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background-color: var(--surface-base);
+}
+
+.plate {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  /* 底板要退到夜色裡,不是當成一張照片看。壓暗、去一點彩度,
+     整張海報才有一個色調,而不是「圖上面疊了一面旗」。 */
+  filter: brightness(0.52) saturate(0.7) contrast(1.06);
+}
+
+/* 旗站在畫面偏上、偏右:左下留給字。 */
+.flag {
+  position: absolute;
+  inset-block-start: 4%;
+  inset-inline-end: 8%;
+  block-size: min(74%, 620px);
+  inline-size: auto;
+  overflow: visible;
+}
+
+.lit {
+  stop-color: color-mix(in oklab, var(--text-primary) 34%, var(--surface-wood));
+}
+
+.mid {
+  stop-color: var(--surface-wood);
+}
+
+.deep {
+  stop-color: color-mix(in oklab, var(--surface-wood) 55%, var(--surface-base));
+}
+
+.beam {
+  fill: color-mix(in oklab, var(--surface-wood) 70%, var(--surface-base));
+}
+
+.cloth {
+  fill: url('#poster-backlight');
+}
+
+.lip {
+  fill: none;
+  stroke: color-mix(in oklab, var(--text-primary) 72%, transparent);
+  stroke-width: 1.5;
+}
+
+/* 朱紅是整站唯一會滲的顏色。海報上這一塊與 3D 版的血墨是同一滴墨。
+   壓到六成:靜止畫少了滲開的過程,同樣的濃度會讀成一塊貼上去的紅色色塊。 */
+.ink {
+  fill: color-mix(in oklab, var(--state-live) 60%, transparent);
+  filter: url('#ink-rough');
+  mix-blend-mode: multiply;
+}
+
+@media (max-width: 600px) {
+  .flag {
+    inset-inline-end: 4%;
+    block-size: min(58%, 400px);
+  }
+}

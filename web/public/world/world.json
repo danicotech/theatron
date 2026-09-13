@@ -1,7 +1,43 @@
 {
   "theme": "百業試鋒 · 劍冢素材",
-  "note": "來源是 design/cinematic-media-kit 的素材庫(生成素材,清冊標為未核准);這裡只是轉成 WebP 的網頁用版本。",
+  "note": "plate-* 來自 design/jianzhong/assets/generated —— 那是《劍塚》這一版專門生的四張場景板,色盤對得上。其餘 bg-/fg-/fx-/ink- 來自 design/cinematic-media-kit(百業試鋒的雪景素材,色調偏冷白,與劍塚不同世界),只在沒有替代品時才用。",
   "assets": [
+    {
+      "id": "plate-gate",
+      "file": "/world/plate-gate.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 212860,
+      "source": "design/jianzhong/assets/generated/gate.webp"
+    },
+    {
+      "id": "plate-hall",
+      "file": "/world/plate-hall.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 166506,
+      "source": "design/jianzhong/assets/generated/hall.webp"
+    },
+    {
+      "id": "plate-door",
+      "file": "/world/plate-door.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 199354,
+      "source": "design/jianzhong/assets/generated/door.webp"
+    },
+    {
+      "id": "plate-approach",
+      "file": "/world/plate-approach.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 176204,
+      "source": "design/jianzhong/assets/generated/approach.webp"
+    },
     {
       "id": "bg-night-crow-courtyard",
       "file": "/world/bg-night-crow-courtyard.webp",

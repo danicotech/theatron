@@ -14,6 +14,15 @@ export interface WordRevealProps {
    * 所以呼叫端一定要說清楚這是 h1 還是 h2。
    */
   as: ElementType;
+  /**
+   * 逐筆現出由**捲動**驅動,不是由計時器。
+   *
+   * 序幕的標題必須跟著刮 —— 往回捲的時候字要一筆一筆收回去。所以那一支不能用
+   * CSS 的 delay(delay 是時間,倒著刮不會倒著跑),改成每個字看一個
+   * `--rv-scrub`(0…1)決定自己出來了沒。那個變數由 Prologue 每格直接寫在
+   * 這個元素上,不經過 React —— 每格重繪一行標題是沒必要的。
+   */
+  scrub?: boolean;
   className?: string | undefined;
   id?: string | undefined;
 }
@@ -31,25 +40,35 @@ export interface WordRevealProps {
  *
  * 沒有 JS 時字是看得見的 —— 起手式綁在 scripting: enabled 上,理由寫在 CSS 裡。
  */
-export function WordReveal({ text, as, className, id }: WordRevealProps) {
+export function WordReveal({ text, as, scrub = false, className, id }: WordRevealProps) {
   const Tag = as;
   const units = splitUnits(text);
+  const count = units.filter((u) => u !== SPACE).length;
   let index = 0;
 
   return (
     <Tag
-      className={[styles.line, className].filter(Boolean).join(' ')}
-      data-rv="fade"
+      className={[styles.line, scrub ? styles.scrubbed : '', className].filter(Boolean).join(' ')}
+      data-rv={scrub ? undefined : 'fade'}
+      data-rv-scrub={scrub ? '' : undefined}
       aria-label={text}
       id={id}
+      style={scrub ? ({ '--unit-count': count } as CSSProperties) : undefined}
     >
       {units.map((unit, i) => {
         if (unit === SPACE) return <Fragment key={i}> </Fragment>;
-        const delay = index * STEP_MS;
+        const at = index;
         index += 1;
         return (
           <span className={styles.mask} key={i} aria-hidden="true">
-            <span className={styles.unit} style={{ '--unit-delay': `${delay}ms` } as CSSProperties}>
+            <span
+              className={styles.unit}
+              style={
+                scrub
+                  ? ({ '--unit-index': at } as CSSProperties)
+                  : ({ '--unit-delay': `${at * STEP_MS}ms` } as CSSProperties)
+              }
+            >
               {unit}
             </span>
           </span>

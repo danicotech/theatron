@@ -12,7 +12,7 @@ function Probe() {
   return (
     <div ref={root}>
       <output>{active}</output>
-      {(['00', '01', '02'] as ChapterId[]).map((id) => (
+      {(['01', '02', '03'] as ChapterId[]).map((id) => (
         <section key={id} data-chapter-section={id} />
       ))}
     </div>
@@ -47,7 +47,7 @@ describe('useActiveChapter', () => {
         { target: s2!, ratio: 0 },
       ]);
     });
-    expect(container.querySelector('output')?.textContent).toBe('01');
+    expect(container.querySelector('output')?.textContent).toBe('02');
 
     act(() => {
       io.emit([
@@ -55,7 +55,7 @@ describe('useActiveChapter', () => {
         { target: s2!, ratio: 0.9 },
       ]);
     });
-    expect(container.querySelector('output')?.textContent).toBe('02');
+    expect(container.querySelector('output')?.textContent).toBe('03');
   });
 
   // 往下捲的時候,新的一章要真的站穩才接手 —— 打平時留在原地。
@@ -68,7 +68,7 @@ describe('useActiveChapter', () => {
         { target: s1!, ratio: 0.5 },
       ]);
     });
-    expect(container.querySelector('output')?.textContent).toBe('00');
+    expect(container.querySelector('output')?.textContent).toBe('01');
   });
 
   it('兩側各縮一截,上一章的尾巴還掛在視窗底部時不會搶走', () => {
@@ -79,11 +79,11 @@ describe('useActiveChapter', () => {
   // 固定導覽列那類不在這棵樹裡的東西,靠 <html> 上的屬性才讀得到。
   it('把現在這一章寫到 html 上,卸載時收乾淨', () => {
     const { container, unmount } = render(<Probe />);
-    expect(document.documentElement.dataset.chapter).toBe('00');
+    expect(document.documentElement.dataset.chapter).toBe('01');
     act(() => {
       made[0]!.emit([{ target: sections(container)[2]!, ratio: 0.8 }]);
     });
-    expect(document.documentElement.dataset.chapter).toBe('02');
+    expect(document.documentElement.dataset.chapter).toBe('03');
     unmount();
     expect(document.documentElement.dataset.chapter).toBeUndefined();
   });

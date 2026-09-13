@@ -1,0 +1,10 @@
+/* 只放濾鏡定義的 SVG。它不畫任何東西,但不能用 display:none ——
+   有些瀏覽器會連帶不解析裡面的 filter,引用它的元素就變成沒有濾鏡。 */
+
+.defs {
+  position: absolute;
+  inline-size: 0;
+  block-size: 0;
+  overflow: hidden;
+  pointer-events: none;
+}

@@ -1,0 +1,96 @@
+/* 剝漆木牆上的紅印。第 3 層變數只指向第 2 層。 */
+
+.wall {
+  --stamp-step: 220ms;
+
+  display: grid;
+  gap: 0;
+  margin: clamp(36px, 6vh, 80px) 0 0;
+  padding: clamp(20px, 3vw, 40px) clamp(18px, 3vw, 36px);
+  list-style: none;
+  border: 1px solid color-mix(in oklab, var(--surface-wood) 64%, transparent);
+  /* 剝漆:兩道方向相反的斜紋疊出木板的縫,再壓一層朽木褐。
+     不是一張木紋貼圖 —— 這個站一張貼圖都沒有。 */
+  background-color: color-mix(in oklab, var(--surface-wood) 34%, var(--surface-base));
+  background-image:
+    repeating-linear-gradient(
+      92deg,
+      color-mix(in oklab, var(--surface-base) 40%, transparent) 0 2px,
+      transparent 2px 9px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--surface-wood) 46%, transparent) 0 1px,
+      transparent 1px 58px
+    );
+}
+
+.row {
+  display: grid;
+  grid-template-columns: clamp(48px, 8vw, 76px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(14px, 2.6vw, 30px);
+  padding-block: clamp(14px, 2.4vh, 24px);
+}
+
+.row + .row {
+  border-block-start: 1px solid color-mix(in oklab, var(--surface-wood) 52%, transparent);
+}
+
+.stamp {
+  display: block;
+  inline-size: 100%;
+}
+
+.detail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+}
+
+.rank {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-lg);
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+}
+
+/* 獎金是數字,數字一律等寬 + tabular —— 對齊是功能,不是風格。
+   刻意不是 --accent-money:這個色盤裡沒有金,而錢在這一頁不需要自己的顏色,
+   它需要的是讀得清楚。 */
+.award {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-md);
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+}
+
+/* ─────────────────────────────────────────────────────── 蓋印 */
+
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .wall[data-state='idle'] .stamp {
+    opacity: 0;
+    /* 舉在半空、略歪。印章是被壓上去的,起手式要在紙面之上。 */
+    transform: scale(1.55) rotate(-7deg);
+  }
+
+  .wall[data-state='activating'] .stamp,
+  .wall[data-state='active'] .stamp {
+    opacity: 1;
+    transform: none;
+    /* 砸下去要快、要過衝一點點再收 —— 那一下的力道就是印章與貼紙的差別。
+       每顆之間隔一拍(--stamp-index × --stamp-step),所以讀起來是有人一顆一顆蓋。 */
+    transition:
+      opacity 180ms var(--ease-out) calc(var(--stamp-index) * var(--stamp-step)),
+      transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--stamp-index) * var(--stamp-step));
+  }
+}
+
+@media (max-width: 600px) {
+  .row {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+}

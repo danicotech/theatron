@@ -115,8 +115,8 @@ export function SiteNav() {
     <header className={classes.join(' ')}>
       <nav className={styles.nav} aria-label="全站導覽">
         <Link className={styles.brand} href="/">
-          <b className={styles.wordmark}>百業試鋒</b>
-          <i className={styles.sub}>BAIYE SHIFENG · 讓武 BP</i>
+          <b className={styles.wordmark}>劍塚</b>
+          <i className={styles.sub}>JIANZHONG · 月下論劍</i>
         </Link>
 
         {LINKS.length === 0 ? null : (

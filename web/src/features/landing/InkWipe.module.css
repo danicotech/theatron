@@ -1,0 +1,31 @@
+/* 墨暈轉場。第 3 層變數只指向第 2 層,顏色一律走語意 slot。 */
+
+.wipe {
+  --ink-x: 50%;
+  --ink-y: 50%;
+  --ink-radius: 0%;
+  --ink-edge: 22%;
+  --ink-p: 0;
+
+  position: fixed;
+  inset: 0;
+  /* 在文件(1)與近景(3)之間:墨蓋得住字,但蓋不住站在鏡頭前的東西。 */
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  /* 朱紅是整站唯一會滲的顏色 —— 梅花與血墨共用它,轉場也是同一滴墨。 */
+  background: radial-gradient(
+    circle at var(--ink-x) var(--ink-y),
+    color-mix(in oklab, var(--state-live) 78%, var(--surface-base)) 0%,
+    color-mix(in oklab, var(--state-live) 46%, var(--surface-base))
+      calc(var(--ink-radius) - var(--ink-edge)),
+    transparent var(--ink-radius)
+  );
+  /* 毛邊:把噪聲加進遮罩再取閾值,不是把邊緣模糊掉。
+     模糊得到的是一條糊邊,咬出來的才是墨在纖維上跑的樣子。 */
+  filter: url('#ink-rough');
+}
+
+.wipe[data-ink-on] {
+  opacity: calc(var(--ink-p) * 0.72);
+}

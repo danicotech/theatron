@@ -5,7 +5,7 @@
 
   position: fixed;
   inset: auto 0 0 0;
-  /* 文件在 1,所以近景真的站在字的前面 —— 那是「近景」的定義。
+  /* 文件在 1、墨暈轉場在 2,所以近景真的站在字與墨的前面 —— 那是「近景」的定義。
      再上去是軌道 45、導覽列 50,那些要能被點到。 */
   z-index: 3;
   block-size: min(56svh, 680px);
@@ -29,8 +29,14 @@
   /* width/height 屬性先把框撐住,lazy 的圖晚一點到也不會把版面推一下。 */
   inline-size: 100%;
   block-size: auto;
-  /* 壓一點彩度與亮度,近景才退到場景的光裡,而不是像貼上去的另一張圖。 */
-  filter: saturate(0.88) brightness(0.86);
+  /* 現有的去背素材是百業那一批**雪景**(素材缺口第三節),色調偏冷白,跟劍塚的
+     夜藍／霧青／朽木褐不是同一個世界。用色彩矩陣壓成同一個調子是補救,不是解法 ——
+     真正的解法是補幾件對色盤的去背。 */
+  filter: grayscale(0.86) brightness(0.46) contrast(1.12) sepia(0.3) hue-rotate(165deg)
+    saturate(1.5) blur(1.4px);
+  /* 離鏡頭最近的東西是**失焦**的,而且它不該跟字搶。壓透明度不是為了好看,
+     是為了「站在字前面的布景不准把字遮掉」—— 第五章的日期就排在近景那一帶。 */
+  opacity: 0.62;
 }
 
 /* 每件都從自己貼著的那一邊等,不是從下面統一浮起來 ——
@@ -74,111 +80,114 @@
       transform 780ms var(--ease-out),
       filter 780ms var(--ease-out);
   }
+
+  /* 會被風吹的:很慢、很小幅。近景的擺動大過一度就會跟遠景的風打架。 */
+  .active .piece[data-fg-sways] {
+    animation: sway 9200ms ease-in-out infinite alternate;
+    transform-origin: 50% 100%;
+  }
+}
+
+@keyframes sway {
+  from {
+    rotate: -0.6deg;
+  }
+
+  to {
+    rotate: 0.6deg;
+  }
 }
 
 /* ---------------------------------------------------------------- 擺位
    全部從底緣量起。去背素材是貼著自己最下面那一列不透明像素裁的,所以負的
-   bottom 是真的把一段畫進去的東西埋到畫面外,不是在修檔案的空白邊。 */
+   bottom 是真的把一段畫進去的東西埋到畫面外,不是在修檔案的空白邊。
 
-/* 燈籠是這批素材裡唯一亮的東西,所以它留在角落,不往畫面中間長。 */
-.lantern {
-  inset-inline-start: 0;
+   邊由帳冊的 side 決定、大小由 asset 決定:同一件素材會在不同章節站不同邊
+   (梅枝第一章靠右、第五章置中),但它的大小不該跟著變。 */
+
+.piece[data-fg-side='left'] {
+  inset-inline-start: -4%;
+}
+
+.piece[data-fg-side='right'] {
+  inset-inline-end: -5%;
+}
+
+/* 置中的那一件埋得更深:畫面正中央是讀字的地方,近景在那裡只能露一個邊。 */
+.piece[data-fg-side='centre'] {
+  inset-inline-start: 50%;
+  inset-block-end: -38%;
+  translate: -50% 0;
+}
+
+.piece[data-fg-asset='fg-lantern'] {
   inset-block-end: -12%;
   inline-size: clamp(100px, 12vw, 180px);
 }
 
-.plum {
-  inset-inline-end: -6%;
+.piece[data-fg-asset='fg-snow-plum-branch'] {
   inset-block-end: -14%;
   inline-size: clamp(320px, 42vw, 760px);
 }
 
-.brazier {
-  inset-inline-start: -2%;
-  inset-block-end: -22%;
-  inline-size: clamp(150px, 17vw, 290px);
-}
-
-.railing {
-  inset-inline-end: -12%;
-  inset-block-end: -26%;
-  inline-size: clamp(320px, 40vw, 700px);
-}
-
-.bamboo {
-  inset-inline-start: -5%;
+.piece[data-fg-asset='fg-snow-bamboo'] {
   inset-block-end: -12%;
   inline-size: clamp(260px, 30vw, 540px);
 }
 
-/* 旗子的布往旗竿的另一側飄,所以白旗站左、黑旗站右,兩面布都往中間吹。
-   反過來擺,兩面旗會各自把布吹出畫面。 */
-.bannerWhite {
-  inset-inline-start: -5%;
+.piece[data-fg-asset='fg-wood-railing'] {
+  inset-block-end: -26%;
+  inline-size: clamp(320px, 40vw, 700px);
+}
+
+.piece[data-fg-asset='fg-black-banner'] {
   inset-block-end: -36%;
   inline-size: clamp(130px, 14vw, 250px);
 }
 
-.bannerBlack {
-  inset-inline-end: -5%;
-  inset-block-end: -36%;
-  inline-size: clamp(130px, 14vw, 250px);
-}
-
-/* 山門在正中央、埋得最深:它是要走進去的門,不是擺在旁邊的景。
-   結尾那一章的字被 padding 推到門的上方,所以門可以站得比別件高。 */
-.gate {
-  inset-inline-start: 50%;
+/* 戰情桌是這一章的主角,埋得最深、站正中央。 */
+.piece[data-fg-asset='fg-war-table'] {
   inset-block-end: -30%;
   inline-size: clamp(380px, 52vw, 900px);
-  translate: -50% 0;
 }
 
 @media (max-width: 1080px) {
-  .plum {
+  .piece[data-fg-asset='fg-snow-plum-branch'] {
     inline-size: clamp(280px, 36vw, 500px);
   }
 
-  .railing {
+  .piece[data-fg-asset='fg-wood-railing'] {
     inline-size: clamp(300px, 38vw, 540px);
   }
 }
 
 /* 手機上文字佔掉整個寬度,近景只留一兩件錨點,其餘的全部撤掉 ——
-   同樣的素材數量在 375px 上只會變成擋住字的雜訊。 */
+   同樣的素材數量在 390px 上只會變成擋住字的雜訊。 */
 @media (max-width: 600px) {
   .stage {
     block-size: min(42svh, 380px);
   }
 
-  .railing,
-  .plum {
+  .piece[data-fg-asset='fg-wood-railing'],
+  .piece[data-fg-asset='fg-snow-plum-branch'] {
     display: none;
   }
 
-  .lantern {
-    inset-inline-start: -2%;
+  .piece[data-fg-asset='fg-lantern'] {
     inset-block-end: -6%;
     inline-size: clamp(84px, 22vw, 130px);
   }
 
-  .brazier {
-    inset-block-end: -24%;
-    inline-size: min(42vw, 175px);
-  }
-
-  .bamboo {
-    inset-inline-start: -12%;
+  .piece[data-fg-asset='fg-snow-bamboo'] {
     inline-size: min(62vw, 260px);
   }
 
-  .bannerWhite,
-  .bannerBlack {
+  .piece[data-fg-asset='fg-black-banner'] {
     inset-block-end: -14%;
     inline-size: min(28vw, 130px);
   }
 
-  .gate {
+  .piece[data-fg-asset='fg-war-table'] {
     inset-block-end: -26%;
     inline-size: min(112vw, 520px);
   }

@@ -1,0 +1,89 @@
+/* 準心。第 3 層變數只指向第 2 層。 */
+
+.reticle {
+  --rx: 50vw;
+  --ry: 50vh;
+
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  /* 在底片(55/60)之下、導覽列(50)之上:它是介面,不是畫面上的東西。 */
+  z-index: 52;
+  pointer-events: none;
+  translate: var(--rx) var(--ry);
+  /* 指標還沒動過之前不畫 —— 一個停在左上角的準心讀起來是壞掉。 */
+  opacity: 0;
+}
+
+.reticle[data-live] {
+  opacity: 1;
+}
+
+/* 微環。細到幾乎只是一圈光 —— 它報的是「指標還活著」,不是要被看見。 */
+.ring {
+  position: absolute;
+  inset-block-start: -13px;
+  inset-inline-start: -13px;
+  inline-size: 26px;
+  block-size: 26px;
+  border: 1px solid color-mix(in oklab, var(--text-primary) 42%, transparent);
+  border-radius: var(--radius-pill);
+}
+
+.cross {
+  position: absolute;
+  inset-block-start: -1px;
+  inset-inline-start: -5px;
+  inline-size: 10px;
+  block-size: 1px;
+  background-color: color-mix(in oklab, var(--text-primary) 62%, transparent);
+}
+
+/* 讀數掛在右下,離指標一個環的距離 —— 壓在指標正下方會擋住要點的東西。 */
+.readout {
+  position: absolute;
+  inset-block-start: 16px;
+  inset-inline-start: 20px;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-micro);
+  letter-spacing: 0.18em;
+  color: color-mix(in oklab, var(--text-primary) 62%, transparent);
+}
+
+/* 壓在可啟動的東西上:環咬住它、字換成那一行、顏色換成劍光青。
+   劍光青在這個站只給「會發光的東西」用 —— 準心吸附是介面在發光。 */
+.reticle[data-hot] .ring {
+  inset-block-start: -17px;
+  inset-inline-start: -17px;
+  inline-size: 34px;
+  block-size: 34px;
+  border-color: var(--accent-blade);
+}
+
+.reticle[data-hot] .cross {
+  background-color: var(--accent-blade);
+}
+
+.reticle[data-hot] .readout {
+  color: var(--accent-blade);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ring {
+    transition:
+      inline-size var(--motion-hover) var(--ease-out),
+      block-size var(--motion-hover) var(--ease-out),
+      inset-block-start var(--motion-hover) var(--ease-out),
+      inset-inline-start var(--motion-hover) var(--ease-out),
+      border-color var(--motion-hover) var(--ease-standard);
+  }
+}
+
+/* 粗指標上完全不畫。元件那邊也不掛 —— 這一條只是雙保險。 */
+@media (pointer: coarse) {
+  .reticle {
+    display: none;
+  }
+}

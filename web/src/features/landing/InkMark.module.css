@@ -9,7 +9,7 @@
   /* 墨字是黑的,壓在夜色上等於看不見 —— screen 讓它只加亮、不塗黑,
      再壓到幾乎沒有,才是「紙上還留著上一筆」的感覺。 */
   mix-blend-mode: screen;
-  opacity: 0.1;
+  opacity: 0.055;
   pointer-events: none;
 }
 

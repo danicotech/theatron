@@ -81,10 +81,24 @@ export function installMatchMedia(reduced: boolean): void {
   }));
 }
 
-/** rAF 在測試裡直接跑完,不等下一格。 */
+/**
+ * rAF 在測試裡直接跑完,不等下一格。
+ *
+ * 但**巢狀的不跑**:首頁上有好幾個自我排程的迴圈(序幕每格寫 CSS 變數、
+ * 墨暈轉場每格算遮罩),它們在回呼裡再排一次下一格。同步執行加上自我排程
+ * 等於無限遞迴,測試會以「呼叫堆疊爆掉」收場 —— 而那跟程式對不對無關。
+ * 所以第一層照跑(一次就夠,那是「這一格」),巢狀的只收下不執行。
+ */
 export function installFrames(): void {
+  let depth = 0;
   vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
-    cb(0);
+    if (depth > 0) return 1;
+    depth += 1;
+    try {
+      cb(0);
+    } finally {
+      depth -= 1;
+    }
     return 1;
   });
   vi.stubGlobal('cancelAnimationFrame', () => {});

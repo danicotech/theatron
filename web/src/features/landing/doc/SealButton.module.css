@@ -1,0 +1,143 @@
+/* 印章按鈕。第 3 層變數只指向第 2 層。 */
+
+.gate {
+  display: grid;
+  gap: clamp(24px, 4vh, 44px);
+  margin-block-start: clamp(32px, 5vh, 70px);
+  justify-items: start;
+}
+
+.seal {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(64px, 9vw, 104px) auto;
+  align-items: center;
+  gap: clamp(14px, 2.4vw, 26px);
+  /* 觸控目標下限。印面本身就比這個大,但整顆按鈕的判定區要一起夠大。 */
+  min-block-size: var(--hit-target);
+  padding: var(--space-4) clamp(20px, 3vw, 32px) var(--space-4) var(--space-4);
+  border: 1px solid color-mix(in oklab, var(--state-live) 46%, transparent);
+  border-radius: var(--radius-control);
+  background-color: color-mix(in oklab, var(--surface-raised) 72%, transparent);
+  color: var(--text-primary);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+  /* 墨會暈出邊界,但不該把整頁染紅。 */
+  overflow: hidden;
+}
+
+.face {
+  position: relative;
+  z-index: 1;
+  display: block;
+  inline-size: 100%;
+}
+
+.label {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-lg);
+  letter-spacing: 0.18em;
+}
+
+/* 暈開的墨。由 ink.ts 寫變數,跟轉場與序幕的血墨是同一種墨。 */
+.bloom {
+  --ink-x: 50%;
+  --ink-y: 50%;
+  --ink-radius: 0%;
+  --ink-edge: 8%;
+  --ink-p: 0;
+
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--ink-x) var(--ink-y),
+    color-mix(in oklab, var(--state-live) 72%, transparent) 0%,
+    color-mix(in oklab, var(--state-live) 38%, transparent)
+      calc(var(--ink-radius) - var(--ink-edge)),
+    transparent var(--ink-radius)
+  );
+  filter: url('#ink-rough');
+  opacity: var(--ink-p);
+}
+
+/* ─────────────────────────────────────────────────────── 狀態 */
+
+.seal[data-state='hover'] {
+  border-color: var(--state-live);
+  background-color: var(--surface-overlay);
+}
+
+/* 蓋下去:印章往紙裡沉,墨同時暈開。沉是靠縮,不是靠陰影 ——
+   這個站沒有陰影,層次全部靠剪影與明度。 */
+.seal[data-state='activating'] .face {
+  transform: scale(0.93);
+}
+
+/* 蓋完了:印章留在紙上,邊框改成實的朱線。 */
+.seal[data-state='active'] {
+  border-color: var(--state-live);
+}
+
+.seal[data-state='active'] .face {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .seal {
+    transition:
+      border-color var(--motion-hover) var(--ease-standard),
+      background-color var(--motion-hover) var(--ease-standard);
+  }
+
+  .face {
+    transition: transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .bloom {
+    transition: opacity 520ms var(--ease-out);
+  }
+}
+
+/* ─────────────────────────────────────────────────────── 被展開的那一塊 */
+
+/* 起手式(收起來)綁在 scripting: enabled 上:藏東西的前提是「等一下有人會揭開」。
+   沒有 JS 的瀏覽器永遠等不到 data-open,報名資訊就會永遠看不到 ——
+   而那是這一章唯一要傳達的東西。 */
+@media (scripting: enabled) {
+  /* 用 grid-template-rows 的 0fr → 1fr,不是 height: auto:
+     這是唯一能對未知高度做過渡、又不必量版面的寫法。
+     裡面永遠只有一個 .panelInner,所以 0fr 一定作用在對的那一列上。 */
+  .panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+  }
+
+  .panelInner {
+    min-block-size: 0;
+  }
+
+  .panel[data-open] {
+    grid-template-rows: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .panel {
+    transition: grid-template-rows 520ms var(--ease-out);
+  }
+}
+
+@media (max-width: 600px) {
+  .seal {
+    grid-template-columns: 56px auto;
+    inline-size: 100%;
+  }
+}

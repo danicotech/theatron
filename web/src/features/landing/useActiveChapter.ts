@@ -14,7 +14,7 @@ import type { ChapterId } from './chapters';
  */
 export function useActiveChapter(
   root: RefObject<HTMLElement | null>,
-  initial: ChapterId = '00',
+  initial: ChapterId = '01',
 ): ChapterId {
   const [active, setActive] = useState<ChapterId>(initial);
 

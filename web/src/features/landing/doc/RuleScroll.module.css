@@ -1,0 +1,140 @@
+/* 舊捲軸。第 3 層變數只指向第 2 層。 */
+
+.table {
+  position: relative;
+  margin-block-start: clamp(36px, 6vh, 80px);
+  padding: clamp(26px, 4vw, 54px) clamp(20px, 3.4vw, 46px);
+  border: 1px solid color-mix(in oklab, var(--surface-wood) 70%, transparent);
+  /* 紙。不是白 —— 這卷東西在破頂的大廳裡躺了很多年。 */
+  background-color: color-mix(in oklab, var(--surface-raised) 88%, var(--surface-wood));
+  /* 紙纖維。看得見就變成花紋,看不見才是紙。 */
+  filter: url('#ink-paper');
+}
+
+/* 兩根軸。上下各一,捲軸是它們之間的那張紙。 */
+.rod {
+  position: absolute;
+  inset-inline: -6px;
+  block-size: 12px;
+  background-image: linear-gradient(
+    var(--surface-wood),
+    color-mix(in oklab, var(--surface-wood) 55%, var(--surface-base))
+  );
+}
+
+.rodTop {
+  inset-block-start: -6px;
+}
+
+.rodBottom {
+  inset-block-end: -6px;
+}
+
+.paper {
+  display: grid;
+  gap: clamp(24px, 4vh, 44px);
+}
+
+.block {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.head {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-xl);
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+}
+
+.plain,
+.ordered {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  padding-inline-start: var(--space-6);
+  font-size: var(--text-md);
+  line-height: 1.9;
+  color: var(--text-primary);
+  /* 條列前面一條朱色短線。捲軸上的句讀就長這樣,不是圓點。 */
+  background-image: linear-gradient(var(--state-live), var(--state-live));
+  background-repeat: no-repeat;
+  background-position: 0 0.95em;
+  background-size: 10px 1px;
+}
+
+.ordered {
+  counter-reset: rule;
+}
+
+.ordered .item {
+  counter-increment: rule;
+  background-image: none;
+}
+
+.ordered .item::before {
+  content: counter(rule, cjk-ideographic) '、';
+  margin-inline-start: calc(var(--space-6) * -1);
+  font-family: var(--font-display);
+  color: var(--state-live);
+}
+
+.tba {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  color: var(--text-secondary);
+}
+
+/* ─────────────────────────────────────────────────────── 展開 */
+
+/* 起手式綁在 scripting: enabled 上:藏起來的前提是「等一下有人會展開」。
+   沒有 JS 的瀏覽器永遠等不到 data-state=activating,整卷內容就會是空的。 */
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .table[data-state='idle'] .paper {
+    opacity: 0;
+    /* 從中間往上下讓開。用 scaleY 而不是 height:高度動畫要嘛量不到終點,
+       要嘛每一格重排整個章節。 */
+    transform: scaleY(0.04);
+    transform-origin: center;
+  }
+
+  /* 兩根軸一開始疊在中間,紙從它們之間長出來。用絕對位置而不是 transform:
+     它們要停在容器的中線上,而 transform 的百分比是對自己的高度算的 ——
+     一根 12px 的軸不管平移幾個百分比都還在原地。 */
+  .table[data-state='idle'] .rodTop {
+    inset-block-start: calc(50% - 6px);
+  }
+
+  .table[data-state='idle'] .rodBottom {
+    inset-block-end: calc(50% - 6px);
+  }
+
+  .table[data-state='activating'] .paper,
+  .table[data-state='active'] .paper {
+    transition:
+      opacity 700ms var(--ease-out) 220ms,
+      transform 1100ms var(--ease-out);
+  }
+
+  .table[data-state='activating'] .rod,
+  .table[data-state='active'] .rod {
+    transition:
+      inset-block-start 1100ms var(--ease-out),
+      inset-block-end 1100ms var(--ease-out);
+  }
+}
+
+@media (max-width: 600px) {
+  .item {
+    font-size: var(--text-md);
+  }
+}

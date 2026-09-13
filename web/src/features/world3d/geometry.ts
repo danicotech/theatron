@@ -116,6 +116,18 @@ export function sweepProfile(
   return assemble(position, normal, uv, index);
 }
 
+export interface RoofHole {
+  /** 破洞中心,屋頂的區域座標(與 halfWidth / halfDepth 同一套)。 */
+  x: number;
+  z: number;
+  /** 兩個半徑。橢圓而不是圓:屋頂塌下來是沿著椽木的方向裂開的。 */
+  rx: number;
+  rz: number;
+  /** 邊緣的鋸齒量,0…0.5。0 是用剪刀剪出來的洞,不是塌出來的。 */
+  ragged?: number;
+  seed?: number;
+}
+
 export interface FlaredRoofOptions {
   /** 沿脊方向(x)的半寬,量到簷口。 */
   halfWidth: number;
@@ -133,6 +145,28 @@ export interface FlaredRoofOptions {
   segZ?: number;
   /** UV 的世界尺度:瓦的疏密。 */
   tileScale?: number;
+  /** 破頂。有洞的話,洞緣會自己長出一圈斷面 —— 見 flaredRoof 的註解。 */
+  hole?: RoofHole;
+}
+
+/**
+ * 屋面在某一點比簷口基準高多少。
+ *
+ * 抽成獨立的函式而不是留在 flaredRoof 裡面,是因為**場地平面圖需要問它**:
+ * 屋頂破洞的世界座標 y 由這條曲線決定,而月光從洞口斜射到桌面的落點又由那個
+ * y 決定。如果「洞在哪」與「光落在哪」各自寫一組數字,調一次屋頂高度就會有
+ * 一道打在半空中的月光 —— 這正是規格裡「月光穿過破洞落在桌上」會壞掉的方式。
+ */
+export function flaredRoofHeight(options: FlaredRoofOptions, x: number, z: number): number {
+  const { halfWidth: A, halfDepth: B, ridgeHalf: R, rise, flare = 0.9 } = options;
+  const ax = Math.min(1, Math.abs(x) / A);
+  const az = Math.min(1, Math.abs(z) / B);
+  // 脊沿 x 走,所以 |x| 在 R 之內都還在脊上,從那裡才開始算行程。
+  const tx = clamp((Math.abs(x) - R) / Math.max(A - R, EPS), 0, 1);
+  const t = Math.min(1, Math.max(tx, az));
+  const shell = rise * Math.pow(1 - t, 1.5);
+  const lift = flare * rise * smoothstep(0.7, 1, t) * (0.45 + 0.75 * Math.min(ax, az));
+  return shell + lift;
 }
 
 /**
@@ -146,30 +180,57 @@ export interface FlaredRoofOptions {
  *
  * 輸出是實心的:上殼、下殼、再加一圈把兩緣縫起來的簷板。簷板自己帶一圈頂點,
  * 法線才能是側向的 —— 少了它,簷口在逆光下會薄成一條線。
+ *
+ * **破頂**(`hole`)是這一版加的。做法是把落在洞裡的格子整個不畫,再沿著
+ * 「留下的格子 × 不見的鄰居」這條界線縫一圈斷面。斷面必須自己帶橫向的法線,
+ * 而且**兩面都要畫** —— 月光從洞口斜射進來,同一圈斷面在第三章是從下面看
+ * (它是亮的那一圈),在第七章是從外面看(它是缺口的輪廓)。只畫一面的話,
+ * 其中一章那圈邊會整個消失,洞看起來就像貼上去的黑色貼紙。
  */
 export function flaredRoof(options: FlaredRoofOptions): BufferGeometry {
+  // 曲線本身由 flaredRoofHeight 負責(場地平面圖也要問它),所以這裡只解出
+  // 「格子怎麼切」與「厚度多少」這幾個 —— rise / flare / ridgeHalf 不在其中。
   const {
     halfWidth: A,
     halfDepth: B,
-    ridgeHalf: R,
-    rise,
     thickness,
-    flare = 0.9,
     segX = 40,
     segZ = 26,
     tileScale = 0.16,
+    hole,
   } = options;
 
-  const heightAt = (x: number, z: number): number => {
-    const ax = Math.min(1, Math.abs(x) / A);
-    const az = Math.min(1, Math.abs(z) / B);
-    // 脊沿 x 走,所以 |x| 在 R 之內都還在脊上,從那裡才開始算行程。
-    const tx = clamp((Math.abs(x) - R) / Math.max(A - R, EPS), 0, 1);
-    const t = Math.min(1, Math.max(tx, az));
-    const shell = rise * Math.pow(1 - t, 1.5);
-    const lift = flare * rise * smoothstep(0.7, 1, t) * (0.45 + 0.75 * Math.min(ax, az));
-    return shell + lift;
+  const heightAt = (x: number, z: number): number => flaredRoofHeight(options, x, z);
+
+  // 洞緣的鋸齒:半徑隨角度擺動。用三個不同週期的正弦相加而不是噪聲,是因為
+  // 這裡只需要「不圓」,而正弦保證環繞的時候首尾接得起來,噪聲不保證。
+  const jag = hole?.ragged ?? 0.22;
+  const phase = ((hole?.seed ?? 7) % 17) * 0.37;
+  const inHole = (x: number, z: number): boolean => {
+    if (hole === undefined) return false;
+    const dx = (x - hole.x) / hole.rx;
+    const dz = (z - hole.z) / hole.rz;
+    const r = Math.hypot(dx, dz);
+    if (r > 1 + jag) return false;
+    const a = Math.atan2(dz, dx);
+    const wobble =
+      1 +
+      jag * (0.55 * Math.sin(3 * a + phase) + 0.3 * Math.sin(5 * a - phase) + 0.15 * Math.sin(a));
+    return r < wobble;
   };
+
+  const cellX = (i: number) => -A + (2 * A * i) / segX;
+  const cellZ = (j: number) => -B + (2 * B * j) / segZ;
+  // 一格畫不畫,用格心判斷。用四個角判斷的話「有一角在洞裡」跟「四角都在洞裡」
+  // 得各有一套規則,而格心只有一個答案,鋸齒由格子的大小自己提供。
+  const kept: boolean[] = [];
+  for (let j = 0; j < segZ; j++) {
+    for (let i = 0; i < segX; i++) {
+      kept[j * segX + i] = !inHole((cellX(i) + cellX(i + 1)) / 2, (cellZ(j) + cellZ(j + 1)) / 2);
+    }
+  }
+  const keepAt = (i: number, j: number) =>
+    i < 0 || j < 0 || i >= segX || j >= segZ ? true : kept[j * segX + i]!;
 
   const position: number[] = [];
   const normal: number[] = [];
@@ -195,12 +256,52 @@ export function flaredRoof(options: FlaredRoofOptions): BufferGeometry {
     }
     for (let j = 0; j < segZ; j++) {
       for (let i = 0; i < segX; i++) {
+        if (!kept[j * segX + i]!) continue;
         const a = k * perShell + j * (segX + 1) + i;
         const b = a + 1;
         const c = a + segX + 2;
         const e = a + segX + 1;
         if (under) index.push(a, c, b, a, e, c);
         else index.push(a, b, c, a, c, e);
+      }
+    }
+  }
+
+  // 洞緣的斷面。走過每一格留下來的格子,看四個鄰居有沒有不見;不見的那一邊
+  // 就縫一片。外圈的「鄰居」當成留著(keepAt 的邊界規則),所以簷口不會被
+  // 縫第二次 —— 那裡本來就有簷板。
+  if (hole !== undefined) {
+    const rimQuad = (
+      ax: number,
+      az: number,
+      bx: number,
+      bz: number,
+      nx: number,
+      nz: number,
+    ): void => {
+      const base = position.length / 3;
+      const ay = heightAt(ax, az);
+      const by = heightAt(bx, bz);
+      position.push(ax, ay, az, bx, by, bz, bx, by - thickness, bz, ax, ay - thickness, az);
+      for (let n = 0; n < 4; n++) normal.push(nx, 0, nz);
+      uv.push(ax * tileScale, 0, bx * tileScale, 0, bx * tileScale, thickness * tileScale);
+      uv.push(ax * tileScale, thickness * tileScale);
+      // 正反各一份:洞緣在第三章是從下面看的,在第七章是從外面看的。
+      index.push(base, base + 1, base + 2, base, base + 2, base + 3);
+      index.push(base, base + 2, base + 1, base, base + 3, base + 2);
+    };
+
+    for (let j = 0; j < segZ; j++) {
+      for (let i = 0; i < segX; i++) {
+        if (!kept[j * segX + i]!) continue;
+        const x0 = cellX(i);
+        const x1 = cellX(i + 1);
+        const z0 = cellZ(j);
+        const z1 = cellZ(j + 1);
+        if (!keepAt(i - 1, j)) rimQuad(x0, z0, x0, z1, -1, 0);
+        if (!keepAt(i + 1, j)) rimQuad(x1, z1, x1, z0, 1, 0);
+        if (!keepAt(i, j - 1)) rimQuad(x1, z0, x0, z0, 0, -1);
+        if (!keepAt(i, j + 1)) rimQuad(x0, z1, x1, z1, 0, 1);
       }
     }
   }
@@ -270,9 +371,33 @@ export function at(geo: BufferGeometry, x: number, y: number, z: number): Buffer
   return geo;
 }
 
-/** 繞 Y 軸轉。牌坊的側間與燈籠的柱子都要轉。 */
+/** 繞 Y 軸轉。牌樓的側間與門板都要轉。 */
 export function turnY(geo: BufferGeometry, radians: number): BufferGeometry {
   geo.applyMatrix4(new Matrix4().makeRotationY(radians));
+  return geo;
+}
+
+/**
+ * 讓一份幾何「歪掉」:繞著地面上某一點傾斜。
+ *
+ * 傾斜的牌樓不是把整個 Group 轉一下就算了 —— 轉 Group 的話幾何本身仍然是正的,
+ * 而「柱腳還踩在原地、柱頂已經偏出去八十公分」這件事要在頂點上看得見,測試
+ * 才量得到,合批也才不用為了它多留一層 transform。
+ *
+ * 樞紐給 y:柱腳埋在土裡,所以它繞的是地面那一點,不是幾何的中心。
+ */
+export function lean(
+  geo: BufferGeometry,
+  radiansZ: number,
+  radiansX: number,
+  pivotY = 0,
+): BufferGeometry {
+  const m = new Matrix4()
+    .makeTranslation(0, pivotY, 0)
+    .multiply(new Matrix4().makeRotationZ(radiansZ))
+    .multiply(new Matrix4().makeRotationX(radiansX))
+    .multiply(new Matrix4().makeTranslation(0, -pivotY, 0));
+  geo.applyMatrix4(m);
   return geo;
 }
 
@@ -288,6 +413,23 @@ export function scaleUv(geo: BufferGeometry, su: number, sv: number): BufferGeom
   if (attr === undefined) return geo;
   for (let i = 0; i < attr.count; i++) {
     attr.setXY(i, attr.getX(i) * su, attr.getY(i) * sv);
+  }
+  attr.needsUpdate = true;
+  return geo;
+}
+
+/**
+ * 把 UV 整個平移。
+ *
+ * 竹子是一張圖集:左半是竹身、右半是葉子。一根竹子要只有一次 draw call,
+ * 竹身與葉片就得共用同一支材質,於是葉片的 uv 得先縮到右半再推過去。
+ * 沒有這個函式的話,唯一的辦法是兩支材質、兩倍的 draw call。
+ */
+export function offsetUv(geo: BufferGeometry, du: number, dv: number): BufferGeometry {
+  const attr = geo.getAttribute('uv') as BufferAttribute | InterleavedBufferAttribute | undefined;
+  if (attr === undefined) return geo;
+  for (let i = 0; i < attr.count; i++) {
+    attr.setXY(i, attr.getX(i) + du, attr.getY(i) + dv);
   }
   attr.needsUpdate = true;
   return geo;

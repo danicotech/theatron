@@ -1,0 +1,25 @@
+/* 朱文方印。第 3 層變數只指向第 2 層。 */
+
+.seal {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.body {
+  /* 朱紅。印泥不是均勻的一塊 —— 邊緣重、中間薄,所以印身與內邊用不同的濃度。 */
+  fill: color-mix(in oklab, var(--state-live) 88%, transparent);
+}
+
+.inner {
+  fill: none;
+  stroke: color-mix(in oklab, var(--surface-base) 78%, transparent);
+  stroke-width: 4;
+}
+
+.text {
+  fill: color-mix(in oklab, var(--surface-base) 82%, transparent);
+  font-family: var(--font-display);
+  font-weight: var(--weight-display-max);
+  letter-spacing: 0;
+}

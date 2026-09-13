@@ -2,18 +2,17 @@
 
 import { useEffect, useRef, useState, type RefObject } from 'react';
 
-import type { ChapterId, ScenePlate } from './chapters';
+import type { ChapterId } from './chapters';
 import { SceneLayer } from './SceneLayer';
-import { useChapterProgress } from './useChapterProgress';
+import { PROGRESS_MAX } from './useChapterProgress';
 import styles from './WorldScene.module.css';
 
 export interface WorldSceneProps {
-  /** 降級用的 2D 場景板。沒有 WebGL、或使用者要求減少動態時就是它上場。 */
-  plates: readonly ScenePlate[];
+  /** 連續章節進度(0…章數−1)。由 Landing 量,這裡只讀。 */
+  progress: RefObject<number>;
+  /** 現在是哪一章。降級路徑要用它決定站哪一張板子。 */
   active: ChapterId;
   reduced: boolean;
-  /** 文件的根,進度是從它底下的章節量出來的。 */
-  doc: RefObject<HTMLElement | null>;
 }
 
 /**
@@ -21,25 +20,23 @@ export interface WorldSceneProps {
  *
  * 為什麼是這個形狀:
  *
- *  1. **2D 那一層沒有被刪掉,它是降級路徑。** 沒有 WebGL、或使用者開了減少動態,
- *     就直接畫 SceneLayer,連 canvas 都不建。內容永遠讀得完,這是底線。
+ *  1. **它是布景,不是內容。** 整層 aria-hidden。沒有 WebGL、或使用者開了減少
+ *     動態,就根本不建 canvas —— 什麼都不會少讀到,因為每一個字都在 DOM 那一層。
+ *     序幕自己還有一張靜態海報頂著(見 prologue/Prologue.tsx)。
  *  2. **three 是動態載入的。** 它比整個頁面其他所有東西加起來還大;掛在首屏的
  *     JS 包裡,第一次繪製就得等它下載完。所以等元件掛好、確定真的要用了才載。
- *  3. **畫出第一格之前,2D 那層留著。** 不然使用者會先看到一塊黑,等個幾百毫秒
- *     世界才亮起來 —— 那個黑比沒有 3D 更糟。
- *
- * 相機吃的是 useChapterProgress 的連續進度(0…4),不是離散的章節;
- * 近景與章節軌道仍然吃離散的 active。兩種答案各有各的用途,見那兩個 hook。
+ *  3. **進度要換算。** 章節有七章(進度 0…6),而相機的 waypoint 是 world3d 那邊
+ *     定的,數量不一定相同。直接把 0…6 餵進去,超出的部分會被夾在最後一個鏡位上 ——
+ *     後三章就變成同一個畫面。所以按比例縮進相機自己的範圍,
+ *     而那個範圍要在 three 載進來之後才問得到(camera.ts import three)。
  */
-export function WorldScene({ plates, active, reduced, doc }: WorldSceneProps) {
+export function WorldScene({ progress, active, reduced }: WorldSceneProps) {
   const canvas = useRef<HTMLCanvasElement>(null);
-  const progress = useChapterProgress(doc);
   // 沒有 WebGL 就永遠不建 canvas。探測要在瀏覽器裡做,所以初值是 null(還不知道)。
   const [webgl, setWebgl] = useState<boolean | null>(null);
-  // 世界畫出第一格之前,2D 那層不能收。
   const [painted, setPainted] = useState(false);
 
-  const wanted = !reduced && webgl !== false;
+  const wanted = !reduced && webgl === true;
 
   useEffect(() => {
     if (reduced) {
@@ -56,15 +53,19 @@ export function WorldScene({ plates, active, reduced, doc }: WorldSceneProps) {
   }, [reduced]);
 
   useEffect(() => {
-    if (webgl !== true || reduced) return;
+    if (!wanted) return;
     const el = canvas.current;
     if (el === null) return;
 
     let alive = true;
     let stop: (() => void) | undefined;
 
-    void Promise.all([import('../world3d/engine'), import('../world3d/quality')]).then(
-      ([{ createEngine }, { detectQuality, probeBrowser, degrade }]) => {
+    void Promise.all([
+      import('../world3d/engine'),
+      import('../world3d/quality'),
+      import('../world3d/camera'),
+    ])
+      .then(([{ createEngine }, { detectQuality, probeBrowser, degrade }, { WAYPOINTS }]) => {
         if (!alive) return;
 
         const quality = detectQuality(probeBrowser());
@@ -77,6 +78,10 @@ export function WorldScene({ plates, active, reduced, doc }: WorldSceneProps) {
           height: window.innerHeight,
           pixelRatio: ratio,
         });
+
+        // 七章的進度 → 相機自己的鏡位範圍。除以零不可能(至少兩個鏡位),
+        // 但 PROGRESS_MAX 可能是 0(只有一章),所以那一邊要防。
+        const scale = PROGRESS_MAX > 0 ? (WAYPOINTS.length - 1) / PROGRESS_MAX : 0;
 
         // 指標視差。用歸一化座標(−1…1),相機那邊決定要用多少。
         const pointer = { x: 0, y: 0 };
@@ -110,7 +115,7 @@ export function WorldScene({ plates, active, reduced, doc }: WorldSceneProps) {
           last = now;
           if (hidden) return;
 
-          engine.frame(dt, now / 1000, progress.current, pointer.x, pointer.y);
+          engine.frame(dt, now / 1000, progress.current * scale, pointer.x, pointer.y);
 
           if (first) {
             first = false;
@@ -142,24 +147,30 @@ export function WorldScene({ plates, active, reduced, doc }: WorldSceneProps) {
           document.removeEventListener('visibilitychange', onVisibility);
           engine.dispose();
         };
-      },
-    );
+      })
+      .catch(() => {
+        // 建不起來就當成沒有 WebGL。一塊黑畫布比沒有布景糟得多。
+        if (alive) setWebgl(false);
+      });
 
     return () => {
       alive = false;
       stop?.();
+      setPainted(false);
     };
-  }, [webgl, reduced, progress]);
+  }, [wanted, reduced, progress]);
 
   return (
     <>
-      {/* 世界還沒亮起來之前,2D 那層頂著;亮了之後它淡出讓位。 */}
-      {(!wanted || !painted) && <SceneLayer plates={plates} active={active} reduced={reduced} />}
+      {/* 世界亮起來之前、或根本不會亮的時候,2D 那層頂著。
+          任何一刻都不會是一塊沒有定義的黑。 */}
+      {(!wanted || !painted) && <SceneLayer active={active} reduced={reduced} />}
       {wanted && (
         <canvas
           ref={canvas}
           className={[styles.canvas, painted ? styles.lit : ''].join(' ')}
           aria-hidden="true"
+          data-testid="world-canvas"
         />
       )}
     </>
