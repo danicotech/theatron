@@ -4,29 +4,6 @@
   gap: var(--space-6);
 }
 
-.head {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.eyebrow {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
-  letter-spacing: 0.22em;
-  color: var(--text-secondary);
-}
-
-.title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: var(--weight-display-max);
-  font-size: var(--text-2xl);
-  letter-spacing: 0.04em;
-  color: var(--text-primary);
-}
-
 .lede {
   margin: 0;
   max-inline-size: 62ch;
@@ -46,7 +23,8 @@
 /* 用負的 inline margin 撐到頁面邊,橫條才像轉播的 lower-third,不是頁裡的一塊。 */
 .sticky {
   position: sticky;
-  inset-block-start: 0;
+  /* 黏在固定導覽列的下緣,不是視窗上緣 —— 黏在 0 會被導覽列整條蓋掉。 */
+  inset-block-start: var(--nav-h);
   z-index: 1;
   margin-inline: calc(var(--space-4) * -1);
   background-color: var(--surface-base);

@@ -15,7 +15,7 @@ export default async function JudgeMatchPage({
 }) {
   const { slug, matchId } = await params;
   return (
-    <main className={styles.page}>
+    <main id="main" className={styles.page}>
       <MatchConsole slug={slug} matchId={matchId} />
     </main>
   );

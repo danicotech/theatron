@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: '規則與讓武項目 · 百業試�
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   return (
-    <main className={styles.page}>
+    <main id="main" className={styles.page}>
       <RulesPage slug={slug} />
     </main>
   );

@@ -13,5 +13,9 @@ export const metadata: Metadata = {
 const themes = themesJson.map(parseEventTheme);
 
 export default function KitchenSinkPage() {
-  return <KitchenSink themes={themes} />;
+  return (
+    <main id="main">
+      <KitchenSink themes={themes} />
+    </main>
+  );
 }

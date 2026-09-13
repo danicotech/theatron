@@ -1,5 +1,6 @@
 'use client';
 
+import { ChapterHead } from '@theatron/ui';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -31,15 +32,15 @@ export function SignupPage({ slug }: { slug: string }) {
   }
 
   return (
-    <>
-      <header className={styles.head}>
-        <p className={styles.eyebrow}>百業試鋒</p>
-        <h1 className={styles.title}>報名參賽</h1>
-        <p className={styles.lede}>
-          填一個遊戲ID 就算報名。其餘欄位留空也送得出去 —— 它們是給御風羽評段用的材料。
-        </p>
-      </header>
+    <div className={styles.stack}>
+      {/* 報名不在導覽序列裡,印記用「名」。 */}
+      <ChapterHead
+        number="名"
+        eyebrow="百業試鋒"
+        title="報名參賽"
+        lede="填一個遊戲ID 就算報名。其餘欄位留空也送得出去 —— 它們是給御風羽評段用的材料。"
+      />
       <SignupForm slug={slug} onDone={setDone} />
-    </>
+    </div>
   );
 }

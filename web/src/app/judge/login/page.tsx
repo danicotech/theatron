@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: '裁判登入' };
 
 export default function Page() {
   return (
-    <main className={styles.page}>
+    <main id="main" className={styles.page}>
       {/* useSearchParams 需要 Suspense 邊界,否則整頁會退成純 client render。 */}
       <Suspense fallback={null}>
         <JudgeLogin />

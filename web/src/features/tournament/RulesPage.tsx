@@ -1,7 +1,7 @@
 'use client';
 
 import { ConnectError } from '@connectrpc/connect';
-import { RankSigil } from '@theatron/ui';
+import { ChapterHead, RankSigil } from '@theatron/ui';
 import { useEffect, useState } from 'react';
 
 import { activityApi } from '../../lib/api/activity';
@@ -52,14 +52,17 @@ export function RulesPage({ slug }: { slug: string }) {
 
   return (
     <div className={styles.page}>
-      <header className={styles.head}>
-        <p className={styles.eyebrow}>百業試鋒 · 規則</p>
-        <h1 className={styles.title}>段位定其差,BP 量其讓</h1>
-        <p className={styles.lede}>
-          段位差決定低段位的一方拿到多少讓武 BP,他用這些 BP 對高段位的一方施加正式比賽限制。
-          <strong>讓武不是放水</strong> —— 受限的一方仍須全力求勝,只是要用更難的方式取勝。
-        </p>
-      </header>
+      <ChapterHead
+        number="參"
+        eyebrow="百業試鋒 · 規則"
+        title="段位定其差,BP 量其讓"
+        lede={
+          <>
+            段位差決定低段位的一方拿到多少讓武 BP,他用這些 BP 對高段位的一方施加正式比賽限制。
+            <strong>讓武不是放水</strong> —— 受限的一方仍須全力求勝,只是要用更難的方式取勝。
+          </>
+        }
+      />
 
       <section className={styles.section} aria-labelledby="ranks">
         <h2 className={styles.h2} id="ranks">

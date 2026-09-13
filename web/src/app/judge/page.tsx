@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function JudgePage() {
   return (
-    <main className={styles.page}>
+    <main id="main" className={styles.page}>
       <JudgeEntry />
     </main>
   );

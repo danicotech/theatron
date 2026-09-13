@@ -14,7 +14,7 @@ export default async function Page({
 }) {
   const { slug, matchId } = await params;
   return (
-    <main className={`${styles.page} ${styles.withDock}`}>
+    <main id="main" className={`${styles.page} ${styles.withDock}`}>
       <MatchPage slug={slug} matchId={matchId} />
       <BetSlip slug={slug} />
     </main>

@@ -1,23 +1,23 @@
+/* 功能頁的殼。導覽列是固定的,所以頁面自己空出 --nav-h,
+   不是在 body 上加 padding —— 首頁要讓場景頂到最上面,它不該被全站的 padding 綁住。
+   內容欄維持 820px;--pad 是隨視窗寬度走的頁邊距,加在 820 之外。 */
 .page {
-  max-inline-size: 820px;
+  max-inline-size: calc(820px + var(--pad) * 2);
   margin-inline: auto;
-  padding: var(--space-8) var(--space-4);
+  padding: calc(var(--nav-h) + var(--space-8)) var(--pad) calc(var(--space-8) * 2);
 }
 
 @media (min-width: 768px) {
   .page {
-    padding-inline: var(--space-6);
-    padding-block-start: calc(var(--space-8) * 2);
+    padding-block-start: calc(var(--nav-h) + var(--space-8) * 2);
   }
 }
 
-.pageTitle {
-  margin: 0 0 var(--space-6);
-  font-family: var(--font-display);
-  font-weight: var(--weight-display-max);
-  font-size: var(--text-2xl);
-  letter-spacing: 0.04em;
-  color: var(--text-primary);
+/* 殼裡直接放章節頁首 + 一個功能區塊的頁面(進站):兩者之間要有一段呼吸。 */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
 }
 
 /* 有投注單的頁面(場次頁、我的注單):桌機上注單是右側 dock(responsive.md),
@@ -33,6 +33,6 @@
 @media (min-width: 1024px) {
   .withDock {
     grid-template-columns: minmax(0, 1fr) 340px;
-    max-inline-size: calc(820px + 340px + var(--space-8));
+    max-inline-size: calc(820px + 340px + var(--space-8) + var(--pad) * 2);
   }
 }

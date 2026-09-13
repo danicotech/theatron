@@ -104,15 +104,16 @@
     display: none;
   }
 
-  /* 父層給它一欄;它在欄裡 sticky。用 fixed 會蓋住主區。 */
+  /* 父層給它一欄;它在欄裡 sticky。用 fixed 會蓋住主區。
+     黏的位置要讓開固定導覽列,不然注單的標頭與賠率會被壓在導覽列底下。 */
   .slip {
     position: sticky;
     inset: auto;
-    inset-block-start: var(--space-6);
+    inset-block-start: calc(var(--nav-h) + var(--space-6));
     z-index: auto;
     inline-size: 100%;
     max-inline-size: var(--dock-width);
-    max-block-size: calc(100vh - var(--space-8));
+    max-block-size: calc(100dvh - var(--nav-h) - var(--space-8));
     border: 1px solid var(--border-subtle);
   }
 

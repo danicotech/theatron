@@ -1,7 +1,7 @@
 'use client';
 
 import { Code, ConnectError } from '@connectrpc/connect';
-import { Button, RankSigil } from '@theatron/ui';
+import { Button, ChapterHead, RankSigil } from '@theatron/ui';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -198,54 +198,58 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
 
   return (
     <div className={styles.console}>
-      <header>
-        <div className={styles.topline}>
+      {/* 整組對峙構圖是一個標題:「李璃 對 A冷」。兩個 h1 各放一個名字會讓標題失去
+          「這一場」的意思,所以整塊放進 ChapterHead 的標題位;回程連結在髮絲線右端。 */}
+      <ChapterHead
+        number="裁"
+        eyebrow={
+          match.kind === MatchKind.THIRD_PLACE
+            ? '季軍戰'
+            : `第 ${match.round} 輪 · 第 ${match.slot + 1} 場`
+        }
+        aside={
           <Link className={styles.back} href={`/judge/${slug}`}>
             ← 裁判台
           </Link>
-          <p className={styles.eyebrow}>
-            {match.kind === MatchKind.THIRD_PLACE
-              ? '季軍戰'
-              : `第 ${match.round} 輪 · 第 ${match.slot + 1} 場`}
-          </p>
-        </div>
-
-        {/* 整組是一個標題:「李璃 對 A冷」。兩個 h1 各放一個名字會讓標題失去「這一場」的意思。 */}
-        <h1 className={styles.versus}>
-          <Side
-            player={p1}
-            id={match.p1PlayerPublicId}
-            match={match}
-            ranks={ranks}
-            holderId={view.holderId}
-            budget={view.budget}
-          />
-          {bestOf > 1 && match.rounds.length > 0 ? (
-            <span
-              className={styles.score}
-              aria-label={`比分 ${match.p1RoundWins} 比 ${match.p2RoundWins}`}
-            >
-              {match.p1RoundWins} : {match.p2RoundWins}
-            </span>
-          ) : (
-            <span className={styles.vs}>對</span>
-          )}
-          <Side
-            right
-            player={p2}
-            id={match.p2PlayerPublicId}
-            match={match}
-            ranks={ranks}
-            holderId={view.holderId}
-            budget={view.budget}
-          />
-        </h1>
-
-        <p className={styles.status}>
-          {statusLine(match)}
-          {holder === undefined ? '' : `。${holder.displayName} 持 ${view.budget.toString()} BP`}
-        </p>
-      </header>
+        }
+        title={
+          <span className={styles.versus}>
+            <Side
+              player={p1}
+              id={match.p1PlayerPublicId}
+              match={match}
+              ranks={ranks}
+              holderId={view.holderId}
+              budget={view.budget}
+            />
+            {bestOf > 1 && match.rounds.length > 0 ? (
+              <span
+                className={styles.score}
+                aria-label={`比分 ${match.p1RoundWins} 比 ${match.p2RoundWins}`}
+              >
+                {match.p1RoundWins} : {match.p2RoundWins}
+              </span>
+            ) : (
+              <span className={styles.vs}>對</span>
+            )}
+            <Side
+              right
+              player={p2}
+              id={match.p2PlayerPublicId}
+              match={match}
+              ranks={ranks}
+              holderId={view.holderId}
+              budget={view.budget}
+            />
+          </span>
+        }
+        lede={
+          <>
+            {statusLine(match)}
+            {holder === undefined ? '' : `。${holder.displayName} 持 ${view.budget.toString()} BP`}
+          </>
+        }
+      />
 
       {viewer === 'anonymous' ? (
         <section className={styles.wall} aria-label="需要登入">

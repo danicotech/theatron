@@ -2,7 +2,7 @@
 
 import { timestampMs } from '@bufbuild/protobuf/wkt';
 import { ConnectError } from '@connectrpc/connect';
-import { RankSigil } from '@theatron/ui';
+import { ChapterHead, RankSigil } from '@theatron/ui';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -112,16 +112,18 @@ export function MatchPage({ slug, matchId }: MatchPageProps) {
 
   return (
     <div className={styles.page}>
-      <header className={styles.head}>
-        <p className={styles.eyebrow}>百業試鋒 · 對戰</p>
-        <h1 className={styles.title}>
-          {third ? '季軍戰' : `第 ${m.round} 輪 · 第 ${m.slot + 1} 場`}
-        </h1>
-        <p className={[styles.status, live ? styles.statusLive : ''].join(' ')} role="status">
-          {live ? <span className={styles.liveDot} aria-hidden="true" /> : null}
-          {statusCopy(m, budget, nameOf(m.winnerPlayerPublicId, p1, p2))}
-        </p>
-      </header>
+      {/* 場次頁是對戰表(貳)底下的一頁,印記沿用。狀態行是 live region,放在引言的位置。 */}
+      <ChapterHead
+        number="貳"
+        eyebrow="百業試鋒 · 對戰"
+        title={third ? '季軍戰' : `第 ${m.round} 輪 · 第 ${m.slot + 1} 場`}
+        lede={
+          <span className={[styles.status, live ? styles.statusLive : ''].join(' ')} role="status">
+            {live ? <span className={styles.liveDot} aria-hidden="true" /> : null}
+            {statusCopy(m, budget, nameOf(m.winnerPlayerPublicId, p1, p2))}
+          </span>
+        }
+      />
 
       {/* 記分板:對峙的左右構圖,中間是比分。名字是這一區唯一的大字。 */}
       <section className={styles.board} aria-label="對戰雙方">

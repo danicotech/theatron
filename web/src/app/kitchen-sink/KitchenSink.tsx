@@ -7,6 +7,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  ChapterHead,
   DEFAULT_THEME_ID,
   PhaseTrack,
   RankSigil,
@@ -250,6 +251,33 @@ export function KitchenSink({ themes }: KitchenSinkProps) {
                 </tr>
               </tbody>
             </table>
+          </Specimen>
+        </Section>
+
+        <Section
+          name="ChapterHead"
+          note="章節頁首:印記、髮絲線、襯線大標。序列頁用數字,序列外的頁用一個字的印記"
+        >
+          <Specimen label="完整:印記 + 小字 + 標題 + 引言 + 事實列">
+            <ChapterHead
+              number="貳"
+              eyebrow="百業試鋒 · 對戰表"
+              title="百業試鋒 2026 春季賽"
+              lede="段位差決定低段位的一方拿到多少讓武 BP。讓武不是放水。"
+              facts={[
+                { label: '賽制', value: '3 局 2 勝', mono: true },
+                { label: '季軍戰', value: '有' },
+                { label: '參賽', value: '16 人', mono: true },
+              ]}
+            />
+          </Specimen>
+          <Specimen label="附件在線的右端;序列外的頁用字印記">
+            <ChapterHead
+              number="裁"
+              eyebrow="第 2 輪 · 第 1 場"
+              title="李璃 對 A冷"
+              aside={<Button size="sm">← 裁判台</Button>}
+            />
           </Specimen>
         </Section>
 

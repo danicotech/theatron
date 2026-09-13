@@ -1,7 +1,7 @@
 'use client';
 
 import { ConnectError } from '@connectrpc/connect';
-import { Button } from '@theatron/ui';
+import { Button, ChapterHead } from '@theatron/ui';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useId, useState, type FormEvent } from 'react';
 
@@ -58,10 +58,8 @@ export function JudgeLogin() {
 
   return (
     <div className={styles.page}>
-      <header className={styles.head}>
-        <p className={styles.eyebrow}>御風羽</p>
-        <h1 className={styles.title}>裁判登入</h1>
-      </header>
+      {/* 進站不在導覽序列裡,印記用「門」——跟選手的進站頁同一個記號。 */}
+      <ChapterHead number="門" eyebrow="御風羽" title="裁判登入" />
 
       <form
         className={styles.form}

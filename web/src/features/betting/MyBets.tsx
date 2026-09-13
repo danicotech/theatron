@@ -2,7 +2,15 @@
 
 import { timestampDate, type Timestamp } from '@bufbuild/protobuf/wkt';
 import { Code, ConnectError } from '@connectrpc/connect';
-import { Amount, Card, CardBody, CardFooter, CardHeader, type AmountTone } from '@theatron/ui';
+import {
+  Amount,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  ChapterHead,
+  type AmountTone,
+} from '@theatron/ui';
 import Link from 'next/link';
 import { useCallback, useEffect } from 'react';
 
@@ -59,10 +67,7 @@ export function MyBets({ slug }: MyBetsProps) {
 
   return (
     <div className={styles.page}>
-      <header className={styles.head}>
-        <p className={styles.eyebrow}>百業試鋒</p>
-        <h1 className={styles.title}>我的注單</h1>
-      </header>
+      <ChapterHead number="肆" eyebrow="百業試鋒" title="我的注單" />
       {body()}
     </div>
   );

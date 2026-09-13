@@ -1,5 +1,6 @@
 'use client';
 
+import { ChapterHead } from '@theatron/ui';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -44,16 +45,15 @@ export function JudgeEntry() {
   }
 
   return (
-    <>
-      <header className={styles.head}>
-        <p className={styles.eyebrow}>裁判台</p>
-        <h1 className={styles.title}>開一屆賽事</h1>
-        <p className={styles.lede}>
-          建立之後報名立刻開著。段位、抽籤、開封盤都在建立之後才做 ——
-          這一頁只決定這屆叫什麼、掛在哪、以及規則的幾個數字。
-        </p>
-      </header>
+    <div className={styles.stack}>
+      {/* 開賽事不在觀眾的導覽序列裡,印記用「開」。 */}
+      <ChapterHead
+        number="開"
+        eyebrow="裁判台"
+        title="開一屆賽事"
+        lede="建立之後報名立刻開著。段位、抽籤、開封盤都在建立之後才做 —— 這一頁只決定這屆叫什麼、掛在哪、以及規則的幾個數字。"
+      />
       <CreateTournamentForm onCreated={setCreated} />
-    </>
+    </div>
   );
 }

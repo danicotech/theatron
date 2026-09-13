@@ -1,7 +1,7 @@
 'use client';
 
 import { ConnectError } from '@connectrpc/connect';
-import { BracketTree } from '@theatron/ui';
+import { BracketTree, ChapterHead } from '@theatron/ui';
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -85,26 +85,20 @@ export function BracketPage({ slug }: BracketPageProps) {
 
   return (
     <div className={styles.page}>
-      <header className={styles.head}>
-        <p className={styles.eyebrow}>百業試鋒 · 對戰表</p>
-        <h1 className={styles.title}>{tournament.name}</h1>
-        <dl className={styles.facts}>
-          <div className={styles.fact}>
-            <dt>賽制</dt>
-            <dd className={styles.mono}>
-              {bestOf > 1 ? `${bestOf} 局 ${winsNeeded(bestOf)} 勝` : '單場定勝負'}
-            </dd>
-          </div>
-          <div className={styles.fact}>
-            <dt>季軍戰</dt>
-            <dd>{tournament.thirdPlaceMatch ? '有' : '無'}</dd>
-          </div>
-          <div className={styles.fact}>
-            <dt>參賽</dt>
-            <dd className={styles.mono}>{tournament.playerCount} 人</dd>
-          </div>
-        </dl>
-      </header>
+      <ChapterHead
+        number="貳"
+        eyebrow="百業試鋒 · 對戰表"
+        title={tournament.name}
+        facts={[
+          {
+            label: '賽制',
+            value: bestOf > 1 ? `${bestOf} 局 ${winsNeeded(bestOf)} 勝` : '單場定勝負',
+            mono: true,
+          },
+          { label: '季軍戰', value: tournament.thirdPlaceMatch ? '有' : '無' },
+          { label: '參賽', value: `${tournament.playerCount} 人`, mono: true },
+        ]}
+      />
 
       {bracket.data === null ? (
         bracket.error === null ? (

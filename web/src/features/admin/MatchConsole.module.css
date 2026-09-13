@@ -10,14 +10,6 @@
 
 /* ── 頁首:對峙構圖 ───────────────────────── */
 
-.topline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-}
-
 .back {
   display: inline-flex;
   align-items: center;
@@ -36,18 +28,15 @@
   outline-offset: 2px;
 }
 
-.eyebrow {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
-  letter-spacing: 0.22em;
-  color: var(--text-secondary);
-}
-
 /* 借的是格鬥遊戲的角色選擇畫面:左右對峙、中間是比分。
-   兩個名字各靠外側,讓「誰在左、誰在右」與場上站位一樣一眼分清。 */
+   兩個名字各靠外側,讓「誰在左、誰在右」與場上站位一樣一眼分清。
+   它坐在章節標題(h1)裡,字級與字距全部自己定,不吃標題的。 */
 .versus {
   display: grid;
+  font-size: var(--text-md);
+  letter-spacing: normal;
+  line-height: 1.4;
+  text-wrap: initial;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: var(--space-3);
@@ -115,12 +104,6 @@
   font-weight: var(--weight-display-max);
   font-size: var(--text-md);
   letter-spacing: 0.2em;
-  color: var(--text-secondary);
-}
-
-.status {
-  margin: 0;
-  font-size: var(--text-sm);
   color: var(--text-secondary);
 }
 

@@ -3,11 +3,13 @@
 
 .page {
   min-block-size: 100dvh;
+  /* 全站導覽列是固定的,這一頁自己空出它的高度。 */
+  padding-block-start: var(--nav-h);
 }
 
 .toolbar {
   position: sticky;
-  inset-block-start: 0;
+  inset-block-start: var(--nav-h);
   z-index: 1;
   display: flex;
   flex-wrap: wrap;

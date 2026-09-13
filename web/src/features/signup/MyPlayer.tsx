@@ -1,7 +1,7 @@
 'use client';
 
 import { Code, ConnectError } from '@connectrpc/connect';
-import { Button, RankSigil } from '@theatron/ui';
+import { Button, ChapterHead, RankSigil } from '@theatron/ui';
 import Link from 'next/link';
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 
@@ -150,11 +150,14 @@ export function MyPlayer({ slug }: MyPlayerProps) {
 
   return (
     <div className={styles.page}>
-      <header className={styles.head}>
-        <p className={styles.eyebrow}>我的報名</p>
-        <h1 className={styles.name}>{player.displayName}</h1>
-        <p className={styles.gameId}>{player.gameId}</p>
-      </header>
+      {/* 「我的」不在導覽序列裡,印記用「我」。遊戲ID 是名字的副標,不是另一則事實,
+          所以放在引言位而不是下面的事實列 —— 它識別的是標題上的那個人。 */}
+      <ChapterHead
+        number="我"
+        eyebrow="我的報名"
+        title={player.displayName}
+        lede={<span className={styles.gameId}>{player.gameId}</span>}
+      />
 
       <dl className={styles.facts}>
         <div className={styles.fact}>

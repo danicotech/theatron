@@ -15,7 +15,7 @@ export default async function JudgeTournamentPage({
 }) {
   const { slug } = await params;
   return (
-    <main className={styles.page}>
+    <main id="main" className={styles.page}>
       <JudgeConsole slug={slug} />
     </main>
   );

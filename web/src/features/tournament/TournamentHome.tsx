@@ -1,7 +1,7 @@
 'use client';
 
 import { ConnectError } from '@connectrpc/connect';
-import { PhaseTrack } from '@theatron/ui';
+import { ChapterHead, PhaseTrack } from '@theatron/ui';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -68,20 +68,15 @@ export function TournamentHome({ slug }: TournamentHomeProps) {
 
   return (
     <div className={styles.page}>
-      <header className={styles.head}>
-        <p className={styles.eyebrow}>百業試鋒</p>
-        <h1 className={styles.title}>{t.name}</h1>
-        <dl className={styles.facts}>
-          <div className={styles.fact}>
-            <dt>已報名</dt>
-            <dd className={styles.mono}>{t.playerCount}</dd>
-          </div>
-          <div className={styles.fact}>
-            <dt>每差一段</dt>
-            <dd className={styles.mono}>{t.bpPerRankGap.toString()} BP</dd>
-          </div>
-        </dl>
-      </header>
+      <ChapterHead
+        number="壹"
+        eyebrow="百業試鋒"
+        title={t.name}
+        facts={[
+          { label: '已報名', value: t.playerCount, mono: true },
+          { label: '每差一段', value: `${t.bpPerRankGap.toString()} BP`, mono: true },
+        ]}
+      />
 
       <PhaseTrack steps={PHASES} current={phaseKey(t.phase)} />
 

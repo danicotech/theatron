@@ -1,6 +1,7 @@
 'use client';
 
 import { Code, ConnectError } from '@connectrpc/connect';
+import { ChapterHead } from '@theatron/ui';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -195,18 +196,22 @@ export function HandicapShop({ slug }: HandicapShopProps) {
 
   return (
     <div className={styles.page}>
-      <header className={styles.head}>
-        <p className={styles.eyebrow}>本場讓武</p>
-        <h1 className={styles.title}>{matchLabel}</h1>
-        <div className={styles.links}>
-          <Link className={styles.link} href={`/t/${slug}/m/${match.publicId}`}>
-            這一場
-          </Link>
-          <Link className={styles.link} href={`/t/${slug}/rules`}>
-            規則與讓武項目
-          </Link>
-        </div>
-      </header>
+      {/* 讓武是「我的」底下的頁,不在導覽序列裡,印記用「讓」。 */}
+      <ChapterHead
+        number="讓"
+        eyebrow="本場讓武"
+        title={matchLabel}
+        aside={
+          <>
+            <Link className={styles.link} href={`/t/${slug}/m/${match.publicId}`}>
+              這一場
+            </Link>
+            <Link className={styles.link} href={`/t/${slug}/rules`}>
+              規則與讓武項目
+            </Link>
+          </>
+        }
+      />
 
       {polled.error === null ? null : (
         <p className={styles.error} role="alert">

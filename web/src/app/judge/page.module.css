@@ -1,13 +1,14 @@
-/* 「坐著做」的操作可以桌機優先(responsive.md),但 375px 不能破版。 */
+/* 「坐著做」的操作可以桌機優先(responsive.md),但 375px 不能破版。
+   導覽列是固定的,頁面自己空出 --nav-h;頁邊距 --pad 加在 860px 的內容欄之外。 */
 .page {
-  max-inline-size: 860px;
+  max-inline-size: calc(860px + var(--pad) * 2);
   margin-inline: auto;
-  padding: var(--space-8) var(--space-4) var(--space-8);
+  padding: calc(var(--nav-h) + var(--space-8)) var(--pad)
+    calc(var(--space-8) * 2 + env(safe-area-inset-bottom));
 }
 
 @media (min-width: 768px) {
   .page {
-    padding-inline: var(--space-6);
-    padding-block-start: calc(var(--space-8) * 2);
+    padding-block-start: calc(var(--nav-h) + var(--space-8) * 2);
   }
 }
