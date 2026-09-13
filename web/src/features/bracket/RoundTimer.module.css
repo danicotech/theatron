@@ -1,0 +1,8 @@
+/* 記分板上的秒數:mono + tabular,每秒跳動時不左右晃(硬規則 2)。
+   玫瑰色是「現在正在發生」—— 這個計時器只在回合進行中出現。 */
+.timer {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono-bold);
+  color: var(--state-live);
+}

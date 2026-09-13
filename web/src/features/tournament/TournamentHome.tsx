@@ -102,6 +102,14 @@ export function TournamentHome({ slug }: TournamentHomeProps) {
               我的報名({me})
             </Link>
           )}
+          {/* 抽籤開始就有入口:確認前是「還沒公布」的空狀態,不是 404。 */}
+          {t.phase === TournamentPhase.DRAWING ||
+          t.phase === TournamentPhase.IN_PROGRESS ||
+          t.phase === TournamentPhase.FINISHED ? (
+            <Link className={styles.link} href={`/t/${slug}/bracket`}>
+              對戰表
+            </Link>
+          ) : null}
           <Link className={styles.link} href={`/t/${slug}/rules`}>
             規則與讓武項目
           </Link>

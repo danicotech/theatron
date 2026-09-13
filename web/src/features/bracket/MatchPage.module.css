@@ -1,0 +1,338 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-inline-size: 0;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.22em;
+  color: var(--text-secondary);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display-max);
+  font-size: var(--text-xl);
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--text-md);
+  color: var(--text-secondary);
+}
+
+.statusLive {
+  color: var(--text-primary);
+}
+
+.liveDot {
+  display: inline-block;
+  flex: none;
+  inline-size: 7px;
+  block-size: 7px;
+  border-radius: var(--radius-pill);
+  background-color: var(--state-live);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .liveDot {
+    animation: match-pulse var(--motion-pulse) ease-in-out infinite;
+  }
+}
+
+@keyframes match-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* ── 記分板 ──────────────────────────────────── */
+
+/* 對峙的左右構圖(格鬥遊戲選角畫面),比分在中間。手機也是左右,
+   不是上下疊 —— 上下疊會讓「誰對誰」變成一張名單。 */
+.board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--surface-raised);
+  container-type: inline-size;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.sideEnd {
+  align-items: flex-end;
+  text-align: end;
+}
+
+.name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-lg);
+  line-height: 1.2;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+@container (min-width: 520px) {
+  .name {
+    font-size: var(--text-xl);
+  }
+}
+
+.pending .name {
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+  color: var(--text-secondary);
+}
+
+/* 勝者是這一區唯一該被讀出來的結果,薄荷色的職責就是「贏」。 */
+.won .name {
+  color: var(--state-win);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.sideEnd .meta {
+  justify-content: flex-end;
+}
+
+.seed {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* BP 是這個賽事的貨幣。 */
+.bp {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono-bold);
+  font-size: var(--text-sm);
+  color: var(--accent-money);
+  white-space: nowrap;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding-inline: var(--space-2);
+}
+
+.scoreLine {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono-bold);
+  font-size: var(--text-2xl);
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.colon {
+  color: var(--text-secondary);
+}
+
+.format {
+  font-size: var(--text-micro);
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.noHandicap {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-block-start: var(--space-2);
+  border-block-start: 1px solid var(--border-subtle);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* ── 直播 ────────────────────────────────────── */
+
+.stream {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  align-self: flex-start;
+  min-block-size: var(--hit-target);
+  padding-inline: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-bold);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+/* 進行中的直播是這一頁唯一的高音。 */
+.streamLive {
+  border-color: var(--state-live);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stream,
+  .link {
+    transition: background-color var(--motion-hover) var(--ease-standard);
+  }
+}
+
+.stream:hover,
+.link:hover {
+  background-color: var(--surface-overlay);
+}
+
+.stream:focus-visible,
+.link:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+/* ── 回合 ────────────────────────────────────── */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-6);
+}
+
+.h2 {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.note {
+  margin: 0;
+  max-inline-size: 62ch;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.table {
+  border-collapse: collapse;
+  inline-size: 100%;
+  max-inline-size: 480px;
+  font-size: var(--text-sm);
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-subtle);
+  text-align: start;
+  font-weight: var(--weight-body);
+  color: var(--text-primary);
+}
+
+.table thead th {
+  font-size: var(--text-micro);
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.roundNo {
+  white-space: nowrap;
+}
+
+.numCol {
+  text-align: end;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.table thead .numCol {
+  font-family: var(--font-body);
+}
+
+.liveCell {
+  color: var(--state-live);
+  font-weight: var(--weight-body-bold);
+}
+
+/* ── 連結 ────────────────────────────────────── */
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-6);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-target);
+  padding-inline: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-bold);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+.loading {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.error {
+  margin: 0;
+  padding: var(--space-3);
+  border-inline-start: 2px solid var(--state-live);
+  background-color: color-mix(in oklab, var(--state-live) 8%, transparent);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}

@@ -1,0 +1,160 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  /* 樹在自己的容器裡橫向捲動(BracketTree 負責);這裡不能再撐寬頁面。 */
+  min-inline-size: 0;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.22em;
+  color: var(--text-secondary);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display-max);
+  font-size: var(--text-2xl);
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, max-content));
+  margin: 0;
+  border: 1px solid var(--border-subtle);
+}
+
+.fact {
+  padding: var(--space-2) var(--space-4);
+  border-inline-end: 1px solid var(--border-subtle);
+}
+
+.fact:last-child {
+  border-inline-end: 0;
+}
+
+.fact dt {
+  font-size: var(--text-micro);
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.fact dd {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-md);
+  color: var(--text-primary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.tree {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-inline-size: 0;
+}
+
+.h2 {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+/* 空狀態是邀請,不是道歉:告訴人東西會自己出現,順便給他現在能看的。 */
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-4);
+  border: 1px dashed var(--border-subtle);
+}
+
+.emptyLine {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+}
+
+.emptyNote {
+  margin: 0;
+  max-inline-size: 56ch;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.stale {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-6);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-target);
+  padding-inline: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-bold);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .link {
+    transition: background-color var(--motion-hover) var(--ease-standard);
+  }
+}
+
+.link:hover {
+  background-color: var(--surface-overlay);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.loading {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.error {
+  margin: 0;
+  padding: var(--space-3);
+  border-inline-start: 2px solid var(--state-live);
+  background-color: color-mix(in oklab, var(--state-live) 8%, transparent);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
