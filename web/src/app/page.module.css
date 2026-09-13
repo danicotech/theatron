@@ -106,9 +106,11 @@
   mask-image: linear-gradient(transparent, black 44%);
 }
 
+/* 題字、編號、細線切齊底緣 —— 那條線是題字站的地面。
+   不用 baseline:題字是個沒有文字的方塊,沒有基線可以對。 */
 .secHead {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
   gap: var(--space-4);
   margin-block-end: clamp(30px, 5vh, 66px);
 }

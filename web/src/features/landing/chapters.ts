@@ -13,6 +13,22 @@ export type ChapterId = '01' | '02' | '03' | '04' | '05' | '06' | '07';
 /** 五幕。章節歸幕,幕決定敘事的節奏,不決定畫面。 */
 export type Act = '序幕' | '戰帖' | '賽制' | '承' | '啟';
 
+/**
+ * 一章的主題題字。
+ *
+ * 是真的毛筆手跡(`design/cinematic-media-kit` 那七張),描成 SVG 掛在
+ * `public/type/`。它寫的字不是章名 —— 章名是敘事的(歸寂、破頂),題字是
+ * 事務的(戰帖、賽制),兩個講的不是同一件事,所以兩欄都要存。
+ *
+ * `text` 是給輔助科技唸的,不是註解 —— 畫面上那幅字讀得出來,聽的人也該讀得到。
+ */
+export interface ChapterMark {
+  /** world.json 的素材 id。 */
+  asset: string;
+  /** 那幅字寫的是什麼。 */
+  text: string;
+}
+
 export interface Chapter {
   id: ChapterId;
   /** section 的 id,也是 #錨點。 */
@@ -20,6 +36,8 @@ export interface Chapter {
   /** 章名,兩個字,直排。 */
   name: string;
   act: Act;
+  /** 主題題字。序幕與落款沒有對應的手跡,所以沒有這一欄。 */
+  mark?: ChapterMark;
   /** 場景:鏡頭看到的地方。 */
   scene: string;
   /** 這一章發生的事。 */
@@ -42,6 +60,7 @@ export const CHAPTERS: readonly Chapter[] = [
     id: '02',
     anchor: 'chapter-02',
     name: '歸寂',
+    mark: { asset: 'ink-war-letter', text: '戰帖' },
     act: '戰帖',
     scene: '傾斜牌樓,前方兩把劍插在地上',
     action: '人已離去,竹影掃過石階',
@@ -51,6 +70,7 @@ export const CHAPTERS: readonly Chapter[] = [
     id: '03',
     anchor: 'chapter-03',
     name: '破頂',
+    mark: { asset: 'ink-rules', text: '賽制' },
     act: '賽制',
     scene: '大廳內,屋頂破洞,斷腿木桌',
     action: '一卷舊捲軸在桌面展開,竹影掃過紙面',
@@ -60,6 +80,7 @@ export const CHAPTERS: readonly Chapter[] = [
     id: '04',
     anchor: 'chapter-04',
     name: '朱印',
+    mark: { asset: 'ink-rewards', text: '獎賞' },
     act: '承',
     scene: '剝漆木牆,梅枝從上角伸入',
     action: '紅印逐一蓋上木牆',
@@ -69,6 +90,7 @@ export const CHAPTERS: readonly Chapter[] = [
     id: '05',
     anchor: 'chapter-05',
     name: '花信',
+    mark: { asset: 'ink-schedule', text: '賽程' },
     act: '承',
     scene: '橫貫畫面的梅枝',
     action: '每個日期是一朵花,到期綻放',
@@ -78,6 +100,7 @@ export const CHAPTERS: readonly Chapter[] = [
     id: '06',
     anchor: 'chapter-06',
     name: '啟門',
+    mark: { asset: 'ink-signup', text: '報名' },
     act: '啟',
     scene: '雙開木門微啟,月光從內照出',
     action: '印章按鈕:按下後紅墨暈開再沉入紙面',

@@ -1,30 +1,25 @@
 /* 第 3 層:元件變數,只指向第 2 層。 */
 
-.ink {
-  position: absolute;
-  inset-block-start: clamp(40px, 8vh, 120px);
-  z-index: -1;
-  inline-size: clamp(280px, 46vw, 720px);
-  block-size: auto;
-  /* 墨字是黑的,壓在夜色上等於看不見 —— screen 讓它只加亮、不塗黑,
-     再壓到幾乎沒有,才是「紙上還留著上一筆」的感覺。 */
-  mix-blend-mode: screen;
-  opacity: 0.055;
-  pointer-events: none;
+.mark {
+  --ink-height: clamp(30px, 4.4vh, 52px);
+  --ink-tone: color-mix(in oklab, var(--text-primary) 72%, transparent);
+
+  flex: 0 0 auto;
+  display: block;
+  block-size: var(--ink-height);
+  aspect-ratio: var(--ink-ratio);
+  /* 墨跡當遮罩,顏色從這裡給 —— SVG 本身沒有顏色,換主題不必重出圖。 */
+  background-color: var(--ink-tone);
+  mask-image: var(--ink-src);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: left center;
 }
 
-.start {
-  inset-inline-start: calc(var(--pad) * -0.5);
-}
-
-.end {
-  inset-inline-end: calc(var(--pad) * -0.5);
-}
-
-/* 手機上題字會直接壓在正文後面。這裡的字級已經是下限了,底下再有一幅字
-   會讓對比掉到讀不動 —— 直接撤掉。 */
+/* 手機上表頭整條要塞進一個視窗寬,題字跟著縮 —— 但不撤掉。
+   舊版那幅淡到看不見的題字才該撤;這一幅是這一章在講什麼。 */
 @media (max-width: 600px) {
-  .ink {
-    display: none;
+  .mark {
+    --ink-height: clamp(26px, 6vw, 36px);
   }
 }

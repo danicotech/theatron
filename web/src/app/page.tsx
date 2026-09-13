@@ -55,6 +55,28 @@ function Field({ value }: { value: string | null }) {
   );
 }
 
+/**
+ * 章節表頭:題字、幕別與編號、一條延伸到頁緣的細線。
+ *
+ * 七章的表頭原本各寫一次 —— 同一個東西寫七遍,改一次得改七處。
+ * 題字是可選的:序幕與落款沒有對應的手跡,那兩章就只有編號與線。
+ *
+ * 有兩章的幕別與題字寫的剛好是同一個詞(戰帖、賽制)。那兩章只留手跡,
+ * 不在旁邊用小字再印一次 —— 同一件事在同一行說兩遍,第二遍是雜訊。
+ */
+function SecHead({ chapter }: { chapter: (typeof CHAPTERS)[number] }) {
+  const said = chapter.mark?.text === chapter.act;
+  return (
+    <header className={styles.secHead}>
+      {chapter.mark === undefined ? null : <InkMark mark={chapter.mark} />}
+      <p className={styles.k}>
+        {said ? null : <b>{chapter.act}</b>} {chapter.id}
+      </p>
+      <span className={styles.rule} aria-hidden="true" />
+    </header>
+  );
+}
+
 export default function HomePage() {
   const ch = {
     c1: chapter('01'),
@@ -147,13 +169,7 @@ export default function HomePage() {
         data-chapter-section="02"
         aria-labelledby="chapter-02-title"
       >
-        <InkMark asset="ink-war-letter" />
-        <header className={styles.secHead}>
-          <p className={styles.k}>
-            <b>{ch.c2.act}</b> {ch.c2.id}
-          </p>
-          <span className={styles.rule} aria-hidden="true" />
-        </header>
+        <SecHead chapter={ch.c2} />
 
         <div className={styles.spread}>
           <WordReveal as="h2" className={styles.h2} id="chapter-02-title" text={ch.c2.name} />
@@ -199,13 +215,7 @@ export default function HomePage() {
         data-chapter-section="03"
         aria-labelledby="chapter-03-title"
       >
-        <InkMark asset="ink-rules" side="end" />
-        <header className={styles.secHead}>
-          <p className={styles.k}>
-            <b>{ch.c3.act}</b> {ch.c3.id}
-          </p>
-          <span className={styles.rule} aria-hidden="true" />
-        </header>
+        <SecHead chapter={ch.c3} />
 
         <div className={styles.spread}>
           <WordReveal as="h2" className={styles.h2} id="chapter-03-title" text={ch.c3.name} />
@@ -226,13 +236,7 @@ export default function HomePage() {
         data-chapter-section="04"
         aria-labelledby="chapter-04-title"
       >
-        <InkMark asset="ink-rewards" />
-        <header className={styles.secHead}>
-          <p className={styles.k}>
-            <b>{ch.c4.act}</b> {ch.c4.id}
-          </p>
-          <span className={styles.rule} aria-hidden="true" />
-        </header>
+        <SecHead chapter={ch.c4} />
 
         <div className={styles.spread}>
           <WordReveal as="h2" className={styles.h2} id="chapter-04-title" text={ch.c4.name} />
@@ -253,13 +257,7 @@ export default function HomePage() {
         data-chapter-section="05"
         aria-labelledby="chapter-05-title"
       >
-        <InkMark asset="ink-schedule" side="end" />
-        <header className={styles.secHead}>
-          <p className={styles.k}>
-            <b>{ch.c5.act}</b> {ch.c5.id}
-          </p>
-          <span className={styles.rule} aria-hidden="true" />
-        </header>
+        <SecHead chapter={ch.c5} />
 
         <div className={styles.spread}>
           <WordReveal as="h2" className={styles.h2} id="chapter-05-title" text={ch.c5.name} />
@@ -280,13 +278,7 @@ export default function HomePage() {
         data-chapter-section="06"
         aria-labelledby="chapter-06-title"
       >
-        <InkMark asset="ink-signup" />
-        <header className={styles.secHead}>
-          <p className={styles.k}>
-            <b>{ch.c6.act}</b> {ch.c6.id}
-          </p>
-          <span className={styles.rule} aria-hidden="true" />
-        </header>
+        <SecHead chapter={ch.c6} />
 
         <div className={styles.spread}>
           <WordReveal as="h2" className={styles.h2} id="chapter-06-title" text={ch.c6.name} />
@@ -346,12 +338,7 @@ export default function HomePage() {
         data-chapter-section="07"
         aria-labelledby="chapter-07-title"
       >
-        <header className={styles.secHead}>
-          <p className={styles.k}>
-            <b>{ch.c7.act}</b> {ch.c7.id}
-          </p>
-          <span className={styles.rule} aria-hidden="true" />
-        </header>
+        <SecHead chapter={ch.c7} />
 
         <div className={styles.signOff}>
           <WordReveal as="h2" className={styles.finTitle} id="chapter-07-title" text={ch.c7.name} />
