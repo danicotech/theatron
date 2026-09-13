@@ -1,0 +1,88 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.rail {
+  /* 預設不在:手機、觸控、窄視窗都不該有這條軌道。
+     只有真的有游標又放得下的地方才顯示(下面的媒體查詢)。 */
+  display: none;
+}
+
+/* 細的點擊目標在這裡是可以的:這條軌道只在細指標(滑鼠、觸控筆)的裝置上
+   存在,44px 的下限是給拇指的。觸控裝置拿到的是首屏那份章節目錄。 */
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  .rail {
+    position: fixed;
+    inset-inline-end: calc(var(--pad) - 4px);
+    inset-block-start: 50%;
+    z-index: 45;
+    display: block;
+    translate: 0 -50%;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-end;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tick {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  min-block-size: 24px;
+  text-decoration: none;
+  touch-action: manipulation;
+}
+
+.mark {
+  display: block;
+  inline-size: 14px;
+  block-size: 1px;
+  background-color: color-mix(in oklab, var(--text-primary) 26%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mark {
+    transition:
+      inline-size 500ms var(--ease-out),
+      background-color var(--motion-hover) var(--ease-standard);
+  }
+
+  .label {
+    transition: opacity var(--motion-hover) var(--ease-standard);
+  }
+}
+
+.tick:hover .mark,
+.tick:focus-visible .mark {
+  inline-size: 22px;
+  background-color: var(--text-secondary);
+}
+
+.tick[aria-current] .mark {
+  inline-size: 22px;
+  background-color: var(--text-primary);
+}
+
+/* 章名平常不在畫面上,滑過或 focus 到才出現 —— 軌道要安靜,但鍵盤使用者
+   得知道自己停在哪一章,所以它是真的文字,不是 title 屬性。 */
+.label {
+  order: -1;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-micro);
+  letter-spacing: 0.18em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  opacity: 0;
+}
+
+.tick:hover .label,
+.tick:focus-visible .label {
+  opacity: 1;
+}

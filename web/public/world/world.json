@@ -1,0 +1,222 @@
+{
+  "theme": "百業試鋒 · 劍冢素材",
+  "note": "來源是 design/cinematic-media-kit 的素材庫(生成素材,清冊標為未核准);這裡只是轉成 WebP 的網頁用版本。",
+  "assets": [
+    {
+      "id": "bg-night-crow-courtyard",
+      "file": "/world/bg-night-crow-courtyard.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 183776,
+      "source": "design/cinematic-media-kit/dist/assets/library/01-backgrounds/bg-night-crow-courtyard-v2.png"
+    },
+    {
+      "id": "bg-snow-arena",
+      "file": "/world/bg-snow-arena.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 291174,
+      "source": "design/cinematic-media-kit/dist/assets/library/01-backgrounds/bg-snow-arena-v2.png"
+    },
+    {
+      "id": "bg-cliff-timber-hall",
+      "file": "/world/bg-cliff-timber-hall.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 239766,
+      "source": "design/cinematic-media-kit/dist/assets/library/01-backgrounds/bg-cliff-timber-hall-v2.png"
+    },
+    {
+      "id": "bg-spring-autumn-lodge",
+      "file": "/world/bg-spring-autumn-lodge.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 177880,
+      "source": "design/cinematic-media-kit/dist/assets/library/01-backgrounds/bg-spring-autumn-lodge.png"
+    },
+    {
+      "id": "fg-lantern",
+      "file": "/world/fg-lantern.webp",
+      "width": 900,
+      "height": 1080,
+      "alpha": true,
+      "bytes": 197754,
+      "source": "design/cinematic-media-kit/dist/assets/library/02-foregrounds/fg-lantern.png"
+    },
+    {
+      "id": "fg-snow-plum-branch",
+      "file": "/world/fg-snow-plum-branch.webp",
+      "width": 1400,
+      "height": 933,
+      "alpha": true,
+      "bytes": 198370,
+      "source": "design/cinematic-media-kit/dist/assets/library/02-foregrounds/fg-snow-plum-branch-v3.png"
+    },
+    {
+      "id": "fg-brazier",
+      "file": "/world/fg-brazier.webp",
+      "width": 900,
+      "height": 935,
+      "alpha": true,
+      "bytes": 181080,
+      "source": "design/cinematic-media-kit/dist/assets/library/02-foregrounds/fg-brazier.png"
+    },
+    {
+      "id": "fg-black-banner",
+      "file": "/world/fg-black-banner.webp",
+      "width": 800,
+      "height": 1200,
+      "alpha": true,
+      "bytes": 160368,
+      "source": "design/cinematic-media-kit/dist/assets/library/02-foregrounds/fg-black-banner.png"
+    },
+    {
+      "id": "fg-white-banner",
+      "file": "/world/fg-white-banner.webp",
+      "width": 800,
+      "height": 1200,
+      "alpha": true,
+      "bytes": 174476,
+      "source": "design/cinematic-media-kit/dist/assets/library/02-foregrounds/fg-white-banner.png"
+    },
+    {
+      "id": "fg-wood-railing",
+      "file": "/world/fg-wood-railing.webp",
+      "width": 1400,
+      "height": 933,
+      "alpha": true,
+      "bytes": 234056,
+      "source": "design/cinematic-media-kit/dist/assets/library/02-foregrounds/fg-wood-railing.png"
+    },
+    {
+      "id": "fg-snow-bamboo",
+      "file": "/world/fg-snow-bamboo.webp",
+      "width": 900,
+      "height": 1080,
+      "alpha": true,
+      "bytes": 243076,
+      "source": "design/cinematic-media-kit/dist/assets/library/02-foregrounds/fg-snow-bamboo.png"
+    },
+    {
+      "id": "fx-moon",
+      "file": "/world/fx-moon.webp",
+      "width": 900,
+      "height": 900,
+      "alpha": true,
+      "bytes": 166522,
+      "source": "design/cinematic-media-kit/dist/assets/library/03-atmosphere/fx-moon.png"
+    },
+    {
+      "id": "fx-plum-petals",
+      "file": "/world/fx-plum-petals.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": true,
+      "bytes": 76110,
+      "source": "design/cinematic-media-kit/dist/assets/library/03-atmosphere/fx-plum-petals.png"
+    },
+    {
+      "id": "fx-snow-near",
+      "file": "/world/fx-snow-near.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": true,
+      "bytes": 114954,
+      "source": "design/cinematic-media-kit/dist/assets/library/03-atmosphere/fx-snow-near.png"
+    },
+    {
+      "id": "fx-blade-glint",
+      "file": "/world/fx-blade-glint.webp",
+      "width": 1672,
+      "height": 941,
+      "alpha": true,
+      "bytes": 86172,
+      "source": "design/cinematic-media-kit/dist/assets/library/07-transition-elements/fx-blade-glint.png"
+    },
+    {
+      "id": "ink-rules",
+      "file": "/world/ink-rules.webp",
+      "width": 1400,
+      "height": 700,
+      "alpha": true,
+      "bytes": 122464,
+      "source": "design/cinematic-media-kit/dist/assets/library/05-ink-lettering/ink-rules.png"
+    },
+    {
+      "id": "ink-signup",
+      "file": "/world/ink-signup.webp",
+      "width": 1400,
+      "height": 700,
+      "alpha": true,
+      "bytes": 116844,
+      "source": "design/cinematic-media-kit/dist/assets/library/05-ink-lettering/ink-signup.png"
+    },
+    {
+      "id": "ink-schedule",
+      "file": "/world/ink-schedule.webp",
+      "width": 1400,
+      "height": 700,
+      "alpha": true,
+      "bytes": 114820,
+      "source": "design/cinematic-media-kit/dist/assets/library/05-ink-lettering/ink-schedule.png"
+    },
+    {
+      "id": "ink-rewards",
+      "file": "/world/ink-rewards.webp",
+      "width": 1400,
+      "height": 700,
+      "alpha": true,
+      "bytes": 95526,
+      "source": "design/cinematic-media-kit/dist/assets/library/05-ink-lettering/ink-rewards.png"
+    },
+    {
+      "id": "ink-night-crow",
+      "file": "/world/ink-night-crow.webp",
+      "width": 1400,
+      "height": 583,
+      "alpha": true,
+      "bytes": 100034,
+      "source": "design/cinematic-media-kit/dist/assets/library/05-ink-lettering/ink-night-crow.png"
+    },
+    {
+      "id": "ink-war-letter",
+      "file": "/world/ink-war-letter.webp",
+      "width": 1400,
+      "height": 700,
+      "alpha": true,
+      "bytes": 91834,
+      "source": "design/cinematic-media-kit/dist/assets/library/05-ink-lettering/ink-war-letter.png"
+    },
+    {
+      "id": "arch-arena-gate",
+      "file": "/world/arch-arena-gate.webp",
+      "width": 1400,
+      "height": 933,
+      "alpha": true,
+      "bytes": 295350,
+      "source": "design/cinematic-media-kit/dist/assets/library/06-architecture/arch-arena-gate-v3.png"
+    },
+    {
+      "id": "duel-pinned-pair",
+      "file": "/world/duel-pinned-pair.webp",
+      "width": 1400,
+      "height": 933,
+      "alpha": true,
+      "bytes": 269962,
+      "source": "design/cinematic-media-kit/dist/assets/library/04-characters-weapons/duel-pinned-pair-v3.png"
+    },
+    {
+      "id": "weapon-jian",
+      "file": "/world/weapon-jian.webp",
+      "width": 1400,
+      "height": 933,
+      "alpha": true,
+      "bytes": 58262,
+      "source": "design/cinematic-media-kit/dist/assets/library/04-characters-weapons/weapon-jian.png"
+    }
+  ]
+}

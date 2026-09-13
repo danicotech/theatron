@@ -1,0 +1,185 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.stage {
+  --fg-stagger: 90ms;
+
+  position: fixed;
+  inset: auto 0 0 0;
+  /* 文件在 1,所以近景真的站在字的前面 —— 那是「近景」的定義。
+     再上去是軌道 45、導覽列 50,那些要能被點到。 */
+  z-index: 3;
+  block-size: min(56svh, 680px);
+  /* 每件都刻意掛出畫面外,這裡把超出的部分切掉,整頁不會多出橫向捲動。 */
+  overflow: clip;
+  pointer-events: none;
+}
+
+.set {
+  position: absolute;
+  inset: 0;
+}
+
+.piece {
+  position: absolute;
+  display: block;
+  opacity: 0;
+}
+
+.piece > img {
+  /* width/height 屬性先把框撐住,lazy 的圖晚一點到也不會把版面推一下。 */
+  inline-size: 100%;
+  block-size: auto;
+  /* 壓一點彩度與亮度,近景才退到場景的光裡,而不是像貼上去的另一張圖。 */
+  filter: saturate(0.88) brightness(0.86);
+}
+
+/* 每件都從自己貼著的那一邊等,不是從下面統一浮起來 ——
+   燈籠掛在左邊的柱子上,它該從左邊進來。 */
+.piece[data-fg-in='left'] {
+  transform: translate3d(-11%, 6%, 0);
+}
+
+.piece[data-fg-in='right'] {
+  transform: translate3d(11%, 6%, 0);
+}
+
+.piece[data-fg-in='up'] {
+  transform: translate3d(0, 13%, 0);
+}
+
+.active .piece {
+  opacity: 1;
+  transform: none;
+}
+
+.active .piece:nth-child(2) {
+  transition-delay: var(--fg-stagger);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .active .piece {
+    transition:
+      opacity 1200ms var(--ease-out),
+      transform 1500ms var(--ease-out);
+  }
+
+  /* 退場才模糊:焦點往前走了,留在身後的東西就該散掉。
+     進場不模糊 —— 進場的東西要一開始就是實的(kage 的規矩)。 */
+  .retiring .piece {
+    opacity: 0;
+    transform: translate3d(0, 8vh, 0) scale(0.98);
+    filter: blur(18px);
+    transition:
+      opacity 680ms var(--ease-out),
+      transform 780ms var(--ease-out),
+      filter 780ms var(--ease-out);
+  }
+}
+
+/* ---------------------------------------------------------------- 擺位
+   全部從底緣量起。去背素材是貼著自己最下面那一列不透明像素裁的,所以負的
+   bottom 是真的把一段畫進去的東西埋到畫面外,不是在修檔案的空白邊。 */
+
+/* 燈籠是這批素材裡唯一亮的東西,所以它留在角落,不往畫面中間長。 */
+.lantern {
+  inset-inline-start: 0;
+  inset-block-end: -12%;
+  inline-size: clamp(100px, 12vw, 180px);
+}
+
+.plum {
+  inset-inline-end: -6%;
+  inset-block-end: -14%;
+  inline-size: clamp(320px, 42vw, 760px);
+}
+
+.brazier {
+  inset-inline-start: -2%;
+  inset-block-end: -22%;
+  inline-size: clamp(150px, 17vw, 290px);
+}
+
+.railing {
+  inset-inline-end: -12%;
+  inset-block-end: -26%;
+  inline-size: clamp(320px, 40vw, 700px);
+}
+
+.bamboo {
+  inset-inline-start: -5%;
+  inset-block-end: -12%;
+  inline-size: clamp(260px, 30vw, 540px);
+}
+
+/* 旗子的布往旗竿的另一側飄,所以白旗站左、黑旗站右,兩面布都往中間吹。
+   反過來擺,兩面旗會各自把布吹出畫面。 */
+.bannerWhite {
+  inset-inline-start: -5%;
+  inset-block-end: -36%;
+  inline-size: clamp(130px, 14vw, 250px);
+}
+
+.bannerBlack {
+  inset-inline-end: -5%;
+  inset-block-end: -36%;
+  inline-size: clamp(130px, 14vw, 250px);
+}
+
+/* 山門在正中央、埋得最深:它是要走進去的門,不是擺在旁邊的景。
+   結尾那一章的字被 padding 推到門的上方,所以門可以站得比別件高。 */
+.gate {
+  inset-inline-start: 50%;
+  inset-block-end: -30%;
+  inline-size: clamp(380px, 52vw, 900px);
+  translate: -50% 0;
+}
+
+@media (max-width: 1080px) {
+  .plum {
+    inline-size: clamp(280px, 36vw, 500px);
+  }
+
+  .railing {
+    inline-size: clamp(300px, 38vw, 540px);
+  }
+}
+
+/* 手機上文字佔掉整個寬度,近景只留一兩件錨點,其餘的全部撤掉 ——
+   同樣的素材數量在 375px 上只會變成擋住字的雜訊。 */
+@media (max-width: 600px) {
+  .stage {
+    block-size: min(42svh, 380px);
+  }
+
+  .railing,
+  .plum {
+    display: none;
+  }
+
+  .lantern {
+    inset-inline-start: -2%;
+    inset-block-end: -6%;
+    inline-size: clamp(84px, 22vw, 130px);
+  }
+
+  .brazier {
+    inset-block-end: -24%;
+    inline-size: min(42vw, 175px);
+  }
+
+  .bamboo {
+    inset-inline-start: -12%;
+    inline-size: min(62vw, 260px);
+  }
+
+  .bannerWhite,
+  .bannerBlack {
+    inset-block-end: -14%;
+    inline-size: min(28vw, 130px);
+  }
+
+  .gate {
+    inset-block-end: -26%;
+    inline-size: min(112vw, 520px);
+  }
+}

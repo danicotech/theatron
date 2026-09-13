@@ -1,0 +1,21 @@
+/* 出場只動 opacity 與 transform —— 這兩個合成器自己就能做完,不回頭量版面。 */
+
+/* 藏起來的前提是「等一下有人會揭開」,所以綁在 scripting: enabled 上。
+   理由與 WordReveal.module.css 同一條,那裡寫得比較長。 */
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .rv[data-rv]:not([data-rv-in]) {
+    opacity: 0;
+  }
+
+  .rv[data-rv='up']:not([data-rv-in]) {
+    transform: translate3d(0, 26px, 0);
+  }
+
+  .rv[data-rv-in] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--motion-reveal) var(--ease-out),
+      transform calc(var(--motion-reveal) + 150ms) var(--ease-out);
+  }
+}

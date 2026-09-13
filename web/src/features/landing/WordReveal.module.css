@@ -1,0 +1,37 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.line {
+  display: block;
+  /* 標題會斷在標點前後,平衡一下每行的長度。 */
+  text-wrap: balance;
+}
+
+/* 遮罩框跟著字走,所以是 inline-block;vertical-align 要對齊頂端,
+   不然每個框的基線各自為政,一行字會高高低低。 */
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.unit {
+  display: inline-block;
+}
+
+/* `scripting: enabled` 是這一段存在的理由。
+   起手式(藏起來)只有在「等一下會有人來把它揭開」的前提下才成立;沒有 JS 的
+   瀏覽器永遠等不到 data-rv-in,整頁標題就會是空白。用一個 JS 寫進來的 class
+   也解不了:那要等 hydration,而 SSR 已經把字畫在畫面上了 —— 先看到字、再被
+   藏起來、再浮一次,比不做動畫還糟。媒體查詢在第一次 paint 就成立,沒有這一段。 */
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .line[data-rv]:not([data-rv-in]) .unit {
+    opacity: 0;
+    transform: translate3d(0, 108%, 0);
+  }
+
+  .line[data-rv-in] .unit {
+    transition:
+      opacity 500ms var(--ease-out) var(--unit-delay, 0ms),
+      transform var(--motion-reveal) var(--ease-out) var(--unit-delay, 0ms);
+  }
+}

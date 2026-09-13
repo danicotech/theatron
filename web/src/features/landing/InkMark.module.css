@@ -1,0 +1,30 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.ink {
+  position: absolute;
+  inset-block-start: clamp(40px, 8vh, 120px);
+  z-index: -1;
+  inline-size: clamp(280px, 46vw, 720px);
+  block-size: auto;
+  /* 墨字是黑的,壓在夜色上等於看不見 —— screen 讓它只加亮、不塗黑,
+     再壓到幾乎沒有,才是「紙上還留著上一筆」的感覺。 */
+  mix-blend-mode: screen;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.start {
+  inset-inline-start: calc(var(--pad) * -0.5);
+}
+
+.end {
+  inset-inline-end: calc(var(--pad) * -0.5);
+}
+
+/* 手機上題字會直接壓在正文後面。這裡的字級已經是下限了,底下再有一幅字
+   會讓對比掉到讀不動 —— 直接撤掉。 */
+@media (max-width: 600px) {
+  .ink {
+    display: none;
+  }
+}
