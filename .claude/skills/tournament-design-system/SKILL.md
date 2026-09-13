@@ -48,6 +48,6 @@ description: 賽事平台的視覺規範與反通用化審查。當要建立或�
 ## 元件邊界
 
 `packages/ui` 是純展示層:**不 import API 型別、不呼叫 fetch、不知道賽事規則。**
-它只收 props。業務邏輯留在 `services/web/features`。
+它只收 props。業務邏輯留在 `theatron/web/src/features/`。
 
 這條是「後續各活動客製化」能成立的前提。

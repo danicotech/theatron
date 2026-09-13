@@ -1,0 +1,14 @@
+{
+  "id": "baiye-shifeng",
+  "name": "百業試鋒",
+  "primitives": {
+    "neutral": ["#05070a", "#0b1014", "#131b21", "#2a353a", "#8f9a94", "#dfe7e0"],
+    "money": "#c9a24a",
+    "win": "#8fd6b4",
+    "live": "#ff5a3c"
+  },
+  "displayFont": "Noto Serif TC",
+  "radiusScale": 0,
+  "texture": "none",
+  "heroScene": "arena"
+}

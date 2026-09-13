@@ -72,6 +72,16 @@
   /* 觸控目標下限(responsive.md 的品質底線)。 */
   --hit-target: 44px;
 
+  /* 電影式版面(2026-09-13,以 kage 的版面語法為準):
+     一個隨視窗寬度走的頁邊距、固定導覽列的高度、出場用的緩動,
+     以及只給章節標題用的兩個超大字級。內文字級仍是上面那一組,不動。 */
+  --pad: clamp(20px, 3.4vw, 56px);
+  --nav-h: 72px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-reveal: 900ms;
+  --text-3xl: clamp(30px, 4vw, 60px);
+  --text-4xl: clamp(40px, 7.4vw, 124px);
+
   /* 背景紋理由 data-texture 決定,預設沒有。 */
   --surface-texture: none;
 
