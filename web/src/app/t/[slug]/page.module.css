@@ -19,3 +19,20 @@
   letter-spacing: 0.04em;
   color: var(--text-primary);
 }
+
+/* 有投注單的頁面(場次頁、我的注單):桌機上注單是右側 dock(responsive.md),
+   內容一欄、注單一欄,注單在自己的欄裡 sticky;手機上注單是底部 sheet,自己 fixed,
+   這裡只剩一欄。兩欄需要比 820px 寬,所以蓋過 .page 的寬度。 */
+.withDock {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .withDock {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    max-inline-size: calc(820px + 340px + var(--space-8));
+  }
+}

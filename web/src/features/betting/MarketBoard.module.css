@@ -1,0 +1,245 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+/* 賠率單的欄寬由整張表共用:各盤口的票數與賠率才會排成同一條直線。
+   4ch / 6ch 是票數與賠率的最大寬度(9999 票、99.99 倍),用 ch 是因為數字是等寬的。 */
+.board {
+  --col-votes: 4ch;
+  --col-odds: 6ch;
+  --col-actions: 13rem;
+
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* 欄位標題只有一列,放在整張表最上面。 */
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--col-votes) var(--col-odds);
+  column-gap: var(--space-3);
+  padding-inline: var(--space-3);
+  font-size: var(--text-micro);
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.colLabel {
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-bold);
+}
+
+.colVotes,
+.colOdds {
+  text-align: end;
+  font-family: var(--font-mono);
+}
+
+/* 盤口是直角的:這是賠率表的語言,不是卡片。 */
+.market {
+  border: 1px solid var(--border-subtle);
+  background-color: var(--surface-raised);
+}
+
+.marketHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-block-end: 1px solid var(--border-subtle);
+}
+
+.marketTitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+.status {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 一列 = 一個結果。窄容器時動作換到第二行,數字那一行保持乾淨。 */
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--col-votes) var(--col-odds);
+  grid-template-areas:
+    'label votes odds'
+    'actions actions actions';
+  column-gap: var(--space-3);
+  row-gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-3);
+}
+
+.row + .row {
+  border-block-start: 1px solid var(--border-subtle);
+}
+
+.label {
+  grid-area: label;
+  min-inline-size: 0;
+  font-size: var(--text-md);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.votes {
+  grid-area: votes;
+  text-align: end;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-mono);
+  color: var(--text-secondary);
+}
+
+/* 賠率是錢的前身:金色。 */
+.odds {
+  grid-area: odds;
+  text-align: end;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-md);
+  font-weight: var(--weight-mono-bold);
+  color: var(--accent-money);
+}
+
+/* 封盤後的賠率已經不是能押的錢,退回一般文字色。金色只留給還在動的。 */
+.inert .odds {
+  color: var(--text-secondary);
+  font-weight: var(--weight-mono);
+}
+
+.inert .label {
+  color: var(--text-secondary);
+}
+
+.mine .label {
+  font-weight: var(--weight-body-bold);
+}
+
+.mineWord {
+  grid-area: actions;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  gap: var(--space-2);
+}
+
+.actions > * {
+  flex: 1 1 0;
+}
+
+/* 我投的:專案既有的「選定」語彙(文字色外框)。投票不是錢也不是贏,不借語意色。 */
+.actions > button[aria-pressed='true'] {
+  --button-border: var(--text-primary);
+
+  box-shadow: inset 0 0 0 1px var(--text-primary);
+}
+
+/* 在投注單裡的:金色外框。投注單是錢的路徑,這是金色的本職,不是借用。 */
+.actions > button:last-child[aria-pressed='true'] {
+  --button-border: var(--accent-money);
+  --button-fg: var(--accent-money);
+
+  box-shadow: inset 0 0 0 1px var(--accent-money);
+}
+
+@container (min-width: 560px) {
+  .columns,
+  .row {
+    grid-template-columns: minmax(0, 1fr) var(--col-votes) var(--col-odds) var(--col-actions);
+  }
+
+  .row {
+    grid-template-areas: 'label votes odds actions';
+  }
+
+  .actions,
+  .mineWord {
+    justify-content: flex-end;
+    text-align: end;
+  }
+
+  .actions > * {
+    flex: none;
+  }
+}
+
+/* 沒登入的人看到的是一條路,不是灰掉的按鈕。長得像旁邊的按鈕,才知道它站在那個位置上。 */
+.signin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 與旁邊 size="sm" 的 Button 同高:桌機 32px,觸控裝置一律 44px。 */
+  min-block-size: 32px;
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-bold);
+  font-size: var(--text-xs);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+@media (pointer: coarse) {
+  .signin {
+    min-block-size: var(--hit-target);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .signin {
+    transition: background-color var(--motion-hover) var(--ease-standard);
+  }
+}
+
+.signin:hover {
+  background-color: var(--surface-overlay);
+}
+
+.signin:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.muted {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.stale {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.error {
+  margin: 0;
+  padding: var(--space-3);
+  border-inline-start: 2px solid var(--state-live);
+  background-color: color-mix(in oklab, var(--state-live) 8%, transparent);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}

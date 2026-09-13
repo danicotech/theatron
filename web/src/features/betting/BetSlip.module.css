@@ -1,0 +1,393 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+/* ── 手機:底部 sheet(預設) ─────────────────── */
+
+.slip {
+  --slip-bg: var(--surface-raised);
+  --dock-width: 340px;
+
+  position: fixed;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  max-block-size: 80vh;
+  border-block-start: 1px solid var(--border-subtle);
+  background-color: var(--slip-bg);
+}
+
+/* sheet 是 fixed 的,佔不到版面。這個在文件流裡的空白等於收合的 bar 高度。 */
+.spacer {
+  block-size: calc(var(--hit-target) + var(--space-3) + env(safe-area-inset-bottom));
+}
+
+/* 收合狀態的那一條:`3 關 · 4.08× · 可拿 408`。數字會隨賠率動,所以整條用等寬。 */
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-block-size: var(--hit-target);
+  padding: var(--space-2) var(--space-4);
+  /* iPhone 的 home indicator 會蓋住底部,沒有這行「送出注單」按不到。 */
+  padding-block-end: calc(var(--space-2) + env(safe-area-inset-bottom));
+  border: 0;
+  background-color: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-mono-bold);
+  text-align: start;
+  cursor: pointer;
+  appearance: none;
+}
+
+.bar:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: -2px;
+}
+
+.open .bar {
+  padding-block-end: var(--space-2);
+  border-block-end: 1px dashed var(--border-subtle);
+}
+
+.barText {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 展開方向的提示。收合時朝上,展開後朝下。用邊框畫,不引 icon。 */
+.caret {
+  flex: none;
+  inline-size: 8px;
+  block-size: 8px;
+  border-inline-end: 1px solid var(--text-secondary);
+  border-block-end: 1px solid var(--text-secondary);
+  transform: translateY(2px) rotate(-135deg);
+}
+
+.open .caret {
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.body {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-4);
+  overflow: auto;
+  padding: var(--space-4);
+  padding-block-end: calc(var(--space-4) + env(safe-area-inset-bottom));
+}
+
+.open .body {
+  display: flex;
+}
+
+/* 手機的 bar 已經說了幾關,標頭只在桌機出現。 */
+.head {
+  display: none;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+/* ── 桌機:右側 dock ─────────────────────────── */
+
+@media (min-width: 1024px) {
+  .spacer,
+  .bar {
+    display: none;
+  }
+
+  /* 父層給它一欄;它在欄裡 sticky。用 fixed 會蓋住主區。 */
+  .slip {
+    position: sticky;
+    inset: auto;
+    inset-block-start: var(--space-6);
+    z-index: auto;
+    inline-size: 100%;
+    max-inline-size: var(--dock-width);
+    max-block-size: calc(100vh - var(--space-8));
+    border: 1px solid var(--border-subtle);
+  }
+
+  .body {
+    display: flex;
+    padding-block-end: var(--space-4);
+  }
+
+  .head {
+    display: flex;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* ── 腿 ──────────────────────────────────────── */
+
+.empty {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.legs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 各腿之間是齒孔虛線 —— 票根的語言(tokens.md 簽名元素)。 */
+.leg {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  column-gap: var(--space-3);
+  padding-block: var(--space-2);
+}
+
+.leg + .leg {
+  border-block-start: 1px dashed var(--border-subtle);
+}
+
+.legText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+.legMarket {
+  font-size: var(--text-micro);
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+.legLabel {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.legOdds {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-mono-bold);
+  color: var(--accent-money);
+}
+
+.remove {
+  min-block-size: var(--hit-target);
+  min-inline-size: var(--hit-target);
+  padding-inline: var(--space-2);
+  border: 0;
+  background-color: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  appearance: none;
+}
+
+.remove:hover {
+  color: var(--text-primary);
+}
+
+.remove:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+/* 撕線:腿與金額之間。比齒孔重一點,是「這裡撕開」的意思。 */
+.tear {
+  block-size: 0;
+  border-block-start: 1px dashed var(--text-secondary);
+}
+
+/* ── 本金與總額 ─────────────────────────────── */
+
+.stakeRow {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.stakeLabel {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+/* 輸入框跟賠率欄位一樣是直角、等寬、靠右 —— 它就是賠率單上填數字的那一格。 */
+.stakeInput {
+  min-block-size: var(--hit-target);
+  inline-size: 100%;
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  background-color: var(--surface-base);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-md);
+  font-weight: var(--weight-mono-bold);
+  text-align: end;
+}
+
+.stakeInput::placeholder {
+  color: var(--border-subtle);
+}
+
+.stakeInput:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.stakeInput:disabled {
+  opacity: 0.6;
+}
+
+.totals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0;
+  border: 1px solid var(--border-subtle);
+}
+
+.total {
+  padding: var(--space-2) var(--space-3);
+}
+
+.total + .total {
+  border-inline-start: 1px solid var(--border-subtle);
+  text-align: end;
+}
+
+.total dt {
+  font-size: var(--text-micro);
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.total dd {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-md);
+  color: var(--text-primary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono-bold);
+}
+
+/* ── 確認與結果 ─────────────────────────────── */
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.confirmLine {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.notice {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--accent-money);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+
+.placed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.placedActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.done {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: var(--hit-target);
+  padding-inline: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-bold);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .link {
+    transition: background-color var(--motion-hover) var(--ease-standard);
+  }
+}
+
+.link:hover {
+  background-color: var(--surface-overlay);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.inlineLink {
+  margin-inline-start: var(--space-2);
+  color: var(--text-primary);
+  font-weight: var(--weight-body-bold);
+}
+
+.inlineLink:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.error {
+  margin: 0;
+  padding: var(--space-3);
+  border-inline-start: 2px solid var(--state-live);
+  background-color: color-mix(in oklab, var(--state-live) 8%, transparent);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
