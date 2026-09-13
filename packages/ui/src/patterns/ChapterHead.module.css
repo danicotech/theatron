@@ -1,0 +1,132 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.head {
+  --chapter-rule: color-mix(in oklab, var(--border-subtle) 55%, transparent);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-inline-size: 0;
+}
+
+/* 印記列:印記、髮絲線、右側附件排成一行,線把中間全部吃掉。
+   手機上附件放不下就折到下一行,線仍然留在印記那一行。 */
+.mark {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3) var(--space-4);
+}
+
+.k {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-mono);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* 印記是這一區唯一的顏色。玫瑰色的職責是「現在正在發生」——
+   你正在讀的這一章就是現在。 */
+.number {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  color: var(--state-live);
+}
+
+.eyebrow {
+  white-space: nowrap;
+}
+
+.rule {
+  flex: 1 1 auto;
+  min-inline-size: var(--space-8);
+  block-size: 1px;
+  background-color: var(--chapter-rule);
+  /* baseline 對齊時線會貼在字的底部;抬到 x-height 中線附近才像劃過去的。 */
+  transform: translateY(-0.35em);
+}
+
+.aside {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-3xl);
+  line-height: 1.08;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.lede {
+  margin: 0;
+  max-inline-size: 56ch;
+  font-size: var(--text-md);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.lede strong {
+  color: var(--text-primary);
+  font-weight: var(--weight-body-bold);
+}
+
+/* 事實列借的是賠率單的紀律:一條帶、細線分欄、數值等寬。
+   上下各一條線,左右不圍 —— 這是版面上的一段,不是一張卡。 */
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  border-block: 1px solid var(--chapter-rule);
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4) var(--space-3) 0;
+  margin-inline-end: var(--space-4);
+  border-inline-end: 1px solid var(--chapter-rule);
+}
+
+.fact:last-child {
+  margin-inline-end: 0;
+  border-inline-end: 0;
+}
+
+.factLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.factValue {
+  margin: 0;
+  font-size: var(--text-lg);
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono);
+}
