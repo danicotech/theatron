@@ -28,7 +28,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file hestia/activity/v1/common.proto.
  */
 export const file_hestia_activity_v1_common: GenFile = /*@__PURE__*/
-  fileDesc("Ch9oZXN0aWEvYWN0aXZpdHkvdjEvY29tbW9uLnByb3RvEhJoZXN0aWEuYWN0aXZpdHkudjEizgEKClRvdXJuYW1lbnQSEQoJcHVibGljX2lkGAEgASgJEgwKBHNsdWcYAiABKAkSDAoEbmFtZRgDIAEoCRIyCgVwaGFzZRgEIAEoDjIjLmhlc3RpYS5hY3Rpdml0eS52MS5Ub3VybmFtZW50UGhhc2USFwoPYnBfcGVyX3JhbmtfZ2FwGAUgASgDEhQKDHBsYXllcl9jb3VudBgGIAEoBRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJkCghSYW5rSW5mbxImCgRyYW5rGAEgASgOMhguaGVzdGlhLmFjdGl2aXR5LnYxLlJhbmsSDAoEbmFtZRgCIAEoCRINCgV0aXRsZRgDIAEoCRITCgtkZXNjcmlwdGlvbhgEIAEoCSLFAQoGUGxheWVyEhEKCXB1YmxpY19pZBgBIAEoCRIUCgxkaXNwbGF5X25hbWUYAiABKAkSDwoHZ2FtZV9pZBgDIAEoCRImCgRyYW5rGAQgASgOMhguaGVzdGlhLmFjdGl2aXR5LnYxLlJhbmsSMAoGc3RhdHVzGAUgASgOMiAuaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllclN0YXR1cxIPCgdzZWVkX25vGAYgASgFEhYKDnVzZXJfcHVibGljX2lkGAcgASgJIrIDCgVNYXRjaBIRCglwdWJsaWNfaWQYASABKAkSDQoFcm91bmQYAiABKAUSDAoEc2xvdBgDIAEoBRIbChNwMV9wbGF5ZXJfcHVibGljX2lkGAQgASgJEhsKE3AyX3BsYXllcl9wdWJsaWNfaWQYBSABKAkSHwoXd2lubmVyX3BsYXllcl9wdWJsaWNfaWQYBiABKAkSLwoGc3RhdHVzGAcgASgOMh8uaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoU3RhdHVzEjgKC3Jlc3VsdF9raW5kGAggASgOMiMuaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoUmVzdWx0S2luZBIVCg1oYW5kaWNhcF9vcGVuGAkgASgIEhIKCnN0cmVhbV91cmwYCiABKAkSMwoKc3RhcnRlZF9hdBgLIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBIAIgBARI0CgtmaW5pc2hlZF9hdBgMIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBIAYgBAUINCgtfc3RhcnRlZF9hdEIOCgxfZmluaXNoZWRfYXQiWAoMQnJhY2tldFJvdW5kEg0KBXJvdW5kGAEgASgFEg0KBWxhYmVsGAIgASgJEioKB21hdGNoZXMYAyADKAsyGS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2gi0AEKDEhhbmRpY2FwSXRlbRIRCglwdWJsaWNfaWQYASABKAkSNgoIY2F0ZWdvcnkYAiABKA4yJC5oZXN0aWEuYWN0aXZpdHkudjEuSGFuZGljYXBDYXRlZ29yeRIMCgRuYW1lGAMgASgJEhMKC2Rlc2NyaXB0aW9uGAQgASgJEgwKBGNvc3QYBSABKAMSEgoKcmVwZWF0YWJsZRgGIAEoCBIcChRyZXF1aXJlc190YXJnZXRfbm90ZRgHIAEoCBISCgpzb3J0X29yZGVyGAggASgFItwBChFIYW5kaWNhcFNlbGVjdGlvbhIRCglwdWJsaWNfaWQYASABKAkSFgoOaXRlbV9wdWJsaWNfaWQYAiABKAkSEQoJaXRlbV9uYW1lGAMgASgJEjYKCGNhdGVnb3J5GAQgASgOMiQuaGVzdGlhLmFjdGl2aXR5LnYxLkhhbmRpY2FwQ2F0ZWdvcnkSDAoEY29zdBgFIAEoAxITCgt0YXJnZXRfbm90ZRgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJvCghCcEJ1ZGdldBIXCg9tYXRjaF9wdWJsaWNfaWQYASABKAkSGAoQcGxheWVyX3B1YmxpY19pZBgCIAEoCRIOCgZidWRnZXQYAyABKAMSDQoFc3BlbnQYBCABKAMSEQoJcmVtYWluaW5nGAUgASgDIqsCCg5NYXRjaEhhbmRpY2FwcxIXCg9tYXRjaF9wdWJsaWNfaWQYASABKAkSLwoGc3RhdHVzGAIgASgOMh8uaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoU3RhdHVzEiwKBmJ1ZGdldBgDIAEoCzIcLmhlc3RpYS5hY3Rpdml0eS52MS5CcEJ1ZGdldBI5CgpzZWxlY3Rpb25zGAQgAygLMiUuaGVzdGlhLmFjdGl2aXR5LnYxLkhhbmRpY2FwU2VsZWN0aW9uEiQKHGNvbnN0cmFpbmVkX3BsYXllcl9wdWJsaWNfaWQYBSABKAkSMgoJbG9ja2VkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgAiAEBQgwKCl9sb2NrZWRfYXQqYQoEUmFuaxIUChBSQU5LX1VOU1BFQ0lGSUVEEAASEAoMUkFOS19LQUlTSEFOEAESEQoNUkFOS19EVUFOU0hVSRACEg8KC1JBTktfRkVJSFVBEAMSDQoJUkFOS19XVVdPEAQqjgIKD1RvdXJuYW1lbnRQaGFzZRIgChxUT1VSTkFNRU5UX1BIQVNFX1VOU1BFQ0lGSUVEEAASGwoXVE9VUk5BTUVOVF9QSEFTRV9TSUdOVVAQARIiCh5UT1VSTkFNRU5UX1BIQVNFX1NJR05VUF9DTE9TRUQQAhIcChhUT1VSTkFNRU5UX1BIQVNFX1JBTktJTkcQAxIbChdUT1VSTkFNRU5UX1BIQVNFX1JBTktFRBAEEhwKGFRPVVJOQU1FTlRfUEhBU0VfRFJBV0lORxAFEiAKHFRPVVJOQU1FTlRfUEhBU0VfSU5fUFJPR1JFU1MQBhIdChlUT1VSTkFNRU5UX1BIQVNFX0ZJTklTSEVEEAcqpAEKC01hdGNoU3RhdHVzEhwKGE1BVENIX1NUQVRVU19VTlNQRUNJRklFRBAAEhgKFE1BVENIX1NUQVRVU19QRU5ESU5HEAESFgoSTUFUQ0hfU1RBVFVTX1JFQURZEAISFwoTTUFUQ0hfU1RBVFVTX0xPQ0tFRBADEhUKEU1BVENIX1NUQVRVU19MSVZFEAQSFQoRTUFUQ0hfU1RBVFVTX0RPTkUQBSpyCg9NYXRjaFJlc3VsdEtpbmQSIQodTUFUQ0hfUkVTVUxUX0tJTkRfVU5TUEVDSUZJRUQQABIcChhNQVRDSF9SRVNVTFRfS0lORF9OT1JNQUwQARIeChpNQVRDSF9SRVNVTFRfS0lORF9XQUxLT1ZFUhACKoIBCgxQbGF5ZXJTdGF0dXMSHQoZUExBWUVSX1NUQVRVU19VTlNQRUNJRklFRBAAEhgKFFBMQVlFUl9TVEFUVVNfQUNUSVZFEAESHAoYUExBWUVSX1NUQVRVU19FTElNSU5BVEVEEAISGwoXUExBWUVSX1NUQVRVU19XSVRIRFJBV04QAyroAQoQSGFuZGljYXBDYXRlZ29yeRIhCh1IQU5ESUNBUF9DQVRFR09SWV9VTlNQRUNJRklFRBAAEhwKGEhBTkRJQ0FQX0NBVEVHT1JZX1dFQVBPThABEhsKF0hBTkRJQ0FQX0NBVEVHT1JZX1NLSUxMEAISHQoZSEFORElDQVBfQ0FURUdPUllfREVGRU5TRRADEhwKGEhBTkRJQ0FQX0NBVEVHT1JZX1BPSVNPThAEEh0KGUhBTkRJQ0FQX0NBVEVHT1JZX1ZJQ1RPUlkQBRIaChZIQU5ESUNBUF9DQVRFR09SWV9SVUxFEAZCQFo+Z2l0aHViLmNvbS9kYW5pY290ZWNoL2hlc3RpYS9nZW4vaGVzdGlhL2FjdGl2aXR5L3YxO2FjdGl2aXR5djFiBnByb3RvMw", [file_google_protobuf_timestamp]);
+  fileDesc("Ch9oZXN0aWEvYWN0aXZpdHkvdjEvY29tbW9uLnByb3RvEhJoZXN0aWEuYWN0aXZpdHkudjEi+gEKClRvdXJuYW1lbnQSEQoJcHVibGljX2lkGAEgASgJEgwKBHNsdWcYAiABKAkSDAoEbmFtZRgDIAEoCRIyCgVwaGFzZRgEIAEoDjIjLmhlc3RpYS5hY3Rpdml0eS52MS5Ub3VybmFtZW50UGhhc2USFwoPYnBfcGVyX3JhbmtfZ2FwGAUgASgDEhQKDHBsYXllcl9jb3VudBgGIAEoBRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIPCgdiZXN0X29mGAggASgFEhkKEXRoaXJkX3BsYWNlX21hdGNoGAkgASgIImQKCFJhbmtJbmZvEiYKBHJhbmsYASABKA4yGC5oZXN0aWEuYWN0aXZpdHkudjEuUmFuaxIMCgRuYW1lGAIgASgJEg0KBXRpdGxlGAMgASgJEhMKC2Rlc2NyaXB0aW9uGAQgASgJIsUBCgZQbGF5ZXISEQoJcHVibGljX2lkGAEgASgJEhQKDGRpc3BsYXlfbmFtZRgCIAEoCRIPCgdnYW1lX2lkGAMgASgJEiYKBHJhbmsYBCABKA4yGC5oZXN0aWEuYWN0aXZpdHkudjEuUmFuaxIwCgZzdGF0dXMYBSABKA4yIC5oZXN0aWEuYWN0aXZpdHkudjEuUGxheWVyU3RhdHVzEg8KB3NlZWRfbm8YBiABKAUSFgoOdXNlcl9wdWJsaWNfaWQYByABKAkikQUKBU1hdGNoEhEKCXB1YmxpY19pZBgBIAEoCRINCgVyb3VuZBgCIAEoBRIMCgRzbG90GAMgASgFEhsKE3AxX3BsYXllcl9wdWJsaWNfaWQYBCABKAkSGwoTcDJfcGxheWVyX3B1YmxpY19pZBgFIAEoCRIfChd3aW5uZXJfcGxheWVyX3B1YmxpY19pZBgGIAEoCRIvCgZzdGF0dXMYByABKA4yHy5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hTdGF0dXMSOAoLcmVzdWx0X2tpbmQYCCABKA4yIy5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hSZXN1bHRLaW5kEhUKDWhhbmRpY2FwX29wZW4YCSABKAgSEgoKc3RyZWFtX3VybBgKIAEoCRIzCgpzdGFydGVkX2F0GAsgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgAiAEBEjQKC2ZpbmlzaGVkX2F0GAwgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgBiAEBEisKBGtpbmQYDSABKA4yHS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hLaW5kEjsKEnNldHVwX2NvbmZpcm1lZF9hdBgOIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBIAogBARIuCgZyb3VuZHMYDyADKAsyHi5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hSb3VuZBIVCg1wMV9yb3VuZF93aW5zGBAgASgFEhUKDXAyX3JvdW5kX3dpbnMYESABKAVCDQoLX3N0YXJ0ZWRfYXRCDgoMX2ZpbmlzaGVkX2F0QhUKE19zZXR1cF9jb25maXJtZWRfYXQitQEKCk1hdGNoUm91bmQSEAoIcm91bmRfbm8YASABKAUSLgoKc3RhcnRlZF9hdBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASNAoLZmluaXNoZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wSACIAQESHwoXd2lubmVyX3BsYXllcl9wdWJsaWNfaWQYBCABKAlCDgoMX2ZpbmlzaGVkX2F0Ip4CCglWaW9sYXRpb24SEQoJcHVibGljX2lkGAEgASgJEhcKD21hdGNoX3B1YmxpY19pZBgCIAEoCRIQCghyb3VuZF9ubxgDIAEoBRIYChBwbGF5ZXJfcHVibGljX2lkGAQgASgJEhsKE3BsYXllcl9kaXNwbGF5X25hbWUYBSABKAkSFgoOaXRlbV9wdWJsaWNfaWQYBiABKAkSEQoJaXRlbV9uYW1lGAcgASgJEjMKBnJ1bGluZxgIIAEoDjIjLmhlc3RpYS5hY3Rpdml0eS52MS5WaW9sYXRpb25SdWxpbmcSDAoEbm90ZRgJIAEoCRIuCgpjcmVhdGVkX2F0GAogASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJYCgxCcmFja2V0Um91bmQSDQoFcm91bmQYASABKAUSDQoFbGFiZWwYAiABKAkSKgoHbWF0Y2hlcxgDIAMoCzIZLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaCKHAgoMSGFuZGljYXBJdGVtEhEKCXB1YmxpY19pZBgBIAEoCRI2CghjYXRlZ29yeRgCIAEoDjIkLmhlc3RpYS5hY3Rpdml0eS52MS5IYW5kaWNhcENhdGVnb3J5EgwKBG5hbWUYAyABKAkSEwoLZGVzY3JpcHRpb24YBCABKAkSDAoEY29zdBgFIAEoAxISCgpyZXBlYXRhYmxlGAYgASgIEhwKFHJlcXVpcmVzX3RhcmdldF9ub3RlGAcgASgIEhIKCnNvcnRfb3JkZXIYCCABKAUSCwoDa2V5GAkgASgJEhcKD2FwcGxpZXNfdG9fYm90aBgKIAEoCBIPCgdzZWNvbmRzGAsgASgDIrICChFIYW5kaWNhcFNlbGVjdGlvbhIRCglwdWJsaWNfaWQYASABKAkSFgoOaXRlbV9wdWJsaWNfaWQYAiABKAkSEQoJaXRlbV9uYW1lGAMgASgJEjYKCGNhdGVnb3J5GAQgASgOMiQuaGVzdGlhLmFjdGl2aXR5LnYxLkhhbmRpY2FwQ2F0ZWdvcnkSDAoEY29zdBgFIAEoAxITCgt0YXJnZXRfbm90ZRgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIQCghpdGVtX2tleRgIIAEoCRITCgtkcmF3X3Jlc3VsdBgJIAEoCRIXCg9hcHBsaWVzX3RvX2JvdGgYCiABKAgSFAoMcmVmZXJlZV9ub3RlGAsgASgJIm8KCEJwQnVkZ2V0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRIYChBwbGF5ZXJfcHVibGljX2lkGAIgASgJEg4KBmJ1ZGdldBgDIAEoAxINCgVzcGVudBgEIAEoAxIRCglyZW1haW5pbmcYBSABKAMiqwIKDk1hdGNoSGFuZGljYXBzEhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRIvCgZzdGF0dXMYAiABKA4yHy5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hTdGF0dXMSLAoGYnVkZ2V0GAMgASgLMhwuaGVzdGlhLmFjdGl2aXR5LnYxLkJwQnVkZ2V0EjkKCnNlbGVjdGlvbnMYBCADKAsyJS5oZXN0aWEuYWN0aXZpdHkudjEuSGFuZGljYXBTZWxlY3Rpb24SJAocY29uc3RyYWluZWRfcGxheWVyX3B1YmxpY19pZBgFIAEoCRIyCglsb2NrZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wSACIAQFCDAoKX2xvY2tlZF9hdCphCgRSYW5rEhQKEFJBTktfVU5TUEVDSUZJRUQQABIQCgxSQU5LX0tBSVNIQU4QARIRCg1SQU5LX0RVQU5TSFVJEAISDwoLUkFOS19GRUlIVUEQAxINCglSQU5LX1dVV08QBCqOAgoPVG91cm5hbWVudFBoYXNlEiAKHFRPVVJOQU1FTlRfUEhBU0VfVU5TUEVDSUZJRUQQABIbChdUT1VSTkFNRU5UX1BIQVNFX1NJR05VUBABEiIKHlRPVVJOQU1FTlRfUEhBU0VfU0lHTlVQX0NMT1NFRBACEhwKGFRPVVJOQU1FTlRfUEhBU0VfUkFOS0lORxADEhsKF1RPVVJOQU1FTlRfUEhBU0VfUkFOS0VEEAQSHAoYVE9VUk5BTUVOVF9QSEFTRV9EUkFXSU5HEAUSIAocVE9VUk5BTUVOVF9QSEFTRV9JTl9QUk9HUkVTUxAGEh0KGVRPVVJOQU1FTlRfUEhBU0VfRklOSVNIRUQQByqkAQoLTWF0Y2hTdGF0dXMSHAoYTUFUQ0hfU1RBVFVTX1VOU1BFQ0lGSUVEEAASGAoUTUFUQ0hfU1RBVFVTX1BFTkRJTkcQARIWChJNQVRDSF9TVEFUVVNfUkVBRFkQAhIXChNNQVRDSF9TVEFUVVNfTE9DS0VEEAMSFQoRTUFUQ0hfU1RBVFVTX0xJVkUQBBIVChFNQVRDSF9TVEFUVVNfRE9ORRAFKnIKD01hdGNoUmVzdWx0S2luZBIhCh1NQVRDSF9SRVNVTFRfS0lORF9VTlNQRUNJRklFRBAAEhwKGE1BVENIX1JFU1VMVF9LSU5EX05PUk1BTBABEh4KGk1BVENIX1JFU1VMVF9LSU5EX1dBTEtPVkVSEAIqWwoJTWF0Y2hLaW5kEhoKFk1BVENIX0tJTkRfVU5TUEVDSUZJRUQQABIWChJNQVRDSF9LSU5EX0JSQUNLRVQQARIaChZNQVRDSF9LSU5EX1RISVJEX1BMQUNFEAIqrgEKD1Zpb2xhdGlvblJ1bGluZxIgChxWSU9MQVRJT05fUlVMSU5HX1VOU1BFQ0lGSUVEEAASHAoYVklPTEFUSU9OX1JVTElOR19XQVJOSU5HEAESHwobVklPTEFUSU9OX1JVTElOR19ST1VORF9MT1NTEAISHwobVklPTEFUSU9OX1JVTElOR19NQVRDSF9MT1NTEAMSGQoVVklPTEFUSU9OX1JVTElOR19OT05FEAQqggEKDFBsYXllclN0YXR1cxIdChlQTEFZRVJfU1RBVFVTX1VOU1BFQ0lGSUVEEAASGAoUUExBWUVSX1NUQVRVU19BQ1RJVkUQARIcChhQTEFZRVJfU1RBVFVTX0VMSU1JTkFURUQQAhIbChdQTEFZRVJfU1RBVFVTX1dJVEhEUkFXThADKugBChBIYW5kaWNhcENhdGVnb3J5EiEKHUhBTkRJQ0FQX0NBVEVHT1JZX1VOU1BFQ0lGSUVEEAASHAoYSEFORElDQVBfQ0FURUdPUllfV0VBUE9OEAESGwoXSEFORElDQVBfQ0FURUdPUllfU0tJTEwQAhIdChlIQU5ESUNBUF9DQVRFR09SWV9ERUZFTlNFEAMSHAoYSEFORElDQVBfQ0FURUdPUllfUE9JU09OEAQSHQoZSEFORElDQVBfQ0FURUdPUllfVklDVE9SWRAFEhoKFkhBTkRJQ0FQX0NBVEVHT1JZX1JVTEUQBkJAWj5naXRodWIuY29tL2Rhbmljb3RlY2gvaGVzdGlhL2dlbi9oZXN0aWEvYWN0aXZpdHkvdjE7YWN0aXZpdHl2MWIGcHJvdG8z", [file_google_protobuf_timestamp]);
 
 /**
  * Tournament 是一屆賽事的公開檢視。
@@ -76,6 +76,21 @@ export type Tournament = Message<"hestia.activity.v1.Tournament"> & {
    * @generated from field: google.protobuf.Timestamp created_at = 7;
    */
   createdAt?: Timestamp | undefined;
+
+  /**
+   * 幾局幾勝(config.format.best_of,schemas/28)。1 = 單場定勝負;第一屆是 3。
+   * 前端靠它算「還要贏幾回合」與比分盤的結果數,不要寫死 3。
+   *
+   * @generated from field: int32 best_of = 8;
+   */
+  bestOf: number;
+
+  /**
+   * 準決賽敗者是否加打季軍戰。
+   *
+   * @generated from field: bool third_place_match = 9;
+   */
+  thirdPlaceMatch: boolean;
 };
 
 /**
@@ -256,6 +271,8 @@ export type Match = Message<"hestia.activity.v1.Match"> & {
   streamUrl: string;
 
   /**
+   * = 第一回合的正式決鬥開始。這一刻同時關下注、啟動第一回合計時;前置過程在它之前。
+   *
    * @generated from field: optional google.protobuf.Timestamp started_at = 11;
    */
   startedAt?: Timestamp | undefined;
@@ -264,6 +281,39 @@ export type Match = Message<"hestia.activity.v1.Match"> & {
    * @generated from field: optional google.protobuf.Timestamp finished_at = 12;
    */
   finishedAt?: Timestamp | undefined;
+
+  /**
+   * @generated from field: hestia.activity.v1.MatchKind kind = 13;
+   */
+  kind: MatchKind;
+
+  /**
+   * 開賽前設定確認(schemas/20):裁判看完整張清單按一次「都確認了」。
+   * 空 = 還沒確認,**不能開打**(伺服器擋,DB 也擋)。
+   *
+   * @generated from field: optional google.protobuf.Timestamp setup_confirmed_at = 14;
+   */
+  setupConfirmedAt?: Timestamp | undefined;
+
+  /**
+   * 逐回合結果,依 round_no。回合列在裁判按「正式決鬥開始」時才建,
+   * 所以「還沒開始的回合」不在這裡。三局兩勝可能只有兩筆。
+   *
+   * @generated from field: repeated hestia.activity.v1.MatchRound rounds = 15;
+   */
+  rounds: MatchRound[];
+
+  /**
+   * 兩方目前的勝場數(從 rounds 算好給,避免前端各自算出不同答案)。
+   *
+   * @generated from field: int32 p1_round_wins = 16;
+   */
+  p1RoundWins: number;
+
+  /**
+   * @generated from field: int32 p2_round_wins = 17;
+   */
+  p2RoundWins: number;
 };
 
 /**
@@ -272,6 +322,121 @@ export type Match = Message<"hestia.activity.v1.Match"> & {
  */
 export const MatchSchema: GenMessage<Match> = /*@__PURE__*/
   messageDesc(file_hestia_activity_v1_common, 3);
+
+/**
+ * MatchRound 是一個回合。
+ *
+ * 計時器是衍生值:前端算 now() − started_at,伺服器不存倒數狀態。直播頁與
+ * 裁判頁看的是同一個 started_at,不會各算各的(grill Q4)。
+ *
+ * @generated from message hestia.activity.v1.MatchRound
+ */
+export type MatchRound = Message<"hestia.activity.v1.MatchRound"> & {
+  /**
+   * 1 起算。
+   *
+   * @generated from field: int32 round_no = 1;
+   */
+  roundNo: number;
+
+  /**
+   * 正式決鬥開始 = 計時起點。前置過程(讓守關元、讓半血)在它之前,不計入。
+   *
+   * @generated from field: google.protobuf.Timestamp started_at = 2;
+   */
+  startedAt?: Timestamp | undefined;
+
+  /**
+   * @generated from field: optional google.protobuf.Timestamp finished_at = 3;
+   */
+  finishedAt?: Timestamp | undefined;
+
+  /**
+   * 空 = 進行中。
+   *
+   * @generated from field: string winner_player_public_id = 4;
+   */
+  winnerPlayerPublicId: string;
+};
+
+/**
+ * Describes the message hestia.activity.v1.MatchRound.
+ * Use `create(MatchRoundSchema)` to create a new message.
+ */
+export const MatchRoundSchema: GenMessage<MatchRound> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_common, 4);
+
+/**
+ * Violation 是一筆違規紀錄(schemas/27)。只記事實,不自動觸發任何後果。
+ *
+ * @generated from message hestia.activity.v1.Violation
+ */
+export type Violation = Message<"hestia.activity.v1.Violation"> & {
+  /**
+   * @generated from field: string public_id = 1;
+   */
+  publicId: string;
+
+  /**
+   * @generated from field: string match_public_id = 2;
+   */
+  matchPublicId: string;
+
+  /**
+   * 0 = 開賽前(例:設定確認時發現沒改到)。
+   *
+   * @generated from field: int32 round_no = 3;
+   */
+  roundNo: number;
+
+  /**
+   * 違規者。**可以是任一方**:「雙方使用 46 級武庫」買方自己也可能違規。
+   *
+   * @generated from field: string player_public_id = 4;
+   */
+  playerPublicId: string;
+
+  /**
+   * @generated from field: string player_display_name = 5;
+   */
+  playerDisplayName: string;
+
+  /**
+   * 違反哪一項;空 = 不對應特定項目(違反通則)。
+   *
+   * @generated from field: string item_public_id = 6;
+   */
+  itemPublicId: string;
+
+  /**
+   * @generated from field: string item_name = 7;
+   */
+  itemName: string;
+
+  /**
+   * @generated from field: hestia.activity.v1.ViolationRuling ruling = 8;
+   */
+  ruling: ViolationRuling;
+
+  /**
+   * 裁判備註:發生了什麼、為什麼這樣判。必填。
+   *
+   * @generated from field: string note = 9;
+   */
+  note: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 10;
+   */
+  createdAt?: Timestamp | undefined;
+};
+
+/**
+ * Describes the message hestia.activity.v1.Violation.
+ * Use `create(ViolationSchema)` to create a new message.
+ */
+export const ViolationSchema: GenMessage<Violation> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_common, 5);
 
 /**
  * BracketRound 是對戰表的一輪。
@@ -312,7 +477,7 @@ export type BracketRound = Message<"hestia.activity.v1.BracketRound"> & {
  * Use `create(BracketRoundSchema)` to create a new message.
  */
 export const BracketRoundSchema: GenMessage<BracketRound> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 4);
+  messageDesc(file_hestia_activity_v1_common, 6);
 
 /**
  * HandicapItem 是一個可購買的讓武項目。
@@ -368,6 +533,29 @@ export type HandicapItem = Message<"hestia.activity.v1.HandicapItem"> & {
    * @generated from field: int32 sort_order = 8;
    */
   sortOrder: number;
+
+  /**
+   * 穩定識別,如 victory.survive_90s。改名不改 key(schemas/20)。
+   * 前端要對某一項做特別處理(例如計時提示)時用它,不要比對名稱文字。
+   *
+   * @generated from field: string key = 9;
+   */
+  key: string;
+
+  /**
+   * 此項對施加方同樣生效(目前只有「雙方使用 46 級武庫武學裝備」)。
+   * 選購頁要醒目提示:買方自己也受限。
+   *
+   * @generated from field: bool applies_to_both = 10;
+   */
+  appliesToBoth: boolean;
+
+  /**
+   * 「撐過 N 秒即獲勝」的 N;0 = 與時間無關。數字是資料,不是名稱裡的文字。
+   *
+   * @generated from field: int64 seconds = 11;
+   */
+  seconds: bigint;
 };
 
 /**
@@ -375,7 +563,7 @@ export type HandicapItem = Message<"hestia.activity.v1.HandicapItem"> & {
  * Use `create(HandicapItemSchema)` to create a new message.
  */
 export const HandicapItemSchema: GenMessage<HandicapItem> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 5);
+  messageDesc(file_hestia_activity_v1_common, 7);
 
 /**
  * HandicapSelection 是一次已成立的讓武選擇。
@@ -426,6 +614,36 @@ export type HandicapSelection = Message<"hestia.activity.v1.HandicapSelection"> 
    * @generated from field: google.protobuf.Timestamp created_at = 7;
    */
   createdAt?: Timestamp | undefined;
+
+  /**
+   * 項目的穩定識別(同 HandicapItem.key)。
+   *
+   * @generated from field: string item_key = 8;
+   */
+  itemKey: string;
+
+  /**
+   * 系統抽選的結果(隨機武學抽到哪一個、方向鍵打亂成什麼)。
+   * 抽選在**封盤那一刻**做(grill Q13),所以封盤公示是完整的;封盤前恆為空。
+   *
+   * @generated from field: string draw_result = 9;
+   */
+  drawResult: string;
+
+  /**
+   * 同 HandicapItem.applies_to_both。
+   *
+   * @generated from field: bool applies_to_both = 10;
+   */
+  appliesToBoth: boolean;
+
+  /**
+   * 裁判執行說明。**只在 JudgeService 的回應裡有值**(ReviewHandicap / LockHandicap);
+   * 選手端與觀眾端的任何路徑一律空字串。裁判封盤前審清單就要照著它退掉重疊的項目。
+   *
+   * @generated from field: string referee_note = 11;
+   */
+  refereeNote: string;
 };
 
 /**
@@ -433,7 +651,7 @@ export type HandicapSelection = Message<"hestia.activity.v1.HandicapSelection"> 
  * Use `create(HandicapSelectionSchema)` to create a new message.
  */
 export const HandicapSelectionSchema: GenMessage<HandicapSelection> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 6);
+  messageDesc(file_hestia_activity_v1_common, 8);
 
 /**
  * BpBudget 是某人在某場的讓武預算。
@@ -482,7 +700,7 @@ export type BpBudget = Message<"hestia.activity.v1.BpBudget"> & {
  * Use `create(BpBudgetSchema)` to create a new message.
  */
 export const BpBudgetSchema: GenMessage<BpBudget> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 7);
+  messageDesc(file_hestia_activity_v1_common, 9);
 
 /**
  * MatchHandicaps 是一場比賽的讓武全貌,封盤後公開。
@@ -526,6 +744,10 @@ export type MatchHandicaps = Message<"hestia.activity.v1.MatchHandicaps"> & {
   /**
    * 封盤時間;空 = 尚未封盤,此時 selections 只會包含請求者自己的。
    *
+   * 唯一的例外是 JudgeService.ReviewHandicap:裁判在封盤前也拿得到完整內容
+   * (場上要他執行的規則就寫在那些項目裡)。所以**不要拿 locked_at 為空
+   * 去推論「這份內容還是秘密」**—— 它只說明這場封盤了沒有。
+   *
    * @generated from field: optional google.protobuf.Timestamp locked_at = 6;
    */
   lockedAt?: Timestamp | undefined;
@@ -536,7 +758,7 @@ export type MatchHandicaps = Message<"hestia.activity.v1.MatchHandicaps"> & {
  * Use `create(MatchHandicapsSchema)` to create a new message.
  */
 export const MatchHandicapsSchema: GenMessage<MatchHandicaps> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 8);
+  messageDesc(file_hestia_activity_v1_common, 10);
 
 /**
  * Rank 是試鋒段位。**數值即 rank_level**,由低至高。
@@ -737,6 +959,77 @@ export const MatchResultKindSchema: GenEnum<MatchResultKind> = /*@__PURE__*/
   enumDesc(file_hestia_activity_v1_common, 3);
 
 /**
+ * MatchKind 區分晉級樹上的一場與季軍戰。
+ *
+ * 季軍戰(schemas/20,grill Q15)不屬於晉級樹:準決賽兩位敗者加打一場,
+ * 勝者不晉級。它是一場普通比賽 —— 讓武、下注、設定確認、違規那一整套完全適用。
+ *
+ * @generated from enum hestia.activity.v1.MatchKind
+ */
+export enum MatchKind {
+  /**
+   * @generated from enum value: MATCH_KIND_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: MATCH_KIND_BRACKET = 1;
+   */
+  BRACKET = 1,
+
+  /**
+   * @generated from enum value: MATCH_KIND_THIRD_PLACE = 2;
+   */
+  THIRD_PLACE = 2,
+}
+
+/**
+ * Describes the enum hestia.activity.v1.MatchKind.
+ */
+export const MatchKindSchema: GenEnum<MatchKind> = /*@__PURE__*/
+  enumDesc(file_hestia_activity_v1_common, 4);
+
+/**
+ * ViolationRuling 是裁判對一筆違規的判決。**只是紀錄,不是觸發器**(schemas/27):
+ * 判該回合 = 裁判把該回合勝者填成對方;判整場 = 走 FinishRound / ReportResult。
+ * 固定值是為了讓賽果公告判斷得出「這一筆要不要寫進公告」(ROUND_LOSS / MATCH_LOSS 才寫)。
+ *
+ * @generated from enum hestia.activity.v1.ViolationRuling
+ */
+export enum ViolationRuling {
+  /**
+   * @generated from enum value: VIOLATION_RULING_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: VIOLATION_RULING_WARNING = 1;
+   */
+  WARNING = 1,
+
+  /**
+   * @generated from enum value: VIOLATION_RULING_ROUND_LOSS = 2;
+   */
+  ROUND_LOSS = 2,
+
+  /**
+   * @generated from enum value: VIOLATION_RULING_MATCH_LOSS = 3;
+   */
+  MATCH_LOSS = 3,
+
+  /**
+   * @generated from enum value: VIOLATION_RULING_NONE = 4;
+   */
+  NONE = 4,
+}
+
+/**
+ * Describes the enum hestia.activity.v1.ViolationRuling.
+ */
+export const ViolationRulingSchema: GenEnum<ViolationRuling> = /*@__PURE__*/
+  enumDesc(file_hestia_activity_v1_common, 5);
+
+/**
  * PlayerStatus 是參賽者在本屆的狀態。
  *
  * @generated from enum hestia.activity.v1.PlayerStatus
@@ -767,7 +1060,7 @@ export enum PlayerStatus {
  * Describes the enum hestia.activity.v1.PlayerStatus.
  */
 export const PlayerStatusSchema: GenEnum<PlayerStatus> = /*@__PURE__*/
-  enumDesc(file_hestia_activity_v1_common, 4);
+  enumDesc(file_hestia_activity_v1_common, 6);
 
 /**
  * HandicapCategory 是讓武項目的六大分類。
@@ -831,5 +1124,5 @@ export enum HandicapCategory {
  * Describes the enum hestia.activity.v1.HandicapCategory.
  */
 export const HandicapCategorySchema: GenEnum<HandicapCategory> = /*@__PURE__*/
-  enumDesc(file_hestia_activity_v1_common, 5);
+  enumDesc(file_hestia_activity_v1_common, 7);
 

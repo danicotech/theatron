@@ -7,13 +7,25 @@
 // ── 為什麼是投票驅動而不是彩池 ──────────────────────────────────
 //
 // 彩池做不了串關:彩池的賠率要等封盤後才算得出來,而串關必須在下注當下就
-// 知道每一腿的賠率才能乘起來。所以改成投票推導隱含機率:
+// 知道每一腿的賠率才能乘起來。所以改成投票推導隱含機率(n 路,schemas/21):
 //
-//   隱含機率 = (該方票數 + SMOOTHING) / (總票數 + 2×SMOOTHING)
-//   賠率     = (1 − VIG) / 隱含機率,夾在 [MIN_ODDS, MAX_ODDS]
+//   p_i    = (票_i + SMOOTHING) / (總票數 + n×SMOOTHING)     n = 該盤口的結果數
+//   賠率_i = (1 − VIG) / p_i,夾在 [MIN_ODDS, MAX_ODDS]
+//
+// 這是標準運彩邏輯:Σp_i = 1,Σ(1/賠率_i) = 1/(1−VIG) —— 那多出來的就是抽水。
+// 兩路(勝負)是 n=2 的特例;比分盤(三局兩勝)是 n=4。
 //
 // **賠率在下注當下鎖定**寫進注單。之後票數再怎麼跑都不影響已成立的注單,
 // 派彩也直接發下注當下算定的金額 —— 選手看到的「可能贏得 X」必須等於實際入帳。
+//
+// ── 盤口(2026-09-13)──────────────────────────────────────────
+//
+// 一場比賽有多個盤口:整場勝敗、單回合勝敗、時長、比分。哪些存在由該屆的
+// 規則設定決定(schemas/28),場次開盤時建。每個盤口各自投票、各自結算。
+//
+// **串關的各腿必須落在不同場次**(同一場只能一腿):押「A 贏整場」+「比分 2:0」
+// 是同一件事押兩次,賠率卻相乘 —— 沒有莊家在對面收錢,超額派彩直接從代幣供給出。
+// 跨場串不同盤口完全可以:第 1 場押時長 + 第 2 場押比分 + 第 3 場押勝負。
 //
 // ── 這裡全部是真錢 ──────────────────────────────────────────────
 //
@@ -40,10 +52,119 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file hestia/activity/v1/betting.proto.
  */
 export const file_hestia_activity_v1_betting: GenFile = /*@__PURE__*/
-  fileDesc("CiBoZXN0aWEvYWN0aXZpdHkvdjEvYmV0dGluZy5wcm90bxISaGVzdGlhLmFjdGl2aXR5LnYxIp4BCglNYXRjaE9kZHMSFwoPbWF0Y2hfcHVibGljX2lkGAEgASgJEhAKCHAxX3ZvdGVzGAIgASgFEhAKCHAyX3ZvdGVzGAMgASgFEhUKDXAxX29kZHNfbWlsbGkYBCABKAMSFQoNcDJfb2Rkc19taWxsaRgFIAEoAxIVCg1vcGVuX2Zvcl9iZXRzGAYgASgIEg8KB215X3ZvdGUYByABKAUiNAoLVm90ZVJlcXVlc3QSFwoPbWF0Y2hfcHVibGljX2lkGAEgASgJEgwKBHNpZGUYAiABKAUiOwoMVm90ZVJlc3BvbnNlEisKBG9kZHMYASABKAsyHS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hPZGRzIioKDkdldE9kZHNSZXF1ZXN0EhgKEG1hdGNoX3B1YmxpY19pZHMYASADKAkiPgoPR2V0T2Rkc1Jlc3BvbnNlEisKBG9kZHMYASADKAsyHS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hPZGRzIjQKC0JldExlZ0lucHV0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRIMCgRzaWRlGAIgASgFIpoBCg9QbGFjZUJldFJlcXVlc3QSFwoPdG91cm5hbWVudF9zbHVnGAEgASgJEg0KBXN0YWtlGAIgASgDEi0KBGxlZ3MYAyADKAsyHy5oZXN0aWEuYWN0aXZpdHkudjEuQmV0TGVnSW5wdXQSFwoPaWRlbXBvdGVuY3lfa2V5GAQgASgJEhcKD2V4cGVjdGVkX3BheW91dBgFIAEoAyKrAgoDQmV0EhEKCXB1YmxpY19pZBgBIAEoCRINCgVzdGFrZRgCIAEoAxIYChBwb3RlbnRpYWxfcGF5b3V0GAMgASgDEi0KBnN0YXR1cxgEIAEoDjIdLmhlc3RpYS5hY3Rpdml0eS52MS5CZXRTdGF0dXMSKAoEbGVncxgFIAMoCzIaLmhlc3RpYS5hY3Rpdml0eS52MS5CZXRMZWcSGwoTcGF5b3V0X3JlY2FsY3VsYXRlZBgGIAEoCBIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIzCgpzZXR0bGVkX2F0GAggASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgAiAEBQg0KC19zZXR0bGVkX2F0IqIBCgZCZXRMZWcSFwoPbWF0Y2hfcHVibGljX2lkGAEgASgJEhMKC21hdGNoX2xhYmVsGAIgASgJEgwKBHNpZGUYAyABKAUSGQoRc2lkZV9kaXNwbGF5X25hbWUYBCABKAkSEgoKb2Rkc19taWxsaRgFIAEoAxItCgZyZXN1bHQYBiABKA4yHS5oZXN0aWEuYWN0aXZpdHkudjEuTGVnUmVzdWx0IkoKEFBsYWNlQmV0UmVzcG9uc2USJAoDYmV0GAEgASgLMhcuaGVzdGlhLmFjdGl2aXR5LnYxLkJldBIQCghyZXBsYXllZBgCIAEoCCI/ChFMaXN0TXlCZXRzUmVxdWVzdBIXCg90b3VybmFtZW50X3NsdWcYASABKAkSEQoJb3Blbl9vbmx5GAIgASgIIjsKEkxpc3RNeUJldHNSZXNwb25zZRIlCgRiZXRzGAEgAygLMhcuaGVzdGlhLmFjdGl2aXR5LnYxLkJldCp6CglCZXRTdGF0dXMSGgoWQkVUX1NUQVRVU19VTlNQRUNJRklFRBAAEhMKD0JFVF9TVEFUVVNfT1BFThABEhIKDkJFVF9TVEFUVVNfV09OEAISEwoPQkVUX1NUQVRVU19MT1NUEAMSEwoPQkVUX1NUQVRVU19WT0lEEAQqfQoJTGVnUmVzdWx0EhoKFkxFR19SRVNVTFRfVU5TUEVDSUZJRUQQABIWChJMRUdfUkVTVUxUX1BFTkRJTkcQARISCg5MRUdfUkVTVUxUX1dPThACEhMKD0xFR19SRVNVTFRfTE9TVBADEhMKD0xFR19SRVNVTFRfVk9JRBAEMusCCg5CZXR0aW5nU2VydmljZRJLCgRWb3RlEh8uaGVzdGlhLmFjdGl2aXR5LnYxLlZvdGVSZXF1ZXN0GiAuaGVzdGlhLmFjdGl2aXR5LnYxLlZvdGVSZXNwb25zZSIAElQKB0dldE9kZHMSIi5oZXN0aWEuYWN0aXZpdHkudjEuR2V0T2Rkc1JlcXVlc3QaIy5oZXN0aWEuYWN0aXZpdHkudjEuR2V0T2Rkc1Jlc3BvbnNlIgASVwoIUGxhY2VCZXQSIy5oZXN0aWEuYWN0aXZpdHkudjEuUGxhY2VCZXRSZXF1ZXN0GiQuaGVzdGlhLmFjdGl2aXR5LnYxLlBsYWNlQmV0UmVzcG9uc2UiABJdCgpMaXN0TXlCZXRzEiUuaGVzdGlhLmFjdGl2aXR5LnYxLkxpc3RNeUJldHNSZXF1ZXN0GiYuaGVzdGlhLmFjdGl2aXR5LnYxLkxpc3RNeUJldHNSZXNwb25zZSIAQkBaPmdpdGh1Yi5jb20vZGFuaWNvdGVjaC9oZXN0aWEvZ2VuL2hlc3RpYS9hY3Rpdml0eS92MTthY3Rpdml0eXYxYgZwcm90bzM", [file_google_protobuf_timestamp]);
+  fileDesc("CiBoZXN0aWEvYWN0aXZpdHkvdjEvYmV0dGluZy5wcm90bxISaGVzdGlhLmFjdGl2aXR5LnYxIlAKC091dGNvbWVPZGRzEg8KB291dGNvbWUYASABKAkSDQoFbGFiZWwYAiABKAkSDQoFdm90ZXMYAyABKAUSEgoKb2Rkc19taWxsaRgEIAEoAyKiAgoKTWFya2V0T2RkcxIYChBtYXJrZXRfcHVibGljX2lkGAEgASgJEhcKD21hdGNoX3B1YmxpY19pZBgCIAEoCRIsCgRraW5kGAMgASgOMh4uaGVzdGlhLmFjdGl2aXR5LnYxLk1hcmtldEtpbmQSEAoIcm91bmRfbm8YBCABKAUSFAoMbGluZV9zZWNvbmRzGAUgASgDEjAKBnN0YXR1cxgGIAEoDjIgLmhlc3RpYS5hY3Rpdml0eS52MS5NYXJrZXRTdGF0dXMSMQoIb3V0Y29tZXMYByADKAsyHy5oZXN0aWEuYWN0aXZpdHkudjEuT3V0Y29tZU9kZHMSFQoNb3Blbl9mb3JfYmV0cxgIIAEoCBIPCgdteV92b3RlGAkgASgJIlUKCU1hdGNoT2RkcxIXCg9tYXRjaF9wdWJsaWNfaWQYASABKAkSLwoHbWFya2V0cxgCIAMoCzIeLmhlc3RpYS5hY3Rpdml0eS52MS5NYXJrZXRPZGRzIjgKC1ZvdGVSZXF1ZXN0EhgKEG1hcmtldF9wdWJsaWNfaWQYASABKAkSDwoHb3V0Y29tZRgCIAEoCSI8CgxWb3RlUmVzcG9uc2USLAoEb2RkcxgBIAEoCzIeLmhlc3RpYS5hY3Rpdml0eS52MS5NYXJrZXRPZGRzIioKDkdldE9kZHNSZXF1ZXN0EhgKEG1hdGNoX3B1YmxpY19pZHMYASADKAkiPgoPR2V0T2Rkc1Jlc3BvbnNlEisKBG9kZHMYASADKAsyHS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hPZGRzIjgKC0JldExlZ0lucHV0EhgKEG1hcmtldF9wdWJsaWNfaWQYASABKAkSDwoHb3V0Y29tZRgCIAEoCSKaAQoPUGxhY2VCZXRSZXF1ZXN0EhcKD3RvdXJuYW1lbnRfc2x1ZxgBIAEoCRINCgVzdGFrZRgCIAEoAxItCgRsZWdzGAMgAygLMh8uaGVzdGlhLmFjdGl2aXR5LnYxLkJldExlZ0lucHV0EhcKD2lkZW1wb3RlbmN5X2tleRgEIAEoCRIXCg9leHBlY3RlZF9wYXlvdXQYBSABKAMiqwIKA0JldBIRCglwdWJsaWNfaWQYASABKAkSDQoFc3Rha2UYAiABKAMSGAoQcG90ZW50aWFsX3BheW91dBgDIAEoAxItCgZzdGF0dXMYBCABKA4yHS5oZXN0aWEuYWN0aXZpdHkudjEuQmV0U3RhdHVzEigKBGxlZ3MYBSADKAsyGi5oZXN0aWEuYWN0aXZpdHkudjEuQmV0TGVnEhsKE3BheW91dF9yZWNhbGN1bGF0ZWQYBiABKAgSLgoKY3JlYXRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASMwoKc2V0dGxlZF9hdBgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBIAIgBAUINCgtfc2V0dGxlZF9hdCL7AQoGQmV0TGVnEhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRITCgttYXRjaF9sYWJlbBgCIAEoCRIYChBtYXJrZXRfcHVibGljX2lkGAMgASgJEiwKBGtpbmQYBCABKA4yHi5oZXN0aWEuYWN0aXZpdHkudjEuTWFya2V0S2luZBIQCghyb3VuZF9ubxgFIAEoBRIPCgdvdXRjb21lGAYgASgJEhUKDW91dGNvbWVfbGFiZWwYByABKAkSEgoKb2Rkc19taWxsaRgIIAEoAxItCgZyZXN1bHQYCSABKA4yHS5oZXN0aWEuYWN0aXZpdHkudjEuTGVnUmVzdWx0IkoKEFBsYWNlQmV0UmVzcG9uc2USJAoDYmV0GAEgASgLMhcuaGVzdGlhLmFjdGl2aXR5LnYxLkJldBIQCghyZXBsYXllZBgCIAEoCCI/ChFMaXN0TXlCZXRzUmVxdWVzdBIXCg90b3VybmFtZW50X3NsdWcYASABKAkSEQoJb3Blbl9vbmx5GAIgASgIIjsKEkxpc3RNeUJldHNSZXNwb25zZRIlCgRiZXRzGAEgAygLMhcuaGVzdGlhLmFjdGl2aXR5LnYxLkJldCp6CglCZXRTdGF0dXMSGgoWQkVUX1NUQVRVU19VTlNQRUNJRklFRBAAEhMKD0JFVF9TVEFUVVNfT1BFThABEhIKDkJFVF9TVEFUVVNfV09OEAISEwoPQkVUX1NUQVRVU19MT1NUEAMSEwoPQkVUX1NUQVRVU19WT0lEEAQqfQoJTGVnUmVzdWx0EhoKFkxFR19SRVNVTFRfVU5TUEVDSUZJRUQQABIWChJMRUdfUkVTVUxUX1BFTkRJTkcQARISCg5MRUdfUkVTVUxUX1dPThACEhMKD0xFR19SRVNVTFRfTE9TVBADEhMKD0xFR19SRVNVTFRfVk9JRBAEKpYBCgpNYXJrZXRLaW5kEhsKF01BUktFVF9LSU5EX1VOU1BFQ0lGSUVEEAASHAoYTUFSS0VUX0tJTkRfTUFUQ0hfV0lOTkVSEAESHAoYTUFSS0VUX0tJTkRfUk9VTkRfV0lOTkVSEAISGAoUTUFSS0VUX0tJTkRfRFVSQVRJT04QAxIVChFNQVJLRVRfS0lORF9TQ09SRRAEKpIBCgxNYXJrZXRTdGF0dXMSHQoZTUFSS0VUX1NUQVRVU19VTlNQRUNJRklFRBAAEhYKEk1BUktFVF9TVEFUVVNfT1BFThABEhgKFE1BUktFVF9TVEFUVVNfQ0xPU0VEEAISGQoVTUFSS0VUX1NUQVRVU19TRVRUTEVEEAMSFgoSTUFSS0VUX1NUQVRVU19WT0lEEAQy6wIKDkJldHRpbmdTZXJ2aWNlEksKBFZvdGUSHy5oZXN0aWEuYWN0aXZpdHkudjEuVm90ZVJlcXVlc3QaIC5oZXN0aWEuYWN0aXZpdHkudjEuVm90ZVJlc3BvbnNlIgASVAoHR2V0T2RkcxIiLmhlc3RpYS5hY3Rpdml0eS52MS5HZXRPZGRzUmVxdWVzdBojLmhlc3RpYS5hY3Rpdml0eS52MS5HZXRPZGRzUmVzcG9uc2UiABJXCghQbGFjZUJldBIjLmhlc3RpYS5hY3Rpdml0eS52MS5QbGFjZUJldFJlcXVlc3QaJC5oZXN0aWEuYWN0aXZpdHkudjEuUGxhY2VCZXRSZXNwb25zZSIAEl0KCkxpc3RNeUJldHMSJS5oZXN0aWEuYWN0aXZpdHkudjEuTGlzdE15QmV0c1JlcXVlc3QaJi5oZXN0aWEuYWN0aXZpdHkudjEuTGlzdE15QmV0c1Jlc3BvbnNlIgBCQFo+Z2l0aHViLmNvbS9kYW5pY290ZWNoL2hlc3RpYS9nZW4vaGVzdGlhL2FjdGl2aXR5L3YxO2FjdGl2aXR5djFiBnByb3RvMw", [file_google_protobuf_timestamp]);
 
 /**
- * MatchOdds 是一場比賽的即時賠率。
+ * OutcomeOdds 是一個盤口裡一個結果的票數與賠率。
+ *
+ * @generated from message hestia.activity.v1.OutcomeOdds
+ */
+export type OutcomeOdds = Message<"hestia.activity.v1.OutcomeOdds"> & {
+  /**
+   * 結果代碼(p1 / p2 / over / under / p1_2_0 …)。下注與投票都用它。
+   *
+   * @generated from field: string outcome = 1;
+   */
+  outcome: string;
+
+  /**
+   * 顯示用的名稱,伺服器組好:選手名、「超過 90 秒」、「2:0」。前端不要自己拼。
+   *
+   * @generated from field: string label = 2;
+   */
+  label: string;
+
+  /**
+   * @generated from field: int32 votes = 3;
+   */
+  votes: number;
+
+  /**
+   * 賠率 ×1000 的整數(1.43 → 1430)。
+   * 浮點數在這裡是禁止的:賠率會參與串關的連乘,誤差會直接乘進派彩金額。
+   *
+   * @generated from field: int64 odds_milli = 4;
+   */
+  oddsMilli: bigint;
+};
+
+/**
+ * Describes the message hestia.activity.v1.OutcomeOdds.
+ * Use `create(OutcomeOddsSchema)` to create a new message.
+ */
+export const OutcomeOddsSchema: GenMessage<OutcomeOdds> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_betting, 0);
+
+/**
+ * MarketOdds 是一個盤口的即時賠率。
+ *
+ * @generated from message hestia.activity.v1.MarketOdds
+ */
+export type MarketOdds = Message<"hestia.activity.v1.MarketOdds"> & {
+  /**
+   * @generated from field: string market_public_id = 1;
+   */
+  marketPublicId: string;
+
+  /**
+   * @generated from field: string match_public_id = 2;
+   */
+  matchPublicId: string;
+
+  /**
+   * @generated from field: hestia.activity.v1.MarketKind kind = 3;
+   */
+  kind: MarketKind;
+
+  /**
+   * ROUND_WINNER / DURATION 才有;其餘 0。
+   *
+   * @generated from field: int32 round_no = 4;
+   */
+  roundNo: number;
+
+  /**
+   * DURATION 才有;其餘 0。
+   *
+   * @generated from field: int64 line_seconds = 5;
+   */
+  lineSeconds: bigint;
+
+  /**
+   * @generated from field: hestia.activity.v1.MarketStatus status = 6;
+   */
+  status: MarketStatus;
+
+  /**
+   * @generated from field: repeated hestia.activity.v1.OutcomeOdds outcomes = 7;
+   */
+  outcomes: OutcomeOdds[];
+
+  /**
+   * 現在能不能下注(status = OPEN)。
+   *
+   * @generated from field: bool open_for_bets = 8;
+   */
+  openForBets: boolean;
+
+  /**
+   * 我投了哪個結果;空 = 還沒投或未登入。
+   * 只回自己的 —— 別人投給誰永遠不會出現在任何回應裡。
+   *
+   * @generated from field: string my_vote = 9;
+   */
+  myVote: string;
+};
+
+/**
+ * Describes the message hestia.activity.v1.MarketOdds.
+ * Use `create(MarketOddsSchema)` to create a new message.
+ */
+export const MarketOddsSchema: GenMessage<MarketOdds> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_betting, 1);
+
+/**
+ * MatchOdds 是一場比賽全部盤口的即時賠率。
  *
  * @generated from message hestia.activity.v1.MatchOdds
  */
@@ -54,42 +175,9 @@ export type MatchOdds = Message<"hestia.activity.v1.MatchOdds"> & {
   matchPublicId: string;
 
   /**
-   * @generated from field: int32 p1_votes = 2;
+   * @generated from field: repeated hestia.activity.v1.MarketOdds markets = 2;
    */
-  p1Votes: number;
-
-  /**
-   * @generated from field: int32 p2_votes = 3;
-   */
-  p2Votes: number;
-
-  /**
-   * 賠率 ×1000 的整數(1.43 → 1430)。
-   * 浮點數在這裡是禁止的:賠率會參與串關的連乘,誤差會直接乘進派彩金額。
-   *
-   * @generated from field: int64 p1_odds_milli = 4;
-   */
-  p1OddsMilli: bigint;
-
-  /**
-   * @generated from field: int64 p2_odds_milli = 5;
-   */
-  p2OddsMilli: bigint;
-
-  /**
-   * 現在能不能下注。READY 與 LOCKED 可以,LIVE 之後不行。
-   *
-   * @generated from field: bool open_for_bets = 6;
-   */
-  openForBets: boolean;
-
-  /**
-   * 我投給了哪一方(1 或 2);0 = 還沒投或未登入。
-   * 只回自己的 —— 別人投給誰永遠不會出現在任何回應裡。
-   *
-   * @generated from field: int32 my_vote = 7;
-   */
-  myVote: number;
+  markets: MarketOdds[];
 };
 
 /**
@@ -97,23 +185,23 @@ export type MatchOdds = Message<"hestia.activity.v1.MatchOdds"> & {
  * Use `create(MatchOddsSchema)` to create a new message.
  */
 export const MatchOddsSchema: GenMessage<MatchOdds> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_betting, 0);
+  messageDesc(file_hestia_activity_v1_betting, 2);
 
 /**
  * @generated from message hestia.activity.v1.VoteRequest
  */
 export type VoteRequest = Message<"hestia.activity.v1.VoteRequest"> & {
   /**
-   * @generated from field: string match_public_id = 1;
+   * @generated from field: string market_public_id = 1;
    */
-  matchPublicId: string;
+  marketPublicId: string;
 
   /**
-   * 1 = p1,2 = p2。
+   * 該盤口的結果代碼。
    *
-   * @generated from field: int32 side = 2;
+   * @generated from field: string outcome = 2;
    */
-  side: number;
+  outcome: string;
 };
 
 /**
@@ -121,18 +209,18 @@ export type VoteRequest = Message<"hestia.activity.v1.VoteRequest"> & {
  * Use `create(VoteRequestSchema)` to create a new message.
  */
 export const VoteRequestSchema: GenMessage<VoteRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_betting, 1);
+  messageDesc(file_hestia_activity_v1_betting, 3);
 
 /**
  * @generated from message hestia.activity.v1.VoteResponse
  */
 export type VoteResponse = Message<"hestia.activity.v1.VoteResponse"> & {
   /**
-   * 投完後的即時賠率。票數變了賠率就會變,所以一併回。
+   * 投完後該盤口的即時賠率。票數變了賠率就會變,所以一併回。
    *
-   * @generated from field: hestia.activity.v1.MatchOdds odds = 1;
+   * @generated from field: hestia.activity.v1.MarketOdds odds = 1;
    */
-  odds?: MatchOdds | undefined;
+  odds?: MarketOdds | undefined;
 };
 
 /**
@@ -140,7 +228,7 @@ export type VoteResponse = Message<"hestia.activity.v1.VoteResponse"> & {
  * Use `create(VoteResponseSchema)` to create a new message.
  */
 export const VoteResponseSchema: GenMessage<VoteResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_betting, 2);
+  messageDesc(file_hestia_activity_v1_betting, 4);
 
 /**
  * @generated from message hestia.activity.v1.GetOddsRequest
@@ -159,7 +247,7 @@ export type GetOddsRequest = Message<"hestia.activity.v1.GetOddsRequest"> & {
  * Use `create(GetOddsRequestSchema)` to create a new message.
  */
 export const GetOddsRequestSchema: GenMessage<GetOddsRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_betting, 3);
+  messageDesc(file_hestia_activity_v1_betting, 5);
 
 /**
  * @generated from message hestia.activity.v1.GetOddsResponse
@@ -176,25 +264,23 @@ export type GetOddsResponse = Message<"hestia.activity.v1.GetOddsResponse"> & {
  * Use `create(GetOddsResponseSchema)` to create a new message.
  */
 export const GetOddsResponseSchema: GenMessage<GetOddsResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_betting, 4);
+  messageDesc(file_hestia_activity_v1_betting, 6);
 
 /**
- * BetLegInput 是要押的一腿。
+ * BetLegInput 是要押的一腿:哪個盤口的哪個結果。
  *
  * @generated from message hestia.activity.v1.BetLegInput
  */
 export type BetLegInput = Message<"hestia.activity.v1.BetLegInput"> & {
   /**
-   * @generated from field: string match_public_id = 1;
+   * @generated from field: string market_public_id = 1;
    */
-  matchPublicId: string;
+  marketPublicId: string;
 
   /**
-   * 1 = p1,2 = p2。
-   *
-   * @generated from field: int32 side = 2;
+   * @generated from field: string outcome = 2;
    */
-  side: number;
+  outcome: string;
 };
 
 /**
@@ -202,7 +288,7 @@ export type BetLegInput = Message<"hestia.activity.v1.BetLegInput"> & {
  * Use `create(BetLegInputSchema)` to create a new message.
  */
 export const BetLegInputSchema: GenMessage<BetLegInput> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_betting, 5);
+  messageDesc(file_hestia_activity_v1_betting, 7);
 
 /**
  * @generated from message hestia.activity.v1.PlaceBetRequest
@@ -221,7 +307,7 @@ export type PlaceBetRequest = Message<"hestia.activity.v1.PlaceBetRequest"> & {
   stake: bigint;
 
   /**
-   * 一腿 = 單場,多腿 = 串關。同一場不可押兩次(押完 p1 再押 p2 等於穩賺)。
+   * 一腿 = 單場,多腿 = 串關。**同一場只能一腿**(不同盤口也不行,見檔頭)。
    *
    * @generated from field: repeated hestia.activity.v1.BetLegInput legs = 3;
    */
@@ -249,7 +335,7 @@ export type PlaceBetRequest = Message<"hestia.activity.v1.PlaceBetRequest"> & {
  * Use `create(PlaceBetRequestSchema)` to create a new message.
  */
 export const PlaceBetRequestSchema: GenMessage<PlaceBetRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_betting, 6);
+  messageDesc(file_hestia_activity_v1_betting, 8);
 
 /**
  * Bet 是一張注單。
@@ -308,7 +394,7 @@ export type Bet = Message<"hestia.activity.v1.Bet"> & {
  * Use `create(BetSchema)` to create a new message.
  */
 export const BetSchema: GenMessage<Bet> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_betting, 7);
+  messageDesc(file_hestia_activity_v1_betting, 9);
 
 /**
  * BetLeg 是串關的一腿。
@@ -329,26 +415,43 @@ export type BetLeg = Message<"hestia.activity.v1.BetLeg"> & {
   matchLabel: string;
 
   /**
-   * @generated from field: int32 side = 3;
+   * @generated from field: string market_public_id = 3;
    */
-  side: number;
+  marketPublicId: string;
 
   /**
-   * 押的那一方的顯示名快照。
-   *
-   * @generated from field: string side_display_name = 4;
+   * @generated from field: hestia.activity.v1.MarketKind kind = 4;
    */
-  sideDisplayName: string;
+  kind: MarketKind;
+
+  /**
+   * ROUND_WINNER / DURATION 才有。
+   *
+   * @generated from field: int32 round_no = 5;
+   */
+  roundNo: number;
+
+  /**
+   * @generated from field: string outcome = 6;
+   */
+  outcome: string;
+
+  /**
+   * 押的結果的顯示名快照(選手名、「超過 90 秒」、「2:0」)。
+   *
+   * @generated from field: string outcome_label = 7;
+   */
+  outcomeLabel: string;
 
   /**
    * 下注當下鎖定的賠率 ×1000。之後票數再跑都不改這個值。
    *
-   * @generated from field: int64 odds_milli = 5;
+   * @generated from field: int64 odds_milli = 8;
    */
   oddsMilli: bigint;
 
   /**
-   * @generated from field: hestia.activity.v1.LegResult result = 6;
+   * @generated from field: hestia.activity.v1.LegResult result = 9;
    */
   result: LegResult;
 };
@@ -358,7 +461,7 @@ export type BetLeg = Message<"hestia.activity.v1.BetLeg"> & {
  * Use `create(BetLegSchema)` to create a new message.
  */
 export const BetLegSchema: GenMessage<BetLeg> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_betting, 8);
+  messageDesc(file_hestia_activity_v1_betting, 10);
 
 /**
  * @generated from message hestia.activity.v1.PlaceBetResponse
@@ -382,7 +485,7 @@ export type PlaceBetResponse = Message<"hestia.activity.v1.PlaceBetResponse"> & 
  * Use `create(PlaceBetResponseSchema)` to create a new message.
  */
 export const PlaceBetResponseSchema: GenMessage<PlaceBetResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_betting, 9);
+  messageDesc(file_hestia_activity_v1_betting, 11);
 
 /**
  * @generated from message hestia.activity.v1.ListMyBetsRequest
@@ -406,7 +509,7 @@ export type ListMyBetsRequest = Message<"hestia.activity.v1.ListMyBetsRequest"> 
  * Use `create(ListMyBetsRequestSchema)` to create a new message.
  */
 export const ListMyBetsRequestSchema: GenMessage<ListMyBetsRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_betting, 10);
+  messageDesc(file_hestia_activity_v1_betting, 12);
 
 /**
  * @generated from message hestia.activity.v1.ListMyBetsResponse
@@ -423,7 +526,7 @@ export type ListMyBetsResponse = Message<"hestia.activity.v1.ListMyBetsResponse"
  * Use `create(ListMyBetsResponseSchema)` to create a new message.
  */
 export const ListMyBetsResponseSchema: GenMessage<ListMyBetsResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_betting, 11);
+  messageDesc(file_hestia_activity_v1_betting, 13);
 
 /**
  * BetStatus 是注單狀態。
@@ -506,13 +609,101 @@ export const LegResultSchema: GenEnum<LegResult> = /*@__PURE__*/
   enumDesc(file_hestia_activity_v1_betting, 1);
 
 /**
+ * MarketKind 是盤口的種類。結算邏輯每種一個,在伺服器裡;哪些盤口存在是資料。
+ *
+ * @generated from enum hestia.activity.v1.MarketKind
+ */
+export enum MarketKind {
+  /**
+   * @generated from enum value: MARKET_KIND_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * 整場(系列賽)勝敗。結果:p1 / p2。
+   *
+   * @generated from enum value: MARKET_KIND_MATCH_WINNER = 1;
+   */
+  MATCH_WINNER = 1,
+
+  /**
+   * 單一回合的勝敗,每回合一個盤口。結果:p1 / p2。
+   *
+   * @generated from enum value: MARKET_KIND_ROUND_WINNER = 2;
+   */
+  ROUND_WINNER = 2,
+
+  /**
+   * 該回合時長 vs 線(line_seconds),每回合一個盤口。結果:over / under;**等於線算 over**。
+   *
+   * @generated from enum value: MARKET_KIND_DURATION = 3;
+   */
+  DURATION = 3,
+
+  /**
+   * 回合比數。結果由幾局幾勝推導:三局兩勝是 p1_2_0 / p1_2_1 / p2_2_1 / p2_2_0。
+   *
+   * @generated from enum value: MARKET_KIND_SCORE = 4;
+   */
+  SCORE = 4,
+}
+
+/**
+ * Describes the enum hestia.activity.v1.MarketKind.
+ */
+export const MarketKindSchema: GenEnum<MarketKind> = /*@__PURE__*/
+  enumDesc(file_hestia_activity_v1_betting, 2);
+
+/**
+ * MarketStatus 是盤口狀態。
+ *
+ * @generated from enum hestia.activity.v1.MarketStatus
+ */
+export enum MarketStatus {
+  /**
+   * @generated from enum value: MARKET_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: MARKET_STATUS_OPEN = 1;
+   */
+  OPEN = 1,
+
+  /**
+   * 已關盤(第一回合正式開打),等結算。
+   *
+   * @generated from enum value: MARKET_STATUS_CLOSED = 2;
+   */
+  CLOSED = 2,
+
+  /**
+   * @generated from enum value: MARKET_STATUS_SETTLED = 3;
+   */
+  SETTLED = 3,
+
+  /**
+   * 作廢退款:沒打到的回合(三局兩勝 2:0 結束就沒有第三回合)、或棄賽。
+   *
+   * @generated from enum value: MARKET_STATUS_VOID = 4;
+   */
+  VOID = 4,
+}
+
+/**
+ * Describes the enum hestia.activity.v1.MarketStatus.
+ */
+export const MarketStatusSchema: GenEnum<MarketStatus> = /*@__PURE__*/
+  enumDesc(file_hestia_activity_v1_betting, 3);
+
+/**
  * BettingService 是觀眾側的投票與下注。除了 GetOdds,全部需要平台帳號。
  *
  * @generated from service hestia.activity.v1.BettingService
  */
 export const BettingService: GenService<{
   /**
-   * 投票給某一方。一場一票,再投即改票。
+   * 對某個盤口投一個結果。一場每盤口一票,再投即改票。
    *
    * @generated from rpc hestia.activity.v1.BettingService.Vote
    */
@@ -522,7 +713,7 @@ export const BettingService: GenService<{
     output: typeof VoteResponseSchema;
   },
   /**
-   * 取得目前賠率與票數。匿名可讀。
+   * 取得目前各盤口的賠率與票數。匿名可讀。
    *
    * @generated from rpc hestia.activity.v1.BettingService.GetOdds
    */

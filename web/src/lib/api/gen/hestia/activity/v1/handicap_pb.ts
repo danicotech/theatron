@@ -15,7 +15,9 @@
 // 動平台代幣的 RPC 一律要帶 idempotency_key(平台鐵則)。這裡**刻意沒有**,
 // 因為 BP 不是代幣:每輪依段位差重發、該場有效、賽後作廢、不可交易。
 // 重複扣一次 BP 的後果是使用者看到餘額不對,不是對不上帳 ——
-// 前者可以由裁判在封盤前退掉,後者無法事後修復。
+// 前者可以由選手自己在封盤前退掉(VoidSelection 只認選擇的本人;
+// 裁判代退走 JudgeService.RefundSelection,那條路要裁判權限並進稽核紀錄),
+// 後者無法事後修復。
 //
 // 真正動錢的是 betting.proto 與 judge.proto 的發獎,那兩處才有冪等鍵。
 //
@@ -24,10 +26,14 @@
 // 封盤前:只有施加者本人看得到自己買了什麼。
 // 封盤後:雙方與觀眾全部看得到,並自動發一則 Discord 公告。
 // 這條界線由伺服器守,不是前端隱藏。
+//
+// 本服務沒有例外。裁判要在封盤前看內容(場上規則要他看)走的是
+// JudgeService.ReviewHandicap —— 那是另一支需要裁判權限的 RPC,
+// 不是在這裡多一個參數。
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
 import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
-import type { BpBudget, HandicapItem, HandicapSelection, MatchHandicaps } from "./common_pb";
+import type { BpBudget, HandicapItem, HandicapSelection, MatchHandicaps, Violation } from "./common_pb";
 import { file_hestia_activity_v1_common } from "./common_pb";
 import type { Message } from "@bufbuild/protobuf";
 
@@ -35,7 +41,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file hestia/activity/v1/handicap.proto.
  */
 export const file_hestia_activity_v1_handicap: GenFile = /*@__PURE__*/
-  fileDesc("CiFoZXN0aWEvYWN0aXZpdHkvdjEvaGFuZGljYXAucHJvdG8SEmhlc3RpYS5hY3Rpdml0eS52MSIrChBMaXN0SXRlbXNSZXF1ZXN0EhcKD3RvdXJuYW1lbnRfc2x1ZxgBIAEoCSJEChFMaXN0SXRlbXNSZXNwb25zZRIvCgVpdGVtcxgBIAMoCzIgLmhlc3RpYS5hY3Rpdml0eS52MS5IYW5kaWNhcEl0ZW0iLQoSR2V0TXlCdWRnZXRSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCSKnAQoTR2V0TXlCdWRnZXRSZXNwb25zZRIsCgZidWRnZXQYASABKAsyHC5oZXN0aWEuYWN0aXZpdHkudjEuQnBCdWRnZXQSOQoKc2VsZWN0aW9ucxgCIAMoCzIlLmhlc3RpYS5hY3Rpdml0eS52MS5IYW5kaWNhcFNlbGVjdGlvbhIQCghlZGl0YWJsZRgDIAEoCBIVCg1sb2NrZWRfcmVhc29uGAQgASgJIlUKDVNlbGVjdFJlcXVlc3QSFwoPbWF0Y2hfcHVibGljX2lkGAEgASgJEhYKDml0ZW1fcHVibGljX2lkGAIgASgJEhMKC3RhcmdldF9ub3RlGAMgASgJIooBCg5TZWxlY3RSZXNwb25zZRI4CglzZWxlY3Rpb24YASABKAsyJS5oZXN0aWEuYWN0aXZpdHkudjEuSGFuZGljYXBTZWxlY3Rpb24SLAoGYnVkZ2V0GAIgASgLMhwuaGVzdGlhLmFjdGl2aXR5LnYxLkJwQnVkZ2V0EhAKCGFkdmlzb3J5GAMgASgJIjMKFFZvaWRTZWxlY3Rpb25SZXF1ZXN0EhsKE3NlbGVjdGlvbl9wdWJsaWNfaWQYASABKAkiRQoVVm9pZFNlbGVjdGlvblJlc3BvbnNlEiwKBmJ1ZGdldBgBIAEoCzIcLmhlc3RpYS5hY3Rpdml0eS52MS5CcEJ1ZGdldCIzChhHZXRNYXRjaEhhbmRpY2Fwc1JlcXVlc3QSFwoPbWF0Y2hfcHVibGljX2lkGAEgASgJIlIKGUdldE1hdGNoSGFuZGljYXBzUmVzcG9uc2USNQoJaGFuZGljYXBzGAEgASgLMiIuaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoSGFuZGljYXBzMv4DCg9IYW5kaWNhcFNlcnZpY2USWgoJTGlzdEl0ZW1zEiQuaGVzdGlhLmFjdGl2aXR5LnYxLkxpc3RJdGVtc1JlcXVlc3QaJS5oZXN0aWEuYWN0aXZpdHkudjEuTGlzdEl0ZW1zUmVzcG9uc2UiABJgCgtHZXRNeUJ1ZGdldBImLmhlc3RpYS5hY3Rpdml0eS52MS5HZXRNeUJ1ZGdldFJlcXVlc3QaJy5oZXN0aWEuYWN0aXZpdHkudjEuR2V0TXlCdWRnZXRSZXNwb25zZSIAElEKBlNlbGVjdBIhLmhlc3RpYS5hY3Rpdml0eS52MS5TZWxlY3RSZXF1ZXN0GiIuaGVzdGlhLmFjdGl2aXR5LnYxLlNlbGVjdFJlc3BvbnNlIgASZgoNVm9pZFNlbGVjdGlvbhIoLmhlc3RpYS5hY3Rpdml0eS52MS5Wb2lkU2VsZWN0aW9uUmVxdWVzdBopLmhlc3RpYS5hY3Rpdml0eS52MS5Wb2lkU2VsZWN0aW9uUmVzcG9uc2UiABJyChFHZXRNYXRjaEhhbmRpY2FwcxIsLmhlc3RpYS5hY3Rpdml0eS52MS5HZXRNYXRjaEhhbmRpY2Fwc1JlcXVlc3QaLS5oZXN0aWEuYWN0aXZpdHkudjEuR2V0TWF0Y2hIYW5kaWNhcHNSZXNwb25zZSIAQkBaPmdpdGh1Yi5jb20vZGFuaWNvdGVjaC9oZXN0aWEvZ2VuL2hlc3RpYS9hY3Rpdml0eS92MTthY3Rpdml0eXYxYgZwcm90bzM", [file_hestia_activity_v1_common]);
+  fileDesc("CiFoZXN0aWEvYWN0aXZpdHkvdjEvaGFuZGljYXAucHJvdG8SEmhlc3RpYS5hY3Rpdml0eS52MSIrChBMaXN0SXRlbXNSZXF1ZXN0EhcKD3RvdXJuYW1lbnRfc2x1ZxgBIAEoCSJEChFMaXN0SXRlbXNSZXNwb25zZRIvCgVpdGVtcxgBIAMoCzIgLmhlc3RpYS5hY3Rpdml0eS52MS5IYW5kaWNhcEl0ZW0iLQoSR2V0TXlCdWRnZXRSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCSKnAQoTR2V0TXlCdWRnZXRSZXNwb25zZRIsCgZidWRnZXQYASABKAsyHC5oZXN0aWEuYWN0aXZpdHkudjEuQnBCdWRnZXQSOQoKc2VsZWN0aW9ucxgCIAMoCzIlLmhlc3RpYS5hY3Rpdml0eS52MS5IYW5kaWNhcFNlbGVjdGlvbhIQCghlZGl0YWJsZRgDIAEoCBIVCg1sb2NrZWRfcmVhc29uGAQgASgJIlUKDVNlbGVjdFJlcXVlc3QSFwoPbWF0Y2hfcHVibGljX2lkGAEgASgJEhYKDml0ZW1fcHVibGljX2lkGAIgASgJEhMKC3RhcmdldF9ub3RlGAMgASgJIooBCg5TZWxlY3RSZXNwb25zZRI4CglzZWxlY3Rpb24YASABKAsyJS5oZXN0aWEuYWN0aXZpdHkudjEuSGFuZGljYXBTZWxlY3Rpb24SLAoGYnVkZ2V0GAIgASgLMhwuaGVzdGlhLmFjdGl2aXR5LnYxLkJwQnVkZ2V0EhAKCGFkdmlzb3J5GAMgASgJIjMKFFZvaWRTZWxlY3Rpb25SZXF1ZXN0EhsKE3NlbGVjdGlvbl9wdWJsaWNfaWQYASABKAkiRQoVVm9pZFNlbGVjdGlvblJlc3BvbnNlEiwKBmJ1ZGdldBgBIAEoCzIcLmhlc3RpYS5hY3Rpdml0eS52MS5CcEJ1ZGdldCIzChhHZXRNYXRjaEhhbmRpY2Fwc1JlcXVlc3QSFwoPbWF0Y2hfcHVibGljX2lkGAEgASgJIlIKGUdldE1hdGNoSGFuZGljYXBzUmVzcG9uc2USNQoJaGFuZGljYXBzGAEgASgLMiIuaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoSGFuZGljYXBzIjIKF0xpc3RNeVZpb2xhdGlvbnNSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCSJNChhMaXN0TXlWaW9sYXRpb25zUmVzcG9uc2USMQoKdmlvbGF0aW9ucxgBIAMoCzIdLmhlc3RpYS5hY3Rpdml0eS52MS5WaW9sYXRpb24y7wQKD0hhbmRpY2FwU2VydmljZRJaCglMaXN0SXRlbXMSJC5oZXN0aWEuYWN0aXZpdHkudjEuTGlzdEl0ZW1zUmVxdWVzdBolLmhlc3RpYS5hY3Rpdml0eS52MS5MaXN0SXRlbXNSZXNwb25zZSIAEmAKC0dldE15QnVkZ2V0EiYuaGVzdGlhLmFjdGl2aXR5LnYxLkdldE15QnVkZ2V0UmVxdWVzdBonLmhlc3RpYS5hY3Rpdml0eS52MS5HZXRNeUJ1ZGdldFJlc3BvbnNlIgASUQoGU2VsZWN0EiEuaGVzdGlhLmFjdGl2aXR5LnYxLlNlbGVjdFJlcXVlc3QaIi5oZXN0aWEuYWN0aXZpdHkudjEuU2VsZWN0UmVzcG9uc2UiABJmCg1Wb2lkU2VsZWN0aW9uEiguaGVzdGlhLmFjdGl2aXR5LnYxLlZvaWRTZWxlY3Rpb25SZXF1ZXN0GikuaGVzdGlhLmFjdGl2aXR5LnYxLlZvaWRTZWxlY3Rpb25SZXNwb25zZSIAEnIKEUdldE1hdGNoSGFuZGljYXBzEiwuaGVzdGlhLmFjdGl2aXR5LnYxLkdldE1hdGNoSGFuZGljYXBzUmVxdWVzdBotLmhlc3RpYS5hY3Rpdml0eS52MS5HZXRNYXRjaEhhbmRpY2Fwc1Jlc3BvbnNlIgASbwoQTGlzdE15VmlvbGF0aW9ucxIrLmhlc3RpYS5hY3Rpdml0eS52MS5MaXN0TXlWaW9sYXRpb25zUmVxdWVzdBosLmhlc3RpYS5hY3Rpdml0eS52MS5MaXN0TXlWaW9sYXRpb25zUmVzcG9uc2UiAEJAWj5naXRodWIuY29tL2Rhbmljb3RlY2gvaGVzdGlhL2dlbi9oZXN0aWEvYWN0aXZpdHkvdjE7YWN0aXZpdHl2MWIGcHJvdG8z", [file_hestia_activity_v1_common]);
 
 /**
  * @generated from message hestia.activity.v1.ListItemsRequest
@@ -260,6 +266,40 @@ export const GetMatchHandicapsResponseSchema: GenMessage<GetMatchHandicapsRespon
   messageDesc(file_hestia_activity_v1_handicap, 9);
 
 /**
+ * @generated from message hestia.activity.v1.ListMyViolationsRequest
+ */
+export type ListMyViolationsRequest = Message<"hestia.activity.v1.ListMyViolationsRequest"> & {
+  /**
+   * @generated from field: string match_public_id = 1;
+   */
+  matchPublicId: string;
+};
+
+/**
+ * Describes the message hestia.activity.v1.ListMyViolationsRequest.
+ * Use `create(ListMyViolationsRequestSchema)` to create a new message.
+ */
+export const ListMyViolationsRequestSchema: GenMessage<ListMyViolationsRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_handicap, 10);
+
+/**
+ * @generated from message hestia.activity.v1.ListMyViolationsResponse
+ */
+export type ListMyViolationsResponse = Message<"hestia.activity.v1.ListMyViolationsResponse"> & {
+  /**
+   * @generated from field: repeated hestia.activity.v1.Violation violations = 1;
+   */
+  violations: Violation[];
+};
+
+/**
+ * Describes the message hestia.activity.v1.ListMyViolationsResponse.
+ * Use `create(ListMyViolationsResponseSchema)` to create a new message.
+ */
+export const ListMyViolationsResponseSchema: GenMessage<ListMyViolationsResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_handicap, 11);
+
+/**
  * HandicapService 是選手側的讓武選購。除了 GetMatchHandicaps,全部需要活動層 session。
  *
  * @generated from service hestia.activity.v1.HandicapService
@@ -314,6 +354,17 @@ export const HandicapService: GenService<{
     methodKind: "unary";
     input: typeof GetMatchHandicapsRequestSchema;
     output: typeof GetMatchHandicapsResponseSchema;
+  },
+  /**
+   * 列出我在某場被記的違規(schemas/27):被判負的人有權知道為什麼。
+   * 只回本人的 —— 對手的違規不在這裡,裁判端的 ListViolations 才看得到整場。
+   *
+   * @generated from rpc hestia.activity.v1.HandicapService.ListMyViolations
+   */
+  listMyViolations: {
+    methodKind: "unary";
+    input: typeof ListMyViolationsRequestSchema;
+    output: typeof ListMyViolationsResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_hestia_activity_v1_handicap, 0);

@@ -6,25 +6,37 @@
 //
 // ── 這個服務的權限與留痕 ────────────────────────────────────────
 //
-// 全部 RPC 需要平台帳號 + 裁判權限,而且**每一支都寫 admin_audit_logs**。
-// 不是挑幾支寫 —— 賽事的公正性完全建立在「誰在什麼時候改了什麼」查得到。
-// 改段位、重抽籤、交換籤位、封盤、判賽果,每一項都有人會不服氣。
+// 全部 RPC 需要平台帳號 + 裁判權限,而且**每一支會動到資料的都寫
+// admin_audit_logs**。不是挑幾支寫 —— 賽事的公正性完全建立在「誰在什麼時候
+// 改了什麼」查得到。改段位、重抽籤、交換籤位、封盤、代退讓武、判賽果,
+// 每一項都有人會不服氣。
+//
+// 純讀取的兩支(ListUnranked、ReviewHandicap)不寫稽核:它們沒有「改了什麼」
+// 可記,而把裁判每一次查看都記成一列,只會讓真正要查的那幾列被淹掉。
 //
 // ── 為什麼賽果只能裁判填 ────────────────────────────────────────
 //
 // 因為有下注。選手自報會直接變成派彩爭議,而派彩一旦發出去就很難收回。
 // 單一權威來源是這裡唯一可行的設計。
 //
-// ── 不可逆的兩個動作 ────────────────────────────────────────────
+// ── 不可逆的動作 ────────────────────────────────────────────────
 //
-//   LockHandicap  封盤後選手不能再改讓武,且立刻公開並發 Discord 公告。
-//   ReportResult  判定勝負會觸發下注結算與派彩。
+//   LockHandicap  封盤後選手不能再改讓武,且立刻公開並發 Discord 公告;
+//                 隨機抽選也在這一刻做完。
+//   FinishRound   填回合勝者;達到勝場數的那一次會定案整場、觸發晉級與派彩。
+//   ReportResult  單場定勝負(best_of = 1)時的同一件事。
 //
-// 兩者都要求 confirm = true 作為二次確認。誤觸的代價由人承擔,不由系統吞掉。
+// 都要求 confirm = true 作為二次確認。誤觸的代價由人承擔,不由系統吞掉。
+//
+// ── 多回合制的裁判動線(schemas/20「裁判動線」)──────────────────
+//
+//   一場一次:開盤 → 封盤前檢視/代退 → 封盤 → ReviewSetup → ConfirmSetup
+//   每回合一次:StartRound(第 1 回合 = 正式開打,關下注)→ FinishRound
+//   一場一次:整場勝者由回合推導 → 晉級 / 派彩 / 季軍戰
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
 import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
-import type { BracketRound, Match, MatchHandicaps, Player, Rank, Tournament, TournamentPhase } from "./common_pb";
+import type { BpBudget, BracketRound, HandicapSelection, Match, MatchHandicaps, MatchRound, Player, Rank, Tournament, TournamentPhase, Violation, ViolationRuling } from "./common_pb";
 import { file_hestia_activity_v1_common } from "./common_pb";
 import type { Message } from "@bufbuild/protobuf";
 
@@ -32,7 +44,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file hestia/activity/v1/judge.proto.
  */
 export const file_hestia_activity_v1_judge: GenFile = /*@__PURE__*/
-  fileDesc("Ch5oZXN0aWEvYWN0aXZpdHkvdjEvanVkZ2UucHJvdG8SEmhlc3RpYS5hY3Rpdml0eS52MSKXAQoWVG91cm5hbWVudE9kZHNTZXR0aW5ncxIRCglzbW9vdGhpbmcYASABKAMSFAoHdmlnX2JwcxgCIAEoA0gAiAEBEhYKDm1pbl9vZGRzX21pbGxpGAMgASgDEhYKDm1heF9vZGRzX21pbGxpGAQgASgDEhgKEG1heF9wYXJsYXlfbWlsbGkYBSABKANCCgoIX3ZpZ19icHMiZAoXVG91cm5hbWVudFByaXplU2V0dGluZ3MSEAoIY2hhbXBpb24YASABKAMSEQoJcnVubmVyX3VwGAIgASgDEg0KBXRoaXJkGAMgASgDEhUKDXBhcnRpY2lwYXRpb24YBCABKAMilwIKF0NyZWF0ZVRvdXJuYW1lbnRSZXF1ZXN0EhsKE2NvbW11bml0eV9wdWJsaWNfaWQYASABKAkSDAoEc2x1ZxgCIAEoCRIMCgRuYW1lGAMgASgJEhQKDHNpZ251cF9ib251cxgEIAEoAxIXCg9icF9wZXJfcmFua19nYXAYBSABKAMSOAoEb2RkcxgGIAEoCzIqLmhlc3RpYS5hY3Rpdml0eS52MS5Ub3VybmFtZW50T2Rkc1NldHRpbmdzEjsKBnByaXplcxgHIAEoCzIrLmhlc3RpYS5hY3Rpdml0eS52MS5Ub3VybmFtZW50UHJpemVTZXR0aW5ncxIdChVoYW5kaWNhcF9pdGVtX21heF9xdHkYCCABKAUiawoYQ3JlYXRlVG91cm5hbWVudFJlc3BvbnNlEjIKCnRvdXJuYW1lbnQYASABKAsyHi5oZXN0aWEuYWN0aXZpdHkudjEuVG91cm5hbWVudBIbChNoYW5kaWNhcF9pdGVtX2NvdW50GAIgASgFInMKE0FkdmFuY2VQaGFzZVJlcXVlc3QSFwoPdG91cm5hbWVudF9zbHVnGAEgASgJEjUKCHRvX3BoYXNlGAIgASgOMiMuaGVzdGlhLmFjdGl2aXR5LnYxLlRvdXJuYW1lbnRQaGFzZRIMCgRub3RlGAMgASgJIkoKFEFkdmFuY2VQaGFzZVJlc3BvbnNlEjIKCnRvdXJuYW1lbnQYASABKAsyHi5oZXN0aWEuYWN0aXZpdHkudjEuVG91cm5hbWVudCJjChFBc3NpZ25SYW5rUmVxdWVzdBIYChBwbGF5ZXJfcHVibGljX2lkGAEgASgJEiYKBHJhbmsYAiABKA4yGC5oZXN0aWEuYWN0aXZpdHkudjEuUmFuaxIMCgRub3RlGAMgASgJIkAKEkFzc2lnblJhbmtSZXNwb25zZRIqCgZwbGF5ZXIYASABKAsyGi5oZXN0aWEuYWN0aXZpdHkudjEuUGxheWVyIkYKE0xpc3RVbnJhbmtlZFJlcXVlc3QSFwoPdG91cm5hbWVudF9zbHVnGAEgASgJEhYKDmluY2x1ZGVfcmFua2VkGAIgASgIIsgCCg1QbGF5ZXJEb3NzaWVyEioKBnBsYXllchgBIAEoCzIaLmhlc3RpYS5hY3Rpdml0eS52MS5QbGF5ZXISFAoMZGlzY29yZF9uYW1lGAIgASgJEjEKD3NlbGZfcmF0ZWRfcmFuaxgDIAEoDjIYLmhlc3RpYS5hY3Rpdml0eS52MS5SYW5rEhMKC2xhZGRlcl9yYW5rGAQgASgJEhQKDGxhZGRlcl9zY29yZRgFIAEoBRIRCglhcnRzX25vdGUYBiABKAkSGQoRYXZhaWxhYmlsaXR5X25vdGUYByABKAkSLwoNcHJldmlvdXNfcmFuaxgIIAEoDjIYLmhlc3RpYS5hY3Rpdml0eS52MS5SYW5rEhoKEnRvdXJuYW1lbnRzX3BsYXllZBgJIAEoBRIMCgR3aW5zGAogASgFEg4KBmxvc3NlcxgLIAEoBSJKChRMaXN0VW5yYW5rZWRSZXNwb25zZRIyCgdwbGF5ZXJzGAEgAygLMiEuaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllckRvc3NpZXIiOwoSRHJhd0JyYWNrZXRSZXF1ZXN0EhcKD3RvdXJuYW1lbnRfc2x1ZxgBIAEoCRIMCgRzZWVkGAIgASgDInQKE0RyYXdCcmFja2V0UmVzcG9uc2USMAoGcm91bmRzGAEgAygLMiAuaGVzdGlhLmFjdGl2aXR5LnYxLkJyYWNrZXRSb3VuZBIMCgRzZWVkGAIgASgDEh0KFWJ5ZV9wbGF5ZXJfcHVibGljX2lkcxgDIAMoCSJYChBTd2FwU2VlZHNSZXF1ZXN0EhoKEnBsYXllcl9hX3B1YmxpY19pZBgBIAEoCRIaChJwbGF5ZXJfYl9wdWJsaWNfaWQYAiABKAkSDAoEbm90ZRgDIAEoCSJFChFTd2FwU2VlZHNSZXNwb25zZRIwCgZyb3VuZHMYASADKAsyIC5oZXN0aWEuYWN0aXZpdHkudjEuQnJhY2tldFJvdW5kIkEKFUNvbmZpcm1CcmFja2V0UmVxdWVzdBIXCg90b3VybmFtZW50X3NsdWcYASABKAkSDwoHY29uZmlybRgCIAEoCCJMChZDb25maXJtQnJhY2tldFJlc3BvbnNlEjIKCnRvdXJuYW1lbnQYASABKAsyHi5oZXN0aWEuYWN0aXZpdHkudjEuVG91cm5hbWVudCIuChNPcGVuSGFuZGljYXBSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCSJAChRPcGVuSGFuZGljYXBSZXNwb25zZRIoCgVtYXRjaBgBIAEoCzIZLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaCI/ChNMb2NrSGFuZGljYXBSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRIPCgdjb25maXJtGAIgASgIIncKFExvY2tIYW5kaWNhcFJlc3BvbnNlEigKBW1hdGNoGAEgASgLMhkuaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoEjUKCWhhbmRpY2FwcxgCIAEoCzIiLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaEhhbmRpY2FwcyJCChNTZXRTdHJlYW1VcmxSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRISCgpzdHJlYW1fdXJsGAIgASgJIkAKFFNldFN0cmVhbVVybFJlc3BvbnNlEigKBW1hdGNoGAEgASgLMhkuaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoIiwKEVN0YXJ0TWF0Y2hSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCSI+ChJTdGFydE1hdGNoUmVzcG9uc2USKAoFbWF0Y2gYASABKAsyGS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2gibgoTUmVwb3J0UmVzdWx0UmVxdWVzdBIXCg9tYXRjaF9wdWJsaWNfaWQYASABKAkSHwoXd2lubmVyX3BsYXllcl9wdWJsaWNfaWQYAiABKAkSDwoHY29uZmlybRgDIAEoCBIMCgRub3RlGAQgASgJIpABChRSZXBvcnRSZXN1bHRSZXNwb25zZRIoCgVtYXRjaBgBIAEoCzIZLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaBIzChBhZHZhbmNlZF9tYXRjaGVzGAIgAygLMhkuaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoEhkKEXNldHRsZWRfYmV0X2NvdW50GAMgASgFIlAKFVdpdGhkcmF3UGxheWVyUmVxdWVzdBIYChBwbGF5ZXJfcHVibGljX2lkGAEgASgJEgwKBG5vdGUYAiABKAkSDwoHY29uZmlybRgDIAEoCCKTAQoWV2l0aGRyYXdQbGF5ZXJSZXNwb25zZRIqCgZwbGF5ZXIYASABKAsyGi5oZXN0aWEuYWN0aXZpdHkudjEuUGxheWVyEjMKEHdhbGtvdmVyX21hdGNoZXMYAiADKAsyGS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2gSGAoQdm9pZGVkX2JldF9jb3VudBgDIAEoBSI1ChlSZWdlbmVyYXRlUGFzc2NvZGVSZXF1ZXN0EhgKEHBsYXllcl9wdWJsaWNfaWQYASABKAkiLgoaUmVnZW5lcmF0ZVBhc3Njb2RlUmVzcG9uc2USEAoIcGFzc2NvZGUYASABKAkiVwoSQXdhcmRQcml6ZXNSZXF1ZXN0EhcKD3RvdXJuYW1lbnRfc2x1ZxgBIAEoCRIPCgdjb25maXJtGAIgASgIEhcKD2lkZW1wb3RlbmN5X2tleRgDIAEoCSKJAQoKUHJpemVBd2FyZBIYChBwbGF5ZXJfcHVibGljX2lkGAEgASgJEhQKDGRpc3BsYXlfbmFtZRgCIAEoCRISCgpwcml6ZV9raW5kGAMgASgJEg4KBmFtb3VudBgEIAEoAxIPCgdncmFudGVkGAUgASgIEhYKDnNraXBwZWRfcmVhc29uGAYgASgJIlcKE0F3YXJkUHJpemVzUmVzcG9uc2USLgoGYXdhcmRzGAEgAygLMh4uaGVzdGlhLmFjdGl2aXR5LnYxLlByaXplQXdhcmQSEAoIcmVwbGF5ZWQYAiABKAgyiAwKDEp1ZGdlU2VydmljZRJvChBDcmVhdGVUb3VybmFtZW50EisuaGVzdGlhLmFjdGl2aXR5LnYxLkNyZWF0ZVRvdXJuYW1lbnRSZXF1ZXN0GiwuaGVzdGlhLmFjdGl2aXR5LnYxLkNyZWF0ZVRvdXJuYW1lbnRSZXNwb25zZSIAEmMKDEFkdmFuY2VQaGFzZRInLmhlc3RpYS5hY3Rpdml0eS52MS5BZHZhbmNlUGhhc2VSZXF1ZXN0GiguaGVzdGlhLmFjdGl2aXR5LnYxLkFkdmFuY2VQaGFzZVJlc3BvbnNlIgASXQoKQXNzaWduUmFuaxIlLmhlc3RpYS5hY3Rpdml0eS52MS5Bc3NpZ25SYW5rUmVxdWVzdBomLmhlc3RpYS5hY3Rpdml0eS52MS5Bc3NpZ25SYW5rUmVzcG9uc2UiABJjCgxMaXN0VW5yYW5rZWQSJy5oZXN0aWEuYWN0aXZpdHkudjEuTGlzdFVucmFua2VkUmVxdWVzdBooLmhlc3RpYS5hY3Rpdml0eS52MS5MaXN0VW5yYW5rZWRSZXNwb25zZSIAEmAKC0RyYXdCcmFja2V0EiYuaGVzdGlhLmFjdGl2aXR5LnYxLkRyYXdCcmFja2V0UmVxdWVzdBonLmhlc3RpYS5hY3Rpdml0eS52MS5EcmF3QnJhY2tldFJlc3BvbnNlIgASWgoJU3dhcFNlZWRzEiQuaGVzdGlhLmFjdGl2aXR5LnYxLlN3YXBTZWVkc1JlcXVlc3QaJS5oZXN0aWEuYWN0aXZpdHkudjEuU3dhcFNlZWRzUmVzcG9uc2UiABJpCg5Db25maXJtQnJhY2tldBIpLmhlc3RpYS5hY3Rpdml0eS52MS5Db25maXJtQnJhY2tldFJlcXVlc3QaKi5oZXN0aWEuYWN0aXZpdHkudjEuQ29uZmlybUJyYWNrZXRSZXNwb25zZSIAEmMKDE9wZW5IYW5kaWNhcBInLmhlc3RpYS5hY3Rpdml0eS52MS5PcGVuSGFuZGljYXBSZXF1ZXN0GiguaGVzdGlhLmFjdGl2aXR5LnYxLk9wZW5IYW5kaWNhcFJlc3BvbnNlIgASYwoMTG9ja0hhbmRpY2FwEicuaGVzdGlhLmFjdGl2aXR5LnYxLkxvY2tIYW5kaWNhcFJlcXVlc3QaKC5oZXN0aWEuYWN0aXZpdHkudjEuTG9ja0hhbmRpY2FwUmVzcG9uc2UiABJjCgxTZXRTdHJlYW1VcmwSJy5oZXN0aWEuYWN0aXZpdHkudjEuU2V0U3RyZWFtVXJsUmVxdWVzdBooLmhlc3RpYS5hY3Rpdml0eS52MS5TZXRTdHJlYW1VcmxSZXNwb25zZSIAEl0KClN0YXJ0TWF0Y2gSJS5oZXN0aWEuYWN0aXZpdHkudjEuU3RhcnRNYXRjaFJlcXVlc3QaJi5oZXN0aWEuYWN0aXZpdHkudjEuU3RhcnRNYXRjaFJlc3BvbnNlIgASYwoMUmVwb3J0UmVzdWx0EicuaGVzdGlhLmFjdGl2aXR5LnYxLlJlcG9ydFJlc3VsdFJlcXVlc3QaKC5oZXN0aWEuYWN0aXZpdHkudjEuUmVwb3J0UmVzdWx0UmVzcG9uc2UiABJpCg5XaXRoZHJhd1BsYXllchIpLmhlc3RpYS5hY3Rpdml0eS52MS5XaXRoZHJhd1BsYXllclJlcXVlc3QaKi5oZXN0aWEuYWN0aXZpdHkudjEuV2l0aGRyYXdQbGF5ZXJSZXNwb25zZSIAEnUKElJlZ2VuZXJhdGVQYXNzY29kZRItLmhlc3RpYS5hY3Rpdml0eS52MS5SZWdlbmVyYXRlUGFzc2NvZGVSZXF1ZXN0Gi4uaGVzdGlhLmFjdGl2aXR5LnYxLlJlZ2VuZXJhdGVQYXNzY29kZVJlc3BvbnNlIgASYAoLQXdhcmRQcml6ZXMSJi5oZXN0aWEuYWN0aXZpdHkudjEuQXdhcmRQcml6ZXNSZXF1ZXN0GicuaGVzdGlhLmFjdGl2aXR5LnYxLkF3YXJkUHJpemVzUmVzcG9uc2UiAEJAWj5naXRodWIuY29tL2Rhbmljb3RlY2gvaGVzdGlhL2dlbi9oZXN0aWEvYWN0aXZpdHkvdjE7YWN0aXZpdHl2MWIGcHJvdG8z", [file_hestia_activity_v1_common]);
+  fileDesc("Ch5oZXN0aWEvYWN0aXZpdHkvdjEvanVkZ2UucHJvdG8SEmhlc3RpYS5hY3Rpdml0eS52MSKXAQoWVG91cm5hbWVudE9kZHNTZXR0aW5ncxIRCglzbW9vdGhpbmcYASABKAMSFAoHdmlnX2JwcxgCIAEoA0gAiAEBEhYKDm1pbl9vZGRzX21pbGxpGAMgASgDEhYKDm1heF9vZGRzX21pbGxpGAQgASgDEhgKEG1heF9wYXJsYXlfbWlsbGkYBSABKANCCgoIX3ZpZ19icHMiZAoXVG91cm5hbWVudFByaXplU2V0dGluZ3MSEAoIY2hhbXBpb24YASABKAMSEQoJcnVubmVyX3VwGAIgASgDEg0KBXRoaXJkGAMgASgDEhUKDXBhcnRpY2lwYXRpb24YBCABKAMi1QIKF0NyZWF0ZVRvdXJuYW1lbnRSZXF1ZXN0EhsKE2NvbW11bml0eV9wdWJsaWNfaWQYASABKAkSDAoEc2x1ZxgCIAEoCRIMCgRuYW1lGAMgASgJEhQKDHNpZ251cF9ib251cxgEIAEoAxIXCg9icF9wZXJfcmFua19nYXAYBSABKAMSOAoEb2RkcxgGIAEoCzIqLmhlc3RpYS5hY3Rpdml0eS52MS5Ub3VybmFtZW50T2Rkc1NldHRpbmdzEjsKBnByaXplcxgHIAEoCzIrLmhlc3RpYS5hY3Rpdml0eS52MS5Ub3VybmFtZW50UHJpemVTZXR0aW5ncxIdChVoYW5kaWNhcF9pdGVtX21heF9xdHkYCCABKAUSPAoGZm9ybWF0GAkgASgLMiwuaGVzdGlhLmFjdGl2aXR5LnYxLlRvdXJuYW1lbnRGb3JtYXRTZXR0aW5ncyJGChhUb3VybmFtZW50Rm9ybWF0U2V0dGluZ3MSDwoHYmVzdF9vZhgBIAEoBRIZChF0aGlyZF9wbGFjZV9tYXRjaBgCIAEoCCJrChhDcmVhdGVUb3VybmFtZW50UmVzcG9uc2USMgoKdG91cm5hbWVudBgBIAEoCzIeLmhlc3RpYS5hY3Rpdml0eS52MS5Ub3VybmFtZW50EhsKE2hhbmRpY2FwX2l0ZW1fY291bnQYAiABKAUicwoTQWR2YW5jZVBoYXNlUmVxdWVzdBIXCg90b3VybmFtZW50X3NsdWcYASABKAkSNQoIdG9fcGhhc2UYAiABKA4yIy5oZXN0aWEuYWN0aXZpdHkudjEuVG91cm5hbWVudFBoYXNlEgwKBG5vdGUYAyABKAkiSgoUQWR2YW5jZVBoYXNlUmVzcG9uc2USMgoKdG91cm5hbWVudBgBIAEoCzIeLmhlc3RpYS5hY3Rpdml0eS52MS5Ub3VybmFtZW50ImMKEUFzc2lnblJhbmtSZXF1ZXN0EhgKEHBsYXllcl9wdWJsaWNfaWQYASABKAkSJgoEcmFuaxgCIAEoDjIYLmhlc3RpYS5hY3Rpdml0eS52MS5SYW5rEgwKBG5vdGUYAyABKAkiQAoSQXNzaWduUmFua1Jlc3BvbnNlEioKBnBsYXllchgBIAEoCzIaLmhlc3RpYS5hY3Rpdml0eS52MS5QbGF5ZXIiRgoTTGlzdFVucmFua2VkUmVxdWVzdBIXCg90b3VybmFtZW50X3NsdWcYASABKAkSFgoOaW5jbHVkZV9yYW5rZWQYAiABKAgiyAIKDVBsYXllckRvc3NpZXISKgoGcGxheWVyGAEgASgLMhouaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllchIUCgxkaXNjb3JkX25hbWUYAiABKAkSMQoPc2VsZl9yYXRlZF9yYW5rGAMgASgOMhguaGVzdGlhLmFjdGl2aXR5LnYxLlJhbmsSEwoLbGFkZGVyX3JhbmsYBCABKAkSFAoMbGFkZGVyX3Njb3JlGAUgASgFEhEKCWFydHNfbm90ZRgGIAEoCRIZChFhdmFpbGFiaWxpdHlfbm90ZRgHIAEoCRIvCg1wcmV2aW91c19yYW5rGAggASgOMhguaGVzdGlhLmFjdGl2aXR5LnYxLlJhbmsSGgoSdG91cm5hbWVudHNfcGxheWVkGAkgASgFEgwKBHdpbnMYCiABKAUSDgoGbG9zc2VzGAsgASgFIkoKFExpc3RVbnJhbmtlZFJlc3BvbnNlEjIKB3BsYXllcnMYASADKAsyIS5oZXN0aWEuYWN0aXZpdHkudjEuUGxheWVyRG9zc2llciI7ChJEcmF3QnJhY2tldFJlcXVlc3QSFwoPdG91cm5hbWVudF9zbHVnGAEgASgJEgwKBHNlZWQYAiABKAMidAoTRHJhd0JyYWNrZXRSZXNwb25zZRIwCgZyb3VuZHMYASADKAsyIC5oZXN0aWEuYWN0aXZpdHkudjEuQnJhY2tldFJvdW5kEgwKBHNlZWQYAiABKAMSHQoVYnllX3BsYXllcl9wdWJsaWNfaWRzGAMgAygJIlgKEFN3YXBTZWVkc1JlcXVlc3QSGgoScGxheWVyX2FfcHVibGljX2lkGAEgASgJEhoKEnBsYXllcl9iX3B1YmxpY19pZBgCIAEoCRIMCgRub3RlGAMgASgJIkUKEVN3YXBTZWVkc1Jlc3BvbnNlEjAKBnJvdW5kcxgBIAMoCzIgLmhlc3RpYS5hY3Rpdml0eS52MS5CcmFja2V0Um91bmQiQQoVQ29uZmlybUJyYWNrZXRSZXF1ZXN0EhcKD3RvdXJuYW1lbnRfc2x1ZxgBIAEoCRIPCgdjb25maXJtGAIgASgIIkwKFkNvbmZpcm1CcmFja2V0UmVzcG9uc2USMgoKdG91cm5hbWVudBgBIAEoCzIeLmhlc3RpYS5hY3Rpdml0eS52MS5Ub3VybmFtZW50Ii4KE09wZW5IYW5kaWNhcFJlcXVlc3QSFwoPbWF0Y2hfcHVibGljX2lkGAEgASgJIkAKFE9wZW5IYW5kaWNhcFJlc3BvbnNlEigKBW1hdGNoGAEgASgLMhkuaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoIjAKFVJldmlld0hhbmRpY2FwUmVxdWVzdBIXCg9tYXRjaF9wdWJsaWNfaWQYASABKAkiTwoWUmV2aWV3SGFuZGljYXBSZXNwb25zZRI1CgloYW5kaWNhcHMYASABKAsyIi5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hIYW5kaWNhcHMiRQoWUmVmdW5kU2VsZWN0aW9uUmVxdWVzdBIbChNzZWxlY3Rpb25fcHVibGljX2lkGAEgASgJEg4KBnJlYXNvbhgCIAEoCSKBAQoXUmVmdW5kU2VsZWN0aW9uUmVzcG9uc2USLAoGYnVkZ2V0GAEgASgLMhwuaGVzdGlhLmFjdGl2aXR5LnYxLkJwQnVkZ2V0EjgKCXNlbGVjdGlvbhgCIAEoCzIlLmhlc3RpYS5hY3Rpdml0eS52MS5IYW5kaWNhcFNlbGVjdGlvbiI/ChNMb2NrSGFuZGljYXBSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRIPCgdjb25maXJtGAIgASgIIncKFExvY2tIYW5kaWNhcFJlc3BvbnNlEigKBW1hdGNoGAEgASgLMhkuaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoEjUKCWhhbmRpY2FwcxgCIAEoCzIiLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaEhhbmRpY2FwcyJCChNTZXRTdHJlYW1VcmxSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRISCgpzdHJlYW1fdXJsGAIgASgJIkAKFFNldFN0cmVhbVVybFJlc3BvbnNlEigKBW1hdGNoGAEgASgLMhkuaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoIrABChNTZXR1cENoZWNrbGlzdEVudHJ5EhsKE3NlbGVjdGlvbl9wdWJsaWNfaWQYASABKAkSEAoIaXRlbV9rZXkYAiABKAkSEQoJaXRlbV9uYW1lGAMgASgJEhQKDHJlZmVyZWVfbm90ZRgEIAEoCRITCgt0YXJnZXRfbm90ZRgFIAEoCRITCgtkcmF3X3Jlc3VsdBgGIAEoCRIXCg9hcHBsaWVzX3RvX2JvdGgYByABKAgiLQoSUmV2aWV3U2V0dXBSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCSKuAQoTUmV2aWV3U2V0dXBSZXNwb25zZRIoCgVtYXRjaBgBIAEoCzIZLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaBI6CgljaGVja2xpc3QYAiADKAsyJy5oZXN0aWEuYWN0aXZpdHkudjEuU2V0dXBDaGVja2xpc3RFbnRyeRIxCgp2aW9sYXRpb25zGAMgAygLMh0uaGVzdGlhLmFjdGl2aXR5LnYxLlZpb2xhdGlvbiIuChNDb25maXJtU2V0dXBSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCSJAChRDb25maXJtU2V0dXBSZXNwb25zZRIoCgVtYXRjaBgBIAEoCzIZLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaCIsChFTdGFydFJvdW5kUmVxdWVzdBIXCg9tYXRjaF9wdWJsaWNfaWQYASABKAkibQoSU3RhcnRSb3VuZFJlc3BvbnNlEigKBW1hdGNoGAEgASgLMhkuaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoEi0KBXJvdW5kGAIgASgLMh4uaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoUm91bmQifwoSRmluaXNoUm91bmRSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRIQCghyb3VuZF9ubxgCIAEoBRIfChd3aW5uZXJfcGxheWVyX3B1YmxpY19pZBgDIAEoCRIPCgdjb25maXJtGAQgASgIEgwKBG5vdGUYBSABKAkiugEKE0ZpbmlzaFJvdW5kUmVzcG9uc2USKAoFbWF0Y2gYASABKAsyGS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2gSLQoFcm91bmQYAiABKAsyHi5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hSb3VuZBIVCg1tYXRjaF9kZWNpZGVkGAMgASgIEjMKEGFkdmFuY2VkX21hdGNoZXMYBCADKAsyGS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2giuAEKFlJlY29yZFZpb2xhdGlvblJlcXVlc3QSFwoPbWF0Y2hfcHVibGljX2lkGAEgASgJEhAKCHJvdW5kX25vGAIgASgFEhgKEHBsYXllcl9wdWJsaWNfaWQYAyABKAkSFgoOaXRlbV9wdWJsaWNfaWQYBCABKAkSMwoGcnVsaW5nGAUgASgOMiMuaGVzdGlhLmFjdGl2aXR5LnYxLlZpb2xhdGlvblJ1bGluZxIMCgRub3RlGAYgASgJIksKF1JlY29yZFZpb2xhdGlvblJlc3BvbnNlEjAKCXZpb2xhdGlvbhgBIAEoCzIdLmhlc3RpYS5hY3Rpdml0eS52MS5WaW9sYXRpb24iMAoVTGlzdFZpb2xhdGlvbnNSZXF1ZXN0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCSJLChZMaXN0VmlvbGF0aW9uc1Jlc3BvbnNlEjEKCnZpb2xhdGlvbnMYASADKAsyHS5oZXN0aWEuYWN0aXZpdHkudjEuVmlvbGF0aW9uIm4KE1JlcG9ydFJlc3VsdFJlcXVlc3QSFwoPbWF0Y2hfcHVibGljX2lkGAEgASgJEh8KF3dpbm5lcl9wbGF5ZXJfcHVibGljX2lkGAIgASgJEg8KB2NvbmZpcm0YAyABKAgSDAoEbm90ZRgEIAEoCSKQAQoUUmVwb3J0UmVzdWx0UmVzcG9uc2USKAoFbWF0Y2gYASABKAsyGS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2gSMwoQYWR2YW5jZWRfbWF0Y2hlcxgCIAMoCzIZLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaBIZChFzZXR0bGVkX2JldF9jb3VudBgDIAEoBSJQChVXaXRoZHJhd1BsYXllclJlcXVlc3QSGAoQcGxheWVyX3B1YmxpY19pZBgBIAEoCRIMCgRub3RlGAIgASgJEg8KB2NvbmZpcm0YAyABKAgikwEKFldpdGhkcmF3UGxheWVyUmVzcG9uc2USKgoGcGxheWVyGAEgASgLMhouaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllchIzChB3YWxrb3Zlcl9tYXRjaGVzGAIgAygLMhkuaGVzdGlhLmFjdGl2aXR5LnYxLk1hdGNoEhgKEHZvaWRlZF9iZXRfY291bnQYAyABKAUiNQoZUmVnZW5lcmF0ZVBhc3Njb2RlUmVxdWVzdBIYChBwbGF5ZXJfcHVibGljX2lkGAEgASgJIi4KGlJlZ2VuZXJhdGVQYXNzY29kZVJlc3BvbnNlEhAKCHBhc3Njb2RlGAEgASgJIlcKEkF3YXJkUHJpemVzUmVxdWVzdBIXCg90b3VybmFtZW50X3NsdWcYASABKAkSDwoHY29uZmlybRgCIAEoCBIXCg9pZGVtcG90ZW5jeV9rZXkYAyABKAkiiQEKClByaXplQXdhcmQSGAoQcGxheWVyX3B1YmxpY19pZBgBIAEoCRIUCgxkaXNwbGF5X25hbWUYAiABKAkSEgoKcHJpemVfa2luZBgDIAEoCRIOCgZhbW91bnQYBCABKAMSDwoHZ3JhbnRlZBgFIAEoCBIWCg5za2lwcGVkX3JlYXNvbhgGIAEoCSJXChNBd2FyZFByaXplc1Jlc3BvbnNlEi4KBmF3YXJkcxgBIAMoCzIeLmhlc3RpYS5hY3Rpdml0eS52MS5Qcml6ZUF3YXJkEhAKCHJlcGxheWVkGAIgASgIMuMRCgxKdWRnZVNlcnZpY2USbwoQQ3JlYXRlVG91cm5hbWVudBIrLmhlc3RpYS5hY3Rpdml0eS52MS5DcmVhdGVUb3VybmFtZW50UmVxdWVzdBosLmhlc3RpYS5hY3Rpdml0eS52MS5DcmVhdGVUb3VybmFtZW50UmVzcG9uc2UiABJjCgxBZHZhbmNlUGhhc2USJy5oZXN0aWEuYWN0aXZpdHkudjEuQWR2YW5jZVBoYXNlUmVxdWVzdBooLmhlc3RpYS5hY3Rpdml0eS52MS5BZHZhbmNlUGhhc2VSZXNwb25zZSIAEl0KCkFzc2lnblJhbmsSJS5oZXN0aWEuYWN0aXZpdHkudjEuQXNzaWduUmFua1JlcXVlc3QaJi5oZXN0aWEuYWN0aXZpdHkudjEuQXNzaWduUmFua1Jlc3BvbnNlIgASYwoMTGlzdFVucmFua2VkEicuaGVzdGlhLmFjdGl2aXR5LnYxLkxpc3RVbnJhbmtlZFJlcXVlc3QaKC5oZXN0aWEuYWN0aXZpdHkudjEuTGlzdFVucmFua2VkUmVzcG9uc2UiABJgCgtEcmF3QnJhY2tldBImLmhlc3RpYS5hY3Rpdml0eS52MS5EcmF3QnJhY2tldFJlcXVlc3QaJy5oZXN0aWEuYWN0aXZpdHkudjEuRHJhd0JyYWNrZXRSZXNwb25zZSIAEloKCVN3YXBTZWVkcxIkLmhlc3RpYS5hY3Rpdml0eS52MS5Td2FwU2VlZHNSZXF1ZXN0GiUuaGVzdGlhLmFjdGl2aXR5LnYxLlN3YXBTZWVkc1Jlc3BvbnNlIgASaQoOQ29uZmlybUJyYWNrZXQSKS5oZXN0aWEuYWN0aXZpdHkudjEuQ29uZmlybUJyYWNrZXRSZXF1ZXN0GiouaGVzdGlhLmFjdGl2aXR5LnYxLkNvbmZpcm1CcmFja2V0UmVzcG9uc2UiABJjCgxPcGVuSGFuZGljYXASJy5oZXN0aWEuYWN0aXZpdHkudjEuT3BlbkhhbmRpY2FwUmVxdWVzdBooLmhlc3RpYS5hY3Rpdml0eS52MS5PcGVuSGFuZGljYXBSZXNwb25zZSIAEmkKDlJldmlld0hhbmRpY2FwEikuaGVzdGlhLmFjdGl2aXR5LnYxLlJldmlld0hhbmRpY2FwUmVxdWVzdBoqLmhlc3RpYS5hY3Rpdml0eS52MS5SZXZpZXdIYW5kaWNhcFJlc3BvbnNlIgASbAoPUmVmdW5kU2VsZWN0aW9uEiouaGVzdGlhLmFjdGl2aXR5LnYxLlJlZnVuZFNlbGVjdGlvblJlcXVlc3QaKy5oZXN0aWEuYWN0aXZpdHkudjEuUmVmdW5kU2VsZWN0aW9uUmVzcG9uc2UiABJjCgxMb2NrSGFuZGljYXASJy5oZXN0aWEuYWN0aXZpdHkudjEuTG9ja0hhbmRpY2FwUmVxdWVzdBooLmhlc3RpYS5hY3Rpdml0eS52MS5Mb2NrSGFuZGljYXBSZXNwb25zZSIAEmMKDFNldFN0cmVhbVVybBInLmhlc3RpYS5hY3Rpdml0eS52MS5TZXRTdHJlYW1VcmxSZXF1ZXN0GiguaGVzdGlhLmFjdGl2aXR5LnYxLlNldFN0cmVhbVVybFJlc3BvbnNlIgASYAoLUmV2aWV3U2V0dXASJi5oZXN0aWEuYWN0aXZpdHkudjEuUmV2aWV3U2V0dXBSZXF1ZXN0GicuaGVzdGlhLmFjdGl2aXR5LnYxLlJldmlld1NldHVwUmVzcG9uc2UiABJjCgxDb25maXJtU2V0dXASJy5oZXN0aWEuYWN0aXZpdHkudjEuQ29uZmlybVNldHVwUmVxdWVzdBooLmhlc3RpYS5hY3Rpdml0eS52MS5Db25maXJtU2V0dXBSZXNwb25zZSIAEl0KClN0YXJ0Um91bmQSJS5oZXN0aWEuYWN0aXZpdHkudjEuU3RhcnRSb3VuZFJlcXVlc3QaJi5oZXN0aWEuYWN0aXZpdHkudjEuU3RhcnRSb3VuZFJlc3BvbnNlIgASYAoLRmluaXNoUm91bmQSJi5oZXN0aWEuYWN0aXZpdHkudjEuRmluaXNoUm91bmRSZXF1ZXN0GicuaGVzdGlhLmFjdGl2aXR5LnYxLkZpbmlzaFJvdW5kUmVzcG9uc2UiABJjCgxSZXBvcnRSZXN1bHQSJy5oZXN0aWEuYWN0aXZpdHkudjEuUmVwb3J0UmVzdWx0UmVxdWVzdBooLmhlc3RpYS5hY3Rpdml0eS52MS5SZXBvcnRSZXN1bHRSZXNwb25zZSIAEmwKD1JlY29yZFZpb2xhdGlvbhIqLmhlc3RpYS5hY3Rpdml0eS52MS5SZWNvcmRWaW9sYXRpb25SZXF1ZXN0GisuaGVzdGlhLmFjdGl2aXR5LnYxLlJlY29yZFZpb2xhdGlvblJlc3BvbnNlIgASaQoOTGlzdFZpb2xhdGlvbnMSKS5oZXN0aWEuYWN0aXZpdHkudjEuTGlzdFZpb2xhdGlvbnNSZXF1ZXN0GiouaGVzdGlhLmFjdGl2aXR5LnYxLkxpc3RWaW9sYXRpb25zUmVzcG9uc2UiABJpCg5XaXRoZHJhd1BsYXllchIpLmhlc3RpYS5hY3Rpdml0eS52MS5XaXRoZHJhd1BsYXllclJlcXVlc3QaKi5oZXN0aWEuYWN0aXZpdHkudjEuV2l0aGRyYXdQbGF5ZXJSZXNwb25zZSIAEnUKElJlZ2VuZXJhdGVQYXNzY29kZRItLmhlc3RpYS5hY3Rpdml0eS52MS5SZWdlbmVyYXRlUGFzc2NvZGVSZXF1ZXN0Gi4uaGVzdGlhLmFjdGl2aXR5LnYxLlJlZ2VuZXJhdGVQYXNzY29kZVJlc3BvbnNlIgASYAoLQXdhcmRQcml6ZXMSJi5oZXN0aWEuYWN0aXZpdHkudjEuQXdhcmRQcml6ZXNSZXF1ZXN0GicuaGVzdGlhLmFjdGl2aXR5LnYxLkF3YXJkUHJpemVzUmVzcG9uc2UiAEJAWj5naXRodWIuY29tL2Rhbmljb3RlY2gvaGVzdGlhL2dlbi9oZXN0aWEvYWN0aXZpdHkvdjE7YWN0aXZpdHl2MWIGcHJvdG8z", [file_hestia_activity_v1_common]);
 
 /**
  * TournamentOddsSettings 是這一屆的賠率與抽水參數。
@@ -112,8 +124,8 @@ export type TournamentPrizeSettings = Message<"hestia.activity.v1.TournamentPriz
   runnerUp: bigint;
 
   /**
-   * 單淘汰沒有季軍賽,季軍推不出來。**填 0 以外的值會在發獎時被拒絕**,
-   * 那是刻意的 —— 不是 bug。
+   * 季軍。只有 format.third_place_match = true 的賽事才推得出季軍(季軍戰的勝者);
+   * 沒打季軍戰卻填了金額,發獎時會被拒絕 —— 那是刻意的,不是 bug。
    *
    * @generated from field: int64 third = 3;
    */
@@ -209,6 +221,13 @@ export type CreateTournamentRequest = Message<"hestia.activity.v1.CreateTourname
    * @generated from field: int32 handicap_item_max_qty = 8;
    */
   handicapItemMaxQty: number;
+
+  /**
+   * 賽制。整包留空 = 單場定勝負、無季軍戰。
+   *
+   * @generated from field: hestia.activity.v1.TournamentFormatSettings format = 9;
+   */
+  format?: TournamentFormatSettings | undefined;
 };
 
 /**
@@ -217,6 +236,34 @@ export type CreateTournamentRequest = Message<"hestia.activity.v1.CreateTourname
  */
 export const CreateTournamentRequestSchema: GenMessage<CreateTournamentRequest> = /*@__PURE__*/
   messageDesc(file_hestia_activity_v1_judge, 2);
+
+/**
+ * TournamentFormatSettings 是賽制(schemas/28 的 config.format)。
+ *
+ * @generated from message hestia.activity.v1.TournamentFormatSettings
+ */
+export type TournamentFormatSettings = Message<"hestia.activity.v1.TournamentFormatSettings"> & {
+  /**
+   * 幾局幾勝,必須是正奇數。0 = 預設 1(單場定勝負)。第一屆是 3。
+   *
+   * @generated from field: int32 best_of = 1;
+   */
+  bestOf: number;
+
+  /**
+   * 準決賽敗者是否加打季軍戰。
+   *
+   * @generated from field: bool third_place_match = 2;
+   */
+  thirdPlaceMatch: boolean;
+};
+
+/**
+ * Describes the message hestia.activity.v1.TournamentFormatSettings.
+ * Use `create(TournamentFormatSettingsSchema)` to create a new message.
+ */
+export const TournamentFormatSettingsSchema: GenMessage<TournamentFormatSettings> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 3);
 
 /**
  * @generated from message hestia.activity.v1.CreateTournamentResponse
@@ -243,7 +290,7 @@ export type CreateTournamentResponse = Message<"hestia.activity.v1.CreateTournam
  * Use `create(CreateTournamentResponseSchema)` to create a new message.
  */
 export const CreateTournamentResponseSchema: GenMessage<CreateTournamentResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 3);
+  messageDesc(file_hestia_activity_v1_judge, 4);
 
 /**
  * @generated from message hestia.activity.v1.AdvancePhaseRequest
@@ -274,7 +321,7 @@ export type AdvancePhaseRequest = Message<"hestia.activity.v1.AdvancePhaseReques
  * Use `create(AdvancePhaseRequestSchema)` to create a new message.
  */
 export const AdvancePhaseRequestSchema: GenMessage<AdvancePhaseRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 4);
+  messageDesc(file_hestia_activity_v1_judge, 5);
 
 /**
  * @generated from message hestia.activity.v1.AdvancePhaseResponse
@@ -291,7 +338,7 @@ export type AdvancePhaseResponse = Message<"hestia.activity.v1.AdvancePhaseRespo
  * Use `create(AdvancePhaseResponseSchema)` to create a new message.
  */
 export const AdvancePhaseResponseSchema: GenMessage<AdvancePhaseResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 5);
+  messageDesc(file_hestia_activity_v1_judge, 6);
 
 /**
  * @generated from message hestia.activity.v1.AssignRankRequest
@@ -320,7 +367,7 @@ export type AssignRankRequest = Message<"hestia.activity.v1.AssignRankRequest"> 
  * Use `create(AssignRankRequestSchema)` to create a new message.
  */
 export const AssignRankRequestSchema: GenMessage<AssignRankRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 6);
+  messageDesc(file_hestia_activity_v1_judge, 7);
 
 /**
  * @generated from message hestia.activity.v1.AssignRankResponse
@@ -337,7 +384,7 @@ export type AssignRankResponse = Message<"hestia.activity.v1.AssignRankResponse"
  * Use `create(AssignRankResponseSchema)` to create a new message.
  */
 export const AssignRankResponseSchema: GenMessage<AssignRankResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 7);
+  messageDesc(file_hestia_activity_v1_judge, 8);
 
 /**
  * @generated from message hestia.activity.v1.ListUnrankedRequest
@@ -361,7 +408,7 @@ export type ListUnrankedRequest = Message<"hestia.activity.v1.ListUnrankedReques
  * Use `create(ListUnrankedRequestSchema)` to create a new message.
  */
 export const ListUnrankedRequestSchema: GenMessage<ListUnrankedRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 8);
+  messageDesc(file_hestia_activity_v1_judge, 9);
 
 /**
  * PlayerDossier 是評段用的完整檢視 —— 只有裁判看得到報名表的內容。
@@ -436,7 +483,7 @@ export type PlayerDossier = Message<"hestia.activity.v1.PlayerDossier"> & {
  * Use `create(PlayerDossierSchema)` to create a new message.
  */
 export const PlayerDossierSchema: GenMessage<PlayerDossier> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 9);
+  messageDesc(file_hestia_activity_v1_judge, 10);
 
 /**
  * @generated from message hestia.activity.v1.ListUnrankedResponse
@@ -453,7 +500,7 @@ export type ListUnrankedResponse = Message<"hestia.activity.v1.ListUnrankedRespo
  * Use `create(ListUnrankedResponseSchema)` to create a new message.
  */
 export const ListUnrankedResponseSchema: GenMessage<ListUnrankedResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 10);
+  messageDesc(file_hestia_activity_v1_judge, 11);
 
 /**
  * @generated from message hestia.activity.v1.DrawBracketRequest
@@ -478,7 +525,7 @@ export type DrawBracketRequest = Message<"hestia.activity.v1.DrawBracketRequest"
  * Use `create(DrawBracketRequestSchema)` to create a new message.
  */
 export const DrawBracketRequestSchema: GenMessage<DrawBracketRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 11);
+  messageDesc(file_hestia_activity_v1_judge, 12);
 
 /**
  * @generated from message hestia.activity.v1.DrawBracketResponse
@@ -509,7 +556,7 @@ export type DrawBracketResponse = Message<"hestia.activity.v1.DrawBracketRespons
  * Use `create(DrawBracketResponseSchema)` to create a new message.
  */
 export const DrawBracketResponseSchema: GenMessage<DrawBracketResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 12);
+  messageDesc(file_hestia_activity_v1_judge, 13);
 
 /**
  * @generated from message hestia.activity.v1.SwapSeedsRequest
@@ -538,7 +585,7 @@ export type SwapSeedsRequest = Message<"hestia.activity.v1.SwapSeedsRequest"> & 
  * Use `create(SwapSeedsRequestSchema)` to create a new message.
  */
 export const SwapSeedsRequestSchema: GenMessage<SwapSeedsRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 13);
+  messageDesc(file_hestia_activity_v1_judge, 14);
 
 /**
  * @generated from message hestia.activity.v1.SwapSeedsResponse
@@ -555,7 +602,7 @@ export type SwapSeedsResponse = Message<"hestia.activity.v1.SwapSeedsResponse"> 
  * Use `create(SwapSeedsResponseSchema)` to create a new message.
  */
 export const SwapSeedsResponseSchema: GenMessage<SwapSeedsResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 14);
+  messageDesc(file_hestia_activity_v1_judge, 15);
 
 /**
  * @generated from message hestia.activity.v1.ConfirmBracketRequest
@@ -579,7 +626,7 @@ export type ConfirmBracketRequest = Message<"hestia.activity.v1.ConfirmBracketRe
  * Use `create(ConfirmBracketRequestSchema)` to create a new message.
  */
 export const ConfirmBracketRequestSchema: GenMessage<ConfirmBracketRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 15);
+  messageDesc(file_hestia_activity_v1_judge, 16);
 
 /**
  * @generated from message hestia.activity.v1.ConfirmBracketResponse
@@ -596,7 +643,7 @@ export type ConfirmBracketResponse = Message<"hestia.activity.v1.ConfirmBracketR
  * Use `create(ConfirmBracketResponseSchema)` to create a new message.
  */
 export const ConfirmBracketResponseSchema: GenMessage<ConfirmBracketResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 16);
+  messageDesc(file_hestia_activity_v1_judge, 17);
 
 /**
  * @generated from message hestia.activity.v1.OpenHandicapRequest
@@ -613,7 +660,7 @@ export type OpenHandicapRequest = Message<"hestia.activity.v1.OpenHandicapReques
  * Use `create(OpenHandicapRequestSchema)` to create a new message.
  */
 export const OpenHandicapRequestSchema: GenMessage<OpenHandicapRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 17);
+  messageDesc(file_hestia_activity_v1_judge, 18);
 
 /**
  * @generated from message hestia.activity.v1.OpenHandicapResponse
@@ -630,7 +677,129 @@ export type OpenHandicapResponse = Message<"hestia.activity.v1.OpenHandicapRespo
  * Use `create(OpenHandicapResponseSchema)` to create a new message.
  */
 export const OpenHandicapResponseSchema: GenMessage<OpenHandicapResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 18);
+  messageDesc(file_hestia_activity_v1_judge, 19);
+
+/**
+ * ReviewHandicapRequest 是裁判檢視一場的讓武內容。
+ *
+ * 為什麼需要一支**裁判專用**的檢視:HandicapService.GetMatchHandicaps 在封盤前
+ * 只對施加者本人揭露內容,而裁判不是場上的選手 —— 他走那支拿到的永遠是空清單。
+ * 但要裁判執行的規則就寫在買下的項目裡(「禁用奇術」的 referee_note 要求裁判
+ * 確認後返還另一項的 BP),看不到內容等於那些規則沒有人執行得了。
+ *
+ * 這支**不**把內容變成公開:揭露界線只對這條需要裁判權限的路徑讓開,
+ * 選手與觀眾走的仍是原來那支,行為一字未改。
+ *
+ * @generated from message hestia.activity.v1.ReviewHandicapRequest
+ */
+export type ReviewHandicapRequest = Message<"hestia.activity.v1.ReviewHandicapRequest"> & {
+  /**
+   * @generated from field: string match_public_id = 1;
+   */
+  matchPublicId: string;
+};
+
+/**
+ * Describes the message hestia.activity.v1.ReviewHandicapRequest.
+ * Use `create(ReviewHandicapRequestSchema)` to create a new message.
+ */
+export const ReviewHandicapRequestSchema: GenMessage<ReviewHandicapRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 20);
+
+/**
+ * @generated from message hestia.activity.v1.ReviewHandicapResponse
+ */
+export type ReviewHandicapResponse = Message<"hestia.activity.v1.ReviewHandicapResponse"> & {
+  /**
+   * 形狀與 GetMatchHandicaps 完全相同(同一個 message 型別)——
+   * 裁判端與選手端顯示的是同一份東西,差別只在封盤前看不看得到。
+   *
+   * 注意 locked_at 為空時仍可能有 selections:那正是這支 RPC 的用途。
+   *
+   * @generated from field: hestia.activity.v1.MatchHandicaps handicaps = 1;
+   */
+  handicaps?: MatchHandicaps | undefined;
+};
+
+/**
+ * Describes the message hestia.activity.v1.ReviewHandicapResponse.
+ * Use `create(ReviewHandicapResponseSchema)` to create a new message.
+ */
+export const ReviewHandicapResponseSchema: GenMessage<ReviewHandicapResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 21);
+
+/**
+ * RefundSelectionRequest 是裁判退掉某一筆讓武選擇。
+ *
+ * # 為什麼需要它
+ *
+ * 目錄裡的規則自己要求:「禁用奇術」的 referee_note 寫著「對手全場無法使用任何
+ * 奇術,若同時買了禁用任意奇術,將經裁判確認後返還禁用任意奇術的 BP」。
+ * 選手自助的 HandicapService.VoidSelection 只認選擇的本人,裁判走不了那條路。
+ *
+ * # 沒有 idempotency_key
+ *
+ * BP 不是平台代幣(每輪依段位差重發、該場有效、賽後作廢、不可交易),
+ * 退點只是標 voided + 改 spent,不經帳本。重複呼叫由「已經退過」擋下來,
+ * 不是靠冪等鍵去重 —— 真正動錢的 AwardPrizes 與 PlaceBet 才有那把鍵。
+ *
+ * # 沒有 confirm
+ *
+ * 退點不是不可逆:封盤前選手能拿退回來的 BP 重買同一項。
+ * 二次確認由必填的 reason 承擔 —— 要打字的動作不會誤觸。
+ *
+ * @generated from message hestia.activity.v1.RefundSelectionRequest
+ */
+export type RefundSelectionRequest = Message<"hestia.activity.v1.RefundSelectionRequest"> & {
+  /**
+   * @generated from field: string selection_public_id = 1;
+   */
+  selectionPublicId: string;
+
+  /**
+   * 為什麼退。**必填**,進稽核紀錄。
+   *
+   * 這一步拿走的是選手已經買到手的東西,而它唯一的正當理由來自目錄裡的規則。
+   * 不寫理由的退點,事後沒有人分得出「依規則返還」與「把不喜歡的項目刪掉」。
+   *
+   * @generated from field: string reason = 2;
+   */
+  reason: string;
+};
+
+/**
+ * Describes the message hestia.activity.v1.RefundSelectionRequest.
+ * Use `create(RefundSelectionRequestSchema)` to create a new message.
+ */
+export const RefundSelectionRequestSchema: GenMessage<RefundSelectionRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 22);
+
+/**
+ * @generated from message hestia.activity.v1.RefundSelectionResponse
+ */
+export type RefundSelectionResponse = Message<"hestia.activity.v1.RefundSelectionResponse"> & {
+  /**
+   * 退款後的預算,BP 已經回到裡面。
+   *
+   * @generated from field: hestia.activity.v1.BpBudget budget = 1;
+   */
+  budget?: BpBudget | undefined;
+
+  /**
+   * 被退掉的那一筆。回傳它是為了讓裁判端能當場確認「退掉的確實是那一項」——
+   * 請求只帶 public_id,而裁判要核對的是項目名稱與 BP。
+   *
+   * @generated from field: hestia.activity.v1.HandicapSelection selection = 2;
+   */
+  selection?: HandicapSelection | undefined;
+};
+
+/**
+ * Describes the message hestia.activity.v1.RefundSelectionResponse.
+ * Use `create(RefundSelectionResponseSchema)` to create a new message.
+ */
+export const RefundSelectionResponseSchema: GenMessage<RefundSelectionResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 23);
 
 /**
  * @generated from message hestia.activity.v1.LockHandicapRequest
@@ -654,7 +823,7 @@ export type LockHandicapRequest = Message<"hestia.activity.v1.LockHandicapReques
  * Use `create(LockHandicapRequestSchema)` to create a new message.
  */
 export const LockHandicapRequestSchema: GenMessage<LockHandicapRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 19);
+  messageDesc(file_hestia_activity_v1_judge, 24);
 
 /**
  * @generated from message hestia.activity.v1.LockHandicapResponse
@@ -678,7 +847,7 @@ export type LockHandicapResponse = Message<"hestia.activity.v1.LockHandicapRespo
  * Use `create(LockHandicapResponseSchema)` to create a new message.
  */
 export const LockHandicapResponseSchema: GenMessage<LockHandicapResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 20);
+  messageDesc(file_hestia_activity_v1_judge, 25);
 
 /**
  * @generated from message hestia.activity.v1.SetStreamUrlRequest
@@ -702,7 +871,7 @@ export type SetStreamUrlRequest = Message<"hestia.activity.v1.SetStreamUrlReques
  * Use `create(SetStreamUrlRequestSchema)` to create a new message.
  */
 export const SetStreamUrlRequestSchema: GenMessage<SetStreamUrlRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 21);
+  messageDesc(file_hestia_activity_v1_judge, 26);
 
 /**
  * @generated from message hestia.activity.v1.SetStreamUrlResponse
@@ -719,12 +888,73 @@ export type SetStreamUrlResponse = Message<"hestia.activity.v1.SetStreamUrlRespo
  * Use `create(SetStreamUrlResponseSchema)` to create a new message.
  */
 export const SetStreamUrlResponseSchema: GenMessage<SetStreamUrlResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 22);
+  messageDesc(file_hestia_activity_v1_judge, 27);
 
 /**
- * @generated from message hestia.activity.v1.StartMatchRequest
+ * SetupChecklistEntry 是開賽前設定確認清單的一列。
+ *
+ * 清單是**推導值**(該場未作廢的讓武選擇 JOIN 項目的執行說明 + 抽選結果),
+ * 伺服器不另存一份;所以 referee_note 的文字本身就是清單內容 —— 御風羽審定的
+ * 那 34 條正是它。只出現在裁判端(執行說明從不離開裁判端)。
+ *
+ * @generated from message hestia.activity.v1.SetupChecklistEntry
  */
-export type StartMatchRequest = Message<"hestia.activity.v1.StartMatchRequest"> & {
+export type SetupChecklistEntry = Message<"hestia.activity.v1.SetupChecklistEntry"> & {
+  /**
+   * @generated from field: string selection_public_id = 1;
+   */
+  selectionPublicId: string;
+
+  /**
+   * @generated from field: string item_key = 2;
+   */
+  itemKey: string;
+
+  /**
+   * @generated from field: string item_name = 3;
+   */
+  itemName: string;
+
+  /**
+   * 給裁判看的執行說明:怎麼確認對手真的遵守了。
+   *
+   * @generated from field: string referee_note = 4;
+   */
+  refereeNote: string;
+
+  /**
+   * 選手填的指定內容(要改到哪個鍵位、指定哪個武學)。
+   *
+   * @generated from field: string target_note = 5;
+   */
+  targetNote: string;
+
+  /**
+   * 系統抽選的結果;空 = 這一項不需要抽。
+   *
+   * @generated from field: string draw_result = 6;
+   */
+  drawResult: string;
+
+  /**
+   * 此項對施加方同樣生效,裁判要看兩邊。
+   *
+   * @generated from field: bool applies_to_both = 7;
+   */
+  appliesToBoth: boolean;
+};
+
+/**
+ * Describes the message hestia.activity.v1.SetupChecklistEntry.
+ * Use `create(SetupChecklistEntrySchema)` to create a new message.
+ */
+export const SetupChecklistEntrySchema: GenMessage<SetupChecklistEntry> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 28);
+
+/**
+ * @generated from message hestia.activity.v1.ReviewSetupRequest
+ */
+export type ReviewSetupRequest = Message<"hestia.activity.v1.ReviewSetupRequest"> & {
   /**
    * @generated from field: string match_public_id = 1;
    */
@@ -732,16 +962,62 @@ export type StartMatchRequest = Message<"hestia.activity.v1.StartMatchRequest"> 
 };
 
 /**
- * Describes the message hestia.activity.v1.StartMatchRequest.
- * Use `create(StartMatchRequestSchema)` to create a new message.
+ * Describes the message hestia.activity.v1.ReviewSetupRequest.
+ * Use `create(ReviewSetupRequestSchema)` to create a new message.
  */
-export const StartMatchRequestSchema: GenMessage<StartMatchRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 23);
+export const ReviewSetupRequestSchema: GenMessage<ReviewSetupRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 29);
 
 /**
- * @generated from message hestia.activity.v1.StartMatchResponse
+ * @generated from message hestia.activity.v1.ReviewSetupResponse
  */
-export type StartMatchResponse = Message<"hestia.activity.v1.StartMatchResponse"> & {
+export type ReviewSetupResponse = Message<"hestia.activity.v1.ReviewSetupResponse"> & {
+  /**
+   * @generated from field: hestia.activity.v1.Match match = 1;
+   */
+  match?: Match | undefined;
+
+  /**
+   * @generated from field: repeated hestia.activity.v1.SetupChecklistEntry checklist = 2;
+   */
+  checklist: SetupChecklistEntry[];
+
+  /**
+   * 已記錄的違規(含開賽前的)。
+   *
+   * @generated from field: repeated hestia.activity.v1.Violation violations = 3;
+   */
+  violations: Violation[];
+};
+
+/**
+ * Describes the message hestia.activity.v1.ReviewSetupResponse.
+ * Use `create(ReviewSetupResponseSchema)` to create a new message.
+ */
+export const ReviewSetupResponseSchema: GenMessage<ReviewSetupResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 30);
+
+/**
+ * @generated from message hestia.activity.v1.ConfirmSetupRequest
+ */
+export type ConfirmSetupRequest = Message<"hestia.activity.v1.ConfirmSetupRequest"> & {
+  /**
+   * @generated from field: string match_public_id = 1;
+   */
+  matchPublicId: string;
+};
+
+/**
+ * Describes the message hestia.activity.v1.ConfirmSetupRequest.
+ * Use `create(ConfirmSetupRequestSchema)` to create a new message.
+ */
+export const ConfirmSetupRequestSchema: GenMessage<ConfirmSetupRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 31);
+
+/**
+ * @generated from message hestia.activity.v1.ConfirmSetupResponse
+ */
+export type ConfirmSetupResponse = Message<"hestia.activity.v1.ConfirmSetupResponse"> & {
   /**
    * @generated from field: hestia.activity.v1.Match match = 1;
    */
@@ -749,13 +1025,236 @@ export type StartMatchResponse = Message<"hestia.activity.v1.StartMatchResponse"
 };
 
 /**
- * Describes the message hestia.activity.v1.StartMatchResponse.
- * Use `create(StartMatchResponseSchema)` to create a new message.
+ * Describes the message hestia.activity.v1.ConfirmSetupResponse.
+ * Use `create(ConfirmSetupResponseSchema)` to create a new message.
  */
-export const StartMatchResponseSchema: GenMessage<StartMatchResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 24);
+export const ConfirmSetupResponseSchema: GenMessage<ConfirmSetupResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 32);
 
 /**
+ * @generated from message hestia.activity.v1.StartRoundRequest
+ */
+export type StartRoundRequest = Message<"hestia.activity.v1.StartRoundRequest"> & {
+  /**
+   * @generated from field: string match_public_id = 1;
+   */
+  matchPublicId: string;
+};
+
+/**
+ * Describes the message hestia.activity.v1.StartRoundRequest.
+ * Use `create(StartRoundRequestSchema)` to create a new message.
+ */
+export const StartRoundRequestSchema: GenMessage<StartRoundRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 33);
+
+/**
+ * @generated from message hestia.activity.v1.StartRoundResponse
+ */
+export type StartRoundResponse = Message<"hestia.activity.v1.StartRoundResponse"> & {
+  /**
+   * @generated from field: hestia.activity.v1.Match match = 1;
+   */
+  match?: Match | undefined;
+
+  /**
+   * 剛開始的那個回合(started_at 就是計時起點)。
+   *
+   * @generated from field: hestia.activity.v1.MatchRound round = 2;
+   */
+  round?: MatchRound | undefined;
+};
+
+/**
+ * Describes the message hestia.activity.v1.StartRoundResponse.
+ * Use `create(StartRoundResponseSchema)` to create a new message.
+ */
+export const StartRoundResponseSchema: GenMessage<StartRoundResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 34);
+
+/**
+ * @generated from message hestia.activity.v1.FinishRoundRequest
+ */
+export type FinishRoundRequest = Message<"hestia.activity.v1.FinishRoundRequest"> & {
+  /**
+   * @generated from field: string match_public_id = 1;
+   */
+  matchPublicId: string;
+
+  /**
+   * @generated from field: int32 round_no = 2;
+   */
+  roundNo: number;
+
+  /**
+   * @generated from field: string winner_player_public_id = 3;
+   */
+  winnerPlayerPublicId: string;
+
+  /**
+   * 二次確認。填的是回合勝者,但達到勝場數的那一次會定案整場、觸發晉級與派彩。
+   *
+   * @generated from field: bool confirm = 4;
+   */
+  confirm: boolean;
+
+  /**
+   * 備註。爭議回合的裁決理由寫這裡,進稽核紀錄。
+   *
+   * @generated from field: string note = 5;
+   */
+  note: string;
+};
+
+/**
+ * Describes the message hestia.activity.v1.FinishRoundRequest.
+ * Use `create(FinishRoundRequestSchema)` to create a new message.
+ */
+export const FinishRoundRequestSchema: GenMessage<FinishRoundRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 35);
+
+/**
+ * @generated from message hestia.activity.v1.FinishRoundResponse
+ */
+export type FinishRoundResponse = Message<"hestia.activity.v1.FinishRoundResponse"> & {
+  /**
+   * @generated from field: hestia.activity.v1.Match match = 1;
+   */
+  match?: Match | undefined;
+
+  /**
+   * @generated from field: hestia.activity.v1.MatchRound round = 2;
+   */
+  round?: MatchRound | undefined;
+
+  /**
+   * true = 這一回合讓整場定案(winner_player_public_id 已填、派彩已觸發)。
+   *
+   * @generated from field: bool match_decided = 3;
+   */
+  matchDecided: boolean;
+
+  /**
+   * 定案後下一輪因此成形的場次;含新建的季軍戰(kind = THIRD_PLACE)。
+   *
+   * @generated from field: repeated hestia.activity.v1.Match advanced_matches = 4;
+   */
+  advancedMatches: Match[];
+};
+
+/**
+ * Describes the message hestia.activity.v1.FinishRoundResponse.
+ * Use `create(FinishRoundResponseSchema)` to create a new message.
+ */
+export const FinishRoundResponseSchema: GenMessage<FinishRoundResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 36);
+
+/**
+ * @generated from message hestia.activity.v1.RecordViolationRequest
+ */
+export type RecordViolationRequest = Message<"hestia.activity.v1.RecordViolationRequest"> & {
+  /**
+   * @generated from field: string match_public_id = 1;
+   */
+  matchPublicId: string;
+
+  /**
+   * 0 = 開賽前。
+   *
+   * @generated from field: int32 round_no = 2;
+   */
+  roundNo: number;
+
+  /**
+   * 違規者,可以是任一方。
+   *
+   * @generated from field: string player_public_id = 3;
+   */
+  playerPublicId: string;
+
+  /**
+   * 違反哪一項;空 = 違反通則。
+   *
+   * @generated from field: string item_public_id = 4;
+   */
+  itemPublicId: string;
+
+  /**
+   * @generated from field: hestia.activity.v1.ViolationRuling ruling = 5;
+   */
+  ruling: ViolationRuling;
+
+  /**
+   * 必填:發生了什麼、為什麼這樣判。沒有理由的紀錄事後分不出「依規則」與「裁判不喜歡」。
+   *
+   * @generated from field: string note = 6;
+   */
+  note: string;
+};
+
+/**
+ * Describes the message hestia.activity.v1.RecordViolationRequest.
+ * Use `create(RecordViolationRequestSchema)` to create a new message.
+ */
+export const RecordViolationRequestSchema: GenMessage<RecordViolationRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 37);
+
+/**
+ * @generated from message hestia.activity.v1.RecordViolationResponse
+ */
+export type RecordViolationResponse = Message<"hestia.activity.v1.RecordViolationResponse"> & {
+  /**
+   * @generated from field: hestia.activity.v1.Violation violation = 1;
+   */
+  violation?: Violation | undefined;
+};
+
+/**
+ * Describes the message hestia.activity.v1.RecordViolationResponse.
+ * Use `create(RecordViolationResponseSchema)` to create a new message.
+ */
+export const RecordViolationResponseSchema: GenMessage<RecordViolationResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 38);
+
+/**
+ * @generated from message hestia.activity.v1.ListViolationsRequest
+ */
+export type ListViolationsRequest = Message<"hestia.activity.v1.ListViolationsRequest"> & {
+  /**
+   * @generated from field: string match_public_id = 1;
+   */
+  matchPublicId: string;
+};
+
+/**
+ * Describes the message hestia.activity.v1.ListViolationsRequest.
+ * Use `create(ListViolationsRequestSchema)` to create a new message.
+ */
+export const ListViolationsRequestSchema: GenMessage<ListViolationsRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 39);
+
+/**
+ * @generated from message hestia.activity.v1.ListViolationsResponse
+ */
+export type ListViolationsResponse = Message<"hestia.activity.v1.ListViolationsResponse"> & {
+  /**
+   * @generated from field: repeated hestia.activity.v1.Violation violations = 1;
+   */
+  violations: Violation[];
+};
+
+/**
+ * Describes the message hestia.activity.v1.ListViolationsResponse.
+ * Use `create(ListViolationsResponseSchema)` to create a new message.
+ */
+export const ListViolationsResponseSchema: GenMessage<ListViolationsResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_judge, 40);
+
+/**
+ * ReportResultRequest 判定勝負。**只在 best_of = 1 時可用**:等價於「開始第 1 回合 →
+ * 以該勝者結束第 1 回合」。多回合制回 FAILED_PRECONDITION,裁判要用 FinishRound ——
+ * 整場勝者是回合推導出來的,不接受直接指定。
+ *
  * @generated from message hestia.activity.v1.ReportResultRequest
  */
 export type ReportResultRequest = Message<"hestia.activity.v1.ReportResultRequest"> & {
@@ -789,7 +1288,7 @@ export type ReportResultRequest = Message<"hestia.activity.v1.ReportResultReques
  * Use `create(ReportResultRequestSchema)` to create a new message.
  */
 export const ReportResultRequestSchema: GenMessage<ReportResultRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 25);
+  messageDesc(file_hestia_activity_v1_judge, 41);
 
 /**
  * @generated from message hestia.activity.v1.ReportResultResponse
@@ -820,7 +1319,7 @@ export type ReportResultResponse = Message<"hestia.activity.v1.ReportResultRespo
  * Use `create(ReportResultResponseSchema)` to create a new message.
  */
 export const ReportResultResponseSchema: GenMessage<ReportResultResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 26);
+  messageDesc(file_hestia_activity_v1_judge, 42);
 
 /**
  * @generated from message hestia.activity.v1.WithdrawPlayerRequest
@@ -849,7 +1348,7 @@ export type WithdrawPlayerRequest = Message<"hestia.activity.v1.WithdrawPlayerRe
  * Use `create(WithdrawPlayerRequestSchema)` to create a new message.
  */
 export const WithdrawPlayerRequestSchema: GenMessage<WithdrawPlayerRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 27);
+  messageDesc(file_hestia_activity_v1_judge, 43);
 
 /**
  * @generated from message hestia.activity.v1.WithdrawPlayerResponse
@@ -880,7 +1379,7 @@ export type WithdrawPlayerResponse = Message<"hestia.activity.v1.WithdrawPlayerR
  * Use `create(WithdrawPlayerResponseSchema)` to create a new message.
  */
 export const WithdrawPlayerResponseSchema: GenMessage<WithdrawPlayerResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 28);
+  messageDesc(file_hestia_activity_v1_judge, 44);
 
 /**
  * @generated from message hestia.activity.v1.RegeneratePasscodeRequest
@@ -897,7 +1396,7 @@ export type RegeneratePasscodeRequest = Message<"hestia.activity.v1.RegeneratePa
  * Use `create(RegeneratePasscodeRequestSchema)` to create a new message.
  */
 export const RegeneratePasscodeRequestSchema: GenMessage<RegeneratePasscodeRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 29);
+  messageDesc(file_hestia_activity_v1_judge, 45);
 
 /**
  * @generated from message hestia.activity.v1.RegeneratePasscodeResponse
@@ -917,7 +1416,7 @@ export type RegeneratePasscodeResponse = Message<"hestia.activity.v1.RegenerateP
  * Use `create(RegeneratePasscodeResponseSchema)` to create a new message.
  */
 export const RegeneratePasscodeResponseSchema: GenMessage<RegeneratePasscodeResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 30);
+  messageDesc(file_hestia_activity_v1_judge, 46);
 
 /**
  * @generated from message hestia.activity.v1.AwardPrizesRequest
@@ -948,7 +1447,7 @@ export type AwardPrizesRequest = Message<"hestia.activity.v1.AwardPrizesRequest"
  * Use `create(AwardPrizesRequestSchema)` to create a new message.
  */
 export const AwardPrizesRequestSchema: GenMessage<AwardPrizesRequest> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 31);
+  messageDesc(file_hestia_activity_v1_judge, 47);
 
 /**
  * PrizeAward 是一筆發獎結果。
@@ -998,7 +1497,7 @@ export type PrizeAward = Message<"hestia.activity.v1.PrizeAward"> & {
  * Use `create(PrizeAwardSchema)` to create a new message.
  */
 export const PrizeAwardSchema: GenMessage<PrizeAward> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 32);
+  messageDesc(file_hestia_activity_v1_judge, 48);
 
 /**
  * @generated from message hestia.activity.v1.AwardPrizesResponse
@@ -1020,7 +1519,7 @@ export type AwardPrizesResponse = Message<"hestia.activity.v1.AwardPrizesRespons
  * Use `create(AwardPrizesResponseSchema)` to create a new message.
  */
 export const AwardPrizesResponseSchema: GenMessage<AwardPrizesResponse> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_judge, 33);
+  messageDesc(file_hestia_activity_v1_judge, 49);
 
 /**
  * JudgeService 是裁判後台。全部需要裁判權限,全部進稽核紀錄。
@@ -1113,6 +1612,26 @@ export const JudgeService: GenService<{
     output: typeof OpenHandicapResponseSchema;
   },
   /**
+   * 檢視一場的讓武內容,**不受封盤前的揭露限制**。
+   *
+   * @generated from rpc hestia.activity.v1.JudgeService.ReviewHandicap
+   */
+  reviewHandicap: {
+    methodKind: "unary";
+    input: typeof ReviewHandicapRequestSchema;
+    output: typeof ReviewHandicapResponseSchema;
+  },
+  /**
+   * 退掉某一筆讓武選擇,BP 退回該場預算。**封盤後不可**。
+   *
+   * @generated from rpc hestia.activity.v1.JudgeService.RefundSelection
+   */
+  refundSelection: {
+    methodKind: "unary";
+    input: typeof RefundSelectionRequestSchema;
+    output: typeof RefundSelectionResponseSchema;
+  },
+  /**
    * 封盤:選手不能再改,內容立刻公開並發 Discord 公告。**不可逆**。
    *
    * @generated from rpc hestia.activity.v1.JudgeService.LockHandicap
@@ -1133,17 +1652,47 @@ export const JudgeService: GenService<{
     output: typeof SetStreamUrlResponseSchema;
   },
   /**
-   * 標記開打(關閉下注)。
+   * 開賽前設定確認清單(該場每筆讓武的執行說明 + 抽選結果)與目前回合狀態。純讀取。
    *
-   * @generated from rpc hestia.activity.v1.JudgeService.StartMatch
+   * @generated from rpc hestia.activity.v1.JudgeService.ReviewSetup
    */
-  startMatch: {
+  reviewSetup: {
     methodKind: "unary";
-    input: typeof StartMatchRequestSchema;
-    output: typeof StartMatchResponseSchema;
+    input: typeof ReviewSetupRequestSchema;
+    output: typeof ReviewSetupResponseSchema;
   },
   /**
-   * 判定勝負。觸發晉級與下注結算。**不可逆**。
+   * 裁判確認開賽前設定都做了。**確認完才能開打**(伺服器擋,DB 也擋)。整體一次確認,不逐項。
+   *
+   * @generated from rpc hestia.activity.v1.JudgeService.ConfirmSetup
+   */
+  confirmSetup: {
+    methodKind: "unary";
+    input: typeof ConfirmSetupRequestSchema;
+    output: typeof ConfirmSetupResponseSchema;
+  },
+  /**
+   * 開始下一個回合。第 1 回合 = 正式開打:同時關閉下注、啟動計時。
+   *
+   * @generated from rpc hestia.activity.v1.JudgeService.StartRound
+   */
+  startRound: {
+    methodKind: "unary";
+    input: typeof StartRoundRequestSchema;
+    output: typeof StartRoundResponseSchema;
+  },
+  /**
+   * 結束一個回合並填勝者。達到勝場數即整場定案,觸發晉級與派彩。**不可逆**。
+   *
+   * @generated from rpc hestia.activity.v1.JudgeService.FinishRound
+   */
+  finishRound: {
+    methodKind: "unary";
+    input: typeof FinishRoundRequestSchema;
+    output: typeof FinishRoundResponseSchema;
+  },
+  /**
+   * 判定勝負(**只在 best_of = 1 時可用**;多回合制用 FinishRound)。**不可逆**。
    *
    * @generated from rpc hestia.activity.v1.JudgeService.ReportResult
    */
@@ -1151,6 +1700,26 @@ export const JudgeService: GenService<{
     methodKind: "unary";
     input: typeof ReportResultRequestSchema;
     output: typeof ReportResultResponseSchema;
+  },
+  /**
+   * 記一筆違規。只記事實與裁判的判決,**不觸發任何後果**(schemas/27)。
+   *
+   * @generated from rpc hestia.activity.v1.JudgeService.RecordViolation
+   */
+  recordViolation: {
+    methodKind: "unary";
+    input: typeof RecordViolationRequestSchema;
+    output: typeof RecordViolationResponseSchema;
+  },
+  /**
+   * 列出一場的違規紀錄。純讀取。
+   *
+   * @generated from rpc hestia.activity.v1.JudgeService.ListViolations
+   */
+  listViolations: {
+    methodKind: "unary";
+    input: typeof ListViolationsRequestSchema;
+    output: typeof ListViolationsResponseSchema;
   },
   /**
    * 選手棄賽。對手不戰而勝,該場所有注單作廢退款。
