@@ -6,7 +6,7 @@ import { SCENE } from './chapters';
 import { ChapterRail } from './ChapterRail';
 import { ForegroundStage } from './ForegroundStage';
 import styles from './Landing.module.css';
-import { SceneLayer } from './SceneLayer';
+import { WorldScene } from './WorldScene';
 import { useActiveChapter } from './useActiveChapter';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 import { useReveals } from './useReveals';
@@ -42,7 +42,7 @@ export function Landing({ children, colophon }: LandingProps) {
 
   return (
     <>
-      <SceneLayer plates={SCENE} active={active} reduced={reduced} />
+      <WorldScene plates={SCENE} active={active} reduced={reduced} doc={doc} />
       <main className={styles.doc} id="main" ref={doc}>
         {children}
       </main>

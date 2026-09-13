@@ -1,0 +1,24 @@
+/* 世界的畫布。位置與 2D 那層完全一樣 —— 它是同一個位子的另一種實作。 */
+
+.canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  /* 場景自己就是這個顏色,先鋪上去,第一格畫出來之前不會有一塊沒定義的白。 */
+  background-color: var(--surface-base);
+  /* 淡入:第一格畫好才給 1。2D 那層在下面墊著,所以這是交棒不是出現。 */
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .canvas {
+    transition: opacity var(--motion-reveal) var(--ease-out);
+  }
+}
+
+.lit {
+  opacity: 1;
+}
