@@ -11,6 +11,7 @@ import type { RankInfo, Tournament } from '../../lib/api/gen/hestia/activity/v1/
 import { TournamentPhase } from '../../lib/api/gen/hestia/activity/v1/common_pb';
 
 import { DrawPanel } from './DrawPanel';
+import { MatchList } from './MatchList';
 import { nextPhase, PHASES, phaseKey } from './phases';
 import { RankingPanel } from './RankingPanel';
 
@@ -152,6 +153,8 @@ export function JudgeConsole({ slug }: JudgeConsoleProps) {
                 void load();
               }}
             />
+          ) : phase === TournamentPhase.IN_PROGRESS ? (
+            <MatchList slug={slug} ranks={ranks} tournament={tournament} />
           ) : (
             <p className={styles.idle}>{idleCopy(phase)}</p>
           )}
@@ -197,8 +200,6 @@ function idleCopy(phase: TournamentPhase): string {
       return '報名已截止。接下來逐人評定段位。';
     case TournamentPhase.RANKED:
       return '段位已公布。這段時間留給異議 —— 一旦開始抽籤,段位就不能再改。';
-    case TournamentPhase.IN_PROGRESS:
-      return '比賽進行中。開盤、封盤、判定勝負在各場次的頁面操作。';
     case TournamentPhase.FINISHED:
       return '這一屆結束了。';
     default:

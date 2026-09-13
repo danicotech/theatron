@@ -1,0 +1,568 @@
+/* 一場比賽的裁判頁。這一份樣式表由 MatchConsole 與它拆出去的四個面板共用 ——
+   它們是同一個畫面拆成幾個檔案,不是四個獨立元件;表單欄位、選人按鈕、
+   二次確認列在每個面板都會出現,各留一份只會在改的時候漏掉一份。 */
+
+.console {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ── 頁首:對峙構圖 ───────────────────────── */
+
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-target);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--text-primary);
+}
+
+.back:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.22em;
+  color: var(--text-secondary);
+}
+
+/* 借的是格鬥遊戲的角色選擇畫面:左右對峙、中間是比分。
+   兩個名字各靠外側,讓「誰在左、誰在右」與場上站位一樣一眼分清。 */
+.versus {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--border-subtle);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.sideRight {
+  align-items: flex-end;
+  text-align: end;
+}
+
+.name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-lg);
+  line-height: 1.15;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 640px) {
+  .name {
+    font-size: var(--text-xl);
+  }
+}
+
+/* 勝者用薄荷色:薄荷永遠代表贏。 */
+.won {
+  color: var(--state-win);
+}
+
+/* BP 不是平台代幣(不進帳本、賽後作廢),所以不借金色 —— 金色一出現就是錢。 */
+.tag {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-micro);
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+.score {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono-bold);
+  font-size: var(--text-2xl);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.vs {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display-max);
+  font-size: var(--text-md);
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+}
+
+.status {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 下一步 ───────────────────────────────── */
+
+/* 這一區永遠只有一件事。裁判站在場邊拿著手機,要問的只有「現在按哪一顆」。 */
+.primary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-6);
+}
+
+.primaryCopy {
+  margin: 0;
+  max-inline-size: 62ch;
+  font-size: var(--text-md);
+  color: var(--text-primary);
+}
+
+.hint {
+  margin: 0;
+  max-inline-size: 62ch;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* 動作列:手機上分行全寬,避免誤觸(responsive.md「管理介面」)。 */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.actions > * {
+  inline-size: 100%;
+}
+
+@media (min-width: 640px) {
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .actions > * {
+    inline-size: auto;
+  }
+}
+
+/* ── 面板 ─────────────────────────────────── */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-4);
+}
+
+/* 單據標頭的全大寫小字。 */
+.panelTitle {
+  margin: 0;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.18em;
+  color: var(--text-secondary);
+}
+
+.line {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+/* ── 清單(讓武檢視、設定確認、違規)────────── */
+/* 借的是賠率單的行列紀律:細線分隔、直角、數值等寬靠右。不包成卡片。 */
+
+.list {
+  inline-size: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--border-subtle);
+}
+
+.list > li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+}
+
+.list > li + li {
+  border-block-start: 1px solid var(--border-subtle);
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.itemName {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  font-weight: var(--weight-body-bold);
+  color: var(--text-primary);
+}
+
+.cost {
+  flex: none;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono-bold);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.detail {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.detail b {
+  font-weight: var(--weight-body-bold);
+  color: var(--text-primary);
+}
+
+/* 執行說明是裁判要做的事,不是補充資訊 —— 用主文字色與主字級。 */
+.refereeNote {
+  margin: 0;
+  max-inline-size: 62ch;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  white-space: pre-wrap;
+}
+
+/* ── 回合表 ───────────────────────────────── */
+
+.rounds {
+  inline-size: 100%;
+  border: 1px solid var(--border-subtle);
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.rounds th,
+.rounds td {
+  padding: var(--space-2) var(--space-4);
+  border-block-end: 1px solid var(--border-subtle);
+  text-align: start;
+}
+
+.rounds tr:last-child td {
+  border-block-end: 0;
+}
+
+.rounds th {
+  font-size: var(--text-micro);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.rounds .num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+  white-space: nowrap;
+}
+
+/* ── 計時器 ───────────────────────────────── */
+
+/* 裁判從一臂遠掃一眼就要讀得到,所以比任何標題都大;
+   等寬 + tabular,秒數跳動時不左右晃(硬規則 2)。 */
+.timer {
+  display: block;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono-bold);
+  font-size: calc(var(--text-2xl) * 1.75);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+
+.timerBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── 表單 ─────────────────────────────────── */
+
+.fieldset {
+  inline-size: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.fieldset:disabled {
+  opacity: 0.6;
+}
+
+.legend {
+  padding: 0;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.18em;
+  color: var(--text-secondary);
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-body-bold);
+  color: var(--text-primary);
+}
+
+.field {
+  inline-size: 100%;
+  min-block-size: var(--hit-target);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  background-color: var(--surface-raised);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+  font-size: var(--text-sm);
+}
+
+textarea.field {
+  resize: vertical;
+}
+
+.field::placeholder {
+  color: var(--border-subtle);
+}
+
+.field:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 1px;
+}
+
+/* 選人:兩顆大按鈕。直角 —— 這是選項欄位,不是卡片。
+   選中用邊框加粗而不是換色:選手沒有語意色,借金色或薄荷會讓約定失效。 */
+.pickRow {
+  display: grid;
+  gap: var(--space-2);
+}
+
+@media (min-width: 640px) {
+  .pickRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.pick {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-block-size: var(--hit-target);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  background-color: var(--surface-raised);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-bold);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  text-align: start;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pick {
+    transition:
+      background-color var(--motion-hover) var(--ease-standard),
+      border-color var(--motion-hover) var(--ease-standard);
+  }
+}
+
+.pick:hover:not(:disabled) {
+  background-color: var(--surface-overlay);
+}
+
+.pick:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.pick:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.picked {
+  border-color: var(--text-primary);
+  box-shadow: inset 0 0 0 1px var(--text-primary);
+}
+
+/* 二次確認的問句:主文字色,不是灰的 —— 這一句就是裁判要讀的東西。 */
+.ask {
+  margin: 0;
+  max-inline-size: 60ch;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+/* ── 棄賽:與其他面板分開,邊線用「危險」色 ───── */
+
+.danger {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block-start: var(--space-6);
+  border-block-start: 2px solid var(--state-live);
+  padding-block-start: var(--space-4);
+}
+
+.dangerTitle {
+  margin: 0;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.18em;
+  color: var(--state-live);
+}
+
+/* ── 需要登入 ─────────────────────────────── */
+
+.wall {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: var(--space-6);
+}
+
+.wallLine {
+  margin: 0;
+  font-size: var(--text-md);
+  color: var(--text-primary);
+}
+
+.wallNote {
+  margin: 0 0 var(--space-2);
+  max-inline-size: 56ch;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.signin {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-target);
+  padding-inline: var(--space-6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  background-color: var(--surface-raised);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body-bold);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .signin {
+    transition: background-color var(--motion-hover) var(--ease-standard);
+  }
+}
+
+.signin:hover {
+  background-color: var(--surface-overlay);
+}
+
+.signin:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+/* ── 晉級連結 ─────────────────────────────── */
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: var(--hit-target);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+.link:hover {
+  background-color: var(--surface-overlay);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+/* ── 通用狀態 ─────────────────────────────── */
+
+.loading {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.error {
+  margin: 0;
+  padding: var(--space-3);
+  border-inline-start: 2px solid var(--state-live);
+  background-color: color-mix(in oklab, var(--state-live) 8%, transparent);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
