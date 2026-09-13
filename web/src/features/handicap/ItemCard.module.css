@@ -1,0 +1,160 @@
+/* 賠率單的一列:直角、細線分隔、價格靠右等寬。 */
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  container-type: inline-size;
+}
+
+.row + .row {
+  border-block-start: 1px solid var(--border-subtle);
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.name {
+  margin: 0;
+  min-inline-size: 0;
+  font-size: var(--text-md);
+  font-weight: var(--weight-body-medium);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.desc {
+  margin: 0;
+  max-inline-size: 60ch;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag,
+.tagBoth {
+  padding: 2px var(--space-2);
+  border: 1px solid var(--border-subtle);
+  font-size: var(--text-micro);
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+.tagBoth {
+  border-color: var(--state-live);
+  color: var(--text-primary);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+.input {
+  min-block-size: var(--hit-target);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  background-color: var(--surface-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.input:disabled {
+  opacity: 0.6;
+}
+
+.act {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* 數量是數字,走 mono;放在按鈕左邊,買完一眼看到跳成 ×2。 */
+.qty {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono-bold);
+  font-size: var(--text-md);
+  color: var(--text-primary);
+}
+
+.reason {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.error {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border-inline-start: 2px solid var(--state-live);
+  background-color: color-mix(in oklab, var(--state-live) 8%, transparent);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+
+/* 容器夠寬時,說明與動作並排:名稱與價格一列、說明一列、動作靠右。 */
+@container (min-width: 480px) {
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'head head'
+      'desc act'
+      'tags act'
+      'field act'
+      'error error';
+    column-gap: var(--space-4);
+  }
+
+  .head {
+    grid-area: head;
+  }
+
+  .desc {
+    grid-area: desc;
+  }
+
+  .tags {
+    grid-area: tags;
+  }
+
+  .field {
+    grid-area: field;
+  }
+
+  .act {
+    grid-area: act;
+    align-self: end;
+  }
+
+  .error {
+    grid-area: error;
+  }
+}

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 import { activityApi } from '../../lib/api/activity';
 import type { HandicapItem, RankInfo } from '../../lib/api/gen/hestia/activity/v1/common_pb';
-import { HandicapCategory } from '../../lib/api/gen/hestia/activity/v1/common_pb';
+import { HANDICAP_CATEGORIES } from '../handicap/categories';
 
 import styles from './RulesPage.module.css';
 
@@ -19,15 +19,6 @@ import styles from './RulesPage.module.css';
  * 段位名稱、BP 級距、項目與價格全部跟伺服器要 —— 逐屆可調,前端寫死就會
  * 在第二屆變成錯的。
  */
-
-const CATEGORIES: { key: HandicapCategory; label: string }[] = [
-  { key: HandicapCategory.WEAPON, label: '武器限制' },
-  { key: HandicapCategory.SKILL, label: '技能限制' },
-  { key: HandicapCategory.DEFENSE, label: '防禦與位移限制' },
-  { key: HandicapCategory.POISON, label: '下毒' },
-  { key: HandicapCategory.VICTORY, label: '勝利條件' },
-  { key: HandicapCategory.RULE, label: '規則限制' },
-];
 
 export function RulesPage({ slug }: { slug: string }) {
   const [ranks, setRanks] = useState<RankInfo[]>([]);
@@ -121,7 +112,7 @@ export function RulesPage({ slug }: { slug: string }) {
           BP 夠就能買,同一項也可以重複買。系統不擋互相矛盾的組合 ——
           真的撞在一起時由裁判臨場判,所以買之前先想清楚你要的是什麼。
         </p>
-        {CATEGORIES.map((c) => {
+        {HANDICAP_CATEGORIES.map((c) => {
           const group = items
             .filter((i) => i.category === c.key)
             .sort((a, b) => a.sortOrder - b.sortOrder);

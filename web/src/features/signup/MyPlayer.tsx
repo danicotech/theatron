@@ -268,6 +268,16 @@ export function MyPlayer({ slug }: MyPlayerProps) {
           <Link className={styles.link} href={`/t/${slug}/rules`}>
             規則與讓武項目
           </Link>
+          {tournament.phase === TournamentPhase.IN_PROGRESS && match !== undefined ? (
+            <>
+              <Link className={styles.link} href={`/t/${slug}/me/handicap`}>
+                本場讓武
+              </Link>
+              <Link className={styles.link} href={`/t/${slug}/m/${match.publicId}`}>
+                這一場
+              </Link>
+            </>
+          ) : null}
         </div>
       </section>
     </div>

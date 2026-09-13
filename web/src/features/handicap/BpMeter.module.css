@@ -1,0 +1,72 @@
+/* 轉播 lower-third:直角橫條、一個大數字、一條細進度條。不做圓角,不做陰影。 */
+
+.meter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-block: 1px solid var(--border-subtle);
+  background-color: var(--surface-raised);
+}
+
+.row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.key {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.22em;
+  color: var(--text-secondary);
+}
+
+.side {
+  display: flex;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.sideItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+}
+
+.sideItem dt {
+  font-size: var(--text-micro);
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.sideItem dd {
+  margin: 0;
+}
+
+/* 進度條是剩餘量,不是已用量:買的時候看著它縮短,比看著它變長直覺。 */
+.bar {
+  block-size: 4px;
+  background-color: var(--border-subtle);
+}
+
+/* 不做寬度動畫:動態只有三種(hover、脈動、落位),條長變化不在其中。 */
+.fill {
+  display: block;
+  block-size: 100%;
+  background-color: var(--accent-money);
+}
+
+.foot {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}

@@ -1,0 +1,84 @@
+/* 紀錄表:直角、細線、一行一筆。不是卡片 —— 這是裁判台的紀錄,不是給人買的東西。 */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.h2 {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-body-bold);
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-block: 1px solid var(--border-subtle);
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3) 0;
+}
+
+.row + .row {
+  border-block-start: 1px solid var(--border-subtle);
+}
+
+.line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+}
+
+/* 回合是數字,走 mono;開賽前也用同一格,對齊不變。 */
+.round {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+}
+
+.item {
+  color: var(--text-primary);
+}
+
+.ruling,
+.rulingLoss {
+  font-weight: var(--weight-body-bold);
+  color: var(--text-primary);
+}
+
+.rulingLoss {
+  color: var(--state-live);
+}
+
+.time {
+  margin-inline-start: auto;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.note {
+  margin: 0;
+  max-inline-size: 62ch;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.foot {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
