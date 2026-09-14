@@ -1,5 +1,19 @@
 [
   {
+    "id": "jianzhong",
+    "name": "劍塚",
+    "primitives": {
+      "neutral": ["#060d17", "#0a1320", "#142231", "#3d5468", "#93a8b0", "#dde7ea"],
+      "money": "#9c9060",
+      "win": "#9fd8e8",
+      "live": "#b8241c"
+    },
+    "displayFont": "Noto Serif TC",
+    "radiusScale": 0,
+    "texture": "none",
+    "heroScene": "none"
+  },
+  {
     "id": "summer-cup-2026",
     "name": "夏季盃",
     "primitives": {

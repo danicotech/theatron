@@ -1,9 +1,9 @@
 'use client';
 
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { SealStamp } from '@theatron/ui';
 
 import { inkVars } from '../ink';
-import { Seal } from '../Seal';
 import { acceptsActivation, type UiState } from '../uiState';
 import styles from './SealButton.module.css';
 
@@ -108,7 +108,7 @@ export function SealButton({ text, label, children }: SealButtonProps) {
           aria-hidden="true"
         />
         <span className={styles.face} aria-hidden="true">
-          <Seal text={text} />
+          <SealStamp text={text} />
         </span>
         <span className={styles.label}>{label}</span>
       </button>

@@ -9,8 +9,11 @@ import {
   CardHeader,
   ChapterHead,
   DEFAULT_THEME_ID,
+  InkTitle,
+  PaperCard,
   PhaseTrack,
   RankSigil,
+  SealStamp,
   ThemeProvider,
   type EventTheme,
 } from '@theatron/ui';
@@ -309,6 +312,72 @@ export function KitchenSink({ themes }: KitchenSinkProps) {
             <div className={styles.stack}>
               <RankSigil level={0} total={4} name="" />
               <RankSigil level={3} total={4} name="飛花" size="sm" />
+            </div>
+          </Specimen>
+        </Section>
+
+        <Section
+          name="PaperCard"
+          note="暗底上被貼上去的一張紙。整份 token 裡唯一反相的表面 —— 紙上的字不能用 --text-primary"
+        >
+          <Specimen label="完整的告示:頁首、大標、條目、小字、落款、印">
+            <PaperCard
+              kicker="江湖令"
+              index="PUBLIC NOTICE / 001"
+              title="劍塚"
+              subtitle="武俠競技大會"
+              headingLevel={3}
+              rows={[
+                { label: '比賽遊戲', value: '待公布' },
+                { label: '開賽日期', value: '待公布' },
+                { label: '賽制與名額', value: '籌備中' },
+                { label: '獎項與獎金', value: '待公布', mono: true },
+              ]}
+              note="正式報名辦法將於本頁公告。此為賽事概念預告,尚未開放報名。"
+              action={<a href="#top">看賽事進程</a>}
+              stamp={<SealStamp text="劍塚" />}
+            />
+          </Specimen>
+          <Specimen label="只有正文 · 歪向左 / 不歪">
+            <div className={styles.stack}>
+              <PaperCard tilt="left" title="讓武" headingLevel={4}>
+                <p>段位定其差,BP 量其讓;鋒芒雖受束,勝負仍由場上分曉。</p>
+              </PaperCard>
+              <PaperCard tilt="none" kicker="榜" index="ROUND / 01" />
+            </div>
+          </Specimen>
+        </Section>
+
+        <Section
+          name="InkTitle"
+          note="真的毛筆手跡,描成 SVG 之後當遮罩用 —— 顏色交給樣式層,換主題不必重出圖"
+        >
+          <Specimen label="暗底上(骨白)">
+            <div className={styles.stack}>
+              <InkTitle src="/type/ink-war-letter.svg" text="戰帖" ratio={760 / 390} size="lead" />
+              <InkTitle src="/type/ink-rules.svg" text="賽制" ratio={900 / 495} />
+            </div>
+          </Specimen>
+          <Specimen label="紙上(墨黑)">
+            <PaperCard tilt="none">
+              <InkTitle
+                src="/type/ink-rewards.svg"
+                text="獎賞"
+                ratio={900 / 439}
+                on="paper"
+                size="lead"
+              />
+            </PaperCard>
+          </Specimen>
+        </Section>
+
+        <Section name="SealStamp" note="朱文方印。一份實作給獎賞牆、報名按鈕、落款三個地方用">
+          <Specimen label="一字 / 二字 / 三字 / 四字">
+            <div className={styles.row}>
+              <SealStamp text="劍" />
+              <SealStamp text="首座" />
+              <SealStamp text="百業試" />
+              <SealStamp text="百業試鋒" />
             </div>
           </Specimen>
         </Section>

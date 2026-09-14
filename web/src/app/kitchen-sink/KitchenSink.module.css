@@ -95,6 +95,11 @@
   padding: var(--space-3);
   /* 標本框保持直角:它是規格表的欄位,不是卡片。 */
   border: 1px dashed var(--border-subtle);
+  /* grid 項目的 min-width 預設是 auto,也就是 min-content —— 裡面只要有一個
+     不能斷的東西(等寬編號、長標題),整格就撐得比軌道還寬,把手機版推出橫向捲動。
+     軌道寫了 minmax(0, 1fr) 不夠,項目自己也要允許縮。 */
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
 }
 
 .specimenLabel {
@@ -117,6 +122,17 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-2);
+}
+
+/* 直的一疊,間距比 .column 大。給尺寸不一的標本用 ——
+   段位徽記、題字、紙都是各自有高度的東西,擠在一起會看不出邊界在哪。
+   (RankSigil 那一區本來就寫了 styles.stack,但 CSS 裡沒有,等於沒有版面。) */
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+  inline-size: 100%;
 }
 
 /* 賠率單的欄位:等寬、右對齊、細線分隔、直角。 */

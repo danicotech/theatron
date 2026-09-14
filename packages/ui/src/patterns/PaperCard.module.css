@@ -1,0 +1,244 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.sheet {
+  /* 紙是反相的表面。整個元件內部只准用這三個,不准用 --text-primary。 */
+  --paper-ink: var(--text-on-paper);
+  --paper-crease: var(--border-crease);
+  --paper-faint: color-mix(in oklab, var(--paper-ink) 62%, transparent);
+
+  /* 紙不會正。左右各一個小角度,同一畫面上的幾張紙可以歪向不同邊。 */
+  --paper-tilt: 0deg;
+  --paper-pad-block: clamp(22px, 2.6vw, 34px);
+  --paper-pad-inline: clamp(20px, 3vw, 40px);
+
+  position: relative;
+  rotate: var(--paper-tilt);
+  /* 陰影放在外層,裡層才能用 clip-path 咬出不規則邊 ——
+     clip-path 會把 box-shadow 一起切掉,drop-shadow 不會。 */
+  filter: drop-shadow(0 18px 34px color-mix(in oklab, var(--surface-base) 55%, transparent));
+}
+
+.left {
+  --paper-tilt: -1.1deg;
+}
+
+.right {
+  --paper-tilt: 0.9deg;
+}
+
+.none {
+  --paper-tilt: 0deg;
+}
+
+.paper {
+  position: relative;
+  padding: var(--paper-pad-block) var(--paper-pad-inline);
+  color: var(--paper-ink);
+  background-color: var(--surface-paper);
+  /* 宣紙。纖維**只走一個方向** —— 手工紙是把纖維撈在簾上,紋理是單向的。
+     直橫兩組疊起來會變方格紙,那是筆記本不是宣紙(第一版就是這樣壞的)。
+     另外兩團很大很淡的雲斑負責「厚薄不勻」,那才是手工紙最好認的特徵。
+     用漸層而不是貼圖:一張紙紋 PNG 要 100KB,而這裡要的只是「不是純色」。 */
+  background-image:
+    radial-gradient(
+      120% 80% at 18% 12%,
+      color-mix(in oklab, var(--paper-ink) 4%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      90% 70% at 82% 88%,
+      color-mix(in oklab, var(--paper-ink) 3%, transparent),
+      transparent 55%
+    ),
+    repeating-linear-gradient(
+      92deg,
+      color-mix(in oklab, var(--paper-ink) 3%, transparent) 0 1px,
+      transparent 1px 6px
+    );
+  /* 毛邊。抖動只有零點幾個百分點 —— 大了會讀成「這張卡沒對齊」而不是「這張紙是撕的」。
+     數字是選過的,不是隨機:隨機每次重新整理都不一樣,那是壞掉不是手工。 */
+  clip-path: polygon(
+    0.2% 0.6%,
+    31% 0%,
+    67% 0.5%,
+    99.8% 0.1%,
+    100% 41%,
+    99.6% 74%,
+    99.9% 99.5%,
+    63% 100%,
+    24% 99.4%,
+    0.1% 99.9%,
+    0% 55%,
+    0.4% 23%
+  );
+}
+
+/* 內框:紙裡面一條雙線。正式文件的訊號,不是裝飾。 */
+.frame {
+  position: absolute;
+  inset: 9px;
+  border: 1px solid color-mix(in oklab, var(--paper-ink) 30%, transparent);
+  outline: 1px solid color-mix(in oklab, var(--paper-ink) 12%, transparent);
+  outline-offset: 3px;
+  pointer-events: none;
+}
+
+/* 頁首:左邊說這是什麼,右邊是編號。
+   窄的時候整列折行,不是把「江湖令」三個字拆開 —— 標籤斷字比多一行難讀得多。 */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding-block-end: var(--space-4);
+  border-block-end: 1px solid var(--paper-crease);
+}
+
+.kicker {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-body-medium);
+  letter-spacing: 0.22em;
+  white-space: nowrap;
+  color: var(--paper-faint);
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-mono);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--paper-faint);
+  white-space: nowrap;
+}
+
+/* 正文置中。告示的標題本來就置中 —— 這是唯一一個置中合理的地方,
+   其餘版面一律左對齊(錯位排布)。 */
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-8) 0 var(--space-6);
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-2xl);
+  line-height: 1.15;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--paper-ink);
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-body);
+  letter-spacing: 0.3em;
+  /* 字距把最後一個字推離中心,補回來才是真的置中。 */
+  text-indent: 0.3em;
+  color: var(--paper-faint);
+}
+
+.body {
+  font-size: var(--text-md);
+  line-height: 1.9;
+  color: var(--paper-ink);
+}
+
+.body > :first-child {
+  margin-block-start: 0;
+}
+
+.body > :last-child {
+  margin-block-end: 0;
+}
+
+/* 條目:一列一條折痕,標籤靠左、值靠右。表格的紀律,不是表格的外框。 */
+.rows {
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-block-end: 1px solid var(--paper-crease);
+}
+
+.rowLabel {
+  font-size: var(--text-sm);
+  letter-spacing: 0.16em;
+  color: var(--paper-faint);
+}
+
+.rowValue {
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: var(--weight-body-medium);
+  text-align: end;
+  color: var(--paper-ink);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-mono);
+}
+
+.note {
+  margin: var(--space-6) 0 0;
+  font-size: var(--text-xs);
+  line-height: 1.85;
+  color: var(--paper-faint);
+}
+
+/* 落款列。頂上一條線把它跟正文分開 —— 印與簽名在紙上永遠是最後一段。 */
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-block-start: var(--space-6);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--paper-crease);
+}
+
+/* 印蓋在右下,而且蓋歪 —— 印是人拿著蓋的。
+   它跨在紙的邊上一點點,所以不能被 clip-path 咬掉 → 放在 .paper 的內距之外用絕對定位。 */
+.stamp {
+  position: absolute;
+  inset-block-end: calc(var(--paper-pad-block) * 0.45);
+  inset-inline-end: calc(var(--paper-pad-inline) * 0.5);
+  inline-size: clamp(44px, 6vw, 68px);
+  rotate: -5deg;
+  opacity: 0.92;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .sheet {
+    /* 手機上紙佔滿一欄,再歪就會碰到螢幕邊。 */
+    --paper-tilt: 0deg;
+  }
+
+  .top {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .row {
+    /* 標籤與值擠在一行會讓長的值換行到很窄的寬度,改成兩行。 */
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+
+  .rowValue {
+    text-align: start;
+  }
+}

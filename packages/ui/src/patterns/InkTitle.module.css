@@ -1,6 +1,6 @@
 /* 第 3 層:元件變數,只指向第 2 層。 */
 
-.mark {
+.ink {
   --ink-height: clamp(30px, 4.4vh, 52px);
   --ink-tone: color-mix(in oklab, var(--text-primary) 72%, transparent);
 
@@ -16,10 +16,30 @@
   mask-position: left center;
 }
 
-/* 手機上表頭整條要塞進一個視窗寬,題字跟著縮 —— 但不撤掉。
-   舊版那幅淡到看不見的題字才該撤;這一幅是這一章在講什麼。 */
+/* 貼在紙上時要用紙的墨色。元件不知道自己被放在什麼底上,所以這是 props 決定的。 */
+.paper {
+  --ink-tone: var(--text-on-paper);
+}
+
+.dark {
+  --ink-tone: color-mix(in oklab, var(--text-primary) 72%, transparent);
+}
+
+/* 一段的主題字:比表頭印記大得多,是這一段的高音。 */
+.lead {
+  --ink-height: clamp(56px, 9vh, 120px);
+}
+
+.mark {
+  --ink-height: clamp(30px, 4.4vh, 52px);
+}
+
 @media (max-width: 600px) {
   .mark {
     --ink-height: clamp(26px, 6vw, 36px);
+  }
+
+  .lead {
+    --ink-height: clamp(44px, 13vw, 72px);
   }
 }

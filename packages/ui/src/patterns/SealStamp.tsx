@@ -1,4 +1,4 @@
-import styles from './Seal.module.css';
+import styles from './SealStamp.module.css';
 
 /**
  * 朱文方印。全站唯一一份印章圖形。
@@ -10,14 +10,14 @@ import styles from './Seal.module.css';
  * 一份實作三個地方用(獎賞牆上的紅印、報名的印章按鈕、落款),
  * 這是「一個概念只有一個權威位置」。
  */
-export interface SealProps {
+export interface SealStampProps {
   /** 印面上的字。兩個字最好看,四個字會擠 —— 超過就縮字級,不換行。 */
   text: string;
   /** 有沒有進無障礙樹。牆上的印是裝飾(旁邊有字),按鈕裡的印也是。 */
   className?: string | undefined;
 }
 
-export function Seal({ text, className }: SealProps) {
+export function SealStamp({ text, className }: SealStampProps) {
   const chars = Array.from(text).slice(0, 4);
   // 印章的字是由右至左、由上而下排的,不是一條橫的。一字置中、二字直排、
   // 三四字兩欄 —— 這三種版式涵蓋了所有會出現在這個站上的印。

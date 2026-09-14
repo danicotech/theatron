@@ -1,9 +1,9 @@
 'use client';
 
 import { useRef, type CSSProperties } from 'react';
+import { SealStamp } from '@theatron/ui';
 
 import { CONTENT, isPlaceholder, TBA } from '../content';
-import { Seal } from '../Seal';
 import { usePrefersReducedMotion } from '../usePrefersReducedMotion';
 import { useEnterState } from '../useEnterState';
 import styles from './PrizeWall.module.css';
@@ -37,7 +37,7 @@ export function PrizeWall() {
           style={{ '--stamp-index': i } as CSSProperties}
         >
           <span className={styles.stamp}>
-            <Seal text={RANK_SEALS[i] ?? String(i + 1)} />
+            <SealStamp text={RANK_SEALS[i] ?? String(i + 1)} />
           </span>
           <span className={styles.detail}>
             <b className={styles.rank}>{RANK_SEALS[i] ?? `第 ${i + 1} 名`}</b>

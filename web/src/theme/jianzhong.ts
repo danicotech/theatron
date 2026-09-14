@@ -27,7 +27,15 @@ export const jianzhongTheme: EventTheme = parseEventTheme(raw);
  * 名字刻意落在既有的語意家族(--surface-* / --accent-*):元件只能碰語意 slot,
  * 新增的也必須是語意 slot,不是第 1 層色階的別名。
  */
-const EXTRA_SLOTS: readonly string[] = ['surface-wood', 'accent-blade', 'accent-bamboo'];
+const EXTRA_SLOTS: readonly string[] = [
+  'surface-wood',
+  'accent-blade',
+  'accent-bamboo',
+  // 紙面。`semantic.css` 已經用中性階的兩端給了預設(任何主題都成立),
+  // 這裡只是把它調成宣紙的暖白與墨的黑 —— 冷月白當紙會讓告示讀起來像塑膠。
+  'surface-paper',
+  'text-on-paper',
+];
 
 /** 主題最終會變成注入頁面的 CSS,所以值進 <style> 之前要擋得住 `}` 跳出宣告區塊。 */
 const SAFE = /^[A-Za-z0-9\s#%(),.'\-_]+$/;

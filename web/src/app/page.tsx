@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { InkTitle, SealStamp } from '@theatron/ui';
+
 import { CHAPTERS } from '../features/landing/chapters';
 import { CONTENT, isPlaceholder, TBA } from '../features/landing/content';
 import { PlumDates } from '../features/landing/doc/PlumDates';
@@ -8,12 +10,11 @@ import { RuleScroll } from '../features/landing/doc/RuleScroll';
 import { SealButton } from '../features/landing/doc/SealButton';
 import { formatDay } from '../features/landing/dates';
 import { HeroChapters } from '../features/landing/HeroChapters';
-import { InkMark } from '../features/landing/InkMark';
 import { Landing } from '../features/landing/Landing';
 import { Prologue } from '../features/landing/prologue/Prologue';
 import { Reveal } from '../features/landing/Reveal';
-import { Seal } from '../features/landing/Seal';
 import { WordReveal } from '../features/landing/WordReveal';
+import { worldAsset } from '../features/landing/world';
 
 import styles from './page.module.css';
 
@@ -56,6 +57,17 @@ function Field({ value }: { value: string | null }) {
 }
 
 /**
+ * 章節帳冊裡的題字 → `InkTitle` 的 props。
+ *
+ * `packages/ui` 不知道素材清冊長什麼樣,也不該知道 —— 它只收一個能放進
+ * `url()` 的位址與長寬比。把 id 換成位址是這一層的事。
+ */
+function inkProps(mark: NonNullable<(typeof CHAPTERS)[number]['mark']>) {
+  const a = worldAsset(mark.asset);
+  return { src: a.file, text: mark.text, ratio: a.width / a.height } as const;
+}
+
+/**
  * 章節表頭:題字、幕別與編號、一條延伸到頁緣的細線。
  *
  * 七章的表頭原本各寫一次 —— 同一個東西寫七遍,改一次得改七處。
@@ -68,7 +80,7 @@ function SecHead({ chapter }: { chapter: (typeof CHAPTERS)[number] }) {
   const said = chapter.mark?.text === chapter.act;
   return (
     <header className={styles.secHead}>
-      {chapter.mark === undefined ? null : <InkMark mark={chapter.mark} />}
+      {chapter.mark === undefined ? null : <InkTitle {...inkProps(chapter.mark)} />}
       <p className={styles.k}>
         {said ? null : <b>{chapter.act}</b>} {chapter.id}
       </p>
@@ -343,7 +355,7 @@ export default function HomePage() {
         <div className={styles.signOff}>
           <WordReveal as="h2" className={styles.finTitle} id="chapter-07-title" text={ch.c7.name} />
           <span className={styles.finSeal} aria-hidden="true">
-            <Seal text={CONTENT.workingTitle} />
+            <SealStamp text={CONTENT.workingTitle} />
           </span>
         </div>
 

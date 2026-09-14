@@ -1,17 +1,19 @@
 {
   "id": "jianzhong",
   "name": "劍塚",
-  "note": "七個色名的權威定義在 web/src/features/world3d/palette.ts —— 3D 那一層不吃主題 token(布景不是元件),所以色盤在那裡。這一份是它的 DOM 對應:同一個角色用同一個色值,只有中性階為了文字對比拉開了兩階。改色時兩邊一起改。",
+  "note": "七個色名的權威定義在 web/src/features/world3d/palette.ts —— 3D 那一層不吃主題 token(布景不是元件),所以色盤在那裡。這一份是它的 DOM 對應:同一個角色用同一個色值,只有中性階為了文字對比拉開了兩階。改色時兩邊一起改。 紙面(surface-paper / text-on-paper)是整份 token 裡唯一反相的表面:告示與戰帖是暗底上被貼上去的亮紙,所以紙上的字不能用 --text-primary。",
   "primitives": {
-    "neutral": ["#060d17", "#0a1320", "#142231", "#3a4d5a", "#93a8b0", "#dde7ea"],
+    "neutral": ["#060d17", "#0a1320", "#142231", "#3d5468", "#93a8b0", "#dde7ea"],
     "money": "#9c9060",
-    "win": "#86dcd6",
-    "live": "#b32f28"
+    "win": "#9fd8e8",
+    "live": "#b8241c"
   },
   "extras": {
     "surface-wood": "#4b3c31",
-    "accent-blade": "#86dcd6",
-    "accent-bamboo": "#9c9060"
+    "accent-blade": "#9fd8e8",
+    "accent-bamboo": "#9c9060",
+    "surface-paper": "#e5dfd1",
+    "text-on-paper": "#141413"
   },
   "displayFont": "Noto Serif TC",
   "radiusScale": 0,

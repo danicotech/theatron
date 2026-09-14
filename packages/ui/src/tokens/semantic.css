@@ -82,6 +82,16 @@
   --text-3xl: clamp(30px, 4vw, 60px);
   --text-4xl: clamp(40px, 7.4vw, 124px);
 
+  /* 紙。告示、戰帖、獎狀這些「被印出來、被貼上去」的東西。
+     它是暗底上的**亮面**,所以文字顏色要跟著翻過來 —— 這是整份 token 裡唯一
+     一組反相的表面,元件不可以在紙上用 --text-primary(那是給暗底用的)。
+     預設直接取中性階的兩端,任何主題都成立;活動主題想要更暖的宣紙,
+     用 extras 覆寫同名 slot 就好,不必改元件。 */
+  --surface-paper: var(--plum-050);
+  --text-on-paper: var(--plum-900);
+  /* 折痕:紙上的分隔線。比暗底的髮絲線重一點,因為紙的對比高。 */
+  --border-crease: color-mix(in oklab, var(--text-on-paper) 22%, transparent);
+
   /* 背景紋理由 data-texture 決定,預設沒有。 */
   --surface-texture: none;
 
