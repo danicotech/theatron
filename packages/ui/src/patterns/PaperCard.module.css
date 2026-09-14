@@ -5,10 +5,14 @@
   --paper-ink: var(--text-on-paper);
   --paper-crease: var(--border-crease);
   --paper-faint: color-mix(in oklab, var(--paper-ink) 62%, transparent);
+  /* 朱紅在紙上要往墨的方向壓。值在**外層**先算好 —— 裡面要把 --state-live
+     重新定義成這個值,而自我參照在 CSS 裡解不開。 */
+  --paper-live: color-mix(in oklab, var(--state-live) 62%, var(--text-on-paper));
 
   /* 紙不會正。左右各一個小角度,同一畫面上的幾張紙可以歪向不同邊。 */
   --paper-tilt: 0deg;
   --paper-pad-block: clamp(22px, 2.6vw, 34px);
+  --paper-stamp: clamp(44px, 6vw, 68px);
   --paper-pad-inline: clamp(20px, 3vw, 40px);
 
   position: relative;
@@ -35,9 +39,7 @@
 
      這是這個元件最重要的一行:任何一個為暗底寫的元件(捲軸、時程梅枝、印章按鈕)
      被放到紙上時,它用的 --text-primary 會自動變成墨黑而不是月白,不必為了
-     「它可能被放在紙上」去改每一個元件。分層 token 的用途就是這個。
-
-     --state-live(朱紅)刻意不翻 —— 印與紅字在紙上本來就是紅的。 */
+     「它可能被放在紙上」去改每一個元件。分層 token 的用途就是這個。 */
   --text-primary: var(--paper-ink);
   --text-secondary: var(--paper-faint);
   --border-subtle: var(--paper-crease);
@@ -45,6 +47,11 @@
   --surface-base: var(--surface-paper);
   --surface-raised: color-mix(in oklab, var(--paper-ink) 6%, var(--surface-paper));
   --surface-overlay: color-mix(in oklab, var(--paper-ink) 11%, var(--surface-paper));
+  /* 朱紅直接印在宣紙上只有 3.68:1 —— 在夜色上它是最亮的一點,在紙上它是最淡的一點。
+     同一個職責在不同的底上需要不同的值,這正是語意 slot 存在的理由。
+     往墨的方向壓過 4.5:1;印章跟著變深,而那本來就是印泥在紙上的樣子。
+     (先前這條知識手刻在五個頁面的 CSS 裡,每一頁各記一次同樣的算式。) */
+  --state-live: var(--paper-live);
 
   position: relative;
   padding: var(--paper-pad-block) var(--paper-pad-inline);
@@ -223,13 +230,31 @@
   border-block-start: 1px solid var(--paper-crease);
 }
 
+/* 落款列裡的東西是拿來點的,所以命中區下限由這裡保證。
+   交給呼叫端的話,每一張紙都要各自記得一次 —— 而漏掉的那一張不會有東西報錯,
+   只是在手機上變得難點。 */
+.action a,
+.action button {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-target);
+  touch-action: manipulation;
+}
+
+/* 有印的時候底下要留出那一塊。
+   印是絕對定位的,不佔版面 —— 不留位置的話,最後一段(小字或條目列)會被壓到。
+   這一條先前是讓每個呼叫端自己補 padding,而那表示每個呼叫端都得先踩到才會知道。 */
+.stamped {
+  padding-block-end: calc(var(--paper-pad-block) + var(--paper-stamp));
+}
+
 /* 印蓋在右下,而且蓋歪 —— 印是人拿著蓋的。
    它跨在紙的邊上一點點,所以不能被 clip-path 咬掉 → 放在 .paper 的內距之外用絕對定位。 */
 .stamp {
   position: absolute;
   inset-block-end: calc(var(--paper-pad-block) * 0.45);
   inset-inline-end: calc(var(--paper-pad-inline) * 0.5);
-  inline-size: clamp(44px, 6vw, 68px);
+  inline-size: var(--paper-stamp);
   rotate: -5deg;
   opacity: 0.92;
   pointer-events: none;

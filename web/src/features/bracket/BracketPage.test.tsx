@@ -167,6 +167,28 @@ describe('BracketPage', () => {
     );
   });
 
+  // 表頭與頁尾的路換成共用元件之後仍然要在:表頭是樹那一層的 h2(少了它就跳級),
+  // 頁尾兩條是鍵盤走得到的連結。
+  it('晉級樹的表頭仍是 h2,而且 section 指得到它', async () => {
+    api.getBracket.mockResolvedValue(PUBLISHED);
+    render(<BracketPage slug="s" />);
+    const head = await screen.findByRole('heading', { level: 2, name: '晉級樹' });
+    expect(head).toHaveAttribute('id', 'tree');
+    expect(document.querySelector('section[aria-labelledby="tree"]')).not.toBeNull();
+  });
+
+  it('頁尾的兩條路都在,而且聚焦得到', async () => {
+    api.getBracket.mockResolvedValue(PUBLISHED);
+    render(<BracketPage slug="s" />);
+    const nav = await screen.findByRole('navigation', { name: '相關頁面' });
+    const links = within(nav).getAllByRole('link');
+    expect(links.map((a) => a.getAttribute('href'))).toEqual(['/t/s', '/t/s/rules']);
+    links.forEach((a) => {
+      a.focus();
+      expect(a).toHaveFocus();
+    });
+  });
+
   it('沒有無障礙違規', async () => {
     api.getBracket.mockResolvedValue(PUBLISHED);
     const { container } = render(<BracketPage slug="s" />);

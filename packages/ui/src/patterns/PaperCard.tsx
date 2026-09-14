@@ -75,7 +75,7 @@ export function PaperCard({
 
   return (
     <div className={[styles.sheet, styles[tilt]].join(' ')}>
-      <div className={styles.paper}>
+      <div className={[styles.paper, stamp === undefined ? '' : styles.stamped].join(' ')}>
         {/* 內框。朱文印的邊比字粗,紙的內框同理 —— 它是「這是一份正式文件」
             的訊號,不是裝飾。 */}
         <span className={styles.frame} aria-hidden="true" />

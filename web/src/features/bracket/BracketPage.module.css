@@ -1,7 +1,10 @@
+/* 第 3 層:元件變數,只指向第 2 層。
+   區塊表頭與目錄式連結的幾何住在 SectionHead / InkLink,不在這裡。 */
+
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: clamp(42px, 5vw, 70px);
   /* 樹在自己的容器裡橫向捲動(BracketTree 負責);這裡不能再撐寬頁面。 */
   min-inline-size: 0;
 }
@@ -13,36 +16,9 @@
   min-inline-size: 0;
 }
 
-.h2 {
-  margin: 0;
-  font-size: var(--text-lg);
-  font-weight: var(--weight-body-bold);
-  letter-spacing: 0.08em;
-  color: var(--text-primary);
-}
-
-/* 空狀態是邀請,不是道歉:告訴人東西會自己出現,順便給他現在能看的。 */
+/* 還沒公布的那張告示。紙不佔滿版面 —— 貼在牆上的告示是有邊的。 */
 .empty {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-6) var(--space-4);
-  border: 1px dashed var(--border-subtle);
-}
-
-.emptyLine {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: var(--weight-display);
-  font-size: var(--text-lg);
-  color: var(--text-primary);
-}
-
-.emptyNote {
-  margin: 0;
-  max-inline-size: 56ch;
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
+  max-inline-size: 520px;
 }
 
 .stale {
@@ -51,41 +27,11 @@
   color: var(--text-secondary);
 }
 
+/* 頁尾的路只負責寬度 —— 一條一列的排版是 InkLink 自己的事。 */
 .links {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  border-block-start: 1px solid var(--border-subtle);
-  padding-block-start: var(--space-6);
-}
-
-.link {
-  display: inline-flex;
-  align-items: center;
-  min-block-size: var(--hit-target);
-  padding-inline: var(--space-4);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-control);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-weight: var(--weight-body-bold);
-  font-size: var(--text-sm);
-  text-decoration: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .link {
-    transition: background-color var(--motion-hover) var(--ease-standard);
-  }
-}
-
-.link:hover {
-  background-color: var(--surface-overlay);
-}
-
-.link:focus-visible {
-  outline: 2px solid var(--text-primary);
-  outline-offset: 2px;
+  flex-direction: column;
+  max-inline-size: 44ch;
 }
 
 .loading {

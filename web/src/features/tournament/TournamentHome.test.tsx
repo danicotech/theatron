@@ -1,5 +1,5 @@
 import { expectNoAxeViolations } from '@theatron/ui/testing';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { TournamentPhase } from '../../lib/api/gen/hestia/activity/v1/common_pb';
@@ -87,6 +87,34 @@ describe('TournamentHome', () => {
       '/t/s/me',
     );
     expect(screen.queryByRole('link', { name: '我已報名,進站' })).not.toBeInTheDocument();
+  });
+
+  // 事實只長在紙上一次:章節頁首不再重複同一組數字(重複的版面會讓人以為是兩件事)。
+  it('人數與 BP 級距印在戰帖上,而且只有一份', async () => {
+    api.getTournament.mockResolvedValue(t(TournamentPhase.SIGNUP));
+    render(<TournamentHome slug="s" />);
+    expect(await screen.findByText('12 人')).toBeInTheDocument();
+    expect(screen.getAllByText('8 BP')).toHaveLength(1);
+  });
+
+  // 題字是畫面上讀得出來的字,所以也要唸得出來 —— 它不是裝飾用的背景圖。
+  it('戰帖的題字唸得出來', async () => {
+    api.getTournament.mockResolvedValue(t(TournamentPhase.SIGNUP));
+    render(<TournamentHome slug="s" />);
+    expect(await screen.findByRole('img', { name: '戰帖' })).toBeInTheDocument();
+  });
+
+  // 路與紙上那條朱紅換成共用的 InkLink 之後,鍵盤仍然要走得到 ——
+  // 對比與命中區在瀏覽器裡量(Playwright),這裡只確認它還是一條真的連結。
+  it('路與紙上的行動都聚焦得到', async () => {
+    api.getTournament.mockResolvedValue(t(TournamentPhase.SIGNUP));
+    render(<TournamentHome slug="s" />);
+    const signup = await screen.findByRole('link', { name: '報名參賽' });
+    const nav = screen.getByRole('navigation', { name: '這一屆的其他頁' });
+    [...within(nav).getAllByRole('link'), signup].forEach((a) => {
+      a.focus();
+      expect(a).toHaveFocus();
+    });
   });
 
   it('沒有無障礙違規', async () => {

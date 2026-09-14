@@ -1,83 +1,56 @@
-/* 借的是張貼公告的結構:雙線題頭、一句主文、逐條列出、直角。
-   不是泛黃紙張,不是印章 —— 借排版紀律,不 cosplay。 */
+/* 公示長在紙上,所以這裡的每一個顏色都是**紙的**那一套:
+   --text-on-paper / --border-crease。--text-primary 是給暗底用的,印在紙上看不見。
+   PaperCard 負責紙本身(毛邊、內框、頁首、印),這裡只管公告的內文。 */
 
-.notice {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--border-subtle);
-  background-color: var(--surface-raised);
+.slot {
   container-type: inline-size;
-}
-
-.head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
-  /* 公告題頭的雙線。這是這個區塊唯一比 1px 粗的線,而且它其實是兩條 1px。 */
-  border-block-end: 3px double var(--border-subtle);
-}
-
-.label {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-body-bold);
-  letter-spacing: 0.28em;
-  color: var(--text-primary);
-}
-
-.stamp {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: var(--text-micro);
-  letter-spacing: 0.1em;
-  color: var(--text-secondary);
-  white-space: nowrap;
+  max-inline-size: 640px;
 }
 
 .statement {
+  --notice-ink: var(--text-on-paper);
+
   margin: 0;
-  padding: var(--space-3) var(--space-4);
-  max-inline-size: 62ch;
+  max-inline-size: 58ch;
   font-size: var(--text-sm);
-  line-height: 1.7;
-  color: var(--text-secondary);
+  line-height: 1.9;
+  color: color-mix(in oklab, var(--notice-ink) 76%, transparent);
 }
 
 .statement strong {
   font-weight: var(--weight-body-bold);
-  color: var(--text-primary);
+  color: var(--text-on-paper);
 }
 
 .group {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  border-block-start: 1px solid var(--border-subtle);
+  margin-block-start: var(--space-6);
+  border-block-start: 1px solid var(--border-crease);
 }
 
 /* 容器夠寬時,類別名稱退到左欄,像公告的條目標號;窄的時候疊在上面。 */
-@container (min-width: 560px) {
+@container (min-width: 520px) {
   .group {
-    grid-template-columns: 10em minmax(0, 1fr);
+    grid-template-columns: 8em minmax(0, 1fr);
   }
 
   .groupHead {
-    border-inline-end: 1px solid var(--border-subtle);
+    border-inline-end: 1px solid var(--border-crease);
   }
 }
 
 .groupHead {
   margin: 0;
-  padding: var(--space-3) var(--space-4) var(--space-1);
+  padding: var(--space-3) var(--space-3) var(--space-1) 0;
+  font-family: var(--font-body);
   font-size: var(--text-xs);
   font-weight: var(--weight-body-bold);
   letter-spacing: 0.16em;
-  color: var(--text-secondary);
+  color: color-mix(in oklab, var(--text-on-paper) 62%, transparent);
 }
 
-@container (min-width: 560px) {
+@container (min-width: 520px) {
   .groupHead {
     padding-block-end: var(--space-3);
   }
@@ -94,11 +67,21 @@
   grid-template-columns: minmax(0, 1fr) auto;
   column-gap: var(--space-3);
   row-gap: var(--space-1);
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-3) 0 var(--space-3) var(--space-3);
 }
 
 .row + .row {
-  border-block-start: 1px solid var(--border-subtle);
+  border-block-start: 1px solid var(--border-crease);
+}
+
+/* 印蓋在紙的右下角、而且跨在內距上。封盤之後一定有印,所以最後一列要讓出那一塊 ——
+   不讓的話它會壓在右對齊的 BP 上。 */
+.group:last-of-type .row:last-child {
+  padding-block-end: clamp(48px, 9vw, 72px);
+}
+
+.statement:last-child {
+  padding-block-end: clamp(44px, 8vw, 68px);
 }
 
 .itemName {
@@ -108,16 +91,17 @@
   gap: var(--space-2);
   font-size: var(--text-sm);
   font-weight: var(--weight-body-bold);
-  color: var(--text-primary);
+  letter-spacing: 0.06em;
+  color: var(--text-on-paper);
 }
 
-/* BP 是這個賽事的貨幣,所以用代表錢的那個顏色;右對齊是賠率單的紀律。 */
+/* 數字右對齊、等寬 —— 賠率單的紀律,在紙上一樣成立。 */
 .cost {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-weight: var(--weight-mono-bold);
   font-size: var(--text-sm);
-  color: var(--accent-money);
+  color: color-mix(in oklab, var(--text-on-paper) 70%, transparent);
   text-align: end;
   white-space: nowrap;
 }
@@ -128,36 +112,39 @@
   align-items: baseline;
   gap: var(--space-2);
   font-size: var(--text-sm);
-  color: var(--text-secondary);
+  color: color-mix(in oklab, var(--text-on-paper) 68%, transparent);
 }
 
 .detailKey {
   flex: none;
   font-size: var(--text-micro);
   letter-spacing: 0.16em;
-  color: var(--text-secondary);
 }
 
 /* 抽選結果是封盤那一刻才定下來的事實,是這一條裡最該被讀到的字。 */
 .draw {
-  color: var(--text-primary);
+  color: var(--text-on-paper);
   font-weight: var(--weight-body-medium);
 }
 
 .tag {
   padding: 1px var(--space-2);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border-crease);
   font-family: var(--font-mono);
   font-size: var(--text-micro);
   font-weight: var(--weight-mono);
   letter-spacing: 0.1em;
-  color: var(--text-secondary);
+  color: color-mix(in oklab, var(--text-on-paper) 66%, transparent);
 }
 
+/* 讀不到公示是這一區自己的事,不該讓整個場次頁壞掉。
+   朱紅直接用語意 slot 就好 —— 這一段長在紙上,而紙已經把 --state-live
+   重新定義成過得了對比的值(PaperCard.module.css)。在這裡再調一次暗,
+   等於同一條知識有第二個家,而那一份不會跟著紙一起改。 */
 .error {
   margin: 0;
-  padding: var(--space-3) var(--space-4);
+  padding-inline-start: var(--space-3);
   border-inline-start: 2px solid var(--state-live);
-  color: var(--text-primary);
+  color: var(--state-live);
   font-size: var(--text-sm);
 }

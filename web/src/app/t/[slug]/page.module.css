@@ -1,16 +1,30 @@
 /* 功能頁的殼。導覽列是固定的,所以頁面自己空出 --nav-h,
    不是在 body 上加 padding —— 首頁要讓場景頂到最上面,它不該被全站的 padding 綁住。
-   內容欄維持 820px;--pad 是隨視窗寬度走的頁邊距,加在 820 之外。 */
+
+   外緣留白改用《劍塚》的版面語法:桌機 9%、手機 7%(design/sword-jianghu 的 .section-pad)。
+   為什麼是百分比而不是 --pad:那條電影式的頁邊距是給滿版場景用的,
+   告示頁要的是「一疊紙擺在牆面正中央」—— 牆有多寬,留白就跟著多寬。
+   內容欄仍然封在 820px(讀的東西),兩欄的告示版面用 .wide 放寬到 1080px。 */
 .page {
-  max-inline-size: calc(820px + var(--pad) * 2);
+  --page-margin: 7%;
+  --page-column: 820px;
+
+  max-inline-size: calc(var(--page-column) + var(--page-margin) * 2);
   margin-inline: auto;
-  padding: calc(var(--nav-h) + var(--space-8)) var(--pad) calc(var(--space-8) * 2);
+  padding: calc(var(--nav-h) + var(--space-8)) var(--page-margin) calc(var(--space-8) * 2);
 }
 
 @media (min-width: 768px) {
   .page {
+    --page-margin: 9%;
+
     padding-block-start: calc(var(--nav-h) + var(--space-8) * 2);
   }
+}
+
+/* 告示版面(賽事首頁):左邊正文、右邊戰帖,兩欄需要比讀字欄寬。 */
+.wide {
+  --page-column: 1080px;
 }
 
 /* 殼裡直接放章節頁首 + 一個功能區塊的頁面(進站):兩者之間要有一段呼吸。 */
@@ -22,7 +36,7 @@
 
 /* 有投注單的頁面(場次頁、我的注單):桌機上注單是右側 dock(responsive.md),
    內容一欄、注單一欄,注單在自己的欄裡 sticky;手機上注單是底部 sheet,自己 fixed,
-   這裡只剩一欄。兩欄需要比 820px 寬,所以蓋過 .page 的寬度。 */
+   這裡只剩一欄。兩欄需要比 820px 寬,所以蓋過 .page 的欄寬。 */
 .withDock {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -32,7 +46,8 @@
 
 @media (min-width: 1024px) {
   .withDock {
+    --page-column: 1180px;
+
     grid-template-columns: minmax(0, 1fr) 340px;
-    max-inline-size: calc(820px + 340px + var(--space-8) + var(--pad) * 2);
   }
 }

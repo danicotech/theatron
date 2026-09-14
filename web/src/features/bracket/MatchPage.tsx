@@ -2,8 +2,7 @@
 
 import { timestampMs } from '@bufbuild/protobuf/wkt';
 import { ConnectError } from '@connectrpc/connect';
-import { ChapterHead, RankSigil } from '@theatron/ui';
-import Link from 'next/link';
+import { ChapterHead, InkLink, RankSigil, SectionHead } from '@theatron/ui';
 import { useCallback, useEffect, useState } from 'react';
 
 import { activityApi } from '../../lib/api/activity';
@@ -174,9 +173,9 @@ export function MatchPage({ slug, matchId }: MatchPageProps) {
       )}
 
       <section className={styles.section} aria-labelledby="rounds">
-        <h2 className={styles.h2} id="rounds">
+        <SectionHead id="rounds" en="THE ROUNDS">
           回合
-        </h2>
+        </SectionHead>
         {m.rounds.length === 0 ? (
           <p className={styles.note}>
             {done
@@ -215,12 +214,8 @@ export function MatchPage({ slug, matchId }: MatchPageProps) {
       )}
 
       <nav className={styles.links} aria-label="相關頁面">
-        <Link className={styles.link} href={`/t/${slug}/bracket`}>
-          回對戰表
-        </Link>
-        <Link className={styles.link} href={`/t/${slug}/rules`}>
-          規則與讓武項目
-        </Link>
+        <InkLink href={`/t/${slug}/bracket`}>回對戰表</InkLink>
+        <InkLink href={`/t/${slug}/rules`}>規則與讓武項目</InkLink>
       </nav>
     </div>
   );

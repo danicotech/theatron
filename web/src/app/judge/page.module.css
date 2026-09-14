@@ -1,14 +1,21 @@
-/* 「坐著做」的操作可以桌機優先(responsive.md),但 375px 不能破版。
-   導覽列是固定的,頁面自己空出 --nav-h;頁邊距 --pad 加在 860px 的內容欄之外。 */
+/* 「坐著做」的操作可以桌機優先(responsive.md),但 375px 不能破版 ——
+   而且開賽當下裁判多半站著、單手拿手機,所以底部要留出 home indicator 的高度。
+
+   外緣留白跟觀眾側用同一套版面語法(桌機 9%、手機 7%),裁判台不該像另一個網站;
+   內容欄比觀眾側寬一點(960px),因為這裡的東西是表格與控制項,不是讀的段落。 */
 .page {
-  max-inline-size: calc(860px + var(--pad) * 2);
+  --page-margin: 7%;
+
+  max-inline-size: calc(960px + var(--page-margin) * 2);
   margin-inline: auto;
-  padding: calc(var(--nav-h) + var(--space-8)) var(--pad)
+  padding: calc(var(--nav-h) + var(--space-8)) var(--page-margin)
     calc(var(--space-8) * 2 + env(safe-area-inset-bottom));
 }
 
 @media (min-width: 768px) {
   .page {
+    --page-margin: 9%;
+
     padding-block-start: calc(var(--nav-h) + var(--space-8) * 2);
   }
 }

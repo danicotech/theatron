@@ -1,12 +1,14 @@
+/* 裁判台的節奏比觀眾側緊 —— 這是工作台,不是讀物;
+   但區塊之間的那條線與 23px 的留白跟全站同一套。 */
 .console {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-8);
 }
 
 .panel {
   border-block-start: 1px solid var(--border-subtle);
-  padding-block-start: var(--space-6);
+  padding-block-start: 23px;
 }
 
 .idle {
@@ -18,56 +20,9 @@
 
 /* ── 需要登入 ─────────────────────────────── */
 
+/* 門口的告示。紙不佔滿版面,它是貼上去的。 */
 .wall {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  align-items: flex-start;
-  border-block-start: 1px solid var(--border-subtle);
-  padding-block-start: var(--space-6);
-}
-
-.wallLine {
-  margin: 0;
-  font-size: var(--text-md);
-  color: var(--text-primary);
-}
-
-.wallNote {
-  margin: 0 0 var(--space-2);
-  max-inline-size: 56ch;
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
-}
-
-.signin {
-  display: inline-flex;
-  align-items: center;
-  min-block-size: var(--hit-target);
-  padding-inline: var(--space-6);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-control);
-  background-color: var(--surface-raised);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-weight: var(--weight-body-bold);
-  font-size: var(--text-sm);
-  text-decoration: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .signin {
-    transition: background-color var(--motion-hover) var(--ease-standard);
-  }
-}
-
-.signin:hover {
-  background-color: var(--surface-overlay);
-}
-
-.signin:focus-visible {
-  outline: 2px solid var(--text-primary);
-  outline-offset: 2px;
+  max-inline-size: 520px;
 }
 
 /* ── 推進階段 ─────────────────────────────── */

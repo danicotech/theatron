@@ -1,7 +1,7 @@
 import { create, type MessageInitShape } from '@bufbuild/protobuf';
 import { timestampFromMs } from '@bufbuild/protobuf/wkt';
 import { expectNoAxeViolations } from '@theatron/ui/testing';
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
@@ -205,6 +205,24 @@ describe('MatchPage', () => {
     expect(screen.getByText('8 BP')).toBeInTheDocument();
     expect(screen.getByText(/共 14 BP/)).toBeInTheDocument();
     expect(screen.getByRole('status')).toHaveTextContent('讓武已封盤,等開打。');
+  });
+
+  // 回合表頭與頁尾的路換成共用元件之後仍然要在:表頭是 section 的名字來源,
+  // 頁尾兩條是鍵盤走得到的連結。
+  it('回合的表頭仍是 h2,頁尾兩條路聚焦得到', async () => {
+    api.getMatch.mockResolvedValue(matchResponse());
+    render(<MatchPage slug="s" matchId="m" />);
+    const head = await screen.findByRole('heading', { level: 2, name: '回合' });
+    expect(head).toHaveAttribute('id', 'rounds');
+    expect(document.querySelector('section[aria-labelledby="rounds"]')).not.toBeNull();
+
+    const nav = screen.getByRole('navigation', { name: '相關頁面' });
+    const links = within(nav).getAllByRole('link');
+    expect(links.map((a) => a.getAttribute('href'))).toEqual(['/t/s/bracket', '/t/s/rules']);
+    links.forEach((a) => {
+      a.focus();
+      expect(a).toHaveFocus();
+    });
   });
 
   it('不戰而勝說清楚,而且勝者標出來', async () => {

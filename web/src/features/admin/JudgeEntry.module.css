@@ -7,98 +7,12 @@
 
 /* ── 建立完成 ─────────────────────────────────── */
 
+/* 紙不佔滿版面 —— 貼在牆上的告示是有邊的。
+   紙上那條連結的樣子(含朱紅在紙上的對比)住在 InkLink 與 PaperCard,不在這裡。 */
 .done {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
   align-items: flex-start;
-}
-
-.doneLabel {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
-  letter-spacing: 0.22em;
-  /* 成功。薄荷色的職責就是「贏 / 成了」,不挪用。 */
-  color: var(--state-win);
-}
-
-.doneName {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: var(--weight-display-max);
-  font-size: var(--text-xl);
-  color: var(--text-primary);
-}
-
-/* 事實列表用票根的排版:全大寫小字標籤在上、等寬數值在下,細線分隔。 */
-.facts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, max-content));
-  gap: 0;
-  margin: 0;
-  border: 1px solid var(--border-subtle);
-}
-
-.fact {
-  padding: var(--space-3) var(--space-4);
-  border-inline-end: 1px solid var(--border-subtle);
-}
-
-.fact:last-child {
-  border-inline-end: 0;
-}
-
-.fact dt {
-  font-family: var(--font-body);
-  font-size: var(--text-micro);
-  letter-spacing: 0.16em;
-  color: var(--text-secondary);
-}
-
-.fact dd {
-  margin: var(--space-1) 0 0;
-  font-size: var(--text-md);
-  color: var(--text-primary);
-}
-
-.mono {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-
-.next {
-  margin: 0;
-  max-inline-size: 60ch;
-  color: var(--text-secondary);
-  font-size: var(--text-sm);
-}
-
-.link {
-  display: inline-flex;
-  align-items: center;
-  min-block-size: var(--hit-target);
-  padding-inline: var(--space-4);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-control);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-weight: var(--weight-body-bold);
-  font-size: var(--text-sm);
-  text-decoration: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .link {
-    transition: background-color var(--motion-hover) var(--ease-standard);
-  }
-}
-
-.link:hover {
-  background-color: var(--surface-overlay);
-}
-
-.link:focus-visible {
-  outline: 2px solid var(--text-primary);
-  outline-offset: 2px;
+  max-inline-size: 520px;
 }

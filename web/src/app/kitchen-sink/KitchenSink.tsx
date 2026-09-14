@@ -9,8 +9,10 @@ import {
   CardHeader,
   ChapterHead,
   DEFAULT_THEME_ID,
+  InkLink,
   InkTitle,
   PaperCard,
+  SectionHead,
   PhaseTrack,
   RankSigil,
   SealStamp,
@@ -367,6 +369,58 @@ export function KitchenSink({ themes }: KitchenSinkProps) {
                 on="paper"
                 size="lead"
               />
+            </PaperCard>
+          </Specimen>
+        </Section>
+
+        <Section
+          name="SectionHead"
+          note="小節的表頭。頂線在上面,劃開的是「前一節結束了」,不是「標題底下有內容」"
+        >
+          <Specimen label="有英文 / 沒英文 / 帶題字 / 降一級">
+            <div className={styles.stack}>
+              <SectionHead en="THE RANKS" id="ks-ranks">
+                段位
+              </SectionHead>
+              <SectionHead>BP 怎麼算</SectionHead>
+              <SectionHead
+                en="THE ROAD"
+                mark={<InkTitle src="/type/ink-schedule.svg" text="賽程" ratio={900 / 424} />}
+              >
+                賽程
+              </SectionHead>
+              <SectionHead level={3} en="THE GATE">
+                報名
+              </SectionHead>
+            </div>
+          </Specimen>
+        </Section>
+
+        <Section
+          name="InkLink"
+          note="目錄式的連結:整行可點、底下一條線、右端斜箭頭。朱紅那一條在紙上會自動變深"
+        >
+          <Specimen label="暗底上">
+            <div className={styles.stack}>
+              <InkLink href="#top" hint="段位、BP、讓武項目">
+                規則
+              </InkLink>
+              <InkLink href="#top" hint="每一輪的對戰與結果">
+                對戰表
+              </InkLink>
+              <InkLink href="#top" tone="vermilion">
+                報名參賽
+              </InkLink>
+            </div>
+          </Specimen>
+          <Specimen label="紙上(朱紅自動壓過 4.5:1)">
+            <PaperCard tilt="none" kicker="江湖令" index="NOTICE / 002">
+              <InkLink href="#top" hint="看完整讓武項目">
+                賽制
+              </InkLink>
+              <InkLink href="#top" tone="vermilion">
+                報名參賽
+              </InkLink>
             </PaperCard>
           </Specimen>
         </Section>

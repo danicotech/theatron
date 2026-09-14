@@ -2,10 +2,12 @@
    它們是同一個畫面拆成幾個檔案,不是四個獨立元件;表單欄位、選人按鈕、
    二次確認列在每個面板都會出現,各留一份只會在改的時候漏掉一份。 */
 
+/* 開賽當下裁判常常單手拿著手機,所以這一頁的節奏比觀眾側緊:
+   面板之間留一段看得出分界的呼吸就好,不用告示頁的 70px。 */
 .console {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-8);
 }
 
 /* ── 頁首:對峙構圖 ───────────────────────── */
@@ -161,12 +163,14 @@
 
 /* ── 面板 ─────────────────────────────────── */
 
+/* 面板的分界跟全站同一套:頂上一條 1px,底下 23px 的留白。
+   面板裡是控制項,所以到此為止 —— 紙留給公告,不包住每一個按鈕。 */
 .panel {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
   border-block-start: 1px solid var(--border-subtle);
-  padding-block-start: var(--space-4);
+  padding-block-start: 23px;
 }
 
 /* 單據標頭的全大寫小字。 */

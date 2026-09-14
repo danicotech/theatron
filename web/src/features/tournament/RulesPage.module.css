@@ -1,23 +1,16 @@
+/* 第 3 層:元件變數,只指向第 2 層。
+   區塊表頭的幾何(頂線 + 23px + 與內容之間的距離)住在 SectionHead,不在這裡。 */
+
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  gap: clamp(42px, 5vw, 70px);
 }
 
 .section {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  border-block-start: 1px solid var(--border-subtle);
-  padding-block-start: var(--space-6);
-}
-
-.h2 {
-  margin: 0;
-  font-size: var(--text-lg);
-  font-weight: var(--weight-body-bold);
-  letter-spacing: 0.08em;
-  color: var(--text-primary);
 }
 
 .h3 {
@@ -32,21 +25,23 @@
   margin: 0;
   max-inline-size: 62ch;
   font-size: var(--text-sm);
+  line-height: 1.9;
   color: var(--text-secondary);
 }
 
+/* 段位列:上下細線圍成的一條帶,不是一張卡。 */
 .ranks {
   margin: 0;
   padding: 0;
   list-style: none;
-  border: 1px solid var(--border-subtle);
+  border-block: 1px solid var(--border-subtle);
 }
 
 .rankRow {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-4) 0;
 }
 
 .rankRow + .rankRow {
@@ -60,37 +55,9 @@
   color: var(--text-secondary);
 }
 
-/* 賠率單的對齊紀律:直角、細線、數字等寬右對齊。 */
-.table {
-  border-collapse: collapse;
-  inline-size: 100%;
-  max-inline-size: 420px;
-  font-size: var(--text-sm);
-}
-
-.table th,
-.table td {
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--border-subtle);
-  text-align: start;
-  font-weight: var(--weight-body);
-  color: var(--text-primary);
-}
-
-.table thead th {
-  font-size: var(--text-micro);
-  letter-spacing: 0.16em;
-  color: var(--text-secondary);
-}
-
-.numCol {
-  text-align: end;
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-
-.table thead .numCol {
-  font-family: var(--font-body);
+/* 紙不佔滿一整欄 —— 貼在牆上的告示是有邊的,滿版就變成背景。 */
+.paperSlot {
+  max-inline-size: 480px;
 }
 
 .group {
@@ -98,22 +65,20 @@
   flex-direction: column;
 }
 
+/* 條目:每一列一條底線,沒有外框。查表的紀律。 */
 .items {
   margin: 0;
   padding: 0;
   list-style: none;
-  border: 1px solid var(--border-subtle);
+  border-block-start: 1px solid var(--border-subtle);
 }
 
 .item {
   display: grid;
   grid-template-columns: 3.5em minmax(0, 1fr);
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
-}
-
-.item + .item {
-  border-block-start: 1px solid var(--border-subtle);
+  padding: var(--space-3) 0;
+  border-block-end: 1px solid var(--border-subtle);
 }
 
 /* BP 是這個賽事的貨幣,所以用代表錢的那個顏色。 */
@@ -139,6 +104,7 @@
   gap: var(--space-2);
   flex-wrap: wrap;
   font-weight: var(--weight-body-bold);
+  letter-spacing: 0.06em;
   color: var(--text-primary);
 }
 

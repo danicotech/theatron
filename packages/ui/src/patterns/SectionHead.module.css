@@ -1,0 +1,54 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  /* 頂線與它上面的 23px 是這一套版面語法的節奏。線在**上面**而不是下面:
+     它劃開的是「前一節結束了」,不是「標題底下有內容」。 */
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block-start: 23px;
+  margin-block-end: clamp(26px, 3.4vw, 54px);
+  min-inline-size: 0;
+}
+
+.title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin: 0;
+  min-inline-size: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-xl);
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.mark {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+/* 英文是同一件事的第二種寫法,所以它安靜、等寬、全大寫,而且不進無障礙樹。 */
+.en {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  /* 窄的時候英文那一半先退位 —— 它是註腳,不是資訊。 */
+  .en {
+    display: none;
+  }
+}

@@ -85,10 +85,11 @@ describe('JudgeConsole', () => {
     render(<JudgeConsole slug="2026-baiye-shifeng" />);
 
     // 帶著回程:登入完要回到他原本要做事的那一頁。
-    expect(await screen.findByRole('link', { name: '登入' })).toHaveAttribute(
-      'href',
-      '/judge/login?next=/judge/2026-baiye-shifeng',
-    );
+    const signin = await screen.findByRole('link', { name: '登入' });
+    expect(signin).toHaveAttribute('href', '/judge/login?next=/judge/2026-baiye-shifeng');
+    // 門口那條路是紙上唯一的行動,鍵盤走不到就等於沒有。
+    signin.focus();
+    expect(signin).toHaveFocus();
     expect(screen.queryByRole('button', { name: /推進到/ })).not.toBeInTheDocument();
   });
 

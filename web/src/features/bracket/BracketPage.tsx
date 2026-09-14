@@ -1,13 +1,13 @@
 'use client';
 
 import { ConnectError } from '@connectrpc/connect';
-import { BracketTree, ChapterHead } from '@theatron/ui';
-import Link from 'next/link';
+import { BracketTree, ChapterHead, InkLink, InkTitle, PaperCard, SectionHead } from '@theatron/ui';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { activityApi } from '../../lib/api/activity';
 import type { Match, RankInfo, Tournament } from '../../lib/api/gen/hestia/activity/v1/common_pb';
 import { usePolling } from '../../lib/api/poll';
+import { inkMark } from '../tournament/inkMarks';
 
 import { activeRound, toBracketRounds, winsNeeded } from './bracketView';
 
@@ -26,6 +26,8 @@ export interface BracketPageProps {
 }
 
 const POLL_MS = 10_000;
+
+const SCHEDULE_MARK = inkMark('ink-schedule');
 
 export function BracketPage({ slug }: BracketPageProps) {
   const [tournament, setTournament] = useState<Tournament | null>(null);
@@ -98,6 +100,7 @@ export function BracketPage({ slug }: BracketPageProps) {
           { label: '季軍戰', value: tournament.thirdPlaceMatch ? '有' : '無' },
           { label: '參賽', value: `${tournament.playerCount} 人`, mono: true },
         ]}
+        aside={<InkTitle {...SCHEDULE_MARK} size="mark" />}
       />
 
       {bracket.data === null ? (
@@ -111,9 +114,9 @@ export function BracketPage({ slug }: BracketPageProps) {
       ) : bracket.data.bracketPublished ? (
         <section className={styles.tree} aria-labelledby="tree">
           {/* 樹裡每一輪是 h3,這一層要有 h2 才不會跳級。 */}
-          <h2 className={styles.h2} id="tree">
+          <SectionHead id="tree" en="THE BRACKET">
             晉級樹
-          </h2>
+          </SectionHead>
           {/* 舊資料還在畫面上,更新失敗只是提醒,不蓋掉整張表。 */}
           {bracket.error === null ? null : (
             <p className={styles.stale} role="status">
@@ -123,21 +126,23 @@ export function BracketPage({ slug }: BracketPageProps) {
           <BracketTree rounds={rounds} defaultRound={defaultRound} />
         </section>
       ) : (
+        // 空狀態是邀請,不是道歉 —— 而在這個世界裡,「還沒公布」本身就是一張告示。
+        // 這一張沒有印:印是最後蓋的,而抽籤還沒定下來。
         <section className={styles.empty} aria-label="對戰表還沒公布">
-          <p className={styles.emptyLine}>對戰表還沒公布。</p>
-          <p className={styles.emptyNote}>
-            裁判確認抽籤結果的那一刻,晉級樹會直接出現在這裡,不用重新整理。等的時候可以先看段位怎麼分、讓武能買什麼。
-          </p>
+          <PaperCard
+            kicker="江湖令"
+            index="BRACKET / PENDING"
+            headingLevel={2}
+            title="對戰表還沒公布。"
+            note="裁判確認抽籤結果的那一刻,晉級樹會直接出現在這裡,不用重新整理。等的時候可以先看段位怎麼分、讓武能買什麼。"
+            tilt="left"
+          />
         </section>
       )}
 
       <nav className={styles.links} aria-label="相關頁面">
-        <Link className={styles.link} href={`/t/${slug}`}>
-          回賽事首頁
-        </Link>
-        <Link className={styles.link} href={`/t/${slug}/rules`}>
-          規則與讓武項目
-        </Link>
+        <InkLink href={`/t/${slug}`}>回賽事首頁</InkLink>
+        <InkLink href={`/t/${slug}/rules`}>規則與讓武項目</InkLink>
       </nav>
     </div>
   );

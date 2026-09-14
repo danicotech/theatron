@@ -12,3 +12,5 @@ export { ChapterHead, type ChapterHeadFact, type ChapterHeadProps } from './Chap
 export { PaperCard, type PaperCardProps, type PaperCardRow } from './PaperCard';
 export { SealStamp, type SealStampProps } from './SealStamp';
 export { InkTitle, type InkTitleProps } from './InkTitle';
+export { InkLink, type InkLinkProps } from './InkLink';
+export { SectionHead, type SectionHeadProps } from './SectionHead';

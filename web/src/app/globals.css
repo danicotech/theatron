@@ -70,7 +70,12 @@ summary,
   inset-block-start: var(--space-2);
   inset-inline-start: var(--space-2);
   z-index: 70;
-  padding: var(--space-2) var(--space-4);
+  /* 它是整個站第一個被 Tab 走到的東西,所以命中區也適用下限。
+     內距撐出來的是 39px —— 靠內距湊高度會隨字級漂,直接給最小高度才穩。 */
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-target);
+  padding-inline: var(--space-4);
   border: 1px solid var(--text-primary);
   background-color: var(--surface-base);
   color: var(--text-primary);

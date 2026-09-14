@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useHeld } from './Theatre';
 import type { Stop } from './acts';
 import styles from './StopCard.module.css';
-import { worldAsset } from './world';
+import { inkTitleProps } from './world';
 
 /**
  * 定格點上浮起來的那張紙。
@@ -98,7 +98,7 @@ export function StopCard({
             stop.kicker
           ) : (
             <span className={styles.kicker}>
-              <InkTitle {...inkProps(mark)} on="paper" />
+              <InkTitle {...inkTitleProps(mark.asset, mark.text)} on="paper" />
               <span className={styles.kickerText}>{stop.kicker}</span>
             </span>
           )
@@ -117,15 +117,4 @@ export function StopCard({
       </PaperCard>
     </div>
   );
-}
-
-/**
- * 題字素材 id → `InkTitle` 的 props。
- *
- * `packages/ui` 不知道素材清冊長什麼樣,也不該知道 —— 它只收一個能放進
- * `url()` 的位址與長寬比。把 id 換成位址是這一層的事。
- */
-function inkProps(mark: NonNullable<Stop['mark']>) {
-  const a = worldAsset(mark.asset);
-  return { src: a.file, text: mark.text, ratio: a.width / a.height } as const;
 }

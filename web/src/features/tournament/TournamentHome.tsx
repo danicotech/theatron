@@ -1,28 +1,34 @@
 'use client';
 
 import { ConnectError } from '@connectrpc/connect';
-import { ChapterHead, PhaseTrack } from '@theatron/ui';
-import Link from 'next/link';
+import { ChapterHead, InkLink, InkTitle, PaperCard, PhaseTrack, SealStamp } from '@theatron/ui';
 import { useEffect, useState } from 'react';
 
 import { activityApi } from '../../lib/api/activity';
 import type { Tournament } from '../../lib/api/gen/hestia/activity/v1/common_pb';
 import { TournamentPhase } from '../../lib/api/gen/hestia/activity/v1/common_pb';
 import { PHASES, phaseKey } from '../admin/phases';
+import { inkMark } from './inkMarks';
 
 import styles from './TournamentHome.module.css';
 
 /**
- * 一屆賽事的公開門面。
+ * 一屆賽事的公開門面 —— 這個世界裡它是一張**戰帖**。
  *
  * 這一頁要回答的只有一個問題:**我現在該做什麼。** 報名期就報名,
  * 評段期就等公告,開打了就看對戰表。所以行動是隨階段換的,不是六個
  * 一直擺在那裡讓人自己判斷哪一個現在有用。
+ *
+ * 版面借告示牆的構圖:左邊是說給人聽的話與可以走的路,右邊是貼上去的那張紙。
+ * 事實(人數、BP、階段)只長在紙上一次 —— 章節頁首不再重複同一組數字。
  */
 
 export interface TournamentHomeProps {
   slug: string;
 }
+
+/** 戰帖的題字。查清冊而不是寫死長寬比 —— 一換圖就對不上,而對不上就是破版。 */
+const WAR_LETTER = inkMark('ink-war-letter');
 
 export function TournamentHome({ slug }: TournamentHomeProps) {
   const [t, setT] = useState<Tournament | null>(null);
@@ -65,51 +71,59 @@ export function TournamentHome({ slug }: TournamentHomeProps) {
   }
 
   const signupOpen = t.phase === TournamentPhase.SIGNUP;
+  const bracketOpen =
+    t.phase === TournamentPhase.DRAWING ||
+    t.phase === TournamentPhase.IN_PROGRESS ||
+    t.phase === TournamentPhase.FINISHED;
 
   return (
     <div className={styles.page}>
-      <ChapterHead
-        number="壹"
-        eyebrow="百業試鋒"
-        title={t.name}
-        facts={[
-          { label: '已報名', value: t.playerCount, mono: true },
-          { label: '每差一段', value: `${t.bpPerRankGap.toString()} BP`, mono: true },
-        ]}
-      />
+      <ChapterHead number="壹" eyebrow="百業試鋒" title={t.name} />
 
       <PhaseTrack steps={PHASES} current={phaseKey(t.phase)} />
 
-      <section className={styles.now} aria-label="現在該做什麼">
-        <p className={styles.nowLine}>{nowCopy(t.phase)}</p>
-        <div className={styles.links}>
-          {signupOpen ? (
-            <Link className={styles.primary} href={`/t/${slug}/signup`}>
-              報名參賽
-            </Link>
-          ) : null}
-          {me === null ? (
-            <Link className={styles.link} href={`/t/${slug}/login`}>
-              我已報名,進站
-            </Link>
-          ) : (
-            <Link className={styles.link} href={`/t/${slug}/me`}>
-              我的報名({me})
-            </Link>
-          )}
-          {/* 抽籤開始就有入口:確認前是「還沒公布」的空狀態,不是 404。 */}
-          {t.phase === TournamentPhase.DRAWING ||
-          t.phase === TournamentPhase.IN_PROGRESS ||
-          t.phase === TournamentPhase.FINISHED ? (
-            <Link className={styles.link} href={`/t/${slug}/bracket`}>
-              對戰表
-            </Link>
-          ) : null}
-          <Link className={styles.link} href={`/t/${slug}/rules`}>
-            規則與讓武項目
-          </Link>
-        </div>
-      </section>
+      {/* 告示牆的構圖:左邊正文、右邊那張紙。窄的時候紙落到正文下面 ——
+          先讀「現在該做什麼」,再看細目,順序不變。 */}
+      <div className={styles.layout}>
+        <section className={styles.now} aria-label="現在該做什麼">
+          <p className={styles.nowLine}>{nowCopy(t.phase)}</p>
+          <nav className={styles.links} aria-label="這一屆的其他頁">
+            {me === null ? (
+              <InkLink href={`/t/${slug}/login`}>我已報名,進站</InkLink>
+            ) : (
+              <InkLink href={`/t/${slug}/me`}>{`我的報名(${me})`}</InkLink>
+            )}
+            {/* 抽籤開始就有入口:確認前是「還沒公布」的空狀態,不是 404。 */}
+            {bracketOpen ? <InkLink href={`/t/${slug}/bracket`}>對戰表</InkLink> : null}
+            <InkLink href={`/t/${slug}/rules`}>規則與讓武項目</InkLink>
+          </nav>
+        </section>
+
+        <PaperCard
+          kicker="江湖令"
+          index="THE INVITATION"
+          headingLevel={2}
+          title={<InkTitle {...WAR_LETTER} on="paper" size="lead" />}
+          rows={[
+            { label: '已報名', value: `${t.playerCount.toString()} 人`, mono: true },
+            { label: '每差一段', value: `${t.bpPerRankGap.toString()} BP`, mono: true },
+            { label: '賽制', value: t.thirdPlaceMatch ? '單淘汰 · 有季軍戰' : '單淘汰' },
+          ]}
+          note="段位差決定低段位的一方拿到多少讓武 BP,他用這些 BP 對高段位的一方施加正式比賽限制。讓武不是放水 —— 受限的一方仍須全力求勝。"
+          action={
+            signupOpen ? (
+              /* 紙上唯一的朱紅。對比修正住在 PaperCard 的 --state-live,這裡不再算一次。 */
+              <InkLink href={`/t/${slug}/signup`} tone="vermilion">
+                報名參賽
+              </InkLink>
+            ) : (
+              <span className={styles.paperClosed}>報名已截止</span>
+            )
+          }
+          stamp={<SealStamp text="試鋒" />}
+          tilt="right"
+        />
+      </div>
     </div>
   );
 }

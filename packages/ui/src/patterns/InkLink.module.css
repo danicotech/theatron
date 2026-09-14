@@ -1,0 +1,64 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.link {
+  --ink-link: var(--text-primary);
+
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  /* 命中區:整行都能點,不是只有那幾個字。手機上這是差別最大的一條。 */
+  min-block-size: var(--hit-target);
+  padding-block: var(--space-3);
+  border-block-end: 1px solid var(--border-subtle);
+  color: var(--ink-link);
+  text-decoration: none;
+  touch-action: manipulation;
+}
+
+.ink {
+  --ink-link: var(--text-primary);
+}
+
+/* 一個畫面上只該有一條是朱紅。它在紙上會自動變深 —— 那條修正住在 PaperCard,
+   不在這裡重寫一次。 */
+.vermilion {
+  --ink-link: var(--state-live);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-inline-size: 0;
+}
+
+.label {
+  font-size: var(--text-md);
+  font-weight: var(--weight-body-medium);
+  letter-spacing: 0.1em;
+}
+
+.hint {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* 箭頭往右上,因為它說的是「離開這一頁」。hover 時往那個方向走一點點 ——
+   位移只有 2px:這是一個提示,不是一段動畫。 */
+.arrow {
+  flex: 0 0 auto;
+  font-size: var(--text-sm);
+  color: var(--ink-link);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .arrow {
+    transition: translate var(--motion-hover) var(--ease-standard);
+  }
+
+  .link:hover .arrow,
+  .link:focus-visible .arrow {
+    translate: 2px -2px;
+  }
+}

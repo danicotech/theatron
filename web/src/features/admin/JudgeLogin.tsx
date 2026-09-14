@@ -1,11 +1,12 @@
 'use client';
 
 import { ConnectError } from '@connectrpc/connect';
-import { Button, ChapterHead } from '@theatron/ui';
+import { Button, ChapterHead, InkTitle } from '@theatron/ui';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useId, useState, type FormEvent } from 'react';
 
 import { platformApi } from '../../lib/api/client';
+import { inkMark } from '../tournament/inkMarks';
 
 import styles from './JudgeLogin.module.css';
 
@@ -17,6 +18,9 @@ import styles from './JudgeLogin.module.css';
  * 為什麼裁判有密碼而選手沒有:裁判能判勝負、觸發真代幣派彩、發獎金。
  * 選手的身分被冒用,損失是那個人的 BP;裁判的身分被冒用,損失是整屆的錢。
  */
+
+/** 裁判這一側的題字,跟裁判台同一幅 —— 它是這個區域的信箋抬頭。 */
+const CROW_MARK = inkMark('ink-night-crow');
 
 /** 回程只收站內相對路徑 —— 從網址列來的值不能直接拿去導向。 */
 function safeNext(raw: string | null): string {
@@ -59,7 +63,12 @@ export function JudgeLogin() {
   return (
     <div className={styles.page}>
       {/* 進站不在導覽序列裡,印記用「門」——跟選手的進站頁同一個記號。 */}
-      <ChapterHead number="門" eyebrow="御風羽" title="裁判登入" />
+      <ChapterHead
+        number="門"
+        eyebrow="御風羽"
+        title="裁判登入"
+        aside={<InkTitle {...CROW_MARK} size="mark" />}
+      />
 
       <form
         className={styles.form}

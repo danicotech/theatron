@@ -1,7 +1,6 @@
 'use client';
 
-import { ChapterHead } from '@theatron/ui';
-import Link from 'next/link';
+import { ChapterHead, InkLink, PaperCard, SealStamp } from '@theatron/ui';
 import { useState } from 'react';
 
 import { CreateTournamentForm, type CreatedTournament } from './CreateTournamentForm';
@@ -18,28 +17,29 @@ export function JudgeEntry() {
   const [created, setCreated] = useState<CreatedTournament | null>(null);
 
   if (created !== null) {
+    // 建立成功的畫面是一張**發出去的告示**:這一屆從這一刻起存在了。
+    // 它是唯讀的,只有一條路往下走 —— 所以它可以長在紙上,表單不行。
     return (
       <div className={styles.done}>
-        <p className={styles.doneLabel}>賽事已建立</p>
-        <h2 className={styles.doneName}>{created.name}</h2>
-        <dl className={styles.facts}>
-          <div className={styles.fact}>
-            <dt>網址代號</dt>
-            <dd className={styles.mono}>{created.slug}</dd>
-          </div>
-          <div className={styles.fact}>
-            <dt>讓武項目</dt>
-            <dd className={styles.mono}>{created.handicapItemCount}</dd>
-          </div>
-          <div className={styles.fact}>
-            <dt>目前階段</dt>
-            <dd>報名中</dd>
-          </div>
-        </dl>
-        <p className={styles.next}>報名已經開著。接下來等選手報名,報名截止後才輪到評段。</p>
-        <Link className={styles.link} href={`/judge/${created.slug}`}>
-          進入這一屆的裁判台
-        </Link>
+        <PaperCard
+          kicker="賽事已建立"
+          index="TOURNAMENT / OPEN"
+          headingLevel={2}
+          title={created.name}
+          rows={[
+            { label: '網址代號', value: created.slug, mono: true },
+            { label: '讓武項目', value: created.handicapItemCount, mono: true },
+            { label: '目前階段', value: '報名中' },
+          ]}
+          note="報名已經開著。接下來等選手報名,報名截止後才輪到評段。"
+          stamp={<SealStamp text="立" />}
+          tilt="left"
+          action={
+            <InkLink href={`/judge/${created.slug}`} tone="vermilion">
+              進入這一屆的裁判台
+            </InkLink>
+          }
+        />
       </div>
     );
   }

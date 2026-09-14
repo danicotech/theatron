@@ -1,14 +1,23 @@
 'use client';
 
 import { Code, ConnectError } from '@connectrpc/connect';
-import { Button, ChapterHead, PhaseTrack } from '@theatron/ui';
-import Link from 'next/link';
+import {
+  Button,
+  ChapterHead,
+  InkLink,
+  InkTitle,
+  PaperCard,
+  PhaseTrack,
+  SealStamp,
+} from '@theatron/ui';
 import { useCallback, useEffect, useState } from 'react';
 
 import { activityApi } from '../../lib/api/activity';
 import { platformApi } from '../../lib/api/client';
 import type { RankInfo, Tournament } from '../../lib/api/gen/hestia/activity/v1/common_pb';
 import { TournamentPhase } from '../../lib/api/gen/hestia/activity/v1/common_pb';
+
+import { inkMark } from '../tournament/inkMarks';
 
 import { DrawPanel } from './DrawPanel';
 import { MatchList } from './MatchList';
@@ -28,6 +37,9 @@ import styles from './JudgeConsole.module.css';
  */
 
 type Viewer = 'loading' | 'anonymous' | 'signed-in';
+
+/** 裁判台在這個世界裡是夜鴉閣 —— 記錄與判定的地方。 */
+const CROW_MARK = inkMark('ink-night-crow');
 
 export interface JudgeConsoleProps {
   slug: string;
@@ -111,22 +123,31 @@ export function JudgeConsole({ slug }: JudgeConsoleProps) {
           { label: '報名人數', value: tournament.playerCount, mono: true },
           { label: '每差一段', value: `${tournament.bpPerRankGap.toString()} BP`, mono: true },
         ]}
+        aside={<InkTitle {...CROW_MARK} size="mark" />}
       />
 
       <PhaseTrack steps={PHASES} current={phaseKey(phase)} />
 
       {viewer === 'anonymous' ? (
+        // 擋在門口的是一張告示,不是一個錯誤。門房的話印在紙上。
         <section className={styles.wall} aria-label="需要登入">
-          <p className={styles.wallLine}>下面的動作要裁判身分。</p>
-          <p className={styles.wallNote}>
-            評段、抽籤、判定勝負都會進稽核紀錄,所以必須記在一個平台帳號上。
-          </p>
-          {/* 帶回程回到這一頁。少了它,裁判登入完會落在別處,得自己找路回來 ——
-              而他按登入的時候手上正有一件事要做。登入頁提供兩種方式;
-              回程的值兩邊都會再驗一次,不是這裡說了算。 */}
-          <Link className={styles.signin} href={`/judge/login?next=/judge/${slug}`}>
-            登入
-          </Link>
+          <PaperCard
+            kicker="夜鴉閣"
+            index="JUDGES ONLY"
+            headingLevel={2}
+            title="下面的動作要裁判身分。"
+            note="評段、抽籤、判定勝負都會進稽核紀錄,所以必須記在一個平台帳號上。"
+            stamp={<SealStamp text="憑印" />}
+            tilt="none"
+            action={
+              /* 帶回程回到這一頁。少了它,裁判登入完會落在別處,得自己找路回來 ——
+                 而他按登入的時候手上正有一件事要做。登入頁提供兩種方式;
+                 回程的值兩邊都會再驗一次,不是這裡說了算。 */
+              <InkLink href={`/judge/login?next=/judge/${slug}`} tone="vermilion">
+                登入
+              </InkLink>
+            }
+          />
         </section>
       ) : (
         <section className={styles.panel} aria-label={`${phaseLabelOf(phase)}的操作`}>

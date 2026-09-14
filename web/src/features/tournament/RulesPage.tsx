@@ -1,12 +1,14 @@
 'use client';
 
 import { ConnectError } from '@connectrpc/connect';
-import { ChapterHead, RankSigil } from '@theatron/ui';
+import { ChapterHead, InkTitle, PaperCard, RankSigil, SectionHead } from '@theatron/ui';
 import { useEffect, useState } from 'react';
 
 import { activityApi } from '../../lib/api/activity';
 import type { HandicapItem, RankInfo } from '../../lib/api/gen/hestia/activity/v1/common_pb';
 import { HANDICAP_CATEGORIES } from '../handicap/categories';
+
+import { inkMark } from './inkMarks';
 
 import styles from './RulesPage.module.css';
 
@@ -18,7 +20,12 @@ import styles from './RulesPage.module.css';
  *
  * 段位名稱、BP 級距、項目與價格全部跟伺服器要 —— 逐屆可調,前端寫死就會
  * 在第二屆變成錯的。
+ *
+ * 版面上只有一件事是「公告」:段位差換多少 BP。它是會被截圖貼到群裡的那一段,
+ * 所以它長在紙上;其餘是查表,查表要的是細線與對齊,不是紙。
  */
+
+const RULES_MARK = inkMark('ink-rules');
 
 export function RulesPage({ slug }: { slug: string }) {
   const [ranks, setRanks] = useState<RankInfo[]>([]);
@@ -62,12 +69,13 @@ export function RulesPage({ slug }: { slug: string }) {
             <strong>讓武不是放水</strong> —— 受限的一方仍須全力求勝,只是要用更難的方式取勝。
           </>
         }
+        aside={<InkTitle {...RULES_MARK} size="mark" />}
       />
 
       <section className={styles.section} aria-labelledby="ranks">
-        <h2 className={styles.h2} id="ranks">
+        <SectionHead id="ranks" en="THE RANKS">
           段位
-        </h2>
+        </SectionHead>
         <ul className={styles.ranks}>
           {ranks.map((r, i) => (
             <li key={r.rank} className={styles.rankRow}>
@@ -79,38 +87,34 @@ export function RulesPage({ slug }: { slug: string }) {
       </section>
 
       <section className={styles.section} aria-labelledby="bp">
-        <h2 className={styles.h2} id="bp">
+        <SectionHead id="bp" en="THE HANDICAP">
           BP 怎麼算
-        </h2>
-        {/* 表格直角、數字等寬右對齊 —— 借的是賠率單的對齊紀律。 */}
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th scope="col">段位差</th>
-              <th scope="col" className={styles.numCol}>
-                低段位的一方拿到
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {[0, 1, 2, 3].map((gap) => (
-              <tr key={gap}>
-                <th scope="row">{gap === 0 ? '同段' : `差 ${gap} 段`}</th>
-                <td className={styles.numCol}>{(perGap * BigInt(gap)).toString()} BP</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <p className={styles.note}>
-          高段位的一方永遠不會拿到反向補償。BP 每一輪依當下的對手重算,該場用完即作廢 ——
-          沒花完的不會留到下一輪。
-        </p>
+        </SectionHead>
+        {/* 級距表是會被截圖貼進群組的那一段,所以它是一張貼出去的告示。
+            紙上的列本來就是「標籤靠左、數字靠右、一列一條折痕」,
+            跟原本的表格是同一種對齊紀律。 */}
+        <div className={styles.paperSlot}>
+          <PaperCard
+            kicker="讓武例"
+            index="BP / PER RANK GAP"
+            headingLevel={3}
+            title="段位差換 BP"
+            subtitle="低段位的一方拿到"
+            rows={[0, 1, 2, 3].map((gap) => ({
+              label: gap === 0 ? '同段' : `差 ${gap.toString()} 段`,
+              value: `${(perGap * BigInt(gap)).toString()} BP`,
+              mono: true,
+            }))}
+            note="高段位的一方永遠不會拿到反向補償。BP 每一輪依當下的對手重算,該場用完即作廢 —— 沒花完的不會留到下一輪。"
+            tilt="left"
+          />
+        </div>
       </section>
 
       <section className={styles.section} aria-labelledby="items">
-        <h2 className={styles.h2} id="items">
+        <SectionHead id="items" en="THE CATALOGUE">
           讓武項目
-        </h2>
+        </SectionHead>
         <p className={styles.note}>
           BP 夠就能買,同一項也可以重複買。系統不擋互相矛盾的組合 ——
           真的撞在一起時由裁判臨場判,所以買之前先想清楚你要的是什麼。
