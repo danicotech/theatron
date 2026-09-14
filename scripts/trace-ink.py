@@ -16,10 +16,8 @@ import os
 import sys
 from PIL import Image
 
-SRC = sys.argv[1]
-DST = sys.argv[2]
-MAX_W = int(sys.argv[3]) if len(sys.argv) > 3 else 900
-EPS = float(sys.argv[4]) if len(sys.argv) > 4 else 0.9
+DEFAULT_MAX_W = 900
+DEFAULT_EPS = 0.9
 
 # 輸出檔名沿用來源檔名(ink-war-letter.svg),不另取別名 ——
 # 素材的權威名字是 world.json 的 id,多一套對照表就多一處會走鐘。
@@ -201,7 +199,32 @@ def to_svg(loops, w, h, eps, min_area):
     ) % (w, h, "".join(parts))
 
 
+def trace_image(im, max_w=DEFAULT_MAX_W, eps=DEFAULT_EPS, crop=True):
+    """一張已開啟的 RGBA 圖 → SVG 字串。
+
+    抽出來是為了讓別的腳本(拆皮影關節那支)共用同一套描邊,
+    而不是複製一份幾何程式碼 —— 兩份遲早會漂。
+    """
+    if im.mode != "RGBA":
+        im = im.convert("RGBA")
+    if crop:
+        bbox = im.split()[-1].getbbox()
+        if bbox and bbox[2] - bbox[0] > 8 and bbox[3] - bbox[1] > 8:
+            im = im.crop(bbox)
+    if im.width > max_w:
+        im = im.resize((max_w, max(1, round(im.height * max_w / im.width))),
+                       Image.LANCZOS)
+    w, h, bits = mask_of(im)
+    loops = contours(w, h, bits)
+    return to_svg(loops, w, h, eps, min_area=(w * h) * 0.00002), w, h, len(loops)
+
+
 def main():
+    SRC = sys.argv[1]
+    DST = sys.argv[2]
+    MAX_W = int(sys.argv[3]) if len(sys.argv) > 3 else DEFAULT_MAX_W
+    EPS = float(sys.argv[4]) if len(sys.argv) > 4 else DEFAULT_EPS
+
     os.makedirs(DST, exist_ok=True)
     total = 0
     for f in sorted(os.listdir(SRC)):
@@ -210,21 +233,9 @@ def main():
         stem = f[:-4]
         out_name = stem + ".svg"
 
-        im = Image.open(os.path.join(SRC, f))
-        if im.mode != "RGBA":
-            im = im.convert("RGBA")
         # 先裁掉四周空白,再縮到工作寬度 —— 描邊成本與像素數成正比,
         # 而且裁掉留白後 viewBox 才貼著字,排版時不必再猜邊距。
-        bbox = im.split()[-1].getbbox()
-        if bbox and bbox[2] - bbox[0] > 8 and bbox[3] - bbox[1] > 8:
-            im = im.crop(bbox)
-        if im.width > MAX_W:
-            im = im.resize((MAX_W, max(1, round(im.height * MAX_W / im.width))),
-                           Image.LANCZOS)
-
-        w, h, bits = mask_of(im)
-        loops = contours(w, h, bits)
-        svg = to_svg(loops, w, h, EPS, min_area=(w * h) * 0.00002)
+        svg, w, h, nloops = trace_image(Image.open(os.path.join(SRC, f)), MAX_W, EPS)
 
         path = os.path.join(DST, out_name)
         with open(path, "w", encoding="utf-8") as fh:
@@ -232,8 +243,9 @@ def main():
         size = os.path.getsize(path)
         total += size
         print("%-26s -> %-16s %dx%d loops=%-4d %5.1fKB"
-              % (f, out_name, w, h, len(loops), size / 1024))
+              % (f, out_name, w, h, nloops, size / 1024))
     print("total %.1fKB" % (total / 1024))
 
 
-main()
+if __name__ == "__main__":
+    main()

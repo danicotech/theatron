@@ -3,6 +3,24 @@
   "note": "plate-* 來自 design/jianzhong/assets/generated —— 那是《劍塚》這一版專門生的四張場景板,色盤對得上。其餘 bg-/fg-/fx-/ink- 來自 design/cinematic-media-kit(百業試鋒的雪景素材,色調偏冷白,與劍塚不同世界),只在沒有替代品時才用。",
   "assets": [
     {
+      "id": "duel-left",
+      "file": "/shadow/duel-left.svg",
+      "width": 760,
+      "height": 499,
+      "alpha": true,
+      "bytes": 4801,
+      "source": "design/jianzhong/assets/foreground/duel-shadows.png"
+    },
+    {
+      "id": "duel-right",
+      "file": "/shadow/duel-right.svg",
+      "width": 760,
+      "height": 499,
+      "alpha": true,
+      "bytes": 5341,
+      "source": "design/jianzhong/assets/foreground/duel-shadows.png"
+    },
+    {
       "id": "plate-gate",
       "file": "/world/plate-gate.webp",
       "width": 1672,

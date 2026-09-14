@@ -1,0 +1,21 @@
+{
+  "source": "design/jianzhong/assets/foreground/duel-shadows.png",
+  "viewBox": [760, 499],
+  "seam": 348,
+  "seamInkRatio": 0.022,
+  "overlap": 15,
+  "parts": {
+    "duel-left": {
+      "file": "/shadow/duel-left.svg",
+      "bbox": [5, 30, 363, 492],
+      "loops": 7,
+      "bytes": 4801
+    },
+    "duel-right": {
+      "file": "/shadow/duel-right.svg",
+      "bbox": [333, 13, 758, 499],
+      "loops": 8,
+      "bytes": 5341
+    }
+  }
+}
