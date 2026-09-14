@@ -1,0 +1,75 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.doc {
+  position: relative;
+  z-index: 1;
+}
+
+/* 一幕就是一段很高的 section。高度由 --span 給(帳冊決定,不是 CSS 決定),
+   裡面釘著一個滿版舞台 —— 幕有多高,舞台就被釘多久。 */
+.act {
+  /* 定格平台的長度。錨點的位置要乘它,所以它必須是一個變數而不是寫死的數字。
+     手機上縮短(useActProgress 的 HOLD_MOBILE 是同一個值,兩邊一起改)。 */
+  --hold: 80vh;
+
+  position: relative;
+  block-size: var(--span);
+}
+
+@media (max-width: 600px) {
+  .act {
+    --hold: 60vh;
+  }
+}
+
+/* 錨點:零高度的標記,放在那一張卡站定的捲動位置(平台的四分之一處,見 acts.ts)。
+   不設 scroll-margin —— 落點由錨點自己的位置決定就好,兩個地方各調一半會很難推理。 */
+.anchor {
+  position: absolute;
+  inset-block-start: var(--at);
+  inset-inline-start: 0;
+  inline-size: 1px;
+  block-size: 1px;
+  pointer-events: none;
+}
+
+.stage {
+  position: sticky;
+  inset-block-start: 0;
+  block-size: 100svh;
+  overflow: clip;
+}
+
+/* 落款是唯一站在近景**前面**的東西,所以不能待在 <main> 裡:
+   那整棵樹被封在 z-index 1,裡面的元素再怎麼排也蓋不過近景。
+   而落款永遠在文件最底、近景永遠釘在視窗底,兩個一定會撞上 ——
+   撞上時該讓路的是布景。走出木門之後,頁面就該結束了。 */
+.colophon {
+  position: relative;
+  z-index: 4;
+}
+
+/* 沒有 JS 的時候 sticky 仍然有效,但幕高會讓六張卡之間留下大片空白。
+   把幕壓成內容高 —— 讀得完比看得到布景重要。 */
+@media (scripting: none) {
+  .act {
+    block-size: auto;
+  }
+
+  .stage {
+    position: relative;
+    block-size: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .act {
+    block-size: auto;
+  }
+
+  .stage {
+    position: relative;
+    block-size: auto;
+    padding-block: var(--space-8);
+  }
+}

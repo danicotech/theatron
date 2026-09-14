@@ -31,6 +31,21 @@
 }
 
 .paper {
+  /* 紙裡面把語意 slot 整組翻過來。
+
+     這是這個元件最重要的一行:任何一個為暗底寫的元件(捲軸、時程梅枝、印章按鈕)
+     被放到紙上時,它用的 --text-primary 會自動變成墨黑而不是月白,不必為了
+     「它可能被放在紙上」去改每一個元件。分層 token 的用途就是這個。
+
+     --state-live(朱紅)刻意不翻 —— 印與紅字在紙上本來就是紅的。 */
+  --text-primary: var(--paper-ink);
+  --text-secondary: var(--paper-faint);
+  --border-subtle: var(--paper-crease);
+  --border-hairline: 1px solid var(--paper-crease);
+  --surface-base: var(--surface-paper);
+  --surface-raised: color-mix(in oklab, var(--paper-ink) 6%, var(--surface-paper));
+  --surface-overlay: color-mix(in oklab, var(--paper-ink) 11%, var(--surface-paper));
+
   position: relative;
   padding: var(--paper-pad-block) var(--paper-pad-inline);
   color: var(--paper-ink);

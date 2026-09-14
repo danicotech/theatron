@@ -10,10 +10,9 @@
  * 得到的畫面必定一模一樣,連對齊誤差都不會有。這也是它測得起來的原因:
  * 測試不必模擬時間,只要餵數字。
  *
- * 唯一不是純函式的東西是袖、帶、髮的**遲滯**(規格要 100–200ms)。遲滯本質上
- * 是時間,所以它不在這裡 —— 它在 prologueScene 裡,用一個阻尼追著這裡算出來的
- * 姿勢跑。分界是刻意的:**狀態是進度的函式,次級運動是狀態的函式。**
- * 停下來的時候阻尼會收斂到精確值,所以刮停在任何一點畫面都是確定的。
+ * 唯一不是純函式的東西是換分鏡格時那道 150ms 的墨暈(見 silhouette.ts)。
+ * 它本質上是時間,所以它不在這裡。分界是刻意的:**狀態是進度的函式,
+ * 轉場是狀態變化的函式。** 墨暈走完就停,所以刮停在任何一點畫面都是確定的。
  */
 
 /** 四個階段。名字就是規格裡那四段。 */
@@ -26,7 +25,7 @@ export type PrologueStageId = 'duel' | 'tear' | 'bleed' | 'fall';
  * 三件事都要用到同一組數字,散開的話改一個就會有一個忘記跟。
  */
 export const STAGE_BOUNDS: ReadonlyArray<{ id: PrologueStageId; from: number; to: number }> = [
-  // 旗幾乎不動,兩道身影在旗後對劍,標題逐筆現出,竹葉飄。
+  // 旗幾乎不動,兩道身影在旗後對劍(五個分鏡格,見 panels.ts),標題逐筆現出。
   { id: 'duel', from: 0, to: 0.25 },
   // 劍尖刺穿布面,拖出一道斜的裂口;畫面微顫;月光從裂口灌進來。
   { id: 'tear', from: 0.25, to: 0.45 },
@@ -49,8 +48,6 @@ export interface PrologueState {
   title: number;
   /** 旗後兩道身影的可見度。劍劃破之後他們就不在了。 */
   duel: number;
-  /** 對劍的招式進度。剪影的姿勢是它的函式。 */
-  pose: number;
   /** 裂口張開的程度。**單調不減**,刮回去才會把布補回來。 */
   tear: number;
   /** 血墨滲出的半徑。同樣單調不減。 */
@@ -129,8 +126,6 @@ export function prologueState(progress: number): PrologueState {
     // 那一屏是一塊空布,而那正是訪客第一眼看到的東西。
     // 他們在布被劃破之後淡出 —— 他們是「剛才在打的兩個人」,不是一直站在那裡。
     duel: 1 - smoothstep(0.38, 0.6, p),
-    // 招式跑完整段 0…0.45:刺穿那一下正好是招式的終點,不是中途插進來的事件。
-    pose: clamp01(p / 0.45),
     tear,
     bleed,
     fall,
@@ -154,7 +149,6 @@ export interface PrologueUniforms {
   uBleed: number;
   uFall: number;
   uDuel: number;
-  uPose: number;
   uMoon: number;
   uShudder: number;
   uBillow: number;
@@ -167,7 +161,6 @@ export function prologueUniforms(progress: number): PrologueUniforms {
     uBleed: s.bleed,
     uFall: s.fall,
     uDuel: s.duel,
-    uPose: s.pose,
     uMoon: s.moonThrough,
     uShudder: s.shudder,
     uBillow: s.billow,

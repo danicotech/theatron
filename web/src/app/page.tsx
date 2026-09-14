@@ -1,36 +1,43 @@
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 
-import { InkTitle, SealStamp } from '@theatron/ui';
-
-import { CHAPTERS } from '../features/landing/chapters';
-import { CONTENT, isPlaceholder, TBA } from '../features/landing/content';
+import { ACTS, STOPS, stopOf, type StopId } from '../features/landing/acts';
+import { Theatre } from '../features/landing/Theatre';
+import { CONTENT, isPlaceholder, SCHEDULE, TBA } from '../features/landing/content';
+import { formatDay } from '../features/landing/dates';
 import { PlumDates } from '../features/landing/doc/PlumDates';
 import { PrizeWall } from '../features/landing/doc/PrizeWall';
 import { RuleScroll } from '../features/landing/doc/RuleScroll';
 import { SealButton } from '../features/landing/doc/SealButton';
-import { formatDay } from '../features/landing/dates';
-import { HeroChapters } from '../features/landing/HeroChapters';
-import { Landing } from '../features/landing/Landing';
+import {
+  BP_PER_GAP,
+  CREED,
+  HANDICAP_CATEGORIES,
+  HANDICAP_TOTAL,
+  RANKS,
+} from '../features/landing/format';
 import { Prologue } from '../features/landing/prologue/Prologue';
-import { Reveal } from '../features/landing/Reveal';
+import { StopCard } from '../features/landing/StopCard';
 import { WordReveal } from '../features/landing/WordReveal';
-import { worldAsset } from '../features/landing/world';
 
 import styles from './page.module.css';
 
 /**
- * 《劍塚》首頁 —— 七章的電影式捲軸。
+ * 《劍塚》首頁 —— 三幕、六個定格點。
  *
- * 兩條分工是硬的:
+ * 三條分工是硬的:
  *
- *  1. **3D 不承載資訊。** 這個檔案裡的每一個字都是語意化 HTML,伺服器端就算好了。
- *     關掉 JS、關掉 WebGL、開啟減少動態,七章的比賽資訊一字不少。畫布只是布景。
+ *  1. **3D 與影像只負責氣氛。** 這個檔案裡的每一個字都是語意化 HTML,伺服器端就算好了。
+ *     關掉 JS、關掉 WebGL、開啟減少動態,六張卡的比賽資訊一字不少。
  *  2. **比賽事實只有一個來源。** 名稱、組別、日期、獎金、主辦、聯繫全部來自
  *     `features/landing/content.ts`,而那一份現在整份是 `{{PLACEHOLDER}}`。
  *     **不編造。** 定案時改那一個檔案,整站跟著換。
+ *  3. **讓武的三十個項目不在這裡。** 首頁講的是制度(四階段位、BP 取得、六大類),
+ *     逐項內容的權威位置是 hestia 的 seed;要看完整清單走 `/t/<slug>/rules`,
+ *     那一頁從 API 取,永遠跟裁判手上的一致。
  *
- * 章節帳冊(哪一章叫什麼、場景是什麼、要記住哪件事)在 features/landing/chapters.ts;
- * 這裡只負責把每一章的內容排出來。
+ * 幕的帳冊(哪一幕、定格在哪)在 `features/landing/acts.ts`;
+ * 這裡只負責把每一張卡的內容排出來。
  *
  * 當屆賽事的代號由 NEXT_PUBLIC_TOURNAMENT_SLUG 指定 —— theatron 是逐活動的前端,
  * 「現在是哪一屆」是部署設定,不是查詢。沒設定時不顯示入口:給一個會 404 的
@@ -38,12 +45,20 @@ import styles from './page.module.css';
  */
 const slug = process.env.NEXT_PUBLIC_TOURNAMENT_SLUG ?? '';
 
-/** 章名 → 章節帳冊那一列。標題與 aria 都從帳冊來,不在這裡重打一次。 */
-function chapter(id: (typeof CHAPTERS)[number]['id']) {
-  const found = CHAPTERS.find((c) => c.id === id);
-  if (found === undefined) throw new Error(`章節帳冊沒有這一章:${id}`);
-  return found;
-}
+/**
+ * 五張紙的錯位排布。
+ *
+ * 規格要「非置中對齊格線、留大量負空間」,而且卡片絕不遮住畫面主體。
+ * 左右交替讓視線在畫面上來回,而不是一路往下滑過五張長得一樣的東西。
+ * 序幕不在這裡 —— 它的文案是首屏的主文案,不是一張浮起來的紙。
+ */
+const SIDES: Readonly<Record<Exclude<StopId, 'prologue'>, 'left' | 'right'>> = {
+  challenge: 'right',
+  format: 'left',
+  prize: 'right',
+  schedule: 'left',
+  signup: 'right',
+};
 
 /** 一個還沒定案的值。畫「待公布」,不是把大括號印出來。 */
 function Field({ value }: { value: string | null }) {
@@ -56,251 +71,152 @@ function Field({ value }: { value: string | null }) {
   );
 }
 
-/**
- * 章節帳冊裡的題字 → `InkTitle` 的 props。
- *
- * `packages/ui` 不知道素材清冊長什麼樣,也不該知道 —— 它只收一個能放進
- * `url()` 的位址與長寬比。把 id 換成位址是這一層的事。
- */
-function inkProps(mark: NonNullable<(typeof CHAPTERS)[number]['mark']>) {
-  const a = worldAsset(mark.asset);
-  return { src: a.file, text: mark.text, ratio: a.width / a.height } as const;
-}
-
-/**
- * 章節表頭:題字、幕別與編號、一條延伸到頁緣的細線。
- *
- * 七章的表頭原本各寫一次 —— 同一個東西寫七遍,改一次得改七處。
- * 題字是可選的:序幕與落款沒有對應的手跡,那兩章就只有編號與線。
- *
- * 有兩章的幕別與題字寫的剛好是同一個詞(戰帖、賽制)。那兩章只留手跡,
- * 不在旁邊用小字再印一次 —— 同一件事在同一行說兩遍,第二遍是雜訊。
- */
-function SecHead({ chapter }: { chapter: (typeof CHAPTERS)[number] }) {
-  const said = chapter.mark?.text === chapter.act;
-  return (
-    <header className={styles.secHead}>
-      {chapter.mark === undefined ? null : <InkTitle {...inkProps(chapter.mark)} />}
-      <p className={styles.k}>
-        {said ? null : <b>{chapter.act}</b>} {chapter.id}
-      </p>
-      <span className={styles.rule} aria-hidden="true" />
-    </header>
-  );
-}
-
 export default function HomePage() {
-  const ch = {
-    c1: chapter('01'),
-    c2: chapter('02'),
-    c3: chapter('03'),
-    c4: chapter('04'),
-    c5: chapter('05'),
-    c6: chapter('06'),
-    c7: chapter('07'),
-  };
-
-  // 落款住在 <main> 外面,理由在 Landing 的 colophon prop 上 ——
-  // 近景永遠釘在視窗底,而這一段永遠在文件底,兩個必定撞上。
-  const colophon = (
-    <footer className={styles.foot}>
-      <div className={styles.footGrid}>
-        <div className={styles.footBrand}>
-          <p className={styles.wordmark}>{CONTENT.workingTitle}</p>
-          <p className={styles.footTag}>
-            正式名稱 <Field value={CONTENT.tournamentName} />
-          </p>
-        </div>
-        <nav className={styles.footNav} aria-label="頁尾章節捷徑">
-          <h2 className={styles.footHead}>七章</h2>
-          <ul className={styles.footList}>
-            {CHAPTERS.map((c) => (
-              <li key={c.id}>
-                <a href={`#${c.anchor}`}>
-                  {c.id} {c.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        {slug === '' ? null : (
-          <nav className={styles.footNav} aria-label="頁尾賽事連結">
-            <h2 className={styles.footHead}>本屆</h2>
-            <ul className={styles.footList}>
-              <li>
-                <Link href={`/t/${slug}`}>賽事</Link>
-              </li>
-              <li>
-                <Link href={`/t/${slug}/bracket`}>對戰表</Link>
-              </li>
-              <li>
-                <Link href={`/t/${slug}/rules`}>規則</Link>
-              </li>
-            </ul>
-          </nav>
-        )}
-      </div>
-      <p className={styles.footBase}>
-        <span className={styles.mono}>JIANZHONG</span>
-        <span>比賽資訊尚未定案,標為「待公布」的欄位確認後會直接替換。</span>
-      </p>
-    </footer>
-  );
-
   return (
-    <Landing colophon={colophon}>
-      {/* ─────────────────────────────────── 01 殘旗 · 序幕 */}
-      <Prologue titleId="chapter-01-title">
-        <p className={styles.eyebrow}>
-          <span className={styles.dot} aria-hidden="true" />
-          {ch.c1.act} · {ch.c1.id} {ch.c1.name}
+    <Theatre
+      colophon={<Colophon />}
+      stages={{
+        i: <ActOne />,
+        ii: <ActTwo />,
+        iii: <ActThree />,
+      }}
+    />
+  );
+}
+
+/* ─────────────────────────────────────────────── 第一幕 影 · 旗後鬥劍 */
+
+/**
+ * 序幕的文案就是首屏的主文案,不是一張浮起來的紙。
+ *
+ * 版面照 `design/sword-jianghu` 的語法:左側 eyebrow → 超大兩行標題 → 副標 →
+ * 對句。那一套是使用者指定的(「UI 元件擺放位置是我期望的」),量過的數字
+ * 記在 notes/2026-09-14-劍塚-三幕重構-grill.md 的 Q14。
+ */
+function ActOne() {
+  const act = ACTS[0]!;
+  return (
+    <Prologue titleId="stop-prologue-title">
+      <p className={styles.eyebrow}>
+        <span className={styles.dot} aria-hidden="true" />
+        第一幕 {act.name} · {act.subtitle}
+      </p>
+      {/* 正式名稱還沒定,所以標題是這次視覺的代號,底下明講正式名稱待公布。
+          把「待公布」放大當標題是在替主辦宣布一件他還沒決定的事。 */}
+      <WordReveal
+        as="h1"
+        className={styles.heroTitle}
+        id="stop-prologue-title"
+        text={isPlaceholder(CONTENT.tournamentName) ? CONTENT.workingTitle : CONTENT.tournamentName}
+        scrub
+      />
+      <p className={styles.heroSub}>
+        正式名稱 <Field value={CONTENT.tournamentName} />
+      </p>
+      <p className={styles.couplet}>
+        <Field value={CONTENT.tagline} />
+      </p>
+    </Prologue>
+  );
+}
+
+/* ─────────────────────────────────────────────── 第二幕 破 · 噴墨與劃破 */
+
+function ActTwo() {
+  return (
+    <Card stop="challenge" title="這是什麼比賽" seal={CONTENT.workingTitle}>
+      <p className={styles.lead}>
+        <Field value={CONTENT.tagline} />
+      </p>
+      <p className={styles.body}>
+        一場為武俠玩家而起的對決。段位定其差,BP 量其讓 —— 強弱懸殊的兩個人,
+        仍然值得認真打一場。往下四帖依序交代賽制、獎賞、日期與報名。
+      </p>
+      <ul className={styles.stopList}>
+        {STOPS.filter((s) => s.id !== 'prologue' && s.id !== 'challenge').map((s, i) => (
+          <li key={s.id}>
+            <a href={`#stop-${s.id}`}>
+              <b className={styles.mono}>{String(i + 2).padStart(3, '0')}</b>
+              <span className={styles.stopName}>{s.kicker}</span>
+              <span className={styles.stopWhat}>{s.remember}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </Card>
+  );
+}
+
+/* ─────────────────────────────────────────────── 第三幕 界 · 四個場次 */
+
+function ActThree() {
+  return (
+    <>
+      {/* 賽制:四階段位、BP 取得、讓武六大類。這是首頁唯一講規則的地方,
+          所以要講到讓人看得懂,不是一句「詳見規則頁」。 */}
+      <Card stop="format" title="讓武" subtitle="BALANCE POINT">
+        <p className={styles.lead}>{CREED}</p>
+
+        <p className={styles.rankHead}>段位四階,由低至高</p>
+        <ol className={styles.rankList}>
+          {RANKS.map((r) => (
+            <li key={r.level}>
+              <b>{r.name}</b>
+              <span>{r.title}</span>
+            </li>
+          ))}
+        </ol>
+        <p className={styles.body}>
+          每差一段,低段位者得 <b className={styles.mono}>{BP_PER_GAP}</b> BP;差兩段{' '}
+          <b className={styles.mono}>{BP_PER_GAP * 2}</b>、差三段{' '}
+          <b className={styles.mono}>{BP_PER_GAP * 3}</b>。同段為 0,而且高段位者永不獲得反向補償。
         </p>
-        {/* 正式名稱還沒定,所以標題是這次視覺的代號,底下明講正式名稱待公布。
-            把「待公布」放大當標題是在替主辦宣布一件他還沒決定的事。 */}
-        <WordReveal
-          as="h1"
-          className={styles.heroTitle}
-          id="chapter-01-title"
-          text={
-            isPlaceholder(CONTENT.tournamentName) ? CONTENT.workingTitle : CONTENT.tournamentName
-          }
-          scrub
-        />
-        <p className={styles.heroSub}>
-          正式名稱 <Field value={CONTENT.tournamentName} />
-        </p>
-        <p className={styles.couplet}>
-          <Field value={CONTENT.tagline} />
-        </p>
-      </Prologue>
 
-      {/* ─────────────────────────────────── 02 歸寂 · 戰帖 */}
-      <section
-        className={styles.sec}
-        id={ch.c2.anchor}
-        data-chapter-section="02"
-        aria-labelledby="chapter-02-title"
-      >
-        <SecHead chapter={ch.c2} />
-
-        <div className={styles.spread}>
-          <WordReveal as="h2" className={styles.h2} id="chapter-02-title" text={ch.c2.name} />
-          <div className={styles.copy}>
-            <Reveal as="p" className={styles.lead}>
-              這是什麼比賽:
-              <Field value={CONTENT.tagline} />
-            </Reveal>
-            <Reveal as="p" className={styles.body}>
-              人已離去,竹影掃過石階。往下七章會依序交代組別與規則、獎賞、四個日期、
-              報名方式,最後是主辦與聯繫。每一章只有一件事要記。
-            </Reveal>
-            <Reveal as="dl" className={styles.facts}>
-              <div className={styles.fact}>
-                <dt className={styles.factLabel}>組別</dt>
-                <dd className={styles.factValue}>
-                  {CONTENT.divisions.every(isPlaceholder) ? TBA : CONTENT.divisions.length}
-                </dd>
-              </div>
-              <div className={styles.fact}>
-                <dt className={styles.factLabel}>報名截止</dt>
-                <dd className={styles.factValue}>{formatDay(CONTENT.registrationClose)}</dd>
-              </div>
-              <div className={styles.fact}>
-                <dt className={styles.factLabel}>初賽</dt>
-                <dd className={styles.factValue}>{formatDay(CONTENT.qualifiersDate)}</dd>
-              </div>
-              <div className={styles.fact}>
-                <dt className={styles.factLabel}>決賽</dt>
-                <dd className={styles.factValue}>{formatDay(CONTENT.finalsDate)}</dd>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-
-        <HeroChapters />
-      </section>
-
-      {/* ─────────────────────────────────── 03 破頂 · 賽制 */}
-      <section
-        className={styles.sec}
-        id={ch.c3.anchor}
-        data-chapter-section="03"
-        aria-labelledby="chapter-03-title"
-      >
-        <SecHead chapter={ch.c3} />
-
-        <div className={styles.spread}>
-          <WordReveal as="h2" className={styles.h2} id="chapter-03-title" text={ch.c3.name} />
-          <div className={styles.copy}>
-            <Reveal as="p" className={styles.lead}>
-              大廳的斷腿木桌上攤著一卷舊捲軸。{ch.c3.remember}都在上面。
-            </Reveal>
-          </div>
-        </div>
-
+        <table className={styles.catTable}>
+          <caption className={styles.catCaption}>
+            讓武六大類,共 <b className={styles.mono}>{HANDICAP_TOTAL}</b> 項
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">類別</th>
+              <th scope="col">在做什麼</th>
+              <th scope="col">點數</th>
+            </tr>
+          </thead>
+          <tbody>
+            {HANDICAP_CATEGORIES.map((c) => (
+              <tr key={c.key}>
+                <th scope="row">{c.name}</th>
+                <td>
+                  {c.what}
+                  <span className={styles.eg}>例:{c.example}</span>
+                </td>
+                <td className={styles.mono}>
+                  {c.cost[0]}–{c.cost[1]}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <RuleScroll />
-      </section>
+      </Card>
 
-      {/* ─────────────────────────────────── 04 朱印 · 承 */}
-      <section
-        className={styles.sec}
-        id={ch.c4.anchor}
-        data-chapter-section="04"
-        aria-labelledby="chapter-04-title"
-      >
-        <SecHead chapter={ch.c4} />
-
-        <div className={styles.spread}>
-          <WordReveal as="h2" className={styles.h2} id="chapter-04-title" text={ch.c4.name} />
-          <div className={styles.copy}>
-            <Reveal as="p" className={styles.lead}>
-              紅印逐一蓋上剝漆的木牆,一顆印是一項獎賞。
-            </Reveal>
-          </div>
-        </div>
-
+      <Card stop="prize" title="獎賞">
+        <p className={styles.lead}>紅印逐一蓋上剝漆的木牆,一顆印是一項獎賞。</p>
         <PrizeWall />
-      </section>
+      </Card>
 
-      {/* ─────────────────────────────────── 05 花信 · 承 */}
-      <section
-        className={styles.sec}
-        id={ch.c5.anchor}
-        data-chapter-section="05"
-        aria-labelledby="chapter-05-title"
+      <Card
+        stop="schedule"
+        title="四個日期"
+        rows={SCHEDULE.map((s) => ({ label: s.name, value: formatDay(s.iso), mono: true }))}
       >
-        <SecHead chapter={ch.c5} />
-
-        <div className={styles.spread}>
-          <WordReveal as="h2" className={styles.h2} id="chapter-05-title" text={ch.c5.name} />
-          <div className={styles.copy}>
-            <Reveal as="p" className={styles.lead}>
-              一條梅枝橫過畫面,每個日期是一朵花,到期才開。
-            </Reveal>
-          </div>
-        </div>
-
+        <p className={styles.lead}>一條梅枝橫過畫面,每個日期是一朵花,到期才開。</p>
         <PlumDates />
-      </section>
+      </Card>
 
-      {/* ─────────────────────────────────── 06 啟門 · 啟 */}
-      <section
-        className={styles.sec}
-        id={ch.c6.anchor}
-        data-chapter-section="06"
-        aria-labelledby="chapter-06-title"
-      >
-        <SecHead chapter={ch.c6} />
-
-        <div className={styles.spread}>
-          <WordReveal as="h2" className={styles.h2} id="chapter-06-title" text={ch.c6.name} />
-          <div className={styles.copy}>
-            <Reveal as="p" className={styles.lead}>
-              雙開木門微啟,月光從內照出。用印,門就開了。
-            </Reveal>
-          </div>
-        </div>
-
+      <Card stop="signup" title="報名" seal="用印">
+        <p className={styles.lead}>雙開木門微啟,月光從內照出。用印,門就開了。</p>
         <SealButton text="用印" label="用印 · 看報名方式">
           <dl className={styles.signup}>
             <div className={styles.signupRow}>
@@ -341,49 +257,118 @@ export default function HomePage() {
             </nav>
           )}
         </SealButton>
-      </section>
+      </Card>
+    </>
+  );
+}
 
-      {/* ─────────────────────────────────── 07 落款 · 啟 */}
-      <section
-        className={styles.fin}
-        id={ch.c7.anchor}
-        data-chapter-section="07"
-        aria-labelledby="chapter-07-title"
-      >
-        <SecHead chapter={ch.c7} />
+/**
+ * 一張定格卡。
+ *
+ * 只把「哪一個定格點、偏哪一側」查好交給 `StopCard` —— 卡片的殼是客戶端元件
+ * (它要知道現在停在哪),裡面的內容仍然是伺服器端算的,所以關掉 JS 之後
+ * 六張卡的字一個都不會少。
+ *
+ * 錨點**不在這裡**。它是零高度的標記,由殼放在「這一張卡浮上來」的捲動位置上
+ * (見 Theatre.tsx 與 acts.ts 的 anchorOffsets)—— 掛在卡片上的話,
+ * `#stop-signup` 會跳到第三幕的開頭,因為卡片住在釘住的舞台裡。
+ */
+function Card({
+  stop,
+  title,
+  subtitle,
+  rows,
+  seal,
+  children,
+}: {
+  stop: Exclude<StopId, 'prologue'>;
+  title: string;
+  subtitle?: string;
+  rows?: { label: string; value: string; mono?: boolean }[];
+  seal?: string;
+  children: ReactNode;
+}) {
+  return (
+    <StopCard
+      stop={stopOf(stop)}
+      side={SIDES[stop]}
+      title={title}
+      subtitle={subtitle}
+      rows={rows}
+      seal={seal}
+    >
+      {children}
+    </StopCard>
+  );
+}
 
-        <div className={styles.signOff}>
-          <WordReveal as="h2" className={styles.finTitle} id="chapter-07-title" text={ch.c7.name} />
-          <span className={styles.finSeal} aria-hidden="true">
-            <SealStamp text={CONTENT.workingTitle} />
-          </span>
+function Colophon() {
+  return (
+    <footer className={styles.foot}>
+      <div className={styles.footGrid}>
+        <div className={styles.footBrand}>
+          <p className={styles.wordmark}>{CONTENT.workingTitle}</p>
+          <p className={styles.footTag}>
+            正式名稱 <Field value={CONTENT.tournamentName} />
+          </p>
         </div>
-
-        <dl className={styles.credits}>
-          <div className={styles.creditRow}>
-            <dt className={styles.creditLabel}>主辦</dt>
-            <dd className={styles.creditValue}>
-              <Field value={CONTENT.organiser} />
-            </dd>
-          </div>
-          <div className={styles.creditRow}>
-            <dt className={styles.creditLabel}>合作</dt>
-            <dd className={styles.creditValue}>
-              {CONTENT.partners.every(isPlaceholder) ? (
-                <Field value={null} />
-              ) : (
-                CONTENT.partners.join('、')
-              )}
-            </dd>
-          </div>
-          <div className={styles.creditRow}>
-            <dt className={styles.creditLabel}>聯繫</dt>
-            <dd className={styles.creditValue}>
-              <Field value={CONTENT.contact} />
-            </dd>
-          </div>
-        </dl>
-      </section>
-    </Landing>
+        <nav className={styles.footNav} aria-label="頁尾定格點捷徑">
+          <h2 className={styles.footHead}>六帖</h2>
+          <ul className={styles.footList}>
+            {STOPS.map((s, i) => (
+              <li key={s.id}>
+                <a href={`#stop-${s.id}`}>
+                  {String(i).padStart(3, '0')} {s.kicker} · {s.remember}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        {slug === '' ? null : (
+          <nav className={styles.footNav} aria-label="頁尾賽事連結">
+            <h2 className={styles.footHead}>本屆</h2>
+            <ul className={styles.footList}>
+              <li>
+                <Link href={`/t/${slug}`}>賽事</Link>
+              </li>
+              <li>
+                <Link href={`/t/${slug}/bracket`}>對戰表</Link>
+              </li>
+              <li>
+                <Link href={`/t/${slug}/rules`}>規則</Link>
+              </li>
+            </ul>
+          </nav>
+        )}
+      </div>
+      <dl className={styles.credits}>
+        <div className={styles.creditRow}>
+          <dt className={styles.creditLabel}>主辦</dt>
+          <dd className={styles.creditValue}>
+            <Field value={CONTENT.organiser} />
+          </dd>
+        </div>
+        <div className={styles.creditRow}>
+          <dt className={styles.creditLabel}>合作</dt>
+          <dd className={styles.creditValue}>
+            {CONTENT.partners.every(isPlaceholder) ? (
+              <Field value={null} />
+            ) : (
+              CONTENT.partners.join('、')
+            )}
+          </dd>
+        </div>
+        <div className={styles.creditRow}>
+          <dt className={styles.creditLabel}>聯繫</dt>
+          <dd className={styles.creditValue}>
+            <Field value={CONTENT.contact} />
+          </dd>
+        </div>
+      </dl>
+      <p className={styles.footBase}>
+        <span className={styles.mono}>JIANZHONG</span>
+        <span>比賽資訊尚未定案,標為「待公布」的欄位確認後會直接替換。</span>
+      </p>
+    </footer>
   );
 }

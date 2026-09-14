@@ -1,19 +1,24 @@
 /**
- * 序幕的四段 GLSL。
+ * 序幕的三段 GLSL。
  *
  * 分成一個檔案而不是塞在 prologueScene 裡,是因為這裡是**畫面本身**,
  * 而 prologueScene 只是把它接上 three 的生命週期。要改布的質感、裂口的毛邊、
- * 血墨的滲法,改這裡;要改什麼時候發生,改 stages.ts。
+ * 血墨的滲法,改這裡;要改什麼時候發生,改 stages.ts;要改哪一格,改 panels.ts。
  *
- * 四條共同規矩:
+ * 五條共同規矩:
  *
  *  1. **一切由 uProgress 系的 uniform 決定。** 這裡出現的 `uTime` 只用在布的
  *     擺動與霧的流動 —— 那是環境,不是劇情。劇情的每一格都可以由進度重算,
  *     所以正著刮跟倒著刮得到同一張畫面。
- *  2. **只有劍會發光。** 整份 shader 裡唯一做加法混色的地方就是劍那一段。
- *  3. **顏色全部是 uniform。** 色盤住在 world3d/palette.ts,由 landing/palette.ts
+ *  2. **人不是畫出來的。** 兩道身影是 `public/shadow/duel-*.svg` 兩張真的剪影
+ *     素材,由 silhouette.ts 畫進離屏 canvas 當成貼圖餵進來。這裡只做一件事:
+ *     **透過布**去看那張貼圖。用 SDF 把四肢串成粗管子的版本已經刪掉了 ——
+ *     那讀起來是兩隻熊,不是兩個人。
+ *  3. **只有劍會發光。** 整份 shader 裡唯一做加法混色的地方就是裂口那一段
+ *     (劍鋒剛穿過去的那一道)。剪影是影子,影子不發光。
+ *  4. **顏色全部是 uniform。** 色盤住在 world3d/palette.ts,由 landing/palette.ts
  *     轉成線性空間送進來,GLSL 裡一個色值都不寫死。
- *  4. **風是別人的。** 布不自己造一陣風,它注入 world3d/wind 的 `WIND_GLSL`,
+ *  5. **風是別人的。** 布不自己造一陣風,它注入 world3d/wind 的 `WIND_GLSL`,
  *     吃跟竹林同一支 `windAt()`、同一組 uniform、同一個時間。
  */
 
@@ -61,9 +66,8 @@ const NOISE = /* glsl */ `
 /**
  * 遠景:月、霧、夜。
  *
- * 它不是「一張背景圖」,是布幕的**光源**。皮影戲的光必須在被照的東西後面,
- * 所以月亮的位置決定了布上哪裡透光、剪影落在哪裡 —— 這一層的構圖一動,
- * 前面兩層全部跟著變。
+ * 它不是「一張背景圖」,是布幕**外面**那個世界。布幕自己的光源是布後面那盞燈
+ * (見 CLOTH_FRAG),所以這一層在第一幕幾乎看不到 —— 它要等布破了才進場。
  */
 export const BACKDROP_FRAG = /* glsl */ `
   precision highp float;
@@ -105,153 +109,62 @@ export const BACKDROP_FRAG = /* glsl */ `
 `;
 
 /**
- * 皮影:旗後的兩道身影。
- *
- * 規格只准剪影:背光、沒有五官。所以整段只算一個有號距離場,再用它當遮罩把
- * 背景壓黑 —— 沒有任何一個地方在「畫一個人」,畫的是**光被擋住的形狀**。
- *
- * 袖、帶、髮吃的是 uPoseLag(比 uPose 慢 100–200ms 的阻尼值),所以身體停了
- * 之後布料還會追上來一下。這是唯一一個不由進度決定的東西,理由寫在 stages.ts。
- */
-export const FIGURES_FRAG = /* glsl */ `
-  precision highp float;
-  varying vec2 vUv;
-  uniform float uPose;
-  uniform float uPoseLag;
-  uniform float uDuel;
-  uniform float uTear;
-  uniform vec2 uAspect;
-  uniform vec3 cBlade;
-
-  ${NOISE}
-
-  // 一個人。dir = +1 站左往右打,-1 站右往左守。
-  // 回傳 x 是身體的距離場,y 是劍的距離場 —— 兩個要分開,因為只有劍會發光。
-  vec2 figure(vec2 p, float t, float lag, float dir, vec2 root) {
-    // p 先整個鏡射,之後的計算全部在鏡射後的空間裡 —— 所以 root 也要用鏡射後的值,
-    // 不能再乘一次 dir。乘兩次的話兩個人會疊在同一邊,劍還會往畫面外拖一條長光。
-    p.x *= dir;
-    vec2 o = root;
-
-    float lunge = smoothstep(0.1, 0.95, t);
-    // 每一段的長度都要讓**全出手時**劍尖落在布裡面:兩把劍要在中間交會,
-    // 不是各自穿出畫面。穿出去的話讀起來是兩個人背對背,不是在對劍。
-    vec2 hip = o + vec2(0.12 * lunge, -0.04 * lunge);
-    vec2 shoulder = hip + vec2(0.02 + 0.04 * lunge, 0.28);
-    vec2 head = shoulder + vec2(0.03 + 0.03 * lunge, 0.10);
-    vec2 footFront = hip + vec2(0.18 + 0.14 * lunge, -0.29);
-    vec2 footBack = hip + vec2(-0.19 - 0.04 * lunge, -0.29);
-    vec2 hand = shoulder + vec2(0.13 + 0.20 * lunge, 0.01 + 0.06 * lunge);
-    vec2 tip = hand + vec2(0.26 + 0.16 * lunge, 0.06 + 0.04 * lunge);
-
-    // 半徑刻意細:影子的四肢一粗就糊成一團,讀起來是兩隻熊不是兩個人。
-    float body = 1e9;
-    body = min(body, sdSeg(p, hip, shoulder) - 0.040);
-    body = min(body, length(p - head) - 0.042);
-    body = min(body, sdSeg(p, hip, footFront) - 0.024);
-    body = min(body, sdSeg(p, hip, footBack) - 0.024);
-    body = min(body, sdSeg(p, shoulder, hand) - 0.022);
-
-    // 袖、帶、髮:同一組骨架,吃比較慢的那個姿勢,而且更寬更軟。
-    float lagLunge = smoothstep(0.1, 0.95, lag);
-    vec2 lhip = o + vec2(0.12 * lagLunge, -0.04 * lagLunge);
-    vec2 lshoulder = lhip + vec2(0.02 + 0.04 * lagLunge, 0.28);
-    vec2 lhand = lshoulder + vec2(0.13 + 0.20 * lagLunge, 0.01 + 0.06 * lagLunge);
-    float cloth = 1e9;
-    // 袖:從肩到手,往下垂。
-    cloth = min(cloth, sdSeg(p, lshoulder, lhand + vec2(0.0, -0.08)) - 0.042);
-    // 下襬:腰往下一片。
-    cloth = min(cloth, sdSeg(p, lhip + vec2(0.0, 0.02), lhip + vec2(-0.06, -0.26)) - 0.058);
-    // 髮:後腦往後下方一束。
-    vec2 lhead = lshoulder + vec2(0.035 + 0.03 * lagLunge, 0.10);
-    cloth = min(cloth, sdSeg(p, lhead, lhead + vec2(-0.10, -0.12)) - 0.022);
-
-    body = min(body, cloth);
-    float blade = sdSeg(p, hand, tip) - 0.0045;
-    return vec2(body, blade);
-  }
-
-  void main() {
-    // 人站在這一片的下半:頭在中線附近,腳踩在片底。整個往上推一點,
-    // 因為影子是被投在布上的,布的下緣已經破了。
-    vec2 p = ((vUv - 0.5) * uAspect + vec2(0.0, 0.01)) / 1.06;
-
-    // 兩個人分站兩邊,中間留一段空。站太近的話劍還沒出手就已經交在一起,
-    // 讀起來是兩個人在推擠,不是對劍。
-    vec2 a = figure(p, uPose, uPoseLag, 1.0, vec2(-0.54, -0.04));
-    // 守方的招式比攻方晚一點起,不然兩個人像在跳同一支舞。
-    vec2 b = figure(p, clamp(uPose - 0.12, 0.0, 1.0), clamp(uPoseLag - 0.12, 0.0, 1.0),
-                    -1.0, vec2(-0.50, -0.04));
-
-    float body = min(a.x, b.x);
-    float blade = min(a.y, b.y);
-
-    // 剪影邊緣要糊:光穿過布再穿過人,影子本來就沒有硬邊。
-    float silhouette = (1.0 - smoothstep(-0.008, 0.022, body)) * 0.92;
-    silhouette *= uDuel;
-
-    // 劍是整個序幕唯一會發光的東西。刺穿那一刻(uTear 起步)最亮。
-    float glow = exp(-max(blade, 0.0) * 78.0) * uDuel * (0.45 + 0.7 * uTear);
-    float core = (1.0 - smoothstep(0.0, 0.003, blade)) * uDuel;
-
-    vec3 col = cBlade * (glow * 0.34 + core * 0.85);
-    // alpha 同時承載「擋住光」與「發出光」:擋住的部分交給下面的 blend 壓黑。
-    gl_FragColor = vec4(col, max(silhouette, min(1.0, glow + core)));
-  }
-`;
-
-/**
  * 布。
  *
- * 頂點位移 = 層疊噪聲的鼓起 + 風場(uWind 由 world3d/wind 的同一陣風餵進來)。
- * 位移沿「離掛繩越遠越大」加權 —— 旗是掛著的,上緣不會動,下緣才甩得開。
- *
- * 法線不用 three 算好的那一組:那是平面的法線,位移之後就不對了。這裡把同一個
- * 高度函式取兩次差分自己算 —— 絲的光澤全靠法線,法線錯了就只是一塊亮布。
+ * 這一支只做一件事:算出布面在每一點的**離面位移**,以及它沿 x 的斜率。
+ * 兩個值都 varying 出去,因為 fragment 需要的不是法線,是「光穿過這一點時
+ * 被推開多少」—— 剪影是透過布看到的,不是印在布上的。
  */
 export const CLOTH_VERT = /* glsl */ `
   ${WIND_GLSL}
+  ${NOISE}
 
   varying vec2 vUv;
-  varying vec3 vNormal;
+  /** 離面位移。fragment 拿它決定擴散半徑,以及取樣座標的垂直偏移。 */
+  varying float vFold;
+  /** 沿 x 的斜率。影子被布推開的方向就是它。 */
+  varying float vSlopeX;
+  /** 離掛繩多遠。旗落與破下襬都靠它。 */
   varying float vFree;
+
   uniform float uBillow;
   uniform float uFall;
   uniform float uShudder;
   /** 這面旗掛在世界的哪裡,以及它有多寬(公尺)。風是位置的函式,旗要有位置。 */
   uniform vec2 uAnchor;
   uniform float uSpan;
-  /** 位移在世界上有多深。同時決定法線的斜率 —— 兩者必須是同一個數字。 */
-  uniform float uDepth;
 
-  float height(vec2 uv) {
-    float free = 1.0 - uv.y;
-
-    // 場上共用的那一陣風。竹林吃的是同一支 windAt、同一組 uniform、同一個時間,
-    // 所以旗與竹子是一起倒的 —— 旗自己抖自己的,是「風是假的」最明顯的破綻。
-    // 沿旗寬取樣:同一時刻,靠旗竿那一端已經鼓起來了,旗尾還沒開始。
+  // 布面在 (u,v) 的離面位移。垂掛的布有兩種結構疊在一起:
+  //   · 沿 x 的垂直摺(掛起來自然形成的直褶),頻率高
+  //   · 大面積的緩慢起伏(風推的),頻率低
+  // 上緣釘死,不然布會像一張飄在空中的紙。
+  //
+  // 「風推的」那一項吃的是場上共用的那一陣風(world3d/wind):它只調**幅度**,
+  // 相位留給布自己的低頻噪聲 —— 駐波是「面」才有的東西,竹子沒有。這樣旗與
+  // 竹林仍然是一起鼓起來的,而旗不會變成一支跟著風向擺動的旗桿。
+  float sheet(vec2 uv, float t) {
+    float pin = pow(1.0 - uv.y, 1.35);
+    float drape = sin(uv.x * 38.0 + vnoise(uv * 3.0 + t * 0.05) * 4.0) * 0.055;
+    float billow = (vnoise(uv * 2.2 + vec2(t * 0.07, t * 0.03)) - 0.5) * 0.42;
     vec2 worldXZ = uAnchor + vec2((uv.x - 0.5) * uSpan, 0.0);
-    float gust = windAt(worldXZ, uTime);
-
-    // 布自己的鼓盪疊在風上面(不是取代它):布是一個面,它有自己的駐波,
-    // 那是竹子沒有的東西。
-    // 三個空間頻率:一道大的鼓起、幾道中等的摺、以及沿垂直方向的細波。
-    // 只給一個頻率的話布只會整面前後晃,看不出「摺」—— 而絲的光澤全靠摺。
-    float w1 = sin(uv.x * 5.2 + uTime * 1.5);
-    float w2 = sin(uv.x * 12.6 - uTime * 1.05 + uv.y * 2.2) * 0.45;
-    float w3 = sin(uv.y * 7.3 + uv.x * 3.1 + uTime * 0.8) * 0.35;
-    float billow = w1 + w2 + w3;
-
-    // free 的平方:靠近掛繩的地方要真的不動,線性衰減會讓整面布像一塊板子在搖。
-    return (gust * uWindStrength * 1.8 + billow) * free * free * 0.52 * uBillow;
+    float gust = 1.0 + windAt(worldXZ, t) * uWindStrength * 0.9;
+    return (drape + billow * uBillow * gust) * pin;
   }
 
   void main() {
     vUv = uv;
     vFree = 1.0 - uv.y;
 
+    float fold = sheet(uv, uTime);
+    vFold = fold;
+
+    // 前向差分,步長就是相鄰頂點的距離(平面細分 220×150)。再細是在放大噪聲,
+    // 再粗就會把直褶整個平均掉 —— 而直褶正是這塊布唯一的結構。
+    float e = 0.0045;
+    vSlopeX = (sheet(uv + vec2(e, 0.0), uTime) - fold) / e;
+
     vec3 pos = position;
-    pos.z += height(uv);
+    pos.z += fold;
 
     // 旗落:繞上緣倒下去,而不是整面往下平移 —— 它還掛在朽樑上。
     pos.y -= uFall * vFree * 1.9;
@@ -260,46 +173,63 @@ export const CLOTH_VERT = /* glsl */ `
     // 刺穿那一下的顫。是進度的凸起(見 stages.ts),所以倒著刮會再顫一次。
     pos.x += uShudder * sin(uv.y * 22.0) * 0.012;
 
-    // 法線:同一個高度函式取差分。eps 取 uv 的一格左右,再細就是在放大噪聲。
-    //
-    // 斜率要乘 uDepth:高度函式算的是 local 單位,而 mesh 的 z 被放大過
-    // (旗在世界上有厚度,見 prologueScene 的 layout)。不乘的話算出來的法線
-    // 幾乎都是 (0,0,1) —— 那就是一塊沒有摺的板子,而絲的光澤全靠摺。
-    float e = 0.012;
-    float hx = height(vUv + vec2(e, 0.0)) - height(vUv - vec2(e, 0.0));
-    float hy = height(vUv + vec2(0.0, e)) - height(vUv - vec2(0.0, e));
-    vNormal = normalize(vec3(-hx / (2.0 * e) * uDepth, -hy / (2.0 * e) * uDepth, 1.0));
-
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
   }
 `;
 
 /**
- * 布的表面 + 裂口 + 血墨。
+ * 布的表面 + 透過布看到的剪影 + 裂口 + 血墨。
  *
- * 絲不是「亮」,是**各向異性**與**透光**:
- *  - 透光(背光)決定基本亮度 —— 月在布後面,所以布本身就是光源的一部分。
- *  - 各向異性的高光沿織紋方向拉成一條,不是一顆圓點。橫紋與直紋各一條,
- *    兩條的權重不同,布才有「經緯」而不是「金屬」。
- *  - 織紋的高頻噪聲只調制透光量,不調制顏色 —— 調顏色會讓布看起來髒。
+ * # 皮影的四件事
+ *
+ *  1. **背光**,不是平均照明。燈在布後面,中心亮、四周急衰 —— 第一幕整個畫面
+ *     就是這塊被一盞燈照亮的布,那盞燈是規格說的「唯一暖點」。
+ *  2. **取樣座標被布的斜率推開**。影子不是貼在布上,是**透過布**看到的:
+ *     布凸起來的地方,光穿過去的路徑就偏了。這是整個效果的核心。
+ *  3. **擴散半徑隨褶深加大**。褶深的地方布厚,光在纖維裡散得更開。
+ *  4. **織紋 band-limit**。布是斜的又被褶壓縮,同一支 shader 在畫面不同地方的
+ *     取樣率差很多倍,固定頻率的織紋一定會出摩爾紋。
+ *
+ * # 剩下三件是布自己的事
  *
  * 裂口是一條 SDF 線段,毛邊靠把 fbm 加進距離場(不是把邊緣模糊掉):
  * 模糊得到的是一條糊邊,加噪聲得到的才是**扯開的纖維**。
  *
  * 血墨用 `smoothstep(radius - fbm)`:半徑隨 uBleed 長,而 fbm 讓滲透的前緣不規則。
  * 再加兩件事 —— 往下流的滴痕、以及低頻的宣紙芯吸(沿纖維走得比逆纖維快)。
+ *
+ * 殘旗的下襬是一排長短不一的布條,不是一條裁齊的邊。
  */
 export const CLOTH_FRAG = /* glsl */ `
   precision highp float;
   varying vec2 vUv;
-  varying vec3 vNormal;
+  varying float vFold;
+  varying float vSlopeX;
   varying float vFree;
+
+  /** 這一格與上一格的剪影。換格是離散的,由 uSilWipe 那道墨暈換掉。 */
+  uniform sampler2D uSilCur;
+  uniform sampler2D uSilPrev;
+  uniform float uSilWipe;
+  /** 剪影在布上佔多大。 */
+  uniform float uSilScale;
+  /** 素材的長寬比與布的不一樣,這個把它擺回原本的比例。 */
+  uniform vec2 uSilFit;
+  /** 布本身的長寬比。UV 是方的,布不是 —— 凡是「圓的」東西都要除回去。 */
+  uniform float uClothAspect;
+  /** 身影還在不在。布被劃破之後他們就不在了。 */
+  uniform float uDuel;
+
+  uniform float uLampSize;
+  uniform float uDiffuse;
+  uniform float uRefract;
 
   uniform float uTear;
   uniform float uBleed;
   uniform float uFall;
   uniform float uMoon;
   uniform vec3 cCloth;
+  uniform vec3 cLamp;
   uniform vec3 cMoon;
   uniform vec3 cBlood;
   uniform vec3 cBlade;
@@ -318,41 +248,67 @@ export const CLOTH_FRAG = /* glsl */ `
     return d;
   }
 
+  /**
+   * 這一點的光被擋掉多少。
+   *
+   * 分支吃的是 uniform,所以整個 draw call 走同一邊 —— 換格那 150ms 以外,
+   * 上一格那張貼圖一次都不會被取樣。
+   */
+  float blocked(vec2 uv, float mask) {
+    float now = texture2D(uSilCur, uv).a;
+    if (uSilWipe >= 0.999) return now;
+    return mix(texture2D(uSilPrev, uv).a, now, mask);
+  }
+
   void main() {
-    // ── 織紋。兩個方向的高頻,經緯不同密度。
-    float weave = fbm(vec2(vUv.x * 220.0, vUv.y * 90.0)) * 0.5
-                + fbm(vec2(vUv.x * 70.0, vUv.y * 260.0)) * 0.5;
+    // ── 背光。燈在布**後面**,中心亮、四周急衰。
+    //    布比高寬,UV 的距離不是世界的距離 —— 不除回去的話那盞燈會是一個
+    //    直立的橢圓,而燈是圓的。
+    float lampD = length((vUv - vec2(0.5, 0.54)) * vec2(1.0, 1.0 / uClothAspect));
+    float lamp = exp(-pow(lampD / uLampSize, 2.0) * 1.5);
 
-    vec3 n = normalize(vNormal);
-    vec3 view = vec3(0.0, 0.0, 1.0);
-    // 月在布**後面**(皮影的光必須在被照的東西後面),所以光是朝著鏡頭走的。
-    vec3 toLight = normalize(vec3(-0.18, -0.30, 1.0));
+    // ── 取樣座標被布的斜率推開。少了這兩行,剪影會像一張貼紙黏在一塊會動的布上。
+    vec2 suv = (vUv - 0.5) / (uSilScale * uSilFit) + 0.5;
+    suv.x += vSlopeX * uRefract;
+    suv.y += vFold * uRefract * 0.6;
 
-    // ── 背光透射。面向月的那一側透得最多,背過去的摺立刻暗下來 ——
-    //    這個明暗差就是「看得出這是一塊布」的全部。
-    float back = clamp(dot(n, toLight), 0.0, 1.0);
-    // 下限不能是零:剪影要落在**被照亮的**布上才讀得出來,全黑的地方影子等於不存在。
-    float trans = mix(0.20, 1.0, pow(back, 1.5));
-    trans *= 0.72 + 0.56 * weave;
+    // 墨暈。淡入淡出會在中間留下兩個姿勢疊在一起的鬼影,而這一幕是分鏡不是動畫。
+    float mask = clamp(uSilWipe * 1.5 - fbm(vUv * 6.0) * 0.5, 0.0, 1.0);
 
-    // ── 絲的各向異性高光(Ward)。
-    //    絲不是「亮」,是光沿著經紗被拉成**一條**而不是一顆。所以兩個方向的
-    //    粗糙度差一個量級:沿紗很光滑(ax 小),垂直紗很粗(ay 大)。
-    //    切線要投影回這一點的切平面上,不然摺起來的地方高光會貼著世界軸走。
-    vec3 h = normalize(toLight + view);
-    vec3 t = normalize(vec3(1.0, 0.0, 0.0) - n * dot(n, vec3(1.0, 0.0, 0.0)));
-    vec3 b = cross(n, t);
-    float nh = max(dot(n, h), 1e-4);
-    float th = dot(t, h);
-    float bh = dot(b, h);
-    float ax = 0.075;
-    float ay = 0.55;
-    float e2 = -2.0 * ((th * th) / (ax * ax) + (bh * bh) / (ay * ay)) / (1.0 + nh);
-    float sheen = exp(e2) * 0.55;
-    // 纖維的不勻:高光不該是一條乾淨的線,那是金屬。
-    sheen *= 0.55 + 0.9 * weave;
+    // ── 擴散。九點黃金角 —— 均勻取樣會在影子邊緣留下格狀痕跡。
+    float r = uDiffuse * (1.0 + abs(vFold) * 6.0);
+    float shade = 0.0;
+    for (int i = 0; i < 9; i++) {
+      float a = float(i) * 2.39996;
+      float k = sqrt((float(i) + 0.5) / 9.0) * r;
+      shade += blocked(suv + vec2(cos(a), sin(a)) * k, mask);
+    }
+    shade *= uDuel / 9.0;
 
-    vec3 col = cCloth * trans * 1.9 + cMoon * sheen * (0.35 + 0.65 * uMoon);
+    // ── 織紋。取樣率追不上的地方就把它收掉;收掉的代價只是那裡看不到紗,
+    //    不收的代價是整塊布浮出一層會爬的格網。
+    float wf = 620.0;
+    float cycles = fwidth(vUv.x) * wf;
+    float weaveAmp = 1.0 - smoothstep(0.35, 0.9, cycles);
+    float warp = sin(vUv.x * wf) * 0.5 + 0.5;
+    float weft = sin(vUv.y * wf * 0.62) * 0.5 + 0.5;
+    // 紗的粗細不勻。少了它,經緯是一張完美的方格,讀起來是紗窗不是布 ——
+    // 頻率刻意壓得比經緯低很多,不然這一項自己就成了下一個會出摩爾紋的東西。
+    float slub = 0.7 + 0.6 * fbm(vUv * vec2(21.0, 13.0));
+    float weave = mix(1.0, 0.92 + 0.16 * (warp * 0.6 + weft * 0.4) * slub, weaveAmp);
+
+    // ── 摺的明暗:斜率朝著燈的那一面亮。這就是「看得出這是一塊布」的全部。
+    float drape = clamp(0.74 + vSlopeX * 0.085, 0.34, 1.30);
+
+    float through = lamp * drape * weave;
+
+    // 暖 → 撕裂 → 冷。第一幕的光全部來自布後面那盞燈;布被劃破之後月光從裂口
+    // 進來,整段戲就一路涼下去。兩個顏色都從色盤來,這裡一個色值都沒有。
+    vec3 lit = mix(cLamp, cMoon, uMoon);
+    vec3 col = cCloth * (0.30 + through * 2.4) + lit * through * 1.15;
+
+    // 影子是**光被擋住的形狀**,所以它是減的,不是另外疊上去的一塊黑。
+    col *= 1.0 - shade * 0.90;
 
     // ── 裂口。負距離的地方布沒了,月光直接灌進來。
     float d = tearDist(vUv);

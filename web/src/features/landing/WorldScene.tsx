@@ -2,16 +2,15 @@
 
 import { useEffect, useRef, useState, type RefObject } from 'react';
 
-import type { ChapterId } from './chapters';
+import { WORLD_MAX, type StopId } from './acts';
 import { SceneLayer } from './SceneLayer';
-import { PROGRESS_MAX } from './useChapterProgress';
 import styles from './WorldScene.module.css';
 
 export interface WorldSceneProps {
-  /** 連續章節進度(0…章數−1)。由 Landing 量,這裡只讀。 */
+  /** 相機在整條路徑上走到哪(0…WORLD_MAX)。由 Acts 量,這裡只讀。 */
   progress: RefObject<number>;
-  /** 現在是哪一章。降級路徑要用它決定站哪一張板子。 */
-  active: ChapterId;
+  /** 現在停在哪個定格點。降級路徑要用它決定站哪一張板子。 */
+  held: StopId | null;
   reduced: boolean;
 }
 
@@ -30,7 +29,7 @@ export interface WorldSceneProps {
  *     後三章就變成同一個畫面。所以按比例縮進相機自己的範圍,
  *     而那個範圍要在 three 載進來之後才問得到(camera.ts import three)。
  */
-export function WorldScene({ progress, active, reduced }: WorldSceneProps) {
+export function WorldScene({ progress, held, reduced }: WorldSceneProps) {
   const canvas = useRef<HTMLCanvasElement>(null);
   // 沒有 WebGL 就永遠不建 canvas。探測要在瀏覽器裡做,所以初值是 null(還不知道)。
   const [webgl, setWebgl] = useState<boolean | null>(null);
@@ -79,9 +78,9 @@ export function WorldScene({ progress, active, reduced }: WorldSceneProps) {
           pixelRatio: ratio,
         });
 
-        // 七章的進度 → 相機自己的鏡位範圍。除以零不可能(至少兩個鏡位),
-        // 但 PROGRESS_MAX 可能是 0(只有一章),所以那一邊要防。
-        const scale = PROGRESS_MAX > 0 ? (WAYPOINTS.length - 1) / PROGRESS_MAX : 0;
+        // 幕的進度 → 相機自己的鏡位範圍。三幕攤平後是 0…WORLD_MAX,
+        // 而鏡位數量由 camera.ts 決定,兩者不必相同。
+        const scale = (WAYPOINTS.length - 1) / WORLD_MAX;
 
         // 指標視差。用歸一化座標(−1…1),相機那邊決定要用多少。
         const pointer = { x: 0, y: 0 };
@@ -164,7 +163,7 @@ export function WorldScene({ progress, active, reduced }: WorldSceneProps) {
     <>
       {/* 世界亮起來之前、或根本不會亮的時候,2D 那層頂著。
           任何一刻都不會是一塊沒有定義的黑。 */}
-      {(!wanted || !painted) && <SceneLayer active={active} reduced={reduced} />}
+      {(!wanted || !painted) && <SceneLayer held={held} reduced={reduced} />}
       {wanted && (
         <canvas
           ref={canvas}

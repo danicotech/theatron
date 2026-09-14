@@ -8,17 +8,18 @@ import {
   Vector3,
   WebGLRenderer,
   type IUniform,
+  type Texture,
 } from 'three';
 
-import { damp } from '../../world3d/noise';
 import type { PaletteKey } from '../../world3d/palette';
 import { createWind, type WindField } from '../../world3d/wind';
 import { linearOf } from '../palette';
-import { BACKDROP_FRAG, CLOTH_FRAG, CLOTH_VERT, FIGURES_FRAG } from './shaders';
+import { BACKDROP_FRAG, CLOTH_FRAG, CLOTH_VERT } from './shaders';
+import { createSilhouetteLayer } from './silhouette';
 import { prologueState } from './stages';
 
 /**
- * 序幕的場子:三片、一台相機、一個進度數字。
+ * 序幕的場子:兩片、一台相機、一個進度數字。
  *
  * 為什麼是自己的 renderer 而不是掛進 world3d 的那一台:world3d 是**環境層**,
  * 由另一個人維護,而且它是整頁固定的一張畫布;序幕是章節 01 自己的一段戲,
@@ -30,8 +31,10 @@ import { prologueState } from './stages';
  * 對同一個時鐘,得到的就是**同一陣風**。時鐘因此刻意用 `performance.now()`
  * 而不是累加 dt:累加會漂,漂了之後旗與竹子就各吹各的。
  *
- * 由後往前:月與遠霧 → 對劍的剪影 → 旗(3D 布)。裂口與血墨在布的 fragment 裡,
- * 不是另外疊的圖層 —— 它們是布**本身**的狀態,疊圖層會讓裂口邊緣跟布的皺褶對不上。
+ * 由後往前:月與遠霧 → 旗(3D 布)。**剪影沒有自己的一片** —— 它是布的
+ * fragment 裡的一次貼圖取樣,因為皮影的影子就是「布上光被擋住的那一塊」,
+ * 不是一個站在布前面或布後面的物件。裂口與血墨同理:它們是布本身的狀態,
+ * 疊成圖層會讓裂口邊緣跟布的皺褶對不上。
  *
  * 字那一層不在這裡,它是 DOM。3D 不承載任何資訊(見 chapters.ts 開頭)。
  */
@@ -41,6 +44,15 @@ const FOV = 38;
 
 /** 旗的長寬比。旗是橫的,但直式視窗會壓縮它 —— 見 layout()。 */
 const FLAG_ASPECT = 1.32;
+
+/**
+ * 布的細分。
+ *
+ * 220×150 不是為了幾何的精細度(位移只有幾公分),是為了**斜率**:
+ * 直褶的空間頻率是 38 rad,一個週期只有六格多,再疏就會把褶整個平均掉,
+ * 而剪影被推開的方向完全由那個斜率決定。
+ */
+const CLOTH_SEGMENTS: readonly [number, number] = [220, 150];
 
 /**
  * 旗掛在世界座標的哪裡,以及它有多寬(公尺)。
@@ -53,13 +65,16 @@ const FLAG_ANCHOR: readonly [number, number] = [-3.4, 8.6];
 const FLAG_SPAN_METRES = 3.2;
 
 /**
- * 袖、帶、髮落後身體多久(秒)。
+ * 皮影那一組調好的參數。
  *
- * 規格要 100–200ms。用半衰期表示:0.14s 的半衰期在視覺上就是約 140ms 的落後,
- * 而且與影格率無關(damp 的理由見 world3d/noise)。這是整段戲**唯一**不由進度
- * 決定的東西 —— 刮停之後它會收斂到精確值,所以停在任何一點畫面仍然是確定的。
+ * 它們是一起調出來的,單獨改一個沒有意義:燈小了就要把擴散調大,折射推得太遠
+ * 影子會脫離人形。改之前先在實機上把五個分鏡格都看一遍。
  */
-const CLOTH_LAG_HALFLIFE = 0.14;
+const LAMP_SIZE = 0.44;
+const DIFFUSE = 0.0038;
+const REFRACT = 0.012;
+/** 剪影在布上佔多大。大於 1 是把素材縮小,留出布的邊。 */
+const SIL_SCALE = 1.16;
 
 export interface PrologueSceneOptions {
   canvas: HTMLCanvasElement;
@@ -103,9 +118,16 @@ export function createPrologueScene(options: PrologueSceneOptions): PrologueScen
 
   const wind: WindField = createWind();
   const aspect = new Vector2(1, 1);
-  // 剪影那一片的長寬比。它不等於螢幕,也不等於旗 —— 它是旗**扣掉破掉的下襬**
-  // 之後那一塊,所以自己一個,由 layout() 每次重算。
-  const figureAspect = new Vector2(FLAG_ASPECT, 1);
+
+  // 兩道身影。素材是離屏 canvas 上的貼圖,整幕只重畫五次(見 silhouette.ts)。
+  const silhouette = createSilhouetteLayer({
+    instant: options.reduced,
+    anisotropy: renderer.capabilities.getMaxAnisotropy(),
+  });
+
+  // 素材的長寬比不等於布的,直接鋪上去人會被拉長。這一項把它擺回原本的比例:
+  // 以寬對齊,垂直方向補回差的那一截。
+  const silFit = new Vector2(1, FLAG_ASPECT / silhouette.aspect);
 
   // uniform 物件建一次就一直是同一個。每格重新配一份 { value } 是這種迴圈最常見的
   // 垃圾來源 —— 一分鐘六十格,十個 uniform 就是三萬六千個短命物件。
@@ -116,12 +138,13 @@ export function createPrologueScene(options: PrologueSceneOptions): PrologueScen
     uBleed: { value: 0 } as IUniform<number>,
     uFall: { value: 0 } as IUniform<number>,
     uDuel: { value: 0 } as IUniform<number>,
-    uPose: { value: 0 } as IUniform<number>,
-    uPoseLag: { value: 0 } as IUniform<number>,
     uMoon: { value: 0 } as IUniform<number>,
     uShudder: { value: 0 } as IUniform<number>,
     uBillow: { value: 0.35 } as IUniform<number>,
     uAspect: { value: aspect } as IUniform<Vector2>,
+    uSilCur: { value: silhouette.current } as IUniform<Texture>,
+    uSilPrev: { value: silhouette.previous } as IUniform<Texture>,
+    uSilWipe: { value: 1 } as IUniform<number>,
   };
 
   const FLAT_VERT = /* glsl */ `
@@ -154,35 +177,8 @@ export function createPrologueScene(options: PrologueSceneOptions): PrologueScen
   backdrop.renderOrder = 0;
   scene.add(backdrop);
 
-  const figures = new Mesh(
-    new PlaneGeometry(1, 1),
-    new ShaderMaterial({
-      vertexShader: FLAT_VERT,
-      fragmentShader: FIGURES_FRAG,
-      uniforms: {
-        uPose: shared.uPose,
-        uPoseLag: shared.uPoseLag,
-        uDuel: shared.uDuel,
-        uTear: shared.uTear,
-        // 剪影用**自己那一片**的長寬比,不是螢幕的:它的座標系就是那塊布。
-        uAspect: { value: figureAspect },
-        cBlade: colour('bladeCyan'),
-      },
-      transparent: true,
-      depthTest: false,
-      depthWrite: false,
-    }),
-  );
-  // 剪影畫在布**前面**,這不是把人搬到布前面 —— 皮影的影子在畫面上就是
-  // 「布被擋掉的那一塊」。一般 alpha 混色下,顏色是黑、alpha 是剪影的話,
-  // 結果正好是 dst × (1 − 剪影),也就是一次乘法變暗。把它畫在布後面才是錯的:
-  // 布是不透明的,後面的東西一個像素都到不了畫面上。
-  figures.position.z = 0.05;
-  figures.renderOrder = 3;
-  scene.add(figures);
-
   const cloth = new Mesh(
-    new PlaneGeometry(1, 1, 56, 40),
+    new PlaneGeometry(1, 1, CLOTH_SEGMENTS[0], CLOTH_SEGMENTS[1]),
     new ShaderMaterial({
       vertexShader: CLOTH_VERT,
       fragmentShader: CLOTH_FRAG,
@@ -195,10 +191,22 @@ export function createPrologueScene(options: PrologueSceneOptions): PrologueScen
         uTear: shared.uTear,
         uBleed: shared.uBleed,
         uMoon: shared.uMoon,
+        uDuel: shared.uDuel,
+        uSilCur: shared.uSilCur,
+        uSilPrev: shared.uSilPrev,
+        uSilWipe: shared.uSilWipe,
+        uSilScale: { value: SIL_SCALE },
+        uSilFit: { value: silFit },
+        uClothAspect: { value: FLAG_ASPECT },
+        uLampSize: { value: LAMP_SIZE },
+        uDiffuse: { value: DIFFUSE },
+        uRefract: { value: REFRACT },
         uAnchor: { value: new Vector2(FLAG_ANCHOR[0], FLAG_ANCHOR[1]) },
         uSpan: { value: FLAG_SPAN_METRES },
-        uDepth: { value: 1 },
         cCloth: colour('rotBrown'),
+        // 布後面那盞燈。它是第一幕唯一的暖點 —— 朱紅只給梅花與血墨,
+        // 所以暖只能由枯竹黃來當(見 world3d/palette.ts)。
+        cLamp: colour('deadBamboo'),
         cMoon: colour('moonWhite'),
         cBlood: colour('vermilion'),
         cBlade: colour('bladeCyan'),
@@ -212,15 +220,14 @@ export function createPrologueScene(options: PrologueSceneOptions): PrologueScen
   scene.add(cloth);
 
   let progress = 0;
-  let poseLag = 0;
   let painted = false;
   let width = options.width;
   let height = options.height;
 
   /**
-   * 把三片擺到正確的大小。
+   * 把兩片擺到正確的大小。
    *
-   * 遠景與剪影填滿視錐(它們是「整個畫面」);旗不填滿 —— 它是畫面裡的一件東西,
+   * 遠景填滿視錐(它是「整個畫面」);旗不填滿 —— 它是畫面裡的一件東西,
    * 撐滿就沒有夜色可以襯了。直式視窗時旗改成吃高度,不然 390 寬的畫面上
    * 一面橫旗只剩一條。
    */
@@ -241,12 +248,10 @@ export function createPrologueScene(options: PrologueSceneOptions): PrologueScen
 
     const far = spread(backdrop.position.z);
     backdrop.scale.set(far.vw, far.vh, 1);
-    // 剪影那一片跟旗**完全對齊**(只推到布後面一點)。皮影戲的影子只在布上
-    // 才看得到 —— 讓它填滿視錐的話,兩個人會有一半站在布外面,那就不是皮影了。
 
     const near = spread(0);
-    // 旗不撐滿畫面:撐滿就沒有夜色可以襯,而月與剪影都在它後面 ——
-    // 看不到後面那兩層的話,這一整段皮影戲就白做了。
+    // 旗不撐滿畫面:撐滿就沒有夜色可以襯,而剪影就在它上面 ——
+    // 布整片貼著螢幕邊緣的話,這一整段皮影戲讀起來只是一張全螢幕的貼圖。
     //
     // 直式視窗吃寬度、橫式吃高度。同一組係數兩邊都用的話,390 寬的畫面上
     // 旗會縮成畫面中央一小塊,而剪影就小到看不出是兩個人在對劍。
@@ -254,23 +259,12 @@ export function createPrologueScene(options: PrologueSceneOptions): PrologueScen
       a >= 1
         ? Math.min(near.vw * 0.52, near.vh * 0.62 * FLAG_ASPECT)
         : Math.min(near.vw * 0.92, near.vh * 0.34 * FLAG_ASPECT);
-    // z 也要放大。高度函式算的是 local 單位,不放大的話位移只有幾公釐,
-    // 法線全是 (0,0,1) —— 畫出來是一塊沒有摺的板子,不是布。
-    const depth = w * 0.34;
-    cloth.scale.set(w, w / FLAG_ASPECT, depth);
-    cloth.material.uniforms.uDepth!.value = depth / (w / FLAG_ASPECT);
+    // z 也要放大:離面位移算的是 local 單位,不放大的話布在透視下完全是平的,
+    // 而「這是一塊會鼓起來的布」正是它與一張貼圖的差別。
+    cloth.scale.set(w, w / FLAG_ASPECT, w * 0.34);
     // 旗掛在朽樑上,所以它偏上;畫面下半留給枯梅與字。
     // 直式時旗往上讓,下面那一大塊留給字。
     cloth.position.y = near.vh * (a >= 1 ? 0.1 : 0.24);
-
-    // 剪影要整片**待在布裡面**:下襬是破的,露出去的腳會直接畫在夜色上,
-    // 那就不是影子而是兩個站在旗前面的人。所以扣掉下襬那一截再往上推。
-    const h = w / FLAG_ASPECT;
-    const figW = w * 0.94;
-    const figH = h * 0.78;
-    figures.scale.set(figW, figH, 1);
-    figures.position.y = cloth.position.y + h * 0.11;
-    figureAspect.set(figW / figH, 1);
   }
 
   layout();
@@ -294,19 +288,21 @@ export function createPrologueScene(options: PrologueSceneOptions): PrologueScen
     frame(dt, now) {
       const s = prologueState(progress);
 
-      // 推進共用的風場。它會順手把 uTime 寫好,所以三個材質的時間永遠一致。
+      // 推進共用的風場。它會順手把 uTime 寫好,所以兩個材質的時間永遠一致。
       wind.update(now);
 
-      // 次級運動:阻尼追著姿勢跑。這是唯一一個「上一格」會影響「這一格」的地方,
-      // 而它會收斂 —— 刮停之後畫面仍然只由 progress 決定。
-      poseLag = options.reduced ? s.pose : damp(poseLag, s.pose, CLOTH_LAG_HALFLIFE, dt);
+      // 分鏡格。進度落在哪一格是純函式,所以快滑、反滑都不會跳;只有**換格**
+      // 才會真的重畫貼圖,而換格整幕只有五次。
+      silhouette.update(progress, dt);
+      shared.uSilCur.value = silhouette.current;
+      shared.uSilPrev.value = silhouette.previous;
+      shared.uSilWipe.value = silhouette.wipe;
 
       shared.uTear.value = s.tear;
       shared.uBleed.value = s.bleed;
       shared.uFall.value = s.fall;
-      shared.uDuel.value = s.duel;
-      shared.uPose.value = s.pose;
-      shared.uPoseLag.value = poseLag;
+      // 素材還沒到齊就整層不亮:半張分鏡比一塊乾淨的布更難看。
+      shared.uDuel.value = silhouette.ready ? s.duel : 0;
       shared.uMoon.value = s.moonThrough;
       shared.uShudder.value = s.shudder;
       shared.uBillow.value = s.billow;
@@ -316,7 +312,8 @@ export function createPrologueScene(options: PrologueSceneOptions): PrologueScen
     },
 
     dispose() {
-      for (const mesh of [backdrop, figures, cloth]) {
+      silhouette.dispose();
+      for (const mesh of [backdrop, cloth]) {
         mesh.geometry.dispose();
         mesh.material.dispose();
       }

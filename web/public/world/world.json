@@ -111,6 +111,15 @@
       "source": "design/cinematic-media-kit/dist/assets/library/01-backgrounds/bg-spring-autumn-lodge.png"
     },
     {
+      "id": "fg-war-table",
+      "file": "/world/fg-war-table.webp",
+      "width": 900,
+      "height": 610,
+      "alpha": true,
+      "bytes": 126814,
+      "source": "design/wuxia-assets/snow-plum-pack-v1/02-foregrounds/fg-war-table.png"
+    },
+    {
       "id": "fg-lantern",
       "file": "/world/fg-lantern.webp",
       "width": 900,

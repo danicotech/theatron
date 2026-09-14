@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import { chapterAfter, type ChapterId } from './chapters';
+import { STOP_IDS, type StopId } from './acts';
 import styles from './SceneLayer.module.css';
 import { useParallax } from './useParallax';
 import { worldAsset } from './world';
@@ -22,55 +22,63 @@ import { worldAsset } from './world';
  * 百業那一批雪景背景是另一個世界,不拿來頂替。
  */
 
-/** 哪一章站在哪一張板子前面。六張板子配六章,一章一張。 */
-const PLATES: Readonly<Record<ChapterId, string | null>> = {
-  // 序幕有自己的海報,不吃板子。
-  '01': null,
-  '02': 'plate-gate',
-  '03': 'plate-hall',
-  '04': 'plate-wall',
-  '05': 'plate-plum',
-  '06': 'plate-door',
-  '07': 'plate-approach',
+/**
+ * 哪一個定格點站在哪一張板子前面。
+ *
+ * 前兩幕是布幕的事(對劍、噴墨、劃破),它們有自己的靜態海報,不吃場景板;
+ * 第三幕的四個場次各有一張專門為它生的板子。
+ * `plate-approach`(半塌迴廊)留給第三幕的入場,在 format 之前。
+ */
+const PLATES: Readonly<Record<StopId, string | null>> = {
+  prologue: null,
+  challenge: null,
+  format: 'plate-gate',
+  prize: 'plate-hall',
+  schedule: 'plate-wall',
+  signup: 'plate-door',
 };
 
+/** 下一個定格點。先掛起來,交叉淡出才不會淡到一塊空白上。 */
+function stopAfter(id: StopId): StopId | undefined {
+  const i = STOP_IDS.indexOf(id);
+  return i < 0 ? undefined : STOP_IDS[i + 1];
+}
+
 export interface SceneLayerProps {
-  active: ChapterId;
+  held: StopId | null;
   reduced: boolean;
 }
 
-export function SceneLayer({ active, reduced }: SceneLayerProps) {
+export function SceneLayer({ held, reduced }: SceneLayerProps) {
   const host = useRef<HTMLDivElement>(null);
   useParallax(host, reduced);
 
-  // 看過才掛,外加預先掛下一章的那張:全部一次載是將近八百 KB,而第一屏
-  // 一張都不需要;但等到切章才開始下載,交叉淡出會淡到一塊空白上。
-  const next = chapterAfter(active);
-  const [mounted, setMounted] = useState<readonly ChapterId[]>(() =>
-    next === undefined ? [active] : [active, next],
-  );
+  // 看過才掛,外加預先掛下一個定格點的那張:全部一次載是將近八百 KB,而第一屏
+  // 一張都不需要;但等到切過去才開始下載,交叉淡出會淡到一塊空白上。
+  const next = held === null ? undefined : stopAfter(held);
+  const [mounted, setMounted] = useState<readonly StopId[]>([]);
 
   useEffect(() => {
     setMounted((m) => {
-      const add = [active, next].filter(
-        (id): id is ChapterId => id !== undefined && !m.includes(id),
+      const add = [held, next].filter(
+        (id): id is StopId => id !== null && id !== undefined && !m.includes(id),
       );
       return add.length === 0 ? m : [...m, ...add];
     });
-  }, [active, next]);
+  }, [held, next]);
 
   return (
     <div className={styles.scene} ref={host} aria-hidden="true" data-testid="scene-layer">
-      {mounted.map((chapter) => {
-        const id = PLATES[chapter];
+      {mounted.map((stop) => {
+        const id = PLATES[stop];
         if (id === null) return null;
         const bg = worldAsset(id);
-        const live = chapter === active;
+        const live = stop === held;
         return (
           <div
-            key={chapter}
+            key={stop}
             className={live ? `${styles.plate} ${styles.live}` : styles.plate}
-            data-plate-for={chapter}
+            data-plate-for={stop}
           >
             <img
               className={styles.art}

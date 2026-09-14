@@ -1,0 +1,109 @@
+/* 第 3 層:元件變數,只指向第 2 層。 */
+
+.slot {
+  position: absolute;
+  inset-block: 0;
+  /* 最寬 38vw:再寬就會壓到畫面中央的主體(旗的裂口、劍、月),
+     而規格把那件事寫成硬規則。 */
+  inline-size: min(38vw, 460px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 3;
+  pointer-events: none;
+  /* 舞台是 overflow: clip 的,所以比視窗高的卡片會被切掉上緣。
+     賽制那一張有段位、BP、六大類三段,本來就會比一屏長 ——
+     長的告示就該自己捲(responsive.md:寬/高的東西在自己的盒子裡捲,不推整頁)。
+     `overscroll-behavior: contain` 讓它捲到底之後才把捲動交還給頁面,
+     不然讀到一半會突然跳出這一幕。 */
+  padding-block: var(--nav-h) var(--space-8);
+
+  opacity: 0;
+  translate: 0 18px;
+  transition:
+    opacity var(--motion-reveal) var(--ease-out),
+    translate var(--motion-reveal) var(--ease-out);
+}
+
+/* 卡片本身最高一屏,超過就自己捲。
+   `overscroll-behavior: contain` 讓它捲到底之後才把捲動交還給頁面 ——
+   不然讀到一半會突然跳出這一幕。 */
+.slot > * {
+  max-block-size: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* 定格的那一張才收得到滑鼠。看不見的東西被點到,使用者會以為自己點錯了。
+   鍵盤是另一回事:走進來就代表想用它,所以 :focus-within 一併把卡片顯示出來。 */
+.held > *,
+.slot:focus-within > * {
+  pointer-events: auto;
+}
+
+.held,
+.slot:focus-within {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* 第一次之後就不再重播進場。讀到一半往回捲一點又捲回來,
+   卡片重新淡入一次會讓人以為自己弄丟了什麼。 */
+.seen {
+  transition-duration: var(--motion-hover);
+}
+
+.left {
+  inset-inline-start: var(--pad);
+}
+
+.right {
+  inset-inline-end: var(--pad);
+}
+
+.centre {
+  inset-inline-start: 50%;
+  translate: -50% 18px;
+}
+
+.centre.held,
+.centre:focus-within {
+  translate: -50% 0;
+}
+
+/* 頁首左側:題字 + 場次名。題字是這一段在辦什麼事,場次名是它在哪裡發生。 */
+.kicker {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.kickerText {
+  font-size: var(--text-sm);
+  letter-spacing: 0.22em;
+}
+
+/* 手機上沒有「側邊」可言。卡片從底部浮上來、佔滿一欄,
+   而且只吃視窗下緣那一段 —— 上半仍然看得到舞台,不然定格就沒有意義了。 */
+@media (max-width: 820px) {
+  .slot {
+    inset-block: auto 0;
+    inset-inline: 0;
+    inline-size: 100%;
+    padding: 0 var(--pad) var(--space-6);
+    max-block-size: 72vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    translate: 0 24px;
+  }
+
+  .centre {
+    inset-inline-start: 0;
+    translate: 0 24px;
+  }
+
+  .centre.held,
+  .centre:focus-within {
+    translate: 0 0;
+  }
+}

@@ -122,7 +122,6 @@ describe('shader 的 uniform', () => {
       uBleed: s.bleed,
       uFall: s.fall,
       uDuel: s.duel,
-      uPose: s.pose,
       uMoon: s.moonThrough,
       uShudder: s.shudder,
       uBillow: s.billow,
