@@ -13,3 +13,4 @@ dist/
 
 # Next 每次 build 都會重新產生
 next-env.d.ts
+__pycache__/
