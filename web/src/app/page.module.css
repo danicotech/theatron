@@ -466,3 +466,30 @@
 .footNav {
   min-inline-size: 0;
 }
+
+/* 序幕的文案。它釘在布幕左下角 —— 位置照 sword-jianghu 量到的:左 9%、
+   底緣往上一段。字在布幕**前面**(布幕是 z 0 的環境層,文件是 z 1)。 */
+.hero {
+  position: absolute;
+  inset-block-end: clamp(96px, 16vh, 190px);
+  inset-inline-start: var(--pad);
+  z-index: 2;
+  max-inline-size: min(560px, calc(100% - var(--pad) * 2));
+  /* 刺穿那一下整塊字跟著顫。位移很小 —— 大了就變成畫面在抖,不是被劍震到。 */
+  transform: translate3d(calc(var(--shudder, 0) * 3px), 0, 0);
+}
+
+/* 字底下墊一層很淡的夜色。血墨滲開之後畫面右半整片紅,沒有這一層字會讀不出來。 */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -12% -8% -30% -12%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    110% 78% at 22% 62%,
+    color-mix(in oklab, var(--surface-base) 88%, transparent),
+    color-mix(in oklab, var(--surface-base) 54%, transparent) 52%,
+    transparent
+  );
+}

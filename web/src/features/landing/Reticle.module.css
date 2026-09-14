@@ -1,8 +1,9 @@
-/* 準心。第 3 層變數只指向第 2 層。 */
+/* 自訂游標。第 3 層變數只指向第 2 層。 */
 
 .reticle {
   --rx: 50vw;
   --ry: 50vh;
+  --cursor: 26px;
 
   position: fixed;
   inset-block-start: 0;
@@ -11,7 +12,7 @@
   z-index: 52;
   pointer-events: none;
   translate: var(--rx) var(--ry);
-  /* 指標還沒動過之前不畫 —— 一個停在左上角的準心讀起來是壞掉。 */
+  /* 指標還沒動過之前不畫 —— 一個停在左上角的游標讀起來是壞掉。 */
   opacity: 0;
 }
 
@@ -19,69 +20,55 @@
   opacity: 1;
 }
 
-/* 微環。細到幾乎只是一圈光 —— 它報的是「指標還活著」,不是要被看見。 */
-.ring {
+/* 兩個形狀疊在同一點上,由 data-hot 決定誰現形。
+   尖端對準指標的位置 —— 偏一點點都會讓人覺得點不準。 */
+.blade,
+.brush {
   position: absolute;
-  inset-block-start: -13px;
-  inset-inline-start: -13px;
-  inline-size: 26px;
-  block-size: 26px;
-  border: 1px solid color-mix(in oklab, var(--text-primary) 42%, transparent);
-  border-radius: var(--radius-pill);
+  inset-block-start: -2px;
+  inset-inline-start: -2px;
+  inline-size: var(--cursor);
+  block-size: var(--cursor);
+  fill: color-mix(in oklab, var(--text-primary) 74%, transparent);
+  filter: drop-shadow(0 1px 2px color-mix(in oklab, var(--surface-base) 80%, transparent));
 }
 
-.cross {
-  position: absolute;
-  inset-block-start: -1px;
-  inset-inline-start: -5px;
-  inline-size: 10px;
-  block-size: 1px;
-  background-color: color-mix(in oklab, var(--text-primary) 62%, transparent);
+/* 劍柄與筆桿那一截是線,不是面。 */
+.hilt {
+  fill: none;
+  stroke: color-mix(in oklab, var(--text-primary) 62%, transparent);
+  stroke-width: 1.6;
+  stroke-linecap: round;
 }
 
-/* 讀數掛在右下,離指標一個環的距離 —— 壓在指標正下方會擋住要點的東西。 */
-.readout {
-  position: absolute;
-  inset-block-start: 16px;
-  inset-inline-start: 20px;
-  white-space: nowrap;
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: var(--text-micro);
-  letter-spacing: 0.18em;
-  color: color-mix(in oklab, var(--text-primary) 62%, transparent);
+.brush {
+  opacity: 0;
+  /* 筆鋒是朱的 —— 蘸了墨才寫得下去,而這個世界的墨是朱紅。 */
+  fill: color-mix(in oklab, var(--state-live) 88%, transparent);
 }
 
-/* 壓在可啟動的東西上:環咬住它、字換成那一行、顏色換成劍光青。
-   劍光青在這個站只給「會發光的東西」用 —— 準心吸附是介面在發光。 */
-.reticle[data-hot] .ring {
-  inset-block-start: -17px;
-  inset-inline-start: -17px;
-  inline-size: 34px;
-  block-size: 34px;
-  border-color: var(--accent-blade);
+.brush .hilt {
+  stroke: color-mix(in oklab, var(--state-live) 70%, transparent);
 }
 
-.reticle[data-hot] .cross {
-  background-color: var(--accent-blade);
+/* 壓在可點的東西上:劍收起來,筆鋒落下。 */
+.reticle[data-hot] .blade {
+  opacity: 0;
 }
 
-.reticle[data-hot] .readout {
-  color: var(--accent-blade);
+.reticle[data-hot] .brush {
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .ring {
-    transition:
-      inline-size var(--motion-hover) var(--ease-out),
-      block-size var(--motion-hover) var(--ease-out),
-      inset-block-start var(--motion-hover) var(--ease-out),
-      inset-inline-start var(--motion-hover) var(--ease-out),
-      border-color var(--motion-hover) var(--ease-standard);
+  .blade,
+  .brush {
+    transition: opacity var(--motion-hover) var(--ease-standard);
   }
 }
 
-/* 粗指標上完全不畫。元件那邊也不掛 —— 這一條只是雙保險。 */
+/* 觸控裝置上根本不掛(元件自己判斷),這裡只是保險:
+   有觸控螢幕的筆電仍然是 fine pointer,所以不能用寬度判斷。 */
 @media (pointer: coarse) {
   .reticle {
     display: none;

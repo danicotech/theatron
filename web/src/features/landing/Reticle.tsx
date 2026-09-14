@@ -5,27 +5,25 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './Reticle.module.css';
 
 /**
- * 準心。只在有精細指標的裝置上出現。
+ * 自訂游標:劍尖,壓在可點的東西上時轉成筆鋒。
  *
  * 「只在 fine pointer」不是效能考量,是它在觸控上**根本沒有意義**:手指沒有
- * 懸停位置,一個跟著上一次點擊跑的十字只是一塊擋住內容的東西。所以判斷用
+ * 懸停位置,一個跟著上一次點擊跑的游標只是一塊擋住內容的東西。所以判斷用
  * `(pointer: fine)`,不是螢幕寬度 —— 有觸控螢幕的筆電仍然有滑鼠。
  *
- * 它報三件事:座標(這個世界是被量過的)、一個微環(指標還活著)、
- * 以及壓在可啟動的東西上時的那一行字。第三件是它存在的理由 ——
- * 一個只是跟著滑鼠跑的圓圈是裝飾,而會告訴你「這個可以按」的準心是介面。
+ * # 先前它在印座標
+ *
+ * 上一版報的是 `0720 · 0450` 這種讀數,那是另一套視覺語言(技術測量感)的東西。
+ * 這個世界裡沒有座標 —— 規格寫的是「劍尖,hover 卡片時轉為筆鋒」。
+ * 一個在武館夜景中央跳著像素座標的十字,讀起來是開發者忘了關掉的除錯層。
  *
  * 不取代系統游標:`cursor` 保持原樣。把系統游標藏起來是最常見的那種
  * 「有設計感但難用」—— 使用者會失去所有他已經學會的形狀提示(文字的 I 形、
- * 連結的手、拖曳的十字)。
+ * 連結的手、拖曳的十字)。所以這一層是**加在旁邊**的,不是換掉的。
  */
-
-/** 壓在可啟動的東西上時報這一行。規格指定的字,不改寫。 */
-const HOT_LABEL = '[CLICK TO REANIMATE // 啟動]';
 
 export function Reticle() {
   const host = useRef<HTMLDivElement>(null);
-  const readout = useRef<HTMLSpanElement>(null);
   const [fine, setFine] = useState(false);
 
   useEffect(() => {
@@ -67,12 +65,6 @@ export function Reticle() {
       el.style.setProperty('--ry', `${y}px`);
       if (hot) el.dataset.hot = '';
       else delete el.dataset.hot;
-      if (readout.current !== null) {
-        // 座標是整數:一個跳著小數點的讀數看起來像壞掉,不像在量東西。
-        readout.current.textContent = hot
-          ? HOT_LABEL
-          : `${String(Math.round(x)).padStart(4, '0')} · ${String(Math.round(y)).padStart(4, '0')}`;
-      }
     };
 
     const schedule = () => {
@@ -99,9 +91,18 @@ export function Reticle() {
 
   return (
     <div className={styles.reticle} ref={host} aria-hidden="true" data-testid="reticle">
-      <span className={styles.ring} />
-      <span className={styles.cross} />
-      <span className={styles.readout} ref={readout} />
+      {/* 兩個形狀疊著,由 data-hot 決定誰現形 —— 換形狀比換位置慢一點點,
+          那一點點延遲讀起來是「筆鋒落下」,而不是圖示閃一下。 */}
+      <svg className={styles.blade} viewBox="0 0 24 24" focusable="false">
+        {/* 劍尖:一道斜下的鋒,尾端收細。 */}
+        <path d="M2 2 L15 13 L13 15 L2 2 Z" />
+        <path d="M13.4 14.6 L17.2 18.4" className={styles.hilt} />
+      </svg>
+      <svg className={styles.brush} viewBox="0 0 24 24" focusable="false">
+        {/* 筆鋒:飽墨的肚子,尖端出鋒。 */}
+        <path d="M3 3 C9 6 13 10 16 16 C12 14 8 11 5 8 Z" />
+        <path d="M16 16 L20.5 20.5" className={styles.hilt} />
+      </svg>
     </div>
   );
 }

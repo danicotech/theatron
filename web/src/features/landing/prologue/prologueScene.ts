@@ -74,7 +74,14 @@ const LAMP_SIZE = 0.44;
 const DIFFUSE = 0.0038;
 const REFRACT = 0.012;
 /** 剪影在布上佔多大。大於 1 是把素材縮小,留出布的邊。 */
-const SIL_SCALE = 1.16;
+/**
+ * 剪影要佔**視窗**寬度的多少。
+ *
+ * 不是「佔布幕的多少」—— 布幕現在是 cover 的,它比視窗大,而且大多少隨著
+ * 視窗的長寬比變。用布幕當基準的話,螢幕一寬人就跟著脹出畫面外。
+ * 兩個人加上揮出去的袖與劍,0.72 是還留得住邊的上限。
+ */
+const SIL_VIEWPORT_SPAN = 0.72;
 
 export interface PrologueSceneOptions {
   canvas: HTMLCanvasElement;
@@ -128,6 +135,8 @@ export function createPrologueScene(options: PrologueSceneOptions): PrologueScen
   // 素材的長寬比不等於布的,直接鋪上去人會被拉長。這一項把它擺回原本的比例:
   // 以寬對齊,垂直方向補回差的那一截。
   const silFit = new Vector2(1, FLAG_ASPECT / silhouette.aspect);
+  // 每次 layout 都會改,所以它跟其他會變的 uniform 一樣建一次就不再換物件。
+  const silScale = { value: SIL_VIEWPORT_SPAN };
 
   // uniform 物件建一次就一直是同一個。每格重新配一份 { value } 是這種迴圈最常見的
   // 垃圾來源 —— 一分鐘六十格,十個 uniform 就是三萬六千個短命物件。
@@ -195,7 +204,7 @@ export function createPrologueScene(options: PrologueSceneOptions): PrologueScen
         uSilCur: shared.uSilCur,
         uSilPrev: shared.uSilPrev,
         uSilWipe: shared.uSilWipe,
-        uSilScale: { value: SIL_SCALE },
+        uSilScale: silScale,
         uSilFit: { value: silFit },
         uClothAspect: { value: FLAG_ASPECT },
         uLampSize: { value: LAMP_SIZE },
@@ -250,18 +259,21 @@ export function createPrologueScene(options: PrologueSceneOptions): PrologueScen
     backdrop.scale.set(far.vw, far.vh, 1);
 
     const near = spread(0);
-    // 旗不撐滿畫面:撐滿就沒有夜色可以襯,而剪影就在它上面 ——
-    // 布整片貼著螢幕邊緣的話,這一整段皮影戲讀起來只是一張全螢幕的貼圖。
+    // 旗**撐滿**畫面。
     //
-    // 直式視窗吃寬度、橫式吃高度。同一組係數兩邊都用的話,390 寬的畫面上
-    // 旗會縮成畫面中央一小塊,而剪影就小到看不出是兩個人在對劍。
-    const w =
-      a >= 1
-        ? Math.min(near.vw * 0.52, near.vh * 0.62 * FLAG_ASPECT)
-        : Math.min(near.vw * 0.92, near.vh * 0.34 * FLAG_ASPECT);
+    // 先前這裡刻意讓它只佔一半,理由是「撐滿就沒有夜色可以襯」。那個判斷是錯的:
+    // 使用者給的參考圖裡,整個畫面就是那塊被背光照亮的布 —— 觀眾是坐在戲棚前面,
+    // 不是在遠處看一塊掛著的布。夜色留給第三幕,那一幕才是走出去之後的世界。
+    //
+    // 用 max 而不是 min:兩邊各自算出「要蓋住這個軸需要多寬」,取大的那個 ——
+    // 也就是 cover 而不是 contain。橫式吃寬度、直式吃高度,同一條式子兩邊都對。
+    const w = Math.max(near.vw, near.vh * FLAG_ASPECT);
     // z 也要放大:離面位移算的是 local 單位,不放大的話布在透視下完全是平的,
     // 而「這是一塊會鼓起來的布」正是它與一張貼圖的差別。
     cloth.scale.set(w, w / FLAG_ASPECT, w * 0.34);
+    // 完整的剪影貼圖在布幕的 uv 上佔 uSilScale 這麼寬,所以它在畫面上的寬度是
+    // uSilScale × 布幕寬。要讓它固定佔視窗的一個比例,就得隨布幕與視窗的比例反推。
+    silScale.value = (SIL_VIEWPORT_SPAN * near.vw) / w;
     // 旗掛在朽樑上,所以它偏上;畫面下半留給枯梅與字。
     // 直式時旗往上讓,下面那一大塊留給字。
     cloth.position.y = near.vh * (a >= 1 ? 0.1 : 0.24);

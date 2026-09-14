@@ -16,7 +16,6 @@ import {
   HANDICAP_TOTAL,
   RANKS,
 } from '../features/landing/format';
-import { Prologue } from '../features/landing/prologue/Prologue';
 import { StopCard } from '../features/landing/StopCard';
 import { WordReveal } from '../features/landing/WordReveal';
 
@@ -89,6 +88,9 @@ export default function HomePage() {
 /**
  * 序幕的文案就是首屏的主文案,不是一張浮起來的紙。
  *
+ * 它是**內容**,所以住在 `<main>` 裡。布幕在它後面,是環境層
+ * (`prologue/Curtain.tsx`)—— 那一層整塊 aria-hidden,裡面沒有一個字。
+ *
  * 版面照 `design/sword-jianghu` 的語法:左側 eyebrow → 超大兩行標題 → 副標 →
  * 對句。那一套是使用者指定的(「UI 元件擺放位置是我期望的」),量過的數字
  * 記在 notes/2026-09-14-劍塚-三幕重構-grill.md 的 Q14。
@@ -96,19 +98,23 @@ export default function HomePage() {
 function ActOne() {
   const act = ACTS[0]!;
   return (
-    <Prologue titleId="stop-prologue-title">
+    <div className={styles.hero}>
       <p className={styles.eyebrow}>
         <span className={styles.dot} aria-hidden="true" />
         第一幕 {act.name} · {act.subtitle}
       </p>
       {/* 正式名稱還沒定,所以標題是這次視覺的代號,底下明講正式名稱待公布。
-          把「待公布」放大當標題是在替主辦宣布一件他還沒決定的事。 */}
+          把「待公布」放大當標題是在替主辦宣布一件他還沒決定的事。
+
+          **不刮**。逐筆揭露掛在捲動上的話,進度 0 的時候每一個字的 opacity 都是 0 ——
+          站名在第一眼是看不見的,而第一眼正是縮圖、分享連結、掃一眼就走的人拿到的
+          那一幀。標題是頁面的身分,不該跟著手指走;會跟著手指走的是布幕、是雪、
+          是旗,那些本來就是被刮的東西。 */}
       <WordReveal
         as="h1"
         className={styles.heroTitle}
         id="stop-prologue-title"
         text={isPlaceholder(CONTENT.tournamentName) ? CONTENT.workingTitle : CONTENT.tournamentName}
-        scrub
       />
       <p className={styles.heroSub}>
         正式名稱 <Field value={CONTENT.tournamentName} />
@@ -116,7 +122,7 @@ function ActOne() {
       <p className={styles.couplet}>
         <Field value={CONTENT.tagline} />
       </p>
-    </Prologue>
+    </div>
   );
 }
 

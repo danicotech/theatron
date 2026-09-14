@@ -71,13 +71,6 @@ export interface Act {
   temperature: 'warm' | 'tearing' | 'cold';
   /** 這一幕總共佔多少 vh(含定格平台)。 */
   span: number;
-  /**
-   * 這一幕自己帶著釘住的舞台。
-   *
-   * 序幕是這樣:它自己量自己的高度、自己釘舞台、自己管畫布(見 prologue/Prologue.tsx)。
-   * 殼再包一層 sticky 會把它的舞台裁掉,所以殼在這一幕只提供 section 與高度。
-   */
-  ownStage?: true;
   stops: readonly Stop[];
 }
 
@@ -94,7 +87,6 @@ export const ACTS: readonly Act[] = [
     action: '兩人對峙、三次交鋒、後撤。分鏡切換,格內只有雪、旗、髮帶、燈火在動',
     temperature: 'warm',
     span: 360,
-    ownStage: true,
     stops: [
       {
         id: 'prologue',

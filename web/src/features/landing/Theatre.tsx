@@ -1,15 +1,25 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useRef, type ReactNode } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 
 import { ACTS, anchorOffsets, worldProgress, type ActId, type StopId } from './acts';
 import styles from './Theatre.module.css';
+import { Curtain } from './prologue/Curtain';
 import { ForegroundStage } from './ForegroundStage';
 import { InkFilters } from './InkFilters';
 import { InkWipe } from './InkWipe';
 import { Reticle } from './Reticle';
 import { StopRail } from './StopRail';
 import { useActProgress } from './useActProgress';
+import { useReveals } from './useReveals';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 import { WorldScene } from './WorldScene';
 
@@ -59,22 +69,43 @@ export interface TheatreProps {
 }
 
 export function Theatre({ stages, children, colophon, onHeld }: TheatreProps) {
+  const doc = useRef<HTMLElement>(null);
   const sections = useRef<Map<ActId, HTMLElement>>(new Map());
   const reduced = usePrefersReducedMotion();
   const { state, held } = useActProgress(sections);
 
-  // 環境層每幀讀一個數字。這裡把三幕的進度攤成那一個數字,
+  // 出場動態的觀察器。少了它,每一個 data-rv 的元素都停在隱藏的起手式 ——
+  // 包括站名。(重構掉舊的殼時漏掛過一次,而漏掉的徵狀是首屏沒有標題,
+  // 不是任何一個錯誤訊息。)
+  useReveals(doc, reduced);
+
+  // 環境層每幀讀一個數字。這裡把三幕的進度攤成那些數字,
   // 而不是讓環境層自己認識「幕」—— 布景不需要知道敘事結構。
   const world = useRef(0);
+  const curtain = useRef(0);
+  const [curtainOn, setCurtainOn] = useState(true);
   useEffect(() => {
     let raf = 0;
+    let on = true;
     const tick = () => {
       raf = requestAnimationFrame(tick);
-      world.current = worldProgress(state.current.progress);
+      const p = state.current.progress;
+      world.current = worldProgress(p);
+      // 布幕跨第一、二幕,所以它吃的是那兩幕合起來的進度。
+      curtain.current = (p.i + p.ii) / 2;
+      // 進了第三幕代表旗已經落下。那之後布幕整層卸掉 —— 看不見的 3D 沒有畫的理由。
+      const want = p.iii <= 0;
+      if (want !== on) {
+        on = want;
+        setCurtainOn(want);
+      }
+      // 序幕標題的逐字揭露吃這個變數。它是內容那一層的事,所以寫在幕的 section 上,
+      // 不寫在布幕上 —— 布幕現在整層 aria-hidden,裡面沒有一個字。
+      sections.current?.get('i')?.style.setProperty('--rv-scrub', p.i.toFixed(4));
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [state]);
+  }, [state, sections]);
 
   useEffect(() => {
     onHeld?.(held);
@@ -92,8 +123,10 @@ export function Theatre({ stages, children, colophon, onHeld }: TheatreProps) {
       {/* 濾鏡定義。整頁只掛一份,墨暈轉場、印章、海報共用。 */}
       <InkFilters />
       <WorldScene progress={world} held={held} reduced={reduced} />
+      {/* 布幕跨第一、二幕,所以它跟 3D 世界一樣是環境層,不住在任何一幕裡。 */}
+      <Curtain progress={curtain} active={curtainOn} reduced={reduced} />
 
-      <main className={styles.doc} id="main">
+      <main className={styles.doc} id="main" ref={doc}>
         {ACTS.map((act) => (
           <section
             key={act.id}
@@ -117,13 +150,8 @@ export function Theatre({ stages, children, colophon, onHeld }: TheatreProps) {
                 }}
               />
             ))}
-            {/* 舞台釘在視窗上。幕有多高,它就被釘多久。
-                自己帶舞台的幕(序幕)不包 —— 再包一層 sticky 會把它的舞台裁掉。 */}
-            {act.ownStage === true ? (
-              stages[act.id]
-            ) : (
-              <div className={styles.stage}>{stages[act.id]}</div>
-            )}
+            {/* 舞台釘在視窗上。幕有多高,它就被釘多久。 */}
+            <div className={styles.stage}>{stages[act.id]}</div>
           </section>
         ))}
         {children}
