@@ -1,0 +1,1 @@
+[{key:"weaponOne",label:"武器一"},{key:"weaponTwo",label:"武器二"},{key:"head",label:"头"},{key:"cloth",label:"衣服"},{key:"ring",label:"环"},{key:"pendant",label:"佩"},{key:"shoe",label:"裤"},{key:"hand",label:"手"}]

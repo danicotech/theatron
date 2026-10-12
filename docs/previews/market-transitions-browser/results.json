@@ -1,0 +1,236 @@
+[
+  {
+    "width": 1440,
+    "name": "invalid-odds",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "quote-changed",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "m1-0-整場勝負-void-cancel",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "m1-0-整場勝負-void-confirm",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "single-refunded",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "m1-0-BO3 比分-void-confirm",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "partial-void-pending",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "m1-1-整場勝負-void-confirm",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "all-void-refunded",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "concurrent-rejected",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "synced-tickets-a",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "synced-tickets-b",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "time-line-locked",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "invalid-odds",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "quote-changed",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "m1-0-整場勝負-void-cancel",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "m1-0-整場勝負-void-confirm",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "single-refunded",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "m1-0-BO3 比分-void-confirm",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "partial-void-pending",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "m1-1-整場勝負-void-confirm",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "all-void-refunded",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "concurrent-rejected",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "synced-tickets-a",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "synced-tickets-b",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "time-line-locked",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "invalid-odds",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "quote-changed",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "m1-0-整場勝負-void-cancel",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "m1-0-整場勝負-void-confirm",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "single-refunded",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "m1-0-BO3 比分-void-confirm",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "partial-void-pending",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "m1-1-整場勝負-void-confirm",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "all-void-refunded",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "concurrent-rejected",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "synced-tickets-a",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "synced-tickets-b",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "time-line-locked",
+    "overflow": false,
+    "violations": []
+  }
+]

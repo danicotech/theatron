@@ -40,29 +40,39 @@ import styles from './MatchPage.module.css';
 export interface MatchPageProps {
   slug: string;
   matchId: string;
+  selectedPlayerId?: string;
 }
 
 const MATCH_POLL_MS = 5_000;
 const HANDICAP_POLL_MS = 10_000;
 
-export function MatchPage({ slug, matchId }: MatchPageProps) {
+export function MatchPage(props: MatchPageProps) {
+  // A route change starts a new set of polling requests. Old responses must not
+  // replace the selected match or retain the previous activity's format.
+  return <MatchContent key={`${props.slug}:${props.matchId}`} {...props} />;
+}
+
+function MatchContent({ slug, matchId, selectedPlayerId = '' }: MatchPageProps) {
   const [tournament, setTournament] = useState<Tournament | null>(null);
   const [ranks, setRanks] = useState<RankInfo[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const request = new AbortController();
     void (async () => {
       try {
         const [t, r] = await Promise.all([
-          activityApi.tournament.getTournament({ slug }),
-          activityApi.tournament.listRanks({ tournamentSlug: slug }),
+          activityApi.tournament.getTournament({ slug }, { signal: request.signal }),
+          activityApi.tournament.listRanks({ tournamentSlug: slug }, { signal: request.signal }),
         ]);
+        if (request.signal.aborted) return;
         setTournament(t.tournament ?? null);
         setRanks(r.ranks);
       } catch (err) {
-        setError(ConnectError.from(err).message);
+        if (!request.signal.aborted) setError(ConnectError.from(err).message);
       }
     })();
+    return () => request.abort();
   }, [slug]);
 
   const loadMatch = useCallback(
@@ -76,6 +86,13 @@ export function MatchPage({ slug, matchId }: MatchPageProps) {
     [matchId],
   );
   const handicaps = usePolling(loadHandicaps, HANDICAP_POLL_MS);
+  const loadedMatchId = match.data?.match?.publicId;
+  useEffect(() => {
+    // The anchor is created after the public match request; honor the initial deep link then.
+    if (loadedMatchId && window.location.hash === '#markets') {
+      document.getElementById('markets')?.scrollIntoView?.({ block: 'start' });
+    }
+  }, [loadedMatchId]);
 
   if (match.data === null) {
     const msg = match.error ?? error;
@@ -100,6 +117,12 @@ export function MatchPage({ slug, matchId }: MatchPageProps) {
 
   const p1 = match.data.p1;
   const p2 = match.data.p2;
+  const selectedPlayer = [p1, p2].find(
+    (player) =>
+      player?.publicId === selectedPlayerId &&
+      selectedPlayerId !== '' &&
+      (selectedPlayerId === m.p1PlayerPublicId || selectedPlayerId === m.p2PlayerPublicId),
+  );
   const budget = match.data.handicapBudget;
   const holderId = match.data.handicapHolderPublicId;
   const holder = p1?.publicId === holderId ? p1 : p2?.publicId === holderId ? p2 : undefined;
@@ -158,7 +181,25 @@ export function MatchPage({ slug, matchId }: MatchPageProps) {
 
       {/* 盤口緊接在對峙構圖之後:觀眾看完「誰對誰、誰有 BP」下一件事就是押誰。
           投注單在版面的另一欄(路由層放 BetSlip),這裡只有盤口。 */}
-      <MarketBoard slug={slug} matchPublicId={m.publicId} />
+      <div id="markets" data-selected-player={selectedPlayer?.publicId}>
+        {selectedPlayer === undefined ? null : (
+          <p className={styles.note}>
+            已選擇選手：<strong>{selectedPlayer.displayName}</strong>
+            。請確認盤口，再加入投注單。
+          </p>
+        )}
+        <MarketBoard
+          slug={slug}
+          matchPublicId={m.publicId}
+          selectedOutcome={
+            selectedPlayer === undefined
+              ? undefined
+              : selectedPlayer.publicId === m.p1PlayerPublicId
+                ? 'p1'
+                : 'p2'
+          }
+        />
+      </div>
 
       {m.streamUrl === '' ? null : (
         <a

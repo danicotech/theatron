@@ -14,6 +14,8 @@
   /* 文字 */
   --text-primary: var(--plum-050);
   --text-secondary: var(--plum-300);
+  /* Dark red ink remains decorative; small error text needs a readable tint. */
+  --text-danger: color-mix(in srgb, var(--state-live) 50%, var(--text-primary));
 
   /* 語意 —— 職責唯一,不可挪用。 */
   /* 換主題可以換色值,不能換職責。 */

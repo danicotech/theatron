@@ -1,0 +1,506 @@
+[
+  {
+    "width": 1440,
+    "name": "empty",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "build-picker",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "selected-build",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "level-picker",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "mind-picker",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "export",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "role-error",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "delete-confirm",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "import-error",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "import-preview",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "quick-add",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "equipment-editor",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "equipment-draft",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "direct-unequip",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "direct-equip",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "equipment-set",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "attribute-source",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "guide",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "clipboard-denied",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "missing-signup-code",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "file-read-error",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "file-read-retry",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "late-file-ignored",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "manual-copy-fallback",
+    "documentWidth": 1440,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "empty",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "build-picker",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "selected-build",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "level-picker",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "mind-picker",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "export",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "role-error",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "delete-confirm",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "import-error",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "import-preview",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "quick-add",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "equipment-editor",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "equipment-draft",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "direct-unequip",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "direct-equip",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "equipment-set",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "attribute-source",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "guide",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "clipboard-denied",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "missing-signup-code",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "file-read-error",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "file-read-retry",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "late-file-ignored",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "manual-copy-fallback",
+    "documentWidth": 768,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "empty",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "build-picker",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "selected-build",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "level-picker",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "mind-picker",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "export",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "role-error",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "delete-confirm",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "import-error",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "import-preview",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "quick-add",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "equipment-editor",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "equipment-draft",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "direct-unequip",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "direct-equip",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "equipment-set",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "attribute-source",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "guide",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "clipboard-denied",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "missing-signup-code",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "file-read-error",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "file-read-retry",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "late-file-ignored",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "manual-copy-fallback",
+    "documentWidth": 375,
+    "small": [],
+    "violations": []
+  }
+]

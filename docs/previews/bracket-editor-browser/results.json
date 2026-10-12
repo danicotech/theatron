@@ -1,0 +1,212 @@
+[
+  {
+    "width": 1440,
+    "name": "editing",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "64-entrants",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "odd-entrants",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "invalid-count",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "assigned",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "match-editor",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "invalid-score",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "saved",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "storage-failure",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "view",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "editing",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "64-entrants",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "odd-entrants",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "invalid-count",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "assigned",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "match-editor",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "invalid-score",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "saved",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "storage-failure",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "view",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "editing",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "64-entrants",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "odd-entrants",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "invalid-count",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "assigned",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "match-editor",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "invalid-score",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "saved",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "storage-failure",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "view",
+    "overflow": false,
+    "controls": [],
+    "violations": []
+  }
+]

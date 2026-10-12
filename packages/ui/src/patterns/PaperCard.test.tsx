@@ -12,7 +12,7 @@ describe('PaperCard', () => {
   it('條目是 dl,標籤與值成對 —— 告示的欄位是有結構的資料,不是排版', () => {
     const { container } = render(
       <PaperCard
-        title="劍塚"
+        title="論劍"
         rows={[
           { label: '開賽日期', value: '待公布' },
           { label: '報名截止', value: '待公布' },
@@ -33,9 +33,9 @@ describe('PaperCard', () => {
 
   // 副標是標題的一部分,不是第二個標題 —— 多一層標題會讓大綱多一個沒有內容的節點。
   it('副標唸在標題裡,不另外成為一個標題', () => {
-    render(<PaperCard title="劍塚" subtitle="武俠競技大會" />);
+    render(<PaperCard title="論劍" subtitle="武俠競技大會" />);
     const heading = screen.getByRole('heading');
-    expect(heading.textContent).toBe('劍塚武俠競技大會');
+    expect(heading.textContent).toBe('論劍武俠競技大會');
     expect(screen.getAllByRole('heading')).toHaveLength(1);
   });
 
@@ -43,7 +43,7 @@ describe('PaperCard', () => {
   // 兩個都唸出來只會在每一張紙前面多兩段沒有意義的聲音。
   it('內框與印不進無障礙樹', () => {
     const { container } = render(
-      <PaperCard title="劍塚" stamp={<svg data-testid="seal" />} kicker="江湖令" />,
+      <PaperCard title="論劍" stamp={<svg data-testid="seal" />} kicker="江湖令" />,
     );
     const hidden = container.querySelectorAll('[aria-hidden="true"]');
     expect(hidden.length).toBeGreaterThanOrEqual(2);
@@ -51,7 +51,7 @@ describe('PaperCard', () => {
   });
 
   it('沒有內容的段落不留空殼', () => {
-    const { container } = render(<PaperCard title="劍塚" />);
+    const { container } = render(<PaperCard title="論劍" />);
     expect(container.querySelector('dl')).toBeNull();
     expect(container.querySelector('p')).toBeNull();
   });
@@ -66,7 +66,7 @@ describe('PaperCard', () => {
       <PaperCard
         kicker="江湖令"
         index="PUBLIC NOTICE / 001"
-        title="劍塚"
+        title="論劍"
         subtitle="武俠競技大會"
         rows={[{ label: '獎金', value: '待公布', mono: true }]}
         note="正式報名辦法將於本頁公告。"

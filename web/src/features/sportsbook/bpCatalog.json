@@ -1,0 +1,326 @@
+[
+  {
+    "id": "weapon-1",
+    "category": "武器限制",
+    "name": "指定對手武學",
+    "cost": 20,
+    "description": "你可以指定對手的武學組合。",
+    "repeatable": false,
+    "requiresTarget": true
+  },
+  {
+    "id": "weapon-2",
+    "category": "武器限制",
+    "name": "隨機武學",
+    "cost": 12,
+    "description": "對手的武學將被裁判隨機指定。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "weapon-3",
+    "category": "武器限制",
+    "name": "禁止切換武器",
+    "cost": 12,
+    "description": "對手的切換武器按鍵將被裁判要求移除，對手若仍能切換武器則視為違規。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "weapon-4",
+    "category": "武器限制",
+    "name": "雙方使用46級武庫武學裝備",
+    "cost": 5,
+    "description": "雙方一律使用46級武庫的武學裝備。注意：此項對你自己同樣生效。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "weapon-5",
+    "category": "武器限制",
+    "name": "禁武學特效",
+    "cost": 2,
+    "description": "對手開賽前必須在設定中關閉。開打後畫面仍出現武學特效則視為違規。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "skill-1",
+    "category": "技能限制",
+    "name": "禁用兩種技能（特殊技、武學技）",
+    "cost": 24,
+    "description": "對手的特殊技、武學技按鍵將被裁判要求移除，對手若仍能使用特殊技、武學技則視為違規。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "skill-2",
+    "category": "技能限制",
+    "name": "禁用奇術",
+    "cost": 16,
+    "description": "對手全場無法使用任何奇術。若同時買了「禁用任意奇術」，將經裁判確認後返還禁用任意奇術的 BP。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "skill-3",
+    "category": "技能限制",
+    "name": "禁用一種技能（特殊技、武學技）",
+    "cost": 12,
+    "description": "對手的特殊技、武學技其中一個按鍵將被裁判要求移除，對手若仍能使用特殊技或武學技則視為違規。",
+    "repeatable": false,
+    "requiresTarget": true
+  },
+  {
+    "id": "skill-4",
+    "category": "技能限制",
+    "name": "禁用普通攻擊",
+    "cost": 12,
+    "description": "對手只能靠技能造成傷害。攻擊鍵的基礎攻擊被裁判要求移除，對手若仍能觸發普通攻擊則視為違規。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "skill-5",
+    "category": "技能限制",
+    "name": "禁用重蓄力",
+    "cost": 12,
+    "description": "對手的重蓄力按鍵將被裁判要求移除，對手若仍能觸發重蓄力則視為違規。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "skill-6",
+    "category": "技能限制",
+    "name": "禁用處決",
+    "cost": 8,
+    "description": "對手的處決按鍵將被裁判要求移除，對手若仍能觸發處決則視為違規。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "skill-7",
+    "category": "技能限制",
+    "name": "指定並更改技能位子（可重複）",
+    "cost": 5,
+    "description": "選購時逐次寫下「哪個技能移到哪個鍵位」。\n例：武學技移動到 ALT+4；太白醉月移動到 Q；手把玩家依相對應按鍵調整。",
+    "repeatable": true,
+    "requiresTarget": true
+  },
+  {
+    "id": "skill-8",
+    "category": "技能限制",
+    "name": "禁用任意奇術（可重複）",
+    "cost": 3,
+    "description": "選購時逐次指定一個奇術名稱。裁判將依禁用清單要求對手移除該奇術，對手若仍能觸發該奇術則視為違規。",
+    "repeatable": true,
+    "requiresTarget": true
+  },
+  {
+    "id": "movement-1",
+    "category": "防禦與位移限制",
+    "name": "禁用移動鍵",
+    "cost": 20,
+    "description": "對手的移動鍵（預設 WASD）將被裁判要求移除，靠奇術、技能的位移不算違規。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "movement-2",
+    "category": "防禦與位移限制",
+    "name": "禁用解控",
+    "cost": 8,
+    "description": "對手將無法攜帶解控奇術上場，對手若仍能發動解控則視為違規。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "movement-3",
+    "category": "防禦與位移限制",
+    "name": "禁用迴避",
+    "cost": 8,
+    "description": "對手的迴避按鍵將被要求移除，對手若仍能使用迴避則視為違規，奇術、技能的迴避效果不在此限。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "movement-4",
+    "category": "防禦與位移限制",
+    "name": "禁用卸勢",
+    "cost": 5,
+    "description": "對手的卸勢按鍵將被要求移除，對手若仍能使用卸勢則視為違規。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "movement-5",
+    "category": "防禦與位移限制",
+    "name": "禁用防禦",
+    "cost": 5,
+    "description": "對手的防禦按鍵將被要求移除，對手若仍能使用防禦則視為違規。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "movement-6",
+    "category": "防禦與位移限制",
+    "name": "禁跳躍",
+    "cost": 2,
+    "description": "對手的跳躍按鍵將被要求移除，對手若仍能使用跳躍則視為違規，奇術、技能的跳躍效果不在此限。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "poison-1",
+    "category": "下毒",
+    "name": "對手讓出守關元",
+    "cost": 24,
+    "description": "開局時由對手主動受擊，直到對手觸發守關元後，雙方必須脫離糾纏，接著直接進入正式決鬥。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "poison-2",
+    "category": "下毒",
+    "name": "打亂上下左右鍵",
+    "cost": 24,
+    "description": "上下左右的打亂方式由裁判隨機指定。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "poison-3",
+    "category": "下毒",
+    "name": "互換任意兩個按鍵",
+    "cost": 12,
+    "description": "由你指定哪兩個鍵互換，且不限於方向鍵。\n例：Q 跟 ～ 互換；W 跟 Q 互換；S 跟 ALT+4 互換。",
+    "repeatable": false,
+    "requiresTarget": true
+  },
+  {
+    "id": "poison-4",
+    "category": "下毒",
+    "name": "對手讓出半條血量",
+    "cost": 10,
+    "description": "開局時由對手主動受擊，直到對手血量明顯低於一半時，你必須主動停手並且雙方脫離糾纏，接著才進入正式決鬥。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "victory-1",
+    "category": "勝利條件",
+    "name": "撐過90秒即獲勝",
+    "cost": 24,
+    "description": "你只要撐過90秒並且比賽沒有進入結算畫面，即判定獲勝。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "victory-2",
+    "category": "勝利條件",
+    "name": "撐過120秒即獲勝",
+    "cost": 20,
+    "description": "你只要撐過120秒並且比賽沒有進入結算畫面，即判定獲勝。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "victory-3",
+    "category": "勝利條件",
+    "name": "撐過180秒即獲勝",
+    "cost": 16,
+    "description": "你只要撐過180秒並且比賽沒有進入結算畫面，即判定獲勝。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "victory-4",
+    "category": "勝利條件",
+    "name": "時間結束即勝利",
+    "cost": 10,
+    "description": "時間結束時你仍沒被擊倒，即使結算為對手獲勝，仍判定你獲勝。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "victory-5",
+    "category": "勝利條件",
+    "name": "對手明顯損失半條血量即落敗",
+    "cost": 20,
+    "description": "以對手血條掉到一半以下為準，傷害來源不限（含他自己的失誤）。「明顯」由裁判認定；若有爭議即不符合「明顯」原則，將不會判定對手落敗。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "victory-6",
+    "category": "勝利條件",
+    "name": "打出守關元即勝利",
+    "cost": 10,
+    "description": "你打出對手的守關元瞬間即獲勝，不必再完成擊倒。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "rule-1",
+    "category": "規則限制",
+    "name": "對手不能主動追擊",
+    "cost": 17,
+    "description": "對手在你脫離接戰後不得向你移動接近；他可以原地防守，也可以反擊你送上門的進攻。\n脫離判定：透過迴避、卸勢、處決、防禦反擊中斷對手攻勢並主動脫離戰鬥，即完成脫離。\n在比賽可看性以及時間壓力上，裁判會有積極進攻的要求；若不服從裁判要求則可能被判輸。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "rule-2",
+    "category": "規則限制",
+    "name": "對手未攻擊時必須待在角落",
+    "cost": 17,
+    "description": "對手只有在進行攻擊動作時可以離開角落，攻擊動作結束後必須返回。場地依九宮格劃分後的四個四方角為角落，攻擊、追擊結束時必須回到角落。\n在比賽可看性以及時間壓力上，裁判會有積極進攻的要求；若不服從裁判要求則可能被判輸。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "rule-3",
+    "category": "規則限制",
+    "name": "獲得8秒的先手權",
+    "cost": 2,
+    "description": "在決鬥開始前8秒，你的對手不能主動攻擊你，直到你先發動攻擊。",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "rule-4",
+    "category": "規則限制",
+    "name": "指定對手外觀（可全身指定）",
+    "cost": 1,
+    "description": "例：帶光頭＋沒有衣服。",
+    "repeatable": false,
+    "requiresTarget": true
+  },
+  {
+    "id": "rule-5",
+    "category": "規則限制",
+    "name": "對手必須在開賽前落下一句狠話",
+    "cost": 1,
+    "description": "開打前對手必須打字公開說一句狠話，眾人見證此話的前提下才能進入會場進行決鬥，內容不限，但不得辱罵或人身攻擊。\n例：你好像很勇哦，讓我看看！",
+    "repeatable": false,
+    "requiresTarget": false
+  },
+  {
+    "id": "rule-6",
+    "category": "規則限制",
+    "name": "對手若輸了必須聽從勝者的一個要求（可以拒絕）",
+    "cost": 1,
+    "description": "例：你輸了就要當我的俠緣。（我拒絕）",
+    "repeatable": false,
+    "requiresTarget": true
+  },
+  {
+    "id": "rule-7",
+    "category": "規則限制",
+    "name": "指定對手開局時講一句話（8個字），沒講出來不能進行攻擊（可以先複製好）",
+    "cost": 1,
+    "description": "例：夜鴉所至，萬敵皆寂！",
+    "repeatable": false,
+    "requiresTarget": true
+  }
+]

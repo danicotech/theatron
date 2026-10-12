@@ -1,0 +1,1908 @@
+.app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px 24px 96px;
+  color: var(--text-primary);
+  font: 16px/1.65 var(--font-body);
+  min-height: 100dvh;
+}
+.app[data-embedded='true'] {
+  padding: 8px 0 80px;
+  min-height: 0;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 20px;
+}
+.header h1 {
+  font: 700 clamp(28px, 4vw, 42px)/1.2 var(--font-display);
+  margin: 4px 0;
+  color: var(--text-primary);
+}
+.eyebrow {
+  color: var(--accent-money);
+  font-size: 12px;
+  margin: 0;
+}
+.app :is(h2, h3),
+.modal :is(h2, h3) {
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+.app h2 {
+  font-size: 24px;
+}
+.app h3 {
+  font-size: 16px;
+}
+.app p,
+.modal p {
+  text-wrap: pretty;
+}
+.app small {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.app :is(button, input, select, textarea),
+.modal :is(button, input, select, textarea) {
+  box-sizing: border-box;
+  min-height: 44px;
+  border: 1px solid var(--border-subtle);
+  padding: 8px 12px;
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font: inherit;
+  max-width: 100%;
+}
+.app button,
+.modal button {
+  min-width: 44px;
+  cursor: pointer;
+}
+.app button:disabled,
+.modal button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.app :is(button, a, input, select, textarea):focus-visible,
+.modal :is(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid var(--accent-money);
+  outline-offset: 3px;
+}
+.app button:not(:disabled):hover,
+.modal button:not(:disabled):hover {
+  border-color: var(--accent-money);
+}
+.app button[aria-pressed='true'] {
+  border-color: var(--accent-money);
+  color: var(--accent-money);
+}
+.app a {
+  color: var(--accent-money);
+  text-underline-offset: 4px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.app .primary,
+.modal .primary {
+  background: var(--accent-money);
+  border-color: var(--accent-money);
+  color: var(--surface-base);
+  font-weight: 700;
+}
+.app strong,
+.modal strong {
+  color: var(--accent-money);
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.banner {
+  border-left: 3px solid var(--accent-money);
+  padding: 10px 14px;
+  background: var(--surface-raised);
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.toolbar {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-block: 20px;
+}
+.app label,
+.modal label {
+  display: grid;
+  gap: 6px;
+  margin-block: 10px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  min-width: 0;
+}
+.app input,
+.app select,
+.modal input,
+.modal select {
+  width: 100%;
+  min-width: 0;
+}
+.app input[type='checkbox'],
+.modal input[type='checkbox'] {
+  width: 20px;
+  min-height: 20px;
+}
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 12px;
+}
+.tabs button[aria-current='page'] {
+  border-color: var(--accent-money);
+  color: var(--accent-money);
+  background: var(--surface-raised);
+}
+.notice {
+  font-size: 13px;
+  color: var(--state-win);
+  min-height: 20px;
+}
+.error {
+  padding: 12px;
+  border-left: 3px solid var(--state-live);
+  color: var(--text-danger);
+  background: var(--surface-raised);
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 24px;
+}
+.layout main {
+  min-width: 0;
+}
+.empty {
+  padding-block: 40px;
+}
+.matchHead {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.matchHead h2 {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.matchHead h2 span:first-child {
+  color: color-mix(in srgb, var(--accent-side-red) 45%, var(--text-primary));
+}
+.matchHead h2 span:last-child {
+  color: color-mix(in srgb, var(--accent-side-blue) 45%, var(--text-primary));
+}
+.matchHead em {
+  color: var(--accent-money);
+  font: 500 20px var(--font-mono);
+}
+.market {
+  margin-block: 20px;
+  border: 1px solid var(--border-subtle);
+}
+.market header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background: var(--surface-raised);
+}
+.market h3 {
+  margin: 0;
+}
+.market header > span {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.market [data-status='open'] {
+  color: var(--state-win);
+}
+.market [data-status='settled'] {
+  color: var(--accent-money);
+}
+.outcome {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 52px 60px 100px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent-side-red);
+}
+.outcome[data-side='blue'] {
+  border-left-color: var(--accent-side-blue);
+}
+.outcome > span {
+  overflow-wrap: anywhere;
+}
+.outcome small {
+  text-align: right;
+}
+.odds {
+  font-family: var(--font-mono) !important;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-money) !important;
+}
+.odds[data-highlight='true'] {
+  outline: 1px solid var(--accent-money);
+}
+.slip {
+  position: static;
+  align-self: start;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-raised);
+  padding: 20px;
+}
+.slip[data-fits='true'] {
+  position: sticky;
+  top: 20px;
+}
+.app[data-embedded='true'] .slip {
+  position: static;
+}
+.slip h2 {
+  font-size: 20px;
+  margin: 0 0 12px;
+}
+.slip p {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.slipEditor ol {
+  padding-left: 20px;
+}
+.slipEditor li {
+  overflow-wrap: anywhere;
+  padding-block: 12px;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+.slipEditor li > span {
+  display: block;
+}
+.slipEditor li > button {
+  margin-left: 12px;
+}
+.slip strong,
+.slipEditor strong {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.slipBody > .primary {
+  width: 100%;
+  margin-top: 12px;
+}
+.slipToggle {
+  display: none;
+}
+.ticket {
+  padding: 16px;
+  border-block: 1px solid var(--border-subtle);
+  margin-block: 12px;
+}
+.ticket header {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ticket li {
+  overflow-wrap: anywhere;
+  padding-block: 6px;
+}
+.ticket small {
+  display: block;
+}
+.tableWrap {
+  overflow-x: auto;
+}
+.app table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.app :is(th, td) {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: left;
+}
+.app td:not(:first-child) {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.app td small {
+  display: block;
+}
+.app td[data-positive='true'] {
+  color: var(--state-win);
+}
+.prizes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.prizes article {
+  border-top: 2px solid var(--accent-money);
+  padding: 16px;
+  background: var(--surface-raised);
+}
+.app details {
+  border-block: 1px solid var(--border-subtle);
+  padding: 16px 0;
+}
+.app summary {
+  cursor: pointer;
+  min-height: 44px;
+  font: 600 18px/1.6 var(--font-display);
+  color: var(--text-primary);
+}
+.form {
+  max-width: 600px;
+}
+.adminMatch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.adminMatch p {
+  font-size: 14px;
+  margin: 4px 0;
+}
+.modal {
+  box-sizing: border-box;
+  width: min(620px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  padding: 24px;
+  color: var(--text-primary);
+  background: var(--surface-base);
+  border: 1px solid var(--accent-money);
+  font: 16px/1.65 var(--font-body);
+  overscroll-behavior: contain;
+}
+.modal::backdrop {
+  background: color-mix(in srgb, var(--surface-base) 85%, transparent);
+}
+.modal header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.modal h2 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--accent-money);
+}
+.modal fieldset {
+  border: 1px solid var(--border-subtle);
+  margin: 12px 0;
+  padding: 12px;
+  min-width: 0;
+}
+.modal legend {
+  color: var(--accent-money);
+}
+.modal textarea {
+  min-height: 80px;
+  width: 100%;
+}
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .slip,
+  .slip[data-fits='true'] {
+    position: fixed;
+    z-index: 40;
+    inset: auto 0 0;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100dvh - 32px);
+    overflow: hidden;
+    padding: 0 16px calc(12px + env(safe-area-inset-bottom));
+    border-top: 2px solid var(--accent-money);
+  }
+  .slipToggle {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: 0 !important;
+  }
+  .slipBody {
+    display: none;
+    min-height: 0;
+    overflow-y: auto;
+  }
+  .slipBody > .primary {
+    position: sticky;
+    bottom: 0;
+  }
+  .slip[data-open='true'] .slipBody {
+    display: block;
+  }
+  .app[data-embedded='true'] .slip {
+    position: static;
+    margin-top: 12px;
+  }
+  .header {
+    align-items: start;
+    flex-direction: column;
+  }
+}
+@media (max-width: 540px) {
+  .app {
+    padding: 20px 16px 96px;
+  }
+  .outcome {
+    grid-template-columns: minmax(0, 1fr) 48px 88px;
+    gap: 6px;
+  }
+  .outcome > small {
+    display: none;
+  }
+  .outcome > button {
+    padding-inline: 6px;
+  }
+  .prizes {
+    grid-template-columns: 1fr;
+  }
+  .modal {
+    width: 100%;
+    max-height: 92dvh;
+    margin: auto auto 0;
+    padding: 20px 16px calc(20px + env(safe-area-inset-bottom));
+  }
+  .toolbar > label {
+    width: 100%;
+  }
+  .tabs button {
+    flex: 1 0 auto;
+    white-space: nowrap;
+  }
+}
+
+.wide {
+  width: min(1280px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+}
+
+.voteNote {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 8px 0;
+}
+
+.checkRow {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+}
+.systems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border: 1px solid var(--border-subtle);
+  margin: 16px 0;
+}
+.systems label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.oddsSummary {
+  margin-block: 12px;
+  padding-block: 8px;
+  border-block: 1px solid var(--border-subtle);
+  background: var(--surface-base);
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+.oddsSummary p {
+  margin-block: 8px;
+}
+.oddsSummary > strong {
+  display: block;
+  font-size: 24px;
+  color: var(--accent-money);
+}
+.oddsSummary small {
+  display: block;
+  margin-top: 8px;
+}
+
+.selectionButton {
+  width: 100%;
+  text-align: left;
+}
+.slipHint {
+  margin-block: 6px;
+}
+.slipBody > small {
+  display: block;
+  margin-top: 8px;
+}
+.slipEditor {
+  overflow-wrap: anywhere;
+}
+.slipEditor details {
+  border-block: 1px solid var(--border-subtle);
+  margin-block: 16px;
+}
+.slipEditor summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  cursor: pointer;
+}
+.editorActions {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-block: 12px;
+  background: var(--surface-base);
+}
+.confirmSelections {
+  padding-left: 20px;
+  overflow-wrap: anywhere;
+}
+.confirmSelections li {
+  margin-block: 8px;
+}
+
+.modal > header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--surface-base);
+  padding-block: 8px;
+}
+.modal > header::before {
+  /* Cover the dialog's padding too, so scrolled text cannot peek above the title. */
+  content: '';
+  position: absolute;
+  inset: -24px -24px 0;
+  z-index: -1;
+  background: var(--surface-base);
+  pointer-events: none;
+}
+
+.layout[data-reading='true'] {
+  grid-template-columns: minmax(0, 1fr);
+}
+.participation {
+  max-width: 880px;
+  margin-block: 24px;
+  overflow-wrap: anywhere;
+}
+.participation form {
+  display: grid;
+  gap: 16px;
+}
+.participation fieldset {
+  display: grid;
+  gap: 16px;
+}
+.participation textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+.participation dd {
+  margin: 4px 0 16px;
+  white-space: pre-wrap;
+}
+.participation dt {
+  color: var(--accent-money);
+}
+.flowSteps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+  margin-block: 24px;
+}
+.flowSteps li {
+  padding: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.flowSteps [aria-current='step'] {
+  color: var(--accent-money);
+  border-color: currentColor;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .app button,
+  .modal button {
+    transition:
+      scale 150ms ease-out,
+      border-color 150ms ease-out,
+      background-color 150ms ease-out,
+      color 150ms ease-out;
+  }
+  .app button:not(:disabled):active,
+  .modal button:not(:disabled):active {
+    scale: 0.98;
+  }
+  .modal[open] {
+    animation: dialogEnter 180ms ease-out;
+  }
+}
+@keyframes dialogEnter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.app button[aria-current='page'],
+.app button[aria-pressed='true'] {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.app button[aria-busy='true'],
+.modal button[aria-busy='true'] {
+  cursor: progress;
+}
+
+.modal .modalBody {
+  /* Keep embedded page layers below this dialog's sticky header. */
+  isolation: isolate;
+  border: 0;
+  padding: 0;
+  margin: 20px 0 0;
+  min-width: 0;
+}
+.app .danger,
+.modal .danger {
+  color: var(--text-danger);
+  border-color: var(--text-danger);
+}
+.app .danger:not(:disabled):hover,
+.modal .danger:not(:disabled):hover {
+  background: var(--text-danger);
+  color: var(--surface-base);
+}
+@media (max-width: 520px) {
+  .modal .actions > button,
+  .adminMatch .actions > button {
+    flex: 1 1 100%;
+  }
+  .modal {
+    padding: 20px 16px max(20px, env(safe-area-inset-bottom));
+  }
+  .modal > header::before {
+    inset: -20px -16px 0;
+  }
+}
+
+/* The homepage scroll supplies the paper palette and owns vertical scrolling. */
+.app[data-scroll-form='true'] {
+  padding: 0;
+  min-height: 0;
+}
+.app[data-scroll-form='true'] > .header {
+  padding-block: 16px;
+  margin-bottom: 0;
+}
+.app[data-scroll-form='true'] > .header .actions {
+  width: 100%;
+  justify-content: space-between;
+}
+.app[data-scroll-form='true'] > .header .actions > span {
+  font-family: var(--font-display);
+}
+.app[data-scroll-form='true'] > .layout {
+  margin-top: 0;
+}
+
+.memberAuth {
+  border: 0;
+  padding: 0;
+  margin: 24px 0 0;
+  min-width: 0;
+}
+
+.slipEmpty {
+  padding: 24px 0 16px;
+  color: var(--text-primary);
+}
+.slipEmpty strong {
+  font: 600 22px/1.4 var(--font-display);
+}
+.slipEmpty p {
+  margin: 8px 0;
+  color: var(--text-secondary);
+}
+.slipEditor summary::after {
+  content: '＋';
+  margin-left: auto;
+  color: var(--text-secondary);
+}
+.slipEditor details[open] > summary::after {
+  content: '−';
+}
+
+/* Paper-and-ink treatment shared by the arena and its nested dialogs. */
+.paper {
+  --surface-base: var(--surface-paper);
+  --surface-raised: color-mix(in srgb, var(--surface-paper) 93%, var(--text-on-paper));
+  --surface-overlay: var(--surface-paper);
+  --text-primary: var(--text-on-paper);
+  --text-secondary: var(--paper-faint);
+  --text-danger: var(--paper-live);
+  --accent-money: var(--paper-live);
+  --state-win: var(--paper-live);
+  --state-live: var(--paper-live);
+  --border-subtle: color-mix(in srgb, var(--text-on-paper) 25%, transparent);
+  color-scheme: light;
+  background: var(--surface-base);
+}
+.modal.paper {
+  border: 0;
+  border-block: 8px double var(--paper-faint);
+  padding: 24px 32px;
+  box-shadow: 0 16px 60px color-mix(in srgb, var(--text-on-paper) 35%, transparent);
+}
+.modal.paper::backdrop {
+  background: color-mix(in srgb, var(--text-on-paper) 75%, transparent);
+}
+.paper .header {
+  justify-content: flex-end;
+  border: 0;
+  padding: 0;
+}
+.paper .banner {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 12px;
+  margin: 8px 0;
+  color: var(--text-secondary);
+}
+.paper .tabs {
+  gap: 20px;
+  align-items: center;
+  padding: 0;
+  margin-block: 16px 28px;
+}
+.paper .tabs button {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  padding: 12px 4px;
+  color: var(--text-primary);
+}
+.paper .tabs button[aria-current='page'] {
+  background: none;
+  border-bottom-color: var(--paper-live);
+  color: var(--paper-live);
+}
+.paper .market,
+.paper .ticket {
+  border: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  background: none;
+  padding: 20px 0;
+  box-shadow: none;
+}
+.paper .slip {
+  border: 0;
+  border-left: 1px solid var(--border-subtle);
+  background: none;
+  padding: 0 0 0 24px;
+}
+.paper .empty {
+  padding: 48px 0 64px;
+  border: 0;
+  background: none;
+}
+.paper .empty h2 {
+  font: 600 clamp(26px, 3vw, 36px)/1.4 var(--font-display);
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.paper .empty p {
+  color: var(--text-secondary);
+}
+.paper .notice:empty {
+  display: none;
+}
+.paper .oddsSummary {
+  border: 0;
+  border-block: 1px solid var(--border-subtle);
+  background: none;
+  box-shadow: none;
+}
+@media (max-width: 767px) {
+  .modal.paper {
+    padding: 16px;
+  }
+  .paper .tabs {
+    gap: 12px;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  .paper .slip {
+    border-left: 0;
+    padding: 0;
+    background: var(--surface-base);
+  }
+  .paper .empty {
+    padding: 28px 0 40px;
+  }
+}
+
+.paper .outcome {
+  border-left: 0;
+  padding: 14px 0;
+  background: transparent;
+}
+.paper .outcome > button:not(.odds) {
+  border-color: transparent;
+  background: none;
+  color: var(--text-secondary);
+}
+.paper .selectionButton {
+  border: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-inline: 0;
+  background: none;
+}
+.paper .toolbar select {
+  border: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  background: none;
+}
+.paper .toolbar {
+  margin-block: 12px;
+}
+
+.paper.app[data-embedded='true'] {
+  position: relative;
+  padding-bottom: 32px;
+}
+.paper.app[data-embedded='true'] > .header {
+  position: absolute;
+  right: 60px;
+  top: -70px;
+}
+.paper .market header {
+  background: none;
+  padding: 0 0 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.paper .market header > span {
+  color: var(--text-secondary);
+}
+.paper .matchHead p,
+.paper .voteNote {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+@media (max-width: 767px) {
+  .paper.app[data-embedded='true'] > .header {
+    position: static;
+    margin: 0 0 8px;
+  }
+  .paper .header .actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .paper .header button {
+    padding-inline: 8px;
+  }
+}
+
+.paper .modal::backdrop {
+  background: color-mix(in srgb, var(--text-on-paper) 45%, transparent);
+}
+
+/* A single scroll sheet, with a usable preview while the draw is pending. */
+.modal.paper {
+  width: min(1080px, calc(100vw - 32px));
+  border: 0;
+  padding: 0 28px;
+}
+.paper .waitingPreview {
+  padding: 12px 0 24px;
+}
+.previewHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.previewHeading h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 28px;
+}
+.previewHeading > span {
+  font-size: 12px;
+  color: var(--paper-live);
+}
+.previewLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(220px, 1fr);
+  gap: 32px;
+  margin-top: 20px;
+}
+.previewDuel {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+  text-align: center;
+  border-block: 1px solid var(--border-subtle);
+  padding: 12px 0 20px;
+}
+.previewDuel h3 {
+  font: 600 22px/1.4 var(--font-display);
+  margin: 8px 0 0;
+}
+.previewDuel p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 4px 0;
+}
+.previewLeft,
+.previewRight {
+  height: 136px;
+  background: center bottom/contain no-repeat;
+  opacity: 0.7;
+}
+.previewLeft {
+  background-image: url('/lunjian/art/player-attacker-right.webp');
+}
+.previewRight {
+  background-image: url('/lunjian/art/player-defender-left.webp');
+}
+.previewVs {
+  font: 500 24px/1.4 var(--font-display);
+  color: var(--paper-live);
+  writing-mode: vertical-rl;
+  letter-spacing: 0.2em;
+}
+.previewChoices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+.previewChoices button {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  text-align: left;
+}
+.previewGuide {
+  border-left: 1px solid var(--border-subtle);
+  padding-left: 28px;
+}
+.previewGuide h3 {
+  font: 600 22px/1.4 var(--font-display);
+  margin: 0 0 16px;
+}
+.previewGuide ol {
+  padding-left: 20px;
+  margin: 0 0 20px;
+}
+.previewGuide li {
+  padding-left: 6px;
+  margin-bottom: 16px;
+}
+.previewGuide li::marker {
+  color: var(--paper-live);
+  font-family: var(--font-mono);
+}
+.previewGuide p {
+  font-size: 14px;
+  margin: 4px 0;
+  color: var(--text-secondary);
+}
+.previewPlaces {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+.previewPlaces li {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 20px 0;
+}
+.previewPlaces span {
+  color: var(--text-secondary);
+}
+@media (max-width: 767px) {
+  .modal.paper {
+    padding-inline: 16px;
+    width: calc(100vw - 24px);
+  }
+  .scrollRod {
+    margin-inline: -10px;
+  }
+  .previewLayout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .previewGuide {
+    border-left: 0;
+    border-top: 1px solid var(--border-subtle);
+    padding: 20px 0 0;
+  }
+  .previewHeading {
+    align-items: flex-start;
+  }
+  .previewHeading h2 {
+    font-size: 24px;
+  }
+  .previewLeft,
+  .previewRight {
+    height: 110px;
+  }
+  .previewChoices button {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .modal.paper > header::before {
+    inset-inline: -16px;
+  }
+}
+
+/* Separate paper sheet, rolled paper cylinder, end grain and wooden axle. */
+.modal.paper {
+  --scroll-paper: color-mix(in srgb, var(--surface-paper) 90%, var(--paper-live));
+  --scroll-edge: color-mix(in srgb, var(--paper-faint) 55%, var(--surface-paper));
+  height: min(900px, calc(100dvh - 48px));
+  max-height: calc(100dvh - 48px);
+  padding: 0 40px;
+  overflow: hidden;
+  background: none;
+  box-shadow: none;
+  isolation: isolate;
+}
+.modal.paper::before {
+  content: '';
+  position: absolute;
+  inset: 23px 25px;
+  z-index: -1;
+  background-color: var(--scroll-paper);
+  background-image:
+    url('/art/oiled-paper-grain.svg'),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--paper-faint) 18%, transparent),
+      transparent 5%,
+      transparent 95%,
+      color-mix(in srgb, var(--paper-faint) 18%, transparent)
+    );
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--text-on-paper) 35%, transparent);
+}
+.modal.paper[open] {
+  display: grid;
+  grid-template-rows: 46px auto minmax(0, 1fr) 46px;
+}
+.modal.paper > header {
+  position: relative;
+  top: auto;
+  padding: 12px 12px 16px;
+  background: none;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.modal.paper > header::before {
+  display: none;
+}
+.modal.paper > .modalBody {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--paper-faint) transparent;
+  min-height: 0;
+  margin: 0;
+  padding: 20px 12px 24px;
+}
+.modal.paper .app.paper {
+  background: transparent;
+}
+.modal.paper .paper.app[data-embedded='true'] > .header {
+  position: static;
+  margin-bottom: 8px;
+}
+.scrollRod {
+  position: relative;
+  align-self: center;
+  height: 40px;
+  margin: 0 -38px;
+  z-index: 2;
+}
+.scrollAxle {
+  position: absolute;
+  inset: 14px 3px;
+  border-radius: 4px;
+  background: linear-gradient(var(--paper-faint), var(--text-on-paper));
+  box-shadow: 0 2px 3px color-mix(in srgb, var(--text-on-paper) 35%, transparent);
+}
+.scrollAxle::before,
+.scrollAxle::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  width: 9px;
+  height: 22px;
+  border-radius: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--text-on-paper),
+    var(--paper-faint),
+    var(--text-on-paper)
+  );
+  border: 1px solid var(--text-on-paper);
+}
+.scrollAxle::before {
+  left: 0;
+}
+.scrollAxle::after {
+  right: 0;
+}
+.scrollRoll {
+  position: absolute;
+  inset: 0 24px;
+  border-radius: 8px / 50%;
+  background-color: var(--scroll-paper);
+  background-image:
+    url('/art/oiled-paper-grain.svg'),
+    linear-gradient(
+      180deg,
+      var(--scroll-edge),
+      var(--surface-paper) 23%,
+      var(--scroll-paper) 48%,
+      var(--scroll-edge) 86%,
+      var(--paper-faint)
+    );
+  box-shadow: 0 4px 5px color-mix(in srgb, var(--text-on-paper) 22%, transparent);
+  border-block: 1px solid var(--scroll-edge);
+}
+.scrollEnd {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  width: 15px;
+  border-radius: 50%;
+  border: 1px solid var(--paper-faint);
+  background: var(--surface-paper);
+  box-shadow: inset 1px 0 2px var(--scroll-edge);
+}
+.scrollEnd:first-child {
+  left: -7px;
+}
+.scrollEnd:last-child {
+  right: -7px;
+}
+.scrollEnd::before {
+  content: '';
+  position: absolute;
+  inset: 4px 3px;
+  border: 1px solid var(--scroll-edge);
+  border-radius: 50%;
+}
+.scrollEnd:first-child::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  width: 20px;
+  height: 12px;
+  transform: translateY(-50%);
+  border-radius: 2px 50% 50% 2px;
+  background: linear-gradient(var(--paper-faint), var(--text-on-paper));
+  box-shadow: 1px 1px 2px color-mix(in srgb, var(--text-on-paper) 35%, transparent);
+}
+.scrollEnd:last-child {
+  width: 7px;
+  right: -3px;
+  border: 0;
+  background: linear-gradient(
+    180deg,
+    var(--scroll-edge),
+    var(--surface-paper) 23%,
+    var(--scroll-paper) 48%,
+    var(--scroll-edge) 86%,
+    var(--paper-faint)
+  );
+  box-shadow: none;
+}
+.scrollEnd:last-child::before,
+.scrollEnd:last-child::after {
+  display: none;
+}
+@media (max-width: 767px) {
+  .modal.paper {
+    width: calc(100vw - 12px);
+    height: calc(100dvh - 24px);
+    max-height: calc(100dvh - 24px);
+    padding-inline: 24px;
+  }
+  .modal.paper::before {
+    inset-inline: 17px;
+  }
+  .modal.paper > header {
+    padding: 10px 2px 12px;
+  }
+  .modal.paper > .modalBody {
+    padding: 16px 2px 20px;
+  }
+  .scrollRod {
+    margin-inline: -22px;
+    height: 34px;
+  }
+  .scrollRoll {
+    inset-inline: 16px;
+  }
+  .scrollAxle {
+    inset-block: 11px;
+  }
+  .scrollEnd {
+    width: 12px;
+  }
+  .scrollEnd:first-child {
+    left: -5px;
+  }
+  .scrollEnd:last-child {
+    right: -3px;
+    width: 7px;
+  }
+  .scrollEnd:first-child::after {
+    right: 4px;
+    width: 15px;
+  }
+}
+
+@font-face {
+  font-family: 'Guanju Brush';
+  src: url('/fonts/guanju-brush.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+.modal.paper > header {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  gap: 12px;
+  align-items: center;
+  padding-block: 16px;
+}
+.modal.paper > header > h2 {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: center;
+  font-family: 'Guanju Brush', var(--font-display);
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 0.12em;
+  padding-left: 0.12em;
+  color: var(--paper-live);
+}
+.modal.paper > header > button {
+  grid-column: 3;
+  grid-row: 1;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+@media (max-width: 767px) {
+  .modal.paper > header {
+    grid-template-columns: 36px minmax(0, 1fr) 36px;
+    gap: 4px;
+    padding-block: 10px;
+  }
+  .modal.paper > header > h2 {
+    font-size: 32px;
+    letter-spacing: 0.06em;
+    padding-left: 0.06em;
+  }
+  .modal.paper > header > button {
+    width: 36px;
+    height: 44px;
+  }
+}
+
+.modal.paper[open] {
+  animation: none;
+}
+.modal.paper > header > button {
+  font-size: 14px;
+}
+
+.marketPicker {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+.marketPicker select {
+  width: auto;
+  min-width: 180px;
+}
+.activeDuel {
+  grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr);
+}
+.activeDuel > div:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+}
+.activeDuel > div:nth-child(2) {
+  grid-column: 3;
+  grid-row: 1;
+}
+.activeDuel > .previewVs {
+  grid-column: 2;
+  grid-row: 1;
+}
+.paper .playerPortrait {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border: 0;
+  background: none;
+  padding: 8px 0;
+  gap: 6px;
+  color: var(--text-primary);
+}
+.playerPortrait > span {
+  display: block;
+  width: 100%;
+  height: 140px;
+}
+.playerPortrait > strong {
+  font: 600 24px/1.4 var(--font-display);
+}
+.playerPortrait > small {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.duelOptions,
+.sideLabels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 20px;
+}
+.sideLabels {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.paper .duelOptions .outcome {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding: 14px 0;
+  align-items: center;
+}
+.duelOptions .outcome > span {
+  grid-column: 1/-1;
+  font-weight: 600;
+}
+.duelOptions .outcome > small {
+  font-size: 12px;
+}
+.duelOptions .outcome > .odds {
+  grid-column: 1/-1;
+  width: 100%;
+}
+.loadoutGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.loadoutGrid figure {
+  margin: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 12px 4px;
+  text-align: center;
+}
+.loadoutGrid img {
+  max-width: 100%;
+  object-fit: contain;
+}
+.loadoutGrid small,
+.loadoutGrid strong {
+  display: block;
+}
+.loadoutGrid small {
+  color: var(--text-secondary);
+}
+.publicLoadout > div {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.publicLoadout dd {
+  margin: 0;
+  white-space: pre-wrap;
+}
+@media (max-width: 767px) {
+  .playerPortrait > span {
+    height: 104px;
+  }
+  .playerPortrait > strong {
+    font-size: 20px;
+  }
+  .duelOptions,
+  .sideLabels {
+    gap: 0 12px;
+  }
+  .loadoutGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .marketPicker {
+    gap: 8px;
+  }
+  .marketPicker select {
+    min-width: 0;
+    flex: 1;
+  }
+}
+
+.loadoutGrid figure {
+  padding: 0;
+  text-align: left;
+  border: 1px solid var(--border-subtle);
+  background: var(--text-on-paper);
+  color: var(--surface-paper);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.loadoutArt {
+  padding: 12px;
+}
+.loadoutArt img {
+  display: block;
+  width: 100%;
+  height: 136px;
+  object-fit: contain;
+}
+.loadoutArt figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 8px;
+}
+.loadoutArt strong {
+  font-size: 16px;
+}
+.loadoutArt small {
+  color: var(--surface-paper);
+  opacity: 0.8;
+  font-size: 13px;
+}
+.loadoutGrid[data-kind='equipment'],
+.loadoutGrid[data-kind='martial'] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.loadoutGrid[data-kind='martial'] .loadoutArt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.loadoutGrid[data-kind='martial'] img {
+  width: 64px;
+  height: 72px;
+}
+.loadoutGrid[data-kind='equipment'] .loadoutArt {
+  position: relative;
+  min-height: 104px;
+  padding-right: 105px;
+  background: linear-gradient(125deg, var(--text-on-paper), var(--paper-faint));
+}
+.loadoutGrid[data-kind='equipment'] img {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 104px;
+  height: 104px;
+}
+.loadoutGrid[data-kind='equipment'] figcaption {
+  position: relative;
+}
+.gearStats {
+  margin: 0;
+  background: var(--surface-paper);
+  color: var(--text-on-paper);
+  padding: 12px 14px;
+}
+.gearStats > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.gearStats dt {
+  font-size: 14px;
+}
+.gearStats dd {
+  margin: 0;
+  font: 500 14px/1.6 var(--font-mono);
+}
+.bpTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+.bpTable th,
+.bpTable td {
+  padding: 14px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: top;
+}
+.bpTable thead {
+  background: var(--text-on-paper);
+  color: var(--surface-paper);
+}
+.bpTable small {
+  display: block;
+  font-weight: 400;
+}
+.bpTable td:nth-child(2) {
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  color: var(--paper-live);
+}
+@media (max-width: 600px) {
+  .loadoutGrid[data-kind='equipment'],
+  .loadoutGrid[data-kind='martial'] {
+    grid-template-columns: 1fr;
+  }
+  .bpTable th,
+  .bpTable td {
+    padding: 10px 6px;
+    font-size: 14px;
+  }
+}
+
+/* The same compact paper dossier used by the duel portraits. */
+.modal.dossierModal {
+  width: min(680px, 92vw);
+  padding: clamp(24px, 3vw, 40px) clamp(22px, 3vw, 44px);
+  color: var(--text-on-paper);
+  background-color: var(--surface-paper);
+  background-image:
+    radial-gradient(
+      120% 80% at 16% 8%,
+      color-mix(in srgb, var(--text-on-paper) 5%, transparent),
+      transparent 58%
+    ),
+    repeating-linear-gradient(
+      91deg,
+      color-mix(in srgb, var(--text-on-paper) 3%, transparent) 0 1px,
+      transparent 1px 7px
+    );
+  border: 1px solid var(--paper-faint);
+  outline: 1px solid var(--border-subtle);
+  outline-offset: -10px;
+  scrollbar-width: thin;
+}
+.modal.dossierModal::backdrop {
+  background: color-mix(in srgb, var(--text-on-paper) 80%, transparent);
+  backdrop-filter: blur(2px);
+}
+.modal.dossierModal > header {
+  position: relative;
+  background: none;
+  padding: 0 0 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  align-items: flex-start;
+}
+.modal.dossierModal > header::before {
+  display: none;
+}
+.modal.dossierModal h2 {
+  font-size: clamp(28px, 3.4vw, 40px);
+  line-height: 1.25;
+  color: var(--text-on-paper);
+  font-weight: 500;
+}
+.modal.dossierModal > header button {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 24px;
+}
+.modal.dossierModal .modalBody {
+  padding: 0;
+  margin: 18px 0 0;
+}
+.dossierModal .modalBody > section {
+  margin-top: 22px;
+}
+.dossierModal .modalBody h3 {
+  font-size: 19px;
+  margin: 0 0 10px;
+  color: var(--text-on-paper);
+}
+.dossierModal .loadoutArt strong {
+  color: var(--surface-paper);
+}
+.dossierModal .banner {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+@media (max-width: 600px) {
+  .modal.dossierModal {
+    width: 94vw;
+    padding: 20px 18px 24px;
+  }
+  .dossierModal .loadoutGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .dossierModal .loadoutGrid[data-kind='equipment'],
+  .dossierModal .loadoutGrid[data-kind='martial'] {
+    grid-template-columns: 1fr;
+  }
+}
+
+.buildCard {
+  grid-column: 1/-1;
+  position: relative;
+  overflow: hidden;
+  padding: 18px 22px;
+  background: var(--text-on-paper);
+  color: var(--surface-paper);
+  border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+}
+.buildTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 700 28px/1.3 var(--font-display);
+}
+.buildTitle img {
+  width: 28px;
+  height: 36px;
+  object-fit: contain;
+}
+.buildWatermark {
+  position: absolute;
+  right: 20px;
+  top: 16px;
+  width: 66px;
+  height: 88px;
+  object-fit: contain;
+  opacity: 0.35;
+}
+.buildArts {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+  padding-right: 54px;
+}
+.buildArts > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  font: 600 17px/1.5 var(--font-body);
+}
+.buildArts img {
+  width: 38px;
+  height: 46px;
+  object-fit: contain;
+}
+.loadoutGrid[data-kind='skill'] figure {
+  position: relative;
+  min-height: 180px;
+  overflow: visible;
+  border-radius: 2px 5px 5px 2px;
+  border: 1px solid var(--paper-faint);
+  border-right: 5px double var(--surface-paper);
+  background: linear-gradient(
+    90deg,
+    var(--text-on-paper) 0 16%,
+    color-mix(in srgb, var(--text-on-paper) 85%, var(--surface-paper)) 16% 100%
+  );
+  box-shadow: 2px 3px 0 var(--border-subtle);
+}
+.loadoutGrid[data-kind='skill'] figure::before {
+  content: '';
+  position: absolute;
+  left: 7%;
+  top: 20px;
+  bottom: 20px;
+  width: 12px;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 25px,
+    var(--surface-paper) 25px 27px,
+    transparent 27px 36px
+  );
+  border-left: 1px solid var(--paper-faint);
+}
+.loadoutGrid[data-kind='skill'] figure .loadoutArt {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 16px 14px;
+  min-height: 178px;
+}
+.loadoutGrid[data-kind='skill'] figure figcaption {
+  margin: 0;
+  background: var(--surface-paper);
+  color: var(--text-on-paper);
+  border: 3px double var(--paper-faint);
+  padding: 10px 5px;
+  min-height: 132px;
+}
+.loadoutGrid[data-kind='skill'] figure strong {
+  writing-mode: vertical-rl;
+  font: 500 20px/1.5 var(--font-display);
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  color: var(--text-on-paper);
+}
+.loadoutGrid[data-kind='skill'] figure small:empty {
+  display: none;
+}
+@media (max-width: 600px) {
+  .buildCard {
+    padding: 16px;
+  }
+  .buildArts {
+    gap: 10px;
+    padding-right: 0;
+  }
+  .buildArts > div {
+    gap: 5px;
+    font-size: 15px;
+  }
+  .buildArts img {
+    width: 28px;
+    height: 38px;
+  }
+  .buildTitle {
+    font-size: 26px;
+  }
+  .buildWatermark {
+    right: 12px;
+    width: 46px;
+    height: 62px;
+  }
+}
+
+.dossierModal .loadoutGrid[data-kind='skill'] strong {
+  color: var(--text-on-paper);
+}
+
+.bpTable {
+  table-layout: fixed;
+  border: 1px solid var(--paper-faint);
+  background: var(--surface-paper);
+}
+.bpTable th,
+.bpTable td {
+  border: 1px solid var(--paper-faint);
+  padding: 14px 12px;
+}
+.bpTable th:first-child {
+  width: 30%;
+}
+.bpTable th:nth-child(2) {
+  width: 60px;
+  text-align: center;
+}
+.bpTable td:nth-child(2) {
+  text-align: center;
+}
+.bpTable thead th {
+  border-color: var(--paper-faint);
+}
+@media (max-width: 600px) {
+  .bpTable th,
+  .bpTable td {
+    padding: 10px 7px;
+  }
+  .bpTable th:nth-child(2) {
+    width: 44px;
+  }
+}
+
+.dossierModal .buildCard strong {
+  color: var(--surface-paper);
+}
+.loadoutGrid[data-kind='martial'] .buildTitle img {
+  width: 28px;
+  height: 36px;
+}
+.loadoutGrid[data-kind='martial'] .buildArts img {
+  width: 38px;
+  height: 46px;
+}
+.loadoutGrid[data-kind='martial'] .buildWatermark {
+  width: 66px;
+  height: 88px;
+}
+@media (max-width: 600px) {
+  .loadoutGrid[data-kind='martial'] .buildArts img {
+    width: 28px;
+    height: 38px;
+  }
+  .loadoutGrid[data-kind='martial'] .buildWatermark {
+    width: 46px;
+    height: 62px;
+  }
+}
+
+.loadoutGrid[data-kind='mind'] figcaption {
+  text-align: center;
+  align-items: center;
+}
+.loadoutGrid[data-kind='equipment'] .loadoutArt {
+  background: linear-gradient(
+    120deg,
+    var(--text-on-paper) 12%,
+    color-mix(in srgb, var(--text-on-paper) 80%, var(--chapter-gold, var(--accent-money))) 48%,
+    var(--chapter-gold, var(--accent-money)) 100%
+  );
+}
+
+.loadoutContinue {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 48px;
+  padding: 12px 20px;
+  text-decoration: none;
+  box-sizing: border-box;
+}

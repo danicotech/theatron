@@ -33,7 +33,7 @@ import { PALETTE } from './palette';
 import type { TextureLibrary } from './textures';
 
 /**
- * 《劍塚》的木構。
+ * 《論劍》的木構。
  *
  * 一座荒廢多年的木造武館:傾斜的牌樓、半榻的迴廊、破頂的練武大廳、微啟的
  * 雙開木門,外加竹林、枯梅、兩把插在地上的劍,與一盞只剩餘燼的燈籠。

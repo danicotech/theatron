@@ -1,0 +1,50 @@
+[
+  {
+    "width": 1440,
+    "animations": [
+      "tt-line-flow",
+      "tt-defeat-mark",
+      "tt-tear-upper",
+      "tt-tear-lower",
+      "tt-blade-cut",
+      "tt-stamp",
+      "tt-crown-bloom",
+      "tt-crown-stamp",
+      "tt-crown-rise"
+    ],
+    "samples": [250, 800, 1700],
+    "offChapterPaused": true,
+    "reducedMotionStatic": true,
+    "proximity": {
+      "far": {
+        "amount": 0,
+        "scale": 1
+      },
+      "approaching": {
+        "amount": 0.309,
+        "scale": 1.0618
+      },
+      "near": {
+        "amount": 0.983,
+        "scale": 1.1966
+      }
+    }
+  },
+  {
+    "width": 375,
+    "animations": [
+      "tt-defeat-mark",
+      "tt-tear-upper",
+      "tt-tear-lower",
+      "tt-blade-cut",
+      "tt-crown-bloom",
+      "tt-crown-stamp",
+      "tt-crown-rise",
+      "tt-stamp"
+    ],
+    "samples": [250, 800, 1700],
+    "offChapterPaused": true,
+    "reducedMotionStatic": true,
+    "proximity": null
+  }
+]

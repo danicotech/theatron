@@ -1,0 +1,20 @@
+[
+  {
+    "width": 1440,
+    "name": "markets-selected",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "short-viewport-document-scroll",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  }
+]

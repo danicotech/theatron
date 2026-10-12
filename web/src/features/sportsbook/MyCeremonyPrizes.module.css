@@ -1,0 +1,18 @@
+.receipts {
+  margin-block: var(--space-6);
+}
+
+.receipts h3 {
+  margin-bottom: var(--space-4);
+}
+
+.receipts h4 {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.receipts p {
+  margin-block: var(--space-2);
+}

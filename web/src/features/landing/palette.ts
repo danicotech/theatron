@@ -3,7 +3,7 @@ import { channels, PALETTE, type PaletteKey } from '../world3d/palette';
 /**
  * 色盤 → shader uniform。
  *
- * 這裡**不定義任何顏色**。《劍塚》的七個色名住在 `world3d/palette.ts`
+ * 這裡**不定義任何顏色**。《論劍》的七個色名住在 `world3d/palette.ts`
  * (3D 那一層不吃主題 token,理由寫在那個檔案的開頭),序幕是 3D,所以它跟
  * 環境層拿同一份 —— 旗上的朱紅與牌樓旁邊梅花的朱紅必須是同一個數字。
  *

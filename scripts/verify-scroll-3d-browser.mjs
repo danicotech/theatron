@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import {chromium} from 'file:///C:/Users/User/Documents/code/react-vite-erp/node_modules/playwright-core/index.mjs';
+import {writeFile} from 'node:fs/promises';
+const browser=await chromium.launch({headless:true});
+const watchdog=setTimeout(()=>{console.error('3D verification exceeded 120 seconds; no passing result.');browser.close().finally(()=>process.exit(1));},120000);
+watchdog.unref();
+try{
+ const page=await browser.newPage({viewport:{width:1055,height:884}});
+ await page.addInitScript(()=>sessionStorage.setItem('lunjian:opening-seen:v1','1'));
+ await page.goto('http://127.0.0.1:3000/?stage=3d&intro=0#register',{waitUntil:'domcontentloaded'});
+ await page.waitForFunction(()=>window.__JZ3D?.camera&&document.querySelector('#register-cta')?.hasAttribute('data-registration-entry'),null,{timeout:90000});
+ await page.locator('#register-cta').evaluate(el=>el.click());
+ const root=page.locator('#registration-inline > section');
+ await root.getByRole('heading',{name:'赴約參賽'}).waitFor({timeout:90000});
+ await root.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>a.finish()));
+ await page.clock.install();await page.clock.pauseAt(new Date());
+ await root.getByRole('button',{name:/收卷/}).evaluate(el=>el.click());
+ await root.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>{a.pause();a.currentTime=999;}));
+ await page.screenshot({path:'docs/previews/registration-scroll-browser/close-3d-999.png'});
+ assert.equal(await root.locator('.registration-roll').evaluate(el=>getComputedStyle(el).opacity),'1');
+ await root.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>a.finish()));await page.clock.resume();
+ await root.waitFor({state:'hidden'});
+ const label=page.locator('.registration-seal-label');
+ const strokes=await label.evaluate(el=>el.getAnimations({subtree:true}).filter(a=>a.animationName==='ink-draw').length);
+ assert.ok(strokes>1);
+ await label.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>a.finish()));
+ await page.screenshot({path:'docs/previews/registration-scroll-browser/closed-3d.png'});
+ assert.ok(await page.locator('.registration-invitation > .registration-roll').isVisible());
+ const result={scene:await page.evaluate(()=>!!window.__JZ3D?.camera),strokes,closedRollVisible:true};
+ await writeFile('docs/previews/registration-scroll-browser/close-3d.json',JSON.stringify(result));console.log(result);
+}finally{clearTimeout(watchdog);await browser.close();}

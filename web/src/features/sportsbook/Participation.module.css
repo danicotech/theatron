@@ -1,0 +1,589 @@
+.enrollment {
+  max-width: 1120px;
+  margin: 24px auto;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+.formHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 16px 24px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.enrollment .formHead h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  margin: 8px 0;
+}
+.kicker {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+.capacity {
+  flex: none;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.enrollment .capacity strong {
+  font-size: 28px;
+  color: var(--text-primary);
+}
+.capacity span {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-size: 12px;
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 32px;
+  gap: 8px;
+}
+.steps button {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  text-align: left;
+}
+.steps span {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.steps [aria-current='step'] button {
+  border-color: var(--text-primary);
+  background: var(--surface-overlay);
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 40px;
+  align-items: start;
+}
+.layout form {
+  min-width: 0;
+}
+.stepHeading {
+  margin: 0 0 24px;
+  outline: none;
+}
+.stepHeading:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 4px;
+}
+.fields {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.fieldPair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.enrollment .field {
+  margin-bottom: 24px;
+}
+.fieldLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  color: var(--text-primary);
+  font-weight: 700;
+  margin-top: 0;
+  gap: 12px;
+}
+.fieldLabel span {
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 400;
+}
+.field :is(input, textarea, select) {
+  width: 100%;
+}
+.field textarea {
+  resize: vertical;
+  min-height: 112px;
+}
+.field small {
+  display: block;
+  margin-top: 8px;
+}
+.field [aria-invalid='true'] {
+  border-color: var(--state-live);
+}
+.fieldError {
+  color: var(--text-danger);
+  font-size: 14px;
+  margin: 8px 0;
+}
+.enrollment .consent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  margin-block: 24px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  color: var(--text-primary);
+  background: transparent;
+}
+.enrollment .consent:hover {
+  background: color-mix(in srgb, var(--text-primary) 5%, transparent);
+}
+.enrollment .consent:has(input:checked) {
+  background: color-mix(in srgb, var(--state-live) 9%, transparent);
+}
+.enrollment .consent:has(input:checked) .consentText {
+  font-weight: 600;
+}
+.enrollment .consent input:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 3px;
+}
+.enrollment .consent input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  flex: none;
+  margin: 0;
+  accent-color: var(--state-live);
+  cursor: pointer;
+}
+.enrollment .consentText {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 4px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.enrollment .consentText a {
+  color: var(--state-live);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+.enrollment .consentText a:hover {
+  text-decoration-thickness: 2px;
+}
+.enrollment .consentText a:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 3px;
+}
+.enrollment .check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+.summary {
+  background: var(--surface-raised);
+  padding: 24px;
+  border-top: 2px solid var(--border-subtle);
+}
+.summary h3 {
+  margin: 8px 0 24px;
+}
+.summary dt,
+.review dt {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.summary dd,
+.review dd {
+  margin: 8px 0 24px;
+  white-space: pre-wrap;
+}
+.summary p:last-child,
+.help {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-block: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+.enrollment .submit {
+  margin-left: auto;
+  background: var(--text-primary);
+  color: var(--surface-base);
+  border-color: var(--text-primary);
+  font-weight: 700;
+}
+.feedback {
+  min-height: 24px;
+  color: var(--state-win);
+  font-size: 13px;
+}
+.reviewTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.reviewSection {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+.receipt {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.seal {
+  display: inline-flex;
+  padding: 12px;
+  border: 2px solid var(--state-win);
+  color: var(--state-win);
+  font-family: var(--font-display);
+}
+.receiptColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 24px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fields {
+    animation: formReveal 180ms ease-out;
+  }
+  .seal {
+    animation: receiptReveal 180ms ease-out;
+  }
+}
+@keyframes formReveal {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes receiptReveal {
+  from {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .summary {
+    order: -1;
+    padding: 16px;
+  }
+  .summary dl,
+  .summary p:last-child {
+    display: none;
+  }
+  .summary h3 {
+    margin: 4px 0;
+  }
+}
+@media (max-width: 520px) {
+  .fieldPair,
+  .receiptColumns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .steps {
+    gap: 4px;
+  }
+  .steps button {
+    flex-direction: column;
+    padding: 4px;
+    font-size: 12px;
+    text-align: center;
+  }
+  .formHead {
+    gap: 12px;
+  }
+  .formActions .submit {
+    flex: 1 1 100%;
+    margin-left: 0;
+  }
+}
+
+.enrollment .fieldLabel label {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.enrollment[data-scroll-form='true'] {
+  margin: 0;
+}
+.enrollment[data-scroll-form='true'] .layout {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+.enrollment[data-scroll-form='true'] .summary {
+  display: none;
+}
+.enrollment[data-scroll-form='true'] .formHead {
+  padding-block: 12px;
+  gap: 12px;
+}
+.enrollment[data-scroll-form='true'] .formHead h2 {
+  font-size: 28px;
+}
+.enrollment[data-scroll-form='true'] .steps {
+  gap: 4px;
+  margin-block: 16px;
+}
+.enrollment[data-scroll-form='true'] .steps button {
+  flex-direction: column;
+  justify-content: center;
+  padding: 4px;
+  font-size: 12px;
+  border: 0;
+  border-bottom: 2px solid var(--border-subtle);
+  background: transparent;
+}
+.enrollment[data-scroll-form='true'] .steps [aria-current='step'] button {
+  border-color: var(--paper-live);
+  color: var(--paper-live);
+}
+.enrollment[data-scroll-form='true'] .field :is(input, textarea, select) {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  border-radius: 0;
+}
+.enrollment[data-scroll-form='true'] .submit {
+  background: var(--paper-live);
+  color: var(--surface-paper);
+  border-color: var(--paper-live);
+}
+.enrollment[data-scroll-form='true'] .receiptColumns {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.enrollment[data-scroll-form='true'] .stepHeading {
+  margin-bottom: 16px;
+}
+
+.savedRoles {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.enrollment .savedRoles button {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  padding: 16px;
+  text-align: left;
+  white-space: normal;
+  min-height: 48px;
+}
+.savedRoles button strong {
+  font: 600 20px/1.4 var(--font-display);
+}
+.savedRoles button span,
+.savedRoles button small {
+  font-family: var(--font-body);
+  color: var(--text-secondary);
+}
+.savedRoles button[aria-pressed='true'] {
+  border-color: var(--text-primary);
+  background: var(--surface-overlay);
+}
+.loadoutNote {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.stepHeading {
+  scroll-margin-top: calc(var(--nav-h, 64px) + 16px);
+}
+.enrollment .roleReview {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 10px 16px;
+  margin-block: 12px;
+}
+.enrollment .roleReview :is(dt, dd) {
+  margin: 0;
+}
+
+.enrollment .savedRoles button[aria-pressed] {
+  text-decoration: none;
+  font-weight: 400;
+}
+.enrollment .savedRoles button[aria-pressed='true'] {
+  color: var(--text-primary);
+}
+
+.enrollment[data-scroll-form='true'] .steps button {
+  font-size: 15px;
+  min-height: 64px;
+  padding: 8px 4px;
+}
+.enrollment[data-scroll-form='true'] .field :is(input, textarea, select) {
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  padding: 12px;
+}
+@media (max-width: 600px) {
+  .enrollment[data-scroll-form='true'] .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .enrollment[data-scroll-form='true'] .steps button {
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 8px;
+    min-height: 44px;
+    font-size: 14px;
+  }
+}
+
+.steps {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--surface-paper, var(--surface-base));
+  padding-block: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.stepHeading {
+  scroll-margin-top: 100px;
+}
+.readingChecklist {
+  display: grid;
+  gap: 20px;
+}
+.readingChecklist > section {
+  padding: 20px 24px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-raised);
+}
+.readingChecklist h3 {
+  font: 500 22px/1.5 var(--font-display);
+  margin: 0 0 12px;
+}
+.readingChecklist p {
+  font-size: 16px;
+  line-height: 1.9;
+}
+.readingChecklist label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+}
+.readingChecklist input {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+.closedNotice {
+  margin-top: 24px;
+  padding: 20px;
+  border-block: 1px solid var(--border-subtle);
+}
+@media (max-width: 600px) {
+  .readingChecklist > section {
+    padding: 18px 16px;
+  }
+  .stepHeading {
+    scroll-margin-top: 140px;
+  }
+}
+
+.enrollment .consentText {
+  font-size: 16px;
+  line-height: 1.8;
+}
+.enrollment .consentText a {
+  white-space: nowrap;
+}
+
+.readingScene {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  height: 300px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
+  background: radial-gradient(
+    ellipse at bottom,
+    color-mix(in srgb, var(--text-on-paper) 9%, transparent),
+    transparent 65%
+  );
+}
+.readingScene img {
+  width: 42%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  mix-blend-mode: multiply;
+}
+@media (max-width: 600px) {
+  .readingScene {
+    height: 220px;
+  }
+  .readingScene img {
+    width: 50%;
+  }
+}
+
+/* Registration keeps account and configuration actions in one compact row. */
+.configurationLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  color: var(--text-primary);
+  text-underline-offset: 4px;
+}
+.enrollment[data-scroll-form='true'] .feedback:empty {
+  display: none;
+}
+.enrollment[data-scroll-form='true'] .formActions[data-intro-actions] {
+  align-items: center;
+  justify-content: space-between;
+  border: 0;
+  padding-block: 0 8px;
+  gap: 8px 16px;
+}
+.enrollment[data-scroll-form='true'] .formActions[data-intro-actions] .submit {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+@media (max-width: 420px) {
+  .enrollment[data-scroll-form='true'] .formActions[data-intro-actions] {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 4px;
+  }
+  .enrollment[data-scroll-form='true'] .formActions[data-intro-actions] .submit {
+    width: 100%;
+    margin-left: 0;
+  }
+  .enrollment[data-scroll-form='true'] .configurationLink {
+    justify-content: center;
+  }
+}

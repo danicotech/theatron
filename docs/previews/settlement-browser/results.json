@@ -1,0 +1,407 @@
+[
+  {
+    "width": 1440,
+    "name": "all-match-markets-tickets",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "podium-tickets",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "incomplete-result-error",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "extra-round-error",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "settlement-m1-0",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "match-tickets-settled",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "podium-after-m1-0",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "missing-third-seconds",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "settlement-m1-1",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "settlement-m2-0",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "podium-after-m2-0",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "settlement-podium-third",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "complete-tickets",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "all-four-places",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "final-ledger",
+    "geometry": {
+      "document": 1440,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "all-match-markets-tickets",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "podium-tickets",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "incomplete-result-error",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "extra-round-error",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "settlement-m1-0",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "match-tickets-settled",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "podium-after-m1-0",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "missing-third-seconds",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "settlement-m1-1",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "settlement-m2-0",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "podium-after-m2-0",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "settlement-podium-third",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "complete-tickets",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "all-four-places",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "final-ledger",
+    "geometry": {
+      "document": 768,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "all-match-markets-tickets",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "podium-tickets",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "incomplete-result-error",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "extra-round-error",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "settlement-m1-0",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "match-tickets-settled",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "podium-after-m1-0",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "missing-third-seconds",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "settlement-m1-1",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "settlement-m2-0",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "podium-after-m2-0",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "settlement-podium-third",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "complete-tickets",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "all-four-places",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "final-ledger",
+    "geometry": {
+      "document": 375,
+      "small": []
+    },
+    "violations": []
+  }
+]

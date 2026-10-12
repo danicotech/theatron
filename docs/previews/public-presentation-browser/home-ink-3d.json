@@ -1,0 +1,18 @@
+[
+  {
+    "width": 1055,
+    "held": {
+      "phase": "hold",
+      "overlay": true,
+      "sameDocument": true,
+      "intro": false
+    },
+    "done": {
+      "readyUnderInk": true,
+      "scene": "3d",
+      "focus": "了解賽制",
+      "bootHidden": true
+    },
+    "errors": []
+  }
+]

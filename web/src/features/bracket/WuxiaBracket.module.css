@@ -1,0 +1,19 @@
+.tree {
+  --paper: var(--text-primary);
+  --paper-soft: var(--text-secondary);
+  --ink: var(--surface-base);
+  --line: var(--border-subtle);
+  --money: var(--accent-money);
+  --red-soft: var(--state-live);
+  --paper-live: var(--state-live);
+  --paper-dim: var(--surface-overlay);
+  --paper-faint: var(--text-secondary);
+  --serif: var(--font-display);
+  --ui: var(--font-body);
+  --mono: var(--font-mono);
+  min-width: 0;
+}
+/* The shared renderer owns side/result surfaces in both public and judge views. */
+.tree :global(.tt-judge-link) {
+  display: none;
+}

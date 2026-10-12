@@ -1,0 +1,212 @@
+[
+  {
+    "width": 1440,
+    "name": "receipt-0",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "receipt-1",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "closed-roster",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "publish-confirm",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "published",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "my-match",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "public-character",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "duel",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "embedded-center",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "schedule-return",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "receipt-0",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "receipt-1",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "closed-roster",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "publish-confirm",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "published",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "my-match",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "public-character",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "duel",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "embedded-center",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "schedule-return",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "receipt-0",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "receipt-1",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "closed-roster",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "publish-confirm",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "published",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "my-match",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "public-character",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "duel",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "embedded-center",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "schedule-return",
+    "overflow": false,
+    "smallButtons": [],
+    "violations": []
+  }
+]

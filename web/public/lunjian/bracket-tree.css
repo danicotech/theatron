@@ -1,0 +1,153 @@
+/* One name slip per seat. The small junction is the match action. */
+.tournament-tree{width:100%;max-width:100%;min-width:0;color:var(--paper);font:14px/1.6 var(--ui);--tree-seat-height:68px}
+.tournament-tree *{box-sizing:border-box}
+.tournament-tree [hidden]{display:none!important}
+.tournament-tree .tt-meta{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:8px 20px;margin:0 0 12px}
+.tournament-tree .tt-meta p{margin:0}
+.tournament-tree .tt-format{font:12px/1.6 var(--mono);font-variant-numeric:tabular-nums;color:var(--paper-soft)}
+.tournament-tree .tt-demo{font:12px/1.6 var(--ui);color:var(--paper-soft);border:1px solid var(--line);padding:2px 8px}
+.tournament-tree .tt-connection-note{font-size:12px;color:var(--paper-soft)}
+.tournament-tree .tt-empty{max-width:48em;margin:20px 0;font-size:16px;line-height:1.7}
+.tournament-tree[data-placeholder] :is(.tt-node,.tt-player,.tt-champion){cursor:default;pointer-events:none}
+.tournament-tree .tt-viewport{max-width:100%;min-width:0;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;overscroll-behavior-y:auto;max-height:none;padding:8px 4px 20px;outline-offset:-2px}
+.tournament-tree .tt-canvas{position:relative;margin-inline:auto;isolation:isolate}
+.tournament-tree .tt-round,.tournament-tree .tt-match{display:contents}
+.tournament-tree .tt-side-heading{position:absolute;top:0;margin:0;font:600 16px/1.5 var(--serif);letter-spacing:.12em;color:var(--paper-soft)}
+.tournament-tree .tt-side-heading[data-side="left"]{left:0}.tournament-tree .tt-side-heading[data-side="right"]{right:0}
+.tournament-tree .tt-column-title{position:absolute;top:30px;margin:0;text-align:center;font:600 14px/1.6 var(--serif);letter-spacing:.12em;color:var(--paper-soft);padding-bottom:8px;border-bottom:1px solid var(--line)}
+.tournament-tree .tt-column-title[data-side="final"]{color:var(--money)}
+.tournament-tree .tt-connectors{position:absolute;inset:0;overflow:visible;pointer-events:none;z-index:-1}
+.tournament-tree .tt-connectors path{fill:none;stroke:var(--paper-soft);stroke-opacity:.55;stroke-width:1.5;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.tournament-tree .tt-connectors path[data-winner]{stroke:var(--money);stroke-opacity:.85;stroke-width:2}
+.tournament-tree .tt-connectors path[data-highlight]{stroke:var(--paper);stroke-opacity:1;stroke-width:3}
+.tournament-tree .tt-node{position:absolute;width:48px;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0;padding:2px;text-align:center;font:inherit;color:var(--paper);border:1px solid var(--line);border-radius:0;background:var(--ink);cursor:pointer;white-space:normal}
+.tournament-tree :is(.tt-node,.tt-player,.tt-tab,.tt-viewport,.tt-champion):focus-visible{outline:2px solid var(--money);outline-offset:3px}
+.tournament-tree .tt-match-number{font:12px/1.4 var(--ui);color:var(--paper-soft)}
+.tournament-tree .tt-junction-score{font:500 14px/1.4 var(--mono);font-variant-numeric:tabular-nums}
+.tournament-tree .tt-state{font:12px/1.4 var(--ui);color:var(--paper-soft)}
+.tournament-tree .tt-node[data-status="live"]{border-color:var(--red-soft)}
+.tournament-tree .tt-node[data-status="live"] .tt-state{color:var(--red-soft)}
+.tournament-tree .tt-player{position:absolute;display:grid;grid-template-columns:22px minmax(0,1fr) 18px;align-items:center;gap:5px;width:var(--tree-node-width,128px);min-height:var(--tree-seat-height);padding:7px 6px;border:1px solid var(--paper-dim);border-radius:0;background:var(--paper) url('/lunjian/art/bracket-card-light.webp') center/100% 100%;color:var(--ink);text-align:left;cursor:pointer}
+.tournament-tree .tt-player-seal{display:grid;place-items:center;width:22px;height:30px;border:1px solid var(--paper-faint);font:600 18px/1 var(--serif);color:var(--paper-faint)}
+.tournament-tree .tt-identity{display:block;min-width:0}
+.tournament-tree .tt-name{display:block;white-space:normal;overflow-wrap:anywhere;font:600 14px/1.5 var(--serif)}
+.tournament-tree .tt-score{display:grid;place-items:center;align-self:stretch;border-left:1px solid var(--paper-dim);font:500 20px/1 var(--mono);font-variant-numeric:tabular-nums}
+.tournament-tree .tt-player[data-eliminated] .tt-name{font-weight:400}
+.tournament-tree .tt-player[data-winner]{border-color:var(--money);border-bottom-width:3px}
+.tournament-tree .tt-player[data-status="live"]{border-color:var(--paper-live)}
+.tournament-tree .tt-player[data-highlight]{outline:2px solid var(--money);outline-offset:2px}
+.tournament-tree .tt-node:hover{border-color:var(--paper)}
+.tournament-tree .tt-final-crest{position:absolute;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:156px;padding:10px;border:1px solid var(--money);border-radius:0;background:var(--ink) url('/lunjian/art/bracket-card-dark.webp') center/100% 100%;color:var(--paper);text-align:center;cursor:pointer;font-family:var(--serif)}
+.tournament-tree .tt-champion-label{font:600 14px/1.5 var(--serif);letter-spacing:.15em;color:var(--money)}
+.tournament-tree .tt-champion-art{display:block;width:100%;height:80px;object-fit:contain}
+.tournament-tree .tt-champion:not([data-confirmed]) .tt-champion-art{opacity:.35}
+.tournament-tree .tt-champion-name{display:block;max-width:100%;overflow-wrap:anywhere;font:700 18px/1.5 var(--serif)}
+.tournament-tree .tt-tabs{position:relative;display:flex;gap:8px;max-width:100%;overflow-x:auto;overscroll-behavior:contain;padding:4px 2px 12px;margin:0 0 8px}
+.tournament-tree .tt-tab{flex:0 0 auto;min-height:44px;padding:8px 14px;background:var(--ink);border:1px solid var(--line);border-radius:0;color:var(--paper);font:14px/1.6 var(--ui);cursor:pointer}
+.tournament-tree .tt-tab[aria-selected="true"]{border-color:var(--paper);color:var(--ink);background:var(--paper)}
+@media(prefers-reduced-motion:no-preference){
+ .tournament-tree .tt-connectors path{transition:stroke 500ms ease,stroke-opacity 500ms ease}
+ .tournament-tree .tt-player{transition:border-color 150ms ease}
+}
+
+ .tournament-tree[data-view="round"] .tt-viewport{overflow:visible;max-height:none;padding:0}
+ .tournament-tree[data-view="round"] .tt-canvas{width:100%!important;height:auto!important;margin:0}
+ .tournament-tree[data-view="round"] .tt-round{display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
+ .tournament-tree[data-view="round"] .tt-match{display:grid;grid-template-columns:minmax(0,1fr);gap:4px}
+ .tournament-tree[data-view="round"] .tt-node{position:relative;left:auto!important;top:auto!important;width:100%;min-height:44px;flex-direction:row;justify-content:space-between;padding:8px 12px;grid-row:3;margin-top:4px}
+ .tournament-tree[data-view="round"] .tt-player{position:relative;left:auto!important;top:auto!important;width:100%;min-height:68px;padding:9px 12px;grid-template-columns:30px minmax(0,1fr) 28px;gap:12px}
+ .tournament-tree[data-view="round"] .tt-name{font-size:16px}.tournament-tree[data-view="round"] .tt-player-seal{width:30px;height:34px;font-size:24px}
+ .tournament-tree[data-view="round"] .tt-score{font-size:24px}
+ .tournament-tree[data-view="round"] .tt-connectors,.tournament-tree[data-view="round"] .tt-column-title,.tournament-tree[data-view="round"] .tt-side-heading{display:none}
+ .tournament-tree[data-view="round"] .tt-meta{justify-content:flex-start;gap:8px 12px}
+ .tournament-tree[data-view="round"] .tt-final-crest{position:relative;left:auto!important;top:auto!important;width:100%!important;min-height:112px;display:grid;grid-template-columns:74px minmax(0,1fr);gap:0 16px;padding:12px 20px;text-align:left}
+ .tournament-tree[data-view="round"] .tt-champion-art{grid-column:1;grid-row:1/3;height:86px}
+ .tournament-tree[data-view="round"] .tt-champion-label{grid-column:2;grid-row:1;align-self:end}
+ .tournament-tree[data-view="round"] .tt-champion-name{grid-column:2;grid-row:2;align-self:start;font-size:20px}
+
+
+.tournament-tree .tt-judge-link{min-height:44px;display:inline-flex;align-items:center;color:var(--paper);text-underline-offset:4px}
+
+/* Side hue identifies the route; losing fades the same hue instead of turning white. */
+.tournament-tree{--tree-win:color-mix(in srgb,var(--money) 58%,var(--paper))}
+.tournament-tree .tt-player[data-tone="red"]{--card-accent:var(--accent-side-red)}
+.tournament-tree .tt-player[data-tone="blue"]{--card-accent:var(--accent-side-blue)}
+.tournament-tree .tt-player{
+ --card-base:color-mix(in srgb,var(--card-accent) 65%,var(--ink));
+ --card-ink:var(--paper);
+ --tree-defeat:color-mix(in srgb,var(--card-accent) 22%,var(--ink));
+ --tree-defeat-ink:var(--paper-soft);
+ --tree-defeat-mark:var(--paper-dim);
+ padding-top:10px;padding-bottom:10px;isolation:isolate;
+ background:var(--card-base) url('/lunjian/art/bracket-card-light.webp') center/100% 100%;background-blend-mode:multiply;
+ color:var(--paper);border-color:var(--card-accent);
+}
+.tournament-tree .tt-player .tt-player-seal{color:var(--paper-soft)}
+.tournament-tree .tt-player-seal{border-color:currentColor}
+.tournament-tree .tt-player[data-eliminated]{background:none;color:var(--tree-defeat-ink);border:1px solid transparent}
+.tournament-tree .tt-player[data-eliminated] .tt-score{border-color:var(--paper-faint)}
+.tournament-tree .tt-defeat-stamp{position:absolute;right:7px;top:1px;padding:0 4px;border:1px solid currentColor;color:var(--tree-defeat-mark);font:700 12px/1.3 var(--serif);letter-spacing:.12em;transform:rotate(-8deg);pointer-events:none}
+.tournament-tree .tt-victory-stamp{position:absolute;right:16px;top:-15px;width:56px;height:56px;display:grid;place-items:center;border:3px double currentColor;color:var(--tree-win);font:800 44px/1 var(--serif);transform:rotate(-19deg);opacity:.86;pointer-events:none;z-index:2;text-shadow:0 1px var(--ink)}
+.tournament-tree .tt-player[data-winner]{border-color:var(--tree-win)}
+.tournament-tree .tt-connectors path[data-winner]{stroke:var(--tree-win);stroke-opacity:1;stroke-width:4;stroke-linecap:round}
+.tournament-tree .tt-connectors path[data-winner][data-highlight]{stroke:var(--tree-win);stroke-width:5}
+.tournament-tree .tt-connectors .tt-flow{stroke:var(--paper);stroke-width:2;stroke-dasharray:10 22;stroke-opacity:.9}
+.tournament-tree .tt-champion{z-index:1}
+@media(prefers-reduced-motion:no-preference){
+ .tournament-tree .tt-connectors .tt-flow{animation:tt-line-flow 2400ms linear infinite}
+ .tournament-tree .tt-player[data-result-enter] .tt-victory-stamp{animation:tt-stamp 680ms cubic-bezier(.16,1,.3,1) both}
+ .tournament-tree .tt-player[data-result-enter] .tt-defeat-stamp{animation:tt-defeat-mark 180ms 650ms ease-out both}
+}
+@keyframes tt-stamp{0%{opacity:0;transform:scale(2.8) rotate(-34deg)}65%{opacity:1;transform:scale(.92) rotate(-19deg)}100%{opacity:.86;transform:scale(1) rotate(-19deg)}}
+@keyframes tt-defeat-mark{from{opacity:0;transform:translateY(-3px) rotate(-8deg)}to{opacity:1;transform:translateY(0) rotate(-8deg)}}
+@keyframes tt-line-flow{to{stroke-dashoffset:-64}}
+body.reading .tournament-tree :is(.tt-flow,.tt-player,.tt-victory-stamp,.tt-defeat-stamp){animation:none!important}
+.chapter:not([data-on]) .tournament-tree .tt-flow{animation-play-state:paused}
+
+ .tournament-tree[data-view="round"] .tt-match[data-side="final"] .tt-player[data-seat="0"]{grid-row:1}
+ .tournament-tree[data-view="round"] .tt-match[data-side="final"] .tt-champion{grid-row:2}
+ .tournament-tree[data-view="round"] .tt-match[data-side="final"] .tt-player[data-seat="1"]{grid-row:3}
+ .tournament-tree[data-view="round"] .tt-match[data-side="final"] .tt-node{grid-row:4}
+ .tournament-tree[data-view="round"] .tt-match[data-side="final"]{gap:12px}
+ .tournament-tree[data-view="round"] .tt-player{padding-top:16px}
+ .tournament-tree[data-view="round"] .tt-victory-stamp{right:46px;top:2px}
+
+
+.tournament-tree .tt-identity,.tournament-tree .tt-score{position:relative;z-index:3}
+.chapter:not([data-on]) .tournament-tree :is(.tt-player,.tt-victory-stamp,.tt-defeat-stamp){animation-play-state:paused}
+
+
+/* A confirmed champion receives a single coronation; polling never replays it. */
+.tournament-tree .tt-champion[data-confirmed]{border:2px double var(--tree-win);isolation:isolate}
+.tournament-tree .tt-champion[data-confirmed]::before{content:"";position:absolute;inset:5px;border:1px solid var(--money);pointer-events:none;opacity:.6}
+.tournament-tree .tt-champion[data-confirmed]::after{content:"";position:absolute;inset:-12px;border:2px solid var(--tree-win);clip-path:polygon(0 0,25% 0,25% 2%,2% 2%,2% 25%,0 25%,0 0,100% 0,100% 25%,98% 25%,98% 2%,75% 2%,75% 0,100% 0,100% 100%,75% 100%,75% 98%,98% 98%,98% 75%,100% 75%,100% 100%,0 100%,0 75%,2% 75%,2% 98%,25% 98%,25% 100%,0 100%);opacity:0;pointer-events:none}
+.tournament-tree .tt-champion-stamp{position:absolute;right:-8px;top:-18px;display:grid;place-items:center;width:44px;height:44px;border:3px double var(--tree-win);background:var(--ink);color:var(--tree-win);font:800 32px/1 var(--serif);transform:rotate(14deg);pointer-events:none}
+@media(prefers-reduced-motion:no-preference){
+ .tournament-tree .tt-champion[data-result-enter] .tt-champion-stamp{animation:tt-crown-stamp 900ms ease-out both}
+ .tournament-tree .tt-champion[data-result-enter]::after{animation:tt-crown-bloom 1600ms ease-out both}
+ .tournament-tree .tt-champion[data-result-enter] .tt-champion-art{animation:tt-crown-rise 1000ms ease-out both}
+}
+@keyframes tt-crown-stamp{0%{opacity:0;transform:scale(2.2) rotate(25deg)}55%{opacity:1;transform:scale(.94) rotate(14deg)}100%{opacity:1;transform:scale(1) rotate(14deg)}}
+@keyframes tt-crown-bloom{0%{opacity:0;transform:scale(.94)}30%{opacity:.9}100%{opacity:0;transform:scale(1.2)}}
+@keyframes tt-crown-rise{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+body.reading .tournament-tree .tt-champion :is(.tt-champion-stamp,.tt-champion-art),body.reading .tournament-tree .tt-champion::after{animation:none!important}
+.chapter:not([data-on]) .tournament-tree .tt-champion :is(.tt-champion-stamp,.tt-champion-art),.chapter:not([data-on]) .tournament-tree .tt-champion::after{animation-play-state:paused}
+
+/* A blade travels from top-right to bottom-left; jagged paper faces settle apart. */
+.tournament-tree .tt-cut-piece{position:absolute;inset:-1px;pointer-events:none;z-index:-1;background:var(--tree-defeat) url('/lunjian/art/bracket-card-light.webp') center/100% 100%;background-blend-mode:multiply;border:1px dashed color-mix(in srgb,var(--card-accent) 65%,var(--ink))}
+.tournament-tree .tt-cut-piece[data-half="upper"]{clip-path:polygon(0 0,96% 0,82% 16%,83% 20%,66% 36%,68% 40%,48% 57%,50% 61%,26% 80%,28% 84%,4% 100%,0 100%);transform:translate(-2px,-2px) rotate(-1deg);transform-origin:96% 0}
+.tournament-tree .tt-cut-piece[data-half="lower"]{clip-path:polygon(96% 0,100% 0,100% 100%,4% 100%,28% 84%,26% 80%,50% 61%,48% 57%,68% 40%,66% 36%,83% 20%,82% 16%);transform:translate(2px,4px) rotate(1deg);transform-origin:4% 100%}
+.tournament-tree .tt-cut-piece::after{content:"";position:absolute;inset:0;background:var(--paper-dim);opacity:.55;clip-path:polygon(95% 0,97% 0,83% 16%,84% 20%,67% 36%,69% 40%,49% 57%,51% 61%,27% 80%,29% 84%,5% 100%,3% 100%,27% 84%,25% 80%,49% 61%,47% 57%,67% 40%,65% 36%,82% 20%,81% 16%)}
+.tournament-tree .tt-cut-flash{position:absolute;inset:-3px;pointer-events:none;z-index:4;opacity:0;transform-origin:96% 0}
+.tournament-tree .tt-cut-flash svg{display:block;width:100%;height:100%;overflow:visible}
+.tournament-tree .tt-cut-flash path{fill:none;stroke:var(--paper);stroke-width:2;stroke-linecap:round;vector-effect:non-scaling-stroke}
+@media(prefers-reduced-motion:no-preference){
+ .tournament-tree .tt-player[data-result-enter] .tt-cut-flash{animation:tt-blade-cut 700ms ease-out both}
+ .tournament-tree .tt-player[data-result-enter] .tt-cut-piece[data-half="upper"]{animation:tt-tear-upper 600ms 240ms ease-out both}
+ .tournament-tree .tt-player[data-result-enter] .tt-cut-piece[data-half="lower"]{animation:tt-tear-lower 600ms 240ms ease-out both}
+}
+@keyframes tt-blade-cut{0%,8%{opacity:0;transform:scale(.02)}12%{opacity:1;transform:scale(.02)}35%{opacity:1;transform:scale(1)}60%,100%{opacity:0;transform:scale(1.04)}}
+@keyframes tt-tear-upper{from{transform:translate(0,0) rotate(0)}to{transform:translate(-2px,-2px) rotate(-1deg)}}
+@keyframes tt-tear-lower{from{transform:translate(0,0) rotate(0)}to{transform:translate(2px,4px) rotate(1deg)}}
+body.reading .tournament-tree :is(.tt-cut-piece,.tt-cut-flash){animation:none!important}
+.chapter:not([data-on]) .tournament-tree :is(.tt-cut-piece,.tt-cut-flash){animation-play-state:paused}

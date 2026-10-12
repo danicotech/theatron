@@ -1,0 +1,1755 @@
+
+:root{
+  color-scheme:dark;
+  /* 底 —— 三層，愈上層愈亮，用亮度分層而不是用邊框分層 */
+  --bg:#080d13; --panel:#111924; --panel-2:#16202c; --panel-3:#1d2836;
+  --line:#ffffff14; --line-soft:#ffffff0a; --line-hard:#ffffff24;
+  /* 字 */
+  --ink:#e9e3d6; --dim:#9aa4b2;
+  /* --faint 原本是 #7d8794。它打在最深的那幾塊面板上只有 4.09:1，
+     而它專門用在 10～11px 的副標上 —— 那個尺寸要 4.5:1。
+     #8a939f 是「還是明顯比 --dim 淡」與「每一塊底色都過 4.5」的交界：
+     選單 5.03、匯出 5.23、面板 5.68／5.29／4.79。 */
+  --faint:#8a939f;
+  /* 重點色。朱紅是論劍的品牌色，金給數字與成績 */
+  --red:#b32f28; --red-soft:#d9736b; --gold:#c9a227; --gold-soft:#e3c977;
+  --jade:#5fb8ad; --purple:#a97fd0;
+  /* 品質金／紫。每一種都是一組三件：帶狀底、卡身暈、字色。
+     帶狀底一定要漸層 —— 一整條同亮度的金橫在卡片上會比卡片本身還搶眼。
+     漸層從左端亮到右端幾乎沒入底色，眼睛只會停在左邊那幾個字。 */
+  --grad-gold:linear-gradient(95deg,#8a6f24 0%,#5d4c1d 44%,#2a2a1d 100%);
+  --grad-purple:linear-gradient(95deg,#5e3f8c 0%,#41305e 44%,#241d2b 100%);
+  --wash-gold:linear-gradient(180deg,#c9a22714 0%,#c9a22705 38%,#0000 70%);
+  --wash-purple:linear-gradient(180deg,#a97fd014 0%,#a97fd005 38%,#0000 70%);
+  --edge-gold:#c9a2274d; --edge-purple:#a97fd04d;
+  /* 淺色卡身：浮層走亮底暗字，跟整頁反過來，才不會被當成頁面的一部分 */
+  --grad-paper:linear-gradient(#f5f0e3,#e7dfcd);
+  /* 詞條滾動品質四段。暗底上要往亮的方向走，跟紙上相反。 */
+  --roll-1:#6fae62; --roll-2:#68a8dc; --roll-3:#b18ada; --roll-4:#dcb84a;
+  --serif:'Noto Serif TC','Songti TC','Source Han Serif TC',serif;
+  --mono:ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --ease-out:cubic-bezier(.22,.61,.36,1);
+  /* 左欄從 340 加寬到 386：裝備要五欄十格，340px 時每欄只有 58px，
+     圖被 max-width 卡死長不大。386 之後每欄 70px，圖大一圈。 */
+  --col-l:386px; --col-r:330px; --gap:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--serif);
+  font-size:14px; line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100dvh;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+
+/* ── 頁首 ───────────────────────────────────────────────────────────── */
+.top{
+  position:sticky;top:0;z-index:8;display:flex;align-items:center;gap:12px;
+  padding:10px clamp(12px,2vw,22px);background:#080d13e8;
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);flex-wrap:wrap;
+}
+/* 這是 <h1>：整頁的標題就是品牌那一塊，不要為了語意再多塞一個看不見的標題。
+   h1 自己的 margin 與 font-size 要歸零，樣式全由底下的 b 與 span 決定。 */
+.brand{display:flex;align-items:baseline;gap:9px;margin-right:auto;
+  margin-block:0;font-size:inherit;font-weight:inherit}
+.brand b{font-size:18px;letter-spacing:.24em;font-weight:600}
+.brand span{font-size:14px;letter-spacing:.3em;color:var(--faint)}
+.return-duel{flex:none;min-height:44px;white-space:nowrap;text-decoration:none;color:var(--gold-soft)}
+@media(max-width:600px){.brand span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.return-duel{padding-inline:8px;letter-spacing:0}}
+.act{
+  display:inline-flex;align-items:center;gap:6px;padding:6px 13px;
+  border:1px solid var(--line);border-radius:3px;background:#ffffff06;
+  font-size:14px;letter-spacing:.09em;color:var(--dim);
+  transition:border-color .16s var(--ease-out),color .16s var(--ease-out),background .16s var(--ease-out);
+}
+.act:hover{border-color:var(--line-hard);color:var(--ink);background:#ffffff0d}
+.act[data-primary]{border-color:#b32f2899;color:#f0c2bd;background:var(--red-soft)1f}
+.act[data-primary]:hover{border-color:var(--red);background:var(--red-soft)2e}
+
+/* ── 角色列 ─────────────────────────────────────────────────────────── */
+/* 一個帳號可能練好幾隻，各自一套配置。當前那隻用金色標出來 ——
+   報名文字永遠只反映當前這隻，這件事必須一眼看得出來。 */
+.roles{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.roles button{
+  padding:4px 11px;border-radius:999px;font-size:14px;letter-spacing:.06em;
+  border:1px solid var(--line);color:var(--faint);
+  transition:border-color .16s var(--ease-out),color .16s var(--ease-out),background .16s var(--ease-out);
+}
+.roles button:hover{border-color:var(--line-hard);color:var(--ink)}
+.roles button[data-on]{background:var(--gold)1f;border-color:#c9a22759;color:#e0b94e;font-weight:600}
+.roles .manage{border-style:dashed;padding:4px 9px}
+
+/* ── 角色管理 ───────────────────────────────────────────────────────── */
+.rm{padding:14px 16px 6px}
+.rm-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.rm-chips button{
+  padding:5px 13px;border-radius:3px;font-size:14px;letter-spacing:.04em;
+  border:1px solid var(--line);color:var(--dim);
+}
+.rm-chips button[data-on]{background:var(--gold)1f;border-color:#c9a22773;color:#e0b94e;font-weight:600}
+.rm-tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.rm-tabs button{position:relative;padding:7px 12px 8px;font-size:14px;color:var(--faint)}
+.rm-tabs button[data-on]{color:var(--ink);font-weight:600}
+.rm-tabs button[data-on]::after{content:'';position:absolute;left:8px;right:8px;bottom:-1px;
+  height:2px;background:var(--gold);border-radius:1px}
+.rm-field{display:flex;flex-direction:column;gap:5px;margin-bottom:6px}
+.rm-field > span{font-size:14px;letter-spacing:.14em;color:var(--faint)}
+.rm-input{position:relative;display:flex;align-items:center}
+.rm-input input{
+  flex:1;padding:8px 52px 8px 11px;font-size:14px;border:1px solid var(--line);border-radius:3px;
+  background:#00000047;color:var(--ink);
+}
+.rm-input input:focus{outline:1px solid var(--gold)}
+.rm-input .count{position:absolute;right:11px;font-family:var(--mono);font-size:14px;color:var(--faint)}
+.rm-input .count[data-over]{color:var(--red-soft)}
+.rm-note{margin:10px 0 0;font-size:14px;color:var(--faint);line-height:1.6}
+.pick-foot .danger{color:var(--red-soft);border-color:#b32f2859}
+.pick-foot .save{background:#3f8f5e;color:#0b1a12;border-color:#3f8f5e;font-weight:600}
+.pick-foot .save:hover{filter:brightness(1.12)}
+
+/* ── 匯入／匯出視窗 ─────────────────────────────────────────────────── */
+/* 原本是一個貼 JSON 的大文字框。那對使用者太硬：看不懂、也不知道貼下去
+   會發生什麼事。改成先看摘要、再看差異、最後才套用。
+   原始 JSON 收進「進階」裡 —— 想看的人還是看得到，但不擋在路上。 */
+.io-sec{padding:13px 16px;border-top:1px solid var(--line)}
+.io-sec:first-child{border-top:0}
+.io-lab{font-size:14px;letter-spacing:.18em;color:var(--faint);margin-bottom:9px}
+.io-row{
+  display:flex;align-items:center;gap:10px;padding:9px 11px;margin-bottom:6px;
+  border:1px solid var(--line);border-radius:3px;background:#ffffff05;
+}
+.io-row .nm{font-size:14px;font-weight:600;min-width:86px}
+.io-row .sum{flex:1;min-width:0;font-size:14px;color:var(--faint);line-height:1.5}
+.io-row .tag{flex:none;font-size:14px;letter-spacing:.1em;padding:1px 7px;border-radius:999px;
+  border:1px solid var(--line);color:var(--faint)}
+.io-row[data-me]{border-color:#c9a22759;background:var(--gold)0f}
+.io-row[data-me] .tag{border-color:#c9a22773;color:#e0b94e}
+.io-row[data-add] .tag{border-color:#3f8f5e80;color:#67c08c}
+.io-row[data-replace] .tag{border-color:#b32f2873;color:var(--red-soft)}
+/* 拖放區。點了也能開檔案選擇 —— 不是每個人都會拖。 */
+.io-drop{
+  display:grid;place-items:center;gap:6px;padding:26px 16px;text-align:center;
+  border:1px dashed var(--line-hard);border-radius:4px;background:#ffffff05;cursor:pointer;
+  transition:border-color .16s var(--ease-out),background .16s var(--ease-out);
+}
+.io-drop:hover,.io-drop[data-over]{border-color:var(--gold);background:var(--gold)0f}
+.io-drop b{font-size:14px;font-weight:600;color:var(--dim)}
+.io-drop span{font-size:14px;color:var(--faint);line-height:1.6}
+.io-paste{width:100%;min-height:96px;margin-top:10px;padding:10px;font-family:var(--mono);
+  font-size:14px;line-height:1.6;border:1px solid var(--line);border-radius:3px;
+  background:#00000047;color:var(--ink);resize:vertical}
+.io-paste:focus{outline:1px solid var(--gold)}
+.io-diff{display:flex;align-items:baseline;gap:9px;font-size:14px;line-height:2;
+  border-bottom:1px dotted #ffffff14}
+.io-diff .k{flex:none;min-width:52px;color:var(--faint)}
+.io-diff .a{color:var(--faint);text-decoration:line-through;opacity:.7}
+.io-diff .arrow{color:var(--faint);opacity:.6}
+.io-diff .b{color:var(--ink);font-weight:600}
+.io-diff[data-same] .b{color:var(--faint);font-weight:400}
+.io-adv{margin-top:11px}
+.io-adv summary{cursor:pointer;font-size:14px;color:var(--faint);letter-spacing:.06em}
+.io-adv summary:hover{color:var(--dim)}
+.io-adv pre{max-height:220px;overflow:auto;margin:9px 0 0;padding:10px;font-family:var(--mono);
+  font-size:14px;line-height:1.55;border:1px solid var(--line);border-radius:3px;
+  background:#00000047;color:var(--dim);white-space:pre-wrap;word-break:break-all}
+.io-warn{margin:9px 0 0;font-size:14px;color:var(--red-soft);line-height:1.6}
+.io-hint{margin:9px 0 0;font-size:14px;color:var(--faint);line-height:1.6}
+.seg{display:flex;gap:4px;margin-bottom:11px}
+.seg button{flex:1;padding:7px 10px;font-size:14px;border:1px solid var(--line);border-radius:3px;
+  color:var(--faint)}
+.seg button[data-on]{background:var(--gold)1f;border-color:#c9a22773;color:#e0b94e;font-weight:600}
+
+/* ── 三欄 ───────────────────────────────────────────────────────────── */
+.wrap{
+  display:grid;gap:var(--gap);align-items:start;
+  grid-template-columns:var(--col-l) minmax(0,1fr) var(--col-r);
+  padding:var(--gap) clamp(12px,2vw,22px) 56px;max-width:1980px;margin:0 auto;
+}
+@media (max-width:1340px){ .wrap{grid-template-columns:var(--col-l) minmax(0,1fr)} .col-3{grid-column:1/-1} }
+@media (max-width:900px){ .wrap{grid-template-columns:minmax(0,1fr)} .col-1,.col-3{grid-column:auto} }
+.col{display:flex;flex-direction:column;gap:var(--gap);min-width:0}
+
+/* ── 面板 ───────────────────────────────────────────────────────────── */
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:4px;
+  padding:13px 13px 15px;
+}
+.card > h2{
+  margin:0 0 11px;font-size:14px;letter-spacing:.28em;font-weight:600;color:var(--dim);
+  display:flex;align-items:center;gap:9px;
+}
+.card > h2 .cap{margin-left:auto;letter-spacing:.04em;font-size:14px;color:var(--faint);
+  font-family:var(--mono);font-weight:400}
+.hint{margin:9px 0 0;font-size:14px;line-height:1.55;color:var(--faint)}
+
+/* ── 流派卡 ─────────────────────────────────────────────────────────
+   照工具站的 .martial-build-picker 抄（數值取自 MartialBuildPicker-*.css）。
+   左上角那張與「選擇流派」窗裡的每一張是同一個版型 —— 它自己的 CSS 也是
+   __current 與 __option 共用一條規則，所以這裡只做一個 .bpick。
+
+   幾個容易做錯的尺寸，都是量出來的不是估的：
+     流派小圖 20×28（不是正方形）、武學圖 42×42、兵器譜印記 80×80 opacity .3
+     標題 24px/700、武學名 13px/700、武學列 gap 14px、卡片 min-height 112px
+   我原本做成 40px 方圖 ＋ 23px 標題 ＋ 132px 印記，整個比例就差掉了。 */
+.bpick{
+  position:relative;display:flex;align-items:center;justify-content:space-between;
+  width:100%;min-width:0;padding:6px;overflow:hidden;text-align:left;color:inherit;
+  border:1px solid transparent;border-radius:4px;cursor:pointer;
+  box-shadow:0 1px 1px #0000003d;
+  transition:border-color .16s ease,filter .16s ease;
+}
+.bpick:hover{border-color:#f2d48a80}
+.bpick[data-picked]{border-color:#f2d48a80}
+.bhead{min-height:112px}
+/* 各兵器譜一個底色。原值就是這四條，透明度很低 —— 它是「哪一家」的暗示，
+   不是主色，所以幾乎看不出顏色只感覺得到溫度差。 */
+.bpick[data-family="LIESHI"]{background:linear-gradient(to top right,#5f48483a,#0000001a)}
+.bpick[data-family="MINGJIN"]{background:linear-gradient(to top right,#3a496b3a,#0000001a)}
+.bpick[data-family="POZHU"]{background:linear-gradient(to top right,#4b48583a,#0000001a)}
+.bpick[data-family="QIANSI"]{background:linear-gradient(to top right,#535a5381,#0000001a)}
+.bpick-content{flex:1;min-width:0}
+.bpick-header{display:flex;min-width:0;align-items:center;gap:10px;font-size:24px;font-weight:700}
+.bpick-header > span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bpick-sig{width:20px;height:28px;object-fit:contain;flex:none}
+.bpick-switch{width:20px;height:20px;opacity:.8;flex:none;filter:invert(1) brightness(1.4)}
+/* 兩個武學固定同一列。原本用 flex-wrap，等級輸入一進來就把第二個擠到下一行，
+   跟參考圖差很多 —— 改成兩欄 grid，寬度不夠是讓名字截斷，不是換行。 */
+.bpick-strip{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.bpick-item{display:flex;min-width:0;align-items:center;gap:6px;font-size:14px;font-weight:700}
+.bpick-item > img{width:42px;height:42px;object-fit:contain;flex:none}
+.bpick-item .id{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;align-items:flex-start}
+.bpick-item .nm{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bpick-icon{flex:0 0 auto;width:72px;height:72px;object-fit:contain;margin-right:4px;opacity:.3}
+/* 武學等級：工具站沒有這一格（它不管等級），但我們的報名欄位要寫。
+   壓在武學名後面，小一號，不要破壞那一列的節奏。 */
+/* 等級欄：`/20` 那個後綴在這裡是雜訊（上限寫在浮層裡），隱藏。
+   輸入框要放得下三位數，32px 會把「20」切掉。 */
+.bpick-item .step{flex:none;font-weight:400}
+.bpick-item .step button{width:22px;height:22px;font-size:14px}
+.bpick-item .step input{width:32px;height:22px;font-size:14px}
+.bpick-item .step .unit{padding:0 6px 0 4px;font-size:14px}
+.bpick-none{margin:8px 0 0;font-size:14px;color:var(--faint);font-weight:400}
+.bhead-req{margin:10px 0 0;font-size:14px;color:var(--faint);line-height:1.5}
+.bhead-req b{font-weight:400;color:var(--dim)}
+
+/* ── 心法／奇術四格 ─────────────────────────────────────────────────── */
+.slots{display:grid;gap:7px;grid-template-columns:repeat(4,minmax(0,1fr))}
+/* 心法格是「一張卡」，所以圖框照卡的比例 .64。
+   奇術沒有卡、只有墨印，用同一個比例會被撐成整張卡那麼高 —— 壓成近方形。 */
+.slots[data-kind="art"] figure{aspect-ratio:.82}
+.slots[data-kind="art"] .seal{font-size:14px;padding:3px 1px}
+/* 外面這一層畫框線、底色與角落那顆金點；裡面的 .slot 才是按鈕。
+   為什麼要分兩層：右下角調數值的晶片本身也是按鈕，而按鈕不能包按鈕 ——
+   螢幕報讀器會把內層當成外層的一部分唸掉，鍵盤也走不進去，
+   結果就是「階數只能用滑鼠改」。晶片現在是 .slot 的兄弟，不是它的小孩。 */
+.slotwrap{
+  position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:8px 5px 7px;border:1px solid var(--line-soft);border-radius:3px;
+  background:#ffffff05;width:100%;text-align:center;
+  transition:border-color .15s var(--ease-out),background .15s var(--ease-out);
+}
+.slotwrap:hover{border-color:#b32f2873;background:var(--red-soft)12}
+.slotwrap[data-empty]{border-style:dashed;border-color:var(--line)}
+/* 裡面那顆按鈕只負責「點了開挑選面板」，長相全由外層決定。 */
+.slot{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;text-align:center}
+.slot:focus-visible{outline:1px solid var(--gold);outline-offset:2px;border-radius:2px}
+.slot figure{margin:0;width:100%;aspect-ratio:.64;display:grid;place-items:center;overflow:hidden;
+  border-radius:2px;background:#00000038}
+.slot img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.slot .nm{font-size:14px;line-height:1.25;font-weight:600;letter-spacing:.02em;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.slotwrap[data-empty] .nm{font-weight:400;color:var(--faint)}
+.slotwrap[data-empty] figure{font-size:17px;color:var(--faint);background:#ffffff05}
+.slotwrap[data-main]{border-color:#c9a2274d;background:var(--gold)0f}
+.slotwrap[data-main]::after{
+  content:'主';position:absolute;top:4px;right:4px;background:var(--gold);color:#16130a;
+  font-size:14px;font-weight:700;letter-spacing:.08em;padding:0 4px;border-radius:2px;line-height:1.5;
+}
+/* 四格並排時一格只有 ~72px，加減鈕要縮一號才排得下 */
+.slotwrap .step button{width:22px;height:22px;font-size:14px}
+.slotwrap .step input{width:30px;height:22px;font-size:14px}
+.slotwrap .step .unit{display:none}
+.slots[data-kind="art"] .step input{width:34px}
+.slotwrap .req{position:absolute;top:4px;left:4px;width:5px;height:5px;border-radius:50%;
+  background:var(--gold);box-shadow:0 0 0 2px #c9a2272e}
+/* 奇術無官方圖，用墨印代替 */
+.seal{
+  width:100%;height:100%;display:grid;place-items:center;color:#f6ece2;border-radius:2px;
+  background:radial-gradient(90% 80% at 32% 22%,#a8483d,#8c3a30 58%,#752923);
+  font-size:14px;letter-spacing:.03em;line-height:1.1;padding:4px 2px;
+  writing-mode:vertical-rl;text-orientation:upright;
+  box-shadow:0 0 0 1px #00000047 inset;text-shadow:0 1px 1px #0000004d;
+}
+
+/* ── 數值晶片與選值面板 ───────────────────────────────────────────────
+   格子只有 72px 寬，任何「就地微調」的控制都會小到點不到 ——
+   加減鈕做到 22px 已經是極限，而手指的可靠命中面積是 44px。
+
+   所以不在格子裡調：格子只顯示目前的值（一顆好點的晶片，整塊 28px 高），
+   點下去開一個面板，裡面每個候選值都是 44px 的大鈕。
+   桌機一次點中，手機也一次點中，而且看得到全部可選的值。 */
+.chip{
+  display:inline-flex;align-items:center;gap:3px;min-height:26px;padding:2px 9px;
+  border:1px solid var(--line);border-radius:999px;background:#00000047;
+  font-family:var(--mono);font-size:14px;color:var(--dim);line-height:1;
+  transition:border-color .14s var(--ease-out),color .14s var(--ease-out),background .14s var(--ease-out);
+}
+.chip:hover{border-color:var(--gold);color:var(--gold);background:var(--gold)1a}
+.chip[data-empty]{color:var(--faint);border-style:dashed}
+.chip .u{font-size:14px;opacity:.75}
+
+.pop{position:fixed;inset:0;z-index:72;display:none}
+.pop[data-on]{display:block}
+.pop-box{
+  position:absolute;min-width:190px;max-width:min(320px,calc(100vw - 20px));
+  background:var(--panel-2);border:1px solid var(--line-hard);border-radius:5px;
+  box-shadow:0 20px 50px -18px #000;padding:11px;
+}
+.pop-title{font-size:14px;letter-spacing:.14em;color:var(--faint);margin-bottom:9px}
+.pop-grid{display:grid;gap:5px;grid-template-columns:repeat(5,1fr)}
+/* 帶圖的面板要寬一點：兩欄 × 圖 ＋ 兩行字，五欄的寬度擠不下 */
+#pop-box:has(.rich){width:min(420px,calc(100vw - 24px))}
+.pop-grid button{
+  min-height:44px;display:grid;place-items:center;border:1px solid var(--line);border-radius:4px;
+  font-family:var(--mono);font-size:14px;color:var(--dim);background:#ffffff05;
+  transition:background .12s var(--ease-out),border-color .12s var(--ease-out),color .12s var(--ease-out);
+}
+.pop-grid button:hover{background:var(--gold)1f;border-color:#c9a22773;color:#e0b94e}
+.pop-grid button[data-on]{background:var(--gold);border-color:var(--gold);color:#16130a;font-weight:700}
+/* 帶圖的選項。兵器有十種，光看「傘」「鼓」「繩鏢」分不出誰是誰 ——
+   圖比字快，而且遊戲裡本來就是看圖認武器的。 */
+.pop-grid button.rich{
+  display:grid;grid-template-columns:38px 1fr;grid-template-rows:auto auto;
+  gap:1px 9px;align-items:center;padding:7px 10px;text-align:left;min-height:52px;
+}
+.pop-grid button.rich .pop-art{grid-column:1;grid-row:1/3;width:38px;height:38px;object-fit:contain}
+.pop-grid button.rich .pop-t{grid-column:2;grid-row:1;font-size:14px;letter-spacing:.04em;align-self:end}
+.pop-grid button.rich small{grid-column:2;grid-row:2;font-size:14px;color:var(--faint);
+  align-self:start;font-family:var(--mono);letter-spacing:.02em}
+.pop-grid button.rich[data-on] small{color:#5a4a16}
+.pop-grid button.rich .seal{grid-column:1;grid-row:1/3;width:38px;height:38px;display:grid;place-items:center;
+  font-size:14px;border:1px solid var(--line);border-radius:3px}
+
+/* 關著時的樣子：也看得到圖，不用點開才知道現在是哪一把 */
+.pickfld{
+  display:grid;grid-template-columns:30px 1fr auto;grid-template-rows:auto auto;
+  gap:0 8px;align-items:center;width:100%;padding:5px 8px;text-align:left;
+  border:1px solid var(--line);border-radius:3px;background:#00000047;color:var(--ink);
+  transition:border-color .15s var(--ease-out);
+}
+.pickfld:hover:not([data-fixed]){border-color:var(--gold)}
+.pickfld:focus-visible{outline:1px solid var(--gold)}
+.pickfld[data-fixed]{opacity:.72;cursor:default}
+/* 三欄各自釘死。只靠自動排版的話，跨兩列的箭頭會被塞進文字那一欄，
+   文字被擠到最右邊 —— 看起來像是右對齊，其實是排錯格。 */
+.pickfld img,.pickfld .seal{grid-column:1;grid-row:1/3;width:30px;height:30px;object-fit:contain}
+.pickfld .seal{display:grid;place-items:center;font-size:14px;border:1px solid var(--line);border-radius:3px}
+.pickfld .pf-t{grid-column:2;grid-row:1;font-size:14px;align-self:end;text-align:left;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pickfld small{grid-column:2;grid-row:2;font-size:14px;color:var(--faint);align-self:start;
+  text-align:left;font-family:var(--mono)}
+.pickfld .pf-caret{grid-column:3;grid-row:1/3;color:var(--faint);font-size:14px}
+
+/* 選單列：一列一件事。會刪東西的標紅，跟「整理一下」那幾項分開。 */
+.pop-menu{grid-template-columns:1fr!important;gap:2px}
+.pop-menu button.menurow{
+  display:flex;flex-direction:column;align-items:flex-start;gap:1px;
+  padding:8px 11px;min-height:44px;text-align:left;justify-content:center;
+}
+.pop-menu button.menurow .mr-t{font-size:14px;letter-spacing:.04em}
+.pop-menu button.menurow small{font-size:14px;color:var(--faint);line-height:1.4}
+.pop-menu button.menurow:hover small{color:var(--dim)}
+.pop-menu button.sep{margin-top:7px;border-top:1px solid var(--line-hard);border-radius:0 0 4px 4px}
+.pop-menu button.danger{color:var(--red-soft)}
+.pop-menu button.danger:hover{background:var(--red-soft)17;border-color:#b32f2873;color:#e9968f}
+/* 原本 #9a6a66，在選單底 #1b2430 上只有 3.44:1。#b48682 是 4.97:1，
+   仍然一眼看得出是紅的（會刪東西的那兩列），但讀得到。 */
+.pop-menu button.danger small{color:#b48682}
+
+/* 排序：七種分法一次只選一種，所以是下拉不是晶片 */
+/* ── 屬性目標 ────────────────────────────────────────────────────── */
+.goal{
+  display:grid;grid-template-columns:1fr 62px 58px 1fr auto 28px;
+  gap:0 7px;align-items:center;padding:5px 0;
+  border-bottom:1px solid var(--line-soft);font-size:14px;
+}
+.goal:last-child{border-bottom:0}
+.goal .gk{color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.goal .gv{
+  padding:3px 5px;font-size:14px;font-family:var(--mono);text-align:right;
+  border:1px solid var(--line);border-radius:3px;background:#00000047;color:var(--gold-soft);
+  width:100%;
+}
+.goal .gv:focus{outline:1px solid var(--gold)}
+.goal .gnow{font-family:var(--mono);font-size:14px;color:var(--faint);text-align:right}
+.goal .gbar{display:block;height:4px;border-radius:2px;background:#ffffff14;overflow:hidden}
+.goal .gbar i{display:block;height:100%;background:var(--red);border-radius:2px;
+  transition:width .2s var(--ease-out)}
+.goal[data-done] .gbar i{background:var(--gold)}
+.goal .gpct{font-family:var(--mono);font-size:14px;color:var(--faint);white-space:nowrap}
+.goal[data-done] .gpct{color:var(--gold-soft)}
+/* 移除鈕。看起來小沒關係，但**點擊面積**要夠 ——
+   量出來只有 18×18，低於觸控目標的 24px 下限。長寬拉到 28，
+   叉叉本身的字級不動，所以視覺上一樣不搶戲。 */
+.goal .gx{
+  width:28px;height:28px;border-radius:4px;border:0;background:none;
+  color:var(--faint);font-size:14px;line-height:1;
+  display:grid;place-items:center;
+}
+.goal .gx:hover{background:var(--red-soft)26;color:var(--red-soft)}
+
+/* 排序與篩選兩顆並排，高度要一樣 —— 差 6px 就看得出來沒對齊 */
+.sortsel{
+  min-height:32px;padding:0 8px;font-size:14px;border:1px solid var(--line-hard);
+  border-radius:6px;background:var(--panel-2);color:var(--ink);font-family:var(--serif);
+}
+.sortsel:focus{outline:1px solid var(--gold)}
+
+/* 篩選：長得跟排序一樣的下拉，但可以複選 ——
+   原生 select 的複選要按住 Ctrl 點，手機根本點不出來。 */
+.filtsel{
+  /* 高度寫死才會跟旁邊那顆原生 select 齊平。min-height 不夠 ——
+     button 的行高與內距來源跟 select 不一樣，只給下限就會高出一截。 */
+  display:inline-flex;align-items:center;gap:7px;max-width:260px;
+  height:32px;padding:0 10px;line-height:1;text-align:left;cursor:pointer;
+}
+.filtsel > span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.filtsel .pf-caret{margin-left:auto;color:var(--faint);font-size:14px}
+.filtsel[data-on]{border-color:var(--edge-gold);background:var(--gold)1f;color:var(--gold-soft)}
+.filtsel:hover{border-color:var(--gold)}
+
+/* 勾選列：左邊留一格放勾，勾不勾都對齊 */
+.pop-menu button[role=menuitemcheckbox]{padding-left:30px;position:relative}
+.pop-menu button[role=menuitemcheckbox]::before{
+  content:'';position:absolute;left:10px;top:50%;transform:translateY(-50%);
+  width:13px;height:13px;border:1px solid var(--line-hard);border-radius:3px;
+}
+.pop-menu button[role=menuitemcheckbox][data-on]::before{
+  content:'✓';display:grid;place-items:center;font-size:14px;line-height:1;
+  border-color:var(--gold);background:var(--gold);color:#16130a;
+}
+
+.pop-foot{display:flex;gap:6px;align-items:center;margin-top:9px}
+.pop-foot input{
+  flex:1;min-width:0;height:38px;padding:0 10px;text-align:center;font-family:var(--mono);
+  font-size:14px;border:1px solid var(--line);border-radius:4px;background:#00000047;color:var(--ink);
+}
+.pop-foot input:focus{outline:1px solid var(--gold)}
+.pop-foot button{
+  min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:4px;
+  font-size:14px;color:var(--faint);
+}
+.pop-foot button:hover{border-color:#b32f2859;color:var(--red-soft)}
+.pop-foot button.ok{border-color:var(--edge-gold);color:var(--gold-soft)}
+.pop-foot button.ok:hover{background:var(--gold)1f;border-color:var(--gold);color:#e0b94e}
+.pop-foot input::-webkit-outer-spin-button,.pop-foot input::-webkit-inner-spin-button{
+  -webkit-appearance:none;margin:0}
+.pop-foot input[type=number]{-moz-appearance:textfield}
+
+/* ── 等級控制（舊的，只剩編輯窗裡的階數還在用）───────────────────────
+   原本是一個 34px 寬的數字輸入框，滑鼠要對準、手機根本點不到。
+   改成兩種，各自配合它的值域：
+     心法 1–5  → 五顆可點的星（遊戲本來就用星，點第幾顆就是第幾階）
+     其餘       → 減／加兩顆鈕夾一個數字，點擊區 26px 起跳
+   兩種都不必打字，也都還是可以直接改數字。 */
+.stars{display:flex;gap:1px;align-items:center}
+.stars button{
+  width:20px;height:24px;display:grid;place-items:center;font-size:15px;line-height:1;
+  color:#ffffff2e;transition:color .12s var(--ease-out),transform .12s var(--ease-out);
+}
+.stars button:hover{transform:scale(1.18)}
+.stars button[data-on]{color:var(--gold)}
+.stars button:hover ~ button[data-on]{color:#ffffff2e}
+.stars:hover button{color:var(--gold-soft)}
+.stars:hover button:hover ~ button{color:#ffffff2e}
+
+.step{display:inline-flex;align-items:center;gap:0;border:1px solid var(--line);
+  border-radius:3px;overflow:hidden;background:#00000047}
+.step button{
+  width:26px;height:26px;display:grid;place-items:center;flex:none;
+  font-size:15px;line-height:1;color:var(--dim);font-family:var(--mono);
+  transition:background .12s var(--ease-out),color .12s var(--ease-out);
+}
+.step button:hover{background:#ffffff14;color:var(--ink)}
+.step button:disabled{color:#ffffff1f;cursor:default;background:none}
+.step input{
+  width:40px;height:26px;padding:0 2px;text-align:center;border:0;background:none;
+  font-family:var(--mono);font-size:14px;color:var(--ink);
+  border-left:1px solid var(--line);border-right:1px solid var(--line);
+}
+.step input:focus{outline:1px solid var(--gold);outline-offset:-1px}
+.step .unit{padding:0 7px 0 5px;font-size:14px;color:var(--faint);font-family:var(--mono);
+  letter-spacing:.04em;white-space:nowrap}
+/* 數字輸入的上下小箭頭在這個尺寸下完全點不到，收掉。 */
+.step input::-webkit-outer-spin-button,.step input::-webkit-inner-spin-button{
+  -webkit-appearance:none;margin:0}
+.step input[type=number]{-moz-appearance:textfield}
+
+/* ── 裝備縮圖列 ─────────────────────────────────────────────────────── */
+/* 左欄放一排小圖，是工具站那個「一眼看完十件」的做法。
+   卡片網格在中欄要捲，這一列不捲 —— 它是索引，點了跳去編輯。 */
+/* 版型照工具站的 .equipment-panel__grid 量出來的：4 欄 × 2 列、gap 6px，
+   欄 0/1 是 6fr 4fr（上大下小）、欄 2/3 是 5fr 5fr（等高）。
+   列高由 JS 逐欄設，因為兩種比例不同。 */
+/* 高度收到 148。
+   為什麼不能更高：我們的格子是五欄平分，寬度只有 58px；而裝備圖
+   （equipment/cards/*.png）接近正方形。格子一高就變成 1:2.1 的細長條，
+   圖被 max-width 先卡住，再高也長不大 —— 上排就空出一大塊金。
+   量過：172px 時圖只佔高 39%，收到 148 之後是 62%，上下兩排也接近。
+   工具站可以用 6:4 的細長格，是因為它的圖本來就是直的（劍、槍）。 */
+/* **固定高度**，不是 min-height。
+   用 min-height 的話高度是被內容撐出來的，而第五欄（弓／武庫）選了東西之後
+   有「屬性 ＋ 名稱」兩三行，比裝備格的「圖 ＋ 名稱」高 ——
+   它會把整個網格拉大，八個裝備格跟著變高變空。量過：沒選時 96/79，
+   選了之後變 124/101。高度應該由版面決定，不該讓某一格說了算。 */
+/* 裝備 5 欄 × 2 列 ＝ 八格 ＋ 弓 ＋ 武庫。
+   固定高度不是 min-height：高度該由版面決定，不該讓某一格撐開 ——
+   先前第五欄有兩行文字，就是它把整個網格拉高、其他九格跟著變空。 */
+.strip{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;height:186px}
+.scol{display:grid;gap:6px;min-height:0}
+/* 空格：一個大的＋號，跟工具站一樣置中 */
+/* 縮圖格裡同理：墨印跟著圖的尺寸走，不要自己撐開 */
+.thumb .seal{width:auto;height:auto;max-height:52px;min-height:34px;padding:5px 3px;font-size:14px}
+.thumb .plus{
+  font-family:var(--serif);
+  font-size:26px;line-height:1;color:#faf2dcbf;text-shadow:0 2px 10px #0000008f;
+  margin:auto 0;
+}
+.thumb[data-empty] .t{opacity:.72}
+/* 套裝角標，左上角，位置照量到的 6/7px */
+/* ── 浮層的暗色面板外觀 ───────────────────────────────────────────
+   數值全部量自工具站的 .common-card / .attr-row / .attr-value__main，
+   不是配出來的。用在「加成」那一類：它們列的是一疊數字，
+   亮紙底上一排金色數字會糊在一起，暗底才讓數字自己跳出來。 */
+.tip[data-skin="panel"]{
+  min-width:250px;max-width:330px;padding:0;overflow:hidden;border-radius:10px;
+  background:linear-gradient(#070e0eb8,#010402 94%),
+    radial-gradient(circle at 52% 36%,#6c74573d,transparent 56%),#0a0f14;
+  border:1px solid #ffffff17;
+  box-shadow:inset 0 1px #ffffff0a,0 16px 32px #00000033;
+  backdrop-filter:blur(10px);
+  color:#dee5ecdb;
+}
+.tip[data-skin="panel"] .tip-h{
+  margin:0;padding:12px 14px 2px;font-size:14px;font-weight:600;
+  letter-spacing:.06em;color:#f2d48a;
+}
+.tip[data-skin="panel"] .sub{
+  margin:0;padding:0 14px 8px;font-size:14px;line-height:1.5;
+  color:#dae1ee9e;border-bottom:1px solid #ffffff12;
+}
+.tip[data-skin="panel"] .sec{padding:8px 14px 2px}
+.tip[data-skin="panel"] .sec + .sec{border-top:1px solid #ffffff0f}
+/* 群組小標左邊那根金色短棒，就是它的 accent-bar-title */
+.tip[data-skin="panel"] .grp{
+  position:relative;margin:0 0 4px;padding-left:12px;line-height:1.2;
+  font-size:14px;font-weight:600;letter-spacing:.06em;color:#f2d48a;
+}
+.tip[data-skin="panel"] .grp::before{
+  content:'';position:absolute;top:50%;left:0;width:4px;height:calc(100% - 2px);
+  transform:translateY(-50%);border-radius:999px;
+  background:linear-gradient(90deg,#d9a94af2,#d9a94a2e);
+}
+.tip[data-skin="panel"] .arow{
+  display:flex;min-height:30px;align-items:center;justify-content:space-between;
+  gap:12px;font-size:14px;letter-spacing:.05em;color:#dee5ecdb;
+  border:0;padding:0;background:none;
+}
+.tip[data-skin="panel"] .arow .k{color:#dee5ecdb}
+.tip[data-skin="panel"] .arow .v{
+  flex:0 0 auto;color:#f2d48a;font-weight:500;letter-spacing:.02em;font-family:var(--mono);
+}
+/* 最後那段「合計」壓一層底，跟上面幾段分開 */
+.tip[data-skin="panel"] .sec:last-child{background:#ffffff08;padding-bottom:10px}
+.tip[data-skin="panel"] .none{
+  margin:0;padding:10px 14px 12px;font-size:14px;line-height:1.6;color:#dae1ee9e;
+}
+
+/* ── 武器套裝・弓箭・武庫的彈窗 ─────────────────────────────────── */
+/* 比一般彈窗寬：武庫那排要五個並排。
+   兩個 class 一起寫是為了壓過後面那條 .pick-box —— 同權重時後寫的贏，
+   而 .pick-box 定義在這之後。 */
+/* ── 確認框 ───────────────────────────────────────────────────────
+   自己畫的，不是原生 confirm()。理由寫在標記那邊：原生的會被瀏覽器停用，
+   停用之後按鈕就變成沒反應也沒訊息，而那是最難查的一種壞法。 */
+.pick-box.ask-box{width:min(460px,100%)}
+.ask-body{padding:14px 15px 4px;display:flex;flex-direction:column;gap:7px}
+.ask-body p{margin:0;font-size:14px;line-height:1.65;color:var(--ink)}
+.ask-body p.sub{font-size:14px;line-height:1.6;color:var(--faint)}
+.ask-body p.warn{font-size:14px;color:var(--red-soft)}
+.pick-foot .ok[data-danger]{background:var(--red);border-color:var(--red);color:#fff}
+.pick-foot .ok[data-danger]:hover{filter:brightness(1.12)}
+
+/* ── 屬性來源明細 ─────────────────────────────────────────────────
+   總計只給一個數字，看不出「這 1369 是誰堆出來的」。這個視窗把它拆開：
+   一個來源一塊板，板上左邊名稱右邊數值 —— 跟工具站同一種讀法。
+   只用既有的色票（金／墨／淡），不另外開一套顏色。 */
+.pick-box.src-box{width:min(960px,100%)}
+.src-sub{margin:0;padding:11px 15px 0;font-size:14px;line-height:1.5;color:var(--faint)}
+/* min-height:0 是關鍵：flex 子項預設 min-height:auto，不歸零它就不肯縮，
+   overflow:auto 也不會生效，底下的「關閉」會被推到視窗外面點不到。 */
+.src-body{display:flex;flex-direction:column;gap:12px;
+  min-height:0;overflow:auto;padding:12px 15px 4px}
+.spanel{border:1px solid var(--line);border-radius:4px;background:#00000033;padding:12px 14px}
+.spanel-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:10px}
+.spanel-h h4{margin:0;font-size:15px;letter-spacing:.1em;font-weight:600;color:#e0b94e}
+.spanel-h .hint2{font-size:14px;color:var(--faint);line-height:1.5}
+.spanel-h .tags{margin-left:auto;display:flex;flex-wrap:wrap;gap:5px}
+.spanel-h .tags span{
+  padding:3px 9px;border:1px solid var(--line);border-radius:999px;
+  font-size:14px;letter-spacing:.04em;color:var(--dim);background:#ffffff08;
+}
+/* 一個來源一小塊。名字在左上、角落標它是第幾件／哪一類。 */
+.sgrp{border-top:1px solid var(--line-soft);padding-top:9px;margin-top:9px}
+.sgrp:first-child{border-top:0;padding-top:0;margin-top:0}
+.sgrp-h{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
+.sgrp-h b{font-size:14px;font-weight:600;letter-spacing:.04em;color:var(--ink)}
+.sgrp-h small{margin-left:auto;font-size:14px;color:var(--faint);letter-spacing:.08em}
+.srow{display:flex;align-items:baseline;gap:10px;padding:3px 0;font-size:14px}
+.srow .k{color:var(--dim);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.srow .v{margin-left:auto;font-family:var(--mono);font-size:14px;color:var(--gold-soft);
+  font-weight:600;white-space:nowrap}
+.srow .v .sub{margin-left:5px;font-size:14px;font-weight:400;color:var(--faint)}
+.srow[data-p] .v{color:var(--red-soft)}
+.spanel .none{margin:0;font-size:14px;color:var(--faint)}
+
+/* ── 快速添加 ─────────────────────────────────────────────────────
+   一次補一整套（八件）。卡片只列「這一格會拿到哪幾條詞條」——
+   數值是照表填的基準值，不必在這裡重複一次，加進去就看得到。 */
+.pick-box.qadd-box{width:min(1120px,100%)}
+.qadd-bar{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;
+  padding:12px 15px 0;margin-bottom:12px}
+.qadd-fld{display:flex;flex-direction:column;gap:4px;min-width:0}
+.qadd-fld > span{font-size:14px;letter-spacing:.16em;color:var(--faint)}
+.qadd-fld select{padding:6px 8px;font-size:14px;border:1px solid var(--line);border-radius:3px;
+  background:#00000047;color:var(--ink);font-family:var(--serif);min-width:150px}
+.qadd-modes{display:flex;gap:6px}
+.qadd-modes button{padding:7px 14px;font-size:14px;border:1px solid var(--line);
+  border-radius:3px;color:var(--dim);
+  transition:border-color .15s var(--ease-out),color .15s var(--ease-out),background .15s var(--ease-out)}
+.qadd-modes button:hover{border-color:var(--gold);color:var(--gold)}
+.qadd-modes button[data-on]{border-color:#c9a22773;background:var(--gold)1f;color:#e0b94e;font-weight:600}
+#qadd-all,#qadd-none{margin-left:auto;padding:7px 12px;font-size:14px;
+  border:1px solid var(--line);border-radius:3px;color:var(--dim)}
+#qadd-all{margin-left:auto}#qadd-none{margin-left:0}
+#qadd-all:hover,#qadd-none:hover{border-color:var(--gold);color:var(--gold)}
+/* 跟 .src-body 同一個理由：手機一欄八張卡一定超過 88dvh，要自己會捲。 */
+.qadd-grid{display:grid;gap:8px;grid-template-columns:repeat(4,minmax(0,1fr));
+  min-height:0;overflow:auto;padding:0 15px 4px}
+@media (max-width:900px){ .qadd-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:560px){ .qadd-grid{grid-template-columns:minmax(0,1fr)} }
+/* 整張卡就是勾選鈕。裡面不放第二顆按鈕 —— 按鈕不能包按鈕。 */
+.qcard{
+  display:flex;flex-direction:column;gap:6px;padding:10px 11px;text-align:left;
+  border:1px solid var(--line);border-radius:3px;background:#00000033;
+  transition:border-color .15s var(--ease-out),background .15s var(--ease-out);
+}
+.qcard:hover{border-color:#c9a22773}
+.qcard[data-on]{border-color:#c9a22773;background:var(--gold)1a}
+.qcard-h{display:flex;align-items:baseline;gap:7px}
+.qcard-h .part{font-size:14px;letter-spacing:.14em;color:var(--faint)}
+.qcard-h .nm{font-size:14px;font-weight:600;letter-spacing:.03em;color:var(--dim)}
+.qcard[data-on] .nm{color:var(--ink)}
+.qcard-h .tick{margin-left:auto;font-size:14px;color:var(--faint)}
+.qcard[data-on] .tick{color:#e0b94e}
+.qcard ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px}
+.qcard li{font-size:14px;line-height:1.35;color:var(--gold-soft);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qcard li.p{color:var(--red-soft)}
+.qcard li.f::before{content:'首　';color:var(--faint);font-size:14px}
+
+.pick-box.eqsel-box{width:min(1160px,100%)}
+.eqsec{margin-bottom:16px}
+.eqsec:last-child{margin-bottom:6px}
+.eqsec h3{
+  margin:0 0 9px;font-size:14px;letter-spacing:.14em;font-weight:600;color:var(--gold-soft);
+  display:flex;align-items:baseline;gap:10px;
+}
+.eqsec h3 span{font-size:14px;letter-spacing:.04em;color:var(--faint);font-weight:400}
+/* 武器套裝有十一個，讓它自己排幾行都行。 */
+.eqgrid{display:grid;gap:7px;grid-template-columns:repeat(auto-fill,minmax(min(196px,100%),1fr))}
+
+/* 弓箭剛好三個、武庫剛好五個 —— 這兩區用固定欄數，一行排完不換行。
+   auto-fill 會照最小寬度去塞，容器差幾 px 就把最後一個擠到第二行，
+   看起來像是漏了一個。固定欄數就沒有這個問題，窄螢幕才退。 */
+.eqsec:nth-child(2) .eqgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.eqsec:nth-child(3) .eqgrid{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:900px){
+  .eqsec:nth-child(3) .eqgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:620px){
+  .eqsec:nth-child(2) .eqgrid,
+  .eqsec:nth-child(3) .eqgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* 五欄時每張只剩約 190px，圖收小一點把空間讓給字 */
+.eqsec:nth-child(3) .eqopt{padding:11px 12px;gap:8px}
+.eqsec:nth-child(3) .eqopt-i{width:44px;height:44px}
+/* 選項卡。這一段的數值全部量自工具站的 .equipment-selector-option，
+   不是配出來的：底是一層很淡的暖灰漸層，選取與 hover 用**近白色的邊**
+   而不是金色 —— 金色在一排暖灰卡上會太吵，而且跟「已裝備」的金撞。 */
+.eqopt{
+  position:relative;display:flex;align-items:center;gap:12px;min-height:58px;
+  padding:13px 14px;text-align:left;overflow:hidden;border-radius:4px;
+  color:#eeebe1db;border:1px solid #ffffff00;
+  background:linear-gradient(135deg,#4f483b2c,#3d4a6410);
+  transition:transform .16s var(--ease-out),border-color .16s var(--ease-out),
+    filter .16s var(--ease-out);
+}
+/* 元素別的底另外鋪一層，才能單獨提亮而不動下面那層 */
+.eqopt::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.96}
+.eqopt[data-el=lieshi]::before{background:linear-gradient(to right top,#5f48483a,#0000001a)}
+.eqopt[data-el=mingjin]::before{background:linear-gradient(to right top,#3a496b3a,#0000001a)}
+.eqopt[data-el=qiansi]::before{background:linear-gradient(to right top,#535a5381,#0000001a)}
+.eqopt[data-el=pozhu]::before{background:linear-gradient(to right top,#4b48583a,#0000001a)}
+.eqopt[data-el=common]::before{background:linear-gradient(to right top,#5f5c483a,#0000001a)}
+.eqopt:hover{transform:translateY(-1px)}
+.eqopt:hover,.eqopt[data-on]{border-color:#eeeeed65}
+.eqopt:hover::before,.eqopt[data-on]::before{filter:brightness(1.08)}
+.eqopt-t{position:relative;z-index:1;display:flex;flex-direction:column;gap:5px;min-width:0;flex:1}
+.eqopt-t b{font-size:16px;font-weight:600;letter-spacing:.08em}
+/* 一條屬性是一個整體，不能從「最大外功攻擊 +373」中間那個空格斷開。
+   放不下就截斷加點點，比斷成兩行好讀。 */
+.eqopt-t small{
+  font-size:14px;line-height:1.35;color:#e0d8c2ad;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.eqopt-i{position:relative;z-index:1;width:52px;height:52px;object-fit:contain;flex:none}
+
+/* 第 5 欄：弓箭套裝與武庫。結構跟其他八格一樣（圖 ＋ 名稱），
+   只用虛線邊區隔 —— 一眼看得出這兩個不是裝備，但不會互相牽扯高度。 */
+.thumb.pickcell{border-style:dashed;border-color:#c9a22740}
+.thumb.pickcell:hover{border-color:var(--gold);border-style:solid}
+.thumb.pickcell img{max-width:62%;max-height:56%}
+
+.thumb .sbadge{
+  position:absolute;top:4px;left:5px;z-index:2;
+  font-family:var(--serif);
+  font-size:14px;line-height:11px;color:#b99476;
+}
+/* 配裝格的底是 bg/r1.png（紫裝 r2）—— 工具站的 --equipment-slot-gold-bg
+   指的是這一張。1088×2164 的直幅，上暗下金、帶細直紋。
+
+   提亮要很克制：物件本身是深青色，底一亮就糊在一起。
+   先前開到 brightness(1.5) 整格變亮橘，物件跟名字都看不見了。
+   名字另外壓一層由下而上的暗幕 —— 光靠字色在會變的底上撐不住。 */
+.thumb{
+  position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;
+  /* **貼底**，跟工具站一樣（它的格子內層是 flex-col justify-end）。
+     由上往下堆的話，格子高度一變，名字就停在不同高度 ——
+     一整排看過去名字高高低低，像沒對好。貼底就一定在同一條線上。 */
+  justify-content:flex-end;
+  /* padding 0：工具站的格子沒有內距，圖與名字直接貼著邊界。
+     留內距會把可用高度吃掉，圖被迫縮小、底紋也少露出一圈。 */
+  padding:0;border:1px solid var(--line-soft);border-radius:3px;
+  background:#ffffff05;overflow:hidden;
+  transition:border-color .15s var(--ease-out),box-shadow .15s var(--ease-out);
+}
+/* 有東西就亮、沒東西就暗。這是這一排最重要的訊號 ——
+   一眼要看得出哪幾格還沒配。
+   底紋本身是**上暗下金**，所以只提亮一點點的話上半截還是黑的，
+   配好的格子看起來會像沒選過。填滿的要真的亮起來才分得出來。 */
+.thumb::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background-repeat:no-repeat;
+  /* **cover ＋ 貼底**，跟工具站一樣。底圖是 1088×2164 的直幅，上黑下金；
+     cover 會放大到蓋滿再從底部對齊，等於**只顯示下半截的金色**，上面那段黑被裁掉。
+     先前用 100% 100% 把整張壓進格子，那段黑一起塞進來，金的部分又被壓扁，
+     再加 saturate 就推成土黃 —— 怎麼調亮度都救不回來，因為問題不在亮度。 */
+  background-size:cover;background-position:50% 100%;
+  filter:brightness(1.14) saturate(1.16);
+  transition:filter .15s var(--ease-out),opacity .15s var(--ease-out);
+}
+/* 這裡**不放暗幕**。
+   原本有一層由下而上的黑幕撐名字的可讀性，但底紋改成 cover 貼底之後，
+   可見範圍幾乎整片都是金的 —— 那層黑幕等於把金色蓋掉
+   （量過：最底下的亮度從 115 掉到 26，掉了四倍）。
+   字改成完全靠自己的陰影站住：一層貼身的硬邊擋住細節、一層擴散的暈壓住底色。
+   金是這張圖的重點，不該為了襯字把它蒙掉。 */
+.thumb[data-q="gold"]::before{background-image:url(/loadout/assets/bg/r1.png)}
+.thumb[data-q="purple"]::before{background-image:url(/loadout/assets/bg/r2.png)}
+.thumb > *{position:relative;z-index:1}
+.thumb:hover{border-color:var(--line-hard);box-shadow:0 0 0 1px var(--line) inset}
+.thumb:hover::before{filter:brightness(1.32) saturate(1.24)}
+/* 配好的格子給一圈很淡的暖邊，跟空格的虛線分開 */
+.thumb:not([data-empty]){border-color:#c9a2272e}
+/* 這裡刻意**不**墊暖底。試過墊一層 #4a4034→#8a6c3c 再用 screen 混合，
+   上半截確實從近黑抬到亮度 95，但整格變成一片土黃，底紋原本
+   「上暗下金」的層次全沒了。原圖的味道就在那個反差，不能為了亮而抹掉。 */
+/* 圖的尺寸照工具站量的：**上限 78%**，不是撐滿。
+   撐滿的話圖會頂到邊、把底紋的金完全蓋掉；留 22% 讓底紋透出來，
+   金色才有地方可以看見。底下留 5px 跟名字隔開。 */
+.thumb img{max-width:80%;max-height:72%;flex:0 1 auto;object-fit:contain;
+  margin-bottom:4px;filter:drop-shadow(0 1px 3px #000000a6)}
+.thumb .t{flex:none}
+.thumb .plus{flex:0 1 auto;display:grid;place-items:center;margin-bottom:5px}
+.thumb[data-w] .t{color:#f0cf5c}
+.thumb .t{padding:0 3px}
+/* 名字也照工具站量的：12px / 700 / 行高 20px / 純白，
+   陰影**只有一層**且很輕（0 1px 2px rgba(0,0,0,.7)）。
+   我先前疊了三層厚陰影去壓金底，結果字周圍糊成一團黑，
+   看起來就像又蓋了一層遮罩 —— 字夠粗夠白的話根本不需要那麼重。 */
+.thumb .t{font-size:14px;color:#fff;line-height:20px;font-weight:700;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;
+  text-shadow:0 1px 2px #000000b3}
+.thumb .s{position:absolute;top:3px;left:3px;z-index:2;font-size:14px;line-height:1.4;padding:0 4px;
+  border-radius:2px;background:#000000bf;color:#f0cf5c;letter-spacing:.02em;font-weight:600}
+/* 空格：壓暗、抽掉彩度、虛線邊，配上大大的＋。
+   跟上面填滿的那組擺在一起要一眼分得出來，不能只差一點點。 */
+.thumb[data-empty]{border-style:dashed}
+/* 空格反過來：壓暗、抽掉彩度。跟上面亮起來的那組要一眼分得出來。 */
+.thumb[data-empty]::before{filter:brightness(.4) saturate(.25);opacity:.5}
+.thumb[data-empty]:hover::before{filter:brightness(.7) saturate(.45);opacity:.75}
+/* 六條詞條都填滿的那條金線改用 inset 陰影畫。
+   本來用 ::after，但那個偽元素已經是名字底下的暗幕了 ——
+   兩個搶同一個，填滿的格子會把暗幕整個換掉，名字就浮在亮底上看不清。 */
+.thumb[data-done]{box-shadow:inset 0 -2px 0 #c9a227bf}
+.thumb[data-done]:hover{box-shadow:inset 0 -2px 0 #c9a227bf,0 0 0 1px var(--line) inset}
+
+/* ── 屬性小計 ───────────────────────────────────────────────────────── */
+.tot{display:flex;align-items:baseline;gap:6px;font-size:14px;line-height:1.95;padding:0 2px}
+.tot .k{flex:none;max-width:56%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--dim)}
+.tot::before{content:'';flex:1;align-self:center;height:0;margin:0 3px;
+  border-bottom:1px dotted #ffffff1f;order:1}
+.tot .v{order:2;font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600;
+  font-size:14px;letter-spacing:.01em}
+.tot .n{font-size:14px;color:var(--faint);font-family:var(--mono);margin-left:4px}
+.tot .ideal{color:var(--faint);font-weight:400;font-size:14px}
+
+/* ── 裝備倉庫 ───────────────────────────────────────────────────────── */
+/* 倉庫抬頭。照工具站：EQUIPMENT 小字金色、標題大字**沒有外框**、
+   頁籤只用顏色區分（不是膠囊也不是底線）、右邊一排金色藥丸鈕。
+   我原本把標題框起來、頁籤加底線加數字徽章，看起來像兩套系統疊在一起。 */
+.vault-head{position:relative;display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.vault-head .kicker{display:block;margin-bottom:2px;font-family:var(--mono);
+  font-size:14px;letter-spacing:.34em;color:#c79a3a}
+.vault-head h2{margin:0;font-size:25px;letter-spacing:.14em;font-weight:600;line-height:1.2}
+.vault-head .right{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+/* 使用說明是淺色藥丸，跟那三顆金色的動作鈕分開 —— 它不是動作，是說明。 */
+.act-ghost{
+  padding:5px 14px;border-radius:999px;font-size:14px;letter-spacing:.06em;
+  background:#e9ecf2;color:#1b2026;font-weight:600;
+}
+.act-ghost:hover{background:#fff}
+.act-gold{
+  padding:5px 14px;border-radius:999px;font-size:14px;letter-spacing:.06em;
+  background:var(--gold)1f;color:#e0b94e;border:1px solid #c9a22740;font-weight:600;
+  transition:background .16s var(--ease-out),border-color .16s var(--ease-out);
+}
+.act-gold:hover{background:var(--gold)33;border-color:#c9a22773}
+
+/* 換行不捲動。十一個頁籤橫著排會長出一條橫捲軸，
+   而捲軸會蓋住底下那條選中的金線，也讓後半段的頁籤根本看不到。 */
+.tabs{display:flex;flex-wrap:wrap;gap:0 2px;margin-bottom:12px;align-items:center}
+.tabs button{
+  position:relative;padding:6px 13px 7px;font-size:14px;letter-spacing:.04em;color:var(--dim);
+  white-space:nowrap;transition:color .15s var(--ease-out);
+}
+.tabs button:first-child{padding-left:0}
+.tabs button:hover{color:var(--dim)}
+.tabs button[data-on]{color:#e0b94e;font-weight:600}
+/* 數字保留但壓得比字淡 —— 工具站沒有這個，但「待填 8」是這一頁最有用的一個數字。
+   不用 opacity：10px 的字要 4.5:1，--faint 打在面板上剛好 4.85，再乘就破了。 */
+.tabs button .n{font-family:var(--mono);font-size:14px;color:var(--faint);margin-left:5px}
+.tabs button[data-on] .n{color:#c79a3a;opacity:.85}
+/* 空的分類壓淡但照樣列 —— 整理倉庫時要看的就是「哪裡還缺」，藏起來反而沒用。
+   **不用 opacity 壓。** 原本是 .42，對比只剩 1.88:1，等於看不到；
+   而 --faint 打在面板底上本來就只有 4.85:1，乘上任何 opacity 都會掉破 4.5。
+   所以改成靠色階分：有東西的用 --dim（7.01:1），空的用 --faint（4.85:1）。 */
+.tabs button[data-none]{color:var(--faint)}
+.tabs button[data-none][data-on]{color:#e0b94e}
+
+/* 分類方式。兩種分法看的是不同的問題：
+   依部位＝「這個洞我有幾件可選」，依套裝＝「時雨我湊到幾件了」。 */
+.seg{display:flex;margin-right:12px;border:1px solid var(--line-hard);border-radius:6px;overflow:hidden}
+.seg button{padding:5px 11px;font-size:14px;color:var(--dim);white-space:nowrap}
+.seg button+button{border-left:1px solid var(--line-hard)}
+.seg button:hover{color:var(--ink);background:#ffffff0a}
+.seg button[data-on]{background:var(--gold)1f;color:#e0b94e}
+
+/* 新增是倉庫的主要動作，所以它是網格的**第一張卡**，不是抬頭那排鈕裡的一顆。
+   先前擺在抬頭，旁邊四顆同色同大小的工具鈕，結果就是找不到 ——
+   五顆長一樣的鈕排在一起，等於一顆都沒有。
+
+   外觀照工具站的空裝備格（.equipment-panel__slot--empty），數值是量出來的：
+     底      bg/r2.png，cover，**貼底 50% 100%** ← 那道光暈在下面全靠這個
+     ＋      34px 楷體 rgba(250,242,220,.9)，陰影 0 2px 10px rgba(0,0,0,.56)
+     角標    13px #b99476，距上 6 距左 7
+   底圖本來就在 assets/bg/ 了（當初抓卡片底紋時一起下載的），不用再抓。 */
+.addcard{
+  position:relative;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:6px;min-height:190px;padding:20px;text-align:center;
+  border:1px solid #ffffff1a;border-radius:4px;overflow:hidden;
+  background-color:#1b1a24;
+  background-image:url(/loadout/assets/bg/r2.png);
+  background-size:cover;background-repeat:no-repeat;background-position:50% 100%;
+  color:#faf2dce6;
+  transition:border-color .15s var(--ease-out),transform .15s var(--ease-out);
+}
+.addcard:hover{border-color:#c9a22773;transform:translateY(-2px)}
+/* 上緣壓一層暗，文字才壓得住 —— 底圖上半雖然暗，但不是全暗 */
+.addcard::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,#0b0a10a6 0%,#0b0a1040 42%,#0000 72%);
+}
+.addcard > *{position:relative;z-index:1}
+.addcard .plus{
+  font-family:var(--serif);
+  font-size:34px;line-height:34px;font-weight:400;color:#faf2dce6;
+  text-shadow:0 2px 10px #0000008f;
+}
+.addcard b{font-size:14px;letter-spacing:.08em;font-weight:600;color:#faf2dcd9;
+  text-shadow:0 1px 6px #000000a6}
+.addcard small{font-size:14px;color:#faf2dc8c;letter-spacing:.02em;
+  text-shadow:0 1px 6px #000000a6}
+/* 左上角標，跟工具站同一個位置 */
+.addcard::after{
+  content:'新';position:absolute;top:6px;left:7px;z-index:1;
+  font-family:var(--serif);
+  font-size:14px;line-height:13px;color:#b99476;
+}
+
+/* 倉庫空的時候一定要給一個明確的下一步，不然只會看到一片空白 */
+.blank{
+  grid-column:1/-1;border:1px dashed var(--line-hard);border-radius:8px;
+  padding:28px 20px;text-align:center;color:var(--dim);font-size:14px;
+}
+.blank p{margin:0 0 12px}
+
+/* ── 裝備卡 ──────────────────────────────────────────────────────────
+   版型照工具站的 .equipment-slot 抄的（數值取自它的 index-BVFWk-44.css）：
+
+     hero    126px、底黑、品質光暈拉滿整塊，放方案帶／名稱／階部位／物件圖
+     base    淺灰白 #e4e5ea 起，基礎屬性兩行，標籤深色、數值金褐 #b08230
+     affixes 詞條，預設也是金褐，滾得差的才轉綠／藍／紫
+
+   一開始我把整張做成暗色，所以「根本不像」—— 關鍵是**下半截是亮的**，
+   黑 hero 與淺卡身的反差就是這張卡的辨識度來源。 */
+.vault{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(244px,100%),1fr))}
+
+/* 屬性列的通用版面：標籤靠左吃掉剩餘寬度、數值靠右。
+   .ecard 另有自己的一份，其餘地方（浮層）吃這一份。 */
+.arow{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  font-size:14px;line-height:1.8}
+.arow .k{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--dim)}
+.arow .v{flex:none;font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600}
+.ecard{
+  position:relative;display:flex;flex-direction:column;text-align:left;width:100%;
+  background:#e4e5ea;color:#262728eb;border-radius:4px;overflow:hidden;
+  border:1px solid #00000047;
+  transition:transform .15s var(--ease-out),box-shadow .15s var(--ease-out);
+}
+.ecard:hover{transform:translateY(-2px);box-shadow:0 0 20px #00000080,0 0 0 1px var(--line-hard)}
+/* 身上那件要一眼認得出來 —— 倉庫裡同一個部位會有好幾件，
+   少了這個標示就分不出哪件是穿著的。 */
+.ecard[data-worn]{box-shadow:0 0 0 1px #c9a22773}
+.ecard[data-sel]{box-shadow:0 0 0 2px var(--gold)}
+.ecard:not([data-worn]) .ecard-hero .worn{opacity:.6}
+
+/* 動作列。一張卡現在有三件事可做，全塞進同一個點擊區的話，
+   想刪的人只會不小心開到編輯窗。 */
+.ecard-act{
+  display:flex;gap:6px;flex-wrap:wrap;padding:8px 10px 10px;
+  background:#d8d9df;border-top:1px solid #0000001f;
+}
+.ecard-act button{
+  min-height:32px;padding:0 11px;border-radius:5px;font-size:14px;
+  border:1px solid #00000033;background:#f2f2f5;color:#262728;
+  transition:border-color .15s var(--ease-out),background .15s var(--ease-out);
+}
+.ecard-act button:hover{background:#fff;border-color:#00000059}
+.ecard-act .act-gold{border-color:#b0823073;background:var(--gold)26;color:#6b4f14;font-weight:600}
+.ecard-act .act-gold:hover{background:var(--gold)40;border-color:#b08230}
+.ecard-act .act-danger{border-color:#b32f2840;color:#8e2620}
+.ecard-act .act-danger:hover{background:var(--red-soft)1a;border-color:#b32f2899}
+
+/* 左欄縮圖：被選到的那一格要標出來，中欄篩的就是它 */
+.thumb[data-sel]{box-shadow:0 0 0 2px var(--gold)}
+
+/* hero 的底是 bg/c1.png（紫裝 c2）—— 工具站的 --equipment-quality-gold-bg
+   指的是這一張，不是 equipment/cards/golden.png。
+   c1 幾乎全黑，只有左上角一道斜向暖光；我先前用錯圖（golden 是整片亮金），
+   所以整個 hero 變成一片黃。鋪法照它：background-size:100% 100% 拉滿。 */
+.ecard-hero{
+  position:relative;display:flex;justify-content:space-between;align-items:flex-start;
+  min-height:134px;padding:0;color:#f5f7fbf5;
+  /* 工具站那層底是純 #000，整塊太沉。抬到 #23262d 再讓底紋提亮提彩，
+     斜向那道暖光才看得出來，卡片也不會變成一塊黑洞。 */
+  background:#23262d;
+}
+/* 底圖原樣鋪滿：顏色就是這一層決定的，不要去動它。
+   先前我把光改成自己調的 radial-gradient，形狀對了但顏色整組跑掉 ——
+   色相是這張圖的，不是我配得出來的。 */
+.ecard-hero::before{
+  content:'';position:absolute;inset:0;background-size:100% 100%;background-repeat:no-repeat;
+  filter:brightness(1.55) saturate(1.5);
+}
+.ecard[data-q="gold"] .ecard-hero::before{background-image:url(/loadout/assets/bg/c1.png)}
+.ecard[data-q="purple"] .ecard-hero::before{background-image:url(/loadout/assets/bg/c2.png)}
+/* 直紋那組是給直式格子畫的（1088×2164），鋪到寬卡上要 100% 100% 拉滿；
+   用 cover 會把中間一小塊放到很大，紋路就不見了。 */
+[data-hero="r"] .ecard[data-q="gold"] .ecard-hero::before{
+  background-image:url(/loadout/assets/bg/r1.png);background-size:100% 100%}
+[data-hero="r"] .ecard[data-q="purple"] .ecard-hero::before{
+  background-image:url(/loadout/assets/bg/r2.png);background-size:100% 100%}
+/* 圓弧靠這一層：純黑的徑向遮罩，右下開洞、往左上壓暗。
+   只加黑不加色，所以亮處的色相跟原本一模一樣，變的只有光的形狀 ——
+   底圖自己那道斜線被壓在暗部裡，不會再像被切了一刀。 */
+.ecard-hero::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(122% 132% at 86% 94%,
+    #0000 0%, #0000 24%, #00000047 52%, #000000a3 78%, #000000cc 100%);
+}
+.ecard-hero > *{position:relative;z-index:1}
+.ecard-hero::before,.ecard-hero::after{z-index:0}
+.ecard .band{
+  position:absolute;left:0;right:0;top:0;z-index:2;
+  display:flex;align-items:center;gap:6px;padding:4px 10px;
+  font-size:14px;letter-spacing:.06em;color:#f4e6b4;background:#00000059;
+}
+.ecard[data-q="purple"] .band{color:#ded0f0}
+.ecard .band .q{margin-left:auto;font-weight:700;color:#f6ecc9}
+.ecard[data-q="purple"] .band .q{color:#f0e6ff}
+.ecard .who{flex:1;min-width:0;padding:32px 0 10px 12px}
+.ecard .who b{display:block;font-size:17px;line-height:1.3;letter-spacing:.03em;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ecard .who small{display:block;margin-top:6px;font-size:14px;color:#e1e5eea3;letter-spacing:.02em}
+/* 物件置底，貼著 hero 的下緣。
+   原本用 margin-top 把它推下去，結果是懸在中間、下面留一條空 ——
+   斜置的長兵器（刀、槍）看起來就像被切掉半截。
+   object-fit:contain 的下緣對齊要靠 object-position，不然圖在框裡還是置中。 */
+/* 圖的上緣要停在頂帶下面。帶子是 position:absolute 蓋在 hero 最上層，
+   圖伸上去不會被裁，是被帶子蓋住 —— 看起來就像刀被切斷。
+   帶高約 22px，所以 hero 給 134、圖 88、底邊留 6，上緣落在 32px。 */
+/* 物件貼著 hero 的下緣，中間不留空 —— 留 6px 就看得出來在「浮」。
+   上緣要停在頂帶（24px）下面，所以高度給 100：134-24=110，還有 10 的餘裕。 */
+.ecard-hero img,.ecard-hero .seal{
+  width:98px;height:100px;object-fit:contain;object-position:50% 100%;
+  flex:none;align-self:flex-end;margin:0 10px 0 0;
+  filter:drop-shadow(0 3px 8px #000000a6);
+}
+/* 墨印本身是 width/height:100% —— 那是給格子用的。
+   放進 hero 這種 flex 容器會被拉成整張卡那麼大，變成一整片紅。
+   凡是圖片有固定尺寸的地方，墨印就吃同一組尺寸。 */
+.ecard-hero .seal{font-size:14px;padding:6px 3px;align-self:flex-end;margin-bottom:6px}
+
+/* 以下都在淺底上 */
+.ecard .base{padding:10px 14px 8px;border-top:1px solid #807b852e}
+.ecard .tunes{padding:8px 14px 14px;border-top:1px solid #807b8529}
+.ecard .arow{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:19px}
+.ecard .base .arow{font-size:14px;font-weight:700;margin-bottom:5px}
+.ecard .base .arow .k{color:#2e2f34eb}
+/* 下面這三個顏色是打在**淺色**卡身 #e4e5ea 上的，不是打在暗底上，
+   所以要往深調才會有對比。原值分別只有 4.00／4.02／2.75，都不到 4.5：
+     金   #976500 → #845800（4.94）
+     紅   #cf3322 → #b82c1d（4.89）
+     畢業率 #b08230 → #7d5c22（4.87）
+   色相沒變，只是壓深。紙面浮層（.tip[data-paper]）也是淺底，一起改。 */
+/* 工具站用 #b08230，在它自己的 #e4e5ea 卡身上只有 2.75 —— 讀不清楚。
+   這裡把飽和度開到最滿、亮度往上推到對比剛好還有 4.0，
+   比原站鮮明、也比我先前那版（4.87，偏暗）亮。整組五色同樣處理，見下。 */
+.ecard .base .arow .v{color:#845800;font-weight:700;font-family:var(--mono);
+  font-variant-numeric:tabular-nums}
+/* 詞條預設就是金褐；滾得差的才轉色。菱形用 clip-path 切，不是文字符號 ——
+   ◆ 這個字在不同字體下大小差很多，切出來的形狀到哪都一樣。 */
+.ecard .tunes .arow{font-size:14px;color:#845800;margin-bottom:2px}
+.ecard .tunes .arow .k{display:inline-flex;align-items:center;gap:8px;flex:1;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:inherit}
+.ecard .tunes .arow .k::before{
+  content:'';flex:none;width:8px;height:8px;background:currentColor;
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+}
+.ecard .tunes .arow .v{flex:0 0 auto;font-weight:500;color:inherit;font-family:var(--mono);
+  font-variant-numeric:tabular-nums}
+/* 滾動品質四段。工具站原值 #72a66d／#6b90d8／#aa97c7／#b08230 在淺卡身上
+   只有 2.26／2.53／2.10／2.75，全部讀不清楚。
+   飽和度開高、亮度推到對比 4.0 為止 —— 紫與朱的飽和另外設上限，
+   全開會變成霓虹，那是刺眼不是鮮明。 */
+.ecard .tunes .arow[data-roll="1"]{color:#1f7f10}
+.ecard .tunes .arow[data-roll="2"]{color:#166bdb}
+.ecard .tunes .arow[data-roll="3"]{color:#9847ce}
+.ecard .tunes .arow[data-roll="4"]{color:#845800}
+.ecard .tunes .arow.p{color:#b82c1d}
+.ecard .tunes .arow.empty{color:#5a5860}
+.ecard .foot{
+  margin-top:auto;padding:6px 14px 8px;border-top:1px solid #807b8529;
+  display:flex;align-items:center;gap:8px;font-size:14px;color:#5c5d66;font-family:var(--mono);
+}
+.ecard .foot .pct{margin-left:auto;font-size:14px;font-weight:700;color:#7d5c22;
+  font-variant-numeric:tabular-nums}
+.ecard .foot .pct[data-low]{color:#8b8c94}
+
+/* ── 戰力 ───────────────────────────────────────────────────────────── */
+.grad{display:flex;align-items:baseline;gap:9px;margin:0 0 6px}
+.grad b{font-size:36px;line-height:1;font-family:var(--mono);color:var(--gold);
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.grad span{font-size:14px;letter-spacing:.2em;color:var(--faint)}
+.gradbar{height:3px;border-radius:2px;background:#ffffff14;overflow:hidden;margin:0 0 12px}
+.gradbar i{display:block;height:100%;border-radius:2px;
+  background:linear-gradient(90deg,#b32f28,#c9a227);transition:width .4s var(--ease-out)}
+.radar{width:100%;height:auto;display:block;margin:0 auto 4px}
+.legend{display:flex;gap:14px;justify-content:center;font-size:14px;color:var(--faint);margin-bottom:11px}
+.legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px}
+.lab{font-size:14px;letter-spacing:.2em;color:var(--faint);margin:13px 0 6px;font-weight:600}
+
+/* ── 報名欄位 ───────────────────────────────────────────────────────── */
+/* 懸掛縮排：一行放不下時，續行對齊內容而不是對齊「心法」那兩個字。 */
+.sheet{
+  white-space:pre-wrap;word-break:break-word;font-family:var(--serif);font-size:14px;
+  line-height:1.95;margin:0;padding:11px 11px 11px calc(11px + 3.6em);text-indent:-3.6em;
+  border:1px solid var(--line);border-radius:3px;background:#00000038;min-height:110px;color:var(--dim);
+}
+.mini{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.mini button{font-size:14px;letter-spacing:.08em;padding:5px 10px;border:1px solid var(--line);
+  border-radius:3px;color:var(--faint);transition:.15s var(--ease-out)}
+.mini button:hover{border-color:var(--line-hard);color:var(--ink)}
+.send{margin-top:11px;padding-top:11px;border-top:1px solid var(--line)}
+.send label{display:block;font-size:14px;letter-spacing:.2em;color:var(--faint);margin-bottom:5px}
+.send-row{display:flex;gap:5px}
+.send input{flex:1;min-width:0;padding:6px 8px;font-size:14px;border:1px solid var(--line);
+  border-radius:3px;background:#00000047;color:var(--ink)}
+.send input:focus{outline:1px solid var(--gold)}
+.send button{padding:6px 13px;font-size:14px;letter-spacing:.08em;border-radius:3px;
+  color:#16130a;background:var(--gold);font-weight:600}
+.send button:hover{filter:brightness(1.1)}
+.warn{margin:8px 0 0;font-size:14px;color:var(--red-soft);line-height:1.5}
+
+/* ── overlay ────────────────────────────────────────────────────────── */
+/* ── 2026-09-18 設計定案的落地 ───────────────────────────────────
+   訪談結論：工具站那種資料儀表板，密、冷、數字優先。四個要解的問題與對策
+   寫在 DESIGN_MEMORY.md。這一段只補現況缺的三件，沒有重寫既有的 .tot／.grad ——
+   那兩個本來就已經是這個調性了。 */
+
+/* B：右欄分頁。解「右欄太長要一直捲」 */
+.rtabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:11px}
+.rtabs button{padding:8px 14px;font-size:14px;letter-spacing:.1em;color:var(--faint);
+  border-bottom:2px solid transparent;margin-bottom:-1px;min-height:34px;
+  transition:color .15s var(--ease-out),border-color .15s var(--ease-out)}
+.rtabs button:hover{color:var(--dim)}
+.rtabs button[data-on]{color:#e0b94e;border-bottom-color:var(--gold);font-weight:600}
+.col-3 > .card[data-pane]{display:none}
+.col-3 > .card[data-pane][data-on]{display:block}
+
+/* 換算值。解「數字不夠讀」——「原始值（換算後）」原本擠成一串，現在分開：
+   原始值是金的主角，換算值退成灰色小字，溢出標紅。 */
+.tot .conv{margin-left:6px;font-family:var(--mono);font-size:14px;font-weight:400;
+  color:var(--faint);font-variant-numeric:tabular-nums}
+.tot .conv[data-over]{color:var(--red-soft)}
+
+/* D：說明收進標題列的 ⓘ。解「說明太多」——
+   那幾段灰字是第一次看才需要的，不該天天佔六行。 */
+.why{width:28px;height:28px;min-height:28px;margin-left:auto;flex:none;
+  border:1px solid var(--line-hard);border-radius:50%;font-size:14px;line-height:1;
+  color:var(--faint);display:inline-grid;place-items:center;
+  transition:border-color .15s var(--ease-out),color .15s var(--ease-out)}
+.why:hover,.why[data-on]{border-color:var(--gold);color:var(--gold)}
+/* 28px 是這一頁的觸控下限（WCAG AA 是 24，這裡抓嚴一點），
+   而且同一列的「來源明細」「查看更多」都是 28px，ⓘ 沒理由比它們小。
+   手指的可靠命中面積是 44px，所以觸控裝置再撐大一點。 */
+@media (pointer:coarse){ .why{width:36px;height:36px;min-height:36px} }
+
+/* ── 手機版 ───────────────────────────────────────────────────────
+   量出來的：390px 時整頁 10323px ＝ 12.2 屏，右欄在 y=8838 幾乎到不了。
+   「手機版不是把桌機縮小」—— 所以不是把三欄疊起來捲，而是一次只看一區，
+   底下一排切換。四區對應原本的三欄（右欄本來就已經分成戰力／目標／報名）。 */
+
+/* 品牌連結。底線只在 hover 出現 —— 它在頁首左上角，位置本身就說明了是首頁。 */
+.brand a{color:inherit;text-decoration:none;border-radius:3px}
+.brand a:hover b{color:var(--gold-soft)}
+.brand a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.acts{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+/* min-height 是必要的：.act 的高度本來靠上下 padding 撐，
+   這裡把 padding 改成 0 12px 之後只剩 19px，低於 28px 的觸控下限。
+   它又是純圖示按鈕（只有三個點），手指更需要面積。 */
+/* 漢堡而不是 ⋯：旁邊就是角色管理的 ⋯，兩顆一樣的符號分不出誰是誰。
+   min-height 是必要的：.act 的高度本來靠上下 padding 撐，改成 0 12px 之後只剩 19px。 */
+.more-btn{font-size:16px;line-height:1;padding:0 12px;min-width:44px;min-height:40px;
+  display:inline-flex;align-items:center;justify-content:center}
+/* 選單裡的首頁連結。桌機上不出現 —— 那邊左上角的品牌字就夠了。 */
+.navhome{display:none;text-decoration:none;color:var(--gold-soft)!important}
+@media (max-width:900px){
+  .acts[data-open] .navhome{display:flex;align-items:center;
+    border-bottom:1px solid var(--line)!important;border-radius:0!important;margin-bottom:4px}
+}
+
+/* 底部分區列 */
+.secbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:30;display:none;
+  background:#080d13f2;border-top:1px solid var(--line-hard);
+  /* 有 home indicator 的機型上，最後一排會被系統列蓋住 */
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.secbar[data-on]{display:grid;grid-auto-flow:column;grid-auto-columns:1fr}
+.secbar button{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  min-height:52px;padding:7px 4px 8px;font-size:14px;letter-spacing:.08em;color:var(--dim);
+  border-top:2px solid transparent;margin-top:-1px;
+  transition:color .15s var(--ease-out),border-color .15s var(--ease-out);
+}
+/* 不用 opacity 壓淡 —— 它會連對比一起壓掉（這一頁踩過兩次了）。
+   靠色階分：標籤 --dim、數字 --faint，兩個都過 4.5:1。 */
+.secbar button .n{font-family:var(--mono);font-size:14px;color:var(--faint)}
+.secbar button[data-on]{color:#e0b94e;border-top-color:var(--gold)}
+
+@media (max-width:900px){
+  /* 頁首收成一行：版本字與四顆次要按鈕讓位給 ⋯ */
+  .top{flex-wrap:nowrap;gap:9px;padding:9px 12px}
+  .acts{display:none}
+  .acts[data-open]{
+    display:flex;position:absolute;right:12px;top:100%;z-index:31;flex-direction:column;
+    align-items:stretch;gap:0;min-width:180px;padding:5px;
+    background:var(--panel-2);border:1px solid var(--line-hard);border-radius:5px;
+    box-shadow:0 18px 40px -16px #000;
+  }
+  .acts[data-open] .act{border:0;justify-content:flex-start;min-height:44px;padding:0 12px;border-radius:3px}
+  .acts[data-open] .act:hover{background:#ffffff0d}
+  .more-btn{display:inline-flex;align-items:center;justify-content:center}
+  .roles{min-width:0;overflow:hidden}
+
+  /* 一次只顯示一區 */
+  .wrap{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+  .wrap[data-sec] > .col{display:none}
+  .wrap[data-sec="gear"] > .col-1,
+  .wrap[data-sec="vault"] > .col-2,
+  .wrap[data-sec="power"] > .col-3{display:flex}
+  /* 戰力那一區在手機上把右欄的分頁也一起顯示（本來就是它自己的分頁） */
+}
+
+/* 窄螢幕的控制列改成格線。
+   靠 flex-wrap 斷行的話，斷在哪由寬度決定 —— 320 斷三行、360 斷兩行，
+   而且標籤會被留在上一行的尾巴。格線是固定的兩行兩欄，每種寬度都一樣。
+
+       [依部位｜依套裝]   [16 件]
+       [排序        ]   [篩選  ]
+*/
+@media (max-width:560px){
+  .vbar{
+    display:grid;grid-template-columns:1fr 1fr;gap:8px 9px;align-items:center;
+  }
+  /* 用 order 不用顯式的 grid-column／grid-row —— 後者在這裡沒生效，
+     結果變成自動排版，件數被丟到第二行尾巴跟半寬的篩選鈕並排。
+     order 會影響自動排版的順序，兩行兩欄剛好排成想要的樣子。 */
+  .vbar .seg{order:0;justify-self:start}
+  .vbar .count{order:1;margin-left:0;justify-self:end}
+  .vbar .fld2{min-width:0}
+  .vbar .fld2:nth-of-type(1){order:2}
+  .vbar .fld2:nth-of-type(2){order:3}
+  /* 標籤讓位給控制項本身 —— 「最新加入」「全部（不篩）」自己就說明了是什麼。
+     語意不會掉：兩個控制項都有 aria-label。 */
+  .vbar .fld2 .lab{display:none}
+  .vbar .sortsel{width:100%;min-width:0}
+  .vbar .filtsel{width:100%;min-width:0;justify-content:space-between}
+}
+
+/* ── 準備報名 ─────────────────────────────────────────────────────
+   這一頁的終點。所以：是誰的、還差什麼、按哪裡送出，三件事要一眼看完。
+   原本是「報名欄位」一塊文字 ＋ 三顆同重量的小鈕 ＋ 一個要自己打代號的框，
+   看不出來是誰的，也看不出來能不能送。 */
+#reg-who{margin-left:auto;font-family:var(--mono);color:var(--gold-soft);
+  font-size:14px;letter-spacing:.06em}
+
+/* 還差什麼。完成不是一個感覺，是四個數字。 */
+.ready{list-style:none;margin:0 0 12px;padding:0;display:grid;
+  grid-template-columns:1fr 1fr;gap:1px;background:var(--line-soft);
+  border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.ready li{display:flex;align-items:baseline;gap:7px;padding:8px 10px;background:var(--panel);
+  font-size:14px;color:var(--faint)}
+.ready li b{margin-left:auto;font-family:var(--mono);font-size:14px;font-weight:600;
+  color:var(--dim);font-variant-numeric:tabular-nums}
+.ready li[data-ok] b{color:var(--jade)}
+.ready li[data-no] b{color:var(--red-soft)}
+
+.reg-fld{display:flex;flex-direction:column;gap:5px;margin-bottom:9px}
+.reg-fld > span{font-size:14px;letter-spacing:.16em;color:var(--faint)}
+.reg-fld input{padding:9px 11px;font-size:14px;border:1px solid var(--line);border-radius:3px;
+  background:#00000047;color:var(--ink);font-family:var(--mono)}
+.reg-fld input:focus{outline:1px solid var(--gold)}
+
+/* 唯一的主要動作。這一頁只有這一顆是實心的 —— 一個畫面一個強調。 */
+.reg-go{
+  width:100%;min-height:44px;border-radius:3px;font-size:14px;letter-spacing:.14em;
+  font-weight:600;background:var(--gold);color:#14100a;border:1px solid var(--gold);
+  transition:filter .15s var(--ease-out);
+}
+.reg-go:hover:not(:disabled){filter:brightness(1.08)}
+.reg-go:disabled{background:none;color:var(--faint);border-color:var(--line);cursor:not-allowed}
+
+/* 要送出的那段文字收起來。它是結果不是輸入，確認一次就夠，不必一直佔六行。 */
+.reg-adv{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.reg-adv summary{list-style:none;cursor:pointer;font-size:14px;letter-spacing:.1em;
+  color:var(--faint);min-height:28px;display:flex;align-items:center}
+.reg-adv summary::-webkit-details-marker{display:none}
+.reg-adv summary::before{content:'▸ ';color:var(--gold);margin-right:3px}
+.reg-adv[open] summary::before{content:'▾ '}
+
+/* ── 倉庫頭部 ─────────────────────────────────────────────────────
+   兩條帶子：上面是控制（分類／排序／篩選 ＋ 件數），下面是部位頁籤。
+   原本擠在同一個 flex-wrap 容器裡，斷行的位置由寬度決定，不由語意決定。 */
+.vbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:9px}
+.vbar .lab{font-size:14px;letter-spacing:.14em;color:var(--faint);flex:none}
+/* 標籤與它的控制項是一組，換行時一起走。 */
+.vbar .fld2{display:inline-flex;align-items:center;gap:7px;min-width:0}
+.vbar .count{margin-left:auto;font-family:var(--mono);font-size:14px;color:var(--faint);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.vbar .seg{margin-right:0}
+
+/* 部位頁籤自己一條。手機上橫向捲，不要排成三行 ——
+   它是一串同類的東西，不是需要一次看完的清單。 */
+.tabs{display:flex;flex-wrap:wrap;gap:0 2px;margin-bottom:12px;align-items:center}
+@media (max-width:900px){
+  .tabs{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    margin-inline:-13px;padding-inline:13px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{flex:none}
+  .vault-head h2{font-size:20px}
+  .vault-head .kicker{display:none}
+}
+
+/* hidden 要真的隱藏。
+   瀏覽器預設的 `[hidden]{display:none}` 優先權最低，class 上只要寫了 display
+   就蓋過去了（.pick-foot 是 flex、.more 是 inline-flex）。於是
+   `$('#modal-foot').hidden = true` 完全不生效 —— 「規則」視窗底下就掛著一顆
+   按了沒反應的「匯入」。一條規則收掉，別讓每個新元件再踩一次。 */
+[hidden]{display:none !important}
+
+/* 確認框永遠壓在所有視窗之上。
+   所有 .pick 同樣是 z-index:40，那就變成「誰在 DOM 裡排後面誰蓋住誰」——
+   #ask 排第 2、角色管理排第 8，所以「刪除角色」的確認框會被角色管理蓋掉，
+   「確定」根本點不到。#edit 的「刪除這一件」同理。
+   76 也高過 .pop 的 72：從倉庫工具選單問出來的確認要在選單之上。 */
+.pick#ask{z-index:76}
+/* 對話框置中，但下緣要留 safe-area —— 不然按鈕會貼到 home indicator 上。 */
+.pick{position:fixed;inset:0;z-index:40;display:none;background:#040709e0;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  backdrop-filter:blur(6px);padding:clamp(10px,3vw,40px)}
+/* 軌道要寫死 minmax(0,1fr)：grid 的自動軌會撐到內容的 max-content，
+   所以卡片網格一寬，整個彈窗就跟著超出畫面（量到 390px 視窗下窗寬 802px）。 */
+.pick[data-on]{display:grid;grid-template-columns:minmax(0,1fr);place-items:center}
+.pick-box{width:min(1020px,100%);max-width:100%;max-height:88dvh;display:flex;flex-direction:column;
+  background:var(--panel);border:1px solid var(--line-hard);color:var(--ink);border-radius:5px;
+  box-shadow:0 30px 80px -24px #000}
+/* 對話框的頁首以前是 <header>。**不能是 <header>** —— 它不在 article／section
+   裡面，所以會變成一個 banner 地標，而整頁已經有一個（上面那條 .top）。
+   對話框一開就是兩個 banner，螢幕報讀器的地標清單會出現兩個同名的東西。 */
+.pick-box > .pbh{display:flex;align-items:center;gap:11px;padding:13px 15px;
+  border-bottom:1px solid var(--line);flex-wrap:wrap}
+.pick-box h3{margin:0;font-size:14px;letter-spacing:.26em;color:var(--ink);font-weight:600}
+.pick-box input[type=search]{padding:5px 10px;font-size:14px;border:1px solid var(--line);
+  border-radius:3px;background:#00000047;color:var(--ink);min-width:150px}
+.filters{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.filters button{font-size:14px;letter-spacing:.06em;padding:4px 10px;border:1px solid var(--line);
+  border-radius:3px;color:var(--faint)}
+.filters button[data-on]{background:var(--gold);color:#16130a;border-color:var(--gold);font-weight:600}
+.pick-close{font-size:19px;line-height:1;padding:0 4px;color:var(--faint)}
+.pick-close:hover{color:var(--ink)}
+/* 挑選視窗的網格。
+   align-content:start 與 grid-auto-rows:min-content 兩個都要 ——
+   這個 grid 是 .pick-box（column flex）的子項，視窗一矮它就被壓縮，
+   而高度不足時 grid 會回頭壓縮自動列，卡片內容就被 overflow:hidden 切掉。
+   量到過：內容 88px 的卡片被壓成 31px，十一張全裁。 */
+.grid{overflow:auto;min-width:0;padding:13px 15px 17px;display:grid;gap:8px;
+  align-content:start;grid-auto-rows:min-content;
+  grid-template-columns:repeat(auto-fill,minmax(min(108px,100%),1fr))}
+/* 三欄不是四欄。四欄時每格只有 236px，名字＋分類＋一句描述塞不下，
+   結果每張卡都折成兩三行、高度還參差不齊。 */
+.grid[data-wide]{grid-template-columns:repeat(auto-fill,minmax(min(310px,100%),1fr))}
+.gcard{display:flex;flex-direction:column;gap:5px;padding:7px;border:1px solid var(--line-soft);
+  border-radius:3px;background:#ffffff05;text-align:center;transition:.14s var(--ease-out)}
+.gcard:hover{border-color:var(--gold);background:var(--gold)0f;transform:translateY(-1px)}
+.gcard img{width:100%;aspect-ratio:.64;object-fit:contain}
+.gcard .nm{font-size:14px;font-weight:600;line-height:1.3}
+.gcard .sub{font-size:14px;color:var(--faint);line-height:1.4}
+.gcard[data-req] .nm::after{content:' ✦';color:var(--gold)}
+.gcard[data-picked]{border-color:var(--gold);background:var(--gold)21}
+.gcard .seal{aspect-ratio:.64;width:100%;height:auto}
+/* 寬卡：左邊印章、右邊三層（名字＋分類標、描述）。
+   印章靠上不置中 —— 描述兩行時置中會讓印章飄到中間，一排卡的印章高低不一。 */
+.gcard-wide{flex-direction:row;align-items:flex-start;text-align:left;gap:10px;padding:9px 11px}
+.gcard-wide img{width:42px;aspect-ratio:1;flex:none}
+.gcard-wide .seal{width:32px;height:46px;flex:none;font-size:14px}
+.gc-body{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.gc-line{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.gcard-wide .nm{font-size:14px}
+/* 分類是「這招歸哪一類」，跟名字是兩回事，給它自己的底色才分得開 */
+.gc-tag{
+  flex:none;font-size:14px;letter-spacing:.08em;line-height:1.5;
+  padding:1px 6px;border-radius:3px;color:var(--gold-soft);
+  background:var(--gold)1f;border:1px solid #c9a22733;
+}
+.gcard-wide .sub{font-size:14px;line-height:1.5;color:var(--dim)}
+.pick-foot{padding:10px 15px 13px;border-top:1px solid var(--line);display:flex;gap:6px;
+  align-items:center;flex-wrap:wrap}
+.pick-foot input[type=text]{flex:1;min-width:150px;padding:6px 9px;font-size:14px;
+  border:1px solid var(--line);border-radius:3px;background:#00000047;color:var(--ink)}
+.pick-foot button{padding:6px 13px;font-size:14px;letter-spacing:.08em;border:1px solid var(--line);
+  border-radius:3px;color:var(--dim)}
+.pick-foot button:hover{border-color:var(--line-hard);color:var(--ink)}
+.pick-foot .clear{margin-left:auto;color:var(--red-soft);border-color:#b32f2859}
+.pick-foot .ok{background:var(--gold);color:#16130a;border-color:var(--gold);font-weight:600}
+.io{display:block!important}
+.io textarea{width:100%;min-height:220px;padding:10px;font-family:var(--mono);font-size:14px;
+  line-height:1.6;border:1px solid var(--line);border-radius:3px;background:#00000047;
+  color:var(--ink);resize:vertical}
+.io h4{margin:0 0 6px;font-size:14px;letter-spacing:.2em;color:var(--gold)}
+.io p{margin:0 0 10px;font-size:14px;line-height:1.7;color:var(--dim)}
+.io ul{margin:0 0 12px;padding-left:1.2em;font-size:14px;line-height:1.8;color:var(--dim)}
+.io table{border-collapse:collapse;width:100%;font-size:14px;margin:0 0 14px}
+.io th,.io td{border:1px solid var(--line);padding:5px 8px;text-align:left}
+.io th{background:var(--gold)1a;color:var(--gold);font-weight:600}
+.io code{font-family:var(--mono);font-size:14px;color:var(--jade)}
+
+/* ── 裝備編輯窗 ─────────────────────────────────────────────────────── */
+/* 編輯窗分兩欄：左邊預覽、右邊表單。
+   一排下拉選單本身看不出結果 —— 你選「傘」「紫」「時雨 110 階」，
+   腦子裡要自己組出那張卡長怎樣。左邊直接把它畫出來。 */
+.ed-wrap{display:grid;grid-template-columns:248px minmax(0,1fr);min-height:0;overflow:hidden}
+.ed-side{
+  padding:13px 13px 16px;overflow:auto;border-right:1px solid var(--line);
+  background:#0c131c;display:flex;flex-direction:column;gap:9px;
+}
+.ed-side-cap{font-size:14px;letter-spacing:.16em;color:var(--faint)}
+/* 預覽那張卡不會被點，也不用 hover 抬起來 */
+.ecard.preview{pointer-events:none}
+.ecard.preview:hover{transform:none;box-shadow:none}
+
+/* 窄螢幕：預覽落到表單上面，並收成一條橫的，不吃掉整個高度 */
+@media (max-width:760px){
+  .ed-wrap{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
+  .ed-side{border-right:0;border-bottom:1px solid var(--line);
+    flex-direction:row;align-items:flex-start;gap:12px;overflow-x:auto}
+  .ed-side-cap{flex:none;writing-mode:vertical-rl;letter-spacing:.2em}
+  .ed-side .ecard{flex:none;width:208px}
+}
+
+.ed{padding:13px 15px 4px;overflow:auto}
+.ed-grid{display:grid;gap:9px;grid-template-columns:repeat(auto-fit,minmax(142px,1fr));margin-bottom:13px}
+.fld{display:flex;flex-direction:column;gap:4px;min-width:0}
+.fld > span{font-size:14px;letter-spacing:.16em;color:var(--faint)}
+.fld select,.fld input{padding:6px 8px;font-size:14px;border:1px solid var(--line);border-radius:3px;
+  background:#00000047;color:var(--ink);font-family:var(--serif);width:100%}
+.fld select:focus,.fld input:focus{outline:1px solid var(--gold)}
+/* 階的加減鈕。原生 number 自己畫的上下箭頭約 13px 寬，手指點不到，
+   所以把它藏起來、換成兩顆跟欄位同高（34px）的鈕，鈕上標著級距。
+   min-width 38 是算過的：欄位最窄 142px，38＋4＋58＋4＋38 剛好，數字不會被擠掉。 */
+.stepper{display:flex;gap:4px;align-items:stretch;min-width:0}
+.stepper .snum{flex:1 1 auto;min-width:0;text-align:center;font-family:var(--mono)}
+.snum::-webkit-outer-spin-button,.snum::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.snum[type=number]{-moz-appearance:textfield;appearance:textfield}
+.stepb{
+  flex:0 0 auto;min-width:38px;padding:0 6px;
+  border:1px solid var(--line);border-radius:3px;background:#00000047;
+  color:var(--dim);font-family:var(--mono);font-size:14px;line-height:1;
+  transition:border-color .14s var(--ease-out),color .14s var(--ease-out),background .14s var(--ease-out);
+}
+.stepb:hover{border-color:var(--gold);color:var(--gold);background:var(--gold)1a}
+.stepb:active{background:var(--gold)2e;color:var(--gold)}
+.stepb:focus-visible{outline:1px solid var(--gold);outline-offset:1px}
+.ed-tools{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:11px;
+  padding-bottom:11px;border-bottom:1px solid var(--line)}
+.ed-tools button{font-size:14px;letter-spacing:.08em;padding:5px 11px;border:1px solid var(--line);
+  border-radius:3px;color:var(--dim)}
+.ed-tools button:hover{border-color:var(--gold);color:var(--gold)}
+.chk{display:inline-flex;align-items:center;gap:5px;font-size:14px;color:var(--faint)}
+.chk input{accent-color:var(--gold)}
+.trow{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;margin-bottom:6px}
+@media (max-width:620px){ .trow{grid-template-columns:1fr auto} .trow .chk{grid-column:1/-1} }
+.trow select{padding:6px 8px;font-size:14px;border:1px solid var(--line);border-radius:3px;
+  background:#00000047;color:var(--ink);font-family:var(--serif);min-width:0}
+/* 展開後那一列是作業系統畫的，不吃上面的 background —— 要直接給 option 上色，
+   並且宣告 color-scheme，否則 Windows 會配一套亮底藍選取，整片看不清楚。 */
+select{color-scheme:dark}
+select option{background:#16202c;color:#e9e3d6}
+select option:checked{background:#2a3a4d}
+.trow .val{display:flex;align-items:center;gap:5px}
+.trow .val input{width:86px;padding:6px 8px;text-align:right;font-family:var(--mono);font-size:14px;
+  border:1px solid var(--line);border-radius:3px;background:#00000047;color:var(--ink)}
+/* 上限與色條疊成一欄。cap 若是 inline，裡面的 block 色條會塌掉。 */
+.trow .cap{display:flex;flex-direction:column;gap:3px;font-size:14px;color:var(--faint);
+  font-family:var(--mono);min-width:60px}
+.bar{height:3px;border-radius:2px;background:#ffffff14;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gold)}
+.bar[data-roll="1"] i{background:var(--roll-1)}
+.bar[data-roll="2"] i{background:var(--roll-2)}
+.bar[data-roll="3"] i{background:var(--roll-3)}
+.bar[data-roll="4"] i{background:var(--roll-4)}
+
+/* ── 流派挑選窗 ─────────────────────────────────────────────────────
+   卡片跟左上角那張共用 .bpick。工具站的 __option 是固定 360px 兩欄，
+   這裡用 auto-fill 讓窄視窗自己收成一欄。 */
+.grid[data-build]{grid-template-columns:repeat(auto-fill,minmax(min(316px,100%),1fr));gap:6px}
+/* 選擇窗裡的卡也要 min-height，否則列被壓縮時它不會抗議 */
+.grid[data-build] .bpick{min-height:104px}
+/* 工具站那個窗是 min(820px,100vw-32px) 的兩欄。
+   我的 pick-box 是 1020px，不限寬就會排成三欄、每張被拉得很扁。 */
+.grid[data-build]{max-width:800px;margin:0 auto;width:100%}
+.pick-note{padding:0 15px 11px;margin:-4px 0 0;font-size:14px;color:var(--dim);line-height:1.6}
+
+/* ── 浮動說明 ───────────────────────────────────────────────────────── */
+/* 卡片上放不下的細節走浮層。它只讀不寫，所以 pointer-events 關掉 ——
+   滑過去的時候被浮層擋住、hover 掉了又彈回來，是這種元件最常見的毛病。 */
+.tip{
+  position:fixed;z-index:70;pointer-events:none;opacity:0;
+  transform:translateY(4px);transition:opacity .12s,transform .12s var(--ease-out);
+  width:max-content;max-width:352px;min-width:272px;
+  background:var(--panel-2);border:1px solid var(--line-hard);border-radius:4px;
+  box-shadow:0 18px 44px -16px #000e;overflow:hidden;
+}
+.tip[data-on]{opacity:1;transform:translateY(0)}
+/* 浮層走亮底暗字，跟整頁反過來 —— 同色系的浮層會被當成頁面的一部分，
+   看不出它是「浮在上面、等一下會消失」的東西。 */
+/* 卡身用跟倉庫卡同一個 #e4e5ea 家族的中性淺灰白。
+   先前我用暖奶油（#f7f4ea）再疊一圈金光暈，整張就黃掉了 ——
+   參考圖裡那張其實是偏冷的白，金色只出現在頂帶與數值上。 */
+.tip[data-paper]{background:linear-gradient(#f2f2f4 0%,#ebecef 46%,#e4e5ea 100%);color:#262728}
+/* 頂帶一路都是金橄欖，左端亮一點、右端沉一點，但**不沉到黑**。
+   原本那條末端接近全黑，跟淺卡身接在一起像斷掉。 */
+.tip .band{display:flex;align-items:center;gap:6px;padding:5px 12px;font-size:14px;
+  letter-spacing:.08em;color:#f0e4bd;
+  background:linear-gradient(95deg,#c29a22 0%,#9c7b1e 52%,#7a601a 100%)}
+.tip[data-q="purple"] .band{color:#ece0ff;
+  background:linear-gradient(95deg,#8a5fc7 0%,#6c4b9c 52%,#54397a 100%)}
+.tip .band .q{margin-left:auto;font-weight:700;color:#f2e6bf}
+.tip[data-q="purple"] .band .q{color:#ecdfff}
+/* 標題那一段就是卡片 hero 的放大版 —— 同一個暗底、同一張紋理、同樣白字。
+   浮層本來就該是那張卡看得更清楚的版本，上半截跟卡片長得不一樣反而斷掉。
+   我先前把整張做成淺色，那一段就變成一塊空白的灰。 */
+.tip-head{
+  position:relative;overflow:hidden;padding-right:124px;min-height:126px;
+  background:#23262d;color:#f5f7fbf5;
+}
+.tip-head::before{
+  content:'';position:absolute;inset:0;background-size:100% 100%;background-repeat:no-repeat;
+  filter:brightness(1.55) saturate(1.5);
+}
+.tip[data-q="gold"] .tip-head::before{background-image:url(/loadout/assets/bg/c1.png)}
+.tip[data-q="purple"] .tip-head::before{background-image:url(/loadout/assets/bg/c2.png)}
+.tip-head > *{position:relative;z-index:1}
+.tip-head .art{
+  position:absolute;right:10px;bottom:0;z-index:1;width:112px;height:112px;
+  object-fit:contain;object-position:50% 100%;
+  pointer-events:none;filter:drop-shadow(0 4px 10px #000000a6);
+}
+/* 標題預設是淺底暗字（武學加成、套裝加成那兩個浮層沒有暗底 hero）。
+   只有裝備浮層的標題在 .tip-head 裡，那裡才翻成白字。 */
+/* 浮層的標題用 div 不用 h4：它不是章節標題，
+   進了標題大綱就會變成 h2 之後直接跳 h4（heading-order）。 */
+.tip .tip-h{margin:0;padding:14px 14px 3px;font-size:21px;letter-spacing:.04em;font-weight:600}
+.tip .sub{margin:0;padding:0 14px 13px;font-size:14px;letter-spacing:.02em}
+.tip[data-paper] .tip-h{color:#262728}
+.tip[data-paper] .sub{color:#5c5d66}
+.tip-head .tip-h,.tip[data-paper] .tip-head .tip-h{position:relative;z-index:1;color:#f5f7fbf5}
+.tip-head .sub,.tip[data-paper] .tip-head .sub{position:relative;z-index:1;color:#e1e5eea3}
+.tip .sec{padding:9px 14px;border-top:1px solid var(--line-soft)}
+.tip[data-paper] .sec{border-top-color:#807b852e}
+.tip .sec:first-child{border-top:0}
+.tip .lab{font-size:14px;letter-spacing:.18em;color:var(--faint);margin-bottom:5px}
+.tip .grp{font-size:14px;font-weight:600;margin:0 0 4px;letter-spacing:.04em}
+/* 武學天賦：每一組三行（需求／額外／生效率），組間畫一條線。
+   生效率滿了就整行轉綠，不必去讀那個百分比。 */
+.tip .tal{padding:2px 0}
+.tip .tal[data-sep]{margin-top:7px;padding-top:8px;border-top:1px dashed #807b8547}
+.tip .tal .arow .v{font-weight:600}
+.tip .tal .rate .k,.tip .tal .rate .v{color:#5c5d66}
+.tip[data-paper] .tal .rate[data-full] .k,.tip[data-paper] .tal .rate[data-full] .v{color:#1f7f10}
+.tip .sec + .sec .grp{margin-top:0}
+.tip[data-paper] .lab{color:#b82c1d}
+.tip[data-paper] .grp{color:#845800}
+.tip .arow{font-size:14px;line-height:2}
+.tip .arow .v{font-size:14px;display:inline-flex;align-items:baseline;gap:7px}
+.tip .arow .v .cap{font-size:14px;opacity:.6;font-weight:500}
+.tip[data-paper] .arow .k{color:#2e2f34}
+.tip[data-paper] .arow .v{color:#845800;font-weight:700}
+.tip[data-paper] .arow.t .v{font-weight:700}
+/* 亮底上要用壓暗版的四色，飽和版在紙上只有 2.6～4.0 讀不清楚 */
+/* 詞條那幾行整行上色（含菱形），跟倉庫卡同一組 */
+.tip[data-paper] .arow.t{color:#845800}
+.tip[data-paper] .arow.t[data-roll="1"]{color:#1f7f10}
+.tip[data-paper] .arow.t[data-roll="2"]{color:#166bdb}
+.tip[data-paper] .arow.t[data-roll="3"]{color:#9847ce}
+.tip[data-paper] .arow.t[data-roll="4"]{color:#845800}
+.tip[data-paper] .arow.p{color:#b82c1d}
+.tip[data-paper] .arow.t .k,.tip[data-paper] .arow.t .v,
+.tip[data-paper] .arow.p .k,.tip[data-paper] .arow.p .v{color:inherit}
+/* 菱形跟倉庫卡一樣用 clip-path 切，不用 ◆ 這個字 */
+.tip .arow.t .k::before,.tip .arow.p .k::before{
+  content:'';display:inline-block;flex:none;width:8px;height:8px;margin-right:8px;
+  background:currentColor;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);vertical-align:0;
+}
+.tip .arow .k{display:inline-flex;align-items:center;flex:1;min-width:0}
+.tip[data-paper] .arow.empty,.tip[data-paper] .arow.empty .k,.tip[data-paper] .arow.empty .v{color:#5a5860}
+.tip .none{padding:11px 14px;font-size:14px;color:var(--faint);line-height:1.6}
+.tip[data-paper] .none{color:#635a4c}
+
+.card > h2 .cap + .more{margin-left:9px}
+/* 抬頭那排小鈕。字可以小，但**點擊面積不行** ——
+   量出來只有 23px，低於觸控目標的 24px 下限。min-height 拉到 28，
+   字級不動，所以版面看起來一樣。 */
+.more{margin-left:auto;min-height:28px;display:inline-flex;align-items:center;
+  font-size:14px;letter-spacing:.06em;color:var(--faint);
+  border:1px solid var(--line);border-radius:3px;padding:0 9px;font-family:var(--serif)}
+.more:hover{border-color:var(--gold);color:var(--gold)}
+/* 觸控裝置上把數值晶片也放大。桌機維持 26px：
+   那是格子寬度逼出來的折衷，真正的點擊目標是它開出來的 44px 面板。 */
+@media (pointer:coarse){
+  .chip{min-height:32px;padding:0 10px}
+}
+
+/* bottom 要閃開兩樣東西：手機底部的分區列（52px），以及 home indicator。
+   原本寫死 24px，在手機上會被分區列蓋掉一半。 */
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));
+  transform:translate(-50%,12px);z-index:60;
+  background:var(--panel-2);border:1px solid var(--line-hard);color:var(--ink);
+  padding:8px 18px;border-radius:3px;font-size:14px;letter-spacing:.06em;
+  box-shadow:0 14px 34px -12px #000;opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s var(--ease-out)}
+.toast[data-on]{opacity:1;transform:translate(-50%,0)}
+@media (max-width:900px){
+  .toast{bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+}
+/* 只關 transition 不夠 —— keyframe 動畫不吃 transition-duration。
+   scroll-behavior 也要一起關，不然換分區時還是會平滑捲動。 */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    transition-duration:.01ms!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+  }
+  html{scroll-behavior:auto!important}
+}
+
+/* Shared hierarchy; tool details remain secondary to the next action. */
+[hidden]{display:none!important}
+body{font-size:16px;line-height:1.65}
+button,input,select{font-size:14px}
+.card h2,.vault-head h2{font-size:16px;line-height:1.5}
+.hint,.cap,.kicker,.io-hint,.lab,.legend{font-size:14px;line-height:1.65}
+.wrap{max-width:1120px;margin-inline:auto}
+.start-guide{grid-column:1/-1;padding:16px 0;border-bottom:1px solid var(--line);margin-bottom:12px;font-size:14px}
+.start-guide p{margin:0 0 6px}
+.start-guide button{background:none;border:0;color:inherit;text-decoration:underline;text-underline-offset:4px;min-height:44px;padding:4px 8px}
+.start-guide p+ p{font-size:14px}
+.bhead{width:100%;text-align:left;font:inherit;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+button:disabled{opacity:.5;cursor:not-allowed}
+.blank{min-height:0;padding:24px 16px}
+#radar-empty{padding:20px 0}
+@media(max-width:1023px){.wrap{padding-inline:16px}.start-guide{display:block!important}.start-guide p{display:flex;flex-wrap:wrap;align-items:center}.hint{line-height:1.65}}
+
+/* Short control feedback; illustration and scene movement are independent. */
+button:disabled{cursor:not-allowed;opacity:.5}
+button[aria-busy="true"]{cursor:progress}
+button[aria-pressed="true"]{font-weight:700}
+select:focus-visible,textarea:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+#storage-status[data-state="error"]{color:var(--red-soft)}
+@media(prefers-reduced-motion:no-preference){
+  button,.act{transition:scale 150ms ease-out,border-color 150ms ease-out,color 150ms ease-out,background-color 150ms ease-out}
+  button:not(:disabled):active,.act:active{scale:.98}
+  .pick[data-on]>.pick-box{animation:control-enter 180ms ease-out}
+}
+@keyframes control-enter{from{opacity:0;translate:0 6px}to{opacity:1;translate:0 0}}
+@media(pointer:coarse){button,.act,.level-chip,.stepb{min-height:44px;min-width:44px}}
+
+/* Utility actions must remain reachable beside dense equipment content. */
+.roles button,.act,.why,.more,.pick-close,.filters button,.mini button{
+  min-height:44px;min-width:44px;
+}
+.why{width:44px;height:44px}
+.rtabs button,.vault-tools button,#btn-tools,.blank button,.pick-foot button,.seg button,.chip{min-height:44px;min-width:44px}
+.build-trigger{width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;padding:0;min-height:44px}
+.build-trigger:focus-visible{outline-offset:4px}
+.pop-box{min-width:min(284px,calc(100vw - 20px))}
+.pop-grid button,.pop-foot button{min-width:44px;min-height:44px}
+.pick-box input[type=search]{min-height:44px}
+@media(max-width:600px){
+  /* Keep dismissal beside the title; search receives its own full-width row. */
+  #pick .pbh{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:8px}
+  #pick-title{grid-column:1;grid-row:1}
+  #pick-close{grid-column:2;grid-row:1}
+  #pick-q{grid-column:1/-1;grid-row:2;width:100%;min-width:0}
+  #pick-filters{grid-column:1/-1;margin-left:0}
+  #pick-filters:empty{display:none}
+}
+@media(pointer:coarse){
+  .why,.more,.chip,.level-chip,.stepb{min-height:44px;min-width:44px}
+}
+
+/* Native modal top layer owns focus and background inertness. */
+dialog.pick,dialog.pop{margin:0;width:100%;height:100dvh;max-width:none;max-height:none;border:0;color:var(--ink);box-sizing:border-box}
+dialog.pick .pick-foot .save{color:var(--bg);font-weight:600}
+dialog.pick .pbh > .pick-close{margin-left:auto}
+.ecard-act button,.tabs button,.sortsel{min-width:44px;min-height:44px}
+dialog.pick button{min-width:44px;min-height:44px}
+.ed-preview summary{min-height:44px;display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--gold);font-size:14px}
+.ed-preview summary::before{content:'＋'}
+.ed-preview[open] summary::before{content:'−'}
+.ed-preview summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(max-width:760px){
+  .ed-wrap{display:block;overflow:auto}
+  .ed-side{display:block;overflow:visible}
+  .ed-side .ecard{width:100%}
+  .ed-wrap .ed{overflow:visible}
+}
+.edit-feedback{margin:0;padding:8px 15px;color:var(--dim);font-size:14px;line-height:1.6}
+.pick input:not([type=checkbox]):not([type=radio]),.pick select,.pick textarea,.pop input,.pop select,#main input:not([type=checkbox]):not([type=radio]),#main select,#main textarea{min-height:44px;min-width:44px}
+button.io-drop{width:100%;font:inherit;text-align:left}
+dialog.pop{padding:0;background:transparent}
+dialog.pick::backdrop,dialog.pop::backdrop{background:transparent}
+
+/* Readable configuration typography: sans serif, wider choices, stable labels. */
+:root{--serif:'Noto Sans TC','Microsoft JhengHei','PingFang TC',sans-serif}
+body{font-family:var(--serif);font-size:16px;line-height:1.65}
+button,input,select,textarea{font-family:var(--serif)}
+#pick .pick-box{width:min(1120px,100%)}
+#pick .pbh{display:grid;grid-template-columns:auto minmax(180px,1fr) 44px;gap:14px 20px;padding:18px 20px}
+#pick-title{grid-column:1;grid-row:1;font-size:22px;letter-spacing:.06em;white-space:nowrap}
+#pick-q{grid-column:2;grid-row:1;width:100%;font-size:16px}
+#pick-close{grid-column:3;grid-row:1}
+#pick-filters{grid-column:1/-1;grid-row:2;margin:0;gap:8px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
+#pick-filters:empty{display:none}
+#pick-filters button{font-size:16px;white-space:nowrap;flex:none;padding:8px 14px;letter-spacing:0}
+#pick-grid{gap:14px;padding:18px 20px;grid-template-columns:repeat(auto-fill,minmax(min(156px,100%),1fr))}
+#pick-grid[data-wide]{grid-template-columns:repeat(2,minmax(0,1fr))}
+#pick-grid[data-build]{grid-template-columns:repeat(2,minmax(0,1fr))}
+#pick .gcard{padding:12px;gap:8px}
+#pick .gcard .nm{font-size:18px;line-height:1.5;white-space:nowrap}
+#pick .gcard .sub{font-size:15px;line-height:1.65;color:var(--dim)}
+#pick .gcard-wide{gap:14px;align-items:center;padding:14px}
+#pick .gcard-wide .seal{width:44px;height:60px;font-size:15px;font-family:var(--serif)}
+#pick .gc-line{flex-wrap:nowrap;gap:12px}
+#pick .gc-tag{font-size:14px;letter-spacing:0;white-space:nowrap}
+#pick .gc-body{gap:6px}
+#pick .bpick{padding:18px;min-height:130px}
+#pick .bpick-header{font-size:26px}
+#pick .bpick-item{font-size:17px;gap:10px}
+#pick .bpick-strip{gap:16px;margin-top:14px}
+#pick .bpick-icon{width:44px;height:60px;margin:0}
+#pick .bpick-none{font-size:15px}
+#pick .pick-foot{padding:14px 20px;gap:10px}
+#pick .pick-foot input,#pick .pick-foot button{font-size:16px}
+#pick .pick-foot button{white-space:nowrap}
+@media(max-width:700px){
+ #pick .pbh{grid-template-columns:minmax(0,1fr) 44px;padding:14px;gap:12px}
+ #pick-title{grid-column:1;grid-row:1;font-size:20px}
+ #pick-close{grid-column:2;grid-row:1}
+ #pick-q{grid-column:1/-1;grid-row:2;min-width:0}
+ #pick-filters{grid-row:3}
+ #pick-grid{padding:14px;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+ #pick-grid[data-wide],#pick-grid[data-build]{grid-template-columns:1fr}
+ #pick .gcard .nm{font-size:17px}
+ #pick .gcard-wide{gap:10px;padding:12px}
+ #pick .gcard-wide .seal{width:36px;flex-shrink:0}
+ #pick .gc-line{gap:8px}
+ #pick .gc-tag{font-size:14px;padding-inline:4px}
+ #pick .bpick{padding:14px}
+ #pick .bpick-item{font-size:16px;gap:6px}
+ #pick .bpick-item>img{width:30px;height:34px}
+ #pick .bpick-icon{display:none}
+ #pick .pick-foot{padding:12px 14px}
+}
+
+/* 奇術以完整書名的線裝冊呈現；封面高度隨字數增長。 */
+#pick .skill-book{position:relative;display:flex;align-items:flex-start;justify-content:flex-end;flex:none;box-sizing:border-box;width:66px;min-height:116px;height:calc(var(--book-chars,5) * 20px + 28px);padding:10px 7px 10px 18px;background:linear-gradient(90deg,var(--bg) 0 15%,var(--panel) 15% 100%);border:1px solid var(--line);border-right:4px double var(--ink);border-radius:1px 4px 4px 1px;box-shadow:2px 3px 0 var(--line)}
+#pick .skill-book::before{content:"";position:absolute;left:5px;top:14px;bottom:14px;width:10px;border-left:1px solid var(--dim);background:repeating-linear-gradient(0deg,transparent 0 19px,var(--ink) 19px 21px,transparent 21px 28px)}
+#pick .skill-book-title{display:block;writing-mode:vertical-rl;text-orientation:upright;white-space:nowrap;word-break:keep-all;overflow-wrap:normal;font:500 16px/1.25 var(--serif);letter-spacing:.05em;background:var(--ink);color:var(--bg);padding:6px 3px;border:3px double var(--dim);text-shadow:none}
+

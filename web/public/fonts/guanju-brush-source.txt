@@ -1,0 +1,3 @@
+Source: scrollcraft/builds/lunjian/lab/font/王漢宗中行書繁.ttf
+Original font naming/copyright records retained in the subset font.
+Subset: 觀局雅集; generated with fontTools.

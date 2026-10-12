@@ -1,0 +1,38 @@
+[
+  {
+    "mode": "2d",
+    "target": "rules",
+    "elapsedMs": 488,
+    "sameDocument": true,
+    "sameScene": false,
+    "sameCanvas": false,
+    "intro": false,
+    "transferPending": false,
+    "chapter": "#rules",
+    "errors": []
+  },
+  {
+    "mode": "2d",
+    "target": "register",
+    "elapsedMs": 572,
+    "sameDocument": true,
+    "sameScene": false,
+    "sameCanvas": false,
+    "intro": false,
+    "transferPending": false,
+    "chapter": "#register",
+    "errors": []
+  },
+  {
+    "mode": "3d",
+    "target": "register",
+    "elapsedMs": 38559,
+    "sameDocument": true,
+    "sameScene": true,
+    "sameCanvas": true,
+    "intro": false,
+    "transferPending": false,
+    "chapter": "#register",
+    "errors": []
+  }
+]

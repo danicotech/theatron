@@ -1,0 +1,206 @@
+{
+ "fg-railing": {
+  "idx": 124,
+  "file": "fg-railing.webp",
+  "w": 1672,
+  "h": 941,
+  "bbox": [
+   0.018,
+   0.437,
+   0.982,
+   0.834
+  ]
+ },
+ "fg-canopy": {
+  "idx": 147,
+  "file": "fg-canopy.webp",
+  "w": 1536,
+  "h": 1024,
+  "bbox": [
+   0.004,
+   0.0,
+   1.0,
+   0.511
+  ]
+ },
+ "fg-snow-plum": {
+  "idx": 153,
+  "file": "fg-snow-plum.webp",
+  "w": 1536,
+  "h": 1024,
+  "bbox": [
+   0.082,
+   0.021,
+   1.0,
+   0.971
+  ]
+ },
+ "fg-plum-branch-v3": {
+  "idx": 158,
+  "file": "fg-plum-branch-v3.png",
+  "w": 1536,
+  "h": 1024,
+  "bbox": [
+   0.017,
+   0.0,
+   1.0,
+   0.975
+  ]
+ },
+ "fg-figure-a": {
+  "idx": 163,
+  "file": "fg-figure-a.png",
+  "w": 1024,
+  "h": 1536,
+  "bbox": [
+   0.108,
+   0.015,
+   0.872,
+   0.984
+  ]
+ },
+ "player-attacker-right": {
+  "idx": 171,
+  "file": "player-attacker-right.png",
+  "w": 1536,
+  "h": 1024,
+  "bbox": [
+   0.051,
+   0.044,
+   0.983,
+   0.952
+  ]
+ },
+ "player-defender-left": {
+  "idx": 177,
+  "file": "player-defender-left.png",
+  "w": 1254,
+  "h": 1254,
+  "bbox": [
+   0.041,
+   0.061,
+   0.979,
+   0.933
+  ]
+ },
+ "fg-pine": {
+  "idx": 183,
+  "file": "fg-pine.webp",
+  "w": 1024,
+  "h": 1438,
+  "bbox": [
+   0.117,
+   0.061,
+   0.907,
+   1.0
+  ]
+ },
+ "fg-plum-branch": {
+  "idx": 187,
+  "file": "fg-plum-branch.webp",
+  "w": 1400,
+  "h": 933,
+  "bbox": [
+   0.016,
+   0.0,
+   1.0,
+   0.975
+  ]
+ },
+ "fg-wood-railing": {
+  "idx": 188,
+  "file": "fg-wood-railing.webp",
+  "w": 1400,
+  "h": 933,
+  "bbox": [
+   0.0,
+   0.338,
+   1.0,
+   1.0
+  ]
+ },
+ "fg-lantern": {
+  "idx": 190,
+  "file": "fg-lantern.webp",
+  "w": 900,
+  "h": 1080,
+  "bbox": [
+   0.111,
+   0.022,
+   0.902,
+   0.987
+  ]
+ },
+ "fg-bamboo": {
+  "idx": 191,
+  "file": "fg-bamboo.webp",
+  "w": 900,
+  "h": 1080,
+  "bbox": [
+   0.0,
+   0.0,
+   0.591,
+   1.0
+  ]
+ },
+ "fg-banner-black": {
+  "idx": 192,
+  "file": "fg-banner-black.webp",
+  "w": 800,
+  "h": 1200,
+  "bbox": [
+   0.079,
+   0.016,
+   0.911,
+   0.98
+  ]
+ },
+ "fg-banner-white": {
+  "idx": 193,
+  "file": "fg-banner-white.webp",
+  "w": 800,
+  "h": 1200,
+  "bbox": [
+   0.135,
+   0.004,
+   0.965,
+   0.976
+  ]
+ },
+ "fg-brazier": {
+  "idx": 194,
+  "file": "fg-brazier.webp",
+  "w": 900,
+  "h": 935,
+  "bbox": [
+   0.071,
+   0.013,
+   0.929,
+   0.982
+  ]
+ },
+ "fx-moon": {
+  "idx": 195,
+  "file": "fx-moon.webp",
+  "w": 900,
+  "h": 900,
+  "bbox": [
+   0.1,
+   0.106,
+   0.898,
+   0.894
+  ]
+ },
+ "fg-war-table": {
+  "idx": 196,
+  "file": "fg-war-table.webp",
+  "w": 900,
+  "h": 610,
+  "bbox": [
+   0.038,
+   0.01,
+   0.979,
+   1.0
+  ]
+ }
+}

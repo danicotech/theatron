@@ -1,0 +1,5504 @@
+{
+ "exportedAt": "2026-08-17 17:14:02",
+ "currentVersion": {
+  "key": "110_RBDZ_DOWN",
+  "name": "蕤宾叠奏-下半",
+  "enabled": true,
+  "remark": ""
+ },
+ "buildKeys": [
+  "LIESHI_WEI",
+  "LIESHI_JUN",
+  "MINGJIN_HONG",
+  "MINGJIN_YING",
+  "POZHU_CHEN",
+  "POZHU_YUAN",
+  "POZHU_FENG",
+  "QIANSI_YI",
+  "QIANSI_YU",
+  "QIANSI_LIN",
+  "COMMON",
+  "POZHU_ZUN"
+ ],
+ "keyMap": {
+  "EXTERNAL_DAMAGE": {
+   "key": "EXTERNAL_DAMAGE",
+   "name": "外功伤害加成",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "CRITICAL_DAMAGE": {
+   "key": "CRITICAL_DAMAGE",
+   "name": "会心伤害加成",
+   "keyCategorys": [
+    "attribute",
+    "other"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "CRITICAL_HEAL_DAMAGE": {
+   "key": "CRITICAL_HEAL_DAMAGE",
+   "name": "会心治疗加成",
+   "keyCategorys": [
+    "attribute",
+    "other"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "INSIGHT_DAMAGE": {
+   "key": "INSIGHT_DAMAGE",
+   "name": "会意伤害加成",
+   "keyCategorys": [
+    "attribute",
+    "other"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "MINGJIN_DAMAGE": {
+   "key": "MINGJIN_DAMAGE",
+   "name": "鸣金加成",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_DAMAGE": {
+   "key": "POZHU_DAMAGE",
+   "name": "破竹加成",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "QIANSI_DAMAGE": {
+   "key": "QIANSI_DAMAGE",
+   "name": "牵丝加成",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "LIESHI_DAMAGE": {
+   "key": "LIESHI_DAMAGE",
+   "name": "裂石加成",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "COMMON_DAMAGE": {
+   "key": "COMMON_DAMAGE",
+   "name": "通用增伤",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "DIRECT_CRITICAL_RATE": {
+   "key": "DIRECT_CRITICAL_RATE",
+   "name": "直接会心率",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "DIRECT_INSIGHT_RATE": {
+   "key": "DIRECT_INSIGHT_RATE",
+   "name": "直接会意率",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "MIN_WUXIANG_ATTACK": {
+   "key": "MIN_WUXIANG_ATTACK",
+   "name": "最小无相攻击",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MAX_WUXIANG_ATTACK": {
+   "key": "MAX_WUXIANG_ATTACK",
+   "name": "最大无相攻击",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "WUXIANG_PENETRATION": {
+   "key": "WUXIANG_PENETRATION",
+   "name": "无相穿透",
+   "keyCategorys": [
+    "attribute",
+    "pitch"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MAX_EXTERNAL_ATTACK": {
+   "key": "MAX_EXTERNAL_ATTACK",
+   "name": "最大外功攻击",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MIN_EXTERNAL_ATTACK": {
+   "key": "MIN_EXTERNAL_ATTACK",
+   "name": "最小外功攻击",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EXTERNAL_PENETRATION": {
+   "key": "EXTERNAL_PENETRATION",
+   "name": "外功穿透",
+   "keyCategorys": [
+    "attribute",
+    "pitch"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MIN": {
+   "key": "MIN",
+   "name": "敏",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SHI": {
+   "key": "SHI",
+   "name": "势",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "JIN": {
+   "key": "JIN",
+   "name": "劲",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "TI": {
+   "key": "TI",
+   "name": "体",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "YU": {
+   "key": "YU",
+   "name": "御",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "ACCURACY_RATE": {
+   "key": "ACCURACY_RATE",
+   "name": "精准率",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "INSIGHT_RATE": {
+   "key": "INSIGHT_RATE",
+   "name": "会意率",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "CRITICAL_RATE": {
+   "key": "CRITICAL_RATE",
+   "name": "会心率",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "LEVEL_RESISTANCE": {
+   "key": "LEVEL_RESISTANCE",
+   "name": "等级抗性",
+   "keyCategorys": [
+    "attribute"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EXTERNAL_DEFENCE": {
+   "key": "EXTERNAL_DEFENCE",
+   "name": "外功防御",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MAX_HP": {
+   "key": "MAX_HP",
+   "name": "气血最大值",
+   "keyCategorys": [
+    "attribute",
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "LIESHI_WEI": {
+   "key": "LIESHI_WEI",
+   "name": "裂石威",
+   "keyCategorys": [
+    "build"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "LIESHI_JUN": {
+   "key": "LIESHI_JUN",
+   "name": "裂石钧",
+   "keyCategorys": [
+    "build"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MINGJIN_HONG": {
+   "key": "MINGJIN_HONG",
+   "name": "鸣金虹",
+   "keyCategorys": [
+    "build"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MINGJIN_YING": {
+   "key": "MINGJIN_YING",
+   "name": "鸣金影",
+   "keyCategorys": [
+    "build"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_CHEN": {
+   "key": "POZHU_CHEN",
+   "name": "破竹尘",
+   "keyCategorys": [
+    "build"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_YUAN": {
+   "key": "POZHU_YUAN",
+   "name": "破竹鸢",
+   "keyCategorys": [
+    "build"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_FENG": {
+   "key": "POZHU_FENG",
+   "name": "破竹风",
+   "keyCategorys": [
+    "build"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "QIANSI_YI": {
+   "key": "QIANSI_YI",
+   "name": "牵丝翊",
+   "keyCategorys": [
+    "build"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "QIANSI_YU": {
+   "key": "QIANSI_YU",
+   "name": "牵丝玉",
+   "keyCategorys": [
+    "build"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "QIANSI_LIN": {
+   "key": "QIANSI_LIN",
+   "name": "牵丝霖",
+   "keyCategorys": [
+    "build"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_WEAPON_YUDOU": {
+   "key": "SET_WEAPON_YUDOU",
+   "name": "玉斗",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_WEAPON_FEISUN": {
+   "key": "SET_WEAPON_FEISUN",
+   "name": "飞隼",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_WEAPON_YANGUI": {
+   "key": "SET_WEAPON_YANGUI",
+   "name": "燕归",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_WEAPON_LIANXING": {
+   "key": "SET_WEAPON_LIANXING",
+   "name": "连星",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_WEAPON_DUANYUE": {
+   "key": "SET_WEAPON_DUANYUE",
+   "name": "断岳",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_WEAPON_HANTIAN": {
+   "key": "SET_WEAPON_HANTIAN",
+   "name": "撼天",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_WEAPON_CAIYUN": {
+   "key": "SET_WEAPON_CAIYUN",
+   "name": "裁云",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_WEAPON_SHIYU": {
+   "key": "SET_WEAPON_SHIYU",
+   "name": "时雨",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_WEAPON_YANLIU": {
+   "key": "SET_WEAPON_YANLIU",
+   "name": "烟柳",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_BOW_ZHUIYING": {
+   "key": "SET_BOW_ZHUIYING",
+   "name": "追影",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_BOW_JINGXIAN": {
+   "key": "SET_BOW_JINGXIAN",
+   "name": "惊弦",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_BOW_YINYU": {
+   "key": "SET_BOW_YINYU",
+   "name": "饮羽",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_PENDANT": {
+   "key": "EQUIPMENT_PENDANT",
+   "name": "佩",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_RING": {
+   "key": "EQUIPMENT_RING",
+   "name": "环",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_CLOTH": {
+   "key": "EQUIPMENT_CLOTH",
+   "name": "衣",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_SHOES": {
+   "key": "EQUIPMENT_SHOES",
+   "name": "鞋",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_HEAD": {
+   "key": "EQUIPMENT_HEAD",
+   "name": "头",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_HAND": {
+   "key": "EQUIPMENT_HAND",
+   "name": "手",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_WEAPON_SWORD": {
+   "key": "EQUIPMENT_WEAPON_SWORD",
+   "name": "武器-剑",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_WEAPON_SPEAR": {
+   "key": "EQUIPMENT_WEAPON_SPEAR",
+   "name": "武器-枪",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_WEAPON_FAN": {
+   "key": "EQUIPMENT_WEAPON_FAN",
+   "name": "武器-扇",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_WEAPON_UMBRELLA": {
+   "key": "EQUIPMENT_WEAPON_UMBRELLA",
+   "name": "武器-伞",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_WEAPON_ROPE": {
+   "key": "EQUIPMENT_WEAPON_ROPE",
+   "name": "武器-绳镖",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_WEAPON_DRUM": {
+   "key": "EQUIPMENT_WEAPON_DRUM",
+   "name": "武器-鼓",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_WEAPON_BLADE": {
+   "key": "EQUIPMENT_WEAPON_BLADE",
+   "name": "武器-横刀",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_WEAPON_2BLADE": {
+   "key": "EQUIPMENT_WEAPON_2BLADE",
+   "name": "武器-双刀",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_WEAPON_BIGBLADE": {
+   "key": "EQUIPMENT_WEAPON_BIGBLADE",
+   "name": "武器-陌刀",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EQUIPMENT_WEAPON_FIST": {
+   "key": "EQUIPMENT_WEAPON_FIST",
+   "name": "武器-拳套",
+   "keyCategorys": [
+    "equipment"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_XMP": {
+   "key": "XF_XMP",
+   "name": "弦墨篇",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_QTS": {
+   "key": "XF_QTS",
+   "name": "擒天势",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_FZY": {
+   "key": "XF_FZY",
+   "name": "风知意",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_SHJY": {
+   "key": "XF_SHJY",
+   "name": "山河绝韵",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_HSYL": {
+   "key": "XF_HSYL",
+   "name": "花上月令",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_KZDF": {
+   "key": "XF_KZDF",
+   "name": "抗造大法",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_CHJ": {
+   "key": "XF_CHJ",
+   "name": "穿喉决",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_YJYW": {
+   "key": "XF_YJYW",
+   "name": "移经易武",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_JCY": {
+   "key": "XF_JCY",
+   "name": "君臣药",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_NSZ": {
+   "key": "XF_NSZ",
+   "name": "凝神章",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_SQZZ": {
+   "key": "XF_SQZZ",
+   "name": "三穷致知",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_GZBC": {
+   "key": "XF_GZBC",
+   "name": "孤忠不辞",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_FYZS": {
+   "key": "XF_FYZS",
+   "name": "扶摇直上",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_STBY": {
+   "key": "XF_STBY",
+   "name": "霜天白夜",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_CLP": {
+   "key": "XF_CLP",
+   "name": "春雷篇",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_ZDZX": {
+   "key": "XF_ZDZX",
+   "name": "纵地摘星",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_QSF": {
+   "key": "XF_QSF",
+   "name": "千山法",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_WMXF": {
+   "key": "XF_WMXF",
+   "name": "无名心法",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_ZLXJ": {
+   "key": "XF_ZLXJ",
+   "name": "逐狼心经",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_WMG": {
+   "key": "XF_WMG",
+   "name": "威猛歌",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_SHNN": {
+   "key": "XF_SHNN",
+   "name": "所恨年年",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_JQZH": {
+   "key": "XF_JQZH",
+   "name": "剑气纵横",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_WCJX": {
+   "key": "XF_WCJX",
+   "name": "忘川绝响",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_XMNY": {
+   "key": "XF_XMNY",
+   "name": "心弥泥鱼",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_JLQX": {
+   "key": "XF_JLQX",
+   "name": "极乐泣血",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_DTG": {
+   "key": "XF_DTG",
+   "name": "大唐歌",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_SZXM": {
+   "key": "XF_SZXM",
+   "name": "绳舟行木",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_XHG": {
+   "key": "XF_XHG",
+   "name": "相和歌",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_DSZG": {
+   "key": "XF_DSZG",
+   "name": "断石之构",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_ZRG": {
+   "key": "XF_ZRG",
+   "name": "征人归",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_QYYH": {
+   "key": "XF_QYYH",
+   "name": "千营一呼",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_YSG": {
+   "key": "XF_YSG",
+   "name": "易水歌",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "QIANSI_YI_XYCY": {
+   "key": "QIANSI_YI_XYCY",
+   "name": "杏游草野",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "QIANSI_YI_WDNC": {
+   "key": "QIANSI_YI_WDNC",
+   "name": "文动霓裳",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "LIESHI_WEI_JFDF": {
+   "key": "LIESHI_WEI_JFDF",
+   "name": "嗟夫刀法",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "LIESHI_WEI_BFFLQ": {
+   "key": "LIESHI_WEI_BFFLQ",
+   "name": "八方风雷枪",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MINGJIN_HONG_WMQF": {
+   "key": "MINGJIN_HONG_WMQF",
+   "name": "无名枪法",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MINGJIN_HONG_WMJF": {
+   "key": "MINGJIN_HONG_WMJF",
+   "name": "无名剑法",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MINGJIN_YING_JJJJ": {
+   "key": "MINGJIN_YING_JJJJ",
+   "name": "积矩九剑",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MINGJIN_YING_JQJSQ": {
+   "key": "MINGJIN_YING_JQJSQ",
+   "name": "九曲惊神枪",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "LIESHI_JUN_SFPZ": {
+   "key": "LIESHI_JUN_SFPZ",
+   "name": "十方破阵",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "LIESHI_JUN_ZXDF": {
+   "key": "LIESHI_JUN_ZXDF",
+   "name": "斩雪刀法",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "QIANSI_YU_QSZB": {
+   "key": "QIANSI_YU_QSZB",
+   "name": "青山执笔",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "QIANSI_YU_JCCS": {
+   "key": "QIANSI_YU_JCCS",
+   "name": "九重春色",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "QIANSI_LIN_QXYHG": {
+   "key": "QIANSI_LIN_QXYHG",
+   "name": "千香引魂蛊",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "QIANSI_LIN_MCYD": {
+   "key": "QIANSI_LIN_MCYD",
+   "name": "明川药典",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_CHEN_SZXY": {
+   "key": "POZHU_CHEN_SZXY",
+   "name": "粟子行云",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_CHEN_ZMYC": {
+   "key": "POZHU_CHEN_ZMYC",
+   "name": "醉梦游春",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_YUAN_TZCX": {
+   "key": "POZHU_YUAN_TZCX",
+   "name": "天志垂象",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_YUAN_QJST": {
+   "key": "POZHU_YUAN_QJST",
+   "name": "千机索天",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_FENG_SZYC": {
+   "key": "POZHU_FENG_SZYC",
+   "name": "粟子游尘",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_FENG_NLSG": {
+   "key": "POZHU_FENG_NLSG",
+   "name": "泥犁三垢",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MINGJIN": {
+   "key": "MINGJIN",
+   "name": "鸣金",
+   "keyCategorys": [
+    "element"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU": {
+   "key": "POZHU",
+   "name": "破竹",
+   "keyCategorys": [
+    "element"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "QIANSI": {
+   "key": "QIANSI",
+   "name": "牵丝",
+   "keyCategorys": [
+    "element"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "LIESHI": {
+   "key": "LIESHI",
+   "name": "裂石",
+   "keyCategorys": [
+    "element"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "105_JJZY_DOWN": {
+   "key": "105_JJZY_DOWN",
+   "name": "夹钟奏雅-下半",
+   "keyCategorys": [
+    "version"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "WMJF_XLJZS": {
+   "key": "WMJF_XLJZS",
+   "name": "无名剑法·蓄力技增伤",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "JJJJ_LXZS": {
+   "key": "JJJJ_LXZS",
+   "name": "积矩九剑·流血增伤",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "JCCS_TSJZS": {
+   "key": "JCCS_TSJZS",
+   "name": "九重春色·特殊技增伤",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "WDNC_TSJZS": {
+   "key": "WDNC_TSJZS",
+   "name": "文动霓裳·特殊技增伤",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "SZYC_SSZS": {
+   "key": "SZYC_SSZS",
+   "name": "粟子游尘·鼠鼠增伤",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "ZMYC_WXJZS": {
+   "key": "ZMYC_WXJZS",
+   "name": "醉梦游春·武学技增伤",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "TZCX_XLJZS": {
+   "key": "TZCX_XLJZS",
+   "name": "天志垂象·蓄力技增伤",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "JFDF_XLJZS": {
+   "key": "JFDF_XLJZS",
+   "name": "嗟夫刀法·蓄力技增伤",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "SFPZ_XLJZS": {
+   "key": "SFPZ_XLJZS",
+   "name": "十方破阵·蓄力技增伤",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "MCYD_ZLJZL": {
+   "key": "MCYD_ZLJZL",
+   "name": "明川药典·治疗技增疗",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "MIN_MINGJIN_ATTACK": {
+   "key": "MIN_MINGJIN_ATTACK",
+   "name": "最小鸣金攻击",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MAX_MINGJIN_ATTACK": {
+   "key": "MAX_MINGJIN_ATTACK",
+   "name": "最大鸣金攻击",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MIN_LIESHI_ATTACK": {
+   "key": "MIN_LIESHI_ATTACK",
+   "name": "最小裂石攻击",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MAX_LIESHI_ATTACK": {
+   "key": "MAX_LIESHI_ATTACK",
+   "name": "最大裂石攻击",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MIN_QIANSI_ATTACK": {
+   "key": "MIN_QIANSI_ATTACK",
+   "name": "最小牵丝攻击",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MAX_QIANSI_ATTACK": {
+   "key": "MAX_QIANSI_ATTACK",
+   "name": "最大牵丝攻击",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MIN_POZHU_ATTACK": {
+   "key": "MIN_POZHU_ATTACK",
+   "name": "最小破竹攻击",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MAX_POZHU_ATTACK": {
+   "key": "MAX_POZHU_ATTACK",
+   "name": "最大破竹攻击",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "WUXUE_DAMAGE": {
+   "key": "WUXUE_DAMAGE",
+   "name": "全武学增效",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "PLAYER_DAMAGE": {
+   "key": "PLAYER_DAMAGE",
+   "name": "对玩家单位增效",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "BOSS_DAMAGE": {
+   "key": "BOSS_DAMAGE",
+   "name": "对首领单位增伤",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "SWORD_DAMAGE": {
+   "key": "SWORD_DAMAGE",
+   "name": "剑武学增效",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "SPEAR_DAMAGE": {
+   "key": "SPEAR_DAMAGE",
+   "name": "枪武学增效",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "FAN_DAMAGE": {
+   "key": "FAN_DAMAGE",
+   "name": "扇武学增效",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "UMBRELLA_DAMAGE": {
+   "key": "UMBRELLA_DAMAGE",
+   "name": "伞武学增效",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "ROPE_DAMAGE": {
+   "key": "ROPE_DAMAGE",
+   "name": "绳镖武学增效",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "DRUM_DAMAGE": {
+   "key": "DRUM_DAMAGE",
+   "name": "鼓武学增效",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "BLADE_DAMAGE": {
+   "key": "BLADE_DAMAGE",
+   "name": "横刀武学增效",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "2BLADE_DAMAGE": {
+   "key": "2BLADE_DAMAGE",
+   "name": "双刀武学增效",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "BIGBLADE_DAMAGE": {
+   "key": "BIGBLADE_DAMAGE",
+   "name": "陌刀武学增效",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "FIST_DAMAGE": {
+   "key": "FIST_DAMAGE",
+   "name": "拳套武学增效",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "SINGLEQS_DAMAGE": {
+   "key": "SINGLEQS_DAMAGE",
+   "name": "单体类奇术增伤",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "AOEQS_DAMAGE": {
+   "key": "AOEQS_DAMAGE",
+   "name": "群体类奇术增伤",
+   "keyCategorys": [
+    "tuning"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "COMMON": {
+   "key": "COMMON",
+   "name": "通用",
+   "keyCategorys": [
+    "element",
+    "build"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "LIESHI_PENETRATION": {
+   "key": "LIESHI_PENETRATION",
+   "name": "裂石穿透",
+   "keyCategorys": [
+    "attribute"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "QIANSI_PENETRATION": {
+   "key": "QIANSI_PENETRATION",
+   "name": "牵丝穿透",
+   "keyCategorys": [
+    "attribute"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "MINGJIN_PENETRATION": {
+   "key": "MINGJIN_PENETRATION",
+   "name": "鸣金穿透",
+   "keyCategorys": [
+    "attribute"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_PENETRATION": {
+   "key": "POZHU_PENETRATION",
+   "name": "破竹穿透",
+   "keyCategorys": [
+    "attribute"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SWORD": {
+   "key": "SWORD",
+   "name": "剑",
+   "keyCategorys": [
+    "weapon_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SPEAR": {
+   "key": "SPEAR",
+   "name": "枪",
+   "keyCategorys": [
+    "weapon_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "FAN": {
+   "key": "FAN",
+   "name": "扇",
+   "keyCategorys": [
+    "weapon_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "UMBRELLA": {
+   "key": "UMBRELLA",
+   "name": "伞",
+   "keyCategorys": [
+    "weapon_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "ROPE": {
+   "key": "ROPE",
+   "name": "绳镖",
+   "keyCategorys": [
+    "weapon_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "DRUM": {
+   "key": "DRUM",
+   "name": "鼓",
+   "keyCategorys": [
+    "weapon_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "BLADE": {
+   "key": "BLADE",
+   "name": "横刀",
+   "keyCategorys": [
+    "weapon_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "2BLADE": {
+   "key": "2BLADE",
+   "name": "双刀",
+   "keyCategorys": [
+    "weapon_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "BIGBLADE": {
+   "key": "BIGBLADE",
+   "name": "陌刀",
+   "keyCategorys": [
+    "weapon_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "FIST": {
+   "key": "FIST",
+   "name": "拳",
+   "keyCategorys": [
+    "weapon_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_QJ": {
+   "key": "SKILLTYPE_QJ",
+   "name": "轻击",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_ZJ": {
+   "key": "SKILLTYPE_ZJ",
+   "name": "重击",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_WXJ": {
+   "key": "SKILLTYPE_WXJ",
+   "name": "武学技",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_TSJ": {
+   "key": "SKILLTYPE_TSJ",
+   "name": "特殊技",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_XLJ": {
+   "key": "SKILLTYPE_XLJ",
+   "name": "蓄力技",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_QJPS": {
+   "key": "SKILLTYPE_QJPS",
+   "name": "轻击派生",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_ZJPS": {
+   "key": "SKILLTYPE_ZJPS",
+   "name": "重击派生",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_WXCF": {
+   "key": "SKILLTYPE_WXCF",
+   "name": "武学触发",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_YWJ": {
+   "key": "SKILLTYPE_YWJ",
+   "name": "易武技",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_JUN_XZCF": {
+   "key": "SKILLTYPE_JUN_XZCF",
+   "name": "协战触发",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_JUN_XZXG": {
+   "key": "SKILLTYPE_JUN_XZXG",
+   "name": "协战效果",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "PITCH_DAMAGE": {
+   "key": "PITCH_DAMAGE",
+   "name": "定音增伤",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_YUAN_YSZJ": {
+   "key": "SKILLTYPE_YUAN_YSZJ",
+   "name": "鹰隼追击",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SKILLTYPE_YUAN_WYDZ": {
+   "key": "SKILLTYPE_YUAN_WYDZ",
+   "name": "无义当诛",
+   "keyCategorys": [
+    "skill_type"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "FIXED_DAMAGE": {
+   "key": "FIXED_DAMAGE",
+   "name": "固定伤害加成",
+   "keyCategorys": [
+    "attribute"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "FIXED_DAMAGE_RATE": {
+   "key": "FIXED_DAMAGE_RATE",
+   "name": "固定伤害倍率",
+   "keyCategorys": [
+    "attribute"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_SSWC": {
+   "key": "XF_SSWC",
+   "name": "四时无常",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_NZM": {
+   "key": "XF_NZM",
+   "name": "怒斩马",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "105_JJZY_UP": {
+   "key": "105_JJZY_UP",
+   "name": "夹钟奏雅上半",
+   "keyCategorys": [
+    "version"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "110_RBDZ_UP": {
+   "key": "110_RBDZ_UP",
+   "name": "蕤宾叠奏-上半",
+   "keyCategorys": [
+    "version"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "JCCS_GPDDZS": {
+   "key": "JCCS_GPDDZS",
+   "name": "九重春色·高频弹道增伤",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": true,
+   "remark": "",
+   "icon": ""
+  },
+  "BENEFIT_RESISTANCE": {
+   "key": "BENEFIT_RESISTANCE",
+   "name": "增益抗性",
+   "keyCategorys": [
+    "attribute"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "RAID_DAMAGE": {
+   "key": "RAID_DAMAGE",
+   "name": "特殊增伤",
+   "keyCategorys": [
+    "attribute"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SURE_NOGRAZE": {
+   "key": "SURE_NOGRAZE",
+   "name": "必定不擦伤",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SURE_CRITICAL": {
+   "key": "SURE_CRITICAL",
+   "name": "必定会心",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SURE_INSIGHT": {
+   "key": "SURE_INSIGHT",
+   "name": "必定会意",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "ZXDF_QZJPSJZS": {
+   "key": "ZXDF_QZJPSJZS",
+   "name": "斩雪刀法·轻重击派生技增伤",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "EXTERNAL_HEAL_DAMAGE": {
+   "key": "EXTERNAL_HEAL_DAMAGE",
+   "name": "外功治疗加成",
+   "keyCategorys": [
+    "other"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_XHBJ": {
+   "key": "XF_XHBJ",
+   "name": "杏花不见",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_QSG": {
+   "key": "XF_QSG",
+   "name": "千丝蛊",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_WEAPON_HUANHUA": {
+   "key": "SET_WEAPON_HUANHUA",
+   "name": "浣花",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "110_RBDZ_DOWN": {
+   "key": "110_RBDZ_DOWN",
+   "name": "蕤宾叠奏-下半",
+   "keyCategorys": [
+    "version"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "SET_WEAPON_QINGSHANG": {
+   "key": "SET_WEAPON_QINGSHANG",
+   "name": "倾觞",
+   "keyCategorys": [
+    "set"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_YZQQ": {
+   "key": "XF_YZQQ",
+   "name": "一醉千秋",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_FXZY": {
+   "key": "XF_FXZY",
+   "name": "飞仙醉言",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_YBYX": {
+   "key": "XF_YBYX",
+   "name": "燕别云岫",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XF_DJWS": {
+   "key": "XF_DJWS",
+   "name": "大卷微身",
+   "keyCategorys": [
+    "mind"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_ZUN": {
+   "key": "POZHU_ZUN",
+   "name": "破竹樽",
+   "keyCategorys": [
+    "build"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_ZUN_XSQF": {
+   "key": "POZHU_ZUN_XSQF",
+   "name": "悬身拳法",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "POZHU_ZUN_DSSJ": {
+   "key": "POZHU_ZUN_DSSJ",
+   "name": "断水双诀",
+   "keyCategorys": [
+    "martial"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  },
+  "XSDS_NSJNZS": {
+   "key": "XSDS_NSJNZS",
+   "name": "悬身断水·浓醺技能增伤",
+   "keyCategorys": [
+    "pitch"
+   ],
+   "isPercent": false,
+   "remark": "",
+   "icon": ""
+  }
+ },
+ "martials": [
+  {
+   "id": 124,
+   "key": "POZHU_ZUN_DSSJ",
+   "attr": [
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_POZHU_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "POZHU_PENETRATION",
+     "value": 30
+    }
+   ],
+   "buildKey": "POZHU_ZUN",
+   "elementKey": "POZHU",
+   "equipmentKey": "EQUIPMENT_WEAPON_2BLADE",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 123,
+   "key": "POZHU_ZUN_XSQF",
+   "attr": [
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_POZHU_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 122
+    },
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "POZHU_DAMAGE",
+     "value": 15
+    }
+   ],
+   "buildKey": "POZHU_ZUN",
+   "elementKey": "POZHU",
+   "equipmentKey": "EQUIPMENT_WEAPON_FIST",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 122,
+   "key": "QIANSI_LIN_MCYD",
+   "attr": [
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_QIANSI_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "QIANSI_PENETRATION",
+     "value": 30
+    }
+   ],
+   "buildKey": "QIANSI_LIN",
+   "elementKey": "QIANSI",
+   "equipmentKey": "EQUIPMENT_WEAPON_FAN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 120,
+   "key": "POZHU_FENG_NLSG",
+   "attr": [
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_POZHU_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 122
+    },
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "POZHU_DAMAGE",
+     "value": 15
+    }
+   ],
+   "buildKey": "POZHU_FENG",
+   "elementKey": "POZHU",
+   "equipmentKey": "EQUIPMENT_WEAPON_2BLADE",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 119,
+   "key": "POZHU_FENG_SZYC",
+   "attr": [
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_POZHU_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "POZHU_PENETRATION",
+     "value": 30
+    }
+   ],
+   "buildKey": "POZHU_FENG",
+   "elementKey": "POZHU",
+   "equipmentKey": "EQUIPMENT_WEAPON_ROPE",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 118,
+   "key": "POZHU_YUAN_QJST",
+   "attr": [
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_POZHU_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "POZHU_PENETRATION",
+     "value": 30
+    }
+   ],
+   "buildKey": "POZHU_YUAN",
+   "elementKey": "POZHU",
+   "equipmentKey": "EQUIPMENT_WEAPON_ROPE",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 117,
+   "key": "POZHU_YUAN_TZCX",
+   "attr": [
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_POZHU_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 122
+    },
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "POZHU_DAMAGE",
+     "value": 15
+    }
+   ],
+   "buildKey": "POZHU_YUAN",
+   "elementKey": "POZHU",
+   "equipmentKey": "EQUIPMENT_WEAPON_FIST",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 116,
+   "key": "POZHU_CHEN_ZMYC",
+   "attr": [
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_POZHU_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 122
+    },
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "POZHU_DAMAGE",
+     "value": 15
+    }
+   ],
+   "buildKey": "POZHU_CHEN",
+   "elementKey": "POZHU",
+   "equipmentKey": "EQUIPMENT_WEAPON_UMBRELLA",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 115,
+   "key": "POZHU_CHEN_SZXY",
+   "attr": [
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_POZHU_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "POZHU_PENETRATION",
+     "value": 30
+    }
+   ],
+   "buildKey": "POZHU_CHEN",
+   "elementKey": "POZHU",
+   "equipmentKey": "EQUIPMENT_WEAPON_ROPE",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 113,
+   "key": "QIANSI_LIN_QXYHG",
+   "attr": [
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_QIANSI_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 122
+    },
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "QIANSI_DAMAGE",
+     "value": 15
+    }
+   ],
+   "buildKey": "QIANSI_LIN",
+   "elementKey": "QIANSI",
+   "equipmentKey": "EQUIPMENT_WEAPON_UMBRELLA",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 112,
+   "key": "QIANSI_YU_JCCS",
+   "attr": [
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_QIANSI_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "QIANSI_PENETRATION",
+     "value": 30
+    }
+   ],
+   "buildKey": "QIANSI_YU",
+   "elementKey": "QIANSI",
+   "equipmentKey": "EQUIPMENT_WEAPON_UMBRELLA",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 111,
+   "key": "QIANSI_YU_QSZB",
+   "attr": [
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_QIANSI_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 122
+    },
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "QIANSI_DAMAGE",
+     "value": 15
+    }
+   ],
+   "buildKey": "QIANSI_YU",
+   "elementKey": "QIANSI",
+   "equipmentKey": "EQUIPMENT_WEAPON_FAN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 110,
+   "key": "LIESHI_JUN_ZXDF",
+   "attr": [
+    {
+     "key": "MIN_LIESHI_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_LIESHI_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 122
+    },
+    {
+     "key": "MIN_LIESHI_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "LIESHI_DAMAGE",
+     "value": 15
+    }
+   ],
+   "buildKey": "LIESHI_JUN",
+   "elementKey": "LIESHI",
+   "equipmentKey": "EQUIPMENT_WEAPON_BLADE",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 109,
+   "key": "LIESHI_JUN_SFPZ",
+   "attr": [
+    {
+     "key": "MIN_LIESHI_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_LIESHI_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "MIN_LIESHI_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "LIESHI_PENETRATION",
+     "value": 30
+    }
+   ],
+   "buildKey": "LIESHI_JUN",
+   "elementKey": "LIESHI",
+   "equipmentKey": "EQUIPMENT_WEAPON_BIGBLADE",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 108,
+   "key": "MINGJIN_YING_JQJSQ",
+   "attr": [
+    {
+     "key": "MIN_MINGJIN_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_MINGJIN_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "JIN",
+     "value": 462
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 122
+    },
+    {
+     "key": "MIN_MINGJIN_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "MINGJIN_DAMAGE",
+     "value": 15
+    }
+   ],
+   "buildKey": "MINGJIN_YING",
+   "elementKey": "MINGJIN",
+   "equipmentKey": "EQUIPMENT_WEAPON_SPEAR",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 107,
+   "key": "MINGJIN_YING_JJJJ",
+   "attr": [
+    {
+     "key": "MIN_MINGJIN_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_MINGJIN_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "JIN",
+     "value": 462
+    },
+    {
+     "key": "INSIGHT_RATE",
+     "value": 7
+    },
+    {
+     "key": "MIN_MINGJIN_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "MINGJIN_PENETRATION",
+     "value": 30
+    }
+   ],
+   "buildKey": "MINGJIN_YING",
+   "elementKey": "MINGJIN",
+   "equipmentKey": "EQUIPMENT_WEAPON_SWORD",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 106,
+   "key": "MINGJIN_HONG_WMJF",
+   "attr": [
+    {
+     "key": "MIN_MINGJIN_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_MINGJIN_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "SHI",
+     "value": 462
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 122
+    },
+    {
+     "key": "MIN_MINGJIN_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "MINGJIN_PENETRATION",
+     "value": 30
+    }
+   ],
+   "buildKey": "MINGJIN_HONG",
+   "elementKey": "MINGJIN",
+   "equipmentKey": "EQUIPMENT_WEAPON_SWORD",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 105,
+   "key": "MINGJIN_HONG_WMQF",
+   "attr": [
+    {
+     "key": "MIN_MINGJIN_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_MINGJIN_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "SHI",
+     "value": 462
+    },
+    {
+     "key": "INSIGHT_RATE",
+     "value": 7
+    },
+    {
+     "key": "MIN_MINGJIN_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "MINGJIN_DAMAGE",
+     "value": 15
+    }
+   ],
+   "buildKey": "MINGJIN_HONG",
+   "elementKey": "MINGJIN",
+   "equipmentKey": "EQUIPMENT_WEAPON_SPEAR",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 103,
+   "key": "LIESHI_WEI_JFDF",
+   "attr": [
+    {
+     "key": "MIN_LIESHI_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_LIESHI_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "JIN",
+     "value": 462
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 122
+    },
+    {
+     "key": "MIN_LIESHI_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "LIESHI_PENETRATION",
+     "value": 30
+    }
+   ],
+   "buildKey": "LIESHI_WEI",
+   "elementKey": "LIESHI",
+   "equipmentKey": "EQUIPMENT_WEAPON_BIGBLADE",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 102,
+   "key": "QIANSI_YI_WDNC",
+   "attr": [
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_QIANSI_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 122
+    },
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "QIANSI_DAMAGE",
+     "value": 15
+    }
+   ],
+   "buildKey": "QIANSI_YI",
+   "elementKey": "QIANSI",
+   "equipmentKey": "EQUIPMENT_WEAPON_DRUM",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 101,
+   "key": "QIANSI_YI_XYCY",
+   "attr": [
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_QIANSI_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN",
+     "value": 462
+    },
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "QIANSI_PENETRATION",
+     "value": 30
+    }
+   ],
+   "buildKey": "QIANSI_YI",
+   "elementKey": "QIANSI",
+   "equipmentKey": "EQUIPMENT_WEAPON_FAN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 104,
+   "key": "LIESHI_WEI_BFFLQ",
+   "attr": [
+    {
+     "key": "MIN_LIESHI_ATTACK",
+     "value": 153
+    },
+    {
+     "key": "MAX_LIESHI_ATTACK",
+     "value": 306
+    }
+   ],
+   "needKey1": [
+    {
+     "key": "MIN_LIESHI_ATTACK",
+     "value": 447
+    },
+    {
+     "key": "LIESHI_DAMAGE",
+     "value": 15
+    }
+   ],
+   "buildKey": "LIESHI_WEI",
+   "elementKey": "LIESHI",
+   "equipmentKey": "EQUIPMENT_WEAPON_SPEAR",
+   "versionKey": "110_RBDZ_DOWN"
+  }
+ ],
+ "arsenals": [
+  {
+   "id": 30,
+   "key": "COMMON",
+   "attr": [
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 373
+    },
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 186
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 29,
+   "key": "LIESHI",
+   "attr": [
+    {
+     "key": "MAX_LIESHI_ATTACK",
+     "value": 373
+    },
+    {
+     "key": "MIN_LIESHI_ATTACK",
+     "value": 186
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 28,
+   "key": "QIANSI",
+   "attr": [
+    {
+     "key": "MAX_QIANSI_ATTACK",
+     "value": 373
+    },
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 186
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 27,
+   "key": "POZHU",
+   "attr": [
+    {
+     "key": "MAX_POZHU_ATTACK",
+     "value": 373
+    },
+    {
+     "key": "MIN_POZHU_ATTACK",
+     "value": 186
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 26,
+   "key": "MINGJIN",
+   "attr": [
+    {
+     "key": "MAX_MINGJIN_ATTACK",
+     "value": 373
+    },
+    {
+     "key": "MIN_MINGJIN_ATTACK",
+     "value": 186
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  }
+ ],
+ "equipments": [
+  {
+   "id": 82,
+   "key": "EQUIPMENT_WEAPON_FIST",
+   "name": "流星动岳",
+   "type": "weapon",
+   "goldenAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 100
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 232
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 90
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 209
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 81,
+   "key": "EQUIPMENT_WEAPON_BIGBLADE",
+   "name": "流星碎刃",
+   "type": "weapon",
+   "goldenAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 100
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 232
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 90
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 209
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 80,
+   "key": "EQUIPMENT_WEAPON_2BLADE",
+   "name": "流星双鲤",
+   "type": "weapon",
+   "goldenAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 100
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 232
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 90
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 209
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 79,
+   "key": "EQUIPMENT_WEAPON_BLADE",
+   "name": "流星断水",
+   "type": "weapon",
+   "goldenAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 100
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 232
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 90
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 209
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 78,
+   "key": "EQUIPMENT_WEAPON_DRUM",
+   "name": "流星凌波",
+   "type": "weapon",
+   "goldenAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 100
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 232
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 90
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 209
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 77,
+   "key": "EQUIPMENT_WEAPON_ROPE",
+   "name": "流星鸣镖",
+   "type": "weapon",
+   "goldenAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 100
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 232
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 90
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 209
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 76,
+   "key": "EQUIPMENT_WEAPON_UMBRELLA",
+   "name": "流星云伞",
+   "type": "weapon",
+   "goldenAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 100
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 232
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 90
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 209
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 75,
+   "key": "EQUIPMENT_WEAPON_FAN",
+   "name": "流星画扇",
+   "type": "weapon",
+   "goldenAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 100
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 232
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 90
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 209
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 74,
+   "key": "EQUIPMENT_WEAPON_SPEAR",
+   "name": "流星羽林",
+   "type": "weapon",
+   "goldenAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 100
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 232
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 90
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 209
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 73,
+   "key": "EQUIPMENT_WEAPON_SWORD",
+   "name": "流星含光",
+   "type": "weapon",
+   "goldenAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 100
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 232
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 90
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 209
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 72,
+   "key": "EQUIPMENT_HAND",
+   "name": "吴钩霜披膊",
+   "type": "hand",
+   "goldenAttr": [
+    {
+     "key": "MAX_HP",
+     "value": 8225
+    },
+    {
+     "key": "EXTERNAL_DEFENCE",
+     "value": 29
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MAX_HP",
+     "value": 7402
+    },
+    {
+     "key": "EXTERNAL_DEFENCE",
+     "value": 27
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 71,
+   "key": "EQUIPMENT_HEAD",
+   "name": "吴钩霜冠",
+   "type": "head",
+   "goldenAttr": [
+    {
+     "key": "MAX_HP",
+     "value": 8225
+    },
+    {
+     "key": "EXTERNAL_DEFENCE",
+     "value": 29
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MAX_HP",
+     "value": 7402
+    },
+    {
+     "key": "EXTERNAL_DEFENCE",
+     "value": 27
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 70,
+   "key": "EQUIPMENT_SHOES",
+   "name": "吴钩霜缚袴",
+   "type": "shoe",
+   "goldenAttr": [
+    {
+     "key": "MAX_HP",
+     "value": 8225
+    },
+    {
+     "key": "EXTERNAL_DEFENCE",
+     "value": 58
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MAX_HP",
+     "value": 7402
+    },
+    {
+     "key": "EXTERNAL_DEFENCE",
+     "value": 53
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 69,
+   "key": "EQUIPMENT_CLOTH",
+   "name": "吴钩霜甲",
+   "type": "cloth",
+   "goldenAttr": [
+    {
+     "key": "EXTERNAL_DEFENCE",
+     "value": 16449
+    },
+    {
+     "key": "MAX_HP",
+     "value": 29
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MAX_HP",
+     "value": 14804
+    },
+    {
+     "key": "EXTERNAL_DEFENCE",
+     "value": 27
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 68,
+   "key": "EQUIPMENT_RING",
+   "name": "流星云珑",
+   "type": "ring",
+   "goldenAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 133
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 120
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 67,
+   "key": "EQUIPMENT_PENDANT",
+   "name": "流星辟邪",
+   "type": "pendant",
+   "goldenAttr": [
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 199
+    }
+   ],
+   "purpleAttr": [
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 179
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  }
+ ],
+ "sets": [
+  {
+   "id": 88,
+   "key": "SET_WEAPON_QINGSHANG",
+   "shortName": "倾",
+   "type": 0,
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 121
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 87,
+   "key": "SET_WEAPON_HUANHUA",
+   "shortName": "花",
+   "type": 0,
+   "attr": [
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 86,
+   "key": "SET_BOW_YINYU",
+   "shortName": "饮羽",
+   "type": 1,
+   "attr": [
+    {
+     "key": "ACCURACY_RATE",
+     "value": 6.2
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 85,
+   "key": "SET_BOW_JINGXIAN",
+   "shortName": "惊弦",
+   "type": 1,
+   "attr": [
+    {
+     "key": "CRITICAL_RATE",
+     "value": 7
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 84,
+   "key": "SET_BOW_ZHUIYING",
+   "shortName": "追影",
+   "type": 1,
+   "attr": [
+    {
+     "key": "INSIGHT_RATE",
+     "value": 3.5
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 83,
+   "key": "SET_WEAPON_YANLIU",
+   "shortName": "烟",
+   "type": 0,
+   "attr": [
+    {
+     "key": "ACCURACY_RATE",
+     "value": 12.5
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 82,
+   "key": "SET_WEAPON_SHIYU",
+   "shortName": "雨",
+   "type": 0,
+   "attr": [
+    {
+     "key": "ACCURACY_RATE",
+     "value": 12.5
+    },
+    {
+     "key": "CRITICAL_DAMAGE",
+     "value": 10
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 81,
+   "key": "SET_WEAPON_CAIYUN",
+   "shortName": "云",
+   "type": 0,
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 121
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 80,
+   "key": "SET_WEAPON_HANTIAN",
+   "shortName": "撼",
+   "type": 0,
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 121
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 79,
+   "key": "SET_WEAPON_DUANYUE",
+   "shortName": "断",
+   "type": 0,
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 121
+    },
+    {
+     "key": "COMMON_DAMAGE",
+     "value": 5
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 78,
+   "key": "SET_WEAPON_LIANXING",
+   "shortName": "星",
+   "type": 0,
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 121
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 77,
+   "key": "SET_WEAPON_YANGUI",
+   "shortName": "归",
+   "type": 0,
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 121
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 76,
+   "key": "SET_WEAPON_FEISUN",
+   "shortName": "飞",
+   "type": 0,
+   "attr": [
+    {
+     "key": "INSIGHT_RATE",
+     "value": 7
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 75,
+   "key": "SET_WEAPON_YUDOU",
+   "shortName": "斗",
+   "type": 0,
+   "attr": [
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 121
+    }
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  }
+ ],
+ "minds": [
+  {
+   "id": 313,
+   "key": "XF_YBYX",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 36.4
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 72.8
+    },
+    {
+     "key": "EXTERNAL_DAMAGE",
+     "value": 2.5
+    }
+   ],
+   "buildKey": "POZHU_ZUN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 312,
+   "key": "XF_FXZY",
+   "attr": [
+    {
+     "key": "CRITICAL_RATE",
+     "value": 12.6
+    },
+    {
+     "key": "CRITICAL_DAMAGE",
+     "value": 4
+    }
+   ],
+   "buildKey": "POZHU_ZUN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 311,
+   "key": "XF_YZQQ",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 121.3
+    },
+    {
+     "key": "DIRECT_CRITICAL_RATE",
+     "value": 4.6
+    }
+   ],
+   "buildKey": "POZHU_ZUN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 314,
+   "key": "XF_DJWS",
+   "attr": [],
+   "buildKey": null,
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 291,
+   "key": "XF_QSF",
+   "attr": [
+    {
+     "key": "MIN_MINGJIN_ATTACK",
+     "value": 20.7
+    },
+    {
+     "key": "MAX_MINGJIN_ATTACK",
+     "value": 41.3
+    },
+    {
+     "key": "MINGJIN_PENETRATION",
+     "value": 6
+    }
+   ],
+   "buildKey": "MINGJIN_HONG",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 281,
+   "key": "XF_CHJ",
+   "attr": [
+    {
+     "key": "MIN_LIESHI_ATTACK",
+     "value": 20.7
+    },
+    {
+     "key": "MAX_LIESHI_ATTACK",
+     "value": 41.3
+    },
+    {
+     "key": "LIESHI_PENETRATION",
+     "value": 6
+    }
+   ],
+   "buildKey": "LIESHI_JUN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 280,
+   "key": "XF_KZDF",
+   "attr": [
+    {
+     "key": "MIN_LIESHI_ATTACK",
+     "value": 20.7
+    },
+    {
+     "key": "MAX_LIESHI_ATTACK",
+     "value": 41.3
+    },
+    {
+     "key": "LIESHI_PENETRATION",
+     "value": 6
+    },
+    {
+     "key": "COMMON_DAMAGE",
+     "value": 10
+    }
+   ],
+   "buildKey": "LIESHI_WEI",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 307,
+   "key": "XF_SSWC",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 40.5
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 80.9
+    },
+    {
+     "key": "EXTERNAL_DAMAGE",
+     "value": 2.8
+    }
+   ],
+   "buildKey": "COMMON",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 306,
+   "key": "XF_YSG",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 40.5
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 80.9
+    },
+    {
+     "key": "DIRECT_CRITICAL_RATE",
+     "value": 4.6
+    }
+   ],
+   "buildKey": "COMMON",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 304,
+   "key": "XF_ZRG",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 109.2
+    },
+    {
+     "key": "EXTERNAL_PENETRATION",
+     "value": 5.1
+    }
+   ],
+   "buildKey": "COMMON",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 301,
+   "key": "XF_SZXM",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 109.2
+    },
+    {
+     "key": "EXTERNAL_PENETRATION",
+     "value": 5.1
+    }
+   ],
+   "buildKey": "POZHU_CHEN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 298,
+   "key": "XF_XMNY",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 109.2
+    },
+    {
+     "key": "EXTERNAL_PENETRATION",
+     "value": 5.1
+    }
+   ],
+   "buildKey": "POZHU_FENG",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 302,
+   "key": "XF_XHG",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 121.3
+    },
+    {
+     "key": "DIRECT_CRITICAL_RATE",
+     "value": 4.6
+    }
+   ],
+   "buildKey": "QIANSI_YI",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 296,
+   "key": "XF_JQZH",
+   "attr": [
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 121.3
+    },
+    {
+     "key": "DIRECT_INSIGHT_RATE",
+     "value": 2.3
+    }
+   ],
+   "buildKey": "MINGJIN_YING",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 292,
+   "key": "XF_WMXF",
+   "attr": [
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 121.3
+    },
+    {
+     "key": "DIRECT_INSIGHT_RATE",
+     "value": 2.3
+    }
+   ],
+   "buildKey": "MINGJIN_HONG",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 288,
+   "key": "XF_STBY",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 121.3
+    },
+    {
+     "key": "DIRECT_CRITICAL_RATE",
+     "value": 4.6
+    }
+   ],
+   "buildKey": "LIESHI_JUN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 287,
+   "key": "XF_FYZS",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 121.3
+    },
+    {
+     "key": "DIRECT_CRITICAL_RATE",
+     "value": 4.6
+    }
+   ],
+   "buildKey": "POZHU_YUAN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 303,
+   "key": "XF_DSZG",
+   "attr": [
+    {
+     "key": "ACCURACY_RATE",
+     "value": 11.2
+    },
+    {
+     "key": "DIRECT_CRITICAL_RATE",
+     "value": 4.1
+    }
+   ],
+   "buildKey": "POZHU_FENG",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 300,
+   "key": "XF_DTG",
+   "attr": [
+    {
+     "key": "ACCURACY_RATE",
+     "value": 11.2
+    },
+    {
+     "key": "CRITICAL_DAMAGE",
+     "value": 4
+    }
+   ],
+   "buildKey": "POZHU_CHEN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 295,
+   "key": "XF_SHNN",
+   "attr": [
+    {
+     "key": "ACCURACY_RATE",
+     "value": 11.2
+    },
+    {
+     "key": "EXTERNAL_DAMAGE",
+     "value": 2.5
+    }
+   ],
+   "buildKey": "COMMON",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 294,
+   "key": "XF_WMG",
+   "attr": [
+    {
+     "key": "INSIGHT_RATE",
+     "value": 6.3
+    },
+    {
+     "key": "INSIGHT_DAMAGE",
+     "value": 5.2
+    }
+   ],
+   "buildKey": "MINGJIN_HONG",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 293,
+   "key": "XF_ZLXJ",
+   "attr": [
+    {
+     "key": "INSIGHT_RATE",
+     "value": 6.3
+    },
+    {
+     "key": "INSIGHT_DAMAGE",
+     "value": 5.2
+    }
+   ],
+   "buildKey": "MINGJIN_YING",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 305,
+   "key": "XF_QYYH",
+   "attr": [
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "EXTERNAL_DAMAGE",
+     "value": 2.8
+    }
+   ],
+   "buildKey": "POZHU_FENG",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 297,
+   "key": "XF_WCJX",
+   "attr": [
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "CRITICAL_DAMAGE",
+     "value": 4.4
+    }
+   ],
+   "buildKey": "POZHU_FENG",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 283,
+   "key": "XF_JCY",
+   "attr": [
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "DIRECT_CRITICAL_RATE",
+     "value": 4.6
+    }
+   ],
+   "buildKey": "QIANSI_LIN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 279,
+   "key": "XF_HSYL",
+   "attr": [
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "DIRECT_CRITICAL_RATE",
+     "value": 4.6
+    }
+   ],
+   "buildKey": "QIANSI_YU",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 278,
+   "key": "XF_SHJY",
+   "attr": [
+    {
+     "key": "CRITICAL_RATE",
+     "value": 14
+    },
+    {
+     "key": "CRITICAL_DAMAGE",
+     "value": 4.4
+    }
+   ],
+   "buildKey": "LIESHI_WEI",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 286,
+   "key": "XF_GZBC",
+   "attr": [
+    {
+     "key": "CRITICAL_RATE",
+     "value": 12.6
+    },
+    {
+     "key": "CRITICAL_DAMAGE",
+     "value": 4
+    }
+   ],
+   "buildKey": "LIESHI_JUN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 277,
+   "key": "XF_FZY",
+   "attr": [
+    {
+     "key": "CRITICAL_RATE",
+     "value": 12.6
+    },
+    {
+     "key": "CRITICAL_DAMAGE",
+     "value": 4
+    }
+   ],
+   "buildKey": "QIANSI_YI",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 276,
+   "key": "XF_QTS",
+   "attr": [
+    {
+     "key": "CRITICAL_RATE",
+     "value": 12.6
+    },
+    {
+     "key": "CRITICAL_DAMAGE",
+     "value": 4
+    }
+   ],
+   "buildKey": "POZHU_YUAN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 310,
+   "key": "XF_QSG",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 36.4
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 72.8
+    },
+    {
+     "key": "EXTERNAL_HEAL_DAMAGE",
+     "value": 2.5
+    }
+   ],
+   "buildKey": "QIANSI_LIN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 290,
+   "key": "XF_ZDZX",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 36.4
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 72.8
+    },
+    {
+     "key": "EXTERNAL_PENETRATION",
+     "value": 5.1
+    }
+   ],
+   "buildKey": "QIANSI_YU",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 289,
+   "key": "XF_CLP",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 36.4
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 72.8
+    },
+    {
+     "key": "EXTERNAL_DAMAGE",
+     "value": 2.5
+    }
+   ],
+   "buildKey": "QIANSI_YU",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 285,
+   "key": "XF_SQZZ",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 36.4
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 72.8
+    },
+    {
+     "key": "EXTERNAL_DAMAGE",
+     "value": 2.5
+    }
+   ],
+   "buildKey": "POZHU_YUAN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 284,
+   "key": "XF_NSZ",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 36.4
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 72.8
+    },
+    {
+     "key": "EXTERNAL_PENETRATION",
+     "value": 5.1
+    }
+   ],
+   "buildKey": "MINGJIN_YING",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 275,
+   "key": "XF_XMP",
+   "attr": [
+    {
+     "key": "MIN_EXTERNAL_ATTACK",
+     "value": 36.4
+    },
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 72.8
+    },
+    {
+     "key": "EXTERNAL_DAMAGE",
+     "value": 2.5
+    }
+   ],
+   "buildKey": "QIANSI_YI",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 309,
+   "key": "XF_XHBJ",
+   "attr": [
+    {
+     "key": "MIN_QIANSI_ATTACK",
+     "value": 57.7
+    },
+    {
+     "key": "CRITICAL_HEAL_DAMAGE",
+     "value": 4
+    }
+   ],
+   "buildKey": "QIANSI_LIN",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 308,
+   "key": "XF_NZM",
+   "attr": [],
+   "buildKey": "COMMON",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 299,
+   "key": "XF_JLQX",
+   "attr": [
+    {
+     "key": "MAX_EXTERNAL_ATTACK",
+     "value": 84.4
+    },
+    {
+     "key": "CRITICAL_DAMAGE",
+     "value": 3.5
+    }
+   ],
+   "buildKey": "COMMON",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 282,
+   "key": "XF_YJYW",
+   "attr": [
+    {
+     "key": "MAX_MINGJIN_ATTACK",
+     "value": 57.7
+    },
+    {
+     "key": "MINGJIN_DAMAGE",
+     "value": 3
+    }
+   ],
+   "buildKey": "MINGJIN_YING",
+   "versionKey": "110_RBDZ_DOWN"
+  }
+ ],
+ "attributes": [
+  {
+   "id": 155,
+   "key": "FIXED_DAMAGE",
+   "value": 50,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 145,
+   "key": "ACCURACY_RATE",
+   "value": 110.1,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 144,
+   "key": "YU",
+   "value": 283,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 143,
+   "key": "TI",
+   "value": 283,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 142,
+   "key": "JIN",
+   "value": 283,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 141,
+   "key": "SHI",
+   "value": 283,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 140,
+   "key": "MIN",
+   "value": 283,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 135,
+   "key": "MAX_WUXIANG_ATTACK",
+   "value": 92.4,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 134,
+   "key": "MIN_WUXIANG_ATTACK",
+   "value": 79.2,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 138,
+   "key": "MIN_EXTERNAL_ATTACK",
+   "value": 930,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 137,
+   "key": "MAX_EXTERNAL_ATTACK",
+   "value": 1688.4,
+   "remark": "\t小攻\t大攻\n等级\t263\t506\n天赋\t105.6\t105.6\n清河\t8\t16\n开封\t16\t24\n河西\t8\t16\n不见山\t8\t16\n皇宫\t4\t8\n皇宫\t13.2\t13.2\n青州1\t4\t4\n夹钟下\t13.2\t13.2\n青州2\t\t4\n蕤宾上\t13.2\t26.4\n突破\t84\t168\n江南\t24\t36\n\t\t\n武器1\t100\t232\n武器2\t100\t232\n佩\t\t199\n环\t133\t\n武器叠音\t165\t110\n武器叠音\t165\t110\n环叠音\t\t220\n配叠音\t\t220\n",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 158,
+   "key": "RAID_DAMAGE",
+   "value": 0,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 157,
+   "key": "BENEFIT_RESISTANCE",
+   "value": 1.15,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 156,
+   "key": "FIXED_DAMAGE_RATE",
+   "value": 50,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 148,
+   "key": "LEVEL_RESISTANCE",
+   "value": 2.45,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 147,
+   "key": "CRITICAL_RATE",
+   "value": 24,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 146,
+   "key": "INSIGHT_RATE",
+   "value": 12,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 133,
+   "key": "INSIGHT_DAMAGE",
+   "value": 35,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 132,
+   "key": "CRITICAL_HEAL_DAMAGE",
+   "value": 50,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 131,
+   "key": "CRITICAL_DAMAGE",
+   "value": 50,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 154,
+   "key": "POZHU_PENETRATION",
+   "value": 0,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 153,
+   "key": "MINGJIN_PENETRATION",
+   "value": 0,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 152,
+   "key": "QIANSI_PENETRATION",
+   "value": 0,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 151,
+   "key": "LIESHI_PENETRATION",
+   "value": 0,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 150,
+   "key": "MAX_HP",
+   "value": 0,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 149,
+   "key": "EXTERNAL_DEFENCE",
+   "value": 0,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 139,
+   "key": "EXTERNAL_PENETRATION",
+   "value": 0,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 136,
+   "key": "WUXIANG_PENETRATION",
+   "value": 0,
+   "remark": "",
+   "versionKey": "110_RBDZ_DOWN"
+  }
+ ],
+ "tunings": [
+  {
+   "id": 220,
+   "key": "MIN_EXTERNAL_ATTACK",
+   "weight": 99,
+   "baseValue": 114.12,
+   "maxValue": 121.4,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 219,
+   "key": "MAX_EXTERNAL_ATTACK",
+   "weight": 99,
+   "baseValue": 114.12,
+   "maxValue": 121.4,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 223,
+   "key": "JIN",
+   "weight": 98,
+   "baseValue": 72.19,
+   "maxValue": 76.8,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 222,
+   "key": "SHI",
+   "weight": 98,
+   "baseValue": 72.19,
+   "maxValue": 76.8,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 221,
+   "key": "MIN",
+   "weight": 98,
+   "baseValue": 72.19,
+   "maxValue": 76.8,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 228,
+   "key": "CRITICAL_RATE",
+   "weight": 97,
+   "baseValue": 13.16,
+   "maxValue": 14,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 227,
+   "key": "INSIGHT_RATE",
+   "weight": 97,
+   "baseValue": 6.58,
+   "maxValue": 7,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 226,
+   "key": "ACCURACY_RATE",
+   "weight": 97,
+   "baseValue": 11.66,
+   "maxValue": 12.4,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 251,
+   "key": "FIST_DAMAGE",
+   "weight": 96,
+   "baseValue": 9.21,
+   "maxValue": 9.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 250,
+   "key": "BIGBLADE_DAMAGE",
+   "weight": 96,
+   "baseValue": 9.21,
+   "maxValue": 9.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_BIGBLADE"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 249,
+   "key": "2BLADE_DAMAGE",
+   "weight": 96,
+   "baseValue": 9.21,
+   "maxValue": 9.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_2BLADE"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 248,
+   "key": "BLADE_DAMAGE",
+   "weight": 96,
+   "baseValue": 9.21,
+   "maxValue": 9.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_BLADE"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 247,
+   "key": "DRUM_DAMAGE",
+   "weight": 96,
+   "baseValue": 9.21,
+   "maxValue": 9.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_DRUM"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 246,
+   "key": "ROPE_DAMAGE",
+   "weight": 96,
+   "baseValue": 9.21,
+   "maxValue": 9.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_ROPE"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 245,
+   "key": "UMBRELLA_DAMAGE",
+   "weight": 96,
+   "baseValue": 9.21,
+   "maxValue": 9.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_UMBRELLA"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 244,
+   "key": "FAN_DAMAGE",
+   "weight": 96,
+   "baseValue": 9.21,
+   "maxValue": 9.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FAN"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 243,
+   "key": "SPEAR_DAMAGE",
+   "weight": 96,
+   "baseValue": 9.21,
+   "maxValue": 9.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_SPEAR"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 242,
+   "key": "SWORD_DAMAGE",
+   "weight": 96,
+   "baseValue": 9.21,
+   "maxValue": 9.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_SWORD"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 241,
+   "key": "BOSS_DAMAGE",
+   "weight": 96,
+   "baseValue": 4.79,
+   "maxValue": 5.1,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_HAND"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 239,
+   "key": "WUXUE_DAMAGE",
+   "weight": 96,
+   "baseValue": 4.61,
+   "maxValue": 4.9,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 238,
+   "key": "MAX_POZHU_ATTACK",
+   "weight": 95,
+   "baseValue": 64.67,
+   "maxValue": 68.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 237,
+   "key": "MIN_POZHU_ATTACK",
+   "weight": 95,
+   "baseValue": 64.67,
+   "maxValue": 68.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 236,
+   "key": "MAX_QIANSI_ATTACK",
+   "weight": 95,
+   "baseValue": 64.67,
+   "maxValue": 68.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 235,
+   "key": "MIN_QIANSI_ATTACK",
+   "weight": 95,
+   "baseValue": 64.67,
+   "maxValue": 68.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 234,
+   "key": "MAX_LIESHI_ATTACK",
+   "weight": 95,
+   "baseValue": 64.67,
+   "maxValue": 68.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 233,
+   "key": "MIN_LIESHI_ATTACK",
+   "weight": 95,
+   "baseValue": 64.67,
+   "maxValue": 68.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 232,
+   "key": "MAX_MINGJIN_ATTACK",
+   "weight": 95,
+   "baseValue": 64.67,
+   "maxValue": 68.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 231,
+   "key": "MIN_MINGJIN_ATTACK",
+   "weight": 95,
+   "baseValue": 64.67,
+   "maxValue": 68.8,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 218,
+   "key": "MAX_WUXIANG_ATTACK",
+   "weight": 95,
+   "baseValue": 64.67,
+   "maxValue": 68.8,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 217,
+   "key": "MIN_WUXIANG_ATTACK",
+   "weight": 95,
+   "baseValue": 64.67,
+   "maxValue": 68.8,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 253,
+   "key": "AOEQS_DAMAGE",
+   "weight": 94,
+   "baseValue": 14.48,
+   "maxValue": 15.4,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_HEAD"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 252,
+   "key": "SINGLEQS_DAMAGE",
+   "weight": 94,
+   "baseValue": 14.48,
+   "maxValue": 15.4,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_CLOTH"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 240,
+   "key": "PLAYER_DAMAGE",
+   "weight": 94,
+   "baseValue": 4.79,
+   "maxValue": 5.1,
+   "firstEquipmentKeys": [],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 230,
+   "key": "MAX_HP",
+   "weight": 0,
+   "baseValue": 0,
+   "maxValue": 0,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 229,
+   "key": "EXTERNAL_DEFENCE",
+   "weight": 0,
+   "baseValue": 0,
+   "maxValue": 0,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 225,
+   "key": "YU",
+   "weight": 0,
+   "baseValue": 72.19,
+   "maxValue": 76.8,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 224,
+   "key": "TI",
+   "weight": 0,
+   "baseValue": 72.19,
+   "maxValue": 76.8,
+   "firstEquipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "secondaryEquipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  }
+ ],
+ "pitches": [
+  {
+   "id": 88,
+   "key": "EXTERNAL_PENETRATION",
+   "weight": 99,
+   "maxValue": 16.8,
+   "equipmentKeys": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 101,
+   "key": "XSDS_NSJNZS",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 100,
+   "key": "ZXDF_QZJPSJZS",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 99,
+   "key": "JCCS_GPDDZS",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 98,
+   "key": "MCYD_ZLJZL",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 97,
+   "key": "SFPZ_XLJZS",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 96,
+   "key": "JFDF_XLJZS",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 95,
+   "key": "TZCX_XLJZS",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 94,
+   "key": "ZMYC_WXJZS",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 93,
+   "key": "SZYC_SSZS",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 92,
+   "key": "WDNC_TSJZS",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 91,
+   "key": "JCCS_TSJZS",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 90,
+   "key": "JJJJ_LXZS",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 89,
+   "key": "WMJF_XLJZS",
+   "weight": 0,
+   "maxValue": 9.2,
+   "equipmentKeys": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "versionKey": "110_RBDZ_DOWN"
+  },
+  {
+   "id": 87,
+   "key": "WUXIANG_PENETRATION",
+   "weight": 0,
+   "maxValue": 20,
+   "equipmentKeys": [],
+   "versionKey": "110_RBDZ_DOWN"
+  }
+ ]
+}

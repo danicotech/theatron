@@ -1,0 +1,59 @@
+{
+  "v": 3,
+  "active": 0,
+  "roles": [
+    {
+      "name": "角色一",
+      "data": {
+        "v": 3,
+        "build": "MINGJIN_HONG",
+        "martials": [
+          {
+            "k": "MINGJIN_HONG_WMJF",
+            "n": "無名劍法",
+            "lv": 20
+          },
+          {
+            "k": "MINGJIN_HONG_WMQF",
+            "n": "無名槍法",
+            "lv": null
+          }
+        ],
+        "minds": [
+          {
+            "k": "XF_WMXF",
+            "n": "無名心法",
+            "lv": null,
+            "main": true,
+            "auto": 1
+          },
+          {
+            "k": "XF_WMG",
+            "n": "威猛歌",
+            "lv": null,
+            "main": false,
+            "auto": 1
+          },
+          {
+            "k": "XF_QSF",
+            "n": "千山法",
+            "lv": null,
+            "main": false,
+            "auto": 1
+          },
+          {
+            "k": "XF_NSZ",
+            "n": "凝神章",
+            "lv": null,
+            "main": false,
+            "auto": 1
+          }
+        ],
+        "arts": [],
+        "vault": [],
+        "equip": {},
+        "dataVersion": "110_RBDZ_DOWN"
+      }
+    }
+  ]
+}

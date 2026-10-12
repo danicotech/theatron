@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>夜鴨爭鋒 · 窗格構築選稿</title>
+<style>
+:root{--surface:#080d11;--ink:#e5ddcb;--gold:#bfa779;--muted:#92958f;--edge:#343b3e}*{box-sizing:border-box}body{margin:0;background:var(--surface);color:var(--ink);font-family:Georgia,"Noto Serif TC",serif}header{position:absolute;top:28px;left:40px;right:40px;display:flex;justify-content:space-between;align-items:center;font:12px/1.6 sans-serif;letter-spacing:.14em;color:var(--muted)}nav{display:flex;gap:20px}a{color:inherit;text-decoration:none;padding:8px 4px}a[aria-current]{color:var(--ink);border-bottom:1px solid var(--gold)}main{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:90px 24px 64px}.mark{width:290px;height:300px}h1{font-weight:400;font-size:32px;letter-spacing:.36em;text-indent:.36em;margin:24px 0 10px}.subtitle{color:var(--muted);font:10px/1.6 sans-serif;letter-spacing:.32em}.meter{width:min(570px,85vw);margin-top:48px}.bar{display:block;width:100%;height:90px}.caption{display:flex;justify-content:space-between;color:var(--muted);font:11px/1.7 monospace;letter-spacing:.12em}.caption strong{font-weight:400;color:var(--ink)}footer{position:absolute;bottom:28px;left:40px;right:40px;display:flex;justify-content:space-between;color:var(--muted);font:11px/1.6 sans-serif;letter-spacing:.08em}button{background:none;color:var(--ink);border:0;border-bottom:1px solid var(--edge);padding:4px 0;cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:4px}@media(max-width:600px){header{left:20px;right:20px;top:16px;align-items:flex-start}header>span{max-width:150px}nav{gap:12px}.mark{width:250px;height:260px}h1{font-size:27px}.meter{margin-top:30px}footer{left:20px;right:20px;bottom:14px}footer span{max-width:250px}main{padding-top:100px;padding-bottom:80px}}
+</style></head><body><header><span>夜鴨爭鋒 / 窗格構築 / 配色不變</span><nav aria-label="設計方向"><a href="?design=A" data-option="A">A 尖拱</a><a href="?design=B" data-option="B">B 月窗</a><a href="?design=C" data-option="C">C 肋拱</a></nav></header><main><canvas class="mark" aria-label="無填色的幾何烏鴉與月亮線稿" role="img"></canvas><h1>夜鴨爭鋒</h1><div class="subtitle">NIGHT RAVENS TOURNAMENT</div><div class="meter"><canvas class="bar" aria-hidden="true"></canvas><div class="caption"><span>動態選稿 · 模擬載入</span><strong id="percent">0%</strong></div></div></main><footer><span id="description"></span><button id="replay">重播線條動畫</button></footer>
+<script>
+const params=new URLSearchParams(location.search),choice=['A','B','C'].includes(params.get('design'))?params.get('design'):'A';
+document.querySelector(`[data-option="${choice}"]`).setAttribute('aria-current','page');
+const labels={A:'A / 尖拱 — 烏鴉嵌入窗格 · 讀取條 A',B:'B / 月窗 — 月環與翼面共構 · 讀取條 A',C:'C / 肋拱 — 縱向拱肋構形 · 讀取條 A'};
+document.querySelector('#description').textContent=labels[choice];
+const styles=getComputedStyle(document.documentElement),ink=styles.getPropertyValue('--ink').trim(),gold=styles.getPropertyValue('--gold').trim();
+const reduced=matchMedia('(prefers-reduced-motion: reduce)'),still=params.has('still');
+const mark=document.querySelector('.mark'),bar=document.querySelector('.bar');
+let start=performance.now(),raf=0;
+function prepare(canvas){const box=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(box.width*dpr);canvas.height=Math.round(box.height*dpr);const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);return [ctx,box.width,box.height]}
+let mc,mw,mh,bc,bw,bh;function resize(){[mc,mw,mh]=prepare(mark);[bc,bw,bh]=prepare(bar);render(performance.now())}
+function line(ctx,points,p=1,color=ink,width=1.3,alpha=1){if(p<=0)return;ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.globalAlpha=alpha;ctx.lineJoin='miter';ctx.lineCap='butt';let total=0;for(let i=1;i<points.length;i++)total+=Math.hypot(points[i][0]-points[i-1][0],points[i][1]-points[i-1][1]);let remain=total*Math.min(p,1);ctx.beginPath();ctx.moveTo(...points[0]);for(let i=1;i<points.length;i++){let a=points[i-1],b=points[i],len=Math.hypot(b[0]-a[0],b[1]-a[1]);if(remain>=len){ctx.lineTo(...b);remain-=len}else{ctx.lineTo(a[0]+(b[0]-a[0])*remain/len,a[1]+(b[1]-a[1])*remain/len);break}}ctx.stroke();ctx.restore()}
+// Structural lead-line studies: identical palette, no painted glass or bitmap.
+function curve(a,b,c,d,n=22){return Array.from({length:n+1},(_,i)=>{let t=i/n,u=1-t;return [u*u*u*a[0]+3*u*u*t*b[0]+3*u*t*t*c[0]+t*t*t*d[0],u*u*u*a[1]+3*u*u*t*b[1]+3*u*t*t*c[1]+t*t*t*d[1]]})}
+function arc(x,y,r,a,b,n=36){return Array.from({length:n+1},(_,i)=>{let t=a+(b-a)*i/n;return[x+r*Math.cos(t),y+r*Math.sin(t)]})}
+const crow=[
+ [...curve([66,221],[63,156],[78,88],[126,73]),...curve([126,73],[152,66],[181,72],[190,91]),[193,106],[220,139],[184,117],...curve([184,117],[168,131],[163,141],[160,160]),...curve([160,160],[153,195],[130,225],[100,248])],
+ [...curve([77,178],[90,116],[111,99],[135,105]),...curve([135,105],[146,117],[124,175],[66,221])],
+ curve([146,112],[147,151],[130,202],[85,235]),
+ curve([160,136],[167,169],[135,225],[100,248]),
+ [[169,94],[181,99],[173,100]],
+ [[192,108],[220,139]],
+ curve([108,79],[127,84],[149,87],[164,94])
+];
+function logo(t){mc.clearRect(0,0,mw,mh);mc.save();mc.scale(mw/300,mh/300);let p=still||reduced.matches?1:Math.min(1,t/1600);let frames=[],seams=[];
+ if(choice==='A'){
+  frames=[ [...curve([42,247],[40,118],[62,61],[150,17]),...curve([150,17],[238,61],[260,118],[258,247]),[42,247]], [...curve([51,238],[49,116],[74,65],[150,28]),...curve([150,28],[226,65],[251,116],[249,238])], [...curve([187,49],[221,75],[234,125],[230,176]),...curve([230,176],[241,129],[220,67],[187,49])]];
+  seams=[[[150,28],[150,72]],[[68,111],[87,121]],[[51,188],[68,190]],[[193,106],[244,106]],[[212,131],[247,174]],[[160,175],[249,238]],[[119,229],[119,247]]];
+ } else if(choice==='B'){
+  frames=[arc(150,145,118,-Math.PI*.69,Math.PI*1.31),arc(150,145,110,-Math.PI*.69,Math.PI*1.31),[...curve([207,42],[264,90],[271,192],[207,241]),...curve([207,241],[239,164],[239,111],[207,42])]];
+  seams=[[[150,35],[150,72]],[[69,70],[98,92]],[[40,149],[72,149]],[[53,204],[68,196]],[[93,237],[104,245]],[[164,254],[150,205]],[[234,222],[164,178]],[[260,145],[222,139]],[[246,91],[190,91]]];
+ } else {
+  frames=[ [...curve([48,234],[51,128],[80,66],[150,26]),...curve([150,26],[215,56],[247,102],[251,148])], [...curve([150,26],[242,44],[273,129],[237,215]),...curve([237,215],[255,125],[218,71],[150,26])],curve([237,215],[210,240],[168,258],[113,262]) ];
+  seams=[curve([150,26],[161,41],[167,60],[171,77]),curve([48,234],[52,238],[58,240],[68,239]),[[218,69],[189,88]],[[246,131],[218,136]],curve([234,192],[197,189],[178,199],[145,225]),[[167,254],[146,226]]];
+ }
+ frames.forEach(path=>line(mc,path,p,gold,1.15));seams.forEach((path,i)=>line(mc,path,p,gold,.8,.65));crow.forEach((path,i)=>line(mc,path,still||reduced.matches?1:Math.max(0,Math.min(1,(t-180-i*80)/1150)),ink,i===0?1.7:1.2));mc.restore()}
+function loading(t){bc.clearRect(0,0,bw,bh);bc.save();bc.scale(bw/570,bh/90);let p=still?.78:reduced.matches?1:Math.min(1,(t%12500)/10500);document.querySelector('#percent').textContent=String(Math.round(p*100)).padStart(2,'0')+'%';let axis=false?[[2,47],[176,47],[194,39],[363,39],[381,47],[568,47]]:false?[[2,54],[150,54],[300,49],[450,39],[568,28]]:[[2,45],[568,45]];line(bc,axis,1,ink,.65,.16);line(bc,axis,p,gold,1.2);let count=false?9:12;for(let i=0;i<count;i++){let x=35+i*(485/(count-1)),u=x/568,draw=Math.max(0,Math.min(1,(p-u+.09)/.13)),sway=still||reduced.matches?0:Math.sin(t/950-i*.42)*2;let pts;if(true){let h=10+16*Math.sin(u*Math.PI);pts=[[x,45],[x+26,45-h+sway],[x+47,45]];line(bc,pts,draw,ink,1,.85);line(bc,[[x,45],[x+24,45+h-sway],[x+47,45]],draw,ink,.85,.62)}else if(false){let y=54-26*u*u,h=14+19*Math.sin(u*Math.PI);line(bc,[[x,y],[x+17,y-h*.5+sway],[x+37,y-h]],draw,ink,1.15);line(bc,[[x+9,y],[x+26,y+11+sway],[x+45,y+16]],draw,ink,.85,.6)}else{let y=x<180||x>380?47:39;line(bc,[[x,y],[x+19,y-18+sway],[x+33,y-18+sway]],draw,ink,1);line(bc,[[x+10,y],[x+28,y+14-sway],[x+39,y+14-sway]],draw,ink,.85,.65)}}if(!still&&!reduced.matches){let q=(t%2300)/2300;line(bc,[[q*530,false?54-26*q*q:45],[q*530+18,false?53-26*q*q:45]],1,ink,1.7,Math.sin(q*Math.PI)*.7)}bc.restore()}
+function render(now){let t=now-start;logo(t);loading(t)}function loop(now){render(now);raf=requestAnimationFrame(loop)}function resume(){cancelAnimationFrame(raf);if(!document.hidden&&!still&&!reduced.matches)raf=requestAnimationFrame(loop);else render(performance.now())}
+new ResizeObserver(resize).observe(document.querySelector('main'));window.addEventListener('resize',resize);document.addEventListener('visibilitychange',resume);reduced.addEventListener('change',resume);document.querySelector('#replay').onclick=()=>{if(still){location.search='?design='+choice;return}start=performance.now();resume()};window.addEventListener('pagehide',()=>cancelAnimationFrame(raf));resize();resume();
+</script></body></html>

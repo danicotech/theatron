@@ -1,0 +1,100 @@
+[
+  {
+    "width": 1440,
+    "name": "logged-in-markets",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "insufficient-balance",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "match-and-champion-tickets",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "live-match-closed",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "champion-closed",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "settled-tickets",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "settled-ledger",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "tickets": 3,
+    "finalBalance": "1460",
+    "allWon": true,
+    "persisted": true
+  },
+  {
+    "width": 375,
+    "name": "logged-in-markets",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "insufficient-balance",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "match-and-champion-tickets",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "live-match-closed",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "champion-closed",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "settled-tickets",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "settled-ledger",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 375,
+    "tickets": 3,
+    "finalBalance": "1460",
+    "allWon": true,
+    "persisted": true
+  }
+]

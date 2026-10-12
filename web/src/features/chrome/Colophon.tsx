@@ -13,7 +13,7 @@ export function Colophon() {
   return (
     <footer className={styles.foot}>
       <span className={styles.rail} aria-hidden="true" />
-      <p className={styles.line}>劍塚 · 月下論劍</p>
+      <p className={styles.line}>論劍 · 月下論劍</p>
     </footer>
   );
 }

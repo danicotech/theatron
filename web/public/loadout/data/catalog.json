@@ -1,0 +1,7405 @@
+{
+ "v": 2,
+ "note": "素材與名稱著作權屬網易。奇術一段是二手攻略整理，key 為本專案自編。",
+ "version": {
+  "key": "110_RBDZ_DOWN",
+  "name": "蕤賓疊奏-下半",
+  "exportedAt": "2026-08-17 17:14:02"
+ },
+ "builds": [
+  {
+   "key": "LIESHI_JUN",
+   "name": "裂石鈞",
+   "family": "LIESHI",
+   "familyImg": "arsenal/LIESHI.png",
+   "img": "martial/LIESHI_JUN.png",
+   "martials": [
+    "LIESHI_JUN_SFPZ",
+    "LIESHI_JUN_ZXDF"
+   ],
+   "req": [
+    "XF_STBY",
+    "XF_YSG",
+    "XF_CHJ"
+   ],
+   "opt": [
+    "XF_GZBC"
+   ]
+  },
+  {
+   "key": "LIESHI_WEI",
+   "name": "裂石威",
+   "family": "LIESHI",
+   "familyImg": "arsenal/LIESHI.png",
+   "img": "martial/LIESHI_WEI.png",
+   "martials": [
+    "LIESHI_WEI_BFFLQ",
+    "LIESHI_WEI_JFDF"
+   ],
+   "req": [
+    "XF_SHJY",
+    "XF_YSG"
+   ],
+   "opt": [
+    "XF_CHJ",
+    "XF_KZDF"
+   ]
+  },
+  {
+   "key": "MINGJIN_HONG",
+   "name": "鳴金虹",
+   "family": "MINGJIN",
+   "familyImg": "arsenal/MINGJIN.png",
+   "img": "martial/MINGJIN_HONG.png",
+   "martials": [
+    "MINGJIN_HONG_WMJF",
+    "MINGJIN_HONG_WMQF"
+   ],
+   "req": [
+    "XF_WMXF",
+    "XF_WMG"
+   ],
+   "opt": [
+    "XF_QSF",
+    "XF_NSZ"
+   ]
+  },
+  {
+   "key": "MINGJIN_YING",
+   "name": "鳴金影",
+   "family": "MINGJIN",
+   "familyImg": "arsenal/MINGJIN.png",
+   "img": "martial/MINGJIN_YING.png",
+   "martials": [
+    "MINGJIN_YING_JJJJ",
+    "MINGJIN_YING_JQJSQ"
+   ],
+   "req": [
+    "XF_JQZH",
+    "XF_YSG"
+   ],
+   "opt": [
+    "XF_NSZ",
+    "XF_ZLXJ"
+   ]
+  },
+  {
+   "key": "POZHU_CHEN",
+   "name": "破竹塵",
+   "family": "POZHU",
+   "familyImg": "arsenal/POZHU.png",
+   "img": "martial/POZHU_CHEN.png",
+   "martials": [
+    "POZHU_CHEN_SZXY",
+    "POZHU_CHEN_ZMYC"
+   ],
+   "req": [
+    "XF_QYYH",
+    "XF_YSG"
+   ],
+   "opt": [
+    "XF_DTG",
+    "XF_SZXM"
+   ]
+  },
+  {
+   "key": "POZHU_FENG",
+   "name": "破竹風",
+   "family": "POZHU",
+   "familyImg": "arsenal/POZHU.png",
+   "img": "martial/POZHU_FENG.png",
+   "martials": [
+    "POZHU_FENG_NLSG",
+    "POZHU_FENG_SZYC"
+   ],
+   "req": [
+    "XF_WCJX",
+    "XF_YSG"
+   ],
+   "opt": [
+    "XF_DSZG",
+    "XF_XMNY"
+   ]
+  },
+  {
+   "key": "POZHU_YUAN",
+   "name": "破竹鳶",
+   "family": "POZHU",
+   "familyImg": "arsenal/POZHU.png",
+   "img": "martial/POZHU_YUAN.png",
+   "martials": [
+    "POZHU_YUAN_QJST",
+    "POZHU_YUAN_TZCX"
+   ],
+   "req": [
+    "XF_FYZS",
+    "XF_YSG"
+   ],
+   "opt": [
+    "XF_SQZZ",
+    "XF_QTS"
+   ]
+  },
+  {
+   "key": "POZHU_ZUN",
+   "name": "破竹樽",
+   "family": "POZHU",
+   "familyImg": "arsenal/POZHU.png",
+   "img": "martial/POZHU_ZUN.png",
+   "martials": [],
+   "req": [
+    "XF_YZQQ",
+    "XF_YSG",
+    "XF_YBYX",
+    "XF_FXZY"
+   ],
+   "opt": []
+  },
+  {
+   "key": "QIANSI_LIN",
+   "name": "牽絲霖",
+   "family": "QIANSI",
+   "familyImg": "arsenal/QIANSI.png",
+   "img": "martial/QIANSI_LIN.png",
+   "martials": [
+    "QIANSI_LIN_MCYD",
+    "QIANSI_LIN_QXYHG"
+   ],
+   "req": [
+    "XF_JCY",
+    "XF_YSG"
+   ],
+   "opt": [
+    "XF_QSG",
+    "XF_XHBJ"
+   ]
+  },
+  {
+   "key": "QIANSI_YI",
+   "name": "牽絲翊",
+   "family": "QIANSI",
+   "familyImg": "arsenal/QIANSI.png",
+   "img": "martial/QIANSI_YI.png",
+   "martials": [
+    "QIANSI_YI_WDNC",
+    "QIANSI_YI_XYCY"
+   ],
+   "req": [
+    "XF_XHG",
+    "XF_YSG"
+   ],
+   "opt": [
+    "XF_XMP",
+    "XF_FZY"
+   ]
+  },
+  {
+   "key": "QIANSI_YU",
+   "name": "牽絲玉",
+   "family": "QIANSI",
+   "familyImg": "arsenal/QIANSI.png",
+   "img": "martial/QIANSI_YU.png",
+   "martials": [
+    "QIANSI_YU_JCCS",
+    "QIANSI_YU_QSZB"
+   ],
+   "req": [
+    "XF_HSYL",
+    "XF_YSG"
+   ],
+   "opt": [
+    "XF_ZDZX",
+    "XF_CLP"
+   ]
+  }
+ ],
+ "martials": [
+  {
+   "key": "LIESHI_JUN_SFPZ",
+   "name": "十方破陣",
+   "build": "LIESHI_JUN",
+   "weapon": "大刀",
+   "weaponKey": "EQUIPMENT_WEAPON_BIGBLADE",
+   "img": "martial/LIESHI_JUN_SFPZ.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_BIGBLADE.png",
+   "attr": [
+    {
+     "k": "MIN_LIESHI_ATTACK",
+     "n": "最小裂石攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_LIESHI_ATTACK",
+     "n": "最大裂石攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "CRITICAL_RATE",
+      "n": "會心率",
+      "v": 14,
+      "pct": true
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_LIESHI_ATTACK",
+      "n": "最小裂石攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "LIESHI_PENETRATION",
+      "n": "裂石穿透",
+      "v": 30,
+      "pct": false
+     }
+    }
+   ]
+  },
+  {
+   "key": "LIESHI_JUN_ZXDF",
+   "name": "斬雪刀法",
+   "build": "LIESHI_JUN",
+   "weapon": "刀",
+   "weaponKey": "EQUIPMENT_WEAPON_BLADE",
+   "img": "martial/LIESHI_JUN_ZXDF.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_BLADE.png",
+   "attr": [
+    {
+     "k": "MIN_LIESHI_ATTACK",
+     "n": "最小裂石攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_LIESHI_ATTACK",
+     "n": "最大裂石攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "MIN_EXTERNAL_ATTACK",
+      "n": "最小外功攻擊",
+      "v": 122,
+      "pct": false
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_LIESHI_ATTACK",
+      "n": "最小裂石攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "LIESHI_DAMAGE",
+      "n": "裂石加成",
+      "v": 15,
+      "pct": true
+     }
+    }
+   ]
+  },
+  {
+   "key": "LIESHI_WEI_BFFLQ",
+   "name": "八方風雷槍",
+   "build": "LIESHI_WEI",
+   "weapon": "長槍",
+   "weaponKey": "EQUIPMENT_WEAPON_SPEAR",
+   "img": "martial/LIESHI_WEI_BFFLQ.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_SPEAR.png",
+   "attr": [
+    {
+     "k": "MIN_LIESHI_ATTACK",
+     "n": "最小裂石攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_LIESHI_ATTACK",
+     "n": "最大裂石攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN_LIESHI_ATTACK",
+      "n": "最小裂石攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "LIESHI_DAMAGE",
+      "n": "裂石加成",
+      "v": 15,
+      "pct": true
+     }
+    }
+   ]
+  },
+  {
+   "key": "LIESHI_WEI_JFDF",
+   "name": "嗟夫刀法",
+   "build": "LIESHI_WEI",
+   "weapon": "大刀",
+   "weaponKey": "EQUIPMENT_WEAPON_BIGBLADE",
+   "img": "martial/LIESHI_WEI_JFDF.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_BIGBLADE.png",
+   "attr": [
+    {
+     "k": "MIN_LIESHI_ATTACK",
+     "n": "最小裂石攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_LIESHI_ATTACK",
+     "n": "最大裂石攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "JIN",
+      "n": "勁",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "MAX_EXTERNAL_ATTACK",
+      "n": "最大外功攻擊",
+      "v": 122,
+      "pct": false
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_LIESHI_ATTACK",
+      "n": "最小裂石攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "LIESHI_PENETRATION",
+      "n": "裂石穿透",
+      "v": 30,
+      "pct": false
+     }
+    }
+   ]
+  },
+  {
+   "key": "MINGJIN_HONG_WMJF",
+   "name": "無名劍法",
+   "build": "MINGJIN_HONG",
+   "weapon": "劍",
+   "weaponKey": "EQUIPMENT_WEAPON_SWORD",
+   "img": "martial/MINGJIN_HONG_WMJF.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_SWORD.png",
+   "attr": [
+    {
+     "k": "MIN_MINGJIN_ATTACK",
+     "n": "最小鳴金攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_MINGJIN_ATTACK",
+     "n": "最大鳴金攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "SHI",
+      "n": "勢",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "MAX_EXTERNAL_ATTACK",
+      "n": "最大外功攻擊",
+      "v": 122,
+      "pct": false
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_MINGJIN_ATTACK",
+      "n": "最小鳴金攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "MINGJIN_PENETRATION",
+      "n": "鳴金穿透",
+      "v": 30,
+      "pct": false
+     }
+    }
+   ]
+  },
+  {
+   "key": "MINGJIN_HONG_WMQF",
+   "name": "無名槍法",
+   "build": "MINGJIN_HONG",
+   "weapon": "長槍",
+   "weaponKey": "EQUIPMENT_WEAPON_SPEAR",
+   "img": "martial/MINGJIN_HONG_WMQF.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_SPEAR.png",
+   "attr": [
+    {
+     "k": "MIN_MINGJIN_ATTACK",
+     "n": "最小鳴金攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_MINGJIN_ATTACK",
+     "n": "最大鳴金攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "SHI",
+      "n": "勢",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "INSIGHT_RATE",
+      "n": "會意率",
+      "v": 7,
+      "pct": true
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_MINGJIN_ATTACK",
+      "n": "最小鳴金攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "MINGJIN_DAMAGE",
+      "n": "鳴金加成",
+      "v": 15,
+      "pct": true
+     }
+    }
+   ]
+  },
+  {
+   "key": "MINGJIN_YING_JJJJ",
+   "name": "積矩九劍",
+   "build": "MINGJIN_YING",
+   "weapon": "劍",
+   "weaponKey": "EQUIPMENT_WEAPON_SWORD",
+   "img": "martial/MINGJIN_YING_JJJJ.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_SWORD.png",
+   "attr": [
+    {
+     "k": "MIN_MINGJIN_ATTACK",
+     "n": "最小鳴金攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_MINGJIN_ATTACK",
+     "n": "最大鳴金攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "JIN",
+      "n": "勁",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "INSIGHT_RATE",
+      "n": "會意率",
+      "v": 7,
+      "pct": true
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_MINGJIN_ATTACK",
+      "n": "最小鳴金攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "MINGJIN_PENETRATION",
+      "n": "鳴金穿透",
+      "v": 30,
+      "pct": false
+     }
+    }
+   ]
+  },
+  {
+   "key": "MINGJIN_YING_JQJSQ",
+   "name": "九曲驚神槍",
+   "build": "MINGJIN_YING",
+   "weapon": "長槍",
+   "weaponKey": "EQUIPMENT_WEAPON_SPEAR",
+   "img": "martial/MINGJIN_YING_JQJSQ.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_SPEAR.png",
+   "attr": [
+    {
+     "k": "MIN_MINGJIN_ATTACK",
+     "n": "最小鳴金攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_MINGJIN_ATTACK",
+     "n": "最大鳴金攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "JIN",
+      "n": "勁",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "MAX_EXTERNAL_ATTACK",
+      "n": "最大外功攻擊",
+      "v": 122,
+      "pct": false
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_MINGJIN_ATTACK",
+      "n": "最小鳴金攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "MINGJIN_DAMAGE",
+      "n": "鳴金加成",
+      "v": 15,
+      "pct": true
+     }
+    }
+   ]
+  },
+  {
+   "key": "POZHU_CHEN_SZXY",
+   "name": "粟子行雲",
+   "build": "POZHU_CHEN",
+   "weapon": "繩鏢",
+   "weaponKey": "EQUIPMENT_WEAPON_ROPE",
+   "img": "martial/POZHU_CHEN_SZXY.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_ROPE.png",
+   "attr": [
+    {
+     "k": "MIN_POZHU_ATTACK",
+     "n": "最小破竹攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_POZHU_ATTACK",
+     "n": "最大破竹攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "CRITICAL_RATE",
+      "n": "會心率",
+      "v": 14,
+      "pct": true
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_POZHU_ATTACK",
+      "n": "最小破竹攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "POZHU_PENETRATION",
+      "n": "破竹穿透",
+      "v": 30,
+      "pct": false
+     }
+    }
+   ]
+  },
+  {
+   "key": "POZHU_CHEN_ZMYC",
+   "name": "醉夢游春",
+   "build": "POZHU_CHEN",
+   "weapon": "傘",
+   "weaponKey": "EQUIPMENT_WEAPON_UMBRELLA",
+   "img": "martial/POZHU_CHEN_ZMYC.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_UMBRELLA.png",
+   "attr": [
+    {
+     "k": "MIN_POZHU_ATTACK",
+     "n": "最小破竹攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_POZHU_ATTACK",
+     "n": "最大破竹攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "MIN_EXTERNAL_ATTACK",
+      "n": "最小外功攻擊",
+      "v": 122,
+      "pct": false
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_POZHU_ATTACK",
+      "n": "最小破竹攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "POZHU_DAMAGE",
+      "n": "破竹加成",
+      "v": 15,
+      "pct": true
+     }
+    }
+   ]
+  },
+  {
+   "key": "POZHU_FENG_NLSG",
+   "name": "泥犁三垢",
+   "build": "POZHU_FENG",
+   "weapon": "雙刀",
+   "weaponKey": "EQUIPMENT_WEAPON_2BLADE",
+   "img": "martial/POZHU_FENG_NLSG.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_2BLADE.png",
+   "attr": [
+    {
+     "k": "MIN_POZHU_ATTACK",
+     "n": "最小破竹攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_POZHU_ATTACK",
+     "n": "最大破竹攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "MIN_EXTERNAL_ATTACK",
+      "n": "最小外功攻擊",
+      "v": 122,
+      "pct": false
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_POZHU_ATTACK",
+      "n": "最小破竹攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "POZHU_DAMAGE",
+      "n": "破竹加成",
+      "v": 15,
+      "pct": true
+     }
+    }
+   ]
+  },
+  {
+   "key": "POZHU_FENG_SZYC",
+   "name": "粟子游塵",
+   "build": "POZHU_FENG",
+   "weapon": "繩鏢",
+   "weaponKey": "EQUIPMENT_WEAPON_ROPE",
+   "img": "martial/POZHU_FENG_SZYC.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_ROPE.png",
+   "attr": [
+    {
+     "k": "MIN_POZHU_ATTACK",
+     "n": "最小破竹攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_POZHU_ATTACK",
+     "n": "最大破竹攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "CRITICAL_RATE",
+      "n": "會心率",
+      "v": 14,
+      "pct": true
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_POZHU_ATTACK",
+      "n": "最小破竹攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "POZHU_PENETRATION",
+      "n": "破竹穿透",
+      "v": 30,
+      "pct": false
+     }
+    }
+   ]
+  },
+  {
+   "key": "POZHU_YUAN_QJST",
+   "name": "千機索天",
+   "build": "POZHU_YUAN",
+   "weapon": "繩鏢",
+   "weaponKey": "EQUIPMENT_WEAPON_ROPE",
+   "img": "martial/POZHU_YUAN_QJST.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_ROPE.png",
+   "attr": [
+    {
+     "k": "MIN_POZHU_ATTACK",
+     "n": "最小破竹攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_POZHU_ATTACK",
+     "n": "最大破竹攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "CRITICAL_RATE",
+      "n": "會心率",
+      "v": 14,
+      "pct": true
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_POZHU_ATTACK",
+      "n": "最小破竹攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "POZHU_PENETRATION",
+      "n": "破竹穿透",
+      "v": 30,
+      "pct": false
+     }
+    }
+   ]
+  },
+  {
+   "key": "POZHU_YUAN_TZCX",
+   "name": "天志垂象",
+   "build": "POZHU_YUAN",
+   "weapon": "拳",
+   "weaponKey": "EQUIPMENT_WEAPON_FIST",
+   "img": "martial/POZHU_YUAN_TZCX.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_FIST.png",
+   "attr": [
+    {
+     "k": "MIN_POZHU_ATTACK",
+     "n": "最小破竹攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_POZHU_ATTACK",
+     "n": "最大破竹攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "MIN_EXTERNAL_ATTACK",
+      "n": "最小外功攻擊",
+      "v": 122,
+      "pct": false
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_POZHU_ATTACK",
+      "n": "最小破竹攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "POZHU_DAMAGE",
+      "n": "破竹加成",
+      "v": 15,
+      "pct": true
+     }
+    }
+   ]
+  },
+  {
+   "key": "QIANSI_LIN_MCYD",
+   "name": "明川藥典",
+   "build": "QIANSI_LIN",
+   "weapon": "扇",
+   "weaponKey": "EQUIPMENT_WEAPON_FAN",
+   "img": "martial/QIANSI_LIN_MCYD.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_FAN.png",
+   "attr": [
+    {
+     "k": "MIN_QIANSI_ATTACK",
+     "n": "最小牽絲攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_QIANSI_ATTACK",
+     "n": "最大牽絲攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "CRITICAL_RATE",
+      "n": "會心率",
+      "v": 14,
+      "pct": true
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_QIANSI_ATTACK",
+      "n": "最小牽絲攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "QIANSI_PENETRATION",
+      "n": "牽絲穿透",
+      "v": 30,
+      "pct": false
+     }
+    }
+   ]
+  },
+  {
+   "key": "QIANSI_LIN_QXYHG",
+   "name": "千香引魂蠱",
+   "build": "QIANSI_LIN",
+   "weapon": "傘",
+   "weaponKey": "EQUIPMENT_WEAPON_UMBRELLA",
+   "img": "martial/QIANSI_LIN_QXYHG.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_UMBRELLA.png",
+   "attr": [
+    {
+     "k": "MIN_QIANSI_ATTACK",
+     "n": "最小牽絲攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_QIANSI_ATTACK",
+     "n": "最大牽絲攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "MIN_EXTERNAL_ATTACK",
+      "n": "最小外功攻擊",
+      "v": 122,
+      "pct": false
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_QIANSI_ATTACK",
+      "n": "最小牽絲攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "QIANSI_DAMAGE",
+      "n": "牽絲加成",
+      "v": 15,
+      "pct": true
+     }
+    }
+   ]
+  },
+  {
+   "key": "QIANSI_YI_WDNC",
+   "name": "文動霓裳",
+   "build": "QIANSI_YI",
+   "weapon": "鼓",
+   "weaponKey": "EQUIPMENT_WEAPON_DRUM",
+   "img": "martial/QIANSI_YI_WDNC.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_DRUM.png",
+   "attr": [
+    {
+     "k": "MIN_QIANSI_ATTACK",
+     "n": "最小牽絲攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_QIANSI_ATTACK",
+     "n": "最大牽絲攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "MIN_EXTERNAL_ATTACK",
+      "n": "最小外功攻擊",
+      "v": 122,
+      "pct": false
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_QIANSI_ATTACK",
+      "n": "最小牽絲攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "QIANSI_DAMAGE",
+      "n": "牽絲加成",
+      "v": 15,
+      "pct": true
+     }
+    }
+   ]
+  },
+  {
+   "key": "QIANSI_YI_XYCY",
+   "name": "杏游草野",
+   "build": "QIANSI_YI",
+   "weapon": "扇",
+   "weaponKey": "EQUIPMENT_WEAPON_FAN",
+   "img": "martial/QIANSI_YI_XYCY.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_FAN.png",
+   "attr": [
+    {
+     "k": "MIN_QIANSI_ATTACK",
+     "n": "最小牽絲攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_QIANSI_ATTACK",
+     "n": "最大牽絲攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "CRITICAL_RATE",
+      "n": "會心率",
+      "v": 14,
+      "pct": true
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_QIANSI_ATTACK",
+      "n": "最小牽絲攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "QIANSI_PENETRATION",
+      "n": "牽絲穿透",
+      "v": 30,
+      "pct": false
+     }
+    }
+   ]
+  },
+  {
+   "key": "QIANSI_YU_JCCS",
+   "name": "九重春色",
+   "build": "QIANSI_YU",
+   "weapon": "傘",
+   "weaponKey": "EQUIPMENT_WEAPON_UMBRELLA",
+   "img": "martial/QIANSI_YU_JCCS.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_UMBRELLA.png",
+   "attr": [
+    {
+     "k": "MIN_QIANSI_ATTACK",
+     "n": "最小牽絲攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_QIANSI_ATTACK",
+     "n": "最大牽絲攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "CRITICAL_RATE",
+      "n": "會心率",
+      "v": 14,
+      "pct": true
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_QIANSI_ATTACK",
+      "n": "最小牽絲攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "QIANSI_PENETRATION",
+      "n": "牽絲穿透",
+      "v": 30,
+      "pct": false
+     }
+    }
+   ]
+  },
+  {
+   "key": "QIANSI_YU_QSZB",
+   "name": "青山執筆",
+   "build": "QIANSI_YU",
+   "weapon": "扇",
+   "weaponKey": "EQUIPMENT_WEAPON_FAN",
+   "img": "martial/QIANSI_YU_QSZB.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_FAN.png",
+   "attr": [
+    {
+     "k": "MIN_QIANSI_ATTACK",
+     "n": "最小牽絲攻擊",
+     "v": 153,
+     "pct": false
+    },
+    {
+     "k": "MAX_QIANSI_ATTACK",
+     "n": "最大牽絲攻擊",
+     "v": 306,
+     "pct": false
+    }
+   ],
+   "talents": [
+    {
+     "need": {
+      "k": "MIN",
+      "n": "敏",
+      "v": 462,
+      "pct": false
+     },
+     "gain": {
+      "k": "MIN_EXTERNAL_ATTACK",
+      "n": "最小外功攻擊",
+      "v": 122,
+      "pct": false
+     }
+    },
+    {
+     "need": {
+      "k": "MIN_QIANSI_ATTACK",
+      "n": "最小牽絲攻擊",
+      "v": 447,
+      "pct": false
+     },
+     "gain": {
+      "k": "QIANSI_DAMAGE",
+      "n": "牽絲加成",
+      "v": 15,
+      "pct": true
+     }
+    }
+   ]
+  }
+ ],
+ "minds": [
+  {
+   "key": "XF_CCX",
+   "name": "寸草心",
+   "img": "mind/XF_CCX.png",
+   "tint": "藍",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_CHJ",
+   "name": "穿喉決",
+   "img": "mind/XF_CHJ.png",
+   "tint": "紫",
+   "req": [
+    "LIESHI_JUN"
+   ],
+   "opt": [
+    "LIESHI_WEI"
+   ]
+  },
+  {
+   "key": "XF_CLJJ",
+   "name": "滄浪劍訣",
+   "img": "mind/XF_CLJJ.png",
+   "tint": "紫",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_CLP",
+   "name": "春雷篇",
+   "img": "mind/XF_CLP.png",
+   "tint": "藍",
+   "req": [],
+   "opt": [
+    "QIANSI_YU"
+   ]
+  },
+  {
+   "key": "XF_DEL",
+   "name": "燈兒亮",
+   "img": "mind/XF_DEL.png",
+   "tint": "紫",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_DJWS",
+   "name": "大卷微身",
+   "img": "mind/XF_DJWS.png",
+   "tint": null,
+   "req": [],
+   "opt": [],
+   "tags": [
+    "減傷",
+    "增益",
+    "奇術"
+   ],
+   "desc": "降低在醉飲狀態期間，自身受到的直接傷害 5%，提升受到的持續傷害 10%。\n醉飲狀態包括：酩酊狀態、醉酒狀態（使用奇術獲得）。",
+   "src": "遊戲內截圖"
+  },
+  {
+   "key": "XF_DSZG",
+   "name": "斷石之構",
+   "img": "mind/XF_DSZG.png",
+   "tint": "紫",
+   "req": [],
+   "opt": [
+    "POZHU_FENG"
+   ]
+  },
+  {
+   "key": "XF_DTG",
+   "name": "大唐歌",
+   "img": "mind/XF_DTG.png",
+   "tint": "紫",
+   "req": [],
+   "opt": [
+    "POZHU_CHEN"
+   ]
+  },
+  {
+   "key": "XF_FXZY",
+   "name": "飛仙醉言",
+   "img": "mind/XF_FXZY.png",
+   "tint": "紫",
+   "req": [
+    "POZHU_ZUN"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_FYZS",
+   "name": "扶搖直上",
+   "img": "mind/XF_FYZS.png",
+   "tint": "金",
+   "req": [
+    "POZHU_YUAN"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_FZY",
+   "name": "風知意",
+   "img": "mind/XF_FZY.png",
+   "tint": "藍",
+   "req": [],
+   "opt": [
+    "QIANSI_YI"
+   ]
+  },
+  {
+   "key": "XF_GZBC",
+   "name": "孤忠不辭",
+   "img": "mind/XF_GZBC.png",
+   "tint": "紫",
+   "req": [],
+   "opt": [
+    "LIESHI_JUN"
+   ]
+  },
+  {
+   "key": "XF_HLFF",
+   "name": "葫蘆飛飛",
+   "img": "mind/XF_HLFF.png",
+   "tint": "藍",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_HSYL",
+   "name": "花上月令",
+   "img": "mind/XF_HSYL.png",
+   "tint": "金",
+   "req": [
+    "QIANSI_YU"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_JCY",
+   "name": "君臣藥",
+   "img": "mind/XF_JCY.png",
+   "tint": "金",
+   "req": [
+    "QIANSI_LIN"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_JLQX",
+   "name": "極樂泣血",
+   "img": "mind/XF_JLQX.png",
+   "tint": "藍",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_JQZH",
+   "name": "劍氣縱橫",
+   "img": "mind/XF_JQZH.png",
+   "tint": "金",
+   "req": [
+    "MINGJIN_YING"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_KSXJ",
+   "name": "困獸心經",
+   "img": "mind/XF_KSXJ.png",
+   "tint": "紫",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_KZDF",
+   "name": "抗造大法",
+   "img": "mind/XF_KZDF.png",
+   "tint": "紫",
+   "req": [],
+   "opt": [
+    "LIESHI_WEI"
+   ]
+  },
+  {
+   "key": "XF_LYT",
+   "name": "燎原踏",
+   "img": "mind/XF_LYT.png",
+   "tint": "紫",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_LYXH",
+   "name": "燎原星火",
+   "img": "mind/XF_LYXH.png",
+   "tint": "藍",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_NSZ",
+   "name": "凝神章",
+   "img": "mind/XF_NSZ.png",
+   "tint": "藍",
+   "req": [],
+   "opt": [
+    "MINGJIN_HONG",
+    "MINGJIN_YING"
+   ]
+  },
+  {
+   "key": "XF_NZM",
+   "name": "怒斬馬",
+   "img": "mind/XF_NZM.png",
+   "tint": "紫",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_PSJ",
+   "name": "磐石訣",
+   "img": "mind/XF_PSJ.png",
+   "tint": "紫",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_QSF",
+   "name": "千山法",
+   "img": "mind/XF_QSF.png",
+   "tint": "藍",
+   "req": [],
+   "opt": [
+    "MINGJIN_HONG"
+   ]
+  },
+  {
+   "key": "XF_QSG",
+   "name": "千絲蠱",
+   "img": "mind/XF_QSG.png",
+   "tint": "藍",
+   "req": [],
+   "opt": [
+    "QIANSI_LIN"
+   ]
+  },
+  {
+   "key": "XF_QTS",
+   "name": "擒天勢",
+   "img": "mind/XF_QTS.png",
+   "tint": "紫",
+   "req": [],
+   "opt": [
+    "POZHU_YUAN"
+   ]
+  },
+  {
+   "key": "XF_QYYH",
+   "name": "千營一呼",
+   "img": "mind/XF_QYYH.png",
+   "tint": "金",
+   "req": [
+    "POZHU_CHEN"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_SHJY",
+   "name": "山河絕韻",
+   "img": "mind/XF_SHJY.png",
+   "tint": "金",
+   "req": [
+    "LIESHI_WEI"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_SHNN",
+   "name": "所恨年年",
+   "img": "mind/XF_SHNN.png",
+   "tint": "紫",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_SQZZ",
+   "name": "三窮致知",
+   "img": "mind/XF_SQZZ.png",
+   "tint": "紫",
+   "req": [],
+   "opt": [
+    "POZHU_YUAN"
+   ]
+  },
+  {
+   "key": "XF_SSWC",
+   "name": "四時無常",
+   "img": "mind/XF_SSWC.png",
+   "tint": "金",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_STBY",
+   "name": "霜天白夜",
+   "img": "mind/XF_STBY.png",
+   "tint": "金",
+   "req": [
+    "LIESHI_JUN"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_SZXM",
+   "name": "繩舟行木",
+   "img": "mind/XF_SZXM.png",
+   "tint": "紫",
+   "req": [],
+   "opt": [
+    "POZHU_CHEN"
+   ]
+  },
+  {
+   "key": "XF_TXJ",
+   "name": "天行健",
+   "img": "mind/XF_TXJ.png",
+   "tint": "紫",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_WCJX",
+   "name": "忘川絕響",
+   "img": "mind/XF_WCJX.png",
+   "tint": "藍",
+   "req": [
+    "POZHU_FENG"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_WMG",
+   "name": "威猛歌",
+   "img": "mind/XF_WMG.png",
+   "tint": "藍",
+   "req": [
+    "MINGJIN_HONG"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_WMXF",
+   "name": "無名心法",
+   "img": "mind/XF_WMXF.png",
+   "tint": "金",
+   "req": [
+    "MINGJIN_HONG"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_XHBJ",
+   "name": "杏花不見",
+   "img": "mind/XF_XHBJ.png",
+   "tint": "藍",
+   "req": [],
+   "opt": [
+    "QIANSI_LIN"
+   ]
+  },
+  {
+   "key": "XF_XHG",
+   "name": "相和歌",
+   "img": "mind/XF_XHG.png",
+   "tint": "金",
+   "req": [
+    "QIANSI_YI"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_XMNY",
+   "name": "心彌泥魚",
+   "img": "mind/XF_XMNY.png",
+   "tint": "紫",
+   "req": [],
+   "opt": [
+    "POZHU_FENG"
+   ]
+  },
+  {
+   "key": "XF_XMP",
+   "name": "弦墨篇",
+   "img": "mind/XF_XMP.png",
+   "tint": "藍",
+   "req": [],
+   "opt": [
+    "QIANSI_YI"
+   ]
+  },
+  {
+   "key": "XF_YBYX",
+   "name": "燕別雲岫",
+   "img": "mind/XF_YBYX.png",
+   "tint": "紫",
+   "req": [
+    "POZHU_ZUN"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_YJYW",
+   "name": "移經易武",
+   "img": "mind/XF_YJYW.png",
+   "tint": "藍",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_YSG",
+   "name": "易水歌",
+   "img": "mind/XF_YSG.png",
+   "tint": "金",
+   "req": [
+    "LIESHI_JUN",
+    "LIESHI_WEI",
+    "MINGJIN_YING",
+    "POZHU_CHEN",
+    "POZHU_FENG",
+    "POZHU_YUAN",
+    "POZHU_ZUN",
+    "QIANSI_LIN",
+    "QIANSI_YI",
+    "QIANSI_YU"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_YZQQ",
+   "name": "一醉千秋",
+   "img": "mind/XF_YZQQ.png",
+   "tint": "金",
+   "req": [
+    "POZHU_ZUN"
+   ],
+   "opt": []
+  },
+  {
+   "key": "XF_ZDZX",
+   "name": "縱地摘星",
+   "img": "mind/XF_ZDZX.png",
+   "tint": "藍",
+   "req": [],
+   "opt": [
+    "QIANSI_YU"
+   ]
+  },
+  {
+   "key": "XF_ZLXJ",
+   "name": "逐狼心經",
+   "img": "mind/XF_ZLXJ.png",
+   "tint": "藍",
+   "req": [],
+   "opt": [
+    "MINGJIN_YING"
+   ]
+  },
+  {
+   "key": "XF_ZRG",
+   "name": "征人歸",
+   "img": "mind/XF_ZRG.png",
+   "tint": "紫",
+   "req": [],
+   "opt": []
+  },
+  {
+   "key": "XF_ZXPZ",
+   "name": "指玄篇注",
+   "img": "mind/XF_ZXPZ.png",
+   "tint": "藍",
+   "req": [],
+   "opt": []
+  }
+ ],
+ "arts": [
+  {
+   "key": "ART_SLTH",
+   "name": "神龍吐火",
+   "cat": "輸出",
+   "note": "進入醉酒狀態",
+   "active": true
+  },
+  {
+   "key": "ART_TBZY",
+   "name": "太白醉月",
+   "cat": "輸出",
+   "note": "進入醉酒狀態",
+   "active": true
+  },
+  {
+   "key": "ART_YLXS",
+   "name": "葉龍驤首",
+   "cat": "輸出",
+   "note": "最高傷害倍率與擊飛，需習得 35 門奇術後解鎖",
+   "active": true
+  },
+  {
+   "key": "ART_WTZF",
+   "name": "韋陀正法",
+   "cat": "控制",
+   "note": "高空施放為大範圍擊退與浮空",
+   "active": true
+  },
+  {
+   "key": "ART_LXZH",
+   "name": "流星墜火",
+   "cat": "輸出",
+   "note": "召喚戰馬投擲烈焰長槍，多段範圍傷害",
+   "active": true
+  },
+  {
+   "key": "ART_QLHM",
+   "name": "騎龍回馬",
+   "cat": "輸出",
+   "note": "低消耗高傷害，帶位移",
+   "active": true
+  },
+  {
+   "key": "ART_JCTY",
+   "name": "金蟾騰躍",
+   "cat": "輸出",
+   "note": "連續三次撲擊，疊加蟾毒",
+   "active": true
+  },
+  {
+   "key": "ART_YCPM",
+   "name": "藥叉破魔",
+   "cat": "控制",
+   "note": "破防與擊飛的突進技",
+   "active": true
+  },
+  {
+   "key": "ART_BGDXS",
+   "name": "百鬼打穴手",
+   "cat": "控制",
+   "note": "範圍定身，最多 5 名非強敵單位",
+   "active": true
+  },
+  {
+   "key": "ART_GZDS",
+   "name": "狗嘴奪食",
+   "cat": "輸出",
+   "note": "十八路打狗棍法融合六式",
+   "active": true
+  },
+  {
+   "key": "ART_ZZWA",
+   "name": "自在無礙",
+   "cat": "控制",
+   "note": "擊飛並持續滯空造成傷害",
+   "active": true
+  },
+  {
+   "key": "ART_JYS",
+   "name": "金玉手",
+   "cat": "功能",
+   "note": "遠程定住敵人、場景解謎",
+   "active": true
+  },
+  {
+   "key": "ART_SXNY",
+   "name": "攝星拿月",
+   "cat": "功能",
+   "note": "盜取物品或奪取敵人武器",
+   "active": true
+  },
+  {
+   "key": "ART_LYUNT",
+   "name": "淩雲踏",
+   "cat": "功能",
+   "note": "踩踏敵人進行高跳",
+   "active": true
+  },
+  {
+   "key": "ART_QFJY",
+   "name": "清風霽月",
+   "cat": "解控與防禦",
+   "note": "解控",
+   "active": true
+  },
+  {
+   "key": "ART_LXYZ",
+   "name": "淩虛一指",
+   "cat": "功能",
+   "note": "暗殺",
+   "active": true
+  },
+  {
+   "key": "ART_YWX",
+   "name": "杳無形",
+   "cat": "功能",
+   "note": "隱身",
+   "active": true
+  },
+  {
+   "key": "ART_HCZM",
+   "name": "紅塵障目",
+   "cat": "功能",
+   "note": "易容",
+   "active": true
+  },
+  {
+   "key": "ART_WXJS",
+   "name": "無相金身",
+   "cat": "解控與防禦",
+   "note": "護盾、強韌與傷害減免",
+   "active": true
+  },
+  {
+   "key": "ART_YGHY",
+   "name": "螢光暉夜",
+   "cat": "功能",
+   "note": "召喚螢火蟲環繞周身",
+   "active": true
+  },
+  {
+   "key": "ART_YYMZB",
+   "name": "陰陽迷蹤步",
+   "cat": "解控與防禦",
+   "note": "地面閃避耐力消耗降低",
+   "active": true
+  },
+  {
+   "key": "ART_FYBR",
+   "name": "飛簷步仞",
+   "cat": "輕功",
+   "note": "飛簷走壁",
+   "active": false
+  },
+  {
+   "key": "ART_FYZY",
+   "name": "飛簷逐影",
+   "cat": "輕功",
+   "note": "極速飛馳翻山越嶺",
+   "active": false
+  }
+ ],
+ "weapons": [
+  {
+   "key": "EQUIPMENT_WEAPON_SWORD",
+   "name": "劍",
+   "img": "equipment/loadout/EQUIPMENT_WEAPON_SWORD.png"
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_SPEAR",
+   "name": "槍",
+   "img": "equipment/loadout/EQUIPMENT_WEAPON_SPEAR.png"
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_FAN",
+   "name": "扇",
+   "img": "equipment/loadout/EQUIPMENT_WEAPON_FAN.png"
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_UMBRELLA",
+   "name": "傘",
+   "img": "equipment/loadout/EQUIPMENT_WEAPON_UMBRELLA.png"
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_ROPE",
+   "name": "繩鏢",
+   "img": "equipment/loadout/EQUIPMENT_WEAPON_ROPE.png"
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_DRUM",
+   "name": "鼓",
+   "img": "equipment/loadout/EQUIPMENT_WEAPON_DRUM.png"
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_BLADE",
+   "name": "橫刀",
+   "img": "equipment/loadout/EQUIPMENT_WEAPON_BLADE.png"
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_2BLADE",
+   "name": "雙刀",
+   "img": "equipment/loadout/EQUIPMENT_WEAPON_2BLADE.png"
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_BIGBLADE",
+   "name": "陌刀",
+   "img": "equipment/loadout/EQUIPMENT_WEAPON_BIGBLADE.png"
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_FIST",
+   "name": "拳套",
+   "img": "equipment/loadout/EQUIPMENT_WEAPON_FIST.png"
+  }
+ ],
+ "sets": [
+  {
+   "key": "SET_WEAPON_SHIYU",
+   "name": "時雨",
+   "short": "雨",
+   "bow": false,
+   "attr": [
+    {
+     "k": "ACCURACY_RATE",
+     "n": "精準率",
+     "v": 12.5,
+     "pct": true
+    },
+    {
+     "k": "CRITICAL_DAMAGE",
+     "n": "會心傷害加成",
+     "v": 10,
+     "pct": true
+    }
+   ]
+  },
+  {
+   "key": "SET_WEAPON_FEISUN",
+   "name": "飛隼",
+   "short": "飛",
+   "bow": false,
+   "attr": [
+    {
+     "k": "INSIGHT_RATE",
+     "n": "會意率",
+     "v": 7,
+     "pct": true
+    }
+   ]
+  },
+  {
+   "key": "SET_WEAPON_YUDOU",
+   "name": "玉斗",
+   "short": "斗",
+   "bow": false,
+   "attr": [
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 121,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "SET_WEAPON_YANLIU",
+   "name": "煙柳",
+   "short": "煙",
+   "bow": false,
+   "attr": [
+    {
+     "k": "ACCURACY_RATE",
+     "n": "精準率",
+     "v": 12.5,
+     "pct": true
+    }
+   ]
+  },
+  {
+   "key": "SET_WEAPON_YANGUI",
+   "name": "燕歸",
+   "short": "歸",
+   "bow": false,
+   "attr": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 121,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "SET_WEAPON_LIANXING",
+   "name": "連星",
+   "short": "星",
+   "bow": false,
+   "attr": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 121,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "SET_WEAPON_HANTIAN",
+   "name": "撼天",
+   "short": "撼",
+   "bow": false,
+   "attr": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 121,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "SET_WEAPON_DUANYUE",
+   "name": "斷岳",
+   "short": "斷",
+   "bow": false,
+   "attr": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 121,
+     "pct": false
+    },
+    {
+     "k": "COMMON_DAMAGE",
+     "n": "通用增傷",
+     "v": 5,
+     "pct": true
+    }
+   ]
+  },
+  {
+   "key": "SET_WEAPON_CAIYUN",
+   "name": "裁雲",
+   "short": "雲",
+   "bow": false,
+   "attr": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 121,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "SET_BOW_ZHUIYING",
+   "name": "追影",
+   "short": "追影",
+   "bow": true,
+   "attr": [
+    {
+     "k": "INSIGHT_RATE",
+     "n": "會意率",
+     "v": 3.5,
+     "pct": true
+    }
+   ]
+  },
+  {
+   "key": "SET_BOW_JINGXIAN",
+   "name": "驚弦",
+   "short": "驚弦",
+   "bow": true,
+   "attr": [
+    {
+     "k": "CRITICAL_RATE",
+     "n": "會心率",
+     "v": 7,
+     "pct": true
+    }
+   ]
+  },
+  {
+   "key": "SET_BOW_YINYU",
+   "name": "飲羽",
+   "short": "飲羽",
+   "bow": true,
+   "attr": [
+    {
+     "k": "ACCURACY_RATE",
+     "n": "精準率",
+     "v": 6.2,
+     "pct": true
+    }
+   ]
+  },
+  {
+   "key": "SET_WEAPON_HUANHUA",
+   "name": "浣花",
+   "short": "浣",
+   "bow": false,
+   "attr": [
+    {
+     "k": "CRITICAL_RATE",
+     "n": "會心率",
+     "v": 14,
+     "pct": true
+    }
+   ]
+  },
+  {
+   "key": "SET_WEAPON_QINGSHANG",
+   "name": "傾觴",
+   "short": "傾",
+   "bow": false,
+   "attr": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 121,
+     "pct": false
+    }
+   ]
+  }
+ ],
+ "arsenals": [
+  {
+   "key": "COMMON",
+   "name": "通用",
+   "img": "arsenal/COMMON.png",
+   "attr": [
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 373,
+     "pct": false
+    },
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 186,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "LIESHI",
+   "name": "裂石",
+   "img": "arsenal/LIESHI.png",
+   "attr": [
+    {
+     "k": "MAX_LIESHI_ATTACK",
+     "n": "最大裂石攻擊",
+     "v": 373,
+     "pct": false
+    },
+    {
+     "k": "MIN_LIESHI_ATTACK",
+     "n": "最小裂石攻擊",
+     "v": 186,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "QIANSI",
+   "name": "牽絲",
+   "img": "arsenal/QIANSI.png",
+   "attr": [
+    {
+     "k": "MAX_QIANSI_ATTACK",
+     "n": "最大牽絲攻擊",
+     "v": 373,
+     "pct": false
+    },
+    {
+     "k": "MIN_QIANSI_ATTACK",
+     "n": "最小牽絲攻擊",
+     "v": 186,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "POZHU",
+   "name": "破竹",
+   "img": "arsenal/POZHU.png",
+   "attr": [
+    {
+     "k": "MAX_POZHU_ATTACK",
+     "n": "最大破竹攻擊",
+     "v": 373,
+     "pct": false
+    },
+    {
+     "k": "MIN_POZHU_ATTACK",
+     "n": "最小破竹攻擊",
+     "v": 186,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "MINGJIN",
+   "name": "鳴金",
+   "img": "arsenal/MINGJIN.png",
+   "attr": [
+    {
+     "k": "MAX_MINGJIN_ATTACK",
+     "n": "最大鳴金攻擊",
+     "v": 373,
+     "pct": false
+    },
+    {
+     "k": "MIN_MINGJIN_ATTACK",
+     "n": "最小鳴金攻擊",
+     "v": 186,
+     "pct": false
+    }
+   ]
+  }
+ ],
+ "tunings": [
+  {
+   "key": "MIN_EXTERNAL_ATTACK",
+   "name": "最小外功攻擊",
+   "pct": false,
+   "base": 114.12,
+   "max": 121.4,
+   "first": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "MAX_EXTERNAL_ATTACK",
+   "name": "最大外功攻擊",
+   "pct": false,
+   "base": 114.12,
+   "max": 121.4,
+   "first": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "JIN",
+   "name": "勁",
+   "pct": false,
+   "base": 72.19,
+   "max": 76.8,
+   "first": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "SHI",
+   "name": "勢",
+   "pct": false,
+   "base": 72.19,
+   "max": 76.8,
+   "first": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "MIN",
+   "name": "敏",
+   "pct": false,
+   "base": 72.19,
+   "max": 76.8,
+   "first": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "CRITICAL_RATE",
+   "name": "會心率",
+   "pct": true,
+   "base": 13.16,
+   "max": 14,
+   "first": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "INSIGHT_RATE",
+   "name": "會意率",
+   "pct": true,
+   "base": 6.58,
+   "max": 7,
+   "first": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "ACCURACY_RATE",
+   "name": "精準率",
+   "pct": true,
+   "base": 11.66,
+   "max": 12.4,
+   "first": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "FIST_DAMAGE",
+   "name": "拳套武學增效",
+   "pct": true,
+   "base": 9.21,
+   "max": 9.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST"
+   ]
+  },
+  {
+   "key": "BIGBLADE_DAMAGE",
+   "name": "陌刀武學增效",
+   "pct": true,
+   "base": 9.21,
+   "max": 9.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_WEAPON_BIGBLADE"
+   ]
+  },
+  {
+   "key": "2BLADE_DAMAGE",
+   "name": "雙刀武學增效",
+   "pct": true,
+   "base": 9.21,
+   "max": 9.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_WEAPON_2BLADE"
+   ]
+  },
+  {
+   "key": "BLADE_DAMAGE",
+   "name": "橫刀武學增效",
+   "pct": true,
+   "base": 9.21,
+   "max": 9.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_WEAPON_BLADE"
+   ]
+  },
+  {
+   "key": "DRUM_DAMAGE",
+   "name": "鼓武學增效",
+   "pct": true,
+   "base": 9.21,
+   "max": 9.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_WEAPON_DRUM"
+   ]
+  },
+  {
+   "key": "ROPE_DAMAGE",
+   "name": "繩鏢武學增效",
+   "pct": true,
+   "base": 9.21,
+   "max": 9.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_WEAPON_ROPE"
+   ]
+  },
+  {
+   "key": "UMBRELLA_DAMAGE",
+   "name": "傘武學增效",
+   "pct": true,
+   "base": 9.21,
+   "max": 9.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_WEAPON_UMBRELLA"
+   ]
+  },
+  {
+   "key": "FAN_DAMAGE",
+   "name": "扇武學增效",
+   "pct": true,
+   "base": 9.21,
+   "max": 9.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_WEAPON_FAN"
+   ]
+  },
+  {
+   "key": "SPEAR_DAMAGE",
+   "name": "槍武學增效",
+   "pct": true,
+   "base": 9.21,
+   "max": 9.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_WEAPON_SPEAR"
+   ]
+  },
+  {
+   "key": "SWORD_DAMAGE",
+   "name": "劍武學增效",
+   "pct": true,
+   "base": 9.21,
+   "max": 9.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_WEAPON_SWORD"
+   ]
+  },
+  {
+   "key": "BOSS_DAMAGE",
+   "name": "對首領單位增傷",
+   "pct": true,
+   "base": 4.79,
+   "max": 5.1,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_HAND"
+   ]
+  },
+  {
+   "key": "WUXUE_DAMAGE",
+   "name": "全武學增效",
+   "pct": true,
+   "base": 4.61,
+   "max": 4.9,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "MAX_POZHU_ATTACK",
+   "name": "最大破竹攻擊",
+   "pct": false,
+   "base": 64.67,
+   "max": 68.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "MIN_POZHU_ATTACK",
+   "name": "最小破竹攻擊",
+   "pct": false,
+   "base": 64.67,
+   "max": 68.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "MAX_QIANSI_ATTACK",
+   "name": "最大牽絲攻擊",
+   "pct": false,
+   "base": 64.67,
+   "max": 68.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "MIN_QIANSI_ATTACK",
+   "name": "最小牽絲攻擊",
+   "pct": false,
+   "base": 64.67,
+   "max": 68.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "MAX_LIESHI_ATTACK",
+   "name": "最大裂石攻擊",
+   "pct": false,
+   "base": 64.67,
+   "max": 68.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "MIN_LIESHI_ATTACK",
+   "name": "最小裂石攻擊",
+   "pct": false,
+   "base": 64.67,
+   "max": 68.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "MAX_MINGJIN_ATTACK",
+   "name": "最大鳴金攻擊",
+   "pct": false,
+   "base": 64.67,
+   "max": 68.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "MIN_MINGJIN_ATTACK",
+   "name": "最小鳴金攻擊",
+   "pct": false,
+   "base": 64.67,
+   "max": 68.8,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "MAX_WUXIANG_ATTACK",
+   "name": "最大無相攻擊",
+   "pct": false,
+   "base": 64.67,
+   "max": 68.8,
+   "first": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD"
+   ]
+  },
+  {
+   "key": "MIN_WUXIANG_ATTACK",
+   "name": "最小無相攻擊",
+   "pct": false,
+   "base": 64.67,
+   "max": 68.8,
+   "first": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD"
+   ]
+  },
+  {
+   "key": "AOEQS_DAMAGE",
+   "name": "群體類奇術增傷",
+   "pct": true,
+   "base": 14.48,
+   "max": 15.4,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_HEAD"
+   ]
+  },
+  {
+   "key": "SINGLEQS_DAMAGE",
+   "name": "單體類奇術增傷",
+   "pct": true,
+   "base": 14.48,
+   "max": 15.4,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_CLOTH"
+   ]
+  },
+  {
+   "key": "PLAYER_DAMAGE",
+   "name": "對玩家單位增效",
+   "pct": true,
+   "base": 4.79,
+   "max": 5.1,
+   "first": [],
+   "sec": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES"
+   ]
+  },
+  {
+   "key": "MAX_HP",
+   "name": "氣血最大值",
+   "pct": false,
+   "base": 0,
+   "max": 0,
+   "first": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "EXTERNAL_DEFENCE",
+   "name": "外功防禦",
+   "pct": false,
+   "base": 0,
+   "max": 0,
+   "first": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "YU",
+   "name": "御",
+   "pct": false,
+   "base": 72.19,
+   "max": 76.8,
+   "first": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "TI",
+   "name": "體",
+   "pct": false,
+   "base": 72.19,
+   "max": 76.8,
+   "first": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ],
+   "sec": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  }
+ ],
+ "pitches": [
+  {
+   "key": "EXTERNAL_PENETRATION",
+   "name": "外功穿透",
+   "pct": false,
+   "max": 16.8,
+   "slots": [
+    "EQUIPMENT_WEAPON_FIST",
+    "EQUIPMENT_WEAPON_BIGBLADE",
+    "EQUIPMENT_WEAPON_2BLADE",
+    "EQUIPMENT_WEAPON_BLADE",
+    "EQUIPMENT_WEAPON_DRUM",
+    "EQUIPMENT_WEAPON_ROPE",
+    "EQUIPMENT_WEAPON_UMBRELLA",
+    "EQUIPMENT_WEAPON_FAN",
+    "EQUIPMENT_WEAPON_SPEAR",
+    "EQUIPMENT_WEAPON_SWORD",
+    "EQUIPMENT_RING",
+    "EQUIPMENT_PENDANT"
+   ]
+  },
+  {
+   "key": "XSDS_NSJNZS",
+   "name": "懸身斷水·濃醺技能增傷",
+   "pct": false,
+   "max": 9.2,
+   "slots": [
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND"
+   ]
+  },
+  {
+   "key": "ZXDF_QZJPSJZS",
+   "name": "斬雪刀法·輕重擊派生技增傷",
+   "pct": false,
+   "max": 9.2,
+   "slots": [
+    "EQUIPMENT_CLOTH",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND"
+   ]
+  },
+  {
+   "key": "JCCS_GPDDZS",
+   "name": "九重春色·高頻彈道增傷",
+   "pct": true,
+   "max": 9.2,
+   "slots": [
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ]
+  },
+  {
+   "key": "MCYD_ZLJZL",
+   "name": "明川藥典·治療技增療",
+   "pct": true,
+   "max": 9.2,
+   "slots": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ]
+  },
+  {
+   "key": "SFPZ_XLJZS",
+   "name": "十方破陣·蓄力技增傷",
+   "pct": true,
+   "max": 9.2,
+   "slots": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ]
+  },
+  {
+   "key": "JFDF_XLJZS",
+   "name": "嗟夫刀法·蓄力技增傷",
+   "pct": true,
+   "max": 9.2,
+   "slots": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ]
+  },
+  {
+   "key": "TZCX_XLJZS",
+   "name": "天志垂象·蓄力技增傷",
+   "pct": true,
+   "max": 9.2,
+   "slots": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ]
+  },
+  {
+   "key": "ZMYC_WXJZS",
+   "name": "醉夢游春·武學技增傷",
+   "pct": true,
+   "max": 9.2,
+   "slots": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ]
+  },
+  {
+   "key": "SZYC_SSZS",
+   "name": "粟子游塵·鼠鼠增傷",
+   "pct": true,
+   "max": 9.2,
+   "slots": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ]
+  },
+  {
+   "key": "WDNC_TSJZS",
+   "name": "文動霓裳·特殊技增傷",
+   "pct": true,
+   "max": 9.2,
+   "slots": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ]
+  },
+  {
+   "key": "JCCS_TSJZS",
+   "name": "九重春色·特殊技增傷",
+   "pct": true,
+   "max": 9.2,
+   "slots": []
+  },
+  {
+   "key": "JJJJ_LXZS",
+   "name": "積矩九劍·流血增傷",
+   "pct": true,
+   "max": 9.2,
+   "slots": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ]
+  },
+  {
+   "key": "WMJF_XLJZS",
+   "name": "無名劍法·蓄力技增傷",
+   "pct": true,
+   "max": 9.2,
+   "slots": [
+    "EQUIPMENT_HEAD",
+    "EQUIPMENT_HAND",
+    "EQUIPMENT_SHOES",
+    "EQUIPMENT_CLOTH"
+   ]
+  },
+  {
+   "key": "WUXIANG_PENETRATION",
+   "name": "無相穿透",
+   "pct": false,
+   "max": 20,
+   "slots": []
+  }
+ ],
+ "gearBase": [
+  {
+   "key": "EQUIPMENT_WEAPON_FIST",
+   "name": "流星動岳",
+   "type": "weapon",
+   "img": "equipment/cards/EQUIPMENT_WEAPON_FIST.png",
+   "gold": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 100,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 232,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 90,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 209,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_BIGBLADE",
+   "name": "流星碎刃",
+   "type": "weapon",
+   "img": "equipment/cards/EQUIPMENT_WEAPON_BIGBLADE.png",
+   "gold": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 100,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 232,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 90,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 209,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_2BLADE",
+   "name": "流星雙鯉",
+   "type": "weapon",
+   "img": "equipment/cards/EQUIPMENT_WEAPON_2BLADE.png",
+   "gold": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 100,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 232,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 90,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 209,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_BLADE",
+   "name": "流星斷水",
+   "type": "weapon",
+   "img": "equipment/cards/EQUIPMENT_WEAPON_BLADE.png",
+   "gold": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 100,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 232,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 90,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 209,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_DRUM",
+   "name": "流星凌波",
+   "type": "weapon",
+   "img": "equipment/cards/EQUIPMENT_WEAPON_DRUM.png",
+   "gold": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 100,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 232,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 90,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 209,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_ROPE",
+   "name": "流星鳴鏢",
+   "type": "weapon",
+   "img": "equipment/cards/EQUIPMENT_WEAPON_ROPE.png",
+   "gold": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 100,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 232,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 90,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 209,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_UMBRELLA",
+   "name": "流星雲傘",
+   "type": "weapon",
+   "img": "equipment/cards/EQUIPMENT_WEAPON_UMBRELLA.png",
+   "gold": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 100,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 232,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 90,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 209,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_FAN",
+   "name": "流星畫扇",
+   "type": "weapon",
+   "img": "equipment/cards/EQUIPMENT_WEAPON_FAN.png",
+   "gold": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 100,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 232,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 90,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 209,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_SPEAR",
+   "name": "流星羽林",
+   "type": "weapon",
+   "img": "equipment/cards/EQUIPMENT_WEAPON_SPEAR.png",
+   "gold": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 100,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 232,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 90,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 209,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_SWORD",
+   "name": "流星含光",
+   "type": "weapon",
+   "img": "equipment/cards/EQUIPMENT_WEAPON_SWORD.png",
+   "gold": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 100,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 232,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 90,
+     "pct": false
+    },
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 209,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_HAND",
+   "name": "吳鉤霜披膊",
+   "type": "hand",
+   "img": "equipment/cards/EQUIPMENT_HAND.png",
+   "gold": [
+    {
+     "k": "MAX_HP",
+     "n": "氣血最大值",
+     "v": 8225,
+     "pct": false
+    },
+    {
+     "k": "EXTERNAL_DEFENCE",
+     "n": "外功防禦",
+     "v": 29,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MAX_HP",
+     "n": "氣血最大值",
+     "v": 7402,
+     "pct": false
+    },
+    {
+     "k": "EXTERNAL_DEFENCE",
+     "n": "外功防禦",
+     "v": 27,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_HEAD",
+   "name": "吳鉤霜冠",
+   "type": "head",
+   "img": "equipment/cards/EQUIPMENT_HEAD.png",
+   "gold": [
+    {
+     "k": "MAX_HP",
+     "n": "氣血最大值",
+     "v": 8225,
+     "pct": false
+    },
+    {
+     "k": "EXTERNAL_DEFENCE",
+     "n": "外功防禦",
+     "v": 29,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MAX_HP",
+     "n": "氣血最大值",
+     "v": 7402,
+     "pct": false
+    },
+    {
+     "k": "EXTERNAL_DEFENCE",
+     "n": "外功防禦",
+     "v": 27,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_SHOES",
+   "name": "吳鉤霜縛袴",
+   "type": "shoe",
+   "img": "equipment/cards/EQUIPMENT_SHOES.png",
+   "gold": [
+    {
+     "k": "MAX_HP",
+     "n": "氣血最大值",
+     "v": 8225,
+     "pct": false
+    },
+    {
+     "k": "EXTERNAL_DEFENCE",
+     "n": "外功防禦",
+     "v": 58,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MAX_HP",
+     "n": "氣血最大值",
+     "v": 7402,
+     "pct": false
+    },
+    {
+     "k": "EXTERNAL_DEFENCE",
+     "n": "外功防禦",
+     "v": 53,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_CLOTH",
+   "name": "吳鉤霜甲",
+   "type": "cloth",
+   "img": "equipment/cards/EQUIPMENT_CLOTH.png",
+   "gold": [
+    {
+     "k": "EXTERNAL_DEFENCE",
+     "n": "外功防禦",
+     "v": 16449,
+     "pct": false
+    },
+    {
+     "k": "MAX_HP",
+     "n": "氣血最大值",
+     "v": 29,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MAX_HP",
+     "n": "氣血最大值",
+     "v": 14804,
+     "pct": false
+    },
+    {
+     "k": "EXTERNAL_DEFENCE",
+     "n": "外功防禦",
+     "v": 27,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_RING",
+   "name": "流星雲瓏",
+   "type": "ring",
+   "img": "equipment/cards/EQUIPMENT_RING.png",
+   "gold": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 133,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MIN_EXTERNAL_ATTACK",
+     "n": "最小外功攻擊",
+     "v": 120,
+     "pct": false
+    }
+   ]
+  },
+  {
+   "key": "EQUIPMENT_PENDANT",
+   "name": "流星辟邪",
+   "type": "pendant",
+   "img": "equipment/cards/EQUIPMENT_PENDANT.png",
+   "gold": [
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 199,
+     "pct": false
+    }
+   ],
+   "purple": [
+    {
+     "k": "MAX_EXTERNAL_ATTACK",
+     "n": "最大外功攻擊",
+     "v": 179,
+     "pct": false
+    }
+   ]
+  }
+ ],
+ "mindAttr": {
+  "XF_YBYX": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 36.4,
+    "pct": false
+   },
+   {
+    "k": "MAX_EXTERNAL_ATTACK",
+    "n": "最大外功攻擊",
+    "v": 72.8,
+    "pct": false
+   },
+   {
+    "k": "EXTERNAL_DAMAGE",
+    "n": "外功傷害加成",
+    "v": 2.5,
+    "pct": true
+   }
+  ],
+  "XF_FXZY": [
+   {
+    "k": "CRITICAL_RATE",
+    "n": "會心率",
+    "v": 12.6,
+    "pct": true
+   },
+   {
+    "k": "CRITICAL_DAMAGE",
+    "n": "會心傷害加成",
+    "v": 4,
+    "pct": true
+   }
+  ],
+  "XF_YZQQ": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 121.3,
+    "pct": false
+   },
+   {
+    "k": "DIRECT_CRITICAL_RATE",
+    "n": "直接會心率",
+    "v": 4.6,
+    "pct": true
+   }
+  ],
+  "XF_DJWS": [],
+  "XF_QSF": [
+   {
+    "k": "MIN_MINGJIN_ATTACK",
+    "n": "最小鳴金攻擊",
+    "v": 20.7,
+    "pct": false
+   },
+   {
+    "k": "MAX_MINGJIN_ATTACK",
+    "n": "最大鳴金攻擊",
+    "v": 41.3,
+    "pct": false
+   },
+   {
+    "k": "MINGJIN_PENETRATION",
+    "n": "鳴金穿透",
+    "v": 6,
+    "pct": false
+   }
+  ],
+  "XF_CHJ": [
+   {
+    "k": "MIN_LIESHI_ATTACK",
+    "n": "最小裂石攻擊",
+    "v": 20.7,
+    "pct": false
+   },
+   {
+    "k": "MAX_LIESHI_ATTACK",
+    "n": "最大裂石攻擊",
+    "v": 41.3,
+    "pct": false
+   },
+   {
+    "k": "LIESHI_PENETRATION",
+    "n": "裂石穿透",
+    "v": 6,
+    "pct": false
+   }
+  ],
+  "XF_KZDF": [
+   {
+    "k": "MIN_LIESHI_ATTACK",
+    "n": "最小裂石攻擊",
+    "v": 20.7,
+    "pct": false
+   },
+   {
+    "k": "MAX_LIESHI_ATTACK",
+    "n": "最大裂石攻擊",
+    "v": 41.3,
+    "pct": false
+   },
+   {
+    "k": "LIESHI_PENETRATION",
+    "n": "裂石穿透",
+    "v": 6,
+    "pct": false
+   },
+   {
+    "k": "COMMON_DAMAGE",
+    "n": "通用增傷",
+    "v": 10,
+    "pct": true
+   }
+  ],
+  "XF_SSWC": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 40.5,
+    "pct": false
+   },
+   {
+    "k": "MAX_EXTERNAL_ATTACK",
+    "n": "最大外功攻擊",
+    "v": 80.9,
+    "pct": false
+   },
+   {
+    "k": "EXTERNAL_DAMAGE",
+    "n": "外功傷害加成",
+    "v": 2.8,
+    "pct": true
+   }
+  ],
+  "XF_YSG": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 40.5,
+    "pct": false
+   },
+   {
+    "k": "MAX_EXTERNAL_ATTACK",
+    "n": "最大外功攻擊",
+    "v": 80.9,
+    "pct": false
+   },
+   {
+    "k": "DIRECT_CRITICAL_RATE",
+    "n": "直接會心率",
+    "v": 4.6,
+    "pct": true
+   }
+  ],
+  "XF_ZRG": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 109.2,
+    "pct": false
+   },
+   {
+    "k": "EXTERNAL_PENETRATION",
+    "n": "外功穿透",
+    "v": 5.1,
+    "pct": false
+   }
+  ],
+  "XF_SZXM": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 109.2,
+    "pct": false
+   },
+   {
+    "k": "EXTERNAL_PENETRATION",
+    "n": "外功穿透",
+    "v": 5.1,
+    "pct": false
+   }
+  ],
+  "XF_XMNY": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 109.2,
+    "pct": false
+   },
+   {
+    "k": "EXTERNAL_PENETRATION",
+    "n": "外功穿透",
+    "v": 5.1,
+    "pct": false
+   }
+  ],
+  "XF_XHG": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 121.3,
+    "pct": false
+   },
+   {
+    "k": "DIRECT_CRITICAL_RATE",
+    "n": "直接會心率",
+    "v": 4.6,
+    "pct": true
+   }
+  ],
+  "XF_JQZH": [
+   {
+    "k": "MAX_EXTERNAL_ATTACK",
+    "n": "最大外功攻擊",
+    "v": 121.3,
+    "pct": false
+   },
+   {
+    "k": "DIRECT_INSIGHT_RATE",
+    "n": "直接會意率",
+    "v": 2.3,
+    "pct": true
+   }
+  ],
+  "XF_WMXF": [
+   {
+    "k": "MAX_EXTERNAL_ATTACK",
+    "n": "最大外功攻擊",
+    "v": 121.3,
+    "pct": false
+   },
+   {
+    "k": "DIRECT_INSIGHT_RATE",
+    "n": "直接會意率",
+    "v": 2.3,
+    "pct": true
+   }
+  ],
+  "XF_STBY": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 121.3,
+    "pct": false
+   },
+   {
+    "k": "DIRECT_CRITICAL_RATE",
+    "n": "直接會心率",
+    "v": 4.6,
+    "pct": true
+   }
+  ],
+  "XF_FYZS": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 121.3,
+    "pct": false
+   },
+   {
+    "k": "DIRECT_CRITICAL_RATE",
+    "n": "直接會心率",
+    "v": 4.6,
+    "pct": true
+   }
+  ],
+  "XF_DSZG": [
+   {
+    "k": "ACCURACY_RATE",
+    "n": "精準率",
+    "v": 11.2,
+    "pct": true
+   },
+   {
+    "k": "DIRECT_CRITICAL_RATE",
+    "n": "直接會心率",
+    "v": 4.1,
+    "pct": true
+   }
+  ],
+  "XF_DTG": [
+   {
+    "k": "ACCURACY_RATE",
+    "n": "精準率",
+    "v": 11.2,
+    "pct": true
+   },
+   {
+    "k": "CRITICAL_DAMAGE",
+    "n": "會心傷害加成",
+    "v": 4,
+    "pct": true
+   }
+  ],
+  "XF_SHNN": [
+   {
+    "k": "ACCURACY_RATE",
+    "n": "精準率",
+    "v": 11.2,
+    "pct": true
+   },
+   {
+    "k": "EXTERNAL_DAMAGE",
+    "n": "外功傷害加成",
+    "v": 2.5,
+    "pct": true
+   }
+  ],
+  "XF_WMG": [
+   {
+    "k": "INSIGHT_RATE",
+    "n": "會意率",
+    "v": 6.3,
+    "pct": true
+   },
+   {
+    "k": "INSIGHT_DAMAGE",
+    "n": "會意傷害加成",
+    "v": 5.2,
+    "pct": true
+   }
+  ],
+  "XF_ZLXJ": [
+   {
+    "k": "INSIGHT_RATE",
+    "n": "會意率",
+    "v": 6.3,
+    "pct": true
+   },
+   {
+    "k": "INSIGHT_DAMAGE",
+    "n": "會意傷害加成",
+    "v": 5.2,
+    "pct": true
+   }
+  ],
+  "XF_QYYH": [
+   {
+    "k": "CRITICAL_RATE",
+    "n": "會心率",
+    "v": 14,
+    "pct": true
+   },
+   {
+    "k": "EXTERNAL_DAMAGE",
+    "n": "外功傷害加成",
+    "v": 2.8,
+    "pct": true
+   }
+  ],
+  "XF_WCJX": [
+   {
+    "k": "CRITICAL_RATE",
+    "n": "會心率",
+    "v": 14,
+    "pct": true
+   },
+   {
+    "k": "CRITICAL_DAMAGE",
+    "n": "會心傷害加成",
+    "v": 4.4,
+    "pct": true
+   }
+  ],
+  "XF_JCY": [
+   {
+    "k": "CRITICAL_RATE",
+    "n": "會心率",
+    "v": 14,
+    "pct": true
+   },
+   {
+    "k": "DIRECT_CRITICAL_RATE",
+    "n": "直接會心率",
+    "v": 4.6,
+    "pct": true
+   }
+  ],
+  "XF_HSYL": [
+   {
+    "k": "CRITICAL_RATE",
+    "n": "會心率",
+    "v": 14,
+    "pct": true
+   },
+   {
+    "k": "DIRECT_CRITICAL_RATE",
+    "n": "直接會心率",
+    "v": 4.6,
+    "pct": true
+   }
+  ],
+  "XF_SHJY": [
+   {
+    "k": "CRITICAL_RATE",
+    "n": "會心率",
+    "v": 14,
+    "pct": true
+   },
+   {
+    "k": "CRITICAL_DAMAGE",
+    "n": "會心傷害加成",
+    "v": 4.4,
+    "pct": true
+   }
+  ],
+  "XF_GZBC": [
+   {
+    "k": "CRITICAL_RATE",
+    "n": "會心率",
+    "v": 12.6,
+    "pct": true
+   },
+   {
+    "k": "CRITICAL_DAMAGE",
+    "n": "會心傷害加成",
+    "v": 4,
+    "pct": true
+   }
+  ],
+  "XF_FZY": [
+   {
+    "k": "CRITICAL_RATE",
+    "n": "會心率",
+    "v": 12.6,
+    "pct": true
+   },
+   {
+    "k": "CRITICAL_DAMAGE",
+    "n": "會心傷害加成",
+    "v": 4,
+    "pct": true
+   }
+  ],
+  "XF_QTS": [
+   {
+    "k": "CRITICAL_RATE",
+    "n": "會心率",
+    "v": 12.6,
+    "pct": true
+   },
+   {
+    "k": "CRITICAL_DAMAGE",
+    "n": "會心傷害加成",
+    "v": 4,
+    "pct": true
+   }
+  ],
+  "XF_QSG": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 36.4,
+    "pct": false
+   },
+   {
+    "k": "MAX_EXTERNAL_ATTACK",
+    "n": "最大外功攻擊",
+    "v": 72.8,
+    "pct": false
+   },
+   {
+    "k": "EXTERNAL_HEAL_DAMAGE",
+    "n": "外功治療加成",
+    "v": 2.5,
+    "pct": false
+   }
+  ],
+  "XF_ZDZX": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 36.4,
+    "pct": false
+   },
+   {
+    "k": "MAX_EXTERNAL_ATTACK",
+    "n": "最大外功攻擊",
+    "v": 72.8,
+    "pct": false
+   },
+   {
+    "k": "EXTERNAL_PENETRATION",
+    "n": "外功穿透",
+    "v": 5.1,
+    "pct": false
+   }
+  ],
+  "XF_CLP": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 36.4,
+    "pct": false
+   },
+   {
+    "k": "MAX_EXTERNAL_ATTACK",
+    "n": "最大外功攻擊",
+    "v": 72.8,
+    "pct": false
+   },
+   {
+    "k": "EXTERNAL_DAMAGE",
+    "n": "外功傷害加成",
+    "v": 2.5,
+    "pct": true
+   }
+  ],
+  "XF_SQZZ": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 36.4,
+    "pct": false
+   },
+   {
+    "k": "MAX_EXTERNAL_ATTACK",
+    "n": "最大外功攻擊",
+    "v": 72.8,
+    "pct": false
+   },
+   {
+    "k": "EXTERNAL_DAMAGE",
+    "n": "外功傷害加成",
+    "v": 2.5,
+    "pct": true
+   }
+  ],
+  "XF_NSZ": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 36.4,
+    "pct": false
+   },
+   {
+    "k": "MAX_EXTERNAL_ATTACK",
+    "n": "最大外功攻擊",
+    "v": 72.8,
+    "pct": false
+   },
+   {
+    "k": "EXTERNAL_PENETRATION",
+    "n": "外功穿透",
+    "v": 5.1,
+    "pct": false
+   }
+  ],
+  "XF_XMP": [
+   {
+    "k": "MIN_EXTERNAL_ATTACK",
+    "n": "最小外功攻擊",
+    "v": 36.4,
+    "pct": false
+   },
+   {
+    "k": "MAX_EXTERNAL_ATTACK",
+    "n": "最大外功攻擊",
+    "v": 72.8,
+    "pct": false
+   },
+   {
+    "k": "EXTERNAL_DAMAGE",
+    "n": "外功傷害加成",
+    "v": 2.5,
+    "pct": true
+   }
+  ],
+  "XF_XHBJ": [
+   {
+    "k": "MIN_QIANSI_ATTACK",
+    "n": "最小牽絲攻擊",
+    "v": 57.7,
+    "pct": false
+   },
+   {
+    "k": "CRITICAL_HEAL_DAMAGE",
+    "n": "會心治療加成",
+    "v": 4,
+    "pct": true
+   }
+  ],
+  "XF_NZM": [],
+  "XF_JLQX": [
+   {
+    "k": "MAX_EXTERNAL_ATTACK",
+    "n": "最大外功攻擊",
+    "v": 84.4,
+    "pct": false
+   },
+   {
+    "k": "CRITICAL_DAMAGE",
+    "n": "會心傷害加成",
+    "v": 3.5,
+    "pct": true
+   }
+  ],
+  "XF_YJYW": [
+   {
+    "k": "MAX_MINGJIN_ATTACK",
+    "n": "最大鳴金攻擊",
+    "v": 57.7,
+    "pct": false
+   },
+   {
+    "k": "MINGJIN_DAMAGE",
+    "n": "鳴金加成",
+    "v": 3,
+    "pct": true
+   }
+  ]
+ },
+ "baseAttr": [
+  {
+   "k": "FIXED_DAMAGE",
+   "n": "固定傷害加成",
+   "v": 50,
+   "pct": false
+  },
+  {
+   "k": "ACCURACY_RATE",
+   "n": "精準率",
+   "v": 110.1,
+   "pct": true
+  },
+  {
+   "k": "YU",
+   "n": "御",
+   "v": 283,
+   "pct": false
+  },
+  {
+   "k": "TI",
+   "n": "體",
+   "v": 283,
+   "pct": false
+  },
+  {
+   "k": "JIN",
+   "n": "勁",
+   "v": 283,
+   "pct": false
+  },
+  {
+   "k": "SHI",
+   "n": "勢",
+   "v": 283,
+   "pct": false
+  },
+  {
+   "k": "MIN",
+   "n": "敏",
+   "v": 283,
+   "pct": false
+  },
+  {
+   "k": "MAX_WUXIANG_ATTACK",
+   "n": "最大無相攻擊",
+   "v": 92.4,
+   "pct": false
+  },
+  {
+   "k": "MIN_WUXIANG_ATTACK",
+   "n": "最小無相攻擊",
+   "v": 79.2,
+   "pct": false
+  },
+  {
+   "k": "MIN_EXTERNAL_ATTACK",
+   "n": "最小外功攻擊",
+   "v": 930,
+   "pct": false
+  },
+  {
+   "k": "MAX_EXTERNAL_ATTACK",
+   "n": "最大外功攻擊",
+   "v": 1688.4,
+   "pct": false
+  },
+  {
+   "k": "RAID_DAMAGE",
+   "n": "特殊增傷",
+   "v": 0,
+   "pct": false
+  },
+  {
+   "k": "BENEFIT_RESISTANCE",
+   "n": "增益抗性",
+   "v": 1.15,
+   "pct": false
+  },
+  {
+   "k": "FIXED_DAMAGE_RATE",
+   "n": "固定傷害倍率",
+   "v": 50,
+   "pct": false
+  },
+  {
+   "k": "LEVEL_RESISTANCE",
+   "n": "等級抗性",
+   "v": 2.45,
+   "pct": false
+  },
+  {
+   "k": "CRITICAL_RATE",
+   "n": "會心率",
+   "v": 24,
+   "pct": true
+  },
+  {
+   "k": "INSIGHT_RATE",
+   "n": "會意率",
+   "v": 12,
+   "pct": true
+  },
+  {
+   "k": "INSIGHT_DAMAGE",
+   "n": "會意傷害加成",
+   "v": 35,
+   "pct": true
+  },
+  {
+   "k": "CRITICAL_HEAL_DAMAGE",
+   "n": "會心治療加成",
+   "v": 50,
+   "pct": true
+  },
+  {
+   "k": "CRITICAL_DAMAGE",
+   "n": "會心傷害加成",
+   "v": 50,
+   "pct": true
+  },
+  {
+   "k": "POZHU_PENETRATION",
+   "n": "破竹穿透",
+   "v": 0,
+   "pct": false
+  },
+  {
+   "k": "MINGJIN_PENETRATION",
+   "n": "鳴金穿透",
+   "v": 0,
+   "pct": false
+  },
+  {
+   "k": "QIANSI_PENETRATION",
+   "n": "牽絲穿透",
+   "v": 0,
+   "pct": false
+  },
+  {
+   "k": "LIESHI_PENETRATION",
+   "n": "裂石穿透",
+   "v": 0,
+   "pct": false
+  },
+  {
+   "k": "MAX_HP",
+   "n": "氣血最大值",
+   "v": 0,
+   "pct": false
+  },
+  {
+   "k": "EXTERNAL_DEFENCE",
+   "n": "外功防禦",
+   "v": 0,
+   "pct": false
+  },
+  {
+   "k": "EXTERNAL_PENETRATION",
+   "n": "外功穿透",
+   "v": 0,
+   "pct": false
+  },
+  {
+   "k": "WUXIANG_PENETRATION",
+   "n": "無相穿透",
+   "v": 0,
+   "pct": false
+  }
+ ],
+ "gearSlots": [
+  {
+   "id": "head",
+   "partKey": "EQUIPMENT_HEAD",
+   "name": "冠胄",
+   "side": "left",
+   "part": "頭",
+   "img": "equipment/cards/EQUIPMENT_HEAD.png"
+  },
+  {
+   "id": "body",
+   "partKey": "EQUIPMENT_CLOTH",
+   "name": "胸甲",
+   "side": "left",
+   "part": "衣",
+   "img": "equipment/cards/EQUIPMENT_CLOTH.png"
+  },
+  {
+   "id": "legs",
+   "partKey": "EQUIPMENT_SHOES",
+   "name": "脛甲",
+   "side": "left",
+   "part": "鞋",
+   "img": "equipment/cards/EQUIPMENT_SHOES.png"
+  },
+  {
+   "id": "arms",
+   "partKey": "EQUIPMENT_HAND",
+   "name": "腕甲",
+   "side": "left",
+   "part": "手",
+   "img": "equipment/cards/EQUIPMENT_HAND.png"
+  },
+  {
+   "id": "ring",
+   "partKey": "EQUIPMENT_RING",
+   "name": "環",
+   "side": "right",
+   "part": "環",
+   "img": "equipment/cards/EQUIPMENT_RING.png"
+  },
+  {
+   "id": "pend",
+   "partKey": "EQUIPMENT_PENDANT",
+   "name": "佩",
+   "side": "right",
+   "part": "佩",
+   "img": "equipment/cards/EQUIPMENT_PENDANT.png"
+  }
+ ],
+ "stats": [
+  {
+   "key": "105_JJZY_DOWN",
+   "name": "夾鐘奏雅-下半",
+   "pct": false
+  },
+  {
+   "key": "105_JJZY_UP",
+   "name": "夾鐘奏雅上半",
+   "pct": false
+  },
+  {
+   "key": "110_RBDZ_DOWN",
+   "name": "蕤賓疊奏-下半",
+   "pct": false
+  },
+  {
+   "key": "110_RBDZ_UP",
+   "name": "蕤賓疊奏-上半",
+   "pct": false
+  },
+  {
+   "key": "2BLADE",
+   "name": "雙刀",
+   "pct": false
+  },
+  {
+   "key": "2BLADE_DAMAGE",
+   "name": "雙刀武學增效",
+   "pct": true
+  },
+  {
+   "key": "ACCURACY_RATE",
+   "name": "精準率",
+   "pct": true
+  },
+  {
+   "key": "AOEQS_DAMAGE",
+   "name": "群體類奇術增傷",
+   "pct": true
+  },
+  {
+   "key": "BENEFIT_RESISTANCE",
+   "name": "增益抗性",
+   "pct": false
+  },
+  {
+   "key": "BIGBLADE",
+   "name": "陌刀",
+   "pct": false
+  },
+  {
+   "key": "BIGBLADE_DAMAGE",
+   "name": "陌刀武學增效",
+   "pct": true
+  },
+  {
+   "key": "BLADE",
+   "name": "橫刀",
+   "pct": false
+  },
+  {
+   "key": "BLADE_DAMAGE",
+   "name": "橫刀武學增效",
+   "pct": true
+  },
+  {
+   "key": "BOSS_DAMAGE",
+   "name": "對首領單位增傷",
+   "pct": true
+  },
+  {
+   "key": "COMMON",
+   "name": "通用",
+   "pct": false
+  },
+  {
+   "key": "COMMON_DAMAGE",
+   "name": "通用增傷",
+   "pct": true
+  },
+  {
+   "key": "CRITICAL_DAMAGE",
+   "name": "會心傷害加成",
+   "pct": true
+  },
+  {
+   "key": "CRITICAL_HEAL_DAMAGE",
+   "name": "會心治療加成",
+   "pct": true
+  },
+  {
+   "key": "CRITICAL_RATE",
+   "name": "會心率",
+   "pct": true
+  },
+  {
+   "key": "DIRECT_CRITICAL_RATE",
+   "name": "直接會心率",
+   "pct": true
+  },
+  {
+   "key": "DIRECT_INSIGHT_RATE",
+   "name": "直接會意率",
+   "pct": true
+  },
+  {
+   "key": "DRUM",
+   "name": "鼓",
+   "pct": false
+  },
+  {
+   "key": "DRUM_DAMAGE",
+   "name": "鼓武學增效",
+   "pct": true
+  },
+  {
+   "key": "EQUIPMENT_CLOTH",
+   "name": "衣",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_HAND",
+   "name": "手",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_HEAD",
+   "name": "頭",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_PENDANT",
+   "name": "佩",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_RING",
+   "name": "環",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_SHOES",
+   "name": "鞋",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_2BLADE",
+   "name": "武器-雙刀",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_BIGBLADE",
+   "name": "武器-陌刀",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_BLADE",
+   "name": "武器-橫刀",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_DRUM",
+   "name": "武器-鼓",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_FAN",
+   "name": "武器-扇",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_FIST",
+   "name": "武器-拳套",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_ROPE",
+   "name": "武器-繩鏢",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_SPEAR",
+   "name": "武器-槍",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_SWORD",
+   "name": "武器-劍",
+   "pct": false
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_UMBRELLA",
+   "name": "武器-傘",
+   "pct": false
+  },
+  {
+   "key": "EXTERNAL_DAMAGE",
+   "name": "外功傷害加成",
+   "pct": true
+  },
+  {
+   "key": "EXTERNAL_DEFENCE",
+   "name": "外功防禦",
+   "pct": false
+  },
+  {
+   "key": "EXTERNAL_HEAL_DAMAGE",
+   "name": "外功治療加成",
+   "pct": false
+  },
+  {
+   "key": "EXTERNAL_PENETRATION",
+   "name": "外功穿透",
+   "pct": false
+  },
+  {
+   "key": "FAN",
+   "name": "扇",
+   "pct": false
+  },
+  {
+   "key": "FAN_DAMAGE",
+   "name": "扇武學增效",
+   "pct": true
+  },
+  {
+   "key": "FIST",
+   "name": "拳",
+   "pct": false
+  },
+  {
+   "key": "FIST_DAMAGE",
+   "name": "拳套武學增效",
+   "pct": true
+  },
+  {
+   "key": "FIXED_DAMAGE",
+   "name": "固定傷害加成",
+   "pct": false
+  },
+  {
+   "key": "FIXED_DAMAGE_RATE",
+   "name": "固定傷害倍率",
+   "pct": false
+  },
+  {
+   "key": "INSIGHT_DAMAGE",
+   "name": "會意傷害加成",
+   "pct": true
+  },
+  {
+   "key": "INSIGHT_RATE",
+   "name": "會意率",
+   "pct": true
+  },
+  {
+   "key": "JCCS_GPDDZS",
+   "name": "九重春色·高頻彈道增傷",
+   "pct": true
+  },
+  {
+   "key": "JCCS_TSJZS",
+   "name": "九重春色·特殊技增傷",
+   "pct": true
+  },
+  {
+   "key": "JFDF_XLJZS",
+   "name": "嗟夫刀法·蓄力技增傷",
+   "pct": true
+  },
+  {
+   "key": "JIN",
+   "name": "勁",
+   "pct": false
+  },
+  {
+   "key": "JJJJ_LXZS",
+   "name": "積矩九劍·流血增傷",
+   "pct": true
+  },
+  {
+   "key": "LEVEL_RESISTANCE",
+   "name": "等級抗性",
+   "pct": false
+  },
+  {
+   "key": "LIESHI",
+   "name": "裂石",
+   "pct": false
+  },
+  {
+   "key": "LIESHI_DAMAGE",
+   "name": "裂石加成",
+   "pct": true
+  },
+  {
+   "key": "LIESHI_JUN",
+   "name": "裂石鈞",
+   "pct": false
+  },
+  {
+   "key": "LIESHI_JUN_SFPZ",
+   "name": "十方破陣",
+   "pct": false
+  },
+  {
+   "key": "LIESHI_JUN_ZXDF",
+   "name": "斬雪刀法",
+   "pct": false
+  },
+  {
+   "key": "LIESHI_PENETRATION",
+   "name": "裂石穿透",
+   "pct": false
+  },
+  {
+   "key": "LIESHI_WEI",
+   "name": "裂石威",
+   "pct": false
+  },
+  {
+   "key": "LIESHI_WEI_BFFLQ",
+   "name": "八方風雷槍",
+   "pct": false
+  },
+  {
+   "key": "LIESHI_WEI_JFDF",
+   "name": "嗟夫刀法",
+   "pct": false
+  },
+  {
+   "key": "MAX_EXTERNAL_ATTACK",
+   "name": "最大外功攻擊",
+   "pct": false
+  },
+  {
+   "key": "MAX_HP",
+   "name": "氣血最大值",
+   "pct": false
+  },
+  {
+   "key": "MAX_LIESHI_ATTACK",
+   "name": "最大裂石攻擊",
+   "pct": false
+  },
+  {
+   "key": "MAX_MINGJIN_ATTACK",
+   "name": "最大鳴金攻擊",
+   "pct": false
+  },
+  {
+   "key": "MAX_POZHU_ATTACK",
+   "name": "最大破竹攻擊",
+   "pct": false
+  },
+  {
+   "key": "MAX_QIANSI_ATTACK",
+   "name": "最大牽絲攻擊",
+   "pct": false
+  },
+  {
+   "key": "MAX_WUXIANG_ATTACK",
+   "name": "最大無相攻擊",
+   "pct": false
+  },
+  {
+   "key": "MCYD_ZLJZL",
+   "name": "明川藥典·治療技增療",
+   "pct": true
+  },
+  {
+   "key": "MIN",
+   "name": "敏",
+   "pct": false
+  },
+  {
+   "key": "MINGJIN",
+   "name": "鳴金",
+   "pct": false
+  },
+  {
+   "key": "MINGJIN_DAMAGE",
+   "name": "鳴金加成",
+   "pct": true
+  },
+  {
+   "key": "MINGJIN_HONG",
+   "name": "鳴金虹",
+   "pct": false
+  },
+  {
+   "key": "MINGJIN_HONG_WMJF",
+   "name": "無名劍法",
+   "pct": false
+  },
+  {
+   "key": "MINGJIN_HONG_WMQF",
+   "name": "無名槍法",
+   "pct": false
+  },
+  {
+   "key": "MINGJIN_PENETRATION",
+   "name": "鳴金穿透",
+   "pct": false
+  },
+  {
+   "key": "MINGJIN_YING",
+   "name": "鳴金影",
+   "pct": false
+  },
+  {
+   "key": "MINGJIN_YING_JJJJ",
+   "name": "積矩九劍",
+   "pct": false
+  },
+  {
+   "key": "MINGJIN_YING_JQJSQ",
+   "name": "九曲驚神槍",
+   "pct": false
+  },
+  {
+   "key": "MIN_EXTERNAL_ATTACK",
+   "name": "最小外功攻擊",
+   "pct": false
+  },
+  {
+   "key": "MIN_LIESHI_ATTACK",
+   "name": "最小裂石攻擊",
+   "pct": false
+  },
+  {
+   "key": "MIN_MINGJIN_ATTACK",
+   "name": "最小鳴金攻擊",
+   "pct": false
+  },
+  {
+   "key": "MIN_POZHU_ATTACK",
+   "name": "最小破竹攻擊",
+   "pct": false
+  },
+  {
+   "key": "MIN_QIANSI_ATTACK",
+   "name": "最小牽絲攻擊",
+   "pct": false
+  },
+  {
+   "key": "MIN_WUXIANG_ATTACK",
+   "name": "最小無相攻擊",
+   "pct": false
+  },
+  {
+   "key": "PITCH_DAMAGE",
+   "name": "定音增傷",
+   "pct": false
+  },
+  {
+   "key": "PLAYER_DAMAGE",
+   "name": "對玩家單位增效",
+   "pct": true
+  },
+  {
+   "key": "POZHU",
+   "name": "破竹",
+   "pct": false
+  },
+  {
+   "key": "POZHU_CHEN",
+   "name": "破竹塵",
+   "pct": false
+  },
+  {
+   "key": "POZHU_CHEN_SZXY",
+   "name": "粟子行雲",
+   "pct": false
+  },
+  {
+   "key": "POZHU_CHEN_ZMYC",
+   "name": "醉夢游春",
+   "pct": false
+  },
+  {
+   "key": "POZHU_DAMAGE",
+   "name": "破竹加成",
+   "pct": true
+  },
+  {
+   "key": "POZHU_FENG",
+   "name": "破竹風",
+   "pct": false
+  },
+  {
+   "key": "POZHU_FENG_NLSG",
+   "name": "泥犁三垢",
+   "pct": false
+  },
+  {
+   "key": "POZHU_FENG_SZYC",
+   "name": "粟子游塵",
+   "pct": false
+  },
+  {
+   "key": "POZHU_PENETRATION",
+   "name": "破竹穿透",
+   "pct": false
+  },
+  {
+   "key": "POZHU_YUAN",
+   "name": "破竹鳶",
+   "pct": false
+  },
+  {
+   "key": "POZHU_YUAN_QJST",
+   "name": "千機索天",
+   "pct": false
+  },
+  {
+   "key": "POZHU_YUAN_TZCX",
+   "name": "天志垂象",
+   "pct": false
+  },
+  {
+   "key": "POZHU_ZUN",
+   "name": "破竹樽",
+   "pct": false
+  },
+  {
+   "key": "POZHU_ZUN_DSSJ",
+   "name": "斷水雙訣",
+   "pct": false
+  },
+  {
+   "key": "POZHU_ZUN_XSQF",
+   "name": "懸身拳法",
+   "pct": false
+  },
+  {
+   "key": "QIANSI",
+   "name": "牽絲",
+   "pct": false
+  },
+  {
+   "key": "QIANSI_DAMAGE",
+   "name": "牽絲加成",
+   "pct": true
+  },
+  {
+   "key": "QIANSI_LIN",
+   "name": "牽絲霖",
+   "pct": false
+  },
+  {
+   "key": "QIANSI_LIN_MCYD",
+   "name": "明川藥典",
+   "pct": false
+  },
+  {
+   "key": "QIANSI_LIN_QXYHG",
+   "name": "千香引魂蠱",
+   "pct": false
+  },
+  {
+   "key": "QIANSI_PENETRATION",
+   "name": "牽絲穿透",
+   "pct": false
+  },
+  {
+   "key": "QIANSI_YI",
+   "name": "牽絲翊",
+   "pct": false
+  },
+  {
+   "key": "QIANSI_YI_WDNC",
+   "name": "文動霓裳",
+   "pct": false
+  },
+  {
+   "key": "QIANSI_YI_XYCY",
+   "name": "杏游草野",
+   "pct": false
+  },
+  {
+   "key": "QIANSI_YU",
+   "name": "牽絲玉",
+   "pct": false
+  },
+  {
+   "key": "QIANSI_YU_JCCS",
+   "name": "九重春色",
+   "pct": false
+  },
+  {
+   "key": "QIANSI_YU_QSZB",
+   "name": "青山執筆",
+   "pct": false
+  },
+  {
+   "key": "RAID_DAMAGE",
+   "name": "特殊增傷",
+   "pct": false
+  },
+  {
+   "key": "ROPE",
+   "name": "繩鏢",
+   "pct": false
+  },
+  {
+   "key": "ROPE_DAMAGE",
+   "name": "繩鏢武學增效",
+   "pct": true
+  },
+  {
+   "key": "SET_BOW_JINGXIAN",
+   "name": "驚弦",
+   "pct": false
+  },
+  {
+   "key": "SET_BOW_YINYU",
+   "name": "飲羽",
+   "pct": false
+  },
+  {
+   "key": "SET_BOW_ZHUIYING",
+   "name": "追影",
+   "pct": false
+  },
+  {
+   "key": "SET_WEAPON_CAIYUN",
+   "name": "裁雲",
+   "pct": false
+  },
+  {
+   "key": "SET_WEAPON_DUANYUE",
+   "name": "斷岳",
+   "pct": false
+  },
+  {
+   "key": "SET_WEAPON_FEISUN",
+   "name": "飛隼",
+   "pct": false
+  },
+  {
+   "key": "SET_WEAPON_HANTIAN",
+   "name": "撼天",
+   "pct": false
+  },
+  {
+   "key": "SET_WEAPON_HUANHUA",
+   "name": "浣花",
+   "pct": false
+  },
+  {
+   "key": "SET_WEAPON_LIANXING",
+   "name": "連星",
+   "pct": false
+  },
+  {
+   "key": "SET_WEAPON_QINGSHANG",
+   "name": "傾觴",
+   "pct": false
+  },
+  {
+   "key": "SET_WEAPON_SHIYU",
+   "name": "時雨",
+   "pct": false
+  },
+  {
+   "key": "SET_WEAPON_YANGUI",
+   "name": "燕歸",
+   "pct": false
+  },
+  {
+   "key": "SET_WEAPON_YANLIU",
+   "name": "煙柳",
+   "pct": false
+  },
+  {
+   "key": "SET_WEAPON_YUDOU",
+   "name": "玉斗",
+   "pct": false
+  },
+  {
+   "key": "SFPZ_XLJZS",
+   "name": "十方破陣·蓄力技增傷",
+   "pct": true
+  },
+  {
+   "key": "SHI",
+   "name": "勢",
+   "pct": false
+  },
+  {
+   "key": "SINGLEQS_DAMAGE",
+   "name": "單體類奇術增傷",
+   "pct": true
+  },
+  {
+   "key": "SKILLTYPE_JUN_XZCF",
+   "name": "協戰觸發",
+   "pct": false
+  },
+  {
+   "key": "SKILLTYPE_JUN_XZXG",
+   "name": "協戰效果",
+   "pct": false
+  },
+  {
+   "key": "SKILLTYPE_QJ",
+   "name": "輕擊",
+   "pct": false
+  },
+  {
+   "key": "SKILLTYPE_QJPS",
+   "name": "輕擊派生",
+   "pct": false
+  },
+  {
+   "key": "SKILLTYPE_TSJ",
+   "name": "特殊技",
+   "pct": false
+  },
+  {
+   "key": "SKILLTYPE_WXCF",
+   "name": "武學觸發",
+   "pct": false
+  },
+  {
+   "key": "SKILLTYPE_WXJ",
+   "name": "武學技",
+   "pct": false
+  },
+  {
+   "key": "SKILLTYPE_XLJ",
+   "name": "蓄力技",
+   "pct": false
+  },
+  {
+   "key": "SKILLTYPE_YUAN_WYDZ",
+   "name": "無義當誅",
+   "pct": false
+  },
+  {
+   "key": "SKILLTYPE_YUAN_YSZJ",
+   "name": "鷹隼追擊",
+   "pct": false
+  },
+  {
+   "key": "SKILLTYPE_YWJ",
+   "name": "易武技",
+   "pct": false
+  },
+  {
+   "key": "SKILLTYPE_ZJ",
+   "name": "重擊",
+   "pct": false
+  },
+  {
+   "key": "SKILLTYPE_ZJPS",
+   "name": "重擊派生",
+   "pct": false
+  },
+  {
+   "key": "SPEAR",
+   "name": "槍",
+   "pct": false
+  },
+  {
+   "key": "SPEAR_DAMAGE",
+   "name": "槍武學增效",
+   "pct": true
+  },
+  {
+   "key": "SURE_CRITICAL",
+   "name": "必定會心",
+   "pct": false
+  },
+  {
+   "key": "SURE_INSIGHT",
+   "name": "必定會意",
+   "pct": false
+  },
+  {
+   "key": "SURE_NOGRAZE",
+   "name": "必定不擦傷",
+   "pct": false
+  },
+  {
+   "key": "SWORD",
+   "name": "劍",
+   "pct": false
+  },
+  {
+   "key": "SWORD_DAMAGE",
+   "name": "劍武學增效",
+   "pct": true
+  },
+  {
+   "key": "SZYC_SSZS",
+   "name": "粟子游塵·鼠鼠增傷",
+   "pct": true
+  },
+  {
+   "key": "TI",
+   "name": "體",
+   "pct": false
+  },
+  {
+   "key": "TZCX_XLJZS",
+   "name": "天志垂象·蓄力技增傷",
+   "pct": true
+  },
+  {
+   "key": "UMBRELLA",
+   "name": "傘",
+   "pct": false
+  },
+  {
+   "key": "UMBRELLA_DAMAGE",
+   "name": "傘武學增效",
+   "pct": true
+  },
+  {
+   "key": "WDNC_TSJZS",
+   "name": "文動霓裳·特殊技增傷",
+   "pct": true
+  },
+  {
+   "key": "WMJF_XLJZS",
+   "name": "無名劍法·蓄力技增傷",
+   "pct": true
+  },
+  {
+   "key": "WUXIANG_PENETRATION",
+   "name": "無相穿透",
+   "pct": false
+  },
+  {
+   "key": "WUXUE_DAMAGE",
+   "name": "全武學增效",
+   "pct": true
+  },
+  {
+   "key": "XF_CHJ",
+   "name": "穿喉決",
+   "pct": false
+  },
+  {
+   "key": "XF_CLP",
+   "name": "春雷篇",
+   "pct": false
+  },
+  {
+   "key": "XF_DJWS",
+   "name": "大卷微身",
+   "pct": false
+  },
+  {
+   "key": "XF_DSZG",
+   "name": "斷石之構",
+   "pct": false
+  },
+  {
+   "key": "XF_DTG",
+   "name": "大唐歌",
+   "pct": false
+  },
+  {
+   "key": "XF_FXZY",
+   "name": "飛仙醉言",
+   "pct": false
+  },
+  {
+   "key": "XF_FYZS",
+   "name": "扶搖直上",
+   "pct": false
+  },
+  {
+   "key": "XF_FZY",
+   "name": "風知意",
+   "pct": false
+  },
+  {
+   "key": "XF_GZBC",
+   "name": "孤忠不辭",
+   "pct": false
+  },
+  {
+   "key": "XF_HSYL",
+   "name": "花上月令",
+   "pct": false
+  },
+  {
+   "key": "XF_JCY",
+   "name": "君臣藥",
+   "pct": false
+  },
+  {
+   "key": "XF_JLQX",
+   "name": "極樂泣血",
+   "pct": false
+  },
+  {
+   "key": "XF_JQZH",
+   "name": "劍氣縱橫",
+   "pct": false
+  },
+  {
+   "key": "XF_KZDF",
+   "name": "抗造大法",
+   "pct": false
+  },
+  {
+   "key": "XF_NSZ",
+   "name": "凝神章",
+   "pct": false
+  },
+  {
+   "key": "XF_NZM",
+   "name": "怒斬馬",
+   "pct": false
+  },
+  {
+   "key": "XF_QSF",
+   "name": "千山法",
+   "pct": false
+  },
+  {
+   "key": "XF_QSG",
+   "name": "千絲蠱",
+   "pct": false
+  },
+  {
+   "key": "XF_QTS",
+   "name": "擒天勢",
+   "pct": false
+  },
+  {
+   "key": "XF_QYYH",
+   "name": "千營一呼",
+   "pct": false
+  },
+  {
+   "key": "XF_SHJY",
+   "name": "山河絕韻",
+   "pct": false
+  },
+  {
+   "key": "XF_SHNN",
+   "name": "所恨年年",
+   "pct": false
+  },
+  {
+   "key": "XF_SQZZ",
+   "name": "三窮致知",
+   "pct": false
+  },
+  {
+   "key": "XF_SSWC",
+   "name": "四時無常",
+   "pct": false
+  },
+  {
+   "key": "XF_STBY",
+   "name": "霜天白夜",
+   "pct": false
+  },
+  {
+   "key": "XF_SZXM",
+   "name": "繩舟行木",
+   "pct": false
+  },
+  {
+   "key": "XF_WCJX",
+   "name": "忘川絕響",
+   "pct": false
+  },
+  {
+   "key": "XF_WMG",
+   "name": "威猛歌",
+   "pct": false
+  },
+  {
+   "key": "XF_WMXF",
+   "name": "無名心法",
+   "pct": false
+  },
+  {
+   "key": "XF_XHBJ",
+   "name": "杏花不見",
+   "pct": false
+  },
+  {
+   "key": "XF_XHG",
+   "name": "相和歌",
+   "pct": false
+  },
+  {
+   "key": "XF_XMNY",
+   "name": "心彌泥魚",
+   "pct": false
+  },
+  {
+   "key": "XF_XMP",
+   "name": "弦墨篇",
+   "pct": false
+  },
+  {
+   "key": "XF_YBYX",
+   "name": "燕別雲岫",
+   "pct": false
+  },
+  {
+   "key": "XF_YJYW",
+   "name": "移經易武",
+   "pct": false
+  },
+  {
+   "key": "XF_YSG",
+   "name": "易水歌",
+   "pct": false
+  },
+  {
+   "key": "XF_YZQQ",
+   "name": "一醉千秋",
+   "pct": false
+  },
+  {
+   "key": "XF_ZDZX",
+   "name": "縱地摘星",
+   "pct": false
+  },
+  {
+   "key": "XF_ZLXJ",
+   "name": "逐狼心經",
+   "pct": false
+  },
+  {
+   "key": "XF_ZRG",
+   "name": "征人歸",
+   "pct": false
+  },
+  {
+   "key": "XSDS_NSJNZS",
+   "name": "懸身斷水·濃醺技能增傷",
+   "pct": false
+  },
+  {
+   "key": "YU",
+   "name": "御",
+   "pct": false
+  },
+  {
+   "key": "ZMYC_WXJZS",
+   "name": "醉夢游春·武學技增傷",
+   "pct": true
+  },
+  {
+   "key": "ZXDF_QZJPSJZS",
+   "name": "斬雪刀法·輕重擊派生技增傷",
+   "pct": false
+  }
+ ],
+ "caps": {
+  "martial": 20,
+  "mind": 5,
+  "art": null,
+  "gear": null
+ },
+ "softHints": {
+  "art": "各自升級，無公開上限",
+  "gear": "實務上見到 110 階；91→96 階是承音關卡"
+ },
+ "presets": [
+  {
+   "mode": "big-outer",
+   "modeName": "大外",
+   "build": "QIANSI_YI",
+   "buildName": "牽絲翊",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_DRUM",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_FAN",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "big-outer",
+   "modeName": "大外",
+   "build": "QIANSI_LIN",
+   "buildName": "牽絲霖",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_FAN",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_UMBRELLA",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "big-outer",
+   "modeName": "大外",
+   "build": "QIANSI_YU",
+   "buildName": "牽絲玉",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_UMBRELLA",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_FAN",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "big-outer",
+   "modeName": "大外",
+   "build": "POZHU_FENG",
+   "buildName": "破竹風",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_2BLADE",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_ROPE",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "big-outer",
+   "modeName": "大外",
+   "build": "POZHU_CHEN",
+   "buildName": "破竹塵",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_ROPE",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_UMBRELLA",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "big-outer",
+   "modeName": "大外",
+   "build": "POZHU_YUAN",
+   "buildName": "破竹鳶",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_ROPE",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_FIST",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "big-outer",
+   "modeName": "大外",
+   "build": "LIESHI_JUN",
+   "buildName": "裂石鈞",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_BIGBLADE",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_BLADE",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "big-outer",
+   "modeName": "大外",
+   "build": "LIESHI_WEI",
+   "buildName": "裂石威",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_SPEAR",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_BIGBLADE",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "JIN",
+     "sec": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "small-outer",
+   "modeName": "小外",
+   "build": "QIANSI_YI",
+   "buildName": "牽絲翊",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_FAN",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_DRUM",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "DRUM_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitch": "WDNC_TSJZS"
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitch": "WDNC_TSJZS"
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitch": "WDNC_TSJZS"
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitch": "WDNC_TSJZS"
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "small-outer",
+   "modeName": "小外",
+   "build": "QIANSI_YU",
+   "buildName": "牽絲玉",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_UMBRELLA",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_FAN",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION",
+     "dropped": [
+      "UMBRELLA_DAMAGE"
+     ]
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitch": "JCCS_GPDDZS"
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitch": "JCCS_GPDDZS"
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitch": "JCCS_GPDDZS"
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitch": "JCCS_GPDDZS"
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "small-outer",
+   "modeName": "小外",
+   "build": "POZHU_FENG",
+   "buildName": "破竹風",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_ROPE",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "ROPE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_2BLADE",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "2BLADE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "SZYC_SSZS"
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "SZYC_SSZS"
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "SZYC_SSZS"
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "SZYC_SSZS"
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "small-outer",
+   "modeName": "小外",
+   "build": "POZHU_CHEN",
+   "buildName": "破竹塵",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_ROPE",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_UMBRELLA",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "UMBRELLA_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "ZMYC_WXJZS"
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "ZMYC_WXJZS"
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "ZMYC_WXJZS"
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "ZMYC_WXJZS"
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "small-outer",
+   "modeName": "小外",
+   "build": "POZHU_YUAN",
+   "buildName": "破竹鳶",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_ROPE",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_FIST",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "FIST_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "TZCX_XLJZS"
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "TZCX_XLJZS"
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "TZCX_XLJZS"
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "TZCX_XLJZS"
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "small-outer",
+   "modeName": "小外",
+   "build": "LIESHI_JUN",
+   "buildName": "裂石鈞",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_BLADE",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "CRITICAL_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_BIGBLADE",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "BIGBLADE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_LIESHI_ATTACK"
+     ],
+     "pitch": "SFPZ_XLJZS"
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_LIESHI_ATTACK"
+     ],
+     "pitch": "SFPZ_XLJZS"
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_LIESHI_ATTACK"
+     ],
+     "pitch": "SFPZ_XLJZS"
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_LIESHI_ATTACK"
+     ],
+     "pitch": "SFPZ_XLJZS"
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_LIESHI_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_LIESHI_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "small-outer",
+   "modeName": "小外",
+   "build": "QIANSI_LIN",
+   "buildName": "牽絲霖",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_FAN",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_UMBRELLA",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "ACCURACY_RATE",
+     "sec": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "CRITICAL_RATE",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN"
+     ],
+     "pitch": null
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MIN_EXTERNAL_ATTACK",
+     "sec": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "ming-jin",
+   "modeName": "鳴金",
+   "build": "MINGJIN_HONG",
+   "buildName": "鳴金虹",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_SPEAR",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "INSIGHT_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_SWORD",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "SWORD_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "INSIGHT_RATE",
+     "sec": [
+      "INSIGHT_RATE",
+      "SHI",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": "WMJF_XLJZS"
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "INSIGHT_RATE",
+     "sec": [
+      "INSIGHT_RATE",
+      "SHI",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": "WMJF_XLJZS"
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "JIN",
+     "sec": [
+      "INSIGHT_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": "WMJF_XLJZS"
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "JIN",
+     "sec": [
+      "INSIGHT_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": "WMJF_XLJZS"
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  },
+  {
+   "mode": "ming-jin",
+   "modeName": "鳴金",
+   "build": "MINGJIN_YING",
+   "buildName": "鳴金影",
+   "items": [
+    {
+     "slot": "w_main",
+     "partKey": "EQUIPMENT_WEAPON_SWORD",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "SWORD_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "w_off",
+     "partKey": "EQUIPMENT_WEAPON_SPEAR",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "INSIGHT_RATE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "head",
+     "partKey": "EQUIPMENT_HEAD",
+     "first": "INSIGHT_RATE",
+     "sec": [
+      "INSIGHT_RATE",
+      "SHI",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": "JJJJ_LXZS"
+    },
+    {
+     "slot": "body",
+     "partKey": "EQUIPMENT_CLOTH",
+     "first": "INSIGHT_RATE",
+     "sec": [
+      "INSIGHT_RATE",
+      "SHI",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitch": "JJJJ_LXZS"
+    },
+    {
+     "slot": "legs",
+     "partKey": "EQUIPMENT_SHOES",
+     "first": "JIN",
+     "sec": [
+      "INSIGHT_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": "JJJJ_LXZS"
+    },
+    {
+     "slot": "arms",
+     "partKey": "EQUIPMENT_HAND",
+     "first": "JIN",
+     "sec": [
+      "INSIGHT_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitch": "JJJJ_LXZS"
+    },
+    {
+     "slot": "ring",
+     "partKey": "EQUIPMENT_RING",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    },
+    {
+     "slot": "pend",
+     "partKey": "EQUIPMENT_PENDANT",
+     "first": "MAX_EXTERNAL_ATTACK",
+     "sec": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "WUXUE_DAMAGE"
+     ],
+     "pitch": "EXTERNAL_PENETRATION"
+    }
+   ]
+  }
+ ]
+}

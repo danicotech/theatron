@@ -1,0 +1,4489 @@
+[
+  {
+    "width": 1440,
+    "name": "skip-link",
+    "stage": "2d",
+    "overflow": false,
+    "active": "prologue",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 709.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 709.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 709.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 709.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 709.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 709.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 709.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 709.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 709.6999999992549,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 709.6999999992549,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 709.6999999992549,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 709.6999999992549,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 729.3000000007451,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 989.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 989.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 989.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 989.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 989.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 989.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 989.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 989.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 1026.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 2596.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 2596.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 1
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "prologue",
+    "stage": "2d",
+    "overflow": false,
+    "active": "prologue",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 4199.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 4199.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 5806.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "prologue-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "prologue",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 4199.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 4199.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 5806.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 2
+      },
+      {
+        "time": 7388.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 3
+      },
+      {
+        "time": 8962.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 3
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "rules",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rules",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 10045.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 10045.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 10045.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 10045.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 3
+      },
+      {
+        "time": 10045.60000000149,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 12221.5,
+        "attribute": "data-on",
+        "chapter": "prologue",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 12221.60000000149,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 12221.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 12221.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 12221.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 12238.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 13784.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 14099.900000002235,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 14099.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 15640.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 15640.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 17197.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "rules-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rules",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 10045.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 10045.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 10045.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 10045.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 3
+      },
+      {
+        "time": 10045.60000000149,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 12221.5,
+        "attribute": "data-on",
+        "chapter": "prologue",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 12221.60000000149,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 12221.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 12221.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 12221.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 12238.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 13784.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 14099.900000002235,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 14099.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 15640.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 15640.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 17197.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "invitation",
+    "stage": "2d",
+    "overflow": false,
+    "active": "invitation",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 19551.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 19551.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 19552,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 19552,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 21145.400000002235,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 21145.400000002235,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 21145.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 21145.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 21145.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 21166.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 22673.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 23005.5,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 23005.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 24555.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 24555.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 26123.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "invitation-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "invitation",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 19551.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 19551.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 19552,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 19552,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 21145.400000002235,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 21145.400000002235,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 21145.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 21145.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 21145.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 21166.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 22673.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 23005.5,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 23005.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 24555.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 24555.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 26123.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "register",
+    "stage": "2d",
+    "overflow": false,
+    "active": "register",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 28257.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 28257.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 28257.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 28257.800000000745,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 29870.5,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 29870.5,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 29870.5,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 29888.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 31449.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 32206.300000000745,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "register-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "register",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 28257.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 28257.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 28257.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 28257.800000000745,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 29870.5,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 29870.5,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 29870.5,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 29888.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 31449.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 32206.300000000745,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "duel",
+    "stage": "2d",
+    "overflow": false,
+    "active": "duel",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 34501.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 34501.699999999255,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 36403.199999999255,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 36403.199999999255,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 38485.10000000149,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "duel-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "duel",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 34501.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 34501.699999999255,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 36403.199999999255,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 36403.199999999255,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 38485.10000000149,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "schedule",
+    "stage": "2d",
+    "overflow": false,
+    "active": "schedule",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 40835.400000002235,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 42847.800000000745,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 42847.900000002235,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 45589.300000000745,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "schedule-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "schedule",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 40835.400000002235,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 42847.800000000745,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 42847.900000002235,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 45589.300000000745,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "rewards",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rewards",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 48368.199999999255,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 51008.900000002235,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 51008.900000002235,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 51008.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 51009,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 51009,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 51038,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 52602.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 54010.5,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 54010.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 55575.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 55575.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 57191.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "rewards-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rewards",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 48368.199999999255,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 51008.900000002235,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 51008.900000002235,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 51008.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 51009,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 51009,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 51038,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 52602.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 54010.5,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 54010.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 55575.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 55575.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 57191.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "more-menu",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rewards",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 48368.199999999255,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 51008.900000002235,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 51008.900000002235,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 51008.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 51009,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 51009,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 51038,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 52602.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 54010.5,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 54010.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 55575.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 55575.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 57191.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "reduced-rules",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rewards",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 1010.8000000007451,
+        "attribute": "data-on",
+        "chapter": "prologue",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 1010.8999999985099,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 1010.8999999985099,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 1010.8999999985099,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 1010.8999999985099,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 1010.8999999985099,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 1010.8999999985099,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 1010.8999999985099,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 1010.8999999985099,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 1010.8999999985099,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 1010.8999999985099,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 1010.8999999985099,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 1010.8999999985099,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 1011,
+        "attribute": "data-on",
+        "chapter": "prologue",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 1011,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "skip-link",
+    "stage": "2d",
+    "overflow": false,
+    "active": "prologue",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 1091.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 1091.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 1091.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 1091.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 1091.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 1091.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 1091.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 1091.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 1091.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 1091.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 1091.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 1091.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 1250.199999999255,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 1382.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 1382.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 1382.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 1382.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 1382.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 1382.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 1382.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 1382.6000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 1419.1000000014901,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 0
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "prologue",
+    "stage": "2d",
+    "overflow": false,
+    "active": "prologue",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 2979.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 2979.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 4559.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 4559.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 6089,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "prologue-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "prologue",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 2979.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 2979.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 4559.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 4559.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 6089,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 2
+      },
+      {
+        "time": 7161.89999999851,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 3
+      },
+      {
+        "time": 8721.89999999851,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 3
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "rules",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rules",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 9653.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 9653.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 9653.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 9653.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 3
+      },
+      {
+        "time": 9653.5,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 11232,
+        "attribute": "data-on",
+        "chapter": "prologue",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 11232,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 11232,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 11232,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 11232,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 11248.5,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 12760.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 12930.39999999851,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 12930.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 14455.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 14455.199999999255,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 15991.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "rules-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rules",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 9653.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 9653.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 9653.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 9653.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 3
+      },
+      {
+        "time": 9653.5,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 11232,
+        "attribute": "data-on",
+        "chapter": "prologue",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 11232,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 11232,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 11232,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 11232,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 11248.5,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 12760.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 12930.39999999851,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 12930.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 14455.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 14455.199999999255,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 15991.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "invitation",
+    "stage": "2d",
+    "overflow": false,
+    "active": "invitation",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 18141.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 18141.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 18141.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 18141.800000000745,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 19714.10000000149,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 19714.10000000149,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 19714.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 19714.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 19714.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 19732.199999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 21235.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 21536.800000000745,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 21536.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 23054.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 23054.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 24586.199999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "invitation-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "invitation",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 18141.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 18141.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 18141.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 18141.800000000745,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 19714.10000000149,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 19714.10000000149,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 19714.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 19714.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 19714.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 19732.199999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 21235.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 21536.800000000745,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 21536.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 23054.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 23054.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 24586.199999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "register",
+    "stage": "2d",
+    "overflow": false,
+    "active": "register",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 26853.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 26853.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 26853.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 26853.60000000149,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 28436.699999999255,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 28436.699999999255,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 28436.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 28453.5,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 29957.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 30285.39999999851,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "register-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "register",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 26853.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 26853.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 26853.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 26853.60000000149,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 28436.699999999255,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 28436.699999999255,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 28436.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 28453.5,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 29957.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 30285.39999999851,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "duel",
+    "stage": "2d",
+    "overflow": false,
+    "active": "duel",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 32216.5,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 32216.5,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 33827.800000000745,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 33827.800000000745,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 35550.800000000745,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "duel-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "duel",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 32216.5,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 32216.5,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 33827.800000000745,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 33827.800000000745,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 35550.800000000745,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "schedule",
+    "stage": "2d",
+    "overflow": false,
+    "active": "schedule",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 37525.60000000149,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 39104.89999999851,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 39104.89999999851,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 41158.800000000745,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "schedule-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "schedule",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 37525.60000000149,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 39104.89999999851,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 39104.89999999851,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 41158.800000000745,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "rewards",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rewards",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 43583.39999999851,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 45155.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 46668.89999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 46999.89999999851,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 46999.89999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 48561.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 48561.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 50082.89999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "rewards-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rewards",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 43583.39999999851,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 45155.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 46668.89999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 46999.89999999851,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 46999.89999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 48561.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 48561.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 50082.89999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "more-menu",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rewards",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 43583.39999999851,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 45138.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 45155.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 46668.89999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 46999.89999999851,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 46999.89999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 48561.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 48561.39999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 50082.89999999851,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "reduced-rules",
+    "stage": "2d",
+    "overflow": false,
+    "active": "schedule",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "prologue",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "prologue",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 652.6999999992549,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 768.3000000007451,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 768.3000000007451,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "skip-link",
+    "stage": "2d",
+    "overflow": false,
+    "active": "prologue",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 860.4000000022352,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 860.4000000022352,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 860.4000000022352,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 860.4000000022352,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 860.4000000022352,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 860.4000000022352,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 860.4000000022352,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 860.4000000022352,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 860.4000000022352,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 860.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 860.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 860.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 1004.6999999992549,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 1072.4000000022352,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 1072.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 1072.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 1072.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 1072.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 1072.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 1072.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 1072.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "waiting",
+        "frame": 3
+      },
+      {
+        "time": 1086.9000000022352,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 0
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "prologue",
+    "stage": "2d",
+    "overflow": false,
+    "active": "prologue",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 2626.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 2626.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 4156.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 4156.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 5668.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "prologue-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "prologue",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 2626.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 2626.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 4156.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 4156.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 5668.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 2
+      },
+      {
+        "time": 6657.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "entering",
+        "frame": 3
+      },
+      {
+        "time": 8177.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": "shown",
+        "frame": 3
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "rules",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rules",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 9023.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 9023.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 9023.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 9023.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 3
+      },
+      {
+        "time": 9023.5,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 10579.400000002235,
+        "attribute": "data-on",
+        "chapter": "prologue",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 10579.400000002235,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 10579.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 10579.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 10579.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 10596.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 12104.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 12301.300000000745,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 12301.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 13803.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 1
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "rules-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rules",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 9023.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 9023.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 9023.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 9023.5,
+        "attribute": "data-comic-state",
+        "chapter": "prologue",
+        "value": null,
+        "frame": 3
+      },
+      {
+        "time": 9023.5,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 10579.400000002235,
+        "attribute": "data-on",
+        "chapter": "prologue",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 10579.400000002235,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 10579.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 10579.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 10579.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 10596.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 12104.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 12301.300000000745,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 12301.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 13803.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 15282.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 16781.400000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "invitation",
+    "stage": "2d",
+    "overflow": false,
+    "active": "invitation",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 17658.199999999255,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 17658.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 17658.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 17658.300000000745,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 19236.699999999255,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 19236.699999999255,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 19236.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 19236.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 19236.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 19255.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 20759.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 20963.900000002235,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 20963.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 22498.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 1
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "invitation-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "invitation",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 17658.199999999255,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 17658.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 17658.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rules",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 17658.300000000745,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 19236.699999999255,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 19236.699999999255,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 19236.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 19236.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 19236.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 19255.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 20759.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 20963.900000002235,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 20963.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 22498.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 24074.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 25564.199999999255,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "register",
+    "stage": "2d",
+    "overflow": false,
+    "active": "register",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 26402.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 26402.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 26402.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 26402.5,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 28036.199999999255,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 28036.199999999255,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 28036.199999999255,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 28054,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 29547.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 29756.5,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "register-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "register",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 26402.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 26402.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 1
+      },
+      {
+        "time": 26402.5,
+        "attribute": "data-comic-state",
+        "chapter": "invitation",
+        "value": null,
+        "frame": 2
+      },
+      {
+        "time": 26402.5,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 28036.199999999255,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 28036.199999999255,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 28036.199999999255,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 28054,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 29547.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 29756.5,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "duel",
+    "stage": "2d",
+    "overflow": false,
+    "active": "duel",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 31372.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 31372.400000002235,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 32913.800000000745,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 32913.800000000745,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 34626.400000002235,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "duel-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "duel",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 31372.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "register",
+        "value": null,
+        "frame": 0
+      },
+      {
+        "time": 31372.400000002235,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 32913.800000000745,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 32913.800000000745,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 34626.400000002235,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "schedule",
+    "stage": "2d",
+    "overflow": false,
+    "active": "schedule",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 35948.400000002235,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 37482.10000000149,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 37482.10000000149,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 39217,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "schedule-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "schedule",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 35948.400000002235,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 37482.10000000149,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 37482.10000000149,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 39217,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "rewards",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rewards",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 40824.800000000745,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 42370.800000000745,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 42370.800000000745,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 42370.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 42370.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 42370.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 42383.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 43890.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 44107.5,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 44107.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 45631.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 1
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "rewards-bottom",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rewards",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 40824.800000000745,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 42370.800000000745,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 42370.800000000745,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 42370.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 42370.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 42370.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 42383.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 43890.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 44107.5,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 44107.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 45631.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 46645.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 48163.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "more-menu",
+    "stage": "2d",
+    "overflow": false,
+    "active": "rewards",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 40824.800000000745,
+        "attribute": "data-cut",
+        "value": "1",
+        "frame": null
+      },
+      {
+        "time": 42370.800000000745,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 42370.800000000745,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 42370.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 0
+      },
+      {
+        "time": 42370.800000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 1
+      },
+      {
+        "time": 42370.900000002235,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "waiting",
+        "frame": 2
+      },
+      {
+        "time": 42383.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 0
+      },
+      {
+        "time": 43890.10000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 0
+      },
+      {
+        "time": 44107.5,
+        "attribute": "data-cut",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 44107.5,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 1
+      },
+      {
+        "time": 45631.300000000745,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 1
+      },
+      {
+        "time": 46645.60000000149,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "entering",
+        "frame": 2
+      },
+      {
+        "time": 48163.699999999255,
+        "attribute": "data-comic-state",
+        "chapter": "rewards",
+        "value": "shown",
+        "frame": 2
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "reduced-rules",
+    "stage": "2d",
+    "overflow": false,
+    "active": "schedule",
+    "controls": [],
+    "violations": [],
+    "motion": [
+      {
+        "time": 480.19999999925494,
+        "attribute": "data-on",
+        "chapter": "prologue",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "rules",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "invitation",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "register",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "duel",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "prologue",
+        "value": null,
+        "frame": null
+      },
+      {
+        "time": 480.30000000074506,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 558.4000000022352,
+        "attribute": "data-on",
+        "chapter": "schedule",
+        "value": "",
+        "frame": null
+      },
+      {
+        "time": 558.4000000022352,
+        "attribute": "data-on",
+        "chapter": "rewards",
+        "value": null,
+        "frame": null
+      }
+    ]
+  }
+]

@@ -6,8 +6,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 /**
  * 定時重讀。
  *
- * 對戰表、賠率、回合狀態都是「別人改了我要看到」的資料。WatchService 有串流,
- * 但這一屆的規模(幾十個觀眾、一場一場打)用輪詢就夠,而且少一種連線狀態要處理。
+ * 目前正式頁面的既有讀取方式，尚未接上 WatchService 串流。
+ * 2026-10-12 使用者要求所有正式賽事變更即時同步；切換後端環境後遷移，
+ * 接入位置及驗收見 docs/REALTIME_INTEGRATION.md。輪詢不是最終同步方案。
  * 分頁不在前景時停下來 —— 一個掛在背景的對戰表不該每幾秒打一次伺服器。
  *
  * `load` 要用 useCallback 包住,不然每次 render 都會重新開始計時。

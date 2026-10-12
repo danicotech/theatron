@@ -1,0 +1,37 @@
+[
+  {
+    "reduced": false,
+    "animations": [
+      {
+        "name": "RegistrationScroll-module__uIun4q__unroll",
+        "duration": 900
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__reveal",
+        "duration": 400
+      },
+      {
+        "name": "Participation-module__A_3xNG__formReveal",
+        "duration": 180
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__rodUnroll",
+        "duration": 900
+      }
+    ],
+    "innerScrollers": 0,
+    "chapterOverflow": "auto",
+    "chapter": "register",
+    "stage": "2d",
+    "nestedMain": 0
+  },
+  {
+    "reduced": true,
+    "animations": [],
+    "innerScrollers": 0,
+    "chapterOverflow": "visible",
+    "chapter": "register",
+    "stage": "2d",
+    "nestedMain": 0
+  }
+]

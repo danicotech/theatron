@@ -1,0 +1,4 @@
+# Preserve byte-owned lab assets and their manifest across Windows/Linux clones.
+sources/** -text -whitespace
+web/public/** -text -whitespace
+web/src/app/**/*Markup.ts -whitespace

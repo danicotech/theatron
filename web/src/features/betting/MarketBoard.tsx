@@ -4,7 +4,7 @@ import { Code, ConnectError } from '@connectrpc/connect';
 import { Button, formatAmount } from '@theatron/ui';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { activityApi } from '../../lib/api/activity';
 import { platformApi } from '../../lib/api/client';
@@ -36,6 +36,8 @@ import styles from './MarketBoard.module.css';
 export interface MarketBoardProps {
   slug: string;
   matchPublicId: string;
+  /** Validated player side from the arena. Only highlights MATCH_WINNER. */
+  selectedOutcome?: 'p1' | 'p2' | undefined;
 }
 
 /** 賠率顯示成兩位小數:1430 → 1.43。捨去不四捨五入,與派彩的整數捨去同方向。 */
@@ -92,15 +94,27 @@ function sortMarkets(markets: readonly MarketOdds[]): MarketOdds[] {
 
 type Viewer = 'loading' | 'anonymous' | 'signed-in';
 
-export function MarketBoard({ slug, matchPublicId }: MarketBoardProps) {
+export function MarketBoard({ slug, matchPublicId, selectedOutcome }: MarketBoardProps) {
   const pathname = usePathname();
   const slip = useBetSlip(slug);
+  const board = useRef<HTMLElement>(null);
+  const focusedSelection = useRef('');
 
   const load = useCallback(async () => {
     const res = await activityApi.betting.getOdds({ matchPublicIds: [matchPublicId] });
     return res.odds.find((o) => o.matchPublicId === matchPublicId)?.markets ?? [];
   }, [matchPublicId]);
   const { data, error, reload } = usePolling(load, 5000);
+
+  useEffect(() => {
+    const selection = `${matchPublicId}:${selectedOutcome ?? ''}`;
+    if (!selectedOutcome || focusedSelection.current === selection) return;
+    const row = board.current?.querySelector<HTMLElement>('[data-arena-selected]');
+    if (!row) return;
+    focusedSelection.current = selection;
+    row.focus({ preventScroll: true });
+    row.scrollIntoView?.({ block: 'nearest' });
+  }, [data, matchPublicId, selectedOutcome]);
 
   // 投完票拿到的那一個盤口。重讀完成就丟掉 —— 重讀的結果至少一樣新。
   const [patch, setPatch] = useState<MarketOdds | null>(null);
@@ -167,7 +181,7 @@ export function MarketBoard({ slug, matchPublicId }: MarketBoardProps) {
   const signinHref = `/login?redirect=${encodeURIComponent(pathname)}`;
 
   return (
-    <section className={styles.board} aria-label="賠率表">
+    <section ref={board} className={styles.board} aria-label="賠率表">
       {/* 欄位標題只出現一次:各盤口共用同一套欄寬,標題在最上面就夠了。 */}
       <div className={styles.columns} aria-hidden="true">
         <span className={styles.colLabel}>賠率表</span>
@@ -198,6 +212,7 @@ export function MarketBoard({ slug, matchPublicId }: MarketBoardProps) {
                   title={title}
                   inert={inert}
                   mine={m.myVote === o.outcome}
+                  selected={m.kind === MarketKind.MATCH_WINNER && selectedOutcome === o.outcome}
                   viewer={viewer}
                   signinHref={signinHref}
                   busy={busy === m.marketPublicId}
@@ -251,6 +266,7 @@ interface OutcomeRowProps {
   title: string;
   inert: boolean;
   mine: boolean;
+  selected: boolean;
   viewer: Viewer;
   signinHref: string;
   busy: boolean;
@@ -265,6 +281,7 @@ function OutcomeRow({
   title,
   inert,
   mine,
+  selected,
   viewer,
   signinHref,
   busy,
@@ -274,8 +291,16 @@ function OutcomeRow({
 }: OutcomeRowProps) {
   const name = `${title} ${outcome.label}`;
   return (
-    <li className={[styles.row, mine ? styles.mine : ''].join(' ')}>
-      <span className={styles.label}>{outcome.label}</span>
+    <li
+      className={[styles.row, mine ? styles.mine : '', selected ? styles.selected : ''].join(' ')}
+      data-arena-selected={selected ? '' : undefined}
+      tabIndex={selected ? -1 : undefined}
+      aria-label={selected ? `${name}，首頁所選選手` : undefined}
+    >
+      <span className={styles.label}>
+        {outcome.label}
+        {selected ? <small className={styles.selectionWord}>首頁所選</small> : null}
+      </span>
       <span className={styles.votes}>{outcome.votes}</span>
       <span className={styles.odds}>{formatOdds(outcome.oddsMilli)}</span>
       {inert ? null : (

@@ -40,6 +40,14 @@ export interface RegistrationFieldsProps {
   defaults?: MyRegistration | undefined;
   /** 顯示名稱的說明會依情境不同(報名時要講「留空就用遊戲ID」)。 */
   displayNameHelp?: string;
+  /**
+   * 「常用武學 / PVP 經驗」的預填值。
+   *
+   * 備戰方案頁（/loadout）按「完成報名」會帶著 ?arts= 導過來,那段文字要落在這一格。
+   * 獨立一個 prop 而不是塞進 defaults:defaults 的型別是 MyRegistration(整份報名),
+   * 為了預填一格而湊一個假的整份出來,型別會騙人。
+   */
+  artsDefault?: string | undefined;
 }
 
 /** 從表單讀回一組值。與欄位定義放同一個檔案,改名字時不會漏掉讀取端。 */
@@ -65,6 +73,7 @@ export function RegistrationFields({
   onSelfRated,
   defaults,
   displayNameHelp,
+  artsDefault,
 }: RegistrationFieldsProps) {
   const ids = {
     displayName: useId(),
@@ -169,7 +178,7 @@ export function RegistrationFields({
           id={ids.arts}
           name="arts"
           rows={3}
-          defaultValue={defaults?.artsNote ?? ''}
+          defaultValue={defaults?.artsNote ?? artsDefault ?? ''}
         />
         <p className={styles.help}>沒跟你對過的人,靠這段認識你打什麼。</p>
       </div>

@@ -4,12 +4,14 @@
 
 θέατρον,字面是「觀看的地方」,theatre 的字源。
 
-> **現況:地基階段。** 三層 token、主題注入、前三個元件、`/kitchen-sink` 與生成的 API client 已經進來;
-> 賽程樹、投注單、商店、後台、首頁還沒有。
+> **現況：本機 mock 流程已完成三身分驗收。** 首頁、報名配裝、BP、場次／冠軍投注、管理抽籤、抽獎與頒獎已有可操作版本。
+> 正式後端及跨裝置同步待切換環境串接，不能把本機 mock 當作正式上線。見 [驗收報告](docs/ROLE_FLOW_AUDIT.md) 與 [即時同步交接規格](docs/REALTIME_INTEGRATION.md)。
 > 視覺規範在 [.claude/skills/tournament-design-system/](.claude/skills/tournament-design-system/),進版控、跟著 repo 走。
 > 架構決策的來源是 [hestia/docs/架構規劃書.md](https://github.com/danicotech/hestia/blob/main/docs/架構規劃書.md)。
 
 ## 這個 repo 本身就是模板
+
+本機啟動：`pnpm install --frozen-lockfile` → `pnpm dev`，開啟 `/sportsbook?mode=manage` 建立試玩活動。首頁與配裝的生成檔已隨 repo 保存；外部 lab 的可移轉來源見 [sources/lunjian](sources/lunjian/README.md)。詳見 [開發服務](docs/DEV_SERVER.md)。
 
 **一個 repo 一場活動。辦新活動就是開一個新 repo,把這裡複製過去。**
 

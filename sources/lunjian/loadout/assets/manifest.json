@@ -1,0 +1,886 @@
+{
+ "source": "https://yysls-assistant.cn（前端 bundle 的資料表）",
+ "cdn": "https://cos.yysls-assistant.cn",
+ "note": "素材著作權屬網易。這裡只是把公開 CDN 的檔案取回本地，對外發布前請自行確認授權。",
+ "counts": {
+  "minds": 50,
+  "martials": 20,
+  "builds": 11
+ },
+ "builds": [
+  {
+   "key": "LIESHI_JUN",
+   "label": "裂石钧",
+   "family": "LIESHI",
+   "familyImg": "arsenal/LIESHI.png",
+   "img": "martial/LIESHI_JUN.png",
+   "martials": [
+    "LIESHI_JUN_SFPZ",
+    "LIESHI_JUN_ZXDF"
+   ],
+   "requiredMindKeys": [
+    "XF_STBY",
+    "XF_YSG",
+    "XF_CHJ"
+   ],
+   "optionalMindKeys": [
+    "XF_GZBC"
+   ]
+  },
+  {
+   "key": "LIESHI_WEI",
+   "label": "裂石威",
+   "family": "LIESHI",
+   "familyImg": "arsenal/LIESHI.png",
+   "img": "martial/LIESHI_WEI.png",
+   "martials": [
+    "LIESHI_WEI_BFFLQ",
+    "LIESHI_WEI_JFDF"
+   ],
+   "requiredMindKeys": [
+    "XF_SHJY",
+    "XF_YSG"
+   ],
+   "optionalMindKeys": [
+    "XF_CHJ",
+    "XF_KZDF"
+   ]
+  },
+  {
+   "key": "MINGJIN_HONG",
+   "label": "鸣金虹",
+   "family": "MINGJIN",
+   "familyImg": "arsenal/MINGJIN.png",
+   "img": "martial/MINGJIN_HONG.png",
+   "martials": [
+    "MINGJIN_HONG_WMJF",
+    "MINGJIN_HONG_WMQF"
+   ],
+   "requiredMindKeys": [
+    "XF_WMXF",
+    "XF_WMG"
+   ],
+   "optionalMindKeys": [
+    "XF_QSF",
+    "XF_NSZ"
+   ]
+  },
+  {
+   "key": "MINGJIN_YING",
+   "label": "鸣金影",
+   "family": "MINGJIN",
+   "familyImg": "arsenal/MINGJIN.png",
+   "img": "martial/MINGJIN_YING.png",
+   "martials": [
+    "MINGJIN_YING_JJJJ",
+    "MINGJIN_YING_JQJSQ"
+   ],
+   "requiredMindKeys": [
+    "XF_JQZH",
+    "XF_YSG"
+   ],
+   "optionalMindKeys": [
+    "XF_NSZ",
+    "XF_ZLXJ"
+   ]
+  },
+  {
+   "key": "POZHU_CHEN",
+   "label": "破竹尘",
+   "family": "POZHU",
+   "familyImg": "arsenal/POZHU.png",
+   "img": "martial/POZHU_CHEN.png",
+   "martials": [
+    "POZHU_CHEN_SZXY",
+    "POZHU_CHEN_ZMYC"
+   ],
+   "requiredMindKeys": [
+    "XF_QYYH",
+    "XF_YSG"
+   ],
+   "optionalMindKeys": [
+    "XF_DTG",
+    "XF_SZXM"
+   ]
+  },
+  {
+   "key": "POZHU_FENG",
+   "label": "破竹风",
+   "family": "POZHU",
+   "familyImg": "arsenal/POZHU.png",
+   "img": "martial/POZHU_FENG.png",
+   "martials": [
+    "POZHU_FENG_NLSG",
+    "POZHU_FENG_SZYC"
+   ],
+   "requiredMindKeys": [
+    "XF_WCJX",
+    "XF_YSG"
+   ],
+   "optionalMindKeys": [
+    "XF_DSZG",
+    "XF_XMNY"
+   ]
+  },
+  {
+   "key": "POZHU_YUAN",
+   "label": "破竹鸢",
+   "family": "POZHU",
+   "familyImg": "arsenal/POZHU.png",
+   "img": "martial/POZHU_YUAN.png",
+   "martials": [
+    "POZHU_YUAN_QJST",
+    "POZHU_YUAN_TZCX"
+   ],
+   "requiredMindKeys": [
+    "XF_FYZS",
+    "XF_YSG"
+   ],
+   "optionalMindKeys": [
+    "XF_SQZZ",
+    "XF_QTS"
+   ]
+  },
+  {
+   "key": "POZHU_ZUN",
+   "label": "破竹樽",
+   "family": "POZHU",
+   "familyImg": "arsenal/POZHU.png",
+   "img": "martial/POZHU_ZUN.png",
+   "martials": [],
+   "requiredMindKeys": [
+    "XF_YZQQ",
+    "XF_YSG",
+    "XF_YBYX",
+    "XF_FXZY"
+   ],
+   "optionalMindKeys": []
+  },
+  {
+   "key": "QIANSI_LIN",
+   "label": "牵丝霖",
+   "family": "QIANSI",
+   "familyImg": "arsenal/QIANSI.png",
+   "img": "martial/QIANSI_LIN.png",
+   "martials": [
+    "QIANSI_LIN_MCYD",
+    "QIANSI_LIN_QXYHG"
+   ],
+   "requiredMindKeys": [
+    "XF_JCY",
+    "XF_YSG"
+   ],
+   "optionalMindKeys": [
+    "XF_QSG",
+    "XF_XHBJ"
+   ]
+  },
+  {
+   "key": "QIANSI_YI",
+   "label": "牵丝翊",
+   "family": "QIANSI",
+   "familyImg": "arsenal/QIANSI.png",
+   "img": "martial/QIANSI_YI.png",
+   "martials": [
+    "QIANSI_YI_WDNC",
+    "QIANSI_YI_XYCY"
+   ],
+   "requiredMindKeys": [
+    "XF_XHG",
+    "XF_YSG"
+   ],
+   "optionalMindKeys": [
+    "XF_XMP",
+    "XF_FZY"
+   ]
+  },
+  {
+   "key": "QIANSI_YU",
+   "label": "牵丝玉",
+   "family": "QIANSI",
+   "familyImg": "arsenal/QIANSI.png",
+   "img": "martial/QIANSI_YU.png",
+   "martials": [
+    "QIANSI_YU_JCCS",
+    "QIANSI_YU_QSZB"
+   ],
+   "requiredMindKeys": [
+    "XF_HSYL",
+    "XF_YSG"
+   ],
+   "optionalMindKeys": [
+    "XF_ZDZX",
+    "XF_CLP"
+   ]
+  }
+ ],
+ "martials": [
+  {
+   "key": "LIESHI_JUN_SFPZ",
+   "name": "十方破阵",
+   "buildKey": "LIESHI_JUN",
+   "weaponKey": "EQUIPMENT_WEAPON_BIGBLADE",
+   "weapon": "大刀",
+   "img": "martial/LIESHI_JUN_SFPZ.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_BIGBLADE.png"
+  },
+  {
+   "key": "LIESHI_JUN_ZXDF",
+   "name": "斩雪刀法",
+   "buildKey": "LIESHI_JUN",
+   "weaponKey": "EQUIPMENT_WEAPON_BLADE",
+   "weapon": "刀",
+   "img": "martial/LIESHI_JUN_ZXDF.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_BLADE.png"
+  },
+  {
+   "key": "LIESHI_WEI_BFFLQ",
+   "name": "八方风雷枪",
+   "buildKey": "LIESHI_WEI",
+   "weaponKey": "EQUIPMENT_WEAPON_SPEAR",
+   "weapon": "長槍",
+   "img": "martial/LIESHI_WEI_BFFLQ.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_SPEAR.png"
+  },
+  {
+   "key": "LIESHI_WEI_JFDF",
+   "name": "嗟夫刀法",
+   "buildKey": "LIESHI_WEI",
+   "weaponKey": "EQUIPMENT_WEAPON_BIGBLADE",
+   "weapon": "大刀",
+   "img": "martial/LIESHI_WEI_JFDF.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_BIGBLADE.png"
+  },
+  {
+   "key": "MINGJIN_HONG_WMJF",
+   "name": "无名剑法",
+   "buildKey": "MINGJIN_HONG",
+   "weaponKey": "EQUIPMENT_WEAPON_SWORD",
+   "weapon": "劍",
+   "img": "martial/MINGJIN_HONG_WMJF.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_SWORD.png"
+  },
+  {
+   "key": "MINGJIN_HONG_WMQF",
+   "name": "无名枪法",
+   "buildKey": "MINGJIN_HONG",
+   "weaponKey": "EQUIPMENT_WEAPON_SPEAR",
+   "weapon": "長槍",
+   "img": "martial/MINGJIN_HONG_WMQF.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_SPEAR.png"
+  },
+  {
+   "key": "MINGJIN_YING_JJJJ",
+   "name": "积矩九剑",
+   "buildKey": "MINGJIN_YING",
+   "weaponKey": "EQUIPMENT_WEAPON_SWORD",
+   "weapon": "劍",
+   "img": "martial/MINGJIN_YING_JJJJ.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_SWORD.png"
+  },
+  {
+   "key": "MINGJIN_YING_JQJSQ",
+   "name": "九曲惊神枪",
+   "buildKey": "MINGJIN_YING",
+   "weaponKey": "EQUIPMENT_WEAPON_SPEAR",
+   "weapon": "長槍",
+   "img": "martial/MINGJIN_YING_JQJSQ.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_SPEAR.png"
+  },
+  {
+   "key": "POZHU_CHEN_SZXY",
+   "name": "粟子行云",
+   "buildKey": "POZHU_CHEN",
+   "weaponKey": "EQUIPMENT_WEAPON_ROPE",
+   "weapon": "繩鏢",
+   "img": "martial/POZHU_CHEN_SZXY.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_ROPE.png"
+  },
+  {
+   "key": "POZHU_CHEN_ZMYC",
+   "name": "醉梦游春",
+   "buildKey": "POZHU_CHEN",
+   "weaponKey": "EQUIPMENT_WEAPON_UMBRELLA",
+   "weapon": "傘",
+   "img": "martial/POZHU_CHEN_ZMYC.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_UMBRELLA.png"
+  },
+  {
+   "key": "POZHU_FENG_NLSG",
+   "name": "泥犁三垢",
+   "buildKey": "POZHU_FENG",
+   "weaponKey": "EQUIPMENT_WEAPON_2BLADE",
+   "weapon": "雙刀",
+   "img": "martial/POZHU_FENG_NLSG.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_2BLADE.png"
+  },
+  {
+   "key": "POZHU_FENG_SZYC",
+   "name": "粟子游尘",
+   "buildKey": "POZHU_FENG",
+   "weaponKey": "EQUIPMENT_WEAPON_ROPE",
+   "weapon": "繩鏢",
+   "img": "martial/POZHU_FENG_SZYC.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_ROPE.png"
+  },
+  {
+   "key": "POZHU_YUAN_QJST",
+   "name": "千机索天",
+   "buildKey": "POZHU_YUAN",
+   "weaponKey": "EQUIPMENT_WEAPON_ROPE",
+   "weapon": "繩鏢",
+   "img": "martial/POZHU_YUAN_QJST.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_ROPE.png"
+  },
+  {
+   "key": "POZHU_YUAN_TZCX",
+   "name": "天志垂象",
+   "buildKey": "POZHU_YUAN",
+   "weaponKey": "EQUIPMENT_WEAPON_FIST",
+   "weapon": "拳",
+   "img": "martial/POZHU_YUAN_TZCX.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_FIST.png"
+  },
+  {
+   "key": "QIANSI_LIN_MCYD",
+   "name": "明川药典",
+   "buildKey": "QIANSI_LIN",
+   "weaponKey": "EQUIPMENT_WEAPON_FAN",
+   "weapon": "扇",
+   "img": "martial/QIANSI_LIN_MCYD.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_FAN.png"
+  },
+  {
+   "key": "QIANSI_LIN_QXYHG",
+   "name": "千香引魂蛊",
+   "buildKey": "QIANSI_LIN",
+   "weaponKey": "EQUIPMENT_WEAPON_UMBRELLA",
+   "weapon": "傘",
+   "img": "martial/QIANSI_LIN_QXYHG.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_UMBRELLA.png"
+  },
+  {
+   "key": "QIANSI_YI_WDNC",
+   "name": "文动霓裳",
+   "buildKey": "QIANSI_YI",
+   "weaponKey": "EQUIPMENT_WEAPON_DRUM",
+   "weapon": "鼓",
+   "img": "martial/QIANSI_YI_WDNC.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_DRUM.png"
+  },
+  {
+   "key": "QIANSI_YI_XYCY",
+   "name": "杏游草野",
+   "buildKey": "QIANSI_YI",
+   "weaponKey": "EQUIPMENT_WEAPON_FAN",
+   "weapon": "扇",
+   "img": "martial/QIANSI_YI_XYCY.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_FAN.png"
+  },
+  {
+   "key": "QIANSI_YU_JCCS",
+   "name": "九重春色",
+   "buildKey": "QIANSI_YU",
+   "weaponKey": "EQUIPMENT_WEAPON_UMBRELLA",
+   "weapon": "傘",
+   "img": "martial/QIANSI_YU_JCCS.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_UMBRELLA.png"
+  },
+  {
+   "key": "QIANSI_YU_QSZB",
+   "name": "青山执笔",
+   "buildKey": "QIANSI_YU",
+   "weaponKey": "EQUIPMENT_WEAPON_FAN",
+   "weapon": "扇",
+   "img": "martial/QIANSI_YU_QSZB.png",
+   "weaponImg": "equipment/loadout/EQUIPMENT_WEAPON_FAN.png"
+  }
+ ],
+ "minds": [
+  {
+   "key": "XF_CCX",
+   "name": "寸草心",
+   "img": "mind/XF_CCX.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_CHJ",
+   "name": "穿喉决",
+   "img": "mind/XF_CHJ.png",
+   "cardTint": "紫",
+   "requiredBy": [
+    "LIESHI_JUN"
+   ],
+   "optionalFor": [
+    "LIESHI_WEI"
+   ]
+  },
+  {
+   "key": "XF_CLJJ",
+   "name": "沧浪剑诀",
+   "img": "mind/XF_CLJJ.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_CLP",
+   "name": "春雷篇",
+   "img": "mind/XF_CLP.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": [
+    "QIANSI_YU"
+   ]
+  },
+  {
+   "key": "XF_DEL",
+   "name": "灯儿亮",
+   "img": "mind/XF_DEL.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_DJWS",
+   "name": "大卷微身",
+   "img": "mind/XF_DJWS.png",
+   "cardTint": null,
+   "requiredBy": [],
+   "optionalFor": [],
+   "imgNote": "來源 CDN 404，由 tools/make-missing-card.py 補繪"
+  },
+  {
+   "key": "XF_DSZG",
+   "name": "断石之构",
+   "img": "mind/XF_DSZG.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": [
+    "POZHU_FENG"
+   ]
+  },
+  {
+   "key": "XF_DTG",
+   "name": "大唐歌",
+   "img": "mind/XF_DTG.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": [
+    "POZHU_CHEN"
+   ]
+  },
+  {
+   "key": "XF_FXZY",
+   "name": "飞仙醉言",
+   "img": "mind/XF_FXZY.png",
+   "cardTint": "紫",
+   "requiredBy": [
+    "POZHU_ZUN"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_FYZS",
+   "name": "扶摇直上",
+   "img": "mind/XF_FYZS.png",
+   "cardTint": "金",
+   "requiredBy": [
+    "POZHU_YUAN"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_FZY",
+   "name": "风知意",
+   "img": "mind/XF_FZY.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": [
+    "QIANSI_YI"
+   ]
+  },
+  {
+   "key": "XF_GZBC",
+   "name": "孤忠不辞",
+   "img": "mind/XF_GZBC.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": [
+    "LIESHI_JUN"
+   ]
+  },
+  {
+   "key": "XF_HLFF",
+   "name": "葫芦飞飞",
+   "img": "mind/XF_HLFF.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_HSYL",
+   "name": "花上月令",
+   "img": "mind/XF_HSYL.png",
+   "cardTint": "金",
+   "requiredBy": [
+    "QIANSI_YU"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_JCY",
+   "name": "君臣药",
+   "img": "mind/XF_JCY.png",
+   "cardTint": "金",
+   "requiredBy": [
+    "QIANSI_LIN"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_JLQX",
+   "name": "极乐泣血",
+   "img": "mind/XF_JLQX.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_JQZH",
+   "name": "剑气纵横",
+   "img": "mind/XF_JQZH.png",
+   "cardTint": "金",
+   "requiredBy": [
+    "MINGJIN_YING"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_KSXJ",
+   "name": "困兽心经",
+   "img": "mind/XF_KSXJ.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_KZDF",
+   "name": "抗造大法",
+   "img": "mind/XF_KZDF.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": [
+    "LIESHI_WEI"
+   ]
+  },
+  {
+   "key": "XF_LYT",
+   "name": "燎原踏",
+   "img": "mind/XF_LYT.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_LYXH",
+   "name": "燎原星火",
+   "img": "mind/XF_LYXH.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_NSZ",
+   "name": "凝神章",
+   "img": "mind/XF_NSZ.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": [
+    "MINGJIN_HONG",
+    "MINGJIN_YING"
+   ]
+  },
+  {
+   "key": "XF_NZM",
+   "name": "怒斩马",
+   "img": "mind/XF_NZM.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_PSJ",
+   "name": "磐石诀",
+   "img": "mind/XF_PSJ.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_QSF",
+   "name": "千山法",
+   "img": "mind/XF_QSF.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": [
+    "MINGJIN_HONG"
+   ]
+  },
+  {
+   "key": "XF_QSG",
+   "name": "千丝蛊",
+   "img": "mind/XF_QSG.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": [
+    "QIANSI_LIN"
+   ]
+  },
+  {
+   "key": "XF_QTS",
+   "name": "擒天势",
+   "img": "mind/XF_QTS.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": [
+    "POZHU_YUAN"
+   ]
+  },
+  {
+   "key": "XF_QYYH",
+   "name": "千营一呼",
+   "img": "mind/XF_QYYH.png",
+   "cardTint": "金",
+   "requiredBy": [
+    "POZHU_CHEN"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_SHJY",
+   "name": "山河绝韵",
+   "img": "mind/XF_SHJY.png",
+   "cardTint": "金",
+   "requiredBy": [
+    "LIESHI_WEI"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_SHNN",
+   "name": "所恨年年",
+   "img": "mind/XF_SHNN.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_SQZZ",
+   "name": "三穷致知",
+   "img": "mind/XF_SQZZ.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": [
+    "POZHU_YUAN"
+   ]
+  },
+  {
+   "key": "XF_SSWC",
+   "name": "四时无常",
+   "img": "mind/XF_SSWC.png",
+   "cardTint": "金",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_STBY",
+   "name": "霜天白夜",
+   "img": "mind/XF_STBY.png",
+   "cardTint": "金",
+   "requiredBy": [
+    "LIESHI_JUN"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_SZXM",
+   "name": "绳舟行木",
+   "img": "mind/XF_SZXM.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": [
+    "POZHU_CHEN"
+   ]
+  },
+  {
+   "key": "XF_TXJ",
+   "name": "天行健",
+   "img": "mind/XF_TXJ.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_WCJX",
+   "name": "忘川绝响",
+   "img": "mind/XF_WCJX.png",
+   "cardTint": "藍",
+   "requiredBy": [
+    "POZHU_FENG"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_WMG",
+   "name": "威猛歌",
+   "img": "mind/XF_WMG.png",
+   "cardTint": "藍",
+   "requiredBy": [
+    "MINGJIN_HONG"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_WMXF",
+   "name": "无名心法",
+   "img": "mind/XF_WMXF.png",
+   "cardTint": "金",
+   "requiredBy": [
+    "MINGJIN_HONG"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_XHBJ",
+   "name": "杏花不见",
+   "img": "mind/XF_XHBJ.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": [
+    "QIANSI_LIN"
+   ]
+  },
+  {
+   "key": "XF_XHG",
+   "name": "相和歌",
+   "img": "mind/XF_XHG.png",
+   "cardTint": "金",
+   "requiredBy": [
+    "QIANSI_YI"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_XMNY",
+   "name": "心弥泥鱼",
+   "img": "mind/XF_XMNY.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": [
+    "POZHU_FENG"
+   ]
+  },
+  {
+   "key": "XF_XMP",
+   "name": "弦墨篇",
+   "img": "mind/XF_XMP.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": [
+    "QIANSI_YI"
+   ]
+  },
+  {
+   "key": "XF_YBYX",
+   "name": "燕别云岫",
+   "img": "mind/XF_YBYX.png",
+   "cardTint": "紫",
+   "requiredBy": [
+    "POZHU_ZUN"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_YJYW",
+   "name": "移经易武",
+   "img": "mind/XF_YJYW.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_YSG",
+   "name": "易水歌",
+   "img": "mind/XF_YSG.png",
+   "cardTint": "金",
+   "requiredBy": [
+    "LIESHI_JUN",
+    "LIESHI_WEI",
+    "MINGJIN_YING",
+    "POZHU_CHEN",
+    "POZHU_FENG",
+    "POZHU_YUAN",
+    "POZHU_ZUN",
+    "QIANSI_LIN",
+    "QIANSI_YI",
+    "QIANSI_YU"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_YZQQ",
+   "name": "一醉千秋",
+   "img": "mind/XF_YZQQ.png",
+   "cardTint": "金",
+   "requiredBy": [
+    "POZHU_ZUN"
+   ],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_ZDZX",
+   "name": "纵地摘星",
+   "img": "mind/XF_ZDZX.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": [
+    "QIANSI_YU"
+   ]
+  },
+  {
+   "key": "XF_ZLXJ",
+   "name": "逐狼心经",
+   "img": "mind/XF_ZLXJ.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": [
+    "MINGJIN_YING"
+   ]
+  },
+  {
+   "key": "XF_ZRG",
+   "name": "征人归",
+   "img": "mind/XF_ZRG.png",
+   "cardTint": "紫",
+   "requiredBy": [],
+   "optionalFor": []
+  },
+  {
+   "key": "XF_ZXPZ",
+   "name": "指玄篇注",
+   "img": "mind/XF_ZXPZ.png",
+   "cardTint": "藍",
+   "requiredBy": [],
+   "optionalFor": []
+  }
+ ],
+ "knownGaps": [
+  "心法的品階（虹／金／紫／藍）不在來源裡：資料表的 quality 全是 0，卡面也沒有星等。",
+  "cardTint 是從卡面底色量出來的三群（金／紫／藍），跟遊戲裡的品階不保證對應；但它與「被某個流派列為必備」高度相關 —— 12 張金卡有 11 張是必備心法。",
+  "XF_DJWS 這一筆在 CDN 上是 404，只有名字沒有圖。",
+  "POZHU_ZUN（破竹樽）在資料表裡沒有武學，只有四個必備心法。"
+ ]
+}

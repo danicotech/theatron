@@ -1,0 +1,20 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>百業試鋒</title><style>
+.baiye-home{min-height:100svh;color:var(--paper);font-family:var(--serif);isolation:isolate}
+.home-hero{position:relative;isolation:isolate;min-height:100svh;display:grid;place-items:center;padding:calc(var(--nav-h) + 32px) 24px 64px;overflow:hidden}
+.home-scenery,.home-world{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
+.home-scenery{filter:brightness(.58)}.home-world{opacity:0}.baiye-home[data-scene="3d"] .home-world{opacity:1}.baiye-home[data-scene="3d"] .home-scenery{opacity:0}
+.home-hero:before{content:"";position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 20%,transparent);pointer-events:none;z-index:2}
+.home-copy{text-align:center;position:relative;z-index:10;width:100%;padding-block:32px}
+.home-copy h1{font:500 clamp(68px,12vw,174px)/1.2 var(--serif);letter-spacing:.08em;margin:0 0 48px;text-shadow:0 4px 30px var(--ink)}
+.home-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:18px}
+.home-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 28px;border:1px solid var(--paper-soft);font:16px/1.5 var(--serif);background:color-mix(in srgb,var(--ink) 80%,transparent);color:var(--paper)}
+.home-actions a:first-child{background:var(--paper);color:var(--ink)}
+.home-foreground{position:absolute;pointer-events:none;z-index:5;object-fit:contain;transform-origin:50% 100%;max-width:none}
+.home-copy h1{transform-origin:50% 50%}
+.home-bamboo{z-index:6;width:min(48vw,660px);left:-6vw;bottom:-5vh;filter:brightness(.88) saturate(.85)}
+.home-plum{width:min(32vw,440px);right:-4vw;top:8vh;filter:brightness(.8)}
+.home-blossom{z-index:7;width:min(54vw,760px);right:-9vw;bottom:0;filter:brightness(.95)}
+.home-pine{z-index:5;width:min(44vw,600px);right:-12vw;bottom:-22vh;scale:-1 1;filter:brightness(.8) saturate(.8)}
+.baiye-home :focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+@media(max-width:600px){.home-copy h1{font-size:clamp(54px,14vw,84px);letter-spacing:.04em;margin-bottom:36px}.home-hero{padding-inline:16px}.home-actions{gap:12px}.home-actions a{padding:12px 22px}.home-bamboo{width:82vw;left:-20vw;bottom:-2vh}.home-plum{width:65vw;right:-18vw;top:13vh}.home-blossom{width:110vw;right:-34vw;bottom:0}.home-pine{width:76vw;right:-22vw;bottom:-12vh}}
+</style></head><body><div class="baiye-home"><canvas id="home-world" class="home-world" aria-hidden="true"></canvas><!-- SHARED_BOOT --><!-- SHARED_HEADER --><main class="home-hero"><img class="home-scenery" src="art/bg/scene-gate.webp" alt=""><img class="home-foreground home-bamboo" data-home-depth="1.8" data-home-side="-1" src="art/fg-bamboo.webp" alt=""><img class="home-foreground home-plum" data-home-depth="1.2" data-home-side="1" src="art/fg-plum-branch-v3.webp" alt=""><img class="home-foreground home-pine" data-home-depth=".8" data-home-side="1" src="art/fg-snow-pine.webp" alt=""><img class="home-foreground home-blossom" data-home-depth="2.2" data-home-side="1" src="art/fg-snow-plum.webp" alt=""><div class="home-copy"><h1 data-home-depth=".65" data-home-title>百業試鋒</h1><div class="home-actions"><a href="/#prologue">了解賽制</a><a href="/#register">提筆報名</a></div></div></main></div></body></html>

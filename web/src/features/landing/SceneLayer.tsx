@@ -18,7 +18,7 @@ import { worldAsset } from './world';
  * 序幕不在這裡:那一章有自己的靜態殘旗海報(StaticPoster),因為它要畫的是
  * 一個**事件**(旗被劃破),不是一個地方。
  *
- * 板子用 `plate-*`,那是 design/jianzhong 為這一版生的六張,色盤對得上。
+ * 板子用 `plate-*`,那是 design/lunjian 為這一版生的六張,色盤對得上。
  * 百業那一批雪景背景是另一個世界,不拿來頂替。
  */
 

@@ -1,0 +1,115 @@
+[
+  {
+    "width": 1055,
+    "reduced": false,
+    "animations": [
+      {
+        "name": "RegistrationScroll-module__uIun4q__returnScroll",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__gatherPaper",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__retainRollEnds",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__retainRollEnds",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__extendHandles",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__extendHandles",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__rollWindow",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__rollContents",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__rollRod",
+        "duration": 1000
+      }
+    ],
+    "expandedMetrics": {
+      "client": 884,
+      "content": 884
+    },
+    "naturalFrames": 60,
+    "noExpandedFlash": true,
+    "focusRestored": true,
+    "draftRetained": true
+  },
+  {
+    "width": 375,
+    "reduced": false,
+    "animations": [
+      {
+        "name": "RegistrationScroll-module__uIun4q__returnScroll",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__gatherPaper",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__retainRollEnds",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__retainRollEnds",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__extendHandles",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__extendHandles",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__rollWindow",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__rollContents",
+        "duration": 1000
+      },
+      {
+        "name": "RegistrationScroll-module__uIun4q__rollRod",
+        "duration": 1000
+      }
+    ],
+    "expandedMetrics": {
+      "client": 884,
+      "content": 970
+    },
+    "naturalFrames": 60,
+    "noExpandedFlash": true,
+    "focusRestored": true,
+    "draftRetained": true
+  },
+  {
+    "width": 375,
+    "reduced": true,
+    "animations": [],
+    "expandedMetrics": {
+      "client": 918,
+      "content": 918
+    },
+    "naturalFrames": 1,
+    "noExpandedFlash": true,
+    "focusRestored": true,
+    "draftRetained": true
+  }
+]

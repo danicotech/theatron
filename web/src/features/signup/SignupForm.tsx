@@ -1,5 +1,7 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
+
 import { ConnectError } from '@connectrpc/connect';
 import { Button } from '@theatron/ui';
 import { useEffect, useId, useState, type FormEvent } from 'react';
@@ -29,6 +31,9 @@ export interface SignupFormProps {
 
 export function SignupForm({ slug, onDone }: SignupFormProps) {
   const gameIdField = useId();
+  /* 備戰方案頁（/loadout）按「完成報名」會導到 ?arts=<方案文字>。
+     沒有這一段的話,使用者按完落地看到的是一張空白表單 —— 等於那顆按鈕沒作用。 */
+  const artsFromBuild = useSearchParams().get('arts') ?? undefined;
 
   const [ranks, setRanks] = useState<RankInfo[]>([]);
   const [selfRated, setSelfRated] = useState<Rank>(Rank.UNSPECIFIED);
@@ -105,6 +110,7 @@ export function SignupForm({ slug, onDone }: SignupFormProps) {
           selfRated={selfRated}
           onSelfRated={setSelfRated}
           displayNameHelp="對戰表上要怎麼稱呼你。留空就用遊戲ID。"
+          artsDefault={artsFromBuild}
         />
       </fieldset>
 

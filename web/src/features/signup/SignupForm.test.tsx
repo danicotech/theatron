@@ -19,7 +19,13 @@ vi.mock('../../lib/api/activity', () => ({
   },
 }));
 
-vi.mock('next/navigation', () => ({ useRouter: () => ({ push }) }));
+/* useSearchParams:表單會讀 ?arts=(備戰方案頁帶過來的那段文字)。
+   預設回空的 —— 直接開報名表的人身上沒有那個參數。 */
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push }),
+  useSearchParams: () => new URLSearchParams(searchParams),
+}));
+let searchParams = '';
 
 const RANKS = [
   create(RankInfoSchema, { rank: Rank.KAISHAN, name: '開山', title: '初試之境' }),
@@ -72,6 +78,16 @@ describe('SignupForm', () => {
     await userEvent.type(screen.getByLabelText('遊戲ID'), '無名');
     await userEvent.click(screen.getByRole('button', { name: '報名參賽' }));
     expect(onDone).toHaveBeenCalledWith('李璃');
+  });
+
+  it('帶著 ?arts= 進來時,常用武學那一格會預先填好', async () => {
+    // 備戰方案頁按「完成報名」導過來的就是這個樣子。
+    // 沒有這一段的話,使用者落地看到的是一張空白表單 —— 那顆按鈕等於沒作用。
+    searchParams = 'arts=' + encodeURIComponent('武器　主 陌刀 95級｜副 拳套 95級');
+    render(<SignupForm slug="bai-ye" onDone={() => {}} />);
+    const box = await screen.findByLabelText('常用武學 / PVP 經驗');
+    expect(box).toHaveValue('武器　主 陌刀 95級｜副 拳套 95級');
+    searchParams = '';
   });
 
   it('沒有無障礙違規', async () => {

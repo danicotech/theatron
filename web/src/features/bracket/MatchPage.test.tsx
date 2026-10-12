@@ -1,7 +1,7 @@
 import { create, type MessageInitShape } from '@bufbuild/protobuf';
 import { timestampFromMs } from '@bufbuild/protobuf/wkt';
 import { expectNoAxeViolations } from '@theatron/ui/testing';
-import { act, render, screen, within } from '@testing-library/react';
+import { act, render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
@@ -28,8 +28,16 @@ const api = vi.hoisted(() => ({
 
 // 盤口是 features/betting 自己測的東西;這裡只驗它被掛在對峙構圖之後。
 vi.mock('../betting', () => ({
-  MarketBoard: ({ matchPublicId }: { matchPublicId: string }) => (
-    <div data-testid="market-board">{matchPublicId}</div>
+  MarketBoard: ({
+    matchPublicId,
+    selectedOutcome,
+  }: {
+    matchPublicId: string;
+    selectedOutcome?: string;
+  }) => (
+    <div data-testid="market-board" data-selected-outcome={selectedOutcome}>
+      {matchPublicId}
+    </div>
   ),
 }));
 
@@ -258,6 +266,74 @@ describe('MatchPage', () => {
       'href',
       'https://example.test/live',
     );
+  });
+
+  it('首頁帶來的合法選手對應到正式盤口的同一側', async () => {
+    api.getMatch.mockResolvedValue(matchResponse());
+    render(<MatchPage slug="s" matchId="m" selectedPlayerId="p2" />);
+    const note = await screen.findByText(/已選擇選手/);
+    expect(note).toHaveTextContent('已選擇選手：無名');
+    expect(note.querySelector('strong')).toHaveTextContent('無名');
+    expect(screen.getByTestId('market-board')).toHaveAttribute('data-selected-outcome', 'p2');
+    expect(document.getElementById('markets')).toHaveAttribute('data-selected-player', 'p2');
+    expect(
+      within(document.getElementById('markets')!).getByTestId('market-board'),
+    ).toHaveTextContent('m');
+  });
+
+  it('忽略不屬於該場的選手參數，不回顯參數文字', async () => {
+    api.getMatch.mockResolvedValue(matchResponse());
+    render(<MatchPage slug="s" matchId="m" selectedPlayerId="not-a-participant" />);
+    await screen.findByTestId('market-board');
+    expect(screen.queryByText(/已選擇選手/)).not.toBeInTheDocument();
+    expect(document.getElementById('markets')).not.toHaveAttribute('data-selected-player');
+    expect(screen.queryByText('not-a-participant')).not.toBeInTheDocument();
+    expect(screen.getByTestId('market-board')).not.toHaveAttribute('data-selected-outcome');
+  });
+
+  it('盤口錨點在非同步場次載入後仍可抵達', async () => {
+    const scroll = vi.fn();
+    const previousScroll = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'scrollIntoView');
+    Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
+      value: scroll,
+      configurable: true,
+    });
+    window.history.replaceState({}, '', '#markets');
+    try {
+      api.getMatch.mockResolvedValue(matchResponse());
+      render(<MatchPage slug="s" matchId="m" selectedPlayerId="p1" />);
+      await screen.findByTestId('market-board');
+      // The DOM commits before the passive effect scrolls the newly-created anchor.
+      await waitFor(() => expect(scroll).toHaveBeenCalledWith({ block: 'start' }));
+    } finally {
+      if (previousScroll)
+        Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', previousScroll);
+      else Reflect.deleteProperty(HTMLElement.prototype, 'scrollIntoView');
+      window.history.replaceState({}, '', '/');
+    }
+  });
+
+  it('換場後慢回應不覆蓋新場次，切活動中止舊基本資料請求', async () => {
+    let resolveOld!: (value: ReturnType<typeof matchResponse>) => void;
+    api.getMatch.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          resolveOld = resolve;
+        }),
+    );
+    api.getMatch.mockResolvedValueOnce(matchResponse({ publicId: 'new-match' }));
+    const view = render(<MatchPage slug="old-event" matchId="m" />);
+    const oldCall = api.getTournament.mock.calls[0] as [unknown, { signal: AbortSignal }];
+    const oldSignal = oldCall[1].signal;
+    view.rerender(<MatchPage slug="new-event" matchId="new-match" selectedPlayerId="p1" />);
+    expect(oldSignal.aborted).toBe(true);
+    expect(await screen.findByTestId('market-board')).toHaveTextContent('new-match');
+    await act(async () => {
+      resolveOld(matchResponse());
+      await Promise.resolve();
+    });
+    expect(screen.getByTestId('market-board')).toHaveTextContent('new-match');
+    expect(screen.getByTestId('market-board')).toHaveAttribute('data-selected-outcome', 'p1');
   });
 
   it('沒有無障礙違規', async () => {

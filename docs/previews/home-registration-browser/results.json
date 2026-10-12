@@ -1,0 +1,74 @@
+[
+  {
+    "width": 375,
+    "name": "home-direct-registration",
+    "overflow": false,
+    "modalHeaderClear": true,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "nested-auth",
+    "overflow": false,
+    "modalHeaderClear": true,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "embedded-field-error",
+    "overflow": false,
+    "modalHeaderClear": true,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "embedded-saved-draft",
+    "overflow": false,
+    "modalHeaderClear": true,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "embedded-review",
+    "overflow": false,
+    "modalHeaderClear": true,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "embedded-receipt",
+    "overflow": false,
+    "modalHeaderClear": true,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "embedded-reloaded",
+    "overflow": false,
+    "modalHeaderClear": true,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "embedded-logged-out",
+    "overflow": false,
+    "modalHeaderClear": true,
+    "smallButtons": [],
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "direct-link-fallback",
+    "overflow": false,
+    "modalHeaderClear": true,
+    "smallButtons": [],
+    "violations": []
+  }
+]

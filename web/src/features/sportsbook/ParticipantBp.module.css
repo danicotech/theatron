@@ -1,0 +1,104 @@
+.panel {
+  margin-block: 24px;
+  padding: 20px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-raised);
+}
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.header h3 {
+  margin: 0;
+  font-family: var(--font-display);
+}
+.amount {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.note {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.ranks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.ranks label,
+.catalog label {
+  display: grid;
+  gap: 8px;
+}
+.panel input,
+.panel select {
+  min-width: 0;
+  width: 100%;
+  min-height: 44px;
+}
+.panel button {
+  min-height: 44px;
+}
+.selections {
+  list-style: none;
+  padding: 0;
+}
+.selections li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 16px;
+}
+.selections li > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.selections p {
+  margin-block: 8px 0;
+}
+.refund {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+.refund button {
+  flex-shrink: 0;
+}
+.catalog summary {
+  min-height: 48px;
+  padding-block: 12px;
+  cursor: pointer;
+}
+.catalog article {
+  padding: 16px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+.catalog h4 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0;
+}
+.description {
+  white-space: pre-line;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+.catalog button {
+  margin-top: 12px;
+}
+@media (max-width: 600px) {
+  .panel {
+    padding: 16px;
+  }
+  .ranks {
+    grid-template-columns: 1fr;
+  }
+}

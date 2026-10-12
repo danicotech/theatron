@@ -1,0 +1,164 @@
+[
+  {
+    "width": 1440,
+    "name": "bp-selection",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "rules-expanded",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "handicap-expanded",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "duel-before",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "duel-live",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "duel-after",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "player-details",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "player-details-bottom",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "schedule-return",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "bp-selection",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "rules-expanded",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "handicap-expanded",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "duel-before",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "duel-live",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "duel-after",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "player-details",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "player-details-bottom",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "schedule-return",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "bp-selection",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "rules-expanded",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "handicap-expanded",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "duel-before",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "duel-live",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "duel-after",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "player-details",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "player-details-bottom",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "schedule-return",
+    "overflow": false,
+    "violations": []
+  }
+]

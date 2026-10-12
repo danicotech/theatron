@@ -1,0 +1,2002 @@
+{
+ "slots": [
+  {
+   "key": "weaponOne",
+   "label": "武器一"
+  },
+  {
+   "key": "weaponTwo",
+   "label": "武器二"
+  },
+  {
+   "key": "head",
+   "label": "头"
+  },
+  {
+   "key": "cloth",
+   "label": "衣服"
+  },
+  {
+   "key": "ring",
+   "label": "环"
+  },
+  {
+   "key": "pendant",
+   "label": "佩"
+  },
+  {
+   "key": "shoe",
+   "label": "裤"
+  },
+  {
+   "key": "hand",
+   "label": "手"
+  }
+ ],
+ "sets": [
+  {
+   "mode": "big-outer",
+   "build": "QIANSI_YI",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(大外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(大外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "big-outer",
+   "build": "QIANSI_LIN",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(大外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(大外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "big-outer",
+   "build": "QIANSI_YU",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(大外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(大外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "big-outer",
+   "build": "POZHU_FENG",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(大外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(大外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "big-outer",
+   "build": "POZHU_CHEN",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(大外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(大外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "big-outer",
+   "build": "POZHU_YUAN",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(大外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(大外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "big-outer",
+   "build": "LIESHI_JUN",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(大外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(大外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "big-outer",
+   "build": "LIESHI_WEI",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(大外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(大外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "ACCURACY_RATE",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(大外)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(大外)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "CRITICAL_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "small-outer",
+   "build": "QIANSI_YI",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_FAN"
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "DRUM_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_DRUM"
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitchKey": "WDNC_TSJZS",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(小外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitchKey": "WDNC_TSJZS",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitchKey": "WDNC_TSJZS",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitchKey": "WDNC_TSJZS",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "small-outer",
+   "build": "QIANSI_YU",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "UMBRELLA_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitchKey": "JCCS_GPDDZS",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(小外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitchKey": "JCCS_GPDDZS",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitchKey": "JCCS_GPDDZS",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_QIANSI_ATTACK"
+     ],
+     "pitchKey": "JCCS_GPDDZS",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "small-outer",
+   "build": "POZHU_FENG",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "ROPE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_ROPE"
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "2BLADE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_2BLADE"
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "SZYC_SSZS",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(小外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "SZYC_SSZS",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "SZYC_SSZS",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "SZYC_SSZS",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "small-outer",
+   "build": "POZHU_CHEN",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_ROPE"
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "UMBRELLA_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_UMBRELLA"
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "ZMYC_WXJZS",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(小外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "ZMYC_WXJZS",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "ZMYC_WXJZS",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "ZMYC_WXJZS",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "small-outer",
+   "build": "POZHU_YUAN",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_ROPE"
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "FIST_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_FIST"
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "TZCX_XLJZS",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(小外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "TZCX_XLJZS",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "TZCX_XLJZS",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_POZHU_ATTACK"
+     ],
+     "pitchKey": "TZCX_XLJZS",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "small-outer",
+   "build": "LIESHI_JUN",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "CRITICAL_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_BLADE"
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK",
+      "BIGBLADE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_BIGBLADE"
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_LIESHI_ATTACK"
+     ],
+     "pitchKey": "SFPZ_XLJZS",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(小外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK",
+      "MAX_LIESHI_ATTACK"
+     ],
+     "pitchKey": "SFPZ_XLJZS",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_LIESHI_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE",
+      "MAX_LIESHI_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_LIESHI_ATTACK"
+     ],
+     "pitchKey": "SFPZ_XLJZS",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN",
+      "MAX_LIESHI_ATTACK"
+     ],
+     "pitchKey": "SFPZ_XLJZS",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "small-outer",
+   "build": "QIANSI_LIN",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "MAX_WUXIANG_ATTACK"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(小外)",
+     "quality": 1,
+     "firstTuningKey": "ACCURACY_RATE",
+     "secondaryTuningKeys": [
+      "ACCURACY_RATE",
+      "MIN",
+      "MIN_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(小外)",
+     "quality": 1,
+     "firstTuningKey": "MIN_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "MIN",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(小外)",
+     "quality": 1,
+     "firstTuningKey": "CRITICAL_RATE",
+     "secondaryTuningKeys": [
+      "MIN_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "MIN"
+     ],
+     "pitchKey": "",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "ming-jin",
+   "build": "MINGJIN_HONG",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "INSIGHT_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_SPEAR"
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "SWORD_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_SWORD"
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "INSIGHT_RATE",
+     "secondaryTuningKeys": [
+      "INSIGHT_RATE",
+      "SHI",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "WMJF_XLJZS",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "INSIGHT_RATE",
+     "secondaryTuningKeys": [
+      "INSIGHT_RATE",
+      "SHI",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "WMJF_XLJZS",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "INSIGHT_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "WMJF_XLJZS",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "INSIGHT_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "WMJF_XLJZS",
+     "alternateEquipmentKey": null
+    }
+   }
+  },
+  {
+   "mode": "ming-jin",
+   "build": "MINGJIN_YING",
+   "slots": {
+    "weaponOne": {
+     "equipmentName": "武器一(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "SWORD_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_SWORD"
+    },
+    "weaponTwo": {
+     "equipmentName": "武器二(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "INSIGHT_RATE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": "EQUIPMENT_WEAPON_SPEAR"
+    },
+    "head": {
+     "equipmentKey": "EQUIPMENT_HEAD",
+     "equipmentName": "雁南飞冠(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "INSIGHT_RATE",
+     "secondaryTuningKeys": [
+      "INSIGHT_RATE",
+      "SHI",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "JJJJ_LXZS",
+     "alternateEquipmentKey": null
+    },
+    "cloth": {
+     "equipmentKey": "EQUIPMENT_CLOTH",
+     "equipmentName": "雁南飞甲(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "INSIGHT_RATE",
+     "secondaryTuningKeys": [
+      "INSIGHT_RATE",
+      "SHI",
+      "JIN",
+      "MAX_EXTERNAL_ATTACK"
+     ],
+     "pitchKey": "JJJJ_LXZS",
+     "alternateEquipmentKey": null
+    },
+    "ring": {
+     "equipmentKey": "EQUIPMENT_RING",
+     "equipmentName": "踏雪云珑(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "pendant": {
+     "equipmentKey": "EQUIPMENT_PENDANT",
+     "equipmentName": "踏雪辟邪(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "MAX_EXTERNAL_ATTACK",
+     "secondaryTuningKeys": [
+      "MAX_EXTERNAL_ATTACK",
+      "JIN",
+      "SHI",
+      "WUXUE_DAMAGE"
+     ],
+     "pitchKey": "EXTERNAL_PENETRATION",
+     "alternateEquipmentKey": null
+    },
+    "shoe": {
+     "equipmentKey": "EQUIPMENT_SHOES",
+     "equipmentName": "雁南飞缚袴(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "INSIGHT_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "JJJJ_LXZS",
+     "alternateEquipmentKey": null
+    },
+    "hand": {
+     "equipmentKey": "EQUIPMENT_HAND",
+     "equipmentName": "雁南飞披膊(鸣金)",
+     "quality": 1,
+     "firstTuningKey": "JIN",
+     "secondaryTuningKeys": [
+      "INSIGHT_RATE",
+      "MAX_EXTERNAL_ATTACK",
+      "BOSS_DAMAGE",
+      "JIN"
+     ],
+     "pitchKey": "JJJJ_LXZS",
+     "alternateEquipmentKey": null
+    }
+   }
+  }
+ ]
+}

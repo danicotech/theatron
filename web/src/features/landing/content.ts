@@ -1,11 +1,11 @@
 /**
- * 《劍塚》的賽事內容 —— 整個站唯一的文案資料來源。
+ * 《論劍》的賽事內容 —— 整個站唯一的文案資料來源。
  *
- * 形狀**逐欄對齊** `design/jianzhong/content.json`(同一個專案更早一版留下來的
+ * 形狀**逐欄對齊** `design/lunjian/content.json`(同一個專案更早一版留下來的
  * 契約,`design/cinematic-media-kit/dist/assets/content.json` 也是同一份形狀)。
  * 對齊是刻意的:那一份定案時,這裡就是直接換值,不是重新對映欄位。
  *
- * 名稱、組別、日期、獎金、主辦、聯繫都還沒定案(見 notes/2026-09-13-劍塚-素材缺口.md
+ * 名稱、組別、日期、獎金、主辦、聯繫都還沒定案(見 notes/2026-09-13-論劍-素材缺口.md
  * 第六節),所以全部是 `{{PLACEHOLDER}}`。**不編造比賽事實。**
  *
  * 為什麼是 .ts 不是直接 import 那份 .json:佔位值必須跟真值走同一條路徑,
@@ -28,7 +28,7 @@ export function show(value: string | null | undefined): string {
 }
 
 /**
- * 內容契約。欄位名與 design/jianzhong/content.json 一字不差。
+ * 內容契約。欄位名與 design/lunjian/content.json 一字不差。
  *
  * 四個日期是**四個平欄**而不是一個陣列,因為那份 JSON 就是這樣 ——
  * 它們是四件不同的事(開放報名 / 截止 / 初賽 / 決賽),不是同一種東西的四筆。
@@ -64,7 +64,7 @@ export const CONTENT: TournamentContent = {
   finalsDate: PLACEHOLDER,
   organiser: PLACEHOLDER,
   contact: PLACEHOLDER,
-  workingTitle: '劍塚',
+  workingTitle: '論劍',
   divisions: [PLACEHOLDER],
   rules: [PLACEHOLDER],
   judges: [PLACEHOLDER],

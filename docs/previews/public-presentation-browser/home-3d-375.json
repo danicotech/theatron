@@ -1,0 +1,56 @@
+{
+  "width": 375,
+  "layers": [
+    {
+      "name": "home-foreground home-bamboo",
+      "transform": "translate3d(-8.923px, -2.544px, 0px) scale(1)",
+      "visible": true,
+      "display": "block"
+    },
+    {
+      "name": "home-foreground home-plum",
+      "transform": "translate3d(-5.949px, -1.696px, 0px) scale(1)",
+      "visible": true,
+      "display": "block"
+    },
+    {
+      "name": "home-foreground home-brazier",
+      "transform": "translate3d(-3.966px, -1.131px, 0px) scale(1)",
+      "visible": false,
+      "display": "none"
+    },
+    {
+      "name": "home-foreground home-blossom",
+      "transform": "translate3d(-10.906px, -3.109px, 0px) scale(1)",
+      "visible": true,
+      "display": "block"
+    },
+    {
+      "name": "home-foreground home-lantern",
+      "transform": "translate3d(-4.462px, -1.272px, 0px) scale(1)",
+      "visible": true,
+      "display": "block"
+    },
+    {
+      "name": "title",
+      "transform": "translate3d(-1.735px, -0.495px, 0px) scale(1)",
+      "visible": true,
+      "display": "block"
+    }
+  ],
+  "result": {
+    "meshes": 302,
+    "instances": 30733,
+    "vertices": 5889858,
+    "camera": [0.09287965594419169, -2.179251642184659, 83.99997696391024],
+    "moon": [60, 54, -148],
+    "frame": 25,
+    "drawCalls": 216,
+    "triangles": 3540402,
+    "textures": 23,
+    "explore": false
+  },
+  "disposed": true,
+  "sceneFlag": null,
+  "transformsCleared": true
+}

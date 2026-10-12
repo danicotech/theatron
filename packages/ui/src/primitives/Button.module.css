@@ -18,23 +18,15 @@
 
   font-family: var(--font-body);
   font-weight: var(--weight-body-bold);
-  line-height: 1;
+  line-height: 1.2;
   letter-spacing: 0.02em;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
+  min-inline-size: var(--hit-target);
+  padding-block: var(--space-2);
 
   cursor: pointer;
   appearance: none;
-}
-
-/* 動態只有 hover 顏色轉換,而且要讓路給 prefers-reduced-motion。 */
-@media (prefers-reduced-motion: no-preference) {
-  .button {
-    transition:
-      background-color var(--motion-hover) var(--ease-standard),
-      border-color var(--motion-hover) var(--ease-standard),
-      color var(--motion-hover) var(--ease-standard);
-  }
 }
 
 .button:hover:not(:disabled) {
@@ -74,30 +66,21 @@
 }
 
 .sm {
-  block-size: 32px;
+  min-block-size: var(--hit-target);
   padding-inline: var(--space-3);
   font-size: var(--text-xs);
 }
 
 .md {
-  block-size: 40px;
+  min-block-size: var(--hit-target);
   padding-inline: var(--space-4);
   font-size: var(--text-sm);
 }
 
 .lg {
-  block-size: 48px;
+  min-block-size: 48px;
   padding-inline: var(--space-6);
   font-size: var(--text-md);
-}
-
-/* 觸控裝置上一律吃到 44px。手機上按錯一顆按鈕的成本比桌機高。 */
-@media (pointer: coarse) {
-  .sm,
-  .md {
-    block-size: var(--hit-target);
-    min-inline-size: var(--hit-target);
-  }
 }
 
 .fullWidth {
@@ -125,5 +108,23 @@
   }
   50% {
     opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .button {
+    transition:
+      scale 150ms ease-out,
+      background-color 150ms ease-out,
+      border-color 150ms ease-out,
+      color 150ms ease-out;
+  }
+  .button:active:not(:disabled) {
+    scale: 0.98;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
   }
 }

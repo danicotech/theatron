@@ -1,7 +1,7 @@
 [
   {
-    "id": "jianzhong",
-    "name": "劍塚",
+    "id": "lunjian",
+    "name": "論劍",
     "primitives": {
       "neutral": ["#060d17", "#0a1320", "#142231", "#3d5468", "#93a8b0", "#dde7ea"],
       "money": "#9c9060",

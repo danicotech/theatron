@@ -1,0 +1,100 @@
+[
+  {
+    "page": "duel",
+    "width": 1055,
+    "title": {
+      "box": {
+        "x": 441.1328125,
+        "y": 84,
+        "width": 172.734375,
+        "height": 96.78125,
+        "top": 84,
+        "right": 613.8671875,
+        "bottom": 180.78125,
+        "left": 441.1328125
+      },
+      "color": "rgb(220, 193, 139)",
+      "child": "rgb(220, 193, 139)"
+    },
+    "fonts": [
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif"
+    ]
+  },
+  {
+    "page": "register",
+    "width": 1055,
+    "box": {
+      "x": 426.5,
+      "y": 416,
+      "width": 192,
+      "height": 48,
+      "top": 416,
+      "right": 618.5,
+      "bottom": 464,
+      "left": 426.5
+    },
+    "duration": "2287ms"
+  },
+  {
+    "page": "duel",
+    "width": 375,
+    "title": {
+      "box": {
+        "x": 116.3046875,
+        "y": 72,
+        "width": 142.390625,
+        "height": 79.359375,
+        "top": 72,
+        "right": 258.6953125,
+        "bottom": 151.359375,
+        "left": 116.3046875
+      },
+      "color": "rgb(220, 193, 139)",
+      "child": "rgb(220, 193, 139)"
+    },
+    "fonts": [
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif",
+      "Arial, \"Microsoft JhengHei\", sans-serif"
+    ]
+  },
+  {
+    "page": "register",
+    "width": 375,
+    "box": {
+      "x": 86.5,
+      "y": 430,
+      "width": 192,
+      "height": 48,
+      "top": 430,
+      "right": 278.5,
+      "bottom": 478,
+      "left": 86.5
+    },
+    "duration": "2287ms"
+  }
+]

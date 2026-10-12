@@ -191,6 +191,44 @@ describe('MarketBoard', () => {
     expect(within(closed).getByText('我投了這個')).toBeInTheDocument();
   });
 
+  it('首頁選手帶到整場勝負的相同一側，只聚焦一次且不自動投票或下注', async () => {
+    const view = render(<MarketBoard slug="s" matchPublicId="m1" selectedOutcome="p2" />);
+    const row = await screen.findByRole('listitem', { name: '整場勝負 A冷，首頁所選選手' });
+    expect(row).toHaveFocus();
+    expect(screen.getAllByText('首頁所選')).toHaveLength(1);
+    expect(api.vote).not.toHaveBeenCalled();
+    expect(readSlip('s').legs).toEqual([]);
+    const chosen = within(row).getByRole('button', { name: '加入投注單 整場勝負 A冷' });
+    chosen.focus();
+    view.rerender(<MarketBoard slug="s" matchPublicId="m1" selectedOutcome="p2" />);
+    expect(chosen).toHaveFocus();
+    await userEvent.click(chosen);
+    expect(readSlip('s').legs).toMatchObject([{ outcome: 'p2', marketPublicId: 'mk-w' }]);
+    expect(api.vote).not.toHaveBeenCalled();
+  });
+
+  it('已封盤的首頁所選結果可以讀取，但不重新開放按鈕', async () => {
+    api.getOdds.mockResolvedValue({
+      odds: [
+        create(MatchOddsSchema, {
+          matchPublicId: 'm1',
+          markets: [
+            create(MarketOddsSchema, {
+              ...WINNER,
+              status: MarketStatus.CLOSED,
+              openForBets: false,
+            }),
+          ],
+        }),
+      ],
+    });
+    render(<MarketBoard slug="s" matchPublicId="m1" selectedOutcome="p1" />);
+    const row = await screen.findByRole('listitem', { name: '整場勝負 李璃，首頁所選選手' });
+    expect(within(row).queryByRole('button')).not.toBeInTheDocument();
+    expect(api.vote).not.toHaveBeenCalled();
+    expect(readSlip('s').legs).toEqual([]);
+  });
+
   it('沒有無障礙違規', async () => {
     const { container } = render(<MarketBoard slug="s" matchPublicId="m1" />);
     await screen.findByRole('region', { name: '整場勝負' });

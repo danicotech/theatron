@@ -44,7 +44,7 @@ import { createTextureLibrary } from './textures';
 import { createWind, DEFAULT_WIND, type WindField } from './wind';
 
 /**
- * 劍塚的場地平面圖,單位公尺。
+ * 論劍的場地平面圖,單位公尺。
  *
  * 相機的每一個 waypoint、月亮、破洞、桌子全部釘在這幾個數字上,所以整座武館
  * 要重新比例化時只改這裡。座標系:相機從 +z 往 -z 走,y 是高度,中軸線是 x = 0。
@@ -227,14 +227,14 @@ export function buildWorld(scene: Scene, quality: Quality, reduced: boolean): Wo
     top: blendHex(PALETTE.deadBamboo, PALETTE.mistCyan, 0.2),
     map: lib.get('bamboo').map,
     alphaTest: 0.42,
-    cacheKey: 'jianzhong-bamboo',
+    cacheKey: 'lunjian-bamboo',
   });
   const weedMaterial = makeWindMaterial({
     wind: wind.uniforms,
     sway: 0.1,
     bottom: blendHex(PALETTE.rotBrown, PALETTE.nightBlue, 0.55),
     top: blendHex(PALETTE.deadBamboo, PALETTE.rotBrown, 0.35),
-    cacheKey: 'jianzhong-weed',
+    cacheKey: 'lunjian-weed',
   });
 
   const groveSurface = patchSurface(GROVES, 16);

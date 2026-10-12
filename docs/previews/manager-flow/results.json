@@ -1,0 +1,46 @@
+[
+  {
+    "width": 1440,
+    "name": "draw-and-seats",
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "market-controls",
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "raffle-and-awards",
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "chosen-match-started",
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "draw-and-seats",
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "market-controls",
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "raffle-and-awards",
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "chosen-match-started",
+    "errors": []
+  },
+  {
+    "width": 786,
+    "name": "five-player-byes-match-preview"
+  }
+]

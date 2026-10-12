@@ -1,0 +1,22 @@
+[
+  {
+    "width": 1055,
+    "initial": "rgba(0, 0, 0, 0)",
+    "hover": "color(srgb 0.0784314 0.0784314 0.0745098 / 0.05)",
+    "checked": "color(srgb 0.54902 0.227451 0.188235 / 0.09)",
+    "outline": "0px",
+    "linksVerified": true,
+    "checkRetained": true,
+    "hoverPositionStable": true
+  },
+  {
+    "width": 375,
+    "initial": "rgba(0, 0, 0, 0)",
+    "hover": "color(srgb 0.0784314 0.0784314 0.0745098 / 0.05)",
+    "checked": "color(srgb 0.54902 0.227451 0.188235 / 0.09)",
+    "outline": "0px",
+    "linksVerified": true,
+    "checkRetained": true,
+    "hoverPositionStable": true
+  }
+]

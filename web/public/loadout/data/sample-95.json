@@ -1,0 +1,628 @@
+{
+ "v": 3,
+ "build": "MINGJIN_HONG",
+ "martials": [],
+ "minds": [],
+ "arts": [],
+ "vault": [
+  {
+   "id": "sample01",
+   "slot": "weapon",
+   "k": "EQUIPMENT_WEAPON_SWORD",
+   "tier": 95,
+   "label": "劍·攻",
+   "n": "劍",
+   "first": [
+    "MAX_EXTERNAL_ATTACK",
+    114.12
+   ],
+   "sec": [
+    [
+     "CRITICAL_RATE",
+     13.16,
+     0
+    ],
+    [
+     "INSIGHT_RATE",
+     6.58,
+     0
+    ],
+    [
+     "ACCURACY_RATE",
+     11.66,
+     0
+    ],
+    [
+     "MIN_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ]
+   ],
+   "pitch": [
+    "EXTERNAL_PENETRATION",
+    16.8
+   ]
+  },
+  {
+   "id": "sample02",
+   "slot": "weapon",
+   "k": "EQUIPMENT_WEAPON_SWORD",
+   "tier": 95,
+   "label": "劍·守",
+   "n": "劍",
+   "first": [
+    "MIN_EXTERNAL_ATTACK",
+    114.12
+   ],
+   "sec": [
+    [
+     "YU",
+     72.19,
+     0
+    ],
+    [
+     "TI",
+     72.19,
+     0
+    ],
+    [
+     "MAX_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "JIN",
+     72.19,
+     0
+    ]
+   ],
+   "pitch": [
+    "EXTERNAL_PENETRATION",
+    16.8
+   ]
+  },
+  {
+   "id": "sample03",
+   "slot": "weapon",
+   "k": "EQUIPMENT_WEAPON_SPEAR",
+   "tier": 95,
+   "label": "槍·攻",
+   "n": "槍",
+   "first": [
+    "MAX_EXTERNAL_ATTACK",
+    114.12
+   ],
+   "sec": [
+    [
+     "CRITICAL_RATE",
+     13.16,
+     0
+    ],
+    [
+     "INSIGHT_RATE",
+     6.58,
+     0
+    ],
+    [
+     "ACCURACY_RATE",
+     11.66,
+     0
+    ],
+    [
+     "MIN_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ]
+   ],
+   "pitch": [
+    "EXTERNAL_PENETRATION",
+    16.8
+   ]
+  },
+  {
+   "id": "sample04",
+   "slot": "weapon",
+   "k": "EQUIPMENT_WEAPON_SPEAR",
+   "tier": 95,
+   "label": "槍·守",
+   "n": "槍",
+   "first": [
+    "MIN_EXTERNAL_ATTACK",
+    114.12
+   ],
+   "sec": [
+    [
+     "YU",
+     72.19,
+     0
+    ],
+    [
+     "TI",
+     72.19,
+     0
+    ],
+    [
+     "MAX_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "JIN",
+     72.19,
+     0
+    ]
+   ],
+   "pitch": [
+    "EXTERNAL_PENETRATION",
+    16.8
+   ]
+  },
+  {
+   "id": "sample05",
+   "slot": "head",
+   "k": "EQUIPMENT_HEAD",
+   "tier": 95,
+   "label": "冠胄·攻",
+   "n": "冠胄",
+   "first": [
+    "CRITICAL_RATE",
+    13.16
+   ],
+   "sec": [
+    [
+     "INSIGHT_RATE",
+     6.58,
+     0
+    ],
+    [
+     "ACCURACY_RATE",
+     11.66,
+     0
+    ],
+    [
+     "MAX_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "MIN_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ]
+   ],
+   "pitch": [
+    "XSDS_NSJNZS",
+    9.2
+   ]
+  },
+  {
+   "id": "sample06",
+   "slot": "head",
+   "k": "EQUIPMENT_HEAD",
+   "tier": 95,
+   "label": "冠胄·守",
+   "n": "冠胄",
+   "first": [
+    "YU",
+    72.19
+   ],
+   "sec": [
+    [
+     "TI",
+     72.19,
+     0
+    ],
+    [
+     "MIN_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "MAX_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "JIN",
+     72.19,
+     0
+    ]
+   ],
+   "pitch": [
+    "XSDS_NSJNZS",
+    9.2
+   ]
+  },
+  {
+   "id": "sample07",
+   "slot": "body",
+   "k": "EQUIPMENT_CLOTH",
+   "tier": 95,
+   "label": "胸甲·攻",
+   "n": "胸甲",
+   "first": [
+    "CRITICAL_RATE",
+    13.16
+   ],
+   "sec": [
+    [
+     "INSIGHT_RATE",
+     6.58,
+     0
+    ],
+    [
+     "ACCURACY_RATE",
+     11.66,
+     0
+    ],
+    [
+     "MAX_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "MIN_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ]
+   ],
+   "pitch": [
+    "XSDS_NSJNZS",
+    9.2
+   ]
+  },
+  {
+   "id": "sample08",
+   "slot": "body",
+   "k": "EQUIPMENT_CLOTH",
+   "tier": 95,
+   "label": "胸甲·守",
+   "n": "胸甲",
+   "first": [
+    "YU",
+    72.19
+   ],
+   "sec": [
+    [
+     "TI",
+     72.19,
+     0
+    ],
+    [
+     "MIN_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "MAX_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "JIN",
+     72.19,
+     0
+    ]
+   ],
+   "pitch": [
+    "XSDS_NSJNZS",
+    9.2
+   ]
+  },
+  {
+   "id": "sample09",
+   "slot": "legs",
+   "k": "EQUIPMENT_SHOES",
+   "tier": 95,
+   "label": "脛甲·攻",
+   "n": "脛甲",
+   "first": [
+    "CRITICAL_RATE",
+    13.16
+   ],
+   "sec": [
+    [
+     "INSIGHT_RATE",
+     6.58,
+     0
+    ],
+    [
+     "ACCURACY_RATE",
+     11.66,
+     0
+    ],
+    [
+     "MAX_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "MIN_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ]
+   ],
+   "pitch": [
+    "XSDS_NSJNZS",
+    9.2
+   ]
+  },
+  {
+   "id": "sample10",
+   "slot": "legs",
+   "k": "EQUIPMENT_SHOES",
+   "tier": 95,
+   "label": "脛甲·守",
+   "n": "脛甲",
+   "first": [
+    "YU",
+    72.19
+   ],
+   "sec": [
+    [
+     "TI",
+     72.19,
+     0
+    ],
+    [
+     "MIN_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "MAX_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "JIN",
+     72.19,
+     0
+    ]
+   ],
+   "pitch": [
+    "XSDS_NSJNZS",
+    9.2
+   ]
+  },
+  {
+   "id": "sample11",
+   "slot": "arms",
+   "k": "EQUIPMENT_HAND",
+   "tier": 95,
+   "label": "腕甲·攻",
+   "n": "腕甲",
+   "first": [
+    "CRITICAL_RATE",
+    13.16
+   ],
+   "sec": [
+    [
+     "INSIGHT_RATE",
+     6.58,
+     0
+    ],
+    [
+     "ACCURACY_RATE",
+     11.66,
+     0
+    ],
+    [
+     "MAX_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "MIN_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ]
+   ],
+   "pitch": [
+    "XSDS_NSJNZS",
+    9.2
+   ]
+  },
+  {
+   "id": "sample12",
+   "slot": "arms",
+   "k": "EQUIPMENT_HAND",
+   "tier": 95,
+   "label": "腕甲·守",
+   "n": "腕甲",
+   "first": [
+    "YU",
+    72.19
+   ],
+   "sec": [
+    [
+     "TI",
+     72.19,
+     0
+    ],
+    [
+     "MIN_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "MAX_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "JIN",
+     72.19,
+     0
+    ]
+   ],
+   "pitch": [
+    "XSDS_NSJNZS",
+    9.2
+   ]
+  },
+  {
+   "id": "sample13",
+   "slot": "ring",
+   "k": "EQUIPMENT_RING",
+   "tier": 95,
+   "label": "環·攻",
+   "n": "環",
+   "first": [
+    "MAX_EXTERNAL_ATTACK",
+    114.12
+   ],
+   "sec": [
+    [
+     "CRITICAL_RATE",
+     13.16,
+     0
+    ],
+    [
+     "INSIGHT_RATE",
+     6.58,
+     0
+    ],
+    [
+     "ACCURACY_RATE",
+     11.66,
+     0
+    ],
+    [
+     "MIN_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ]
+   ],
+   "pitch": [
+    "EXTERNAL_PENETRATION",
+    16.8
+   ]
+  },
+  {
+   "id": "sample14",
+   "slot": "ring",
+   "k": "EQUIPMENT_RING",
+   "tier": 95,
+   "label": "環·守",
+   "n": "環",
+   "first": [
+    "MIN_EXTERNAL_ATTACK",
+    114.12
+   ],
+   "sec": [
+    [
+     "YU",
+     72.19,
+     0
+    ],
+    [
+     "TI",
+     72.19,
+     0
+    ],
+    [
+     "MAX_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "JIN",
+     72.19,
+     0
+    ]
+   ],
+   "pitch": [
+    "EXTERNAL_PENETRATION",
+    16.8
+   ]
+  },
+  {
+   "id": "sample15",
+   "slot": "pend",
+   "k": "EQUIPMENT_PENDANT",
+   "tier": 95,
+   "label": "佩·攻",
+   "n": "佩",
+   "first": [
+    "MAX_EXTERNAL_ATTACK",
+    114.12
+   ],
+   "sec": [
+    [
+     "CRITICAL_RATE",
+     13.16,
+     0
+    ],
+    [
+     "INSIGHT_RATE",
+     6.58,
+     0
+    ],
+    [
+     "ACCURACY_RATE",
+     11.66,
+     0
+    ],
+    [
+     "MIN_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ]
+   ],
+   "pitch": [
+    "EXTERNAL_PENETRATION",
+    16.8
+   ]
+  },
+  {
+   "id": "sample16",
+   "slot": "pend",
+   "k": "EQUIPMENT_PENDANT",
+   "tier": 95,
+   "label": "佩·守",
+   "n": "佩",
+   "first": [
+    "MIN_EXTERNAL_ATTACK",
+    114.12
+   ],
+   "sec": [
+    [
+     "YU",
+     72.19,
+     0
+    ],
+    [
+     "TI",
+     72.19,
+     0
+    ],
+    [
+     "MAX_EXTERNAL_ATTACK",
+     114.12,
+     0
+    ],
+    [
+     "JIN",
+     72.19,
+     0
+    ]
+   ],
+   "pitch": [
+    "EXTERNAL_PENETRATION",
+    16.8
+   ]
+  }
+ ],
+ "equip": {
+  "w_main": "sample01",
+  "w_off": "sample03",
+  "head": "sample05",
+  "body": "sample07",
+  "legs": "sample09",
+  "arms": "sample11",
+  "ring": "sample13",
+  "pend": "sample15"
+ },
+ "note": "樣本倉庫：每個部位兩件，等級 95。詞條數值取自 110_RBDZ_DOWN 版本表的基準值 —— 站上沒有分等級的數值表，真的 95 級裝備會比這裡低，拿到之後自己改。"
+}

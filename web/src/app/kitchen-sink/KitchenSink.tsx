@@ -326,7 +326,7 @@ export function KitchenSink({ themes }: KitchenSinkProps) {
             <PaperCard
               kicker="江湖令"
               index="PUBLIC NOTICE / 001"
-              title="劍塚"
+              title="論劍"
               subtitle="武俠競技大會"
               headingLevel={3}
               rows={[
@@ -337,7 +337,7 @@ export function KitchenSink({ themes }: KitchenSinkProps) {
               ]}
               note="正式報名辦法將於本頁公告。此為賽事概念預告,尚未開放報名。"
               action={<a href="#top">看賽事進程</a>}
-              stamp={<SealStamp text="劍塚" />}
+              stamp={<SealStamp text="論劍" />}
             />
           </Specimen>
           <Specimen label="只有正文 · 歪向左 / 不歪">

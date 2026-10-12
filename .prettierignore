@@ -13,3 +13,10 @@ web/src/lib/api/gen/
 
 # Next 產生的,不要跟它搶格式
 next-env.d.ts
+
+# Lab sources and generated output must retain generator-owned bytes.
+sources/
+web/public/
+web/src/app/**/*Markup.ts
+web/src/features/bracket/bracketTreeRuntime.js
+web/src/features/sportsbook/*Runtime.js

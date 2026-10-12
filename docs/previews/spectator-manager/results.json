@@ -1,0 +1,70 @@
+[
+  {
+    "width": 1440,
+    "name": "paused-draft-rejected",
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "future-round-type-stays-closed",
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "raffle-recipient-pending",
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "raffle-recipient-delivered",
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "name": "award-recipient-delivered",
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "preservedOdds": "1900",
+    "payout": "190",
+    "balance": "1090",
+    "futureTypeClosed": true,
+    "raffleReceipt": true,
+    "awardReceipt": true
+  },
+  {
+    "width": 375,
+    "name": "paused-draft-rejected",
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "future-round-type-stays-closed",
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "raffle-recipient-pending",
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "raffle-recipient-delivered",
+    "errors": []
+  },
+  {
+    "width": 375,
+    "name": "award-recipient-delivered",
+    "errors": []
+  },
+  {
+    "width": 375,
+    "preservedOdds": "1900",
+    "payout": "190",
+    "balance": "1090",
+    "futureTypeClosed": true,
+    "raffleReceipt": true,
+    "awardReceipt": true
+  }
+]

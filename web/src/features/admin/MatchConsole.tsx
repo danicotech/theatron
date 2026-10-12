@@ -278,6 +278,7 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
                 </p>
                 <div className={styles.actions}>
                   <Button
+                    disabled={pending !== null}
                     size="lg"
                     loading={pending === 'open'}
                     onClick={() => {
@@ -302,6 +303,7 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
                     <p className={styles.ask}>確定封盤?封盤不可逆。</p>
                     <div className={styles.actions}>
                       <Button
+                        disabled={pending !== null}
                         variant="danger"
                         size="lg"
                         loading={pending === 'lock'}
@@ -318,6 +320,7 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
                         確定封盤
                       </Button>
                       <Button
+                        disabled={pending !== null}
                         size="lg"
                         onClick={() => {
                           setConfirming(null);
@@ -330,6 +333,7 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
                 ) : (
                   <div className={styles.actions}>
                     <Button
+                      disabled={pending !== null}
                       variant="danger"
                       size="lg"
                       onClick={() => {
@@ -562,6 +566,7 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
                       </p>
                       <div className={styles.actions}>
                         <Button
+                          disabled={pending !== null}
                           variant="danger"
                           size="lg"
                           loading={pending === 'withdraw'}
@@ -581,6 +586,7 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
                           確定讓 {nameOf(withdrawing)} 棄賽
                         </Button>
                         <Button
+                          disabled={pending !== null}
                           size="lg"
                           onClick={() => {
                             setConfirming(null);

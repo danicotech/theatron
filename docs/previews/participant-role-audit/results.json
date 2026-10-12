@@ -1,0 +1,26 @@
+[
+  {
+    "width": 1198,
+    "eventId": "7d6fd5a5-e2fa-4175-b7b7-0f5c214c4969",
+    "homeEntry": true,
+    "consentRetained": true,
+    "equipmentSelected": true,
+    "roleReturn": true,
+    "registrationConfirmed": true,
+    "reloadRetained": true,
+    "bpAndOtherBet": true,
+    "errors": []
+  },
+  {
+    "width": 375,
+    "eventId": "867a37ba-eedb-4d3e-93f7-dc3c90e5489e",
+    "homeEntry": true,
+    "consentRetained": true,
+    "equipmentSelected": true,
+    "roleReturn": true,
+    "registrationConfirmed": true,
+    "reloadRetained": true,
+    "bpAndOtherBet": true,
+    "errors": []
+  }
+]

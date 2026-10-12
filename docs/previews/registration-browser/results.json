@@ -1,0 +1,497 @@
+[
+  {
+    "width": 1440,
+    "name": "auth",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "rules",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "identity-errors",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "identity",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": 348.078125,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "character",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "loadout-storage-error",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "loadout-return",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": 789.078125,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "review",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": 485.078125,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "receipt",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": 479.71875,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "updated-long-name",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": 487.71875,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "keyboard-review",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": 484.515625,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "keyboard-receipt",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": 479.71875,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "capacity-full",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "registration-closed",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "closed-member-receipt",
+    "geometry": {
+      "viewport": 1440,
+      "document": 1440,
+      "focusedHeadingTop": 637.71875,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "auth",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "rules",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "identity-errors",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "identity",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": 478.4375,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "character",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "loadout-storage-error",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "loadout-return",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": 484.4375,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "review",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": 484.4375,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "receipt",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": 480.578125,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "updated-long-name",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": 466.578125,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "keyboard-review",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": 484.875,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "keyboard-receipt",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": 480.578125,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "capacity-full",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "registration-closed",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "closed-member-receipt",
+    "geometry": {
+      "viewport": 768,
+      "document": 768,
+      "focusedHeadingTop": 688.578125,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "auth",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "rules",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "identity-errors",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "identity",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": 289.46875,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "character",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "loadout-storage-error",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "loadout-return",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": 484.46875,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "review",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": 484.46875,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "receipt",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": 480.140625,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "updated-long-name",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": 452.140625,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "keyboard-review",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": 484.90625,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "keyboard-receipt",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": 480.140625,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "capacity-full",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "registration-closed",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": null,
+      "undersized": []
+    },
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "closed-member-receipt",
+    "geometry": {
+      "viewport": 375,
+      "document": 375,
+      "focusedHeadingTop": 749.140625,
+      "undersized": []
+    },
+    "violations": []
+  }
+]

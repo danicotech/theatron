@@ -73,6 +73,7 @@ export function DrawPanel({ slug, ranks, onConfirmed }: DrawPanelProps) {
     <div className={styles.panel}>
       <div className={styles.actions}>
         <Button
+          disabled={pending !== null}
           loading={pending === 'draw'}
           onClick={() => {
             void run('draw', async () => {
@@ -169,6 +170,7 @@ export function DrawPanel({ slug, ranks, onConfirmed }: DrawPanelProps) {
                 </p>
                 <div className={styles.confirmRow}>
                   <Button
+                    disabled={pending !== null}
                     variant="danger"
                     size="lg"
                     loading={pending === 'confirm'}
@@ -185,6 +187,7 @@ export function DrawPanel({ slug, ranks, onConfirmed }: DrawPanelProps) {
                     確認這張對戰表
                   </Button>
                   <Button
+                    disabled={pending !== null}
                     size="lg"
                     onClick={() => {
                       setConfirming(false);
@@ -196,6 +199,7 @@ export function DrawPanel({ slug, ranks, onConfirmed }: DrawPanelProps) {
               </>
             ) : (
               <Button
+                disabled={pending !== null}
                 variant="danger"
                 size="lg"
                 onClick={() => {

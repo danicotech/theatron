@@ -1,0 +1,179 @@
+[
+  {
+    "name": "sparse-frames",
+    "elapsed": 3742
+  },
+  {
+    "width": 1440,
+    "name": "waiting-for-ignite",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "burning"
+  },
+  {
+    "width": 1440,
+    "name": "entered",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "ink-cover"
+  },
+  {
+    "width": 1440,
+    "name": "center-reveal"
+  },
+  {
+    "width": 1440,
+    "name": "opaque-swap",
+    "evidence": [
+      {
+        "chapter": "rules",
+        "progress": 0.46,
+        "minAlpha": 255
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "rules-ready",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "last-navigation-wins",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 1440,
+    "name": "reduced-mid-transition",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "waiting-for-ignite",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "burning"
+  },
+  {
+    "width": 768,
+    "name": "entered",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "ink-cover"
+  },
+  {
+    "width": 768,
+    "name": "center-reveal"
+  },
+  {
+    "width": 768,
+    "name": "opaque-swap",
+    "evidence": [
+      {
+        "chapter": "rules",
+        "progress": 0.46,
+        "minAlpha": 255
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "name": "rules-ready",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "last-navigation-wins",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 768,
+    "name": "reduced-mid-transition",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "waiting-for-ignite",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "burning"
+  },
+  {
+    "width": 375,
+    "name": "entered",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "ink-cover"
+  },
+  {
+    "width": 375,
+    "name": "center-reveal"
+  },
+  {
+    "width": 375,
+    "name": "opaque-swap",
+    "evidence": [
+      {
+        "chapter": "rules",
+        "progress": 0.46,
+        "minAlpha": 255
+      }
+    ]
+  },
+  {
+    "width": 375,
+    "name": "rules-ready",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "last-navigation-wins",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "width": 375,
+    "name": "reduced-mid-transition",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "resource-fallback",
+    "blocked": [
+      "/lunjian/art/intro-duel-mobile.png",
+      "/lunjian/art/curtain-figures.webp",
+      "/lunjian/ink-transitions.js",
+      "/lunjian/stage3d.js",
+      "/lunjian/art/curtain-figures.webp"
+    ]
+  },
+  {
+    "name": "reduced-from-start",
+    "chapters": 7
+  }
+]

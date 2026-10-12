@@ -12,11 +12,27 @@ export default tseslint.config(
       '**/node_modules/**',
       '.husky/**',
       'web/src/lib/api/gen/**',
+      // public/ 是靜態資產，不是我們寫的原始碼：裡面的 .js 有第三方凍結產物
+      // （3D 的 23 個模組、anime.min.js），也有 lab 生成的執行期。
+      // 它們不在 tsconfig 的 project 裡，type-aware 的規則一碰就是 parsing error，
+      // 而那不是「程式有問題」，是「這些檔本來就不該被當成專案原始碼」。
+      '**/public/**',
+      // Byte-preserved canonical lab snapshot; validated by runtime/source tests.
+      'sources/**',
     ],
   },
 
   js.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
+
+  // lab 生成的標記常數（lunjianMarkup.ts、loadoutMarkup.ts…）。
+  // 裡面用來排版的全形空白是中文內容，不是程式碼 ——
+  // no-irregular-whitespace 要抓的是不小心打進程式裡的怪空白，不是這個。
+  // 而且這些檔是生成的，手改會在下次重跑腳本時被蓋掉。
+  {
+    files: ['web/src/app/**/*Markup.ts'],
+    rules: { 'no-irregular-whitespace': 'off' },
+  },
 
   {
     languageOptions: {
@@ -35,6 +51,22 @@ export default tseslint.config(
       // 生成的 API client 是型別安全的,用 any 等於把它丟掉
       '@typescript-eslint/no-explicit-any': 'error',
     },
+  },
+
+  // Canonical lab JavaScript is also bundled by the judge view. Lint its JS rules,
+  // without pretending that the generated runtime is a TypeScript project file.
+  {
+    ...tseslint.configs.disableTypeChecked,
+    files: [
+      'web/src/features/bracket/bracketTreeRuntime.js',
+      'web/src/features/sportsbook/*Runtime.js',
+    ],
+    languageOptions: { parserOptions: { projectService: false } },
+  },
+
+  {
+    files: ['web/src/features/sportsbook/*Runtime.js'],
+    rules: { 'no-irregular-whitespace': ['error', { skipComments: true, skipRegExps: true }] },
   },
 
   // packages/ui 是純展示層。這一段是「各活動客製視覺」能成立的前提,

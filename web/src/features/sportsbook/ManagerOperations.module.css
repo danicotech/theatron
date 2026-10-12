@@ -1,0 +1,228 @@
+.operations {
+  min-width: 0;
+}
+.operations > details {
+  border-block-start: 1px solid var(--border-subtle);
+  padding-block: 16px;
+}
+.operations summary {
+  min-height: 44px;
+  padding-block: 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.operations p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.operations button,
+.operations input,
+.operations select {
+  min-height: 44px;
+}
+.operations button:focus-visible,
+.operations select:focus-visible,
+.operations input:focus-visible,
+.operations summary:focus-visible {
+  outline: 2px solid var(--accent-money);
+  outline-offset: 3px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+  margin-block: 16px;
+}
+.actions label {
+  flex: 1 1 180px;
+  min-width: 0;
+}
+.actions p {
+  flex: 1 1 240px;
+}
+.drawStage {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  padding: 32px 16px;
+  background: var(--surface-raised);
+  border-block: 1px solid var(--border-subtle);
+}
+.drawStage h3 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  margin: 0;
+}
+.sticks {
+  position: relative;
+  flex: 0 0 92px;
+  height: 132px;
+  color: var(--accent-money);
+}
+.sticks::after {
+  content: '';
+  position: absolute;
+  inset: 52px 4px 0;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0 0 12px 12px;
+}
+.sticks i {
+  position: absolute;
+  left: 42px;
+  width: 9px;
+  height: 106px;
+  border: 1px solid currentColor;
+  background: var(--surface-base);
+  transform-origin: bottom;
+}
+.sticks i:nth-child(1) {
+  transform: rotate(-24deg);
+}
+.sticks i:nth-child(2) {
+  transform: rotate(-14deg);
+}
+.sticks i:nth-child(3) {
+  transform: rotate(-4deg);
+}
+.sticks i:nth-child(4) {
+  transform: rotate(8deg);
+}
+.sticks i:nth-child(5) {
+  transform: rotate(18deg);
+}
+.sticks i:nth-child(6) {
+  transform: rotate(28deg);
+}
+.sticks span {
+  position: absolute;
+  inset: 72px 0 0;
+  z-index: 1;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 28px;
+}
+.seats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  list-style: none;
+  margin-block: 16px;
+  padding: 0;
+  background: var(--border-subtle);
+  border: 1px solid var(--border-subtle);
+}
+.seats li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 16px;
+  background: var(--surface-base);
+}
+.seats li[draggable='true'] {
+  cursor: grab;
+}
+.seats strong {
+  overflow-wrap: anywhere;
+}
+.seatNumber {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+}
+.marketList {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+.marketList form {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 12px;
+}
+.marketRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: end;
+}
+.marketRow label {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+.records {
+  list-style: none;
+  padding: 0;
+}
+.records li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-block: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.records small {
+  display: block;
+  margin-top: 8px;
+  color: var(--text-secondary);
+}
+.awardForm {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+.awardForm label {
+  min-width: 0;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 540px) {
+  .drawStage {
+    gap: 16px;
+    padding-inline: 12px;
+  }
+  .sticks {
+    flex-basis: 80px;
+  }
+  .awardForm {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .actions button,
+  .marketRow button {
+    flex: 1 1 130px;
+  }
+  .seats li {
+    padding: 12px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .drawStage[data-drawing='true'] .sticks {
+    animation: shake 300ms ease-in-out 3;
+  }
+  @keyframes shake {
+    0%,
+    100% {
+      transform: rotate(0);
+    }
+    30% {
+      transform: rotate(-7deg);
+    }
+    70% {
+      transform: rotate(7deg);
+    }
+  }
+}

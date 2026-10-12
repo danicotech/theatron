@@ -1,0 +1,424 @@
+{
+ "sets": [
+  {
+   "key": "SET_WEAPON_SHIYU",
+   "name": "时雨",
+   "shortName": "雨",
+   "type": 0
+  },
+  {
+   "key": "SET_WEAPON_FEISUN",
+   "name": "飞隼",
+   "shortName": "飞",
+   "type": 0
+  },
+  {
+   "key": "SET_WEAPON_YUDOU",
+   "name": "玉斗",
+   "shortName": "斗",
+   "type": 0
+  },
+  {
+   "key": "SET_WEAPON_YANLIU",
+   "name": "烟柳",
+   "shortName": "烟",
+   "type": 0
+  },
+  {
+   "key": "SET_WEAPON_YANGUI",
+   "name": "燕归",
+   "shortName": "归",
+   "type": 0
+  },
+  {
+   "key": "SET_WEAPON_LIANXING",
+   "name": "连星",
+   "shortName": "星",
+   "type": 0
+  },
+  {
+   "key": "SET_WEAPON_HANTIAN",
+   "name": "撼天",
+   "shortName": "撼",
+   "type": 0
+  },
+  {
+   "key": "SET_WEAPON_DUANYUE",
+   "name": "断岳",
+   "shortName": "断",
+   "type": 0
+  },
+  {
+   "key": "SET_WEAPON_CAIYUN",
+   "name": "裁云",
+   "shortName": "云",
+   "type": 0
+  },
+  {
+   "key": "SET_BOW_ZHUIYING",
+   "name": "追影",
+   "shortName": "追影",
+   "type": 1
+  },
+  {
+   "key": "SET_BOW_JINGXIAN",
+   "name": "惊弦",
+   "shortName": "惊弦",
+   "type": 1
+  },
+  {
+   "key": "SET_BOW_YINYU",
+   "name": "饮羽",
+   "shortName": "饮羽",
+   "type": 1
+  },
+  {
+   "key": "SET_WEAPON_HUANHUA",
+   "name": "浣花"
+  },
+  {
+   "key": "SET_WEAPON_QINGSHANG",
+   "name": "倾觞"
+  }
+ ],
+ "equipment": [
+  {
+   "key": "EQUIPMENT_PENDANT",
+   "name": "佩",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_RING",
+   "name": "环",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_CLOTH",
+   "name": "衣",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_SHOES",
+   "name": "鞋",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_HEAD",
+   "name": "头",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_HAND",
+   "name": "手",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_SWORD",
+   "name": "武器-剑",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_SPEAR",
+   "name": "武器-枪",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_FAN",
+   "name": "武器-扇",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_UMBRELLA",
+   "name": "武器-伞",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_ROPE",
+   "name": "武器-绳镖",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_DRUM",
+   "name": "武器-鼓",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_BLADE",
+   "name": "武器-横刀",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_2BLADE",
+   "name": "武器-双刀",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_BIGBLADE",
+   "name": "武器-陌刀",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EQUIPMENT_WEAPON_FIST",
+   "name": "武器-拳套",
+   "remark": "",
+   "icon": ""
+  }
+ ],
+ "stats": [
+  {
+   "key": "EXTERNAL_DAMAGE",
+   "name": "外功伤害加成",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "CRITICAL_DAMAGE",
+   "name": "会心伤害加成",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "CRITICAL_HEAL_DAMAGE",
+   "name": "会心治疗加成",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "INSIGHT_DAMAGE",
+   "name": "会意伤害加成",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "DIRECT_CRITICAL_RATE",
+   "name": "直接会心率",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "DIRECT_INSIGHT_RATE",
+   "name": "直接会意率",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MIN_WUXIANG_ATTACK",
+   "name": "最小无相攻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MAX_WUXIANG_ATTACK",
+   "name": "最大无相攻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MAX_EXTERNAL_ATTACK",
+   "name": "最大外功攻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MIN_EXTERNAL_ATTACK",
+   "name": "最小外功攻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EXTERNAL_PENETRATION",
+   "name": "外功穿透",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "ACCURACY_RATE",
+   "name": "精准率",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "INSIGHT_RATE",
+   "name": "会意率",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "CRITICAL_RATE",
+   "name": "会心率",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EXTERNAL_DEFENCE",
+   "name": "外功防御",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MAX_HP",
+   "name": "气血最大值",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MIN_MINGJIN_ATTACK",
+   "name": "最小鸣金攻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MAX_MINGJIN_ATTACK",
+   "name": "最大鸣金攻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MIN_LIESHI_ATTACK",
+   "name": "最小裂石攻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MAX_LIESHI_ATTACK",
+   "name": "最大裂石攻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MIN_QIANSI_ATTACK",
+   "name": "最小牵丝攻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MAX_QIANSI_ATTACK",
+   "name": "最大牵丝攻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MIN_POZHU_ATTACK",
+   "name": "最小破竹攻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "MAX_POZHU_ATTACK",
+   "name": "最大破竹攻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_QJ",
+   "name": "轻击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_ZJ",
+   "name": "重击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_WXJ",
+   "name": "武学技",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_TSJ",
+   "name": "特殊技",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_XLJ",
+   "name": "蓄力技",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_QJPS",
+   "name": "轻击派生",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_ZJPS",
+   "name": "重击派生",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_WXCF",
+   "name": "武学触发",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_YWJ",
+   "name": "易武技",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_JUN_XZCF",
+   "name": "协战触发",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_JUN_XZXG",
+   "name": "协战效果",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_YUAN_YSZJ",
+   "name": "鹰隼追击",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "SKILLTYPE_YUAN_WYDZ",
+   "name": "无义当诛",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "FIXED_DAMAGE",
+   "name": "固定伤害加成",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "FIXED_DAMAGE_RATE",
+   "name": "固定伤害倍率",
+   "remark": "",
+   "icon": ""
+  },
+  {
+   "key": "EXTERNAL_HEAL_DAMAGE",
+   "name": "外功治疗加成",
+   "remark": "",
+   "icon": ""
+  }
+ ]
+}

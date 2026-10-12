@@ -14,3 +14,8 @@ dist/
 # Next 每次 build 都會重新產生
 next-env.d.ts
 __pycache__/
+
+# Local design-session scratch output; retain on disk, not part of the app.
+.superdesign/
+undefined/
+*.bak

@@ -1,0 +1,34 @@
+[
+  {
+    "width": 1055,
+    "held": {
+      "phase": "hold",
+      "overlay": true,
+      "sameDocument": true,
+      "intro": false
+    },
+    "done": {
+      "readyUnderInk": true,
+      "scene": "fallback",
+      "focus": "了解賽制",
+      "bootHidden": true
+    },
+    "errors": []
+  },
+  {
+    "width": 375,
+    "held": {
+      "phase": "hold",
+      "overlay": true,
+      "sameDocument": true,
+      "intro": false
+    },
+    "done": {
+      "readyUnderInk": true,
+      "scene": "fallback",
+      "focus": "了解賽制",
+      "bootHidden": true
+    },
+    "errors": []
+  }
+]

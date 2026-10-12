@@ -1,12 +1,12 @@
 'use client';
 
-import { BracketTree } from '@theatron/ui';
 import { useCallback } from 'react';
 
 import { activityApi } from '../../lib/api/activity';
 import type { RankInfo, Tournament } from '../../lib/api/gen/hestia/activity/v1/common_pb';
 import { usePolling } from '../../lib/api/poll';
-import { activeRound, toBracketRounds } from '../bracket/bracketView';
+import { WuxiaBracket } from '../bracket/WuxiaBracket';
+import { tournamentDisplay } from '../landing/tournamentDisplay';
 
 import styles from './MatchList.module.css';
 
@@ -44,16 +44,12 @@ export function MatchList({ slug, ranks, tournament }: MatchListProps) {
     return <p className={styles.line}>對戰表還沒公布。</p>;
   }
 
-  const rounds = toBracketRounds(data.rounds, data.players, {
-    ranks,
-    bestOf: tournament.bestOf,
-    hrefFor: (m) => `/judge/${slug}/m/${m.publicId}`,
-  });
+  const display = tournamentDisplay(slug, { bracket: data, ranks, bestOf: tournament.bestOf });
 
   return (
     <div className={styles.list}>
       <p className={styles.line}>點一場進去操作:開盤、封盤、設定確認、回合勝負都在那一頁。</p>
-      <BracketTree rounds={rounds} defaultRound={activeRound(data.rounds)} />
+      <WuxiaBracket data={display} />
       {error === null ? null : (
         <p className={styles.error} role="alert">
           {error}
