@@ -1,0 +1,137 @@
+[
+  {
+    "width": 1198,
+    "note": {
+      "left": 59.890625,
+      "right": 1119.890625,
+      "top": 750.5625,
+      "bottom": 883.5625,
+      "width": 1060
+    },
+    "board": {
+      "left": 59.890625,
+      "right": 1119.890625,
+      "top": 244.5625,
+      "bottom": 726.5625,
+      "width": 1060
+    },
+    "copy": {
+      "left": 83.890625,
+      "right": 881.890625,
+      "top": 790.375,
+      "bottom": 844.75,
+      "width": 798
+    },
+    "actions": {
+      "left": 905.890625,
+      "right": 1095.890625,
+      "top": 771.5625,
+      "bottom": 863.5625,
+      "width": 190
+    },
+    "overflow": false,
+    "links": [
+      {
+        "href": "#register",
+        "height": 44,
+        "text": "查看報名說明"
+      },
+      {
+        "href": "/loadout?preview=1&stage=2d",
+        "height": 44,
+        "text": "我的武學配置"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 786,
+    "note": {
+      "left": 39.296875,
+      "right": 746.703125,
+      "top": 596.015625,
+      "bottom": 729.015625,
+      "width": 707.40625
+    },
+    "board": {
+      "left": 39.296875,
+      "right": 746.703125,
+      "top": 90.015625,
+      "bottom": 572.015625,
+      "width": 707.40625
+    },
+    "copy": {
+      "left": 63.296875,
+      "right": 508.703125,
+      "top": 635.828125,
+      "bottom": 690.203125,
+      "width": 445.40625
+    },
+    "actions": {
+      "left": 532.703125,
+      "right": 722.703125,
+      "top": 617.015625,
+      "bottom": 709.015625,
+      "width": 190
+    },
+    "overflow": false,
+    "links": [
+      {
+        "href": "#register",
+        "height": 44,
+        "text": "查看報名說明"
+      },
+      {
+        "href": "/loadout?preview=1&stage=2d",
+        "height": 44,
+        "text": "我的武學配置"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 375,
+    "note": {
+      "left": 16,
+      "right": 359,
+      "top": 536.734375,
+      "bottom": 745.109375,
+      "width": 343
+    },
+    "board": {
+      "left": 16,
+      "right": 359,
+      "top": -489.453125,
+      "bottom": 512.734375,
+      "width": 343
+    },
+    "copy": {
+      "left": 32,
+      "right": 343,
+      "top": 553.734375,
+      "bottom": 608.109375,
+      "width": 311
+    },
+    "actions": {
+      "left": 32,
+      "right": 343,
+      "top": 624.109375,
+      "bottom": 729.109375,
+      "width": 311
+    },
+    "overflow": false,
+    "links": [
+      {
+        "href": "#register",
+        "height": 44,
+        "text": "查看報名說明"
+      },
+      {
+        "href": "/loadout?preview=1&stage=2d",
+        "height": 44,
+        "text": "我的武學配置"
+      }
+    ],
+    "errors": []
+  }
+]

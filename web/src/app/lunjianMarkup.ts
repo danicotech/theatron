@@ -1,6 +1,6 @@
 // 由 scrollcraft/builds/lunjian/lab/tools/to-theatron.py 生成，不要手改。
 // 來源是 lab/lunjian-layout.html 的 <body>；改版面請改那一份再重跑腳本。
-export const LUNJIAN_REVISION = "e23f970747ef";
+export const LUNJIAN_REVISION = "47fde22b8b89";
 export const LUNJIAN_MARKUP = String.raw`
 
 <a class="visually-hidden skip-link" href="#main">跳到內容</a>
@@ -597,7 +597,7 @@ export const LUNJIAN_MARKUP = String.raw`
           <span class="podium-stamp" data-comic-layer="stamp" aria-hidden="true"><span>季軍</span></span>
           <figcaption data-comic-layer="caption"><h3>季軍</h3><div class="podium-name"><p data-prize-name="3">待揭曉</p><small data-prize-source hidden></small></div></figcaption>
         </figure>
-      </div><div class="awards-note"><p>獎金、獎品與領獎方式將於定案後公布。<br>賽制另取殿軍；完整名次以正式賽果為準。</p><a data-activity-cta href="#rules">查看賽制</a> · <a data-loadout href="/loadout">我的武學配置</a></div></div>
+      </div><div class="awards-note"><div class="awards-copy"><p>獎金、獎品與領獎方式將於定案後公布。</p><p>賽制另取殿軍；完整名次以正式賽果為準。</p></div><nav class="awards-actions" aria-label="獎賞相關功能"><a data-activity-cta href="#rules">查看賽制</a><a data-loadout href="/loadout">我的武學配置</a></nav></div></div>
       <nav class="chapter-nav" data-chapter-pagination aria-label="獎賞章節導覽"><a class="chapter-nav__link chapter-nav__link--prev" href="#schedule" aria-label="上一章：賽程"><span class="chapter-nav__arrow" aria-hidden="true">←</span><span class="chapter-nav__text"><span class="chapter-nav__direction">上一章</span><span class="chapter-nav__title">賽程</span></span></a><a class="chapter-nav__link chapter-nav__link--next" href="#prologue" aria-label="回到：宗旨"><span class="chapter-nav__text"><span class="chapter-nav__direction">回到</span><span class="chapter-nav__title">宗旨</span></span><span class="chapter-nav__arrow" aria-hidden="true">→</span></a></nav>
     </div>
   </section>

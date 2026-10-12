@@ -861,3 +861,10 @@ PNG 原稿在 lab/art/_src/awards-quiet，WebP 在 lab/art；舊圖保留但卡�
 - production build、typecheck、全案 ESLint 與 364 檔 token 檢查通過。修復章節題字測試仍使用舊「報名表」名稱，改驗證目前「報名」18 筆畫。
 - 來源與生成物隨倉庫保留；sources/lunjian 包含 367 檔来源及 SHA-256 清單。不刪除原工作區來源、既有瀏覽器資料或本機設計暫存。
 - 三身分桌機／手機流程證據沿用 ROLE_FLOW_AUDIT；此次只有測試與移轉保存調整，未重跑所有瀏覽器場景。正式後端／跨裝置仍依 REALTIME_INTEGRATION 待辦。
+
+### 2026-10-12 獎賞說明與操作列重構
+
+- 獎賞下方窄版說明卡改為與頒獎席同寬的資訊列；桌機／平板左侧兩段說明、右側獨立操作區，使用細線與向右箭頭，移除行內中點分隔。600px 以下上下排列，兩個入口各保留 44px 以上觸控區。
+- 保留原前三名卡片、獎項待公布文案及活動／配裝的 data 屬性與動態連結。正本為 lab/lunjian-layout.html，生成前確認 art/type/vendor 無目的地獨有或不同檔案，再執行 to-theatron.py。
+- 1198／786／375px 瀏覽器驗證資訊列與頒獎席等寬對齊、手機堆疊、鍵盤焦點、動態 href、長文字及無橫向溢出；786px 另檢查一般動態場景。無 pageerror，截圖與幾何紀錄在 docs/previews/awards-footer/。
+- labRuntime、LunjianRuntime、activityDisplay 共 53 測試通過；typecheck、364 檔 token 檢查通過。同步倉庫內 lab 快照與 manifest。

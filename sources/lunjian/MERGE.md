@@ -701,3 +701,10 @@ PNG 原稿在 lab/art/_src/awards-quiet，WebP 在 lab/art；舊圖保留但卡�
 - 生成前已核對 art/type/vendor 目的地均在 theatron/web/public，無需保留的目的地獨有資產；執行 lab/tools/to-theatron.py 同步，未直接修改生成檔。
 - 工具不讀寫比賽資料或先後攻。1198／375px 驗證骰子、出拳交接、Escape 返回焦點及賽事 state 完全不變；/home 手機 reduced-motion 通過。
 - 合併 sportsbook、labRuntime、LunjianRuntime、activityDisplay 共 179 測試通過，typecheck／ESLint／token 檢查通過。完整驗收見 theatron/docs/ROLE_FLOW_AUDIT.md。
+
+### 2026-10-12 獎賞說明與操作列重構
+
+- 獎賞下方窄版說明卡改為與頒獎席同寬的資訊列；桌機／平板左侧兩段說明、右側獨立操作區，使用細線與向右箭頭，移除行內中點分隔。600px 以下上下排列，兩個入口各保留 44px 以上觸控區。
+- 保留原前三名卡片、獎項待公布文案及活動／配裝的 data 屬性與動態連結。正本為 lab/lunjian-layout.html，生成前確認 art/type/vendor 無目的地獨有或不同檔案，再執行 to-theatron.py。
+- 1198／786／375px 瀏覽器驗證資訊列與頒獎席等寬對齊、手機堆疊、鍵盤焦點、動態 href、長文字及無橫向溢出；786px 另檢查一般動態場景。無 pageerror，截圖與幾何紀錄在 docs/previews/awards-footer/。
+- labRuntime、LunjianRuntime、activityDisplay 共 53 測試通過；typecheck、364 檔 token 檢查通過。同步倉庫內 lab 快照與 manifest。
