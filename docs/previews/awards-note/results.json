@@ -1,0 +1,26 @@
+[
+  {
+    "viewport": 1198,
+    "width": 1060,
+    "board": 1060,
+    "height": 58.1875,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "viewport": 786,
+    "width": 707.40625,
+    "board": 707.40625,
+    "height": 58.1875,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "viewport": 375,
+    "width": 343,
+    "board": 343,
+    "height": 87.375,
+    "overflow": false,
+    "errors": []
+  }
+]

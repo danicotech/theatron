@@ -868,3 +868,9 @@ PNG 原稿在 lab/art/_src/awards-quiet，WebP 在 lab/art；舊圖保留但卡�
 - 保留原前三名卡片、獎項待公布文案及活動／配裝的 data 屬性與動態連結。正本為 lab/lunjian-layout.html，生成前確認 art/type/vendor 無目的地獨有或不同檔案，再執行 to-theatron.py。
 - 1198／786／375px 瀏覽器驗證資訊列與頒獎席等寬對齊、手機堆疊、鍵盤焦點、動態 href、長文字及無橫向溢出；786px 另檢查一般動態場景。無 pageerror，截圖與幾何紀錄在 docs/previews/awards-footer/。
 - labRuntime、LunjianRuntime、activityDisplay 共 53 測試通過；typecheck、364 檔 token 檢查通過。同步倉庫內 lab 快照與 manifest。
+
+### 2026-10-12 獎賞移除多餘入口
+
+- 依最新標註移除獎賞區的「我的參賽與角色設定／我的武學配置」入口，以及其箭頭、分隔和操作欄 CSS。兩段說明改為等寬緊湊文字列，寬螢幕左右排、手機自動換行；不保留空操作欄。
+- 1198／786／375px 瀏覽器確認無獎賞操作連結、兩段文字與頒獎席等寬且無溢出／pageerror；高度為 58／58／87px。證據 docs/previews/awards-note/，labRuntime 34 測試通過。
+- 經來源與目的資產核對後生成，並同步來源快照。
