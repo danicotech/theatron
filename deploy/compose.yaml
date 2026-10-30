@@ -1,0 +1,38 @@
+# theatron 的 compose 片段。由根目錄 compose.yaml 以 include 掛入,相對路徑以這個檔案所在資料夾為準。
+#
+# 對外埠 3001:與原本主機上的 next start 相同,cloudflared 的 ingress
+# (~/.cloudflared/config.yml → host.docker.internal:3001)不用改。
+# 3000 留給 Grafana。
+
+services:
+  theatron:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      args:
+        # 活動代號是 build 時寫進 bundle 的(NEXT_PUBLIC_*),要換活動就改這裡重建
+        NEXT_PUBLIC_TOURNAMENT_SLUG: ${NEXT_PUBLIC_TOURNAMENT_SLUG:-2026-baiye-shifeng}
+    image: tournament/theatron:local
+    container_name: tournament-theatron
+    restart: unless-stopped
+    environment:
+      # 讓容器內的 /api/* 也能轉到 hestia(本機直接開 3001 時用;經 cloudflared 時用不到)
+      HESTIA_URL: http://hestia:8088
+      NEXT_PUBLIC_TOURNAMENT_SLUG: ${NEXT_PUBLIC_TOURNAMENT_SLUG:-2026-baiye-shifeng}
+    ports:
+      - '3001:3000'
+    depends_on:
+      hestia:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.status<500?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s

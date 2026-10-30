@@ -1,0 +1,14 @@
+.git
+.husky
+node_modules
+**/node_modules
+web/.next*
+web/out
+deploy
+design
+sources
+docs
+*.log
+.env
+.env.*
+**/.env.local
