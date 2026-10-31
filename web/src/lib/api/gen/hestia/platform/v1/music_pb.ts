@@ -20,7 +20,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file hestia/platform/v1/music.proto.
  */
 export const file_hestia_platform_v1_music: GenFile = /*@__PURE__*/
-  fileDesc("Ch5oZXN0aWEvcGxhdGZvcm0vdjEvbXVzaWMucHJvdG8SEmhlc3RpYS5wbGF0Zm9ybS52MSLAAQoNTXVzaWNQbGF5bGlzdBIRCglwdWJsaWNfaWQYASABKAkSDAoEbmFtZRgCIAEoCRITCgt0cmFja19jb3VudBgDIAEoAxIZChF0b3RhbF9kdXJhdGlvbl9tcxgEIAEoAxIuCgpjcmVhdGVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgp1cGRhdGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCK8AQoKTXVzaWNUcmFjaxIQCghwb3NpdGlvbhgBIAEoBRIOCgZzb3VyY2UYAiABKAkSEQoJc291cmNlX2lkGAMgASgJEg0KBXRpdGxlGAQgASgJEhAKCHVwbG9hZGVyGAUgASgJEhMKC2R1cmF0aW9uX21zGAYgASgDEhUKDXRodW1ibmFpbF91cmwYByABKAkSLAoIYWRkZWRfYXQYCCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIhYKFExpc3RQbGF5bGlzdHNSZXF1ZXN0Ik0KFUxpc3RQbGF5bGlzdHNSZXNwb25zZRI0CglwbGF5bGlzdHMYASADKAsyIS5oZXN0aWEucGxhdGZvcm0udjEuTXVzaWNQbGF5bGlzdCIlChVDcmVhdGVQbGF5bGlzdFJlcXVlc3QSDAoEbmFtZRgBIAEoCSJNChZDcmVhdGVQbGF5bGlzdFJlc3BvbnNlEjMKCHBsYXlsaXN0GAEgASgLMiEuaGVzdGlhLnBsYXRmb3JtLnYxLk11c2ljUGxheWxpc3QiMwoVRGVsZXRlUGxheWxpc3RSZXF1ZXN0EhoKEnBsYXlsaXN0X3B1YmxpY19pZBgBIAEoCSIYChZEZWxldGVQbGF5bGlzdFJlc3BvbnNlIi8KEUxpc3RUcmFja3NSZXF1ZXN0EhoKEnBsYXlsaXN0X3B1YmxpY19pZBgBIAEoCSJEChJMaXN0VHJhY2tzUmVzcG9uc2USLgoGdHJhY2tzGAEgAygLMh4uaGVzdGlhLnBsYXRmb3JtLnYxLk11c2ljVHJhY2sinQEKD0FkZFRyYWNrUmVxdWVzdBIaChJwbGF5bGlzdF9wdWJsaWNfaWQYASABKAkSDgoGc291cmNlGAIgASgJEhEKCXNvdXJjZV9pZBgDIAEoCRINCgV0aXRsZRgEIAEoCRIQCgh1cGxvYWRlchgFIAEoCRITCgtkdXJhdGlvbl9tcxgGIAEoAxIVCg10aHVtYm5haWxfdXJsGAcgASgJIkEKEEFkZFRyYWNrUmVzcG9uc2USLQoFdHJhY2sYASABKAsyHi5oZXN0aWEucGxhdGZvcm0udjEuTXVzaWNUcmFjayJCChJSZW1vdmVUcmFja1JlcXVlc3QSGgoScGxheWxpc3RfcHVibGljX2lkGAEgASgJEhAKCHBvc2l0aW9uGAIgASgFIhUKE1JlbW92ZVRyYWNrUmVzcG9uc2Uy4gQKFE11c2ljUGxheWxpc3RTZXJ2aWNlEmQKDUxpc3RQbGF5bGlzdHMSKC5oZXN0aWEucGxhdGZvcm0udjEuTGlzdFBsYXlsaXN0c1JlcXVlc3QaKS5oZXN0aWEucGxhdGZvcm0udjEuTGlzdFBsYXlsaXN0c1Jlc3BvbnNlEmcKDkNyZWF0ZVBsYXlsaXN0EikuaGVzdGlhLnBsYXRmb3JtLnYxLkNyZWF0ZVBsYXlsaXN0UmVxdWVzdBoqLmhlc3RpYS5wbGF0Zm9ybS52MS5DcmVhdGVQbGF5bGlzdFJlc3BvbnNlEmcKDkRlbGV0ZVBsYXlsaXN0EikuaGVzdGlhLnBsYXRmb3JtLnYxLkRlbGV0ZVBsYXlsaXN0UmVxdWVzdBoqLmhlc3RpYS5wbGF0Zm9ybS52MS5EZWxldGVQbGF5bGlzdFJlc3BvbnNlElsKCkxpc3RUcmFja3MSJS5oZXN0aWEucGxhdGZvcm0udjEuTGlzdFRyYWNrc1JlcXVlc3QaJi5oZXN0aWEucGxhdGZvcm0udjEuTGlzdFRyYWNrc1Jlc3BvbnNlElUKCEFkZFRyYWNrEiMuaGVzdGlhLnBsYXRmb3JtLnYxLkFkZFRyYWNrUmVxdWVzdBokLmhlc3RpYS5wbGF0Zm9ybS52MS5BZGRUcmFja1Jlc3BvbnNlEl4KC1JlbW92ZVRyYWNrEiYuaGVzdGlhLnBsYXRmb3JtLnYxLlJlbW92ZVRyYWNrUmVxdWVzdBonLmhlc3RpYS5wbGF0Zm9ybS52MS5SZW1vdmVUcmFja1Jlc3BvbnNlQkBaPmdpdGh1Yi5jb20vZGFuaWNvdGVjaC9oZXN0aWEvZ2VuL2hlc3RpYS9wbGF0Zm9ybS92MTtwbGF0Zm9ybXYxYgZwcm90bzM", [file_google_protobuf_timestamp]);
+  fileDesc("Ch5oZXN0aWEvcGxhdGZvcm0vdjEvbXVzaWMucHJvdG8SEmhlc3RpYS5wbGF0Zm9ybS52MSLAAQoNTXVzaWNQbGF5bGlzdBIRCglwdWJsaWNfaWQYASABKAkSDAoEbmFtZRgCIAEoCRITCgt0cmFja19jb3VudBgDIAEoAxIZChF0b3RhbF9kdXJhdGlvbl9tcxgEIAEoAxIuCgpjcmVhdGVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgp1cGRhdGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCK8AQoKTXVzaWNUcmFjaxIQCghwb3NpdGlvbhgBIAEoBRIOCgZzb3VyY2UYAiABKAkSEQoJc291cmNlX2lkGAMgASgJEg0KBXRpdGxlGAQgASgJEhAKCHVwbG9hZGVyGAUgASgJEhMKC2R1cmF0aW9uX21zGAYgASgDEhUKDXRodW1ibmFpbF91cmwYByABKAkSLAoIYWRkZWRfYXQYCCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIhYKFExpc3RQbGF5bGlzdHNSZXF1ZXN0Ik0KFUxpc3RQbGF5bGlzdHNSZXNwb25zZRI0CglwbGF5bGlzdHMYASADKAsyIS5oZXN0aWEucGxhdGZvcm0udjEuTXVzaWNQbGF5bGlzdCIlChVDcmVhdGVQbGF5bGlzdFJlcXVlc3QSDAoEbmFtZRgBIAEoCSJNChZDcmVhdGVQbGF5bGlzdFJlc3BvbnNlEjMKCHBsYXlsaXN0GAEgASgLMiEuaGVzdGlhLnBsYXRmb3JtLnYxLk11c2ljUGxheWxpc3QiMwoVRGVsZXRlUGxheWxpc3RSZXF1ZXN0EhoKEnBsYXlsaXN0X3B1YmxpY19pZBgBIAEoCSIYChZEZWxldGVQbGF5bGlzdFJlc3BvbnNlIi8KEUxpc3RUcmFja3NSZXF1ZXN0EhoKEnBsYXlsaXN0X3B1YmxpY19pZBgBIAEoCSJEChJMaXN0VHJhY2tzUmVzcG9uc2USLgoGdHJhY2tzGAEgAygLMh4uaGVzdGlhLnBsYXRmb3JtLnYxLk11c2ljVHJhY2sirwEKD0FkZFRyYWNrUmVxdWVzdBIaChJwbGF5bGlzdF9wdWJsaWNfaWQYASABKAkSDgoGc291cmNlGAIgASgJEhEKCXNvdXJjZV9pZBgDIAEoCRINCgV0aXRsZRgEIAEoCRIQCgh1cGxvYWRlchgFIAEoCRITCgtkdXJhdGlvbl9tcxgGIAEoAxIVCg10aHVtYm5haWxfdXJsGAcgASgJEhAKCHBvc2l0aW9uGAggASgFIkEKEEFkZFRyYWNrUmVzcG9uc2USLQoFdHJhY2sYASABKAsyHi5oZXN0aWEucGxhdGZvcm0udjEuTXVzaWNUcmFjayJCChJSZW1vdmVUcmFja1JlcXVlc3QSGgoScGxheWxpc3RfcHVibGljX2lkGAEgASgJEhAKCHBvc2l0aW9uGAIgASgFIhUKE1JlbW92ZVRyYWNrUmVzcG9uc2UiRAoTUmVtb3ZlVHJhY2tzUmVxdWVzdBIaChJwbGF5bGlzdF9wdWJsaWNfaWQYASABKAkSEQoJcG9zaXRpb25zGAIgAygFIicKFFJlbW92ZVRyYWNrc1Jlc3BvbnNlEg8KB3JlbW92ZWQYASABKAUiQQoVUmVuYW1lUGxheWxpc3RSZXF1ZXN0EhoKEnBsYXlsaXN0X3B1YmxpY19pZBgBIAEoCRIMCgRuYW1lGAIgASgJIk0KFlJlbmFtZVBsYXlsaXN0UmVzcG9uc2USMwoIcGxheWxpc3QYASABKAsyIS5oZXN0aWEucGxhdGZvcm0udjEuTXVzaWNQbGF5bGlzdCJaChBNb3ZlVHJhY2tSZXF1ZXN0EhoKEnBsYXlsaXN0X3B1YmxpY19pZBgBIAEoCRIVCg1mcm9tX3Bvc2l0aW9uGAIgASgFEhMKC3RvX3Bvc2l0aW9uGAMgASgFIhMKEU1vdmVUcmFja1Jlc3BvbnNlIrMBChNSZXBsYWNlVHJhY2tSZXF1ZXN0EhoKEnBsYXlsaXN0X3B1YmxpY19pZBgBIAEoCRIQCghwb3NpdGlvbhgCIAEoBRIOCgZzb3VyY2UYAyABKAkSEQoJc291cmNlX2lkGAQgASgJEg0KBXRpdGxlGAUgASgJEhAKCHVwbG9hZGVyGAYgASgJEhMKC2R1cmF0aW9uX21zGAcgASgDEhUKDXRodW1ibmFpbF91cmwYCCABKAkiRQoUUmVwbGFjZVRyYWNrUmVzcG9uc2USLQoFdHJhY2sYASABKAsyHi5oZXN0aWEucGxhdGZvcm0udjEuTXVzaWNUcmFjazLrBwoUTXVzaWNQbGF5bGlzdFNlcnZpY2USZAoNTGlzdFBsYXlsaXN0cxIoLmhlc3RpYS5wbGF0Zm9ybS52MS5MaXN0UGxheWxpc3RzUmVxdWVzdBopLmhlc3RpYS5wbGF0Zm9ybS52MS5MaXN0UGxheWxpc3RzUmVzcG9uc2USZwoOQ3JlYXRlUGxheWxpc3QSKS5oZXN0aWEucGxhdGZvcm0udjEuQ3JlYXRlUGxheWxpc3RSZXF1ZXN0GiouaGVzdGlhLnBsYXRmb3JtLnYxLkNyZWF0ZVBsYXlsaXN0UmVzcG9uc2USZwoOUmVuYW1lUGxheWxpc3QSKS5oZXN0aWEucGxhdGZvcm0udjEuUmVuYW1lUGxheWxpc3RSZXF1ZXN0GiouaGVzdGlhLnBsYXRmb3JtLnYxLlJlbmFtZVBsYXlsaXN0UmVzcG9uc2USZwoORGVsZXRlUGxheWxpc3QSKS5oZXN0aWEucGxhdGZvcm0udjEuRGVsZXRlUGxheWxpc3RSZXF1ZXN0GiouaGVzdGlhLnBsYXRmb3JtLnYxLkRlbGV0ZVBsYXlsaXN0UmVzcG9uc2USWwoKTGlzdFRyYWNrcxIlLmhlc3RpYS5wbGF0Zm9ybS52MS5MaXN0VHJhY2tzUmVxdWVzdBomLmhlc3RpYS5wbGF0Zm9ybS52MS5MaXN0VHJhY2tzUmVzcG9uc2USVQoIQWRkVHJhY2sSIy5oZXN0aWEucGxhdGZvcm0udjEuQWRkVHJhY2tSZXF1ZXN0GiQuaGVzdGlhLnBsYXRmb3JtLnYxLkFkZFRyYWNrUmVzcG9uc2USXgoLUmVtb3ZlVHJhY2sSJi5oZXN0aWEucGxhdGZvcm0udjEuUmVtb3ZlVHJhY2tSZXF1ZXN0GicuaGVzdGlhLnBsYXRmb3JtLnYxLlJlbW92ZVRyYWNrUmVzcG9uc2USYQoMUmVtb3ZlVHJhY2tzEicuaGVzdGlhLnBsYXRmb3JtLnYxLlJlbW92ZVRyYWNrc1JlcXVlc3QaKC5oZXN0aWEucGxhdGZvcm0udjEuUmVtb3ZlVHJhY2tzUmVzcG9uc2USWAoJTW92ZVRyYWNrEiQuaGVzdGlhLnBsYXRmb3JtLnYxLk1vdmVUcmFja1JlcXVlc3QaJS5oZXN0aWEucGxhdGZvcm0udjEuTW92ZVRyYWNrUmVzcG9uc2USYQoMUmVwbGFjZVRyYWNrEicuaGVzdGlhLnBsYXRmb3JtLnYxLlJlcGxhY2VUcmFja1JlcXVlc3QaKC5oZXN0aWEucGxhdGZvcm0udjEuUmVwbGFjZVRyYWNrUmVzcG9uc2VCQFo+Z2l0aHViLmNvbS9kYW5pY290ZWNoL2hlc3RpYS9nZW4vaGVzdGlhL3BsYXRmb3JtL3YxO3BsYXRmb3JtdjFiBnByb3RvMw", [file_google_protobuf_timestamp]);
 
 /**
  * MusicPlaylist 是「我的歌單」清單的一列。
@@ -305,6 +305,13 @@ export type AddTrackRequest = Message<"hestia.platform.v1.AddTrackRequest"> & {
    * @generated from field: string thumbnail_url = 7;
    */
   thumbnailUrl: string;
+
+  /**
+   * 0 = 加到最後;1..n = 安插到該位置,原本那位起全部往後推;超過曲數視同最後。
+   *
+   * @generated from field: int32 position = 8;
+   */
+  position: number;
 };
 
 /**
@@ -371,6 +378,205 @@ export const RemoveTrackResponseSchema: GenMessage<RemoveTrackResponse> = /*@__P
   messageDesc(file_hestia_platform_v1_music, 13);
 
 /**
+ * @generated from message hestia.platform.v1.RemoveTracksRequest
+ */
+export type RemoveTracksRequest = Message<"hestia.platform.v1.RemoveTracksRequest"> & {
+  /**
+   * @generated from field: string playlist_public_id = 1;
+   */
+  playlistPublicId: string;
+
+  /**
+   * 1 起算,可不排序、可重複。任何一個位置不存在就整批不動(NotFound)。
+   *
+   * @generated from field: repeated int32 positions = 2;
+   */
+  positions: number[];
+};
+
+/**
+ * Describes the message hestia.platform.v1.RemoveTracksRequest.
+ * Use `create(RemoveTracksRequestSchema)` to create a new message.
+ */
+export const RemoveTracksRequestSchema: GenMessage<RemoveTracksRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_music, 14);
+
+/**
+ * @generated from message hestia.platform.v1.RemoveTracksResponse
+ */
+export type RemoveTracksResponse = Message<"hestia.platform.v1.RemoveTracksResponse"> & {
+  /**
+   * 實際拿掉的首數(去重後)。
+   *
+   * @generated from field: int32 removed = 1;
+   */
+  removed: number;
+};
+
+/**
+ * Describes the message hestia.platform.v1.RemoveTracksResponse.
+ * Use `create(RemoveTracksResponseSchema)` to create a new message.
+ */
+export const RemoveTracksResponseSchema: GenMessage<RemoveTracksResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_music, 15);
+
+/**
+ * @generated from message hestia.platform.v1.RenamePlaylistRequest
+ */
+export type RenamePlaylistRequest = Message<"hestia.platform.v1.RenamePlaylistRequest"> & {
+  /**
+   * @generated from field: string playlist_public_id = 1;
+   */
+  playlistPublicId: string;
+
+  /**
+   * trim 後 1–40 字;同名回 AlreadyExists。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
+};
+
+/**
+ * Describes the message hestia.platform.v1.RenamePlaylistRequest.
+ * Use `create(RenamePlaylistRequestSchema)` to create a new message.
+ */
+export const RenamePlaylistRequestSchema: GenMessage<RenamePlaylistRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_music, 16);
+
+/**
+ * @generated from message hestia.platform.v1.RenamePlaylistResponse
+ */
+export type RenamePlaylistResponse = Message<"hestia.platform.v1.RenamePlaylistResponse"> & {
+  /**
+   * @generated from field: hestia.platform.v1.MusicPlaylist playlist = 1;
+   */
+  playlist?: MusicPlaylist | undefined;
+};
+
+/**
+ * Describes the message hestia.platform.v1.RenamePlaylistResponse.
+ * Use `create(RenamePlaylistResponseSchema)` to create a new message.
+ */
+export const RenamePlaylistResponseSchema: GenMessage<RenamePlaylistResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_music, 17);
+
+/**
+ * @generated from message hestia.platform.v1.MoveTrackRequest
+ */
+export type MoveTrackRequest = Message<"hestia.platform.v1.MoveTrackRequest"> & {
+  /**
+   * @generated from field: string playlist_public_id = 1;
+   */
+  playlistPublicId: string;
+
+  /**
+   * @generated from field: int32 from_position = 2;
+   */
+  fromPosition: number;
+
+  /**
+   * 1 起算;超過曲數視同最後。
+   *
+   * @generated from field: int32 to_position = 3;
+   */
+  toPosition: number;
+};
+
+/**
+ * Describes the message hestia.platform.v1.MoveTrackRequest.
+ * Use `create(MoveTrackRequestSchema)` to create a new message.
+ */
+export const MoveTrackRequestSchema: GenMessage<MoveTrackRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_music, 18);
+
+/**
+ * @generated from message hestia.platform.v1.MoveTrackResponse
+ */
+export type MoveTrackResponse = Message<"hestia.platform.v1.MoveTrackResponse"> & {
+};
+
+/**
+ * Describes the message hestia.platform.v1.MoveTrackResponse.
+ * Use `create(MoveTrackResponseSchema)` to create a new message.
+ */
+export const MoveTrackResponseSchema: GenMessage<MoveTrackResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_music, 19);
+
+/**
+ * @generated from message hestia.platform.v1.ReplaceTrackRequest
+ */
+export type ReplaceTrackRequest = Message<"hestia.platform.v1.ReplaceTrackRequest"> & {
+  /**
+   * @generated from field: string playlist_public_id = 1;
+   */
+  playlistPublicId: string;
+
+  /**
+   * 要被換掉的位置,1 起算。位置不變,added_at 重設。
+   *
+   * @generated from field: int32 position = 2;
+   */
+  position: number;
+
+  /**
+   * 空字串 = youtube。
+   *
+   * @generated from field: string source = 3;
+   */
+  source: string;
+
+  /**
+   * @generated from field: string source_id = 4;
+   */
+  sourceId: string;
+
+  /**
+   * @generated from field: string title = 5;
+   */
+  title: string;
+
+  /**
+   * @generated from field: string uploader = 6;
+   */
+  uploader: string;
+
+  /**
+   * @generated from field: int64 duration_ms = 7;
+   */
+  durationMs: bigint;
+
+  /**
+   * @generated from field: string thumbnail_url = 8;
+   */
+  thumbnailUrl: string;
+};
+
+/**
+ * Describes the message hestia.platform.v1.ReplaceTrackRequest.
+ * Use `create(ReplaceTrackRequestSchema)` to create a new message.
+ */
+export const ReplaceTrackRequestSchema: GenMessage<ReplaceTrackRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_music, 20);
+
+/**
+ * @generated from message hestia.platform.v1.ReplaceTrackResponse
+ */
+export type ReplaceTrackResponse = Message<"hestia.platform.v1.ReplaceTrackResponse"> & {
+  /**
+   * @generated from field: hestia.platform.v1.MusicTrack track = 1;
+   */
+  track?: MusicTrack | undefined;
+};
+
+/**
+ * Describes the message hestia.platform.v1.ReplaceTrackResponse.
+ * Use `create(ReplaceTrackResponseSchema)` to create a new message.
+ */
+export const ReplaceTrackResponseSchema: GenMessage<ReplaceTrackResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_music, 21);
+
+/**
  * MusicPlaylistService 是個人歌單的入口。
  *
  * 上限:每人 10 個歌單、每個歌單 100 首(ResourceExhausted)。
@@ -395,6 +601,14 @@ export const MusicPlaylistService: GenService<{
     output: typeof CreatePlaylistResponseSchema;
   },
   /**
+   * @generated from rpc hestia.platform.v1.MusicPlaylistService.RenamePlaylist
+   */
+  renamePlaylist: {
+    methodKind: "unary";
+    input: typeof RenamePlaylistRequestSchema;
+    output: typeof RenamePlaylistResponseSchema;
+  },
+  /**
    * DeletePlaylist 連同曲目一起刪。
    *
    * @generated from rpc hestia.platform.v1.MusicPlaylistService.DeletePlaylist
@@ -413,7 +627,7 @@ export const MusicPlaylistService: GenService<{
     output: typeof ListTracksResponseSchema;
   },
   /**
-   * AddTrack 加到最後。
+   * AddTrack 加到最後,或帶 position 安插。
    *
    * @generated from rpc hestia.platform.v1.MusicPlaylistService.AddTrack
    */
@@ -423,12 +637,44 @@ export const MusicPlaylistService: GenService<{
     output: typeof AddTrackResponseSchema;
   },
   /**
+   * RemoveTrack 是 RemoveTracks 只給一個位置的簡寫,留著給舊呼叫端。
+   *
    * @generated from rpc hestia.platform.v1.MusicPlaylistService.RemoveTrack
    */
   removeTrack: {
     methodKind: "unary";
     input: typeof RemoveTrackRequestSchema;
     output: typeof RemoveTrackResponseSchema;
+  },
+  /**
+   * RemoveTracks 一次拿掉多首,單一交易:全成功或全不動。
+   *
+   * @generated from rpc hestia.platform.v1.MusicPlaylistService.RemoveTracks
+   */
+  removeTracks: {
+    methodKind: "unary";
+    input: typeof RemoveTracksRequestSchema;
+    output: typeof RemoveTracksResponseSchema;
+  },
+  /**
+   * MoveTrack 把第 from 首搬到第 to 位,中間的順移。
+   *
+   * @generated from rpc hestia.platform.v1.MusicPlaylistService.MoveTrack
+   */
+  moveTrack: {
+    methodKind: "unary";
+    input: typeof MoveTrackRequestSchema;
+    output: typeof MoveTrackResponseSchema;
+  },
+  /**
+   * ReplaceTrack 把某一位置的曲目換成另一首,位置不變。
+   *
+   * @generated from rpc hestia.platform.v1.MusicPlaylistService.ReplaceTrack
+   */
+  replaceTrack: {
+    methodKind: "unary";
+    input: typeof ReplaceTrackRequestSchema;
+    output: typeof ReplaceTrackResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_hestia_platform_v1_music, 0);
