@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>夜鴉閣 · 水墨互動試映</title>
+<style>
+:root{color-scheme:light;--paper:#f3efe5;--card:#fcf9f2;--ink:#202a2e;--muted:#686b65;--line:#b8b4a9;--accent:#91372f;--fill:#202a2e;--on-fill:#fffaf0}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 system-ui,"Microsoft JhengHei",sans-serif}body.dark{color-scheme:dark;--paper:#12191d;--card:#1c252a;--ink:#f4eddf;--muted:#b8b8ae;--line:#4e595c;--accent:#efaa8e;--fill:#d5dfd9;--on-fill:#162126}
+button,a,input{font:inherit}button,a{touch-action:manipulation}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #287fa4;outline-offset:5px}button:disabled{cursor:not-allowed;opacity:.42}
+.wrap{max-width:1420px;margin:auto;padding:26px 5vw 60px}.mast{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:18px}.brand{font:700 21px Georgia,"Noto Serif TC",serif;letter-spacing:.18em}.stamp{display:inline-block;color:var(--accent);margin-right:12px}.quiet{color:var(--muted);font-size:14px}.plain{border:1px solid var(--line);background:transparent;color:var(--ink);padding:9px 16px;min-height:44px}.intro{padding:45px 0 30px;max-width:840px}.eyebrow{letter-spacing:.18em;color:var(--accent);font-size:14px;margin:0 0 12px}h1{font:600 clamp(34px,4.2vw,60px)/1.25 Georgia,"Noto Serif TC",serif;letter-spacing:.04em;margin:0 0 20px}.intro p:last-child{color:var(--muted);margin:0;max-width:680px}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin-bottom:26px}.toolbar label{display:flex;align-items:center;gap:10px}.toolbar input{accent-color:var(--accent);width:110px}.toolbar output{min-width:45px}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.card{border:1px solid var(--line);background:var(--card);padding:26px;min-width:0;position:relative}.card.chosen{outline:2px solid var(--accent);outline-offset:4px}.card-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.number{font:italic 32px Georgia,serif;color:var(--accent)}.badge{color:var(--muted);font-size:14px}h2{font:600 27px/1.4 Georgia,"Noto Serif TC",serif;margin:14px 0 10px}.desc{color:var(--muted);margin:0;min-height:78px}.stage{margin:25px 0;padding:25px 0;border-block:1px solid var(--line);display:grid;gap:18px}.liquid{position:relative;isolation:isolate;overflow:hidden;display:grid;place-items:center;min-height:62px;width:100%;padding:13px 20px;background:transparent;border:1px solid var(--ink);color:var(--ink);font-weight:600;letter-spacing:.08em;transform:translateZ(0)}.liquid.nav{border:0;border-bottom:1px solid var(--line);min-height:60px;font-weight:400;letter-spacing:.04em}.liquid svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1;fill:var(--fill)}.liquid .label{grid-area:1/1;pointer-events:none}.liquid .label-white{position:absolute;inset:0;display:grid;place-items:center;color:var(--on-fill);clip-path:inset(100% 0 0);pointer-events:none}.liquid.nav .label,.liquid.nav .label-white{display:flex;justify-content:space-between;width:100%;gap:12px}.liquid.nav .label-white{padding:13px 20px}.small-row{display:flex;align-items:center;gap:16px}.liquid.icon{width:52px;min-width:52px;height:52px;min-height:52px;padding:0;font-size:25px;border-radius:50%}.small-row .quiet{flex:1}.actions{display:flex;flex-wrap:wrap;gap:10px}.actions .plain{flex:1}.pick{color:var(--accent);border-color:var(--accent)}.status{min-height:30px;color:var(--muted);font-size:14px;margin:14px 0 0}.selection{border-top:1px solid var(--line);margin:32px 0 0;padding-top:20px;display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}.selection strong{color:var(--accent)}.foot{color:var(--muted);font-size:14px;margin-top:18px}.reduced{display:none;color:var(--accent)}
+@media(max-width:960px){.cards{grid-template-columns:1fr}.card{max-width:680px;width:100%;margin:auto}.desc{min-height:0}.intro{padding-top:30px}.stage{grid-template-columns:1fr 1fr}.small-row{grid-column:1/-1}}@media(max-width:520px){.wrap{padding:20px 20px 40px}.stage{grid-template-columns:1fr}.card{padding:22px}.quiet.mast-note{display:none}h1{font-size:36px}.toolbar{gap:14px}.intro p{font-size:16px}}@media(prefers-reduced-motion:reduce){.reduced{display:block}}
+</style>
+<style>
+[data-variant="h"] .liquid{--fill:#74431f;--on-fill:#fff7dc}
+[data-variant="i"] .liquid{--fill:#233e50;--on-fill:#fff7e8}
+[data-variant="j"] .liquid{--fill:#292825;--on-fill:#fffaf0}
+.art-texture{pointer-events:none}
+[data-variant="k"] .liquid{--fill:#15383b;--on-fill:#fff8df}
+[data-variant="k"]{grid-column:1/-1}
+[data-variant="k"] .stage{grid-template-columns:1.4fr 1fr;align-items:center}
+[data-variant="k"] .swirl-preview{min-height:190px;grid-row:span 3}
+[data-variant="k"] .desc{min-height:0;max-width:760px}
+[data-variant="k"] .small-row{grid-column:2}
+@media(max-width:520px){[data-variant="k"] .stage{grid-template-columns:1fr}[data-variant="k"] .swirl-preview{grid-row:auto}[data-variant="k"] .small-row{grid-column:auto}}
+</style>
+<body><main class="wrap">
+<header class="mast"><div class="brand"><span class="stamp">夜</span>夜鴉閣</div><span class="quiet mast-note">互動試映 · 水墨與油彩</span><button class="plain" id="theme" aria-pressed="false">切換深色</button></header>
+<section class="intro"><p class="eyebrow">INK & PAINT / 十一種流動手感</p><h1>墨起，波湧。</h1><p>新增 K「螺旋捲潮」：浪頭從外緣沿近似黃金螺旋捲入中心，再合攏填滿。原本十版都保留，可複選比較。</p></section>
+<div class="toolbar"><button class="plain" id="replay-all">試播目前顯示版本 ↗</button><button class="plain" id="filter" aria-pressed="false" disabled>只比較已選</button><button class="plain" id="compare-mix">比較 C＋D＋G</button><a class="plain" href="#variant-g">看新增 G／H／I／J ↓</a><label>速度 <input id="speed" type="range" min="0.6" max="1.4" value="1" step="0.1"><output id="speed-value">1.0×</output></label><span class="quiet">Tab 聚焦也可預覽 · 移開可中途反向</span></div>
+<p class="reduced">已依系統「減少動態」設定，改為即時填色。</p>
+<p><a class="plain" href="#variant-k">看新增 K · 螺旋捲潮 ↓</a><span class="quiet">　放大區能看清外側捲向中心的浪頭。</span></p>
+<div class="cards">
+<article class="card" data-variant="a"><div class="card-head"><span class="number">A</span><span class="badge">細浪 · 柔和回流</span></div><h2>柔波漫升</h2><p class="desc">低幅水波緩緩漲滿，幾乎不回彈。細膩安定，適合長時間使用的選單。</p><div class="stage"></div><div class="actions"><button class="plain replay">試播 A</button><button class="plain pick" aria-pressed="false">選擇 A</button></div><p class="status" aria-live="polite">試試快速移入，再移開。</p></article>
+<article class="card" data-variant="b"><div class="card-head"><span class="number">B</span><span class="badge">推薦 · 柔軟回彈</span></div><h2>果凍湧墨</h2><p class="desc">圓潤墨浪向上推擠，帶一點果凍回彈。鬆手時柔軟回落，流體感最明顯。</p><div class="stage"></div><div class="actions"><button class="plain replay">試播 B</button><button class="plain pick" aria-pressed="false">選擇 B</button></div><p class="status" aria-live="polite">試試升到一半便移開。</p></article>
+<article class="card" data-variant="c"><div class="card-head"><span class="number">C</span><span class="badge">疊浪 · 濃淡墨色</span></div><h2>雙層墨浪</h2><p class="desc">淡墨先行、濃墨隨後，兩層水波錯位交融。帶筆墨濃淡，也有飽滿的彈性。</p><div class="stage"></div><div class="actions"><button class="plain replay">試播 C</button><button class="plain pick" aria-pressed="false">選擇 C</button></div><p class="status" aria-live="polite">比較兩層墨色上升的速度。</p></article>
+<article class="card" data-variant="d" id="variant-d"><div class="card-head"><span class="number">D</span><span class="badge">新增 · 墨中氣泡</span></div><h2>氣泡浮墨</h2><p class="desc">果凍墨面升起，大小氣泡從底部輕輕浮出，逐漸消散。活潑但不遮住文字。</p><div class="stage"></div><div class="actions"><button class="plain replay">試播 D</button><button class="plain pick" aria-pressed="false">選擇 D</button></div><p class="status" aria-live="polite">填滿後還有一小段氣泡浮動。</p></article>
+<article class="card" data-variant="e"><div class="card-head"><span class="number">E</span><span class="badge">新增 · 中央鼓起</span></div><h2>墨滴鼓湧</h2><p class="desc">中央像一滴柔軟果凍先鼓起，再向兩側攤開填滿。比水波更圓、更有黏稠感。</p><div class="stage"></div><div class="actions"><button class="plain replay">試播 E</button><button class="plain pick" aria-pressed="false">選擇 E</button></div><p class="status" aria-live="polite">留意中央先起、兩側稍後追上的形狀。</p></article>
+<article class="card" data-variant="f"><div class="card-head"><span class="number">F</span><span class="badge">新增 · 搖晃回流</span></div><h2>傾墨回瀾</h2><p class="desc">墨面斜斜湧入，像容器裡輕晃的墨水。左右有重量感，退場時帶一波柔軟回流。</p><div class="stage"></div><div class="actions"><button class="plain replay">試播 F</button><button class="plain pick" aria-pressed="false">選擇 F</button></div><p class="status" aria-live="polite">快速移入移出，感受墨面的慣性。</p></article>
+<article class="card" data-variant="g" id="variant-g"><div class="card-head"><span class="number">G</span><span class="badge">新增 · C＋D 混合</span></div><h2>疊浪浮泡</h2><p class="desc">保留 C 的淡墨先行、濃墨跟進，再加入 D 的大小氣泡。雙層液面與浮泡一起柔軟上升。</p><div class="stage"></div><div class="actions"><button class="plain replay">試播 G</button><button class="plain pick" aria-pressed="false">選擇 G</button></div><p class="status" aria-live="polite">用上方「比較 C＋D＋G」直接看混合差異。</p></article>
+<article class="card" data-variant="h" id="variant-h"><div class="card-head"><span class="number">H</span><span class="badge">油畫 · 刮刀厚塗</span></div><h2>赭金刮彩</h2><p class="desc">像刮刀橫向推開厚顏料，留下不齊的刀口、堆色稜線與暖金筆觸。更扎實、更有材質。</p><div class="stage"></div><div class="actions"><button class="plain replay">試播 H</button><button class="plain pick" aria-pressed="false">選擇 H</button></div><p class="status" aria-live="polite">看側向推進的刀口與留在色面上的刮痕。</p></article>
+<article class="card" data-variant="i"><div class="card-head"><span class="number">I</span><span class="badge">流彩 · 大理石紋</span></div><h2>旋彩流紋</h2><p class="desc">藍墨從中央旋開，奶油金與暗紅色絲相互纏繞。像油彩流動形成的紋路，向四周暈展。</p><div class="stage"></div><div class="actions"><button class="plain replay">試播 I</button><button class="plain pick" aria-pressed="false">選擇 I</button></div><p class="status" aria-live="polite">不是直線填滿，而是帶旋轉紋路的色團擴散。</p></article>
+<article class="card" data-variant="j"><div class="card-head"><span class="number">J</span><span class="badge">油墨 · 乾刷飛白</span></div><h2>飛墨拓印</h2><p class="desc">不規則墨團向外鋪開，留下乾刷細縫與碎墨顆粒。邊緣有毛刺，質感更接近拓印與飛白。</p><div class="stage"></div><div class="actions"><button class="plain replay">試播 J</button><button class="plain pick" aria-pressed="false">選擇 J</button></div><p class="status" aria-live="polite">比較粗糙墨邊與細碎留白的乾濕差別。</p></article>
+<article class="card" data-variant="k" id="variant-k"><div class="card-head"><span class="number">K</span><span class="badge">新增 · 外緣捲向內心</span></div><h2>螺旋捲潮</h2><p class="desc">浪頭沿近似黃金螺旋向內捲進，濃墨拖著淡金色浪緣繞入中心，最後合攏填滿。移開時沿原路退潮；速度可調慢看清楚。</p><div class="stage"></div><div class="actions"><button class="plain replay">試播 K</button><button class="plain pick" aria-pressed="false">選擇 K</button></div><p class="status" aria-live="polite">左側放大看捲潮，右側比較實際按鈕。不是單純把圖案旋轉。</p></article>
+</div>
+<div class="selection"><div role="status">已選版本（可複選）：<strong id="choice">尚未選擇</strong></div><span class="quiet">這裡只試映互動，不會報名或提交資料。</span></div>
+<p class="foot">可重複點選以取消；選好後告訴我字母組合，例如「B＋D＋F」，也可以指定「B 的回彈＋D 的氣泡」。此頁的選擇不會直接更動全站。</p>
+</main>
+<script>
+(()=>{
+const settings={a:{spring:105,damping:21,amplitude:3.5,waves:1.2,phaseSpeed:2.6},b:{spring:145,damping:14,amplitude:9,waves:1.1,phaseSpeed:3.8},c:{spring:115,damping:17,amplitude:6.5,waves:1.6,phaseSpeed:3.2},d:{spring:100,damping:15,amplitude:7,waves:1.25,phaseSpeed:3},e:{spring:72,damping:12,amplitude:12,waves:1,phaseSpeed:2.2},f:{spring:90,damping:13,amplitude:10,waves:1,phaseSpeed:3.4}};
+settings.g={...settings.c};
+settings.h={spring:65,damping:17,amplitude:0,waves:0,phaseSpeed:1};
+settings.i={spring:75,damping:16,amplitude:0,waves:0,phaseSpeed:1.7};
+settings.j={spring:110,damping:21,amplitude:0,waves:0,phaseSpeed:1};
+settings.k={spring:34,damping:12,amplitude:0,waves:0,phaseSpeed:1};
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+let speed=1,raf=0,last=0;
+const active=new Set(),motions=[],selected=new Set();
+let filtered=false;
+const filterButton=document.querySelector('#filter');
+function updateSelection(){
+ document.querySelectorAll('.card').forEach(card=>{const chosen=selected.has(card.dataset.variant);card.classList.toggle('chosen',chosen);card.querySelector('.pick').setAttribute('aria-pressed',String(chosen));card.querySelector('.pick').textContent=(chosen?'取消 ':'選擇 ')+card.dataset.variant.toUpperCase();card.hidden=filtered&&!chosen;});
+ document.querySelector('#choice').textContent=selected.size?[...selected].sort().map(v=>v.toUpperCase()+' · '+document.querySelector(`[data-variant="${v}"] h2`).textContent).join(' ／ '):'尚未選擇';
+ filterButton.disabled=!selected.size;filterButton.setAttribute('aria-pressed',String(filtered));filterButton.textContent=filtered?'顯示全部十一版':'只比較已選'+(selected.size?'（'+selected.size+'）':'');
+}
+const markup=(label,kind='')=>`<button class="liquid ${kind}" ${kind==='icon'?'aria-label="更多選項"':''}><svg viewBox="0 0 320 80" preserveAspectRatio="none" aria-hidden="true"><path class="wash" opacity=".28"/><path class="ink"/></svg><span class="label">${label}</span><span class="label-white" aria-hidden="true">${label}</span></button>`;
+document.querySelectorAll('.card').forEach(card=>{
+card.querySelector('.stage').innerHTML=markup('報名參賽 ↗')+markup('<span>規則說明</span><span>↗</span>','nav')+`<div class="small-row">${markup('+','icon')}<span class="quiet">小型按鈕也使用同一種流動。</span></div>`;
+if(card.dataset.variant==='k')card.querySelector('.stage').insertAdjacentHTML('afterbegin',markup('浪湧入心 · 點按試映','swirl-preview'));
+const variant=card.dataset.variant,cfg=settings[variant],group=[];
+card.querySelectorAll('.liquid').forEach(button=>{
+const state={button,variant,cfg,fill:0,velocity:0,phase:0,target:0,pointer:false,focus:false,pulse:false,timer:0,age:0};
+if(variant==='k'){
+ button.querySelector('svg').insertAdjacentHTML('beforeend','<path class="wave-crest" fill="none" stroke="#e0c586" stroke-width="1.6" stroke-linecap="round"/><path class="wave-foam" fill="none" stroke="#a2c2b5" stroke-width=".7" stroke-linecap="round"/>');
+ state.crest=button.querySelector('.wave-crest');state.foam=button.querySelector('.wave-foam');
+}
+if(['d','g'].includes(variant)){
+ const clipId='bubble-clip-'+motions.length;
+ button.querySelector('svg').insertAdjacentHTML('beforeend',`<defs><clipPath id="${clipId}"><path class="bubble-clip"/></clipPath></defs><g class="bubbles" clip-path="url(#${clipId})" fill="var(--on-fill)" stroke="var(--on-fill)" stroke-width=".7">${Array.from({length:6},()=>'<ellipse/>').join('')}</g>`);
+ state.bubbles=[...button.querySelectorAll('ellipse')];
+ state.bubbleClip=button.querySelector('.bubble-clip');
+}
+if(['h','i','j'].includes(variant)){
+ const clipId='paint-clip-'+motions.length;
+ let texture='';
+ if(variant==='h')texture=Array.from({length:22},(_,i)=>{const y=i*4;const x=(i*37)%85-30;return `<path d="M${x},${y} L${250+(i*17)%100},${y-2}" stroke="${i%3===0?'#e8b75e':i%3===1?'#301b13':'#ad6e30'}" stroke-width="${i%4===0?3:1}" opacity=".48"/>`;}).join('');
+ if(variant==='i')texture=Array.from({length:14},(_,i)=>{const y=i*8-18;return `<path d="M-35,${y} C65,${y-55} 75,${y+65} 160,${y+10} S235,${y-45} 360,${y+35}" stroke="${i%3===0?'#c19c61':i%3===1?'#744643':'#8ca7aa'}" stroke-width="${i%3===0?2:5}" opacity=".32"/>`;}).join('');
+ if(variant==='j')texture=Array.from({length:85},(_,i)=>{const x=(i*71)%330-5,y=(i*23)%83;return `<path d="M${x},${y} l${4+i%22},${-1-i%3}" stroke="#fff3d7" stroke-width="${i%4===0?1.4:.55}" opacity="${i%3===0?.3:.13}"/>`;}).join('');
+ button.querySelector('svg').insertAdjacentHTML('beforeend',`<defs><clipPath id="${clipId}"><path class="paint-clip"/></clipPath></defs><g class="art-texture" clip-path="url(#${clipId})" fill="none"><g class="paint-strokes">${texture}</g></g>`);
+ state.paintClip=button.querySelector('.paint-clip');state.paintStrokes=button.querySelector('.paint-strokes');
+}
+motions.push(state);group.push(state);
+const update=()=>{state.target=state.pointer||state.focus||state.pulse?1:0;state.age=0;if(reduced.matches){state.fill=state.target;state.velocity=0;draw(state);return;}active.add(state);if(!raf){last=0;raf=requestAnimationFrame(tick);}};
+state.update=update;
+button.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){state.pointer=true;update();}});
+button.addEventListener('pointerleave',()=>{state.pointer=false;update();});
+button.addEventListener('focus',()=>{state.focus=button.matches(':focus-visible');update();});
+button.addEventListener('blur',()=>{state.focus=false;update();});
+button.addEventListener('pointercancel',()=>{state.pointer=false;state.focus=false;update();});
+button.addEventListener('click',()=>{pulse(state);card.querySelector('.status').textContent='已試按 · 不會送出任何資料';});
+draw(state);
+});
+card.querySelector('.replay').addEventListener('click',()=>group.forEach(pulse));
+card.querySelector('.pick').addEventListener('click',()=>{
+if(selected.has(variant))selected.delete(variant);else selected.add(variant);
+if(!selected.size)filtered=false;
+updateSelection();
+});
+});
+function pulse(s){clearTimeout(s.timer);s.pulse=true;s.update();s.timer=setTimeout(()=>{s.pulse=false;s.update();},(s.variant==='k'?2400:s.bubbles?2000:1500)/speed);}
+function spiralPath(s){
+ const p=Math.max(0,Math.min(1,s.fill));
+ if(p>=.999)return {d:'M0,0H320V80H0Z',clip:'inset(0)',crest:'',foam:'',crestOpacity:0};
+ const end=p*Math.PI*3.1,spread=Math.max(0,(p-.68)/.32),flood=spread*spread*(3-2*spread);
+ const outside=[],inside=[],crest=[],foam=[];
+ const count=130,b=Math.log((1+Math.sqrt(5))/2)/(Math.PI/2);
+ for(let i=0;i<=count;i++){
+  const t=end*i/count,a=Math.PI+t,r=260*Math.exp(-b*t);
+  const x=198+r*Math.cos(a),y=31+r*Math.sin(a)*.4;
+  const dx=-b*Math.cos(a)-Math.sin(a),dy=-b*Math.sin(a)+Math.cos(a),len=Math.hypot(dx,dy);
+  const nx=-dy/len,ny=dx/len;
+  const taper=Math.min(1,(end-t)*2.7+.05);
+  const width=(7+r*.19)*taper+flood*330;
+  outside.push([x+nx*width,y+ny*width*.4]);inside.push([x-nx*width,y-ny*width*.4]);
+  if(i>count*.28){crest.push([x+nx*width*.83,y+ny*width*.83*.4]);foam.push([x+nx*width*.64,y+ny*width*.64*.4]);}
+ }
+ const points=outside.concat(inside.reverse());
+ const line=ps=>'M '+ps.map(v=>v.join(',')).join(' L ');
+ return {d:line(points)+' Z',clip:'polygon('+points.map(([x,y])=>`${x/3.2}% ${y/.8}%`).join(',')+')',crest:line(crest),foam:line(foam),crestOpacity:Math.min(1,p*8)*(1-flood)};
+}
+function paintPath(s){
+ const f=Math.max(0,s.fill),points=[];
+ if(s.variant==='h'){
+ points.push([-12,-12]);
+ for(let n=0;n<=32;n++){const y=n*3-8,x=-36+f*400+Math.sin(n*2.4)*9+Math.cos(n*.7)*10;points.push([x,y]);}
+ points.push([-12,92]);
+ }else{
+ for(let n=0;n<100;n++){const a=n/100*Math.PI*2;const grain=s.variant==='j'?.85+.1*Math.sin(n*2.3)+.07*Math.cos(n*4.1):1+.05*Math.sin(a*5+s.phase);const angle=a+(s.variant==='i'?s.phase*.12:0);points.push([160+Math.cos(angle)*300*f*grain,40+Math.sin(angle)*105*f*grain]);}
+ }
+ return {d:'M '+points.map(p=>p.join(',')).join(' L ')+' Z',clip:'polygon('+points.map(([x,y])=>`${x/3.2}% ${y/.8}%`).join(',')+')'};
+}
+function path(s,back=false){
+if(s.variant==='k')return spiralPath(s);
+if(['h','i','j'].includes(s.variant))return paintPath(s);
+const f=s.fill+(back?.055:0),amplitude=s.cfg.amplitude*(back?1.1:1),level=94-f*108;
+const points=[];
+for(let i=0;i<=40;i++){const x=i*8,t=x/320;let wave=Math.sin(t*Math.PI*2*s.cfg.waves+s.phase+(back?1.8:0));let secondary=Math.sin(t*Math.PI*4-s.phase*.7)*.22;
+if(s.variant==='e'){wave=-2.5*Math.exp(-Math.pow((t-.5)/.23,2));secondary=.18*Math.sin(t*Math.PI*2+s.phase);}
+if(s.variant==='f'){wave=(t-.5)*2.8*Math.cos(s.phase*.6)+.45*Math.sin(t*Math.PI*2+s.phase);secondary=0;}
+points.push([x,level+(wave+secondary)*amplitude]);}
+return {d:'M '+points.map(p=>p.join(',')).join(' L ')+' L 320,90 L 0,90 Z',clip:'polygon('+points.map(([x,y])=>`${x/3.2}% ${y/0.8}%`).join(',')+',100% 100%,0 100%)'};
+}
+function draw(s){const front=path(s);const empty=s.fill<=0; s.button.querySelector('.ink').setAttribute('d',empty?'':front.d);s.button.querySelector('.wash').setAttribute('d',!empty&&['c','g'].includes(s.variant)?path(s,true).d:'');s.button.querySelector('.label-white').style.clipPath=empty?'inset(100% 0 0)':front.clip;
+if(s.paintClip){s.paintClip.setAttribute('d',empty?'':front.d);if(s.variant==='i')s.paintStrokes.setAttribute('transform',`translate(${Math.sin(s.phase)*7} ${Math.cos(s.phase)*3})`);}
+if(s.crest){s.crest.setAttribute('d',empty?'':front.crest);s.foam.setAttribute('d',empty?'':front.foam);s.crest.style.opacity=s.foam.style.opacity=reduced.matches?'0':String(front.crestOpacity);}
+if(s.bubbles){s.bubbleClip.setAttribute('d',empty?'':front.d);const fade=reduced.matches||!s.target?0:Math.max(0,Math.min(1,s.age*4,(1.8-s.age)*3));s.bubbles.forEach((bubble,i)=>{const progress=(s.age*.65+i*.153)%1;const radius=2.5+(i%3)*1.2;bubble.setAttribute('cx',String(26+i*51+Math.sin(s.phase+i)*6));bubble.setAttribute('cy',String(90-progress*100));bubble.setAttribute('rx',String(s.button.classList.contains('icon')?radius*4:radius));bubble.setAttribute('ry',String(radius));bubble.setAttribute('fill-opacity',String(.12*fade));bubble.setAttribute('stroke-opacity',String(.6*fade*Math.sin(Math.PI*progress)));});}
+}
+function tick(now){const dt=last?Math.min((now-last)/1000,.025)*speed:1/60;last=now;
+for(const s of active){s.age+=dt;s.velocity+=(s.cfg.spring*(s.target-s.fill)-s.cfg.damping*s.velocity)*dt;s.fill+=s.velocity*dt;s.phase+=s.cfg.phaseSpeed*dt;draw(s);const bubbling=s.bubbles&&s.target&&s.age<1.8;if((!bubbling&&Math.abs(s.target-s.fill)<.001&&Math.abs(s.velocity)<.008)||s.age>3){s.fill=s.target;s.velocity=0;draw(s);active.delete(s);}}
+raf=active.size?requestAnimationFrame(tick):0;}
+function clear(){if(raf)cancelAnimationFrame(raf);raf=0;active.clear();for(const s of motions){clearTimeout(s.timer);s.pointer=s.focus=s.pulse=false;s.target=s.fill=s.velocity=0;draw(s);}}
+window.addEventListener('blur',clear);document.addEventListener('visibilitychange',()=>{if(document.hidden)clear();});window.addEventListener('pagehide',clear);reduced.addEventListener('change',clear);
+filterButton.addEventListener('click',()=>{clear();filtered=!filtered;updateSelection();});
+document.querySelector('a[href="#variant-g"]').addEventListener('click',()=>{filtered=false;updateSelection();});
+document.querySelector('a[href="#variant-k"]').addEventListener('click',()=>{filtered=false;updateSelection();});
+document.querySelector('#compare-mix').addEventListener('click',()=>{clear();selected.clear();selected.add('c');selected.add('d');selected.add('g');filtered=true;updateSelection();});
+document.querySelector('#replay-all').addEventListener('click',()=>motions.filter(s=>!s.button.closest('.card').hidden).forEach(pulse));
+document.querySelector('#speed').addEventListener('input',e=>{speed=Number(e.target.value);document.querySelector('#speed-value').textContent=speed.toFixed(1)+'×';});
+document.querySelector('#theme').addEventListener('click',e=>{const dark=document.body.classList.toggle('dark');e.currentTarget.setAttribute('aria-pressed',String(dark));e.currentTarget.textContent=dark?'切換淺色':'切換深色';});
+})();
+</script></body></html>

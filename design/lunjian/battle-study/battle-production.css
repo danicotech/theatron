@@ -1,0 +1,55 @@
+/* Generated artwork lives in independent decorative layers. Text stays HTML. */
+.produced{--art-foreground:none;--mobile-red:url('assets/battle-produced/mobile-red-panel-v1.png');--mobile-blue:url('assets/battle-produced/mobile-blue-panel-v1.png')}
+.produced .material-plane{display:block;background:var(--art-foreground) center/100% 100% no-repeat;opacity:.88}
+.produced .material-plane>i{display:none}
+.produced .tree-side>h2,.produced .tree-round h3,.produced .roster-panel h2,.produced .roster-panel header small,.produced .draft-score,.produced .draft-score small,.produced .champion-history>h2{color:#f5ead5}
+.produced .tree-final>h2,.produced .tree-final>strong,.produced .champion-history{color:#f5ead5}
+.produced .draft-card{--rank-art:url('assets/battle-produced/rank-kaishan-v1.png');--rank-fill:var(--card-red,#321a21);border:0;isolation:isolate;box-shadow:none;padding:12px 16px;background:none}
+.produced .draft-card.blue{--rank-fill:var(--card-blue,#102a3a);background:none}
+.produced .draft-card[data-rank=duanshui]{--rank-art:url('assets/battle-produced/rank-duanshui-v1.png')}
+.produced .draft-card[data-rank=feihua]{--rank-art:url('assets/battle-produced/rank-feihua-v1.png')}
+.produced .draft-card[data-rank=wuwo]{--rank-art:url('assets/battle-produced/rank-wuwo-v1.png')}
+.produced .draft-card::before{inset:0;border:0;background:var(--rank-art) center/100% 100% no-repeat,linear-gradient(var(--rank-fill),var(--rank-fill)) center/94% 72% no-repeat;opacity:1;pointer-events:none;z-index:1}
+.produced .draft-card .card-photo{z-index:2}.produced .draft-copy{z-index:4;position:relative}
+.produced .draft-card::after{z-index:4}
+.produced .draft-pending:not(.draft-bye){border:0;background:url('assets/battle-produced/rank-kaishan-v1.png') center/100% 100% no-repeat,linear-gradient(var(--neutral-card),var(--neutral-card)) center/94% 72% no-repeat;padding:18px}
+.produced .duel-card{padding:0}
+.produced .duel-card::before{inset:auto 0 0;height:88px;background:var(--rank-art) center/100% 100% no-repeat,linear-gradient(var(--rank-fill),var(--rank-fill)) center/94% 72% no-repeat}
+.produced .duel-card .draft-copy{height:88px;padding:16px 12px}
+.produced .moon-slot{border:0;border-radius:0;font-size:0;padding:0;background:url('assets/battle-produced/moon-mountain-v1.png') center/contain no-repeat}
+.produced .honor-slot{border:0;border-radius:0;background:url('assets/battle-produced/i-honor-v1.png') center/contain no-repeat;opacity:.65}
+.produced [data-champion=team] .honor-slot{background-image:url('assets/battle-produced/j-honor-v1.png')}
+.produced .honor-slot span{display:none}
+.produced .champion-plaque{border:0;min-height:88px;background:url('assets/battle-produced/champion-plaque-v1.png') center/100% 100% no-repeat;color:#f5dfab;padding:18px 28px}
+.produced .shared-champion-frame{border:0;background:url('assets/battle-produced/j-team-frame-v1.png') center/100% 100% no-repeat;padding:22px 18px}
+.produced .shared-champion-frame .duel-card::before{height:88px}
+.produced .draft-action{background:url('assets/battle-produced/action-paper-v1.png') center/100% 100% no-repeat;color:#30251a;padding:14px 24px;transition:filter .15s}
+.produced .draft-action:hover{filter:brightness(1.08)}.produced .draft-action:active{filter:brightness(.88)}
+.produced .draft-bye{border:0;background:url('assets/battle-produced/bye-plaque-v1.png') center/100% 100% no-repeat,#342b1e;color:#f5db9a}
+.produced .draft-bye small{color:#e6c98c}
+.asset-overlay{position:absolute;inset:0;pointer-events:none;z-index:2000;overflow:hidden}
+.asset-outline{position:absolute;border:1px dashed #4ddbe4;pointer-events:none}
+.asset-outline[data-kind=text]{border-color:#f2bf62}.asset-outline[data-kind=photo]{border-color:#c3a2ff}
+.asset-outline button{position:absolute;top:0;left:0;background:#08151fee;color:#bafaff;border:1px solid #4ddbe4;padding:2px 5px;font:600 10px/1.4 system-ui;pointer-events:auto;min-height:18px;white-space:nowrap}
+.asset-outline[data-kind=text] button{color:#ffdda1;border-color:#f2bf62}.asset-outline[data-kind=photo] button{color:#e3d3ff;border-color:#c3a2ff}
+.asset-outline.is-active{border:2px solid #fff;box-shadow:0 0 0 2px #17242c}.asset-outline.is-active button{font-size:12px;z-index:2}
+@media(max-width:700px){
+ .produced .round-match{border:0;background:var(--mobile-red) center/100% 100% no-repeat;padding:32px 22px;color:#f5ead5;isolation:isolate}
+ .produced .round-match.blue{background-image:var(--mobile-blue)}
+ .produced .round-match header span,.produced .round-match .match-destination{color:#eadcc6}
+ .produced .final-match-mobile{background:url('assets/battle-produced/final-panel-v1.png') center/100% 100% no-repeat;padding:36px 22px}
+ .produced .mobile-champion small{color:#eadcc6}
+ .produced .team-stage::before{background:var(--mobile-red) center/100% 100% no-repeat;clip-path:none;opacity:.8}
+ .produced .team-stage[data-side=blue]::before{background-image:var(--mobile-blue)}
+ .produced .roster-panel{padding:16px 10px}
+ .produced .team-stage[data-size="1"] .roster-panel{padding:0}
+ .produced .team-stage[data-size="1"]>.material-plane{display:block}
+ .produced .duel-card::before{height:88px}
+ .produced .champion-history{background:var(--mobile-red) center/100% 100% no-repeat;padding:32px 24px;color:#f5ead5}
+ .produced .champion-history.blue{background-image:var(--mobile-blue)}
+ .produced .champion-history .history-summary,.produced .champion-history h3{color:#f5ead5}
+ .produced .shared-champion-frame{padding:18px 12px}
+ .produced .shared-champion-frame .duel-card .draft-copy{height:88px;padding:18px 14px}
+ .produced .champion-plaque{width:100%}
+}
+

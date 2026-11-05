@@ -16,7 +16,9 @@ next-env.d.ts
 
 # Lab sources and generated output must retain generator-owned bytes.
 sources/
+design/
 web/public/
 web/src/app/**/*Markup.ts
+web/src/app/timberNavigation.ts
 web/src/features/bracket/bracketTreeRuntime.js
 web/src/features/sportsbook/*Runtime.js

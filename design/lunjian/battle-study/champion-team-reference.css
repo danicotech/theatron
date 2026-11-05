@@ -1,0 +1,33 @@
+.champion-preview.mode-J .side-history{z-index:3}
+/* J closeup revision: opaque ink panel, separate portrait borders and name plaques. */
+.champion-preview.mode-J .team-focus{isolation:isolate;padding-top:32px}
+.champion-preview.mode-J .team-halo{inset:-24px -15% auto;width:130%;height:455px;object-fit:fill;opacity:1;z-index:-1;pointer-events:none}
+.champion-preview.mode-J .team-focus .champion-word{
+ position:relative;z-index:7;margin:-35px 0 4px;font-size:54px;line-height:1.15;font-weight:900;
+ background:linear-gradient(180deg,#fff9d8 8%,#ffed9c 35%,#dca846 58%,#fff1b0 73%,#b88128 100%);
+ background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+ text-shadow:none;filter:drop-shadow(0 2px 1px #090a06);letter-spacing:.1em;
+}
+.champion-preview.mode-J .team-crown-frame{height:310px;width:94%;padding:13px 14px 14px;display:flex;background:none;box-shadow:none;border-radius:0;overflow:visible}
+.champion-preview.mode-J .team-frame-art{z-index:0;inset:-5% -4%;width:108%;height:110%;filter:none}
+.champion-preview.mode-J .team-crown-frame>h3{z-index:6;flex:0 0 28px;font-size:24px;line-height:28px;margin:0;color:#fff0c9;text-shadow:0 2px 3px #000}
+.champion-preview.mode-J .champion-members{position:relative;z-index:2;gap:28px 14px;grid-template-rows:repeat(2,minmax(0,1fr));overflow:visible}
+.champion-preview.mode-J .member-portrait{background:#0b0c09;border:0;overflow:visible;isolation:isolate;min-height:0;box-shadow:none;transform:none}
+.champion-preview.mode-J .member-portrait::before{content:'';position:absolute;inset:7px 3px 3px;border:1px solid #9e8245;clip-path:polygon(0 3px,3px 0,calc(100% - 3px) 0,100% 3px,100% calc(100% - 3px),calc(100% - 3px) 100%,3px 100%,0 calc(100% - 3px));pointer-events:none;z-index:0;background:none}
+.champion-preview.mode-J .member-art{position:absolute;z-index:1;inset:-22px 0 20px;overflow:visible;clip-path:inset(-10px 0 0);pointer-events:none}
+.champion-preview.mode-J .member-art>img{position:absolute;inset:0;width:100%;height:142%;object-fit:contain;object-position:center top;transform-origin:50% 0;transition:transform .3s cubic-bezier(.22,.61,.36,1)}
+.champion-preview.mode-J .member-portrait:is(:hover,:focus-visible) .member-art>img{transform:translateY(-7px) scale(1.08)}
+.champion-preview.mode-J .member-name{z-index:3;min-height:25px;bottom:0;left:2px;right:2px;border:0;background:transparent url('assets/champion-reference-v2/j-member-plaque-v4.png') center/100% 250% no-repeat;padding:2px 12px;justify-content:center;gap:18px;font-size:17px;line-height:21px;color:#fff0c9}
+.champion-preview.mode-J .member-name small{font-size:14px;color:#e8d1a0}
+.champion-preview.mode-J .member-portrait:focus-visible{outline:2px solid #ffe6a2;outline-offset:3px}
+.champion-preview.mode-J .team-focus .final-score{position:relative;margin:14px 0 10px;z-index:2;color:#fff0cf}
+@media(min-width:1550px){.champion-preview.mode-J .team-crown-frame{height:340px}}
+@media(min-width:761px) and (max-width:1150px){.champion-preview.mode-J .team-crown-frame{height:284px;padding-inline:11px}.champion-preview.mode-J .champion-members{gap:8px}.champion-preview.mode-J .member-name{font-size:14px;gap:9px;padding-inline:5px}.champion-preview.mode-J .member-name small{font-size:12px}}
+@media(max-width:760px){.champion-preview.mode-J .team-focus{padding-top:32px}.champion-preview.mode-J .team-halo{top:-18px;left:-26%;width:152%;height:445px}.champion-preview.mode-J .team-crown-frame{height:290px;width:96%;padding:11px 10px 12px}.champion-preview.mode-J .team-focus .champion-word{font-size:48px;margin-bottom:6px}.champion-preview.mode-J .champion-members{gap:9px}.champion-preview.mode-J .member-name{font-size:15px;gap:10px;padding-inline:4px}.champion-preview.mode-J .member-name small{font-size:12px}}
+@media(max-width:360px){.champion-preview.mode-J .team-crown-frame{height:270px}.champion-preview.mode-J .member-name{font-size:14px;gap:8px}.champion-preview.mode-J .member-name small{font-size:12px}.champion-preview.mode-J .team-crown-frame>h3{font-size:21px}}
+/* Reserve the same headroom at every size; the mask only clips sides and beneath the nameplate. */
+.champion-preview.mode-J .team-crown-frame>h3{flex-basis:40px}
+@media(max-width:1150px){.champion-preview.mode-J .champion-members{row-gap:28px}}
+@media(max-width:760px){.champion-preview.mode-J .team-crown-frame{height:320px}}
+@media(max-width:360px){.champion-preview.mode-J .team-crown-frame{height:300px}.champion-preview.mode-J .member-art{top:-18px}}
+@media(prefers-reduced-motion:reduce){.champion-preview.mode-J .member-art>img{transition:none}}

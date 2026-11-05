@@ -1,0 +1,391 @@
+/* Only the isolated battle surface: unrelated pages never inherit study selectors. */
+:host{display:block;min-width:0;color:#f6ead2;--serif:"Noto Serif TC","Songti TC","Source Han Serif TC",serif}
+:host([hidden]){display:none}
+.battle-surface{margin:0;min-height:0;width:100%;overflow:visible;background:none;color:#f6ead2;font-family:var(--serif);isolation:isolate}
+.battle-surface *{box-sizing:border-box}
+.battle-surface button{font-family:inherit;cursor:pointer}
+.battle-surface button:focus-visible{outline:3px solid #edc97c;outline-offset:5px}
+/* The chapter already paints the night mountain; the study page shell must not repeat it. */
+/* Type follows the site tokens (Noto Serif TC display, Noto Sans TC body); numbers are tabular. */
+.battle-surface.layout-draft{background:none;min-height:0;--serif:var(--font-display,"Noto Serif TC",serif);--sans:var(--font-body,"Noto Sans TC",sans-serif);--mono:var(--font-mono,var(--sans))}
+.battle-surface.layout-draft::before{display:none}
+.battle-surface .draft-main{margin:0 auto;padding:0;max-width:1640px}
+.battle-surface .draft-heading{text-align:center;padding:0 0 22px}
+.battle-surface .draft-heading .draft-title{font:800 clamp(38px,4.1vw,60px)/1.3 var(--serif);letter-spacing:.08em;color:#f5ead5;margin:4px 0 8px}
+.battle-surface .draft-heading .draft-context{font:600 15px/1.65 var(--serif);color:#dbc394;letter-spacing:.14em;margin:0}
+.battle-surface .draft-heading .draft-status{font:400 16px/1.65 var(--serif);color:#e0d5c1;margin:0}
+.battle-surface .draft-heading .draft-context:empty,.battle-surface .draft-heading .draft-status:empty{display:none}
+.battle-surface .champion-heading{padding-bottom:4px}
+.battle-surface :is(.route-score,.history-match,.final-score,.history-table td,.seat-status small,.ab-final-status small){font-variant-numeric:tabular-nums;font-family:var(--mono)}
+/* Empty portrait: the faceless ink silhouette fills the photo slot without pretending to be a player. */
+/* On champion nameplates the empty silhouette stays inside the plate; only real photos may rise above the rail. */
+.battle-surface .nameplate .portrait-empty.portrait{top:auto;bottom:9px;height:82%;max-height:none;clip-path:none}
+.battle-surface .nameplate .portrait-empty.portrait .portrait-empty-art{opacity:.78}
+.portrait-empty .portrait-empty-art{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;opacity:.66}
+.battle-notice{display:flex;flex-direction:column;align-items:center;gap:14px;box-sizing:border-box;width:min(760px,100%);margin:auto;padding:clamp(28px,4vw,52px) clamp(24px,4vw,60px);text-align:center;font:500 clamp(17px,1.35vw,21px)/1.9 var(--serif);color:var(--text-auth-ink);border:22px solid transparent;border-image:url('/navigation-02/plaque.webp') 65 100 fill / 22px 34px / 0 stretch;background:none}
+.battle-notice strong{font:800 clamp(26px,2.4vw,34px)/1.35 var(--serif);letter-spacing:.14em;color:inherit}
+
+/* ── Scene: full-bleed red / blue paper wings (A–H), black centre strip (C–H) ── */
+.battle-scene{position:relative;isolation:isolate;box-sizing:border-box;min-height:0;padding:6px clamp(16px,3vw,48px) 40px;color:#f5ead5}
+/* One screen (landscape): the scene fills the viewport behind the nav so the paper art reaches the
+   bottom edge; content keeps clear of the nav and the page's footer row (--battle-footer). */
+@media (min-width:901px),(min-width:761px) and (orientation:landscape){
+ .battle-scene{min-height:100svh;padding:calc(var(--nav-h,112px) + 6px) clamp(16px,3vw,48px) calc(var(--battle-footer,0px) + 12px)}
+ .battle-surface.champion-preview{box-sizing:border-box;padding-top:calc(var(--nav-h,112px) + 6px);padding-bottom:calc(var(--battle-footer,0px) + 12px)}
+}
+.scene-art{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.scene-waiting{display:flex;flex-direction:column}
+/* Champion boards scale as one block; their decorative wings never widen the page. */
+.champion-body{display:block}
+.champion-board{overflow-x:clip}
+.scene-waiting .scene-body{flex:1;display:flex;flex-direction:column;width:100%}
+/* Red and blue lie over the black centre paper; portrait screens keep them full height. */
+.scene-art .far{display:none}
+.scene-art .wing{position:absolute;z-index:1;top:0;bottom:0;width:46%;background:center bottom/100% 118% no-repeat;filter:brightness(.74) saturate(.9) contrast(1.06)}
+.scene-art .wing.red{left:0;background-image:url('/battle-preview/assets/battle-produced/wing-red-v1.webp')}
+.scene-art .wing.blue{right:0;background-image:url('/battle-preview/assets/battle-produced/wing-blue-v1.webp')}
+.scene-art .strip{position:absolute;z-index:0;top:0;bottom:0;left:50%;width:clamp(230px,21vw,320px);transform:translateX(-50%);background:url('/battle-preview/assets/battle-produced/center-strip-v1.webp') center/100% 100% no-repeat}
+/* One screen (landscape), after the user's reference: the night mountain fills the top behind the nav
+   and the title. Red, black and blue share one top edge (the mask on .papers): it falls from red's
+   outer corner to the black paper, runs level across it and rises to blue's outer corner, so the three
+   read as one sheet while each keeps its own width. Red covers ~42%, blue from ~58%, black shows ~20%;
+   all reach the bottom and stay still. Only the mountain sways (--cam-x/--cam-y from battle-view.js). */
+.scene-art .papers{position:absolute;inset:0}
+@media (min-width:901px),(min-width:761px) and (orientation:landscape){
+ .scene-art{--cam-x:0;--cam-y:0;--paper-top:max(23svh,calc(var(--nav-h,112px) + 92px));--paper-drop:12svh}
+ /* Wide duels have no chapter title: their team headers start at the nav, so the paper does too. */
+ .battle-scene:not(:has(> .scene-body > .scene-title)) > .scene-art{--paper-top:calc(var(--nav-h,112px) + 4px)}
+ .scene-art .far{display:block;position:absolute;inset:-28px -40px;z-index:-1;background:linear-gradient(color-mix(in srgb,var(--surface-scene-scrim) 38%,transparent),color-mix(in srgb,var(--surface-scene-scrim) 60%,transparent)),url('/battle-preview/assets/battle-mountain-candidate.webp') center top/cover no-repeat;transform:translate3d(calc(var(--cam-x) * -24px),calc(var(--cam-y) * -14px),0)}
+ /* The edge's torn fibres come from the wing artwork (tools/paper-edge.py). Its geometry is 2000x200 with
+    the outer corners at y=24 and the black paper's top at y=134, so --paper-drop maps to 110px of it. */
+ .scene-art .papers{-webkit-mask:url('/lunjian/art/battle-paper-edge.webp') 0 calc(var(--paper-top) - var(--paper-drop) * 24 / 110)/100% calc(var(--paper-drop) * 200 / 110) no-repeat,linear-gradient(black 0 0) 0 calc(var(--paper-top) + var(--paper-drop) * 176 / 110 - 2px)/100% 100% no-repeat;mask:url('/lunjian/art/battle-paper-edge.webp') 0 calc(var(--paper-top) - var(--paper-drop) * 24 / 110)/100% calc(var(--paper-drop) * 200 / 110) no-repeat,linear-gradient(black 0 0) 0 calc(var(--paper-top) + var(--paper-drop) * 176 / 110 - 2px)/100% 100% no-repeat}
+ /* The sheets' own torn tops sit above the shared edge and are masked away. */
+ .scene-art .wing{top:calc(var(--paper-top) - 8svh);width:42%}
+ .scene-art .strip{top:var(--paper-top);width:clamp(320px,26vw,520px)}
+}
+.scene-body{position:relative;max-width:1520px;margin:0 auto}
+.scene-title{text-align:center;margin:0 auto 18px}
+.scene-title h2{margin:0;font:800 clamp(40px,4.2vw,60px)/1.2 var(--serif);letter-spacing:.08em;color:#f7ecd4;text-shadow:0 3px 12px #000,0 0 2px #000}
+.scene-sub{display:flex;align-items:center;justify-content:center;gap:14px;margin:8px 0 0;font:600 17px/1.5 var(--serif);letter-spacing:.12em;color:#efe1c4;text-shadow:0 2px 6px #000}
+.scene-sub::before,.scene-sub::after{content:'';width:clamp(24px,4vw,56px);height:1px;background:#d9c49a}
+
+/* ── A / B tree ─────────────────────────────────────────────────────────── */
+.ab-scroll{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#a88a51 transparent;padding:8px 0 4px}
+.ab-tree{position:relative;display:grid;grid-template-columns:minmax(0,1fr) clamp(190px,15vw,230px) minmax(0,1fr);column-gap:clamp(24px,2.4vw,40px);min-width:1180px;margin:0 auto;max-width:1460px;transform-origin:top left}
+/* Tablet: the whole tree stays readable as one picture (scaled), never cropped or squeezed. */
+.ab-scroll[data-fit]{overflow:hidden}
+.ab-scroll[data-fit] .ab-tree{width:1180px;min-width:1180px;transform:scale(var(--fit,1))}
+/* Scaled tree: controls keep a 44px target on screen (44 / scale in tree space). */
+.ab-scroll[data-fit] .ab-final-status{min-height:calc(46px / var(--fit,1));padding-block:0}
+.ab-scroll[data-fit] .seat{height:calc(max(66px, 50px / var(--fit,1)))}
+.ab-scroll[data-fit] .seat-name strong{font-size:calc(max(18px, 15px / var(--fit,1)))}
+.ab-scroll[data-fit] .seat-name small,.ab-scroll[data-fit] .seat-status small{font-size:calc(max(12px, 12px / var(--fit,1)))}
+.ab-scroll[data-fit] .seat-status b{font-size:calc(max(13px, 12px / var(--fit,1)))}
+.ab-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
+.ab-lines path{fill:none;stroke:#e8dcc0;stroke-width:1.6;opacity:.85}
+.ab-lines path.win{stroke:#f3c76a;stroke-width:2.6;opacity:1;filter:drop-shadow(0 0 2px #b77a1f)}
+/* The opening round carries seed + portrait + name + stamp, so it gets the wider track. */
+.ab-side{position:relative;z-index:1;display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));column-gap:clamp(32px,3vw,52px)}
+.ab-side.red{grid-template-columns:1.25fr repeat(calc(var(--cols) - 1),minmax(0,1fr))}
+.ab-side.blue{grid-template-columns:repeat(calc(var(--cols) - 1),minmax(0,1fr)) 1.25fr}
+.ab-col{display:flex;flex-direction:column;justify-content:space-around;gap:14px;min-width:0}
+.ab-pair{display:grid;gap:8px}
+.ab-center{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-width:0}
+.ab-crown-panel{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;max-width:190px;aspect-ratio:1/1.08;padding:0 0 8px;background:#0c0c0e;border:1px solid #6d5b3a;box-shadow:inset 0 0 0 3px #0c0c0e,inset 0 0 0 4px #3b3122;overflow:hidden}
+.ab-moon{position:absolute;inset:2% 2% 28%;background:url('/battle-preview/assets/battle-produced/moon-mountain-v2.webp') center top/contain no-repeat}
+.ab-crown-panel .tree-crown{position:relative;width:64px;height:42px;margin:0 0 -4px}
+.ab-crown-word{position:relative;font:800 38px/1.15 var(--serif);letter-spacing:.12em;color:#f6ead0;text-shadow:0 2px 8px #000,0 0 2px #000}
+.ab-champion{display:grid;justify-items:center;align-content:center;gap:2px;width:78%;max-width:150px;min-height:104px;padding:10px;background:#141416e6;border:1px solid #8b7550;color:#e9dcc0}
+.ab-champion-mark svg{width:30px;height:36px;fill:none;stroke:#cdb98f;stroke-width:4}
+.ab-champion-rule{color:#cdb98f;line-height:1}
+.ab-champion strong{font:700 18px/1.4 var(--serif);letter-spacing:.2em}
+.ab-champion.won{width:100%;max-width:none;min-height:0;padding:0;background:none;border:0}
+.ab-final-status{display:inline-flex;align-items:center;gap:8px;min-height:44px;min-width:44px;padding:6px 14px;background:#141416e6;border:1px solid #8b7550;color:#f2e6cc;font:600 14px/1.3 var(--serif)}
+.ab-final-status b{padding:2px 10px;border-radius:3px;background:#5b5b5b;font-size:13px}
+.ab-final-status.won b{background:#a8151b}.ab-final-status.live b{background:#b8661c}
+.ab-final-status small{font:500 13px/1 var(--mono);color:#d9c9a8}
+.ab-legend{list-style:none;display:flex;justify-content:center;width:max-content;max-width:100%;margin:22px auto 0;padding:0;background:#120d0de6;border:1px solid #6d5b3a}
+.ab-legend li{display:grid;grid-template-columns:auto auto;grid-template-rows:auto auto;column-gap:12px;align-items:center;padding:10px 26px}
+.ab-legend li+li{border-left:1px solid #6d5b3a66}
+.ab-legend li::before{content:'';grid-row:1/3;width:20px;height:20px;border-radius:50%;background:#8a8a8a}
+.ab-legend li.won::before{background:#c11a20}.ab-legend li.bye::before{background:#e1b74f}
+.ab-legend b{font:700 15px/1.3 var(--serif);color:#f5ead5}.ab-legend span{font-size:13px;color:#d4c6aa}
+/* Seat: horizontal nameplate. Fill, ink portrait and live text sit inside the rank frame. */
+.seat{--fill:#2b0d10;--frame:url('/battle-preview/assets/battle-produced/rank-kaishan-v1.webp');position:relative;isolation:isolate;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:stretch;height:66px;min-width:0;color:#fff0d6}
+.seat.blue{--fill:#0b1b33}
+.seat[data-rank=duanshui]{--frame:url('/battle-preview/assets/battle-produced/rank-duanshui-v1.webp')}
+.seat[data-rank=feihua]{--frame:url('/battle-preview/assets/battle-produced/rank-feihua-v1.webp')}
+.seat[data-rank=wuwo]{--frame:url('/battle-preview/assets/battle-produced/rank-wuwo-v1.webp')}
+.seat.bye{--fill:#2a2012;--frame:url('/battle-preview/assets/battle-produced/bye-plaque-v1.webp')}
+.seat::before{content:'';position:absolute;inset:4px 3px;z-index:-2;background:linear-gradient(90deg,color-mix(in srgb,var(--fill) 70%,#000),var(--fill) 40%,color-mix(in srgb,var(--fill) 85%,#000))}
+.seat::after{content:'';position:absolute;inset:-24% -1.6% -37%;z-index:1;pointer-events:none;background:var(--frame) center/100% 100% no-repeat}
+.seat.pending::after,.seat.lost::after{filter:saturate(.4) brightness(.8)}
+.seat-seed{position:relative;z-index:2;display:grid;place-items:center;width:36px;margin:6px 0 6px 6px;border-right:1px solid #e8d6b040;font:600 13px/1 var(--serif);color:#e8d6b0}
+.seat-player{position:relative;z-index:2;display:grid;grid-template-columns:50px minmax(0,1fr);align-items:center;gap:8px;min-width:0;padding:0 2px 0 4px;background:none;border:0;color:inherit;text-align:left}
+.seat-portrait{position:relative;align-self:end;display:block;width:50px;height:60px;overflow:hidden}
+.seat>.seat-portrait{margin-left:10px}
+.seat-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+.seat-portrait .portrait-empty-art{object-fit:contain;object-position:center bottom;opacity:.82}
+.seat-name{display:grid;align-content:center;min-width:0;gap:2px}
+.seat-name strong{font:700 18px/1.25 var(--serif);letter-spacing:.04em;color:#fff2da;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seat-name small{font:500 13px/1.3 var(--serif);color:#dcc697;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seat-status{position:relative;z-index:2;display:grid;justify-items:center;align-content:center;gap:4px;min-width:60px;padding:0 10px 0 4px;background:none;border:0;color:inherit}
+.seat-status b{min-width:50px;padding:2px 10px;border-radius:4px;background:#5c5c5c;font:700 13px/1.5 var(--serif);color:#f4efe6;text-align:center;box-shadow:inset 0 1px 0 #ffffff26}
+.seat-status small{font:500 12px/1 var(--mono);color:#e3d3b1;white-space:nowrap}
+.seat-status.won b{background:#b0161d;color:#ffeede}
+.seat-status.live b{background:#b8661c}
+.seat-status.lost b{background:#3b3b3b;color:#a8a29a}
+.seat-status.bye b{background:#d2a649;color:#2a1c06}
+.seat-status.bye small{color:#f0d38c}
+button.seat-status:is(:hover,:focus-visible) b{filter:brightness(1.15)}
+.seat-player:is(:hover,:focus-visible) .seat-portrait img:not(.portrait-empty-art){scale:1.06;transform-origin:50% 100%}
+.seat-portrait img{transition:scale .2s ease}
+.seat.lost .seat-name strong{color:#c9bca6}
+/* Opposition: red portraits face right, blue portraits face left, so the two sides meet in the
+   middle. Source portraits and the empty silhouette face right, so only the blue side is mirrored.
+   Hover uses the individual scale/translate properties so it never cancels the mirror. */
+.seat.blue .seat-portrait img,.duel-plate.blue .duel-plate-art img,.duel-hero.blue .duel-hero-art img,
+.battle-surface .nameplate.mirror .plate-portrait-mask :is(img,.portrait-empty),
+.battle-surface .round-match .seat.blue .seat-portrait img{transform:scaleX(-1)}
+/* ── Duel C–H ───────────────────────────────────────────────────────────── */
+.duel-grid{display:grid;grid-template-columns:minmax(0,1fr) clamp(210px,19vw,290px) minmax(0,1fr);column-gap:clamp(24px,3.4vw,64px);align-items:center;min-height:calc(100svh - var(--nav-h,112px) - 220px);max-width:1460px;margin:0 auto}
+.scene-duel[data-size="8"] .duel-grid,.scene-duel[data-size="16"] .duel-grid{align-items:start;min-height:0;padding-top:12px}
+.scene-duel .scene-sub{font-size:clamp(18px,1.6vw,24px);letter-spacing:.18em}
+.scene-duel .scene-sub::before,.scene-duel .scene-sub::after{display:none}
+.duel-roster{display:flex;flex-direction:column;align-items:center;gap:18px;min-width:0}
+.duel-team{display:flex;align-items:center;justify-content:center;gap:14px;min-height:64px}
+.duel-team h3{margin:0;font:800 clamp(32px,3.3vw,50px)/1.2 var(--serif);letter-spacing:.1em;color:#f7ecd4;text-shadow:0 2px 10px #000}
+.duel-count{padding:3px 14px;border:1px solid #c9ae78;background:#120c0ccc;font:600 15px/1.5 var(--serif);color:#f3e6c9;font-variant-numeric:tabular-nums}
+.duel-roster .team-emblem{flex:none;width:68px;height:68px;background:url('/battle-preview/assets/battle-produced/team-emblem-red-v1.webp') center/contain no-repeat}
+.duel-roster .team-emblem.blue{background-image:url('/battle-preview/assets/battle-produced/team-emblem-blue-v1.webp')}
+.duel-list{display:grid;gap:24px;width:min(100%,460px)}
+.scene-duel[data-size="4"] .duel-list{gap:16px}
+.scene-duel[data-size="8"] .duel-list{grid-template-columns:1fr 1fr;gap:16px;width:100%}
+.scene-duel[data-size="16"] .duel-list{width:min(100%,560px);gap:12px}
+.duel-groups{display:flex;align-items:stretch;width:min(100%,560px);background:#100b0bd9;border:1px solid #6d5b3a}
+.duel-groups button{flex:1;min-height:44px;background:none;border:0;border-right:1px solid #6d5b3a66;color:#e9dcc0;font:600 16px/1 var(--serif);letter-spacing:.1em}
+.duel-roster.red .duel-groups button[aria-pressed=true]{background:#8e1a1d;color:#fff1de}
+.duel-roster.blue .duel-groups button[aria-pressed=true]{background:#174a8c;color:#eef5ff}
+.duel-range{display:grid;place-items:center;padding:0 14px;font:600 15px/1 var(--serif);color:#efe1c4;white-space:nowrap;font-variant-numeric:tabular-nums}
+.duel-more{min-height:44px;padding:8px 40px 8px 28px;background:#100b0bd9;border:1px solid #8b7550;color:#f0e2c4;font:600 15px/1.4 var(--serif);letter-spacing:.08em;position:relative}
+.duel-more::after{content:'';position:absolute;right:18px;top:50%;width:7px;height:7px;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:translateY(-70%) rotate(45deg)}
+/* Plates for D–H: frame by rank, fill by side, portrait on the left, live text on the right. */
+.duel-plate{--fill:#2b0d10;--frame:url('/battle-preview/assets/battle-produced/rank-kaishan-v1.webp');--plate-h:clamp(110px,10vw,150px);position:relative;isolation:isolate;display:grid;grid-template-columns:44% minmax(0,1fr);align-items:stretch;width:100%;height:var(--plate-h);padding:0;background:none;border:0;color:#fff0d6;text-align:left}
+.duel-plate.blue{--fill:#0b1b33}
+.duel-plate[data-rank=duanshui]{--frame:url('/battle-preview/assets/battle-produced/rank-duanshui-v1.webp')}
+.duel-plate[data-rank=feihua]{--frame:url('/battle-preview/assets/battle-produced/rank-feihua-v1.webp')}
+.duel-plate[data-rank=wuwo]{--frame:url('/battle-preview/assets/battle-produced/rank-wuwo-v1.webp')}
+.duel-plate::before{content:'';position:absolute;inset:5px 4px;z-index:-2;background:linear-gradient(90deg,color-mix(in srgb,var(--fill) 65%,#000),var(--fill) 45%,color-mix(in srgb,var(--fill) 85%,#000))}
+.duel-plate::after{content:'';position:absolute;inset:-24% -1.6% -37%;z-index:1;pointer-events:none;background:var(--frame) center/100% 100% no-repeat}
+.duel-plate.empty::after{filter:saturate(.4) brightness(.8)}
+.scene-duel[data-size="3"] .duel-plate{--plate-h:clamp(100px,8.6vw,126px)}
+.scene-duel[data-size="4"] .duel-plate{--plate-h:clamp(84px,7vw,102px)}
+.scene-duel[data-size="8"] .duel-plate{--plate-h:clamp(66px,5.2vw,76px)}
+.scene-duel[data-size="16"] .duel-plate{--plate-h:clamp(60px,4.8vw,70px);grid-template-columns:30% minmax(0,1fr)}
+.duel-plate-art{position:relative;z-index:0;display:block;overflow:hidden;margin:6px 0 6px 10px}
+.duel-plate-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;transition:scale .2s ease}
+.duel-plate-art .portrait-empty-art{object-fit:contain;object-position:center bottom;opacity:.82}
+.duel-plate-text{position:relative;z-index:2;display:grid;align-content:center;justify-items:center;gap:2px;min-width:0;padding:0 14px 0 6px;text-align:center}
+.duel-plate-text strong{max-width:100%;font:700 clamp(20px,1.9vw,30px)/1.25 var(--serif);letter-spacing:.06em;color:#fff2da;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.duel-plate-text small{font:500 clamp(14px,1.1vw,17px)/1.3 var(--serif);color:#dcc697}
+.scene-duel[data-size="8"] .duel-plate-text strong{font-size:clamp(18px,1.4vw,22px)}
+.scene-duel[data-size="8"] .duel-plate-text small{font-size:14px}
+.scene-duel[data-size="16"] .duel-plate-text{grid-auto-flow:column;justify-content:space-around;align-items:center}
+.duel-plate:is(:hover,:focus-visible) .duel-plate-art img:not(.portrait-empty-art){scale:1.06;transform-origin:50% 100%}
+/* C: large half-length portrait above a short plaque. */
+.duel-hero{--fill:#2b0d10;--frame:url('/battle-preview/assets/battle-produced/rank-kaishan-v1.webp');position:relative;display:flex;flex-direction:column;align-items:center;width:min(100%,460px);padding:0;background:none;border:0;color:#fff0d6}
+.duel-hero.blue{--fill:#0b1b33}
+.duel-hero[data-rank=duanshui]{--frame:url('/battle-preview/assets/battle-produced/rank-duanshui-v1.webp')}
+.duel-hero[data-rank=feihua]{--frame:url('/battle-preview/assets/battle-produced/rank-feihua-v1.webp')}
+.duel-hero[data-rank=wuwo]{--frame:url('/battle-preview/assets/battle-produced/rank-wuwo-v1.webp')}
+.duel-hero-art{position:relative;display:block;width:82%;height:clamp(260px,27vw,390px);overflow:hidden}
+.duel-hero-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;transition:scale .25s ease,translate .25s ease}
+.duel-hero-art .portrait-empty-art{object-fit:contain;object-position:center bottom;opacity:.86}
+.duel-hero-plate{position:relative;isolation:isolate;display:grid;justify-items:center;align-content:center;width:100%;height:clamp(88px,7.4vw,108px);margin-top:-6px}
+.duel-hero-plate::before{content:'';position:absolute;inset:5px 4px;z-index:-2;background:var(--fill)}
+.duel-hero-plate::after{content:'';position:absolute;inset:-24% -1.6% -37%;z-index:-1;pointer-events:none;background:var(--frame) center/100% 100% no-repeat}
+.duel-hero-plate strong{font:800 clamp(28px,2.6vw,38px)/1.2 var(--serif);letter-spacing:.1em;color:#fff2da}
+.duel-hero-plate small{font:500 15px/1.4 var(--serif);color:#dcc697}
+.duel-hero:is(:hover,:focus-visible) .duel-hero-art img:not(.portrait-empty-art){translate:0 -4px;scale:1.04;transform-origin:50% 100%}
+.duel-center{display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:10px;text-align:center}
+.duel-center-title{display:flex;align-items:center;gap:12px;margin:0 0 4px;font:800 clamp(40px,3.8vw,56px)/1.2 var(--serif);letter-spacing:.12em;color:#f7ecd4;text-shadow:0 3px 10px #000}
+.duel-center-title::before,.duel-center-title::after{content:'';width:18px;height:1px;background:#d9c49a}
+.duel-round{margin:0;font:700 clamp(28px,2.6vw,40px)/1.3 var(--serif);letter-spacing:.14em;color:#f2e6cc}
+.duel-moon{display:block;width:min(100%,220px);aspect-ratio:1/.92;background:url('/battle-preview/assets/battle-produced/moon-mountain-v2.webp') center/contain no-repeat}
+.duel-score{display:flex;align-items:center;gap:16px;margin:0;font:800 clamp(56px,5.8vw,88px)/1.1 var(--serif);font-variant-numeric:tabular-nums}
+.duel-score .red{color:#e8312a}.duel-score .blue{color:#3d8fe2}.duel-score .colon{color:#f2e6cc;font-size:.7em}
+.duel-status{margin:4px 0 0;font:700 clamp(22px,1.9vw,28px)/1.4 var(--serif);letter-spacing:.14em;color:#f4e9d2}
+.duel-status.arrows{display:flex;align-items:center;gap:12px}
+.duel-status.arrows::before,.duel-status.arrows::after{content:'';width:28px;height:1px;background:#e8dcc0}
+.duel-bo{margin:0;font:600 clamp(16px,1.3vw,20px)/1.4 var(--mono);color:#e3d6b8;letter-spacing:.08em}
+.duel-back{margin-top:12px;min-height:44px;padding:6px 22px;background:url('/battle-preview/assets/battle-produced/action-paper-v1.webp') center/100% 100% no-repeat;border:0;color:#30251a;font:700 15px/1.3 var(--serif)}
+.battle-surface .side-controls{display:none}
+
+/* ── Portraits: real photos stay inside their frame; empty states are honest silhouettes. */
+.portrait-empty{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;color:#d5bd8a;background:none;overflow:hidden;text-align:center}
+.portrait-empty svg{width:100%;height:100%;max-height:200px;fill:none;stroke:currentColor;stroke-width:1.1;opacity:.72}
+.plate-portrait-mask .portrait-empty{position:absolute;left:4%;bottom:9px;width:40%;height:80%;justify-content:center}
+.nameplate.mirror .plate-portrait-mask .portrait-empty{left:auto;right:4%}
+.plate-portrait-mask .portrait-empty svg{max-height:70%}
+.plate-portrait-mask .portrait-photo{width:40%;height:88%;left:4%;bottom:9px;object-fit:cover;object-position:center top}
+.nameplate.mirror .plate-portrait-mask .portrait-photo{left:auto;right:4%}
+.hero-portrait-button .hero-empty{position:absolute;inset:34px 28% auto;height:190px;justify-content:center;gap:8px}
+.hero-portrait-button .hero-empty svg{max-height:118px}
+.hero-portrait-button .hero-empty small{font:500 14px/1.5 var(--serif);color:#e6d4ae;letter-spacing:.1em}
+.member-art .portrait-empty{position:absolute;inset:14px 0 0;height:auto;justify-content:center}
+.member-art .portrait-empty svg{max-height:88px}
+/* ── Champion boards ─────────────────────────────────────────────────── */
+.battle-surface .champion-board{margin:0;min-height:540px;width:100%;max-width:none}
+.battle-surface .faction-art{pointer-events:none}
+.battle-surface .side-history{min-width:0}
+.live-team-route{position:relative;height:var(--route-height);min-height:180px}
+.live-team-route>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.live-team-route path{fill:none;stroke:#b9aa8c;stroke-width:1.5;vector-effect:non-scaling-stroke}
+.live-team-route path.winner{stroke:#ffe7a2;stroke-width:4;filter:drop-shadow(0 0 3px #df9d30)}
+.route-team{position:absolute;left:0;width:65%;height:74px}
+.route-team .nameplate{width:100%;height:74px;padding-left:44%;padding-right:8px}
+.route-team .identity strong{font-size:clamp(16px,1.4vw,20px)}
+.route-score{position:absolute;left:var(--route-x);transform:translate(-50%,-50%);min-width:44px;min-height:36px;padding:4px 8px;white-space:nowrap;border:1px solid #b79c60;background:#142026;color:#fff0c8;font-weight:700;z-index:8}
+.route-score.won{background:#f0deac;color:#35200f}
+.blue .live-team-route>svg{transform:scaleX(-1)}
+.blue .route-team{left:auto;right:0}
+.blue .route-score{left:calc(100% - var(--route-x))}
+.blue .route-team .nameplate{padding-left:8px;padding-right:44%}
+.battle-surface .history-table{width:100%;table-layout:auto;font-size:clamp(12px,1vw,16px)}
+.history-match{color:inherit;font:inherit;font-weight:700;background:none;border:0;min-height:44px;min-width:44px;padding:4px 8px}
+.history-match:hover{text-decoration:underline;text-underline-offset:5px}
+.battle-surface #champion-dialog{max-height:calc(100dvh - 32px);margin:auto}
+.battle-surface #champion-dialog::backdrop{background:#030b10cc;backdrop-filter:blur(4px)}
+.battle-surface #champion-dialog .player-summary__portrait>.portrait-empty{height:100%;min-height:220px;background:none;justify-content:center}
+.battle-surface #champion-dialog .dialog-close{font-size:0;width:48px;height:48px}
+.battle-surface #champion-dialog .dialog-close::before{transform:rotate(45deg)}
+.battle-surface #champion-dialog .dialog-close::after{transform:rotate(-45deg)}
+.battle-surface #champion-dialog .dialog-actions{display:flex;justify-content:flex-end}
+.battle-surface #champion-dialog .player-note{color:#665744}
+.battle-surface #champion-dialog .player-summary__identity .paper-action{color:#34261c;margin-top:20px;min-height:44px}
+.battle-surface #champion-dialog[data-kind=roster]{width:min(800px,calc(100% - 32px));padding:32px;background:#151c20;color:#f6ead2;border:2px solid #a88a51}
+.battle-surface #champion-dialog[data-kind=roster] .dialog-roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 16px;padding:20px 0}
+
+/* Tablet: the full tree scrolls inside its own box; duel columns tighten. */
+@media(max-width:1200px){
+ .duel-grid{grid-template-columns:minmax(0,1fr) 190px minmax(0,1fr);column-gap:22px}
+ .scene-duel[data-size="8"] .duel-list{grid-template-columns:1fr}
+ .scene-art .strip{width:220px}
+}
+@media(max-width:1024px){
+ .seat-status,.ab-final-status,.duel-groups button,.route-score{min-height:44px}
+}
+/* Phone: no squeezed desktop. One round or one team at a time on its own coloured panel. */
+@media(max-width:760px){
+ .battle-scene{min-height:0;padding:4px 12px 24px}
+ .scene-art{display:none}
+ .scene-title h2{font-size:36px}
+ .scene-sub{font-size:15px;gap:10px}
+ .ab-scroll,.ab-legend{display:none}
+ .scene-ab.overview-open .ab-scroll{display:block;margin-top:16px}
+ .scene-ab .mobile-rounds{display:block}
+ .round-match .match-entrants{gap:16px}
+ .round-match .seat{height:76px}
+ /* Phone: every word on a plate is at least 14px (design system), stamps included. */
+ .round-match .seat-seed{width:40px;font-size:14px}
+ .round-match .seat-name strong{font-size:19px}
+ .round-match .seat-name small,.round-match .seat-status small{font-size:14px}
+ .round-match .seat-status b{font-size:14px;min-width:56px}
+ .round-match .seat-status{min-width:72px}
+ .route-score{min-height:44px}
+ .duel-range{font-size:14px}
+ .scene-sub,.champion-heading .scene-sub{font-size:15px;letter-spacing:.06em}
+ .match-destination{margin:12px 0 0}
+ .duel-grid,.scene-duel[data-size] .duel-grid{display:flex;flex-direction:column;align-items:stretch;gap:18px;min-height:0;padding-top:0}
+ .duel-center{order:-1;display:grid;grid-template-columns:1fr auto;grid-template-areas:'round score' 'status score' 'bo score' 'back back';align-items:center;justify-items:start;gap:2px 16px;padding:14px 16px;background:#0f0d0de6;border:1px solid #6d5b3a}
+ .duel-center-title,.duel-round{grid-area:round;font-size:22px}
+ .duel-center-title::before,.duel-center-title::after{display:none}
+ .duel-moon{display:none}
+ .duel-score{grid-area:score;font-size:44px}
+ .duel-status{grid-area:status;font-size:16px}
+ .duel-status.arrows::before,.duel-status.arrows::after{display:none}
+ .duel-bo{grid-area:bo;font-size:14px}
+ .duel-back{grid-area:back;justify-self:stretch;margin-top:10px}
+ .battle-surface .side-controls{display:flex;gap:6px}
+ .side-controls button{flex:1;min-height:48px;background:#151c20;border:1px solid #6d5b3a;color:#f0e2c4;font:700 16px/1.2 var(--serif)}
+ .side-controls button[aria-pressed=true]{background:#8e1a1d;color:#fff1de}
+ .scene-duel[data-side=blue] .side-controls button[aria-pressed=true]{background:#174a8c}
+ .duel-roster{padding:18px 12px;background:url('/battle-preview/assets/battle-produced/mobile-red-panel-v1.webp') center/100% 100% no-repeat}
+ .duel-roster.blue{background-image:url('/battle-preview/assets/battle-produced/mobile-blue-panel-v1.webp')}
+ .duel-roster.mobile-hidden{display:none}
+ .duel-list,.scene-duel[data-size="8"] .duel-list,.scene-duel[data-size="16"] .duel-list{grid-template-columns:1fr;width:100%}
+ .duel-team h3{font-size:28px}
+ .duel-groups{width:100%}
+ .duel-groups button{font-size:15px;letter-spacing:.04em}
+ .duel-range{padding:0 8px;font-size:14px}
+ /* 1v1 keeps both fighters side by side on a phone, as in the approved mobile study. */
+ .scene-duel[data-size="1"] .duel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ .scene-duel[data-size="1"] .duel-center{grid-column:1/-1}
+ .scene-duel[data-size="1"] .duel-roster{padding:12px 6px}
+ .scene-duel[data-size="1"] .duel-roster.mobile-hidden{display:flex}
+ .duel-hero-art{height:180px;width:100%}
+ .duel-hero-plate{height:68px}
+ .duel-hero-plate strong{font-size:20px}
+ .duel-hero-plate small{font-size:14px}
+ .battle-surface .history-table{font-size:14px}
+ .battle-surface #champion-dialog[data-kind=roster] .dialog-roster{grid-template-columns:1fr}
+ .battle-surface.champion-preview .member-name small,.battle-surface .identity .rank{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){.battle-surface *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.battle-surface.champion-preview{background:transparent}
+
+/* Approved unified artwork for the unpublished bracket. The duel keeps its own red/black/blue papers (user, 2026-11-01). */
+.scene-waiting > .scene-art .papers{inset:var(--paper-top,180px) 0 0;background:url('/battle-preview/assets/battle-produced/pending-unified-ink-v2.webp') center top/100% 100% no-repeat;mask:none;-webkit-mask:none}
+.scene-waiting > .scene-art :is(.wing,.strip){display:none}
+@media(max-width:760px) and (orientation:portrait){.scene-waiting > .scene-art{display:block;--paper-top:125px}}
+
+/* Unpublished schedule: the existing toolbar is slotted beneath the explanation. */
+.battle-notice-actions{width:100%;margin-top:10px}
+@media(max-width:600px){
+ .scene-waiting .battle-notice{gap:12px;padding:24px 10px;border-width:16px;border-image-width:16px 20px}
+ .scene-waiting .battle-notice strong{font-size:24px;letter-spacing:.06em}
+ .scene-waiting .battle-notice>span{font-size:16px;line-height:1.8}
+ .battle-notice-actions{margin-top:8px}
+}
+
+
+/* C / 1v1: approved portrait-versus composition, isolated from team formats and schedule. */
+.scene-duel[data-size="1"] .scene-title{margin-bottom:14px}
+.scene-duel[data-size="1"] .duel-grid{grid-template-columns:minmax(0,1fr) clamp(168px,19vw,254px) minmax(0,1fr);gap:clamp(16px,2.4vw,36px);min-height:0;max-width:1280px;align-items:center}
+.scene-duel[data-size="1"] .duel-roster{gap:4px}
+.scene-duel[data-size="1"] .duel-team{min-height:48px}
+.scene-duel[data-size="1"] .duel-team h3{font-size:clamp(28px,3vw,42px)}
+.scene-duel[data-size="1"] .duel-list{width:min(100%,390px)}
+.scene-duel[data-size="1"] .duel-hero-art{width:94%;height:clamp(220px,34svh,330px)}
+.scene-duel[data-size="1"] .duel-hero-plate{height:86px;margin-top:-4px}
+.scene-duel[data-size="1"] .duel-hero-plate strong{font-size:clamp(24px,2.5vw,34px);line-height:1.35}
+.scene-duel[data-size="1"] .duel-hero-plate small{font-size:16px}
+.scene-duel[data-size="1"] .duel-center{gap:8px;padding-top:12px;min-width:0}
+.scene-duel[data-size="1"] .duel-round{font-size:clamp(24px,2.2vw,32px)}
+.scene-duel[data-size="1"] .duel-moon{width:clamp(128px,13vw,180px)}
+.scene-duel[data-size="1"] .duel-score{font-size:clamp(52px,5.2vw,74px);gap:14px}
+.scene-duel[data-size="1"] .duel-status{font-size:clamp(17px,1.6vw,22px);letter-spacing:.06em}
+.scene-duel[data-size="1"] .duel-back{min-height:44px;min-width:136px;margin-top:8px}
+@media(max-width:760px){
+ .scene-duel[data-size="1"] .scene-title h2{font-size:36px}
+ .scene-duel[data-size="1"] .scene-sub{font-size:17px}
+ .scene-duel[data-size="1"] .duel-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+ .scene-duel[data-size="1"] .duel-center{padding:12px 14px;gap:3px 12px}
+ .scene-duel[data-size="1"] .duel-round{font-size:20px}
+ .scene-duel[data-size="1"] .duel-score{font-size:44px;gap:8px}
+ .scene-duel[data-size="1"] .duel-status{font-size:16px}
+ .scene-duel[data-size="1"] .duel-team{min-height:36px}
+ .scene-duel[data-size="1"] .duel-team h3{font-size:26px}
+ .scene-duel[data-size="1"] .duel-hero-art{height:clamp(150px,42vw,240px);width:100%}
+ .scene-duel[data-size="1"] .duel-hero-plate{height:70px}
+ .scene-duel[data-size="1"] .duel-hero-plate strong{font-size:22px}
+ .scene-duel[data-size="1"] .duel-hero-plate small{font-size:14px}
+}
+
+/* Keep the approved ink artwork; expose the mountain through its upper edge and centre. */
+.scene-waiting > .scene-art .papers{
+ opacity:.88;
+ -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 32%,#000 82%,transparent 100%),linear-gradient(to right,#000 0%,#000 27%,#0005 43%,#0002 50%,#0005 57%,#000 73%,#000 100%);
+ mask-image:linear-gradient(to bottom,transparent 0%,#000 32%,#000 82%,transparent 100%),linear-gradient(to right,#000 0%,#000 27%,#0005 43%,#0002 50%,#0005 57%,#000 73%,#000 100%);
+ -webkit-mask-composite:source-in;mask-composite:intersect;
+}

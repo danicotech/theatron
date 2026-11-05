@@ -1,0 +1,98 @@
+/* Solo cards own their geometry: decorative frames never determine text flow. */
+.champion-preview .solo-board .nameplate {
+  height:112px;
+  padding:0;
+  display:block;
+  container-type:inline-size;
+}
+.champion-preview .solo-board .nameplate .identity {
+  position:absolute;
+  inset:18% 7% 18% 49%;
+  justify-content:center;
+  align-items:flex-start;
+  gap:7px;
+  text-align:left;
+}
+.champion-preview .solo-board .nameplate.mirror .identity {
+  inset:18% 49% 18% 7%;
+}
+.champion-preview .solo-board .nameplate .identity strong {
+  font-size:clamp(24px,9cqw,32px);
+  line-height:1.2;
+  letter-spacing:.06em;
+  color:#fff0d3;
+  white-space:nowrap;
+}
+.champion-preview .solo-board .nameplate .rank {
+  display:block;
+  font-size:16px;
+  line-height:1.4;
+  letter-spacing:.12em;
+  color:#e9cd96;
+}
+.champion-preview .solo-board .nameplate .portrait {
+  width:43%;height:135%;left:2%;bottom:10px;
+  object-fit:cover;object-position:center top;
+  mask-image:none;
+}
+.champion-preview .solo-board .nameplate.mirror .portrait {left:auto;right:2%}
+/* Full frame behind portrait; a second, L-shaped copy covers only the
+   outside rail and bottom. Never draw the upper rail across the face. */
+.plate-frame-front {display:none}
+.champion-preview .solo-board .nameplate .plate-frame {z-index:4}
+.champion-preview .solo-board .nameplate .plate-frame-front {
+  display:block;z-index:6;
+  clip-path:polygon(0 0,4% 0,4% 78%,100% 78%,100% 100%,0 100%);
+}
+.champion-preview .solo-board .nameplate.mirror .plate-frame-front {
+  clip-path:polygon(96% 0,100% 0,100% 100%,0 100%,0 78%,96% 78%);
+}
+.champion-preview .solo-board .nameplate .identity {z-index:7}
+.champion-preview .solo-board .nameplate .plate-portrait-mask {
+  z-index:5;
+  clip-path:inset(-100% -100% 12px 9px);
+}
+.champion-preview .solo-board .nameplate.mirror .plate-portrait-mask {
+  clip-path:inset(-100% 9px 12px -100%);
+}
+.champion-preview .solo-board .nameplate:is(:hover,:focus-visible) .portrait {transform:scale(1.1)}
+.champion-preview .solo-board .nameplate:is(:hover,:focus-visible) .identity strong {color:#ffe3a0}
+
+/* The source art is 3:1. Align copy to its inner plaque, not the image canvas. */
+.champion-preview .solo-board .laurel-name {
+  display:block;width:98%;max-width:460px;height:auto;aspect-ratio:3;
+  margin:-30px auto -8px;padding:0;border:0;background:none;
+  font:800 clamp(28px,2.8vw,40px)/1.2 var(--serif);
+}
+.champion-preview .solo-board .laurel-name>img {
+  inset:0;width:100%;height:100%;object-fit:contain;filter:none;
+  pointer-events:none;
+}
+.champion-preview .solo-board .laurel-name>span:not(.rank-seal) {
+  position:absolute;inset:37% 25% 29% 18%;
+  display:flex;align-items:center;justify-content:center;
+  white-space:nowrap;letter-spacing:.08em;
+}
+.champion-preview .solo-board .laurel-name .rank-seal {
+  top:30%;right:15%;width:40px;height:48%;
+  font-size:21px;line-height:1;letter-spacing:.08em;
+}
+.champion-preview .solo-board .laurel-name:is(:hover,:focus-visible)>span:not(.rank-seal) {color:#ffe3a0}
+@media(min-width:1550px){
+  .champion-preview .solo-board .nameplate{height:120px}
+}
+@media(min-width:761px) and (max-width:1000px){
+  .champion-preview .solo-board .nameplate{height:96px}
+  .champion-preview .solo-board .nameplate .identity strong{font-size:24px}
+  .champion-preview .solo-board .nameplate .rank{font-size:14px}
+  .champion-preview .solo-board .laurel-name{margin-top:-18px;font-size:28px}
+  .champion-preview .solo-board .laurel-name .rank-seal{width:32px;font-size:17px}
+}
+@media(max-width:760px){
+  .champion-preview .solo-board .nameplate{height:110px}
+  .champion-preview .solo-board .laurel-name{max-width:370px;margin-top:-22px;font-size:32px}
+  .champion-preview .solo-board .laurel-name .rank-seal{width:34px;font-size:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .champion-preview .solo-board .nameplate .portrait{transform:none!important}
+}

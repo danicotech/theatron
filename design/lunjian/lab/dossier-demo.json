@@ -1,0 +1,593 @@
+{
+  "profiles": [
+    {
+      "title": "鳴金劍槍",
+      "sections": [
+        {
+          "title": "武器與武學",
+          "items": [
+            {
+              "name": "積矩九劍",
+              "image": "/loadout/assets/martial/MINGJIN_YING_JJJJ.png",
+              "note": "主武學",
+              "stats": []
+            },
+            {
+              "name": "九曲驚神槍",
+              "image": "/loadout/assets/martial/MINGJIN_YING_JQJSQ.png",
+              "note": "副武學",
+              "stats": []
+            }
+          ],
+          "kind": "martial"
+        },
+        {
+          "title": "裝備",
+          "items": [
+            {
+              "name": "流星含光",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_WEAPON_SWORD.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "最小外功攻擊",
+                  "100"
+                ],
+                [
+                  "最大外功攻擊",
+                  "232"
+                ],
+                [
+                  "會心率",
+                  "13.2%"
+                ],
+                [
+                  "勁",
+                  "72.2"
+                ],
+                [
+                  "外功穿透",
+                  "16.8"
+                ]
+              ]
+            },
+            {
+              "name": "流星羽林",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_WEAPON_SPEAR.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "最小外功攻擊",
+                  "100"
+                ],
+                [
+                  "最大外功攻擊",
+                  "232"
+                ],
+                [
+                  "會心率",
+                  "13.2%"
+                ],
+                [
+                  "勁",
+                  "72.2"
+                ],
+                [
+                  "外功穿透",
+                  "16.8"
+                ]
+              ]
+            },
+            {
+              "name": "吳鉤霜冠",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_HEAD.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "氣血上限",
+                  "1,200"
+                ],
+                [
+                  "外功防禦",
+                  "110"
+                ],
+                [
+                  "內功防禦",
+                  "95"
+                ],
+                [
+                  "體",
+                  "42"
+                ]
+              ]
+            },
+            {
+              "name": "吳鉤霜甲",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_CLOTH.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "氣血上限",
+                  "1,200"
+                ],
+                [
+                  "外功防禦",
+                  "110"
+                ],
+                [
+                  "內功防禦",
+                  "95"
+                ],
+                [
+                  "體",
+                  "42"
+                ]
+              ]
+            },
+            {
+              "name": "吳鉤霜披膊",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_HAND.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "氣血上限",
+                  "1,200"
+                ],
+                [
+                  "外功防禦",
+                  "110"
+                ],
+                [
+                  "內功防禦",
+                  "95"
+                ],
+                [
+                  "體",
+                  "42"
+                ]
+              ]
+            },
+            {
+              "name": "吳鉤霜縛袴",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_SHOES.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "氣血上限",
+                  "1,200"
+                ],
+                [
+                  "外功防禦",
+                  "110"
+                ],
+                [
+                  "內功防禦",
+                  "95"
+                ],
+                [
+                  "體",
+                  "42"
+                ]
+              ]
+            },
+            {
+              "name": "流星雲瓏",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_RING.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "氣血上限",
+                  "1,200"
+                ],
+                [
+                  "外功防禦",
+                  "110"
+                ],
+                [
+                  "內功防禦",
+                  "95"
+                ],
+                [
+                  "體",
+                  "42"
+                ]
+              ]
+            },
+            {
+              "name": "流星辟邪",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_PENDANT.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "氣血上限",
+                  "1,200"
+                ],
+                [
+                  "外功防禦",
+                  "110"
+                ],
+                [
+                  "內功防禦",
+                  "95"
+                ],
+                [
+                  "體",
+                  "42"
+                ]
+              ]
+            }
+          ],
+          "kind": "equipment"
+        },
+        {
+          "title": "心法",
+          "items": [
+            {
+              "name": "易水歌",
+              "image": "/loadout/assets/mind/XF_YSG.png",
+              "note": "主修",
+              "stats": []
+            },
+            {
+              "name": "劍氣縱橫",
+              "image": "/loadout/assets/mind/XF_JQZH.png",
+              "note": "",
+              "stats": []
+            },
+            {
+              "name": "燎原星火",
+              "image": "/loadout/assets/mind/XF_LYXH.png",
+              "note": "",
+              "stats": []
+            },
+            {
+              "name": "四時無常",
+              "image": "/loadout/assets/mind/XF_SSWC.png",
+              "note": "",
+              "stats": []
+            }
+          ],
+          "kind": "mind"
+        },
+        {
+          "title": "奇術",
+          "items": [
+            {
+              "name": "百鬼打穴手",
+              "image": "",
+              "note": "",
+              "stats": []
+            },
+            {
+              "name": "金玉手",
+              "image": "",
+              "note": "",
+              "stats": []
+            },
+            {
+              "name": "太極",
+              "image": "",
+              "note": "",
+              "stats": []
+            },
+            {
+              "name": "凌雲踏",
+              "image": "",
+              "note": "",
+              "stats": []
+            }
+          ],
+          "kind": "skill"
+        }
+      ],
+      "rank": "飛花",
+      "epithet": "夜雨劍客",
+      "weapons": "長劍／長槍",
+      "mainArt": "積矩九劍",
+      "bpReceived": [
+        {
+          "name": "禁用任意奇術",
+          "target": "百鬼打穴手",
+          "cost": 3,
+          "effect": "本場移除百鬼打穴手，不得觸發。"
+        }
+      ],
+      "build": {
+        "name": "鳴金影",
+        "image": "/loadout/assets/martial/MINGJIN_YING.png",
+        "familyImage": "/loadout/assets/arsenal/MINGJIN.png"
+      }
+    },
+    {
+      "title": "無名劍槍",
+      "sections": [
+        {
+          "title": "武器與武學",
+          "items": [
+            {
+              "name": "無名劍法",
+              "image": "/loadout/assets/martial/MINGJIN_HONG_WMJF.png",
+              "note": "主武學",
+              "stats": []
+            },
+            {
+              "name": "無名槍法",
+              "image": "/loadout/assets/martial/MINGJIN_HONG_WMQF.png",
+              "note": "副武學",
+              "stats": []
+            }
+          ],
+          "kind": "martial"
+        },
+        {
+          "title": "裝備",
+          "items": [
+            {
+              "name": "流星含光",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_WEAPON_SWORD.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "最小外功攻擊",
+                  "100"
+                ],
+                [
+                  "最大外功攻擊",
+                  "232"
+                ],
+                [
+                  "會心率",
+                  "13.2%"
+                ],
+                [
+                  "勁",
+                  "72.2"
+                ],
+                [
+                  "外功穿透",
+                  "16.8"
+                ]
+              ]
+            },
+            {
+              "name": "流星羽林",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_WEAPON_SPEAR.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "最小外功攻擊",
+                  "100"
+                ],
+                [
+                  "最大外功攻擊",
+                  "232"
+                ],
+                [
+                  "會心率",
+                  "13.2%"
+                ],
+                [
+                  "勁",
+                  "72.2"
+                ],
+                [
+                  "外功穿透",
+                  "16.8"
+                ]
+              ]
+            },
+            {
+              "name": "吳鉤霜冠",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_HEAD.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "氣血上限",
+                  "1,200"
+                ],
+                [
+                  "外功防禦",
+                  "110"
+                ],
+                [
+                  "內功防禦",
+                  "95"
+                ],
+                [
+                  "體",
+                  "42"
+                ]
+              ]
+            },
+            {
+              "name": "吳鉤霜甲",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_CLOTH.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "氣血上限",
+                  "1,200"
+                ],
+                [
+                  "外功防禦",
+                  "110"
+                ],
+                [
+                  "內功防禦",
+                  "95"
+                ],
+                [
+                  "體",
+                  "42"
+                ]
+              ]
+            },
+            {
+              "name": "吳鉤霜披膊",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_HAND.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "氣血上限",
+                  "1,200"
+                ],
+                [
+                  "外功防禦",
+                  "110"
+                ],
+                [
+                  "內功防禦",
+                  "95"
+                ],
+                [
+                  "體",
+                  "42"
+                ]
+              ]
+            },
+            {
+              "name": "吳鉤霜縛袴",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_SHOES.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "氣血上限",
+                  "1,200"
+                ],
+                [
+                  "外功防禦",
+                  "110"
+                ],
+                [
+                  "內功防禦",
+                  "95"
+                ],
+                [
+                  "體",
+                  "42"
+                ]
+              ]
+            },
+            {
+              "name": "流星雲瓏",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_RING.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "氣血上限",
+                  "1,200"
+                ],
+                [
+                  "外功防禦",
+                  "110"
+                ],
+                [
+                  "內功防禦",
+                  "95"
+                ],
+                [
+                  "體",
+                  "42"
+                ]
+              ]
+            },
+            {
+              "name": "流星辟邪",
+              "image": "/loadout/assets/equipment/cards/EQUIPMENT_PENDANT.png",
+              "note": "示範 · 95 級",
+              "stats": [
+                [
+                  "氣血上限",
+                  "1,200"
+                ],
+                [
+                  "外功防禦",
+                  "110"
+                ],
+                [
+                  "內功防禦",
+                  "95"
+                ],
+                [
+                  "體",
+                  "42"
+                ]
+              ]
+            }
+          ],
+          "kind": "equipment"
+        },
+        {
+          "title": "心法",
+          "items": [
+            {
+              "name": "無名心法",
+              "image": "/loadout/assets/mind/XF_WMXF.png",
+              "note": "主修",
+              "stats": []
+            },
+            {
+              "name": "威猛歌",
+              "image": "/loadout/assets/mind/XF_WMG.png",
+              "note": "",
+              "stats": []
+            },
+            {
+              "name": "霜天白夜",
+              "image": "/loadout/assets/mind/XF_STBY.png",
+              "note": "",
+              "stats": []
+            },
+            {
+              "name": "四時無常",
+              "image": "/loadout/assets/mind/XF_SSWC.png",
+              "note": "",
+              "stats": []
+            }
+          ],
+          "kind": "mind"
+        },
+        {
+          "title": "奇術",
+          "items": [
+            {
+              "name": "定海神針",
+              "image": "",
+              "note": "",
+              "stats": []
+            },
+            {
+              "name": "金剛護體",
+              "image": "",
+              "note": "",
+              "stats": []
+            },
+            {
+              "name": "吸星吐納",
+              "image": "",
+              "note": "",
+              "stats": []
+            },
+            {
+              "name": "攝星拿月",
+              "image": "",
+              "note": "",
+              "stats": []
+            }
+          ],
+          "kind": "skill"
+        }
+      ],
+      "rank": "斷水",
+      "epithet": "白衣遊俠",
+      "weapons": "長劍／長槍",
+      "mainArt": "無名劍法",
+      "bpReceived": [],
+      "build": {
+        "name": "鳴金虹",
+        "image": "/loadout/assets/martial/MINGJIN_HONG.png",
+        "familyImage": "/loadout/assets/arsenal/MINGJIN.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+/* Production integration boundary. Never restyle all buttons/cards globally.
+   Tokens are expanded by tools/to-theatron.py:
+     @SCHED  = html[data-theme] body #main #schedule.chapter:has(#bracket-host.battle-live)
+     @DUEL   = html[data-theme] body #main #duel.battle-art-ready.chapter
+   The schedule wears the approved A/B art and the duel the C–H art (user, 2026-10-31). Both apply
+   only once battle-view.js has mounted, so chapter switching, the ink cut and the nav stay untouched. */
+#battle-duel-host[hidden]{display:none}
+#duel.battle-art-ready .arena-composition,#duel.battle-art-ready .duel-stage,#duel.battle-art-ready .duel-calligraphy{display:none}
+#duel.battle-art-ready .duel-wrap{position:relative;inset:auto;min-height:0;padding:16px 0}
+#duel.battle-art-ready .duel-foot{position:relative;inset:auto;margin:0 auto}
+#duel.battle-art-ready #duel-match-actions{position:relative;inset:auto}
+.battle-live{width:100%;min-width:0;isolation:isolate}
+.battle-results>summary{font:700 18px/1.5 var(--serif);padding:16px;color:var(--text-on-scene);background:var(--surface-scene-scrim);cursor:pointer}
+.battle-results[hidden]{display:none}
+
+/* ── Chapter shell: the night mountain is the shared back layer for title and battle art. */
+@SCHED > .chapter-sticky,
+@DUEL > .chapter-sticky{
+ display:block;max-width:none;padding:calc(var(--nav-h) + 4px) 0 32px;overflow-y:auto;overflow-x:hidden;color:var(--text-on-scene);
+ background:linear-gradient(color-mix(in srgb,var(--surface-scene-scrim) 38%,transparent),color-mix(in srgb,var(--surface-scene-scrim) 60%,transparent)),url('/battle-preview/assets/battle-mountain-candidate.webp') center top/cover no-repeat;
+}
+@SCHED > .chapter-sticky::before,
+@SCHED > .chapter-sticky::after{display:none}
+@SCHED .schedule-notice{display:flex;flex-direction:column;width:100%;padding:0;margin:0;border:0;background:none;color:var(--text-on-scene)}
+/* The battle scene leads; the refresh control and status sit quietly after it. */
+@SCHED .schedule-heading{order:2;margin-top:12px}
+@SCHED .schedule-heading{display:flex;flex-direction:column;align-items:center;gap:10px;min-height:0;padding:0;margin:0 auto 8px;border:0;text-align:center}
+@SCHED .schedule-heading .schedule-title-group{display:none}
+@SCHED .panel-head{margin:0;justify-content:center;gap:16px}
+@SCHED .panel-head:empty{display:none}
+@SCHED .schedule-refresh{font:600 14px/1.5 var(--serif);color:var(--text-on-notice);background:url('/battle-preview/assets/battle-produced/action-paper-v1.webp') center/100% 100% no-repeat;border:0;padding:10px 22px}
+@SCHED #bracket-panel{background:none;border:0;box-shadow:none;padding:0;width:100%;max-width:none;margin:0}
+@SCHED #schedule-state{color:var(--text-on-scene);text-align:center}
+@SCHED .chapter-calligraphy{display:none}
+@SCHED .chapter-nav{order:3;margin-top:24px}
+@SCHED .chapter-nav,@DUEL .chapter-nav{width:calc(100% - 32px);max-width:1340px;margin:24px auto 0}
+/* Existing duel functions (status line, betting lobby) stay below the scene as one quiet row. */
+@DUEL .duel-wrap{width:calc(100% - 32px);max-width:960px;margin:8px auto 0;padding:0}
+@DUEL .duel-foot{display:flex;justify-content:center;gap:12px;border-top:0;color:var(--text-on-scene-muted)}
+/* The scene shows the match state itself (user, 2026-11-01): the status line stays for screen readers only,
+   and the row disappears unless it carries odds, an action or the seal. */
+@DUEL #duel-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@DUEL .duel-foot:not(:has(#duel-odds:not(:empty),#duel-action:not(:empty),#duel-stamp:not([hidden]))){display:none}
+@DUEL #duel-match-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;margin-top:8px}
+@DUEL #duel-match-label{margin:0;color:var(--text-on-scene-muted)}
+/* One screen (landscape): each battle scene fills the viewport behind the nav and its paper art runs to
+   the bottom edge. The footer row (chapter plaques, with the refresh or the duel status between them)
+   sits on the art; the scene keeps --battle-footer clear and battle-view.js scales content to fit.
+   The media query must match FULL_SCREEN in battle-view.js and the one in battle-embed.css. */
+@SCHED,@DUEL{--battle-footer:88px}
+@SCHED .schedule-refresh{min-height:60px;min-width:220px;padding:14px 40px;font:700 20px/1.4 var(--serif)}
+@media (min-width:901px),(min-width:761px) and (orientation:landscape){
+ @SCHED > .chapter-sticky,@DUEL > .chapter-sticky{position:relative;padding:0}
+ @SCHED .schedule-notice{display:block;position:relative;min-height:100svh}
+ @SCHED .chapter-nav,@DUEL .chapter-nav{position:absolute;left:50%;bottom:16px;z-index:4;width:calc(100% - 32px);max-width:1340px;margin:0;padding:0;border:0;background:none;transform:translateX(-50%)}
+ @SCHED .schedule-heading{position:absolute;left:50%;bottom:44px;z-index:5;margin:0;transform:translate(-50%,50%)}
+ /* The closed full table becomes a paper button beside the refresh; opened, it returns to the flow. */
+ @SCHED details.battle-results:not([open]){position:absolute;left:calc(50% + 6px);bottom:44px;z-index:5;transform:translateY(50%)}
+ @SCHED details.battle-results:not([open])>summary{display:flex;align-items:center;min-height:60px;padding:14px 32px;list-style:none;font:700 20px/1.4 var(--serif);color:var(--text-on-notice);background:url('/battle-preview/assets/battle-produced/action-paper-v1.webp') center/100% 100% no-repeat}
+ @SCHED details.battle-results:not([open])>summary::-webkit-details-marker{display:none}
+ @SCHED:has(details.battle-results:not([hidden]):not([open])) .schedule-heading{transform:translate(calc(-100% - 6px),50%)}
+ @DUEL .duel-wrap{position:absolute;left:50%;bottom:16px;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:calc(100% - 32px - 400px);max-width:760px;min-height:56px;margin:0;padding:0;transform:translateX(-50%)}
+}
+/* Portrait tablets and phones stack the chapter and scroll it; the footer returns to the flow. */
+@media (max-width:900px) and (orientation:portrait),(max-width:760px){
+ @SCHED,@DUEL{--battle-footer:0px}
+}
+@media(max-width:600px){
+ @SCHED > .chapter-sticky,
+ @DUEL > .chapter-sticky{padding:calc(var(--nav-h) + 4px) 0 24px}
+}
+
+/* Only the pending-notice controls; published brackets retain their existing toolbar. */
+@SCHED .panel-head[data-pending-actions]{position:static;inset:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;width:100%;margin:0;transform:none;color:var(--text-auth-ink)}
+@SCHED [data-pending-actions] [data-schedule-mode]>div{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+@SCHED [data-pending-actions] [data-schedule-mode] button{min-height:48px;padding:10px 18px;font:700 16px/1.5 var(--serif);color:var(--text-auth-ink);background:transparent;border:1px solid currentColor;cursor:pointer}
+@SCHED [data-pending-actions] [data-schedule-mode] button[aria-pressed=true]{color:var(--text-auth-ink);background:color-mix(in srgb,var(--text-auth-ink) 10%,transparent);border-color:var(--text-auth-ink)}
+@SCHED [data-pending-actions] .schedule-refresh{min-height:48px;min-width:0;padding:10px 22px;font:700 16px/1.5 var(--serif);color:var(--text-auth-ink)}
+@media(max-width:600px){
+ @SCHED [data-pending-actions] [data-schedule-mode]{flex:1 1 100%}
+ @SCHED [data-pending-actions] [data-schedule-mode] button{flex:1;padding-inline:10px}
+ @SCHED [data-pending-actions] .schedule-refresh{width:100%;max-width:260px}
+}
+
+/* Pending notice controls stay inside the card. Refresh is twice its previous 48px height. */
+@SCHED .panel-head[data-pending-actions]{flex-direction:column;gap:12px}
+@SCHED [data-pending-actions] [data-schedule-mode] button{min-height:56px;padding:12px 24px;font-size:18px;border:0;background:url('/battle-preview/assets/battle-produced/action-paper-v1.webp') center/100% 100% no-repeat}
+@SCHED [data-pending-actions] [data-schedule-mode] button[aria-pressed=true]{background:url('/battle-preview/assets/battle-produced/action-paper-v1.webp') center/100% 100% no-repeat}
+@SCHED [data-pending-actions] .schedule-refresh{min-height:96px;min-width:260px;padding:22px 32px;font:700 24px/1.5 var(--serif);background:url('/battle-preview/assets/battle-produced/action-paper-v1.webp') center/100% 100% no-repeat}
+/* Pending-notice paper controls: tactile lift, no navigation underline. */
+@SCHED [data-pending-actions] :is([data-schedule-mode] button,.schedule-refresh){box-shadow:none;transform:none;filter:none;transition:transform 180ms ease,filter 180ms ease,color 180ms ease}
+@SCHED [data-pending-actions] :is([data-schedule-mode] button,.schedule-refresh)::after{content:none;display:none}
+@SCHED [data-pending-actions] [data-schedule-mode] button[aria-pressed=true]{color:var(--accent-brand-on-paper)}
+@SCHED [data-pending-actions] :is([data-schedule-mode] button,.schedule-refresh):focus-visible{outline:2px solid var(--accent-brand-on-paper);outline-offset:3px;color:var(--accent-brand-on-paper)}
+@media(hover:hover) and (pointer:fine){
+ @SCHED [data-pending-actions] :is([data-schedule-mode] button,.schedule-refresh):hover{color:var(--accent-brand-on-paper);transform:translateY(-3px);filter:drop-shadow(0 5px 3px color-mix(in srgb,var(--text-auth-ink) 32%,transparent));box-shadow:none}
+}
+@SCHED [data-pending-actions] :is([data-schedule-mode] button,.schedule-refresh):active{transform:translateY(1px) scale(.985);filter:drop-shadow(0 1px 1px color-mix(in srgb,var(--text-auth-ink) 24%,transparent));color:var(--accent-brand-on-paper);box-shadow:none}
+@media(prefers-reduced-motion:reduce){
+ @SCHED [data-pending-actions] :is([data-schedule-mode] button,.schedule-refresh){transition:none}
+ @SCHED [data-pending-actions] :is([data-schedule-mode] button,.schedule-refresh):is(:hover,:focus-visible,:active){transform:none}
+}
+
+@media(max-width:600px){
+ @SCHED [data-pending-actions] .schedule-refresh{min-width:0;width:100%;max-width:280px;font-size:22px}
+ @SCHED [data-pending-actions] [data-schedule-mode] button{padding-inline:14px;font-size:18px}
+}

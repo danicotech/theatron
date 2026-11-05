@@ -1,0 +1,74 @@
+/* A–H interactive preview only; approved champion I/J styles are independent. */
+.produced .draft-heading{padding:8px 0 24px}
+.produced .draft-card{grid-template-columns:40% minmax(0,1fr);min-height:100px;aspect-ratio:3.05}
+.produced .card-photo{position:absolute;left:3%;bottom:17%;width:40%;height:124%;margin:0;overflow:visible;clip-path:inset(-40% -20% 0 0)}
+.produced .card-photo img{height:100%;width:100%;object-fit:contain;object-position:center bottom;transform-origin:50% 100%;transition:transform .24s ease}
+.produced .draft-card:is(:hover,:focus-visible) .card-photo img{transform:scale(1.09)}
+.produced .draft-copy{grid-column:2;padding:6px 4px;min-width:0}
+.produced .draft-copy strong{font-size:clamp(19px,1.6vw,26px);line-height:1.25}
+.produced .draft-copy small{font-size:15px;line-height:1.6}
+.produced .draft-tree .draft-copy{gap:0;padding:0 4px}
+.produced .draft-tree .draft-copy strong{font-size:22px;line-height:26px}
+.produced .draft-tree .draft-copy small{font-size:14px;line-height:20px}
+.produced .draft-tree .entrant-state{font-size:12px;line-height:16px}
+.produced .card-front-edge{position:absolute;inset:0;z-index:3;pointer-events:none;background:var(--rank-art) center/100% 100%;clip-path:polygon(0 0,4% 0,4% 84%,100% 84%,100% 100%,0 100%)}
+.entrant-state{display:block;font:12px/1.5 var(--serif);color:var(--draft-muted);white-space:nowrap}
+.entrant-state.bye-advanced{color:#f5d37a}
+.produced .draft-pending{min-height:94px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;text-align:center}
+.produced .draft-pending strong{font-size:20px}
+.produced .draft-pending small{font-size:14px}
+.produced .draft-tree{min-width:1180px;grid-template-columns:minmax(0,1fr) 160px minmax(0,1fr);gap:20px;padding:24px 22px 36px}
+.produced .tree-columns{gap:32px}
+.produced .tree-round-inner{gap:26px}
+.produced .tree-round h3{font-size:18px;margin-bottom:30px}
+.produced .tree-side>h2{font-size:34px}
+.produced .tree-final{gap:15px}
+.produced .tree-final>strong{font-size:28px;color:#f3d68b;text-align:center}
+.produced .tree-final .draft-action{font-size:16px;padding:12px}
+.produced .draft-connectors path{stroke:#d0b987;stroke-width:2;vector-effect:non-scaling-stroke}
+.produced .team-stage{align-items:center}
+.produced .roster-panel header{margin-bottom:38px}
+.produced .roster-list{gap:32px 18px}
+.produced .duel-card{min-height:440px;aspect-ratio:auto;grid-template-columns:1fr;padding:0}
+.produced .duel-card .card-photo{inset:auto 0 64px;width:100%;height:calc(100% - 64px);clip-path:inset(-15% 0 0)}
+.produced .duel-card .draft-copy{position:absolute;bottom:0;left:0;width:100%;text-align:center;z-index:4;height:88px;padding:0 12px;justify-content:center;gap:0}
+.produced .duel-card .card-front-edge{top:auto;height:88px;clip-path:inset(82% 0 0)}
+.produced .duel-card .draft-copy strong{font-size:28px;line-height:32px}
+.produced .duel-card .draft-copy small{font-size:15px;line-height:20px}
+.produced .draft-score p{font-size:clamp(36px,4vw,58px);color:#f6e4bc;white-space:nowrap}
+.produced .draft-score h2{font-size:28px}
+.produced .draft-score small{font-size:16px}
+.produced .group-controls{margin-bottom:34px}
+.produced .group-controls button{min-height:44px;font-size:16px}
+.produced #draft-dialog{border:12px solid transparent;border-image:url('assets/champion-reference-v2/profile-frame-v3.webp') 150 / 24px;background:#e9dcc1 url('assets/champion-reference-v2/profile-paper-v3.webp') center/cover;color:#271f18;width:min(900px,calc(100% - 24px));max-height:calc(100dvh - 32px);padding:32px;overflow:auto}
+.produced #draft-dialog::backdrop{background:#02090dd9}
+.produced #draft-dialog h2{font:700 30px/1.3 var(--serif);margin:0 44px 24px 0}
+.produced #draft-dialog .ink-close{position:absolute;right:16px;top:12px;width:44px;height:44px;color:#30251c;z-index:5}
+.produced #draft-dialog[data-kind=player]{padding:0;overflow:auto}
+.produced #draft-dialog[data-kind=player] h2{position:absolute;left:46%;top:30px;z-index:2;font-size:28px}
+.produced #draft-dialog[data-kind=player] #draft-dialog-content{display:grid;grid-template-columns:40% 1fr}
+.player-portrait{min-height:420px;background:#501b20 url('assets/champion-reference-v2/profile-red-v3.webp') center/cover;overflow:hidden;display:flex;align-items:end}
+[data-side=blue] .player-portrait{background:#123344 url('assets/champion-reference-v2/profile-blue-v3.webp') center/cover}
+.player-portrait img{width:100%;height:420px;object-fit:cover;object-position:center top}
+.player-information{padding:110px 32px 28px;display:flex;flex-direction:column;align-items:start}
+.player-information h3{font:800 clamp(36px,4vw,58px)/1.15 var(--serif);margin:0 0 24px}
+.player-information dl{display:flex;gap:22px;font:600 24px/1.5 var(--serif);margin:0 0 20px}
+.player-information dt{color:#766752}.player-information dd{margin:0}
+.player-information p{color:#766752;font-size:16px;margin:0 0 24px}
+.player-information .draft-action{align-self:end;margin-top:auto;min-width:130px}
+.match-facts>div{display:flex;gap:24px;padding:14px 0;border-bottom:1px solid #8f79584d}.match-facts dd{margin:0}.match-facts dt{color:#70604a;min-width:80px}
+.produced .dialog-roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 20px;padding-top:20px}
+.produced .dialog-roster .draft-card{--draft-ink:#f7e8ca;--draft-muted:#d7c5a7;--card-red:#321a21;--card-blue:#102a3a}
+@media(min-width:701px) and (max-width:1200px){.produced .team-stage{grid-template-columns:minmax(0,1fr) 140px minmax(0,1fr);gap:18px}.produced .team-stage[data-size="8"] .roster-list{grid-template-columns:1fr}.produced .draft-copy strong{font-size:20px}.produced .draft-main{padding:0 20px}}
+@media(max-width:700px){
+ .produced .draft-main{padding:0 12px;margin-top:20px}.produced .draft-heading h1{font-size:36px}.produced .draft-heading{padding:6px 0 20px}
+ .produced .team-stage{padding:16px 12px}.produced .roster-panel header{margin-bottom:30px}.produced .roster-list{gap:32px}.produced .draft-card{min-height:104px}
+ .produced .team-stage:not([data-size="1"])>.material-plane{display:none}
+ .produced .draft-copy strong{font-size:25px}.produced .draft-copy small{font-size:16px}.produced .entrant-state{font-size:13px}
+ .produced .draft-score{padding:8px 0 20px}.produced .draft-score .moon-slot{height:80px}.produced .draft-score p{font-size:42px;margin:8px 0}.produced .draft-score h2{font-size:24px}
+ .produced .team-stage[data-size="1"]{gap:12px}.produced .duel-card{min-height:300px}.produced .duel-card .card-photo{bottom:70px;height:230px}.produced .duel-card .draft-copy{height:88px;padding:0 5px}.produced .duel-card .draft-copy strong{font-size:25px}
+ .produced #draft-dialog{padding:24px 16px}.produced #draft-dialog[data-kind=player] h2{left:42%;top:24px;font-size:23px;margin-right:40px}
+ .produced .player-portrait{min-height:340px}.produced .player-portrait img{height:340px}.produced .player-information{padding:90px 12px 20px}.produced .player-information h3{font-size:36px}.produced .player-information dl{gap:10px;font-size:19px}.produced .player-information p{font-size:14px}.produced .player-information .draft-action{min-width:100px}
+ .produced .dialog-roster{grid-template-columns:1fr}.produced .round-match{padding-top:24px}.produced .match-entrants{gap:32px}
+}
+@media(prefers-reduced-motion:reduce){.produced .card-photo img{transition:none}}

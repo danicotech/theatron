@@ -1,0 +1,50 @@
+{
+  "repository": "https://github.com/chanind/hanzi-writer-data",
+  "commit": "68d10a4b21150cae5e1ebbd223eed289cf32d90c",
+  "license": "Arphic Public License",
+  "retrieved": "2026-09-21",
+  "entries": [
+    {
+      "character": "宗",
+      "strokes": 8,
+      "url": "https://raw.githubusercontent.com/chanind/hanzi-writer-data/68d10a4b21150cae5e1ebbd223eed289cf32d90c/data/%E5%AE%97.json",
+      "sha256": "3a7b83ce0eb62af0b7bad200792388215436143dc9d16766cd8bbe70cfb8880d"
+    },
+    {
+      "character": "旨",
+      "strokes": 6,
+      "url": "https://raw.githubusercontent.com/chanind/hanzi-writer-data/68d10a4b21150cae5e1ebbd223eed289cf32d90c/data/%E6%97%A8.json",
+      "sha256": "50afa842c4016699a3609a297dd658ce6f627d614e968056f96fbffa4115a540"
+    },
+    {
+      "character": "規",
+      "strokes": 11,
+      "url": "https://raw.githubusercontent.com/chanind/hanzi-writer-data/68d10a4b21150cae5e1ebbd223eed289cf32d90c/data/%E8%A6%8F.json",
+      "sha256": "34d9ec7d62f73bfd60e4c6884df6c7e2962f30f7129ec4466508b3c1535a360d"
+    },
+    {
+      "character": "則",
+      "strokes": 9,
+      "url": "https://raw.githubusercontent.com/chanind/hanzi-writer-data/68d10a4b21150cae5e1ebbd223eed289cf32d90c/data/%E5%89%87.json",
+      "sha256": "5ad79e67aeb1c9e48ae27a0c9a6d555c8bb99992c9606bbe4890db68a2fa4b4b"
+    },
+    {
+      "character": "說",
+      "strokes": 14,
+      "url": "https://raw.githubusercontent.com/chanind/hanzi-writer-data/68d10a4b21150cae5e1ebbd223eed289cf32d90c/data/%E8%AA%AA.json",
+      "sha256": "d1e1609e49de2e5e5760d2f8f8ca31eb45cffe515d4a5e9d1ca4ef1dfb3b5a8d"
+    },
+    {
+      "character": "明",
+      "strokes": 8,
+      "url": "https://raw.githubusercontent.com/chanind/hanzi-writer-data/68d10a4b21150cae5e1ebbd223eed289cf32d90c/data/%E6%98%8E.json",
+      "sha256": "15468d4fcd2c430aa5b57e8765ce043f6965d421e24cabdf66d2c899b16c6943"
+    },
+    {
+      "character": "表",
+      "strokes": 8,
+      "url": "https://raw.githubusercontent.com/chanind/hanzi-writer-data/68d10a4b21150cae5e1ebbd223eed289cf32d90c/data/%E8%A1%A8.json",
+      "sha256": "f462b53e7549c74927c4f3a802882609d7576fae6d4f9caa3a586ee18c169c0e"
+    }
+  ]
+}

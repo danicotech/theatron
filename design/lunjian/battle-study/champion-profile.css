@@ -1,0 +1,66 @@
+/* Approved A: independent paper, red field, portrait, timber frame and HTML text.
+   Nine-slice framing preserves corner scale across responsive sizes. */
+#champion-dialog[data-kind=player]{
+ --record-ink:#2c2119;--record-muted:#74654f;--record-rule:#94744a66;--record-accent:#862d22;
+ width:min(960px,calc(100% - 32px));padding:16px;border:0;
+ border-image:none;
+ background:url('assets/champion-reference-v2/profile-paper-v3.webp') right center/60% 100% no-repeat,#ebdbbf;
+ background-clip:content-box;background-origin:content-box;color:var(--record-ink);color-scheme:light;overflow:auto;overscroll-behavior:contain;
+}
+#champion-dialog[data-kind=player]::after{content:'';position:absolute;inset:0;z-index:5;pointer-events:none;border:16px solid transparent;border-image:url('assets/champion-reference-v2/profile-frame-v3.webp') 150 / 52px / 0 stretch}
+#champion-dialog[data-kind=player][open]{display:grid;grid-template-columns:40% minmax(0,1fr);grid-template-rows:auto 1fr auto;gap:0}
+#champion-dialog[data-kind=player] .dialog-kicker{display:none}
+#champion-dialog[data-kind=player] .dialog-header{grid-column:2;grid-row:1;padding:38px 70px 20px 54px}
+#champion-dialog[data-kind=player] #dialog-title{display:block;border:0;background:none;padding:0;color:var(--record-ink);font:800 38px/1.35 var(--serif);white-space:nowrap}
+#champion-dialog[data-kind=player] .dialog-header::after{content:'';position:absolute;height:1px;bottom:0;left:54px;right:54px;background:linear-gradient(90deg,#a18048aa,#a18048,#a1804822)}
+#champion-dialog[data-kind=player] .dialog-header::before{content:'';position:absolute;width:8px;height:8px;bottom:-4px;left:50%;border:1px solid #a18048;transform:rotate(45deg);background:#eadaad}
+#champion-dialog[data-kind=player] .dialog-close{top:14px;right:12px}
+#champion-dialog[data-kind=player] .dialog-close::before,#champion-dialog[data-kind=player] .dialog-close::after{height:5px;left:10px;right:10px;clip-path:polygon(0 20%,15% 0,81% 18%,100% 0,92% 75%,100% 100%,20% 85%,0 100%)}
+#champion-dialog[data-kind=player] #dialog-content,#champion-dialog[data-kind=player] .player-summary{display:contents}
+#champion-dialog[data-kind=player] .player-summary__portrait{grid-column:1;grid-row:1/4;position:relative;align-self:stretch;height:auto;min-height:432px;border:0;overflow:hidden;background:linear-gradient(#22060d30,#22060d30),url('assets/champion-reference-v2/profile-red-v3.webp') center/cover}
+#champion-dialog[data-kind=player] .player-summary__portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% top}
+#champion-dialog[data-kind=player][data-side=blue] .player-summary__portrait{background:linear-gradient(#03142530,#03142530),url('assets/champion-reference-v2/profile-blue-v3.webp') center/cover}
+#champion-dialog[data-kind=player] .player-summary__identity{grid-column:2;grid-row:2;padding:26px 54px 12px;align-self:start;min-width:0}
+#champion-dialog[data-kind=player] .player-summary h3{font:800 66px/1.2 var(--serif);color:var(--record-ink);margin:0 0 25px}
+#champion-dialog[data-kind=player] .player-summary dl{font:700 27px/1.5 var(--serif);margin:0}
+#champion-dialog[data-kind=player] .player-summary dl>div{display:flex;gap:20px;flex-wrap:nowrap;align-items:center}
+#champion-dialog[data-kind=player] .player-summary dd{padding-left:20px;border-left:1px solid var(--record-rule);color:var(--record-ink);white-space:nowrap}
+#champion-dialog[data-kind=player] .player-note{border-top:1px solid var(--record-rule);padding-top:12px;margin:17px 0 0;color:var(--record-muted);font:500 18px/1.5 var(--serif)}
+#champion-dialog[data-kind=player] .dialog-actions{grid-column:2;grid-row:3;border:0;padding:0 28px 24px;margin:0}
+#champion-dialog[data-kind=player] .dialog-done{min-width:186px;min-height:58px;font:800 28px/1.3 var(--serif);background:#20150d url('assets/brand.webp') center/cover;border:7px solid transparent;border-image:url('assets/champion-reference-v2/profile-frame-v3.webp') 150 / 22px / 0 stretch;padding:5px 22px}
+#champion-dialog[data-kind=player]::backdrop{background:#03080bbd;backdrop-filter:blur(4px)}
+@media(max-width:700px){
+ #champion-dialog[data-kind=player]{padding:12px;border-width:0}
+ #champion-dialog[data-kind=player]::after{inset:0;padding:0;border-width:12px;border-image-width:36px}
+ #champion-dialog[data-kind=player] .dialog-header{padding:25px 50px 14px 24px}
+ #champion-dialog[data-kind=player] #dialog-title{font-size:26px}
+ #champion-dialog[data-kind=player] .dialog-header::after{left:24px;right:24px}
+ #champion-dialog[data-kind=player] .dialog-close{top:9px;right:4px}
+ #champion-dialog[data-kind=player] .player-summary__portrait{min-height:338px}
+ #champion-dialog[data-kind=player] .player-summary__identity{padding:22px 24px 12px}
+ #champion-dialog[data-kind=player] .player-summary h3{font-size:46px;margin-bottom:20px}
+ #champion-dialog[data-kind=player] .player-summary dl{font-size:20px}
+ #champion-dialog[data-kind=player] .player-summary dl>div{gap:12px}
+ #champion-dialog[data-kind=player] .player-summary dd{padding-left:12px}
+ #champion-dialog[data-kind=player] .player-note{font-size:15px}
+ #champion-dialog[data-kind=player] .dialog-actions{padding:0 20px 20px}
+ #champion-dialog[data-kind=player] .dialog-done{min-width:130px;font-size:22px;min-height:48px}
+}
+@media(max-width:440px){
+ #champion-dialog[data-kind=player]{width:calc(100% - 20px);padding:10px;border-width:0}
+ #champion-dialog[data-kind=player]::after{inset:0;padding:0;border-width:10px;border-image-width:30px}
+ #champion-dialog[data-kind=player] .dialog-header{padding:23px 40px 12px 14px}
+ #champion-dialog[data-kind=player] #dialog-title{font-size:20px}
+ #champion-dialog[data-kind=player] .dialog-close{right:0;top:9px}
+ #champion-dialog[data-kind=player] .dialog-close::before,#champion-dialog[data-kind=player] .dialog-close::after{left:15px;right:15px;height:4px}
+ #champion-dialog[data-kind=player] .dialog-header::after{left:14px;right:14px}
+ #champion-dialog[data-kind=player] .player-summary__portrait{min-height:295px}
+ #champion-dialog[data-kind=player] .player-summary__identity{padding:22px 14px 10px}
+ #champion-dialog[data-kind=player] .player-summary h3{font-size:39px;margin-bottom:20px}
+ #champion-dialog[data-kind=player] .player-summary dl{font-size:17px}
+ #champion-dialog[data-kind=player] .player-summary dl>div{gap:10px}
+ #champion-dialog[data-kind=player] .player-summary dd{padding-left:10px}
+ #champion-dialog[data-kind=player] .player-note{font-size:14px;margin-top:18px}
+ #champion-dialog[data-kind=player] .dialog-actions{padding:0 12px 18px}
+ #champion-dialog[data-kind=player] .dialog-done{width:100%;min-width:0;font-size:20px}
+}
