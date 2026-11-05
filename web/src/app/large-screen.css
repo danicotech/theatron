@@ -1,0 +1,46 @@
+/* 27-inch screens and up (2560x1440 and 4K; user, 2026-11-04). The layouts are drawn for about 1920x1000;
+   a larger screen draws that same layout bigger instead of leaving it small in the middle. A block opts in
+   with --zoom-local: var(--screen-scale) and zoom: var(--zoom-local). Zoom scales viewport units too, so
+   inside such a block they are divided by --zoom-local (design/lunjian/lab/tools/unzoom.py rewrites generated
+   CSS that way). */
+:root {
+  --screen-scale: 1;
+}
+@media (min-width: 2200px) and (min-height: 1140px) {
+  :root {
+    --screen-scale: 1.15;
+  }
+}
+@media (min-width: 2400px) and (min-height: 1240px) {
+  :root {
+    --screen-scale: 1.25;
+  }
+}
+@media (min-width: 2880px) and (min-height: 1480px) {
+  :root {
+    --screen-scale: 1.5;
+  }
+}
+@media (min-width: 3360px) and (min-height: 1730px) {
+  :root {
+    --screen-scale: 1.75;
+  }
+}
+@media (min-width: 3840px) and (min-height: 1980px) {
+  :root {
+    --screen-scale: 2;
+  }
+}
+/* The site bar, every React page's main, the stage's chapters, the help tip and 讓武 detail dialog when
+   they hang off body, and the loadout page's top bar and overlays (#tip marks its main); the stage's own main only
+   holds those chapters, since zoom must not nest. */
+html[data-theme] body header[data-site-nav],
+html[data-theme] body main:not(:has(.chapter-sticky)),
+html[data-theme] body header.top:has(~ main > #tip),
+html[data-theme] body main:has(> #tip) ~ :is(dialog, .toast),
+html[data-theme] body > .help-tooltip,
+html[data-theme] body > .handicap-detail-dialog,
+html[data-theme] body #main .chapter > .chapter-sticky {
+  --zoom-local: var(--screen-scale);
+  zoom: var(--zoom-local);
+}
