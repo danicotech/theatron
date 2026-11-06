@@ -1,5 +1,6 @@
 'use client';
 
+import { HelpTip } from '../chrome/HelpTip';
 import { timestampDate, type Timestamp } from '@bufbuild/protobuf/wkt';
 import { Code, ConnectError } from '@connectrpc/connect';
 import {
@@ -12,6 +13,7 @@ import {
   type AmountTone,
 } from '@theatron/ui';
 import Link from 'next/link';
+import { memberLoginHref } from '../member/returnPath';
 import { useCallback, useEffect } from 'react';
 
 import { activityApi } from '../../lib/api/activity';
@@ -29,7 +31,7 @@ import { formatOdds, marketKindLabel } from './MarketBoard';
 import styles from './MyBets.module.css';
 
 /**
- * 我的注單:一張一張票根。
+ * 觀局紀錄:一張一張票根。
  *
  * 票根的結構直接用 Card:標頭是全大寫小字 + 右側狀態,腿在票身,
  * 底部齒孔虛線之後是金額。不另外發明一種卡。
@@ -40,11 +42,14 @@ import styles from './MyBets.module.css';
 
 export interface MyBetsProps {
   slug: string;
+  embedded?: boolean;
+  onBetting?: () => void;
+  returnTo?: string;
 }
 
 type Loaded = { kind: 'anonymous' } | { kind: 'ready'; bets: Bet[] };
 
-export function MyBets({ slug }: MyBetsProps) {
+export function MyBets({ slug, embedded = false, onBetting, returnTo }: MyBetsProps) {
   const load = useCallback(async (): Promise<Loaded> => {
     try {
       const res = await activityApi.betting.listMyBets({ tournamentSlug: slug });
@@ -67,7 +72,18 @@ export function MyBets({ slug }: MyBetsProps) {
 
   return (
     <div className={styles.page}>
-      <ChapterHead number="肆" eyebrow="百業試鋒" title="我的注單" />
+      {!embedded && (
+        <ChapterHead
+          number="肆"
+          eyebrow="百業試鋒"
+          title={
+            <>
+              觀局紀錄
+              <HelpTip label="觀局紀錄" text="在觀局雅集選擇場次下注，成立後可在此查看紀錄。" />
+            </>
+          }
+        />
+      )}
       {body()}
     </div>
   );
@@ -88,7 +104,7 @@ export function MyBets({ slug }: MyBetsProps) {
           <p className={styles.wallLine}>注單記在平台帳號上,先登入。</p>
           <Link
             className={styles.link}
-            href={`/login?redirect=${encodeURIComponent(`/t/${slug}/bets`)}`}
+            href={memberLoginHref(slug, returnTo ?? `/t/${slug}/me?view=bets`)}
           >
             登入
           </Link>
@@ -98,10 +114,16 @@ export function MyBets({ slug }: MyBetsProps) {
     if (data.bets.length === 0) {
       return (
         <div className={styles.wall}>
-          <p className={styles.wallLine}>還沒有注單。到對戰表挑一場,從賠率表加進投注單。</p>
-          <Link className={styles.link} href={`/t/${slug}/bracket`}>
-            對戰表
-          </Link>
+          <p className={styles.wallLine}>尚無注單</p>
+          {onBetting ? (
+            <button type="button" className={styles.link} onClick={onBetting}>
+              選場下注
+            </button>
+          ) : (
+            <Link className={styles.link} href="/?panel=markets#duel">
+              前往觀局雅集
+            </Link>
+          )}
         </div>
       );
     }

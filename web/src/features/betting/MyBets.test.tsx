@@ -122,14 +122,17 @@ describe('MyBets', () => {
     api.listMyBets.mockRejectedValue(new ConnectError('no', Code.Unauthenticated));
     render(<MyBets slug="s" />);
     const link = await screen.findByRole('link', { name: '登入' });
-    expect(link).toHaveAttribute('href', '/login?redirect=%2Ft%2Fs%2Fbets');
+    expect(link).toHaveAttribute('href', '/t/s/login?next=%2Ft%2Fs%2Fme%3Fview%3Dbets');
   });
 
   it('沒有注單是邀請動作,不是說沒有資料', async () => {
     api.listMyBets.mockResolvedValue({ bets: [] });
     render(<MyBets slug="s" />);
-    expect(await screen.findByText(/還沒有注單/)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: '對戰表' })).toHaveAttribute('href', '/t/s/bracket');
+    expect(await screen.findByText(/尚無注單/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '前往觀局雅集' })).toHaveAttribute(
+      'href',
+      '/?panel=markets#duel',
+    );
   });
 
   it('同一頁下注成功就立刻補讀一次', async () => {

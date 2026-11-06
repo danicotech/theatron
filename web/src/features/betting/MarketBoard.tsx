@@ -3,6 +3,7 @@
 import { Code, ConnectError } from '@connectrpc/connect';
 import { Button, formatAmount } from '@theatron/ui';
 import Link from 'next/link';
+import { memberLoginHref } from '../member/returnPath';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -35,6 +36,7 @@ import styles from './MarketBoard.module.css';
 
 export interface MarketBoardProps {
   slug: string;
+  returnTo?: string;
   matchPublicId: string;
   /** Validated player side from the arena. Only highlights MATCH_WINNER. */
   selectedOutcome?: 'p1' | 'p2' | undefined;
@@ -94,7 +96,7 @@ function sortMarkets(markets: readonly MarketOdds[]): MarketOdds[] {
 
 type Viewer = 'loading' | 'anonymous' | 'signed-in';
 
-export function MarketBoard({ slug, matchPublicId, selectedOutcome }: MarketBoardProps) {
+export function MarketBoard({ slug, matchPublicId, selectedOutcome, returnTo }: MarketBoardProps) {
   const pathname = usePathname();
   const slip = useBetSlip(slug);
   const board = useRef<HTMLElement>(null);
@@ -178,7 +180,7 @@ export function MarketBoard({ slug, matchPublicId, selectedOutcome }: MarketBoar
     return <p className={styles.muted}>這場還沒開盤。開盤後回來投票、押注。</p>;
   }
 
-  const signinHref = `/login?redirect=${encodeURIComponent(pathname)}`;
+  const signinHref = memberLoginHref(slug, returnTo ?? pathname + '#markets');
 
   return (
     <section ref={board} className={styles.board} aria-label="賠率表">

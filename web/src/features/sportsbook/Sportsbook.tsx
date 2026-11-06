@@ -1,5 +1,8 @@
 'use client';
 
+import { HelpTip } from '../chrome/HelpTip';
+
+import { BuildCard } from '../signup/BuildCard';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
 import {
@@ -23,7 +26,7 @@ import {
 } from './database';
 import type { Command, Leg, Market, Match, Prize, Snapshot, State, Tournament } from './model';
 import styles from './Sportsbook.module.css';
-import { MatchTools } from './MatchTools';
+import { ToolsRoom as MatchTools } from '../match-tools/ToolsRoom';
 import { ParticipantBp } from './ParticipantBp';
 import { Participation, EnrollmentAdmin } from './Participation';
 import { ManagerOperations } from './ManagerOperations';
@@ -144,7 +147,13 @@ export function Modal({
       )}
       <header>
         <h2 id={titleId}>{title}</h2>
-        <button type="button" aria-label="關閉視窗" disabled={busy} onClick={close}>
+        <button
+          type="button"
+          data-ink-close={paper ? 'false' : 'true'}
+          aria-label="關閉視窗"
+          disabled={busy}
+          onClick={close}
+        >
           {paper ? '返回' : '×'}
         </button>
       </header>
@@ -560,7 +569,7 @@ export function Sportsbook({
       if (command.type === 'ticket') {
         setLegs([]);
         setStake('');
-        setTab('我的注單');
+        setTab('觀局紀錄');
       }
       await refresh();
       setNotice(commandFeedback(command));
@@ -801,12 +810,17 @@ export function Sportsbook({
     return (
       <div className={styles.app} data-embedded={embedded}>
         <p className={styles.eyebrow}>百業試鋒 · 會員專區</p>
-        <h2>{authPurpose === 'loadout' ? '登入後設定武學配置' : '一席之名，從此相識。'}</h2>
-        <p>
-          {authPurpose === 'loadout'
-            ? '使用會員帳號建立自己的武學配置，完成後可帶回報名資料。'
-            : '登入後管理報名、角色、注單與點數紀錄。'}
-        </p>
+        <h2>
+          {authPurpose === 'loadout' ? '登入後設定武學配置' : '一席之名，從此相識。'}
+          <HelpTip
+            label="會員登入"
+            text={
+              authPurpose === 'loadout'
+                ? '使用會員帳號建立自己的武學配置，完成後可帶回報名資料。'
+                : '登入後管理報名、角色、注單與點數紀錄。'
+            }
+          />
+        </h2>
         {!state ? (
           <p role="status">
             {failure || '正在讀取會員資料…'}{' '}
@@ -968,10 +982,10 @@ export function Sportsbook({
           </div>
           <nav className={styles.tabs} aria-label={memberOnly ? '會員功能' : '觀局雅集'}>
             {(memberOnly
-              ? ['會員總覽', '我的參賽', '我的注單', '點數紀錄', '獎品兌換', '我的獎品']
+              ? ['會員總覽', '我的參賽', '觀局紀錄', '點數紀錄', '獎品兌換', '我的獎品']
               : tab === '管理'
                 ? []
-                : ['投注區', '我的注單', '我的參賽', '點數紀錄', '獎品兌換', '我的獎品']
+                : ['投注區', '觀局紀錄', '我的參賽', '點數紀錄', '獎品兌換', '我的獎品']
             ).map((t) => (
               <button
                 disabled={busy}
@@ -983,13 +997,13 @@ export function Sportsbook({
               </button>
             ))}
             <button type="button" onClick={() => setToolsOpen(true)}>
-              對局小工具
+              小工具
             </button>
           </nav>
         </>
       )}
       {toolsOpen && (
-        <Modal title="對局小工具" onClose={() => setToolsOpen(false)}>
+        <Modal title="小工具" onClose={() => setToolsOpen(false)}>
           <MatchTools />
         </Modal>
       )}
@@ -1019,7 +1033,7 @@ export function Sportsbook({
                 </p>
                 <div className={styles.actions}>
                   <button onClick={() => setTab('我的參賽')}>我的報名與角色</button>
-                  <button onClick={() => setTab('我的注單')}>查看我的注單</button>
+                  <button onClick={() => setTab('觀局紀錄')}>查看觀局紀錄</button>
                 </div>
                 <h3>我的參賽活動</h3>
                 {state.events.filter((e) =>
@@ -1040,8 +1054,13 @@ export function Sportsbook({
                     </p>
                   ))}
                 <a href="/#register">前往報名書卷 ↗</a>
-                <h3>赴擂觀局</h3>
-                <p>先到比武選擇對局，再開啟觀局雅集。將沿用這個會員帳號與點數。</p>
+                <h3>
+                  赴擂觀局
+                  <HelpTip
+                    label="赴擂觀局"
+                    text="先到比武選擇對局，再開啟觀局雅集。將沿用這個會員帳號與點數。"
+                  />
+                </h3>
                 <a
                   href={`/?${event ? `preview=1&sportsEvent=${encodeURIComponent(event.id)}&` : ''}stage=3d#duel`}
                 >
@@ -1366,9 +1385,9 @@ export function Sportsbook({
                     })}
                 </>
               ))}
-            {tab === '我的注單' && (
+            {tab === '觀局紀錄' && (
               <section>
-                <h2>我的注單</h2>
+                <h2>觀局紀錄</h2>
                 {!current ? (
                   <button onClick={() => setAuth(true)}>登入查看</button>
                 ) : (
@@ -1523,8 +1542,10 @@ export function Sportsbook({
                     .filter((p) => p.active)
                     .map((p) => (
                       <article key={p.id}>
-                        <h3>{p.name}</h3>
-                        <p>{p.description}</p>
+                        <h3>
+                          {p.name}
+                          {p.description && <HelpTip label={p.name} text={p.description} />}
+                        </h3>
                         <strong>{money(p.price)} 點</strong>
                         <p>可兌換 {p.stock} 份</p>
                         <button
@@ -1557,8 +1578,13 @@ export function Sportsbook({
                 ) : (
                   <>
                     <MyCeremonyPrizes events={state.events} userId={userId} />
-                    <h3>點數兌換</h3>
-                    <p>查看兌換進度；待審核的申請仍可取消並退回點數。</p>
+                    <h3>
+                      點數兌換
+                      <HelpTip
+                        label="點數兌換"
+                        text="查看兌換進度；待審核的申請仍可取消並退回點數。"
+                      />
+                    </h3>
                     {!state.redemptions.some((r) => r.userId === userId) && (
                       <>
                         <p>尚未兌換獎品。</p>
@@ -1992,7 +2018,7 @@ export function Sportsbook({
               className={styles.slip}
               data-open={slipOpen}
               data-fits={slipFits}
-              aria-label="我的注單"
+              aria-label="觀局紀錄"
             >
               <button
                 className={styles.slipToggle}
@@ -2006,7 +2032,7 @@ export function Sportsbook({
                 · {slipOpen ? '繼續選盤 ↓' : '查看注單 ↑'}
               </button>
               <div className={styles.slipBody}>
-                <h2>我的注單</h2>
+                <h2>觀局紀錄</h2>
                 <label>
                   投注方式
                   <select
@@ -2150,6 +2176,7 @@ export function Sportsbook({
                     </small>
                   )}
                   <button
+                    data-ink-close="true"
                     aria-label={`移除 ${l.label}`}
                     onClick={() => {
                       setConfirm(null);
@@ -2285,7 +2312,7 @@ export function Sportsbook({
                   ].map(([label, value]) => (
                     <div key={label}>
                       <dt>{label}</dt>
-                      <dd>{value || '待公開'}</dd>
+                      <dd>{label === '流派' ? <BuildCard name={value} /> : value || '待公開'}</dd>
                     </div>
                   ))}
                 </dl>

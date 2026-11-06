@@ -112,10 +112,10 @@
 .tools .primary {
   display: block;
   width: 100%;
-  background: var(--text-primary);
-  color: var(--surface-base);
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
   font-weight: 600;
-  border-color: var(--text-primary);
+  border-color: var(--accent-action-primary);
 }
 .handStage {
   padding-block: 24px;
@@ -186,4 +186,9 @@
   .die[data-rolling] {
     animation: none;
   }
+}
+
+.tools .primary:not(:disabled):hover {
+  background: var(--accent-action-hover);
+  color: var(--text-on-action);
 }

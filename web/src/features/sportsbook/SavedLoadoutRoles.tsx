@@ -1,4 +1,5 @@
 'use client';
+import { BuildCard } from '../signup/BuildCard';
 import { useEffect, useRef, useState } from 'react';
 import { readRegistrationRoles, type SavedRole } from './registrationRolesRuntime.js';
 import styles from './Participation.module.css';
@@ -93,8 +94,7 @@ export function SavedLoadoutRoles({
         >
           <strong>{role.name}</strong>
           <span>
-            {role.character.style || '尚未選流派'}
-            {role.character.weapon && ' · ' + role.character.weapon}
+            <BuildCard name={role.character.style} />
           </span>
           <small>
             {!role.ready

@@ -28,7 +28,7 @@ vi.mock('../../lib/api/client', () => ({
   platformApi: { me: { getProfile: api.getProfile } },
 }));
 vi.mock('next/navigation', () => ({
-  usePathname: () => '/t/s/match/m1',
+  usePathname: () => '/t/s/m/m1',
 }));
 
 // 用 create() 而不是物件字面值:protobuf-es 的訊息帶 $typeName,
@@ -155,7 +155,7 @@ describe('MarketBoard', () => {
     api.getProfile.mockRejectedValue(new ConnectError('no', Code.Unauthenticated));
     render(<MarketBoard slug="s" matchPublicId="m1" />);
     const links = await screen.findAllByRole('link', { name: '登入後投票' });
-    expect(links[0]).toHaveAttribute('href', '/login?redirect=%2Ft%2Fs%2Fmatch%2Fm1');
+    expect(links[0]).toHaveAttribute('href', '/t/s/login?next=%2Ft%2Fs%2Fm%2Fm1%23markets');
     expect(screen.queryByRole('button', { name: /^投 / })).not.toBeInTheDocument();
   });
 

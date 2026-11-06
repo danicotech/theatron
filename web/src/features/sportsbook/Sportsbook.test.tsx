@@ -95,14 +95,14 @@ it('切換頁籤收合手機注單但保留草稿，下注後回選盤不留下�
   fireEvent.click(within(heading.closest('section')!).getAllByRole('button', { name: /選擇/ })[0]!);
   fireEvent.click(screen.getByRole('button', { name: /查看注單 ↑/ }));
   fireEvent.change(screen.getByLabelText('每筆本金（點）'), { target: { value: '100' } });
-  expect(screen.getByRole('complementary', { name: '我的注單' })).toHaveAttribute(
+  expect(screen.getByRole('complementary', { name: '觀局紀錄' })).toHaveAttribute(
     'data-open',
     'true',
   );
   fireEvent.change(screen.getByRole('combobox', { name: '投注類型' }), {
     target: { value: 'place' },
   });
-  expect(screen.getByRole('complementary', { name: '我的注單' })).toHaveAttribute(
+  expect(screen.getByRole('complementary', { name: '觀局紀錄' })).toHaveAttribute(
     'data-open',
     'false',
   );
@@ -118,7 +118,7 @@ it('切換頁籤收合手機注單但保留草稿，下注後回選盤不留下�
   fireEvent.change(screen.getByRole('combobox', { name: '投注類型' }), {
     target: { value: 'place' },
   });
-  expect(screen.getByRole('complementary', { name: '我的注單' })).toHaveAttribute(
+  expect(screen.getByRole('complementary', { name: '觀局紀錄' })).toHaveAttribute(
     'data-open',
     'false',
   );
@@ -184,7 +184,7 @@ describe('運彩中心實際操作', () => {
     await screen.findByRole('heading', { name: '整場勝負' });
     await waitFor(() => expect(screen.getByLabelText(/每[筆組]本金（點）/)).toHaveValue('100'));
     fireEvent.click(screen.getByRole('button', { name: '檢查注單' }));
-    const slip = within(screen.getByRole('complementary', { name: '我的注單' }));
+    const slip = within(screen.getByRole('complementary', { name: '觀局紀錄' }));
     expect(slip.getByRole('alert')).toHaveTextContent('不能投注自己參與的場次');
     await waitFor(() => expect(slip.getByRole('alert')).toHaveFocus());
     expect(screen.queryByRole('alertdialog')).toBeNull();
@@ -302,7 +302,7 @@ describe('運彩中心實際操作', () => {
     apply(state, { type: 'vote', userId: 'u', marketId: m.id, outcome: 'p1' }, 'external-vote');
     fireEvent.focus(window);
     await waitFor(() => expect(screen.queryByRole('alertdialog')).toBeNull());
-    const slip = within(screen.getByRole('complementary', { name: '我的注單' }));
+    const slip = within(screen.getByRole('complementary', { name: '觀局紀錄' }));
     expect(slip.getByRole('alert')).toHaveTextContent('盤口或賠率已更新');
     await waitFor(() => expect(slip.getByRole('alert')).toHaveFocus());
     expect(state.bets).toHaveLength(0);
@@ -386,7 +386,7 @@ describe('運彩中心實際操作', () => {
     render(<Sportsbook initialEventId={state.events[0]!.id} />);
     const h = await screen.findByRole('heading', { name: '整場勝負' });
     fireEvent.click(within(h.closest('section')!).getAllByRole('button', { name: /選擇/ })[0]!);
-    expect(screen.getByRole('complementary', { name: '我的注單' })).toHaveAttribute(
+    expect(screen.getByRole('complementary', { name: '觀局紀錄' })).toHaveAttribute(
       'data-open',
       'false',
     );
@@ -420,7 +420,7 @@ describe('運彩中心實際操作', () => {
       () => ({ height: panelHeight }) as DOMRect,
     );
     const rendered = render(<Sportsbook initialEventId={state.events[0]!.id} />);
-    const panel = await screen.findByRole('complementary', { name: '我的注單' });
+    const panel = await screen.findByRole('complementary', { name: '觀局紀錄' });
     await waitFor(() => expect(panel).toHaveAttribute('data-fits', 'false'));
     panelHeight = 320;
     act(() => notify());
@@ -660,7 +660,7 @@ it('下注檢查錯誤只出現在注單內，不歸到先前投票，修改本�
   fireEvent.click(market.getAllByRole('button', { name: '投票' })[0]!);
   await market.findByRole('button', { name: '已投' });
   fireEvent.click(market.getAllByRole('button', { name: /選擇/ })[0]!);
-  const slip = within(screen.getByRole('complementary', { name: '我的注單' }));
+  const slip = within(screen.getByRole('complementary', { name: '觀局紀錄' }));
   fireEvent.change(slip.getByLabelText('每筆本金（點）'), { target: { value: '2000' } });
   fireEvent.click(slip.getByRole('button', { name: '檢查注單' }));
   const error = slip.getByRole('alert');
@@ -778,7 +778,7 @@ it('未選結果時不顯示點數表，進階設定預設收合，所有功能�
   expect(screen.queryByText('更多')).toBeNull();
   const nav = screen.getByRole('navigation', { name: '觀局雅集' });
   expect(within(nav).getAllByRole('button')).toHaveLength(7);
-  expect(within(nav).getByRole('button', { name: '對局小工具' })).toBeVisible();
+  expect(within(nav).getByRole('button', { name: '小工具' })).toBeVisible();
   expect(screen.getByRole('button', { name: '點數紀錄' })).toBeVisible();
   fireEvent.click(screen.getByRole('button', { name: /查看我的選擇/ }));
   const dialog = screen.getByRole('dialog', { name: '我的選擇' });

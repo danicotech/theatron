@@ -66,7 +66,7 @@ export function commandFeedback(c: Command): string {
       return '盤口已作廢，相關注單已重新計算。';
     case 'ticket':
     case 'bet':
-      return '注單已成立，可在我的注單查看。';
+      return '注單已成立，可在觀局紀錄查看。';
     case 'publish-roster':
       return '對局已發布，參賽者可查看賽程。';
     case 'activity-create':

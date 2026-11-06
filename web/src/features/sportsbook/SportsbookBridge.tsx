@@ -6,7 +6,7 @@ import { readState, session, subscribe } from './database';
 import { money } from './engine';
 import { Modal, Sportsbook } from './Sportsbook';
 import { RegistrationEntry } from './RegistrationEntry';
-import { MatchTools } from './MatchTools';
+import { ToolsRoom as MatchTools } from '../match-tools/ToolsRoom';
 import styles from './Sportsbook.module.css';
 import type { Snapshot, Tournament } from './model';
 export type SportsPresentation = Snapshot & {
@@ -275,7 +275,7 @@ export function SportsbookBridge() {
         <Modal
           title={
             open.tools
-              ? '對局小工具'
+              ? '小工具'
               : open.loadout
                 ? '我的武學配置'
                 : open.member

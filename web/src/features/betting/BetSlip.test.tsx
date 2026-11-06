@@ -18,6 +18,7 @@ import { BetSlip } from './BetSlip';
 import { addLeg, readSlip, setStake, type SlipLeg } from './betSlipStore';
 
 const api = vi.hoisted(() => ({
+  getMember: vi.fn().mockResolvedValue({ member: { publicId: 'bettor' } }),
   placeBet: vi.fn(),
   getOdds: vi.fn(),
   getProfile: vi.fn(),
@@ -27,10 +28,10 @@ vi.mock('../../lib/api/activity', () => ({
   activityApi: { betting: { placeBet: api.placeBet, getOdds: api.getOdds } },
 }));
 vi.mock('../../lib/api/client', () => ({
-  platformApi: { me: { getProfile: api.getProfile } },
+  platformApi: { auth: { getMember: api.getMember }, me: { getProfile: api.getProfile } },
 }));
 vi.mock('next/navigation', () => ({
-  usePathname: () => '/t/s/match/m1',
+  usePathname: () => '/t/s/m/m1',
 }));
 
 const LEG_A: SlipLeg = {
@@ -92,6 +93,7 @@ describe('BetSlip', () => {
       m.mockReset();
     });
     api.placeBet.mockResolvedValue(PLACED);
+    api.getMember.mockResolvedValue({ member: { publicId: 'bettor' } });
   });
 
   it('收合的 bar 說幾關、總賠率、可拿多少;點了才展開', async () => {
@@ -105,7 +107,11 @@ describe('BetSlip', () => {
 
   it('空的投注單是邀請,不是道歉', () => {
     render(<BetSlip slug="s" />);
-    expect(screen.getByText(/從賠率表挑一個結果加進來/)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '投注單說明' })).toHaveAttribute(
+      'data-help',
+      '從賠率表挑一個結果加進來。跨場可以串關，同一場只能押一腿。',
+    );
+    expect(screen.getByText('尚未選擇')).toBeVisible();
     expect(screen.getByRole('button', { name: '送出注單' })).toBeDisabled();
   });
 
@@ -229,8 +235,35 @@ describe('BetSlip', () => {
     render(<BetSlip slug="s" />);
     await confirm();
     const link = await screen.findByRole('link', { name: '登入' });
-    expect(link).toHaveAttribute('href', '/login?redirect=%2Ft%2Fs%2Fmatch%2Fm1');
+    expect(link).toHaveAttribute('href', '/t/s/login?next=%2Ft%2Fs%2Fm%2Fm1%23markets');
     expect(readSlip('s').legs).toHaveLength(2);
+  });
+
+  it('未登入時先引導登入並保留草稿，不送出下注', async () => {
+    seed();
+    api.getMember.mockRejectedValue(new ConnectError('no', Code.Unauthenticated));
+    render(<BetSlip slug="s" />);
+    expect(await screen.findByRole('link', { name: '登入後繼續下注' })).toHaveAttribute(
+      'href',
+      '/t/s/login?next=%2Ft%2Fs%2Fm%2Fm1%23markets',
+    );
+    expect(api.placeBet).not.toHaveBeenCalled();
+    expect(readSlip('s').legs).toHaveLength(2);
+    expect(readSlip('s').stake).toBe('100');
+  });
+
+  it('回應遺失後重試同一張注單，不換冪等鍵', async () => {
+    seed();
+    api.placeBet
+      .mockRejectedValueOnce(new ConnectError('timeout', Code.Unavailable))
+      .mockResolvedValueOnce(PLACED);
+    render(<BetSlip slug="s" />);
+    await confirm();
+    expect(await screen.findByText(/尚未收到下注結果/)).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: '確認下注 100' }));
+    expect(api.placeBet).toHaveBeenCalledTimes(2);
+    expect(api.placeBet.mock.calls[1]?.[0]).toEqual(api.placeBet.mock.calls[0]?.[0]);
+    expect(await screen.findByText('注單已成立。')).toBeInTheDocument();
   });
 
   it('其他錯誤依 reason 說清楚下一步', async () => {

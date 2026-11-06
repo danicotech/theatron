@@ -80,7 +80,7 @@ export function MatchTools() {
         ? handWinner(choices[0]!, choices[1]!)
         : null;
   return (
-    <section className={styles.tools} aria-label="對局小工具">
+    <section className={styles.tools} aria-label="小工具">
       <p className={styles.note}>
         比大小或猜拳，雙方自行約定用途；結果不會更改賽程、先後攻或賽果。
       </p>

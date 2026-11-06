@@ -1,5 +1,6 @@
 'use client';
 
+import { BuildCard } from '../signup/BuildCard';
 import { useEffect, useId, useRef, useState } from 'react';
 import type { Character, Command, EnrollmentProfile, Member, Tournament } from './model';
 import {
@@ -254,7 +255,8 @@ export function Participation({
       <dl className={formStyles.review}>
         <dt>流派／武器</dt>
         <dd>
-          {c.style} ／ {c.weapon}
+          <BuildCard name={c.style} />
+          <span>{c.weapon}</span>
         </dd>
         <dt>裝備</dt>
         <dd>{c.equipment}</dd>
@@ -600,7 +602,9 @@ export function Participation({
                     <h4>{name} · 目前配置</h4>
                     <dl className={`${formStyles.review} ${formStyles.roleReview}`}>
                       <dt>流派</dt>
-                      <dd>{character.style}</dd>
+                      <dd>
+                        <BuildCard name={character.style} />
+                      </dd>
                       <dt>武器</dt>
                       <dd>{character.weapon || '待設定'}</dd>
                       <dt>裝備</dt>
@@ -713,7 +717,8 @@ export function Participation({
             <dd>{gameId.trim() || '尚未填寫'}</dd>
             <dt>流派／武器</dt>
             <dd>
-              {character.style || '待設定'} ／ {character.weapon || '待設定'}
+              <BuildCard name={character.style} />
+              <span>{character.weapon || '待設定'}</span>
             </dd>
             <dt>報名狀態</dt>
             <dd>

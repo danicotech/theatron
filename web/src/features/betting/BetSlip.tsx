@@ -1,11 +1,14 @@
 'use client';
 
+import { HelpTip } from '../chrome/HelpTip';
 import { Code, ConnectError } from '@connectrpc/connect';
 import { Amount, Button, formatAmount } from '@theatron/ui';
 import Link from 'next/link';
+import { memberLoginHref } from '../member/returnPath';
 import { usePathname } from 'next/navigation';
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 
+import { platformApi } from '../../lib/api/client';
 import { activityApi } from '../../lib/api/activity';
 import type { Bet } from '../../lib/api/gen/hestia/activity/v1/betting_pb';
 
@@ -41,6 +44,8 @@ import styles from './BetSlip.module.css';
 
 export interface BetSlipProps {
   slug: string;
+  onMyBets?: () => void;
+  returnTo?: string;
 }
 
 type Stage =
@@ -57,8 +62,18 @@ function signatureOf(state: SlipState): string {
   return `${legs.join('|')}#${state.stake}`;
 }
 
-export function BetSlip({ slug }: BetSlipProps) {
+export function BetSlip({ slug, onMyBets, returnTo }: BetSlipProps) {
   const slip = useBetSlip(slug);
+  const [anonymous, setAnonymous] = useState(false);
+  useEffect(() => {
+    let active = true;
+    void platformApi.auth.getMember({}).catch((err) => {
+      if (active && ConnectError.from(err).code === Code.Unauthenticated) setAnonymous(true);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
   const pathname = usePathname();
   const bodyId = useId();
   const stakeId = useId();
@@ -134,6 +149,18 @@ export function BetSlip({ slug }: BetSlipProps) {
         toConfirm('賠率變了,重新確認。');
         return;
       }
+      // A lost response is not proof of failure. Retrying must reuse the original key.
+      if (
+        [Code.Unavailable, Code.DeadlineExceeded, Code.Unknown, Code.Internal].includes(ce.code)
+      ) {
+        setStage({
+          kind: 'confirm',
+          key,
+          sig: confirmedSig,
+          notice: '尚未收到下注結果。再次確認會查回同一張注單，不會重複扣點。',
+        });
+        return;
+      }
       setStage({ kind: 'edit' });
       setFailure(
         ce.code === Code.Unauthenticated
@@ -146,14 +173,18 @@ export function BetSlip({ slug }: BetSlipProps) {
   const editing = stage.kind === 'edit';
   const barText =
     n === 0
-      ? '投注單是空的 · 從賠率表挑一個結果'
+      ? '投注單 · 尚未選擇'
       : `${n} 關 · ${formatOdds(multiplier)}× · 可拿 ${formatAmount(payout)}`;
 
   return (
     <>
       {/* 手機上 sheet 是 fixed 的,這個空白佔住它蓋掉的那一段,頁尾才不會被壓在下面。 */}
       <div className={styles.spacer} aria-hidden="true" />
-      <aside className={[styles.slip, open ? styles.open : ''].join(' ')} aria-label="投注單">
+      <aside
+        data-bet-slip
+        className={[styles.slip, open ? styles.open : ''].join(' ')}
+        aria-label="投注單"
+      >
         <button
           type="button"
           className={styles.bar}
@@ -169,7 +200,13 @@ export function BetSlip({ slug }: BetSlipProps) {
 
         <div id={bodyId} className={styles.body}>
           <header className={styles.head}>
-            <span className={styles.eyebrow}>投注單</span>
+            <span className={styles.eyebrow}>
+              投注單
+              <HelpTip
+                label="投注單"
+                text="從賠率表挑一個結果加進來。跨場可以串關，同一場只能押一腿。"
+              />
+            </span>
             <span className={styles.count}>{n} 關</span>
           </header>
 
@@ -188,17 +225,24 @@ export function BetSlip({ slug }: BetSlipProps) {
                 >
                   再開一張
                 </Button>
-                <Link className={styles.link} href={`/t/${slug}/bets`}>
-                  我的注單
-                </Link>
+                <button
+                  type="button"
+                  className={styles.link}
+                  onClick={
+                    onMyBets ??
+                    (() => {
+                      window.location.href = '/?panel=bets#duel';
+                    })
+                  }
+                >
+                  觀局紀錄
+                </button>
               </div>
             </div>
           ) : (
             <>
               {n === 0 ? (
-                <p className={styles.empty}>
-                  從賠率表挑一個結果加進來。跨場可以串關,同一場只能押一腿。
-                </p>
+                <p className={styles.empty}>尚未選擇</p>
               ) : (
                 <ul className={styles.legs}>
                   {slip.legs.map((l) => (
@@ -262,7 +306,10 @@ export function BetSlip({ slug }: BetSlipProps) {
               {failure === null ? null : failure.kind === 'unauthenticated' ? (
                 <p className={styles.error} role="alert">
                   下注要平台帳號。
-                  <Link className={styles.inlineLink} href={signinHref(pathname)}>
+                  <Link
+                    className={styles.inlineLink}
+                    href={memberLoginHref(slug, returnTo ?? pathname + '#markets')}
+                  >
                     登入
                   </Link>
                 </p>
@@ -272,7 +319,14 @@ export function BetSlip({ slug }: BetSlipProps) {
                 </p>
               )}
 
-              {stage.kind === 'edit' ? (
+              {stage.kind === 'edit' && anonymous ? (
+                <Link
+                  className={styles.link}
+                  href={memberLoginHref(slug, returnTo ?? pathname + '#markets')}
+                >
+                  登入後繼續下注
+                </Link>
+              ) : stage.kind === 'edit' ? (
                 <Button
                   size="lg"
                   fullWidth
@@ -322,10 +376,6 @@ export function BetSlip({ slug }: BetSlipProps) {
       </aside>
     </>
   );
-}
-
-function signinHref(pathname: string): string {
-  return `/login?redirect=${encodeURIComponent(pathname)}`;
 }
 
 /** 依 reason 分支,不比對訊息文字(proto/README.md)。每一句都要說得出下一步。 */

@@ -25,7 +25,7 @@
 }
 .eyebrow {
   color: var(--accent-money);
-  font-size: 12px;
+  font-size: var(--text-xs);
   margin: 0;
 }
 .app :is(h2, h3),
@@ -44,7 +44,7 @@
   text-wrap: pretty;
 }
 .app small {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--text-secondary);
 }
 .app :is(button, input, select, textarea),
@@ -110,7 +110,7 @@
   padding: 10px 14px;
   background: var(--surface-raised);
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 .toolbar {
   display: flex;
@@ -153,7 +153,7 @@
   background: var(--surface-raised);
 }
 .notice {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--state-win);
   min-height: 20px;
 }
@@ -211,7 +211,7 @@
   margin: 0;
 }
 .market header > span {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--text-secondary);
 }
 .market [data-status='open'] {
@@ -265,7 +265,7 @@
   margin: 0 0 12px;
 }
 .slip p {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--text-secondary);
 }
 .slipEditor ol {
@@ -502,7 +502,7 @@
 }
 
 .voteNote {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--text-secondary);
   margin: 8px 0;
 }
@@ -797,7 +797,7 @@
   border: 0;
   background: none;
   padding: 0;
-  font-size: 12px;
+  font-size: var(--text-xs);
   margin: 8px 0;
   color: var(--text-secondary);
 }
@@ -918,7 +918,7 @@
 }
 .paper .matchHead p,
 .paper .voteNote {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--text-secondary);
 }
 @media (max-width: 767px) {
@@ -960,7 +960,7 @@
   font-size: 28px;
 }
 .previewHeading > span {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--paper-live);
 }
 .previewLayout {
@@ -983,7 +983,7 @@
   margin: 8px 0 0;
 }
 .previewDuel p {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--text-secondary);
   margin: 4px 0;
 }
@@ -1404,7 +1404,7 @@
   font: 600 24px/1.4 var(--font-display);
 }
 .playerPortrait > small {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--text-secondary);
 }
 .duelOptions,
@@ -1416,7 +1416,7 @@
 .sideLabels {
   padding: 12px 0;
   border-bottom: 1px solid var(--border-subtle);
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--text-secondary);
 }
 .paper .duelOptions .outcome {
@@ -1431,7 +1431,7 @@
   font-weight: 600;
 }
 .duelOptions .outcome > small {
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 .duelOptions .outcome > .odds {
   grid-column: 1/-1;
@@ -1522,7 +1522,7 @@
 .loadoutArt small {
   color: var(--surface-paper);
   opacity: 0.8;
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 .loadoutGrid[data-kind='equipment'],
 .loadoutGrid[data-kind='martial'] {

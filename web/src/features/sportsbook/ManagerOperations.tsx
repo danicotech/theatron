@@ -1,5 +1,7 @@
 'use client';
 
+import { HelpTip } from '../chrome/HelpTip';
+
 import { useEffect, useRef, useState } from 'react';
 import type { Command, Kind, State, Tournament } from './model';
 import { shuffleSeats } from './managerEngine';
@@ -125,8 +127,10 @@ export function ManagerOperations({ event, state, busy, run, ask }: Props) {
             <span>籤</span>
           </div>
           <div>
-            <h3>對局求籤</h3>
-            <p>全體選手抽取首輪籤位</p>
+            <h3>
+              對局求籤
+              <HelpTip label="對局求籤" text="全體選手抽取首輪籤位" />
+            </h3>
             <button
               type="button"
               disabled={busy || locked || !!drawing || ids.length < 2}
