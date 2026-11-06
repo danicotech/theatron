@@ -1,0 +1,523 @@
+/* 江湖雅戲 speaks the stage's vocabulary (user, 2026-11-03): the chapter title's red seal, the 規則說明
+   ink frames and offset captions, and the wood plaques of the chapter pager and the landing page.
+   The window and its main moves are the shared plaque window and plaques (paper-window.css). */
+.tools {
+  --tools-ink: var(--text-auth-ink);
+  --tools-muted: var(--text-auth-muted);
+  --tools-shadow: color-mix(in oklab, var(--text-auth-ink) 65%, transparent);
+  --tools-seal: var(--accent-brand-on-paper);
+  display: grid;
+  gap: var(--space-6);
+  color: var(--tools-ink);
+}
+/* The site-wide select rule paints the list on the plain paper; here it matches the other fields. */
+:global(html[data-theme] body) .tools :is(select, option, optgroup) {
+  background-color: var(--surface-auth-field);
+  color: var(--tools-ink);
+}
+.tools:has(> .lobby) {
+  inline-size: 100%;
+  max-inline-size: 640px;
+  margin-inline: auto;
+}
+
+/* Title: seal, name and rule, as at the head of every chapter. */
+.heading {
+  padding-block-end: var(--space-4);
+  border-block-end: 1px solid var(--border-auth);
+  text-align: center;
+}
+.heading h1 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  margin: var(--space-2) 0 0;
+  font: 600 clamp(32px, 4vw, 46px) / 1.15 var(--font-display);
+  letter-spacing: 0.08em;
+}
+.seal,
+.winSeal {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  box-sizing: border-box;
+  border: 2px solid var(--tools-seal);
+  outline: 1px solid var(--tools-seal);
+  outline-offset: 3px;
+  background: var(--tools-seal);
+  color: var(--surface-notice);
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.seal {
+  inline-size: 46px;
+  block-size: 50px;
+  margin-inline-end: var(--space-2);
+  font-size: 30px;
+  transform: rotate(-5deg);
+}
+.note {
+  color: var(--tools-muted);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Controls (the help marks keep their own look). Fields are paper with an ink baseline; plain buttons are paper slips that press into
+   their offset shadow; the main moves are wood plaques. */
+.tools :is(input, select) {
+  box-sizing: border-box;
+  min-block-size: 48px;
+  max-inline-size: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-auth);
+  border-radius: 0;
+  background-color: var(--surface-auth-field);
+  box-shadow: inset 0 -2px 0 var(--tools-ink);
+  color: var(--tools-ink);
+  font: inherit;
+  font-size: var(--text-base);
+}
+.tools select {
+  appearance: none;
+  padding-inline-end: calc(var(--space-4) * 2 + 10px);
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    right calc(var(--space-4) + 5px) center,
+    right var(--space-4) center;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.tools button:not([data-help], [data-plaque]) {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  min-block-size: 44px;
+  max-inline-size: 100%;
+  padding: var(--space-2) var(--space-4);
+  border: 2px solid var(--tools-ink);
+  border-radius: 0;
+  background: var(--surface-auth-field);
+  box-shadow: 3px 3px 0 var(--tools-shadow);
+  color: var(--tools-ink);
+  font: 600 var(--text-sm) / 1.3 var(--font-display);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
+}
+.tools button:not([data-help], [data-plaque], :disabled):hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--tools-shadow);
+}
+.tools button:not([data-help], [data-plaque], :disabled):active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--tools-shadow);
+}
+.tools :is(button, input, select):focus-visible {
+  outline: 2px solid var(--tools-seal);
+  outline-offset: 3px;
+}
+.tools label {
+  display: grid;
+  gap: var(--space-2);
+  color: var(--tools-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-body-bold);
+}
+.tools h2 {
+  margin: 0;
+  font: 600 var(--text-xl) / 1.3 var(--font-display);
+  letter-spacing: 0.06em;
+}
+.tools h3 {
+  margin: 0;
+  font: 600 var(--text-md) / 1.4 var(--font-display);
+}
+.tag {
+  display: inline-block;
+  margin-inline-start: var(--space-2);
+  padding: 1px var(--space-2);
+  border: 1px solid currentColor;
+  color: var(--tools-seal);
+  font: 600 var(--text-xs) / 1.5 var(--font-display);
+  letter-spacing: 0.1em;
+  vertical-align: middle;
+}
+
+/* Lobby: name, then the two ways in, parted by a rule. */
+.lobby {
+  display: grid;
+  gap: var(--space-6);
+  min-inline-size: 0;
+}
+.lobby form {
+  display: grid;
+  gap: var(--space-4);
+  padding-block-start: var(--space-6);
+  border-block-start: 1px solid var(--border-auth);
+}
+.error {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--state-live);
+  background: var(--surface-auth-field);
+  box-shadow: 3px 3px 0 var(--tools-shadow);
+}
+
+/* The invite slip: the code in mono, copy slips beside it, the sync state at the end. */
+.roomBar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-6);
+  padding: var(--space-4) var(--space-6);
+  border: 2px solid var(--tools-ink);
+  background: var(--surface-auth-field);
+  box-shadow: 5px 5px 0 var(--tools-shadow);
+}
+.invite {
+  display: grid;
+  gap: var(--space-1);
+}
+.code {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xl);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.14em;
+  user-select: all;
+  overflow-wrap: anywhere;
+}
+.shareActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.copyStatus {
+  color: var(--tools-muted);
+  font-size: var(--text-sm);
+}
+.sync {
+  margin-inline-start: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--tools-muted);
+  font-size: var(--text-sm);
+}
+.sync::before {
+  content: '';
+  inline-size: 8px;
+  block-size: 8px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+.sync[data-live]::before {
+  border-color: var(--tools-seal);
+  background: var(--tools-seal);
+}
+.number,
+.total {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.number {
+  margin-inline-start: var(--space-2);
+  color: var(--tools-muted);
+  font-size: var(--text-sm);
+  font-weight: normal;
+}
+
+/* Two ink frames: who is in the room, and the round. */
+.workspace {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+.people,
+.play {
+  min-inline-size: 0;
+  padding: var(--space-6);
+  border: 3px solid var(--tools-ink);
+  background: color-mix(in oklab, var(--surface-auth-paper) 62%, transparent);
+}
+.people ul {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-4) 0 var(--space-6);
+}
+.people li {
+  display: grid;
+  gap: var(--space-1);
+  padding-block: var(--space-3);
+  border-block-end: 1px solid var(--border-auth);
+  overflow-wrap: anywhere;
+}
+.person {
+  font: 600 var(--text-base) / 1.5 var(--font-display);
+}
+.people small {
+  color: var(--tools-muted);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+}
+.people small[data-submitted] {
+  color: var(--tools-seal);
+  font-weight: var(--weight-body-bold);
+}
+.people > button {
+  inline-size: 100%;
+}
+.play {
+  display: grid;
+  gap: var(--space-6);
+  align-content: start;
+}
+.roundHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block-end: var(--space-4);
+  border-block-end: 1px solid var(--border-auth);
+}
+.roundHead .tag {
+  margin: 0;
+}
+.settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: end;
+}
+.settings label {
+  min-inline-size: 150px;
+}
+.submit {
+  display: grid;
+  gap: var(--space-6);
+}
+.submit p {
+  margin: 0;
+}
+.submit > .primary {
+  justify-self: start;
+  min-inline-size: 240px;
+}
+.hands {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+.tools .hands button[data-plaque] {
+  min-block-size: 104px;
+  font-size: var(--text-2xl);
+  letter-spacing: 0.2em;
+}
+.cancel {
+  justify-self: start;
+}
+
+/* Results: each player is an offset caption, the winner sealed 勝. */
+.results {
+  display: grid;
+  gap: var(--space-6);
+}
+.verdict {
+  justify-self: center;
+  margin: 0;
+  padding-inline: var(--space-4);
+  font: 600 var(--text-3xl) / 1.3 var(--font-display);
+  letter-spacing: 0.1em;
+  text-align: center;
+  overflow-wrap: anywhere;
+  background: linear-gradient(
+    transparent 68%,
+    color-mix(in oklab, var(--tools-seal) 28%, transparent) 68% 88%,
+    transparent 88%
+  );
+}
+.resultGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: var(--space-6);
+}
+.result {
+  position: relative;
+  min-inline-size: 0;
+  padding: var(--space-4) var(--space-4) var(--space-6);
+  border: 2px solid var(--tools-ink);
+  background: var(--surface-auth-field);
+  box-shadow: 5px 5px 0 var(--tools-shadow);
+  overflow-wrap: anywhere;
+}
+.result[data-winner] {
+  border-color: var(--tools-seal);
+  box-shadow: 5px 5px 0 color-mix(in oklab, var(--tools-seal) 70%, transparent);
+}
+.result h3 {
+  padding-inline-end: 44px;
+}
+.winSeal {
+  position: absolute;
+  inset-block-start: -12px;
+  inset-inline-end: 12px;
+  inline-size: 36px;
+  block-size: 40px;
+  font-size: 22px;
+  transform: rotate(6deg);
+}
+/* A lacquered wood bowl holding bone dice. */
+.bowl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 132px;
+  margin-block: var(--space-4) var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border: 3px solid var(--surface-wood);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 42%,
+    color-mix(in oklab, var(--surface-wood) 70%, var(--surface-notice)) 0 46%,
+    var(--surface-wood) 100%
+  );
+  box-shadow:
+    inset 0 6px 14px color-mix(in oklab, var(--text-on-notice) 45%, transparent),
+    0 6px 0 color-mix(in oklab, var(--surface-wood) 75%, var(--text-on-notice));
+}
+.pop {
+  flex: 0 1 56px;
+  min-inline-size: 0;
+}
+.die {
+  display: block;
+  inline-size: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 3px 2px color-mix(in oklab, var(--text-on-notice) 45%, transparent));
+}
+.die rect {
+  fill: var(--surface-notice);
+  stroke: var(--text-on-notice);
+  stroke-width: 3;
+}
+.die circle {
+  fill: var(--text-on-notice);
+}
+/* Chinese dice paint the one and the four red. */
+.die[data-red] circle {
+  fill: var(--accent-brand-on-paper);
+}
+.total {
+  margin: 0;
+  text-align: center;
+  font-size: var(--text-md);
+}
+.handResult {
+  margin: var(--space-4) 0 0;
+  padding: var(--space-6) var(--space-4);
+  border: 1px solid var(--border-auth);
+  background: color-mix(in oklab, var(--surface-auth-paper) 62%, transparent);
+  font: 600 var(--text-3xl) / 1.2 var(--font-display);
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pop {
+    animation: reveal 0.52s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--delay, 0ms);
+  }
+  .handResult {
+    animation: reveal 0.52s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes reveal {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.3) rotate(-12deg);
+    }
+    45% {
+      opacity: 1;
+      transform: translateY(-8px) scale(1.15) rotate(4deg);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tools button:not([data-help], [data-plaque]) {
+    transition: none;
+  }
+  .tools button:not([data-help], [data-plaque], :disabled):is(:hover, :active) {
+    transform: none;
+  }
+}
+/* Beside the people list, the round column only fits three plaques from about 1024px. */
+@media (max-width: 1023px) {
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .people ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-4);
+  }
+}
+@media (max-width: 767px) {
+  .heading h1 {
+    gap: var(--space-3);
+  }
+  .seal {
+    inline-size: 34px;
+    block-size: 38px;
+    font-size: 23px;
+    outline-offset: 2px;
+  }
+  .roomBar {
+    padding: var(--space-4);
+  }
+  .sync {
+    margin-inline-start: 0;
+  }
+  .workspace {
+    gap: var(--space-4);
+  }
+  .people,
+  .play {
+    padding: var(--space-4);
+  }
+  .settings {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .submit > .primary {
+    justify-self: stretch;
+    min-inline-size: 0;
+  }
+  .hands {
+    gap: var(--space-2);
+  }
+  .tools .hands button[data-plaque] {
+    min-block-size: 84px;
+    padding-inline: var(--space-1);
+    font-size: var(--text-lg);
+    letter-spacing: 0.04em;
+  }
+  .bowl {
+    min-block-size: 112px;
+  }
+}

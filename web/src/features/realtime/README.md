@@ -1,12 +1,7 @@
-# 正式即時狀態接入位置（預留）
+# 活動即時狀態
 
-規格正本：[REALTIME_INTEGRATION.md](../../../../docs/REALTIME_INTEGRATION.md)。使用者將在切換環境後開發已有 Hestia 後端；本目錄尚未提供可執行的同步程式。
+TournamentRealtime 依 slug 共用一條生成 WatchTournament 串流。收到首次 heartbeat 才讀取活動、段位與公開對戰表；任何非 heartbeat 通知使快照失效。通知暴增會合併；讀取中再次失效會捨棄舊結果再讀。斷線、回前景、手動重試皆重連並取得完整快照。最後訂閱者離開會中止請求和計時器。
 
-後續責任：
+ConnectionStatus 與 useTournamentRealtime 提供一致狀態，未 ready 時報名與修改暫停。首頁、報名頁、我的報名、活動首頁與裁判台已接入。報名通知僅含空 registrationChanged；私人表單和名冊透過各自授權 RPC 重讀，不能加入公開快照。
 
-- 共用活動訂閱、快照合併、版本／缺口檢查、斷線重連與狀態。
-- 沿用 `../../lib/api/activity.ts` 的生成 WatchService，公開流不帶私人資料。
-- 對首頁、裁判、賽程、投注、BP、報名提供一致狀態；每個元件不得自行開流。
-- 私人與工具房間訂閱分開授權，登出／切換活動時清理。
-
-等後端 proto 確認後再建立控制器、hook 與狀態庫。不要先手寫共用網路型別、WebSocket JSON 格式或以試玩 State 為正式 API。
+revision 是這個 client 成功重讀的次數，不是伺服器全域版本。現有契約沒有重播游標，因此不能宣稱事件恰好一次或全域排序。其他投注/BP頁面的輪詢、私人專屬串流與雙人房間仍待後續接入。規格見 ../../../../docs/REALTIME_INTEGRATION.md。
