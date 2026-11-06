@@ -9,6 +9,7 @@ export default tseslint.config(
     ignores: [
       '**/dist/**',
       '**/.next/**',
+      '**/.next-*/**',
       '**/node_modules/**',
       '.husky/**',
       'web/src/lib/api/gen/**',
@@ -19,6 +20,8 @@ export default tseslint.config(
       '**/public/**',
       // Byte-preserved canonical lab snapshot; validated by runtime/source tests.
       'sources/**',
+      // Editable lab source that supersedes sources/ (design/lunjian/README.md).
+      'design/**',
     ],
   },
 

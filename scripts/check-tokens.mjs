@@ -63,7 +63,12 @@ const RULES = [
   },
 ];
 
-const patterns = ['packages/*/src/**/*.{ts,tsx,css}', 'web/src/**/*.{ts,tsx,css}'];
+// 論劍舞台的導覽與戰局頁面樣式由 design/lunjian/lab 生成到 web/public,經 layout.tsx 全站載入,所以檢查來源檔。
+const patterns = [
+  'packages/*/src/**/*.{ts,tsx,css}',
+  'web/src/**/*.{ts,tsx,css}',
+  'design/lunjian/lab/{timber-navigation,battle-live}.css',
+];
 const files = patterns.flatMap((p) => globSync(p, { cwd: root }));
 const violations = [];
 

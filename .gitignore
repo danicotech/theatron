@@ -1,5 +1,6 @@
 node_modules/
 .next/
+.next-*/
 out/
 dist/
 *.tsbuildinfo
@@ -19,3 +20,7 @@ __pycache__/
 .superdesign/
 undefined/
 *.bak
+
+# Screenshots and reports written by scripts/verify-*, audit-* and compare-*; regenerate on demand.
+docs/battle-verification/
+docs/site-verification/
