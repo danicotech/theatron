@@ -6,6 +6,10 @@ export function labSource(file: string): string {
   const workspace = '../scrollcraft/builds/lunjian/lab';
   const root =
     process.env.LUNJIAN_SOURCE_ROOT ??
-    (existsSync(resolve(workspace, 'lunjian-layout.html')) ? workspace : 'sources/lunjian/lab');
+    (existsSync(resolve('design/lunjian/lab/lunjian-layout.html'))
+      ? 'design/lunjian/lab'
+      : existsSync(resolve(workspace, 'lunjian-layout.html'))
+        ? workspace
+        : 'sources/lunjian/lab');
   return resolve(root, file);
 }
