@@ -81,10 +81,6 @@ export function ViolationPanel({
 
   return (
     <>
-      <p className={styles.hint}>
-        違規只是紀錄,不會自動改賽果:判該回合負就把那一回合的勝者填成對方,判整場負就照著把回合填完。
-      </p>
-
       {violations.length === 0 ? null : (
         <ol className={styles.list} aria-label="違規紀錄">
           {violations.map((v) => (

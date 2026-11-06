@@ -117,8 +117,11 @@ describe('JudgeConsole', () => {
   it('報名階段說的是現在在等什麼,不是「沒有資料」', async () => {
     api.getTournament.mockResolvedValue(tournament(TournamentPhase.SIGNUP));
     render(<JudgeConsole slug="2026-baiye-shifeng" />);
-    expect(await screen.findByText(/報名開著,等選手填表/)).toBeInTheDocument();
-    expect(api.listUnranked).not.toHaveBeenCalled();
+    expect(await screen.findByText('報名名冊')).toBeInTheDocument();
+    expect(api.listUnranked).toHaveBeenCalledWith(
+      { tournamentSlug: '2026-baiye-shifeng', includeRanked: true },
+      expect.anything(),
+    );
   });
 
   it('推進階段被伺服器拒絕時,顯示伺服器給的理由', async () => {
@@ -138,3 +141,7 @@ describe('JudgeConsole', () => {
     await expectNoAxeViolations(container);
   });
 });
+
+vi.mock('../realtime/useTournamentRealtime', () => ({
+  useTournamentRealtime: () => ({ status: 'ready', revision: 0, ranks: [] }),
+}));

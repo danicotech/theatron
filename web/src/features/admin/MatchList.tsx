@@ -1,4 +1,5 @@
 'use client';
+import { HelpTip } from '../chrome/HelpTip';
 
 import { useCallback } from 'react';
 
@@ -22,9 +23,10 @@ export interface MatchListProps {
   slug: string;
   ranks: RankInfo[];
   tournament: Tournament;
+  onSelectMatch?: (id: string) => void;
 }
 
-export function MatchList({ slug, ranks, tournament }: MatchListProps) {
+export function MatchList({ slug, ranks, tournament, onSelectMatch }: MatchListProps) {
   const load = useCallback(
     () => activityApi.tournament.getBracket({ tournamentSlug: slug }),
     [slug],
@@ -44,12 +46,16 @@ export function MatchList({ slug, ranks, tournament }: MatchListProps) {
     return <p className={styles.line}>對戰表還沒公布。</p>;
   }
 
+  const Heading = onSelectMatch ? 'h3' : 'h2';
   const display = tournamentDisplay(slug, { bracket: data, ranks, bestOf: tournament.bestOf });
 
   return (
     <div className={styles.list}>
-      <p className={styles.line}>點一場進去操作:開盤、封盤、設定確認、回合勝負都在那一頁。</p>
-      <WuxiaBracket data={display} />
+      <Heading className="help-heading">
+        {onSelectMatch ? '選擇要管理的場次' : '賽程管理'}
+        <HelpTip label="賽程管理" text="選擇場次後，可管理開盤、封盤、開賽設定及回合勝負。" />
+      </Heading>
+      <WuxiaBracket data={display} {...(onSelectMatch ? { onSelectMatch } : {})} />
       {error === null ? null : (
         <p className={styles.error} role="alert">
           {error}

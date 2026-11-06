@@ -1,4 +1,5 @@
 'use client';
+import { HelpTip } from '../chrome/HelpTip';
 
 import { Code, ConnectError } from '@connectrpc/connect';
 import { Button, ChapterHead, RankSigil } from '@theatron/ui';
@@ -53,6 +54,9 @@ type Viewer = 'loading' | 'anonymous' | 'signed-in';
 export interface MatchConsoleProps {
   slug: string;
   matchId: string;
+  onBack?: () => void;
+  onSelectMatch?: (id: string) => void;
+  onChanged?: () => void;
 }
 
 /** 這一頁一次輪詢拿到的全部。分開輪詢會讓場次與清單各自落後半拍。 */
@@ -90,7 +94,13 @@ export function stageOf(m: Match): Stage {
   }
 }
 
-export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
+export function MatchConsole({
+  slug,
+  matchId,
+  onBack,
+  onSelectMatch,
+  onChanged,
+}: MatchConsoleProps) {
   const [viewer, setViewer] = useState<Viewer>('loading');
   const [tournament, setTournament] = useState<Tournament | null>(null);
   const [ranks, setRanks] = useState<RankInfo[]>([]);
@@ -165,6 +175,7 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
     setError(null);
     try {
       await fn();
+      onChanged?.();
       await polled.reload();
     } catch (err) {
       const e = ConnectError.from(err);
@@ -208,9 +219,13 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
             : `第 ${match.round} 輪 · 第 ${match.slot + 1} 場`
         }
         aside={
-          <Link className={styles.back} href={`/judge/${slug}`}>
-            ← 裁判台
-          </Link>
+          onBack ? (
+            <Button onClick={onBack}>返回全部場次</Button>
+          ) : (
+            <Link className={styles.back} href={`/judge/${slug}`}>
+              ← 裁判台
+            </Link>
+          )
         }
         title={
           <span className={styles.versus}>
@@ -278,6 +293,7 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
                 </p>
                 <div className={styles.actions}>
                   <Button
+                    variant="primary"
                     disabled={pending !== null}
                     size="lg"
                     loading={pending === 'open'}
@@ -379,7 +395,15 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
                     <ul className={styles.links}>
                       {advanced.map((m) => (
                         <li key={m.publicId}>
-                          <Link className={styles.link} href={`/judge/${slug}/m/${m.publicId}`}>
+                          <Link
+                            className={styles.link}
+                            href={`/judge/${slug}/m/${m.publicId}`}
+                            onClick={(event) => {
+                              if (!onSelectMatch) return;
+                              event.preventDefault();
+                              onSelectMatch(m.publicId);
+                            }}
+                          >
                             {m.kind === MatchKind.THIRD_PLACE
                               ? '季軍戰'
                               : `第 ${m.round} 輪 · 第 ${m.slot + 1} 場`}
@@ -426,7 +450,10 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
 
           {stage === 'lock' ? (
             <section className={styles.panel} aria-label="讓武內容">
-              <h2 className={styles.panelTitle}>讓武內容(封盤前只有裁判與施加者看得到)</h2>
+              <h2 className={styles.panelTitle}>
+                讓武內容
+                <HelpTip label="讓武內容" text="封盤前只有裁判與施加者看得到。" />
+              </h2>
               <HandicapReview
                 handicaps={view.handicaps}
                 holder={holder}
@@ -458,7 +485,10 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
 
           {stage === 'waiting' || stage === 'open' || stage === 'lock' ? null : (
             <section className={styles.panel} aria-label="違規">
-              <h2 className={styles.panelTitle}>違規</h2>
+              <h2 className={styles.panelTitle}>
+                違規
+                <HelpTip label="違規" text="違規紀錄不會自動改賽果；裁判仍須在回合紀錄確認勝者。" />
+              </h2>
               <ViolationPanel
                 match={match}
                 p1={p1}
@@ -476,7 +506,13 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
           )}
 
           <section className={styles.panel} aria-label="直播連結">
-            <h2 className={styles.panelTitle}>直播連結</h2>
+            <h2 className={styles.panelTitle}>
+              直播連結
+              <HelpTip
+                label="直播連結"
+                text="賽程中標示 LIVE 的場次會連到此網址；留空儲存可移除連結。"
+              />
+            </h2>
             <form
               className={styles.fieldset}
               onSubmit={(e) => {
@@ -491,7 +527,7 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
               }}
             >
               <label className={styles.label}>
-                對戰表上標 LIVE 的場次會直接連到這裡。留空就是清掉。
+                直播網址
                 <input
                   className={styles.field}
                   type="url"
@@ -505,6 +541,7 @@ export function MatchConsole({ slug, matchId }: MatchConsoleProps) {
               </label>
               <div className={styles.actions}>
                 <Button
+                  variant="primary"
                   type="submit"
                   loading={pending === 'stream'}
                   disabled={streamUrl === null || streamUrl.trim() === match.streamUrl}

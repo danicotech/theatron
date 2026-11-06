@@ -1,4 +1,5 @@
 'use client';
+import { HelpTip } from '../chrome/HelpTip';
 
 import { ConnectError } from '@connectrpc/connect';
 import { Button, RankSigil } from '@theatron/ui';
@@ -23,6 +24,7 @@ export interface DrawPanelProps {
   ranks: RankInfo[];
   /** 確認完成後通知外面重新讀賽事(階段會前進)。 */
   onConfirmed: () => void;
+  onChanged?: () => void;
 }
 
 function rankLevel(ranks: RankInfo[], rank: Rank): number {
@@ -34,7 +36,7 @@ function rankName(ranks: RankInfo[], rank: Rank): string {
   return ranks.find((r) => r.rank === rank)?.name ?? '';
 }
 
-export function DrawPanel({ slug, ranks, onConfirmed }: DrawPanelProps) {
+export function DrawPanel({ slug, ranks, onConfirmed, onChanged }: DrawPanelProps) {
   const [players, setPlayers] = useState<Player[] | null>(null);
   const [seed, setSeed] = useState<bigint | null>(null);
   const [byes, setByes] = useState<Set<string>>(new Set());
@@ -60,6 +62,7 @@ export function DrawPanel({ slug, ranks, onConfirmed }: DrawPanelProps) {
     setError(null);
     try {
       await fn();
+      onChanged?.();
     } catch (err) {
       setError(ConnectError.from(err).message);
     } finally {
@@ -73,6 +76,7 @@ export function DrawPanel({ slug, ranks, onConfirmed }: DrawPanelProps) {
     <div className={styles.panel}>
       <div className={styles.actions}>
         <Button
+          variant="primary"
           disabled={pending !== null}
           loading={pending === 'draw'}
           onClick={() => {
@@ -91,9 +95,7 @@ export function DrawPanel({ slug, ranks, onConfirmed }: DrawPanelProps) {
         {seed === null ? null : (
           <p className={styles.seed}>
             種子 <span className={styles.mono}>{seed.toString()}</span>
-            <span className={styles.seedNote}>
-              同一個種子會排出同一張表,可以拿來向人證明沒有動手腳。
-            </span>
+            <HelpTip label="種子" text="同一個種子會產生相同籤位，可供核對抽籤結果。" />
           </p>
         )}
       </div>
@@ -101,7 +103,7 @@ export function DrawPanel({ slug, ranks, onConfirmed }: DrawPanelProps) {
       {players === null ? (
         <p className={styles.hint}>讀取籤位…</p>
       ) : !drawn ? (
-        <p className={styles.hint}>還沒抽。按上面的「抽籤」排出這一屆的對戰表。</p>
+        <p className={styles.hint}>尚未抽籤。</p>
       ) : (
         <>
           <p className={styles.swapHint}>

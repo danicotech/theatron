@@ -66,7 +66,7 @@
 }
 
 .input::placeholder {
-  color: var(--border-subtle);
+  color: var(--text-secondary);
 }
 
 .input:focus-visible {

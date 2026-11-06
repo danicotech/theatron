@@ -78,7 +78,7 @@
 }
 
 .seat:focus-visible {
-  outline: 2px solid var(--text-primary);
+  outline: 2px solid var(--accent-action-primary);
   outline-offset: -2px;
 }
 
@@ -89,7 +89,7 @@
 
 .selected {
   background-color: var(--surface-overlay);
-  box-shadow: inset 2px 0 0 0 var(--text-primary);
+  box-shadow: inset 2px 0 0 0 var(--accent-action-primary);
 }
 
 .seatNo {

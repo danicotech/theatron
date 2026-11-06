@@ -56,7 +56,7 @@ describe('DrawPanel', () => {
 
   it('還沒抽時邀請動作,而不是說沒有資料', async () => {
     render(<DrawPanel slug="s" ranks={RANKS} onConfirmed={vi.fn()} />);
-    expect(await screen.findByText(/還沒抽/)).toBeInTheDocument();
+    expect(await screen.findByText(/尚未抽籤/)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '抽籤' })).toBeInTheDocument();
   });
 

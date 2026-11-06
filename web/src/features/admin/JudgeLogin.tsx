@@ -1,5 +1,8 @@
 'use client';
+import { HelpTip } from '../chrome/HelpTip';
 
+import { DiscordAccess } from '../member/DiscordAccess';
+import { safeReturnPath } from '../member/returnPath';
 import { ConnectError } from '@connectrpc/connect';
 import { Button, ChapterHead, InkTitle } from '@theatron/ui';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -24,8 +27,7 @@ const CROW_MARK = inkMark('ink-night-crow');
 
 /** 回程只收站內相對路徑 —— 從網址列來的值不能直接拿去導向。 */
 function safeNext(raw: string | null): string {
-  if (raw === null || !raw.startsWith('/') || raw.startsWith('//')) return '/judge';
-  return raw;
+  return safeReturnPath(raw, '/judge');
 }
 
 export function JudgeLogin() {
@@ -61,7 +63,7 @@ export function JudgeLogin() {
   }
 
   return (
-    <div className={styles.page}>
+    <div className={styles.page} data-paper-window>
       {/* 進站不在導覽序列裡,印記用「門」——跟選手的進站頁同一個記號。 */}
       <ChapterHead
         number="門"
@@ -70,63 +72,59 @@ export function JudgeLogin() {
         aside={<InkTitle {...CROW_MARK} size="mark" />}
       />
 
-      <form
-        className={styles.form}
-        onSubmit={(e) => {
-          void submit(e);
-        }}
-        noValidate
-      >
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor={ids.name}>
-            登入名
-          </label>
-          <input
-            className={[styles.input, styles.mono].join(' ')}
-            id={ids.name}
-            name="loginName"
-            required
-            autoComplete="username"
-            spellCheck={false}
-            autoFocus
-          />
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor={ids.passcode}>
-            通行碼
-          </label>
-          <input
-            className={[styles.input, styles.mono].join(' ')}
-            id={ids.passcode}
-            name="passcode"
-            type="password"
-            required
-            autoComplete="current-password"
-          />
-          <p className={styles.help}>由管理者發給你,只會顯示一次。忘了就請他重新產生一組。</p>
-        </div>
-
-        {error === null ? null : (
-          <p className={styles.error} role="alert">
-            {error}
-          </p>
-        )}
-
-        <Button type="submit" size="lg" loading={pending} fullWidth>
-          登入
-        </Button>
-      </form>
-
-      <div className={styles.alt}>
-        <p className={styles.altNote}>如果你的裁判身分是綁 Discord 的:</p>
-        <a
-          className={styles.altLink}
-          href={`/api/auth/discord/start?redirect=${encodeURIComponent(next)}`}
+      <DiscordAccess next={next} />
+      <details>
+        <summary>使用裁判通行碼</summary>
+        <form
+          className={styles.form}
+          onSubmit={(e) => {
+            void submit(e);
+          }}
+          noValidate
         >
-          改用 Discord 登入
-        </a>
-      </div>
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor={ids.name}>
+              登入名
+            </label>
+            <input
+              className={[styles.input, styles.mono].join(' ')}
+              id={ids.name}
+              name="loginName"
+              required
+              autoComplete="username"
+              spellCheck={false}
+              autoFocus
+            />
+          </div>
+
+          <div className={styles.field}>
+            <div className="help-heading">
+              <label className={styles.label} htmlFor={ids.passcode}>
+                通行碼
+              </label>
+              <HelpTip label="通行碼" text="由管理者發給你；忘記時請管理者重新產生。" />
+            </div>
+            <input
+              className={[styles.input, styles.mono].join(' ')}
+              id={ids.passcode}
+              name="passcode"
+              type="password"
+              required
+              autoComplete="current-password"
+            />
+          </div>
+
+          {error === null ? null : (
+            <p className={styles.error} role="alert">
+              {error}
+            </p>
+          )}
+
+          <Button variant="primary" type="submit" size="lg" loading={pending} fullWidth>
+            登入
+          </Button>
+        </form>
+      </details>
     </div>
   );
 }

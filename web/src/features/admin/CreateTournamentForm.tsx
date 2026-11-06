@@ -1,5 +1,6 @@
 'use client';
 
+import { HelpTip } from '../chrome/HelpTip';
 import { Button } from '@theatron/ui';
 import { ConnectError } from '@connectrpc/connect';
 import { useId, useState, type FormEvent } from 'react';
@@ -113,9 +114,12 @@ export function CreateTournamentForm({ onCreated }: CreateTournamentFormProps) {
         <legend className={styles.legend}>這一屆是什麼</legend>
 
         <div className={styles.field}>
-          <label className={styles.label} htmlFor={ids.name}>
-            賽事名稱
-          </label>
+          <div className="help-heading">
+            <label className={styles.label} htmlFor={ids.name}>
+              賽事名稱
+            </label>
+            <HelpTip label="賽事名稱" text="公告與頁面上顯示的名字。" />
+          </div>
           <input
             className={styles.input}
             id={ids.name}
@@ -124,7 +128,6 @@ export function CreateTournamentForm({ onCreated }: CreateTournamentFormProps) {
             autoComplete="off"
             placeholder="百業試鋒 2026 春季賽"
           />
-          <p className={styles.help}>公告與頁面上顯示的名字。</p>
         </div>
 
         <div className={styles.field}>
@@ -147,9 +150,12 @@ export function CreateTournamentForm({ onCreated }: CreateTournamentFormProps) {
         </div>
 
         <div className={styles.field}>
-          <label className={styles.label} htmlFor={ids.community}>
-            社群
-          </label>
+          <div className="help-heading">
+            <label className={styles.label} htmlFor={ids.community}>
+              社群
+            </label>
+            <HelpTip label="社群" text="這屆掛在哪個社群底下,填該社群的 public_id。" />
+          </div>
           <input
             className={[styles.input, styles.mono].join(' ')}
             id={ids.community}
@@ -160,21 +166,23 @@ export function CreateTournamentForm({ onCreated }: CreateTournamentFormProps) {
             placeholder="01J0..."
             aria-invalid={error?.reason === 'community_not_found' || undefined}
           />
-          <p className={styles.help}>這屆掛在哪個社群底下,填該社群的 public_id。</p>
         </div>
       </fieldset>
 
       <fieldset className={styles.group} disabled={pending}>
-        <legend className={styles.legend}>規則旋鈕</legend>
-        <p className={styles.groupNote}>
-          全部可留空 —— 留空就用伺服器的預設值,建立完成後在總覽看得到實際生效的數字。
-        </p>
+        <legend className={styles.legend}>
+          規則設定
+          <HelpTip label="規則設定" text="可留空使用預設值，建立後可在總覽查看實際數字。" />
+        </legend>
 
         <div className={styles.row}>
           <div className={styles.field}>
-            <label className={styles.label} htmlFor={ids.gap}>
-              每差一段的 BP
-            </label>
+            <div className="help-heading">
+              <label className={styles.label} htmlFor={ids.gap}>
+                每差一段的 BP
+              </label>
+              <HelpTip label="每差一段的 BP" text="差二段、三段依比例加倍;同段永遠是 0。" />
+            </div>
             <input
               className={[styles.input, styles.mono, styles.num].join(' ')}
               id={ids.gap}
@@ -183,13 +191,15 @@ export function CreateTournamentForm({ onCreated }: CreateTournamentFormProps) {
               pattern="[0-9]*"
               autoComplete="off"
             />
-            <p className={styles.help}>差二段、三段依比例加倍;同段永遠是 0。</p>
           </div>
 
           <div className={styles.field}>
-            <label className={styles.label} htmlFor={ids.bonus}>
-              報名獎勵
-            </label>
+            <div className="help-heading">
+              <label className={styles.label} htmlFor={ids.bonus}>
+                報名獎勵
+              </label>
+              <HelpTip label="報名獎勵" text="報名就發的平台代幣,留空或 0 = 不發。" />
+            </div>
             <input
               className={[styles.input, styles.mono, styles.num].join(' ')}
               id={ids.bonus}
@@ -198,7 +208,6 @@ export function CreateTournamentForm({ onCreated }: CreateTournamentFormProps) {
               pattern="[0-9]*"
               autoComplete="off"
             />
-            <p className={styles.help}>報名就發的平台代幣,留空或 0 = 不發。</p>
           </div>
         </div>
       </fieldset>
@@ -279,12 +288,9 @@ export function CreateTournamentForm({ onCreated }: CreateTournamentFormProps) {
       )}
 
       <div className={styles.actions}>
-        <Button type="submit" size="lg" loading={pending}>
+        <Button variant="primary" type="submit" size="lg" loading={pending}>
           {pending ? '建立中' : '開賽事'}
         </Button>
-        <p className={styles.actionsNote}>
-          建立的同時會把這一屆的 34 項讓武一起放進去,兩者要嘛都成功、要嘛都不留。
-        </p>
       </div>
     </form>
   );

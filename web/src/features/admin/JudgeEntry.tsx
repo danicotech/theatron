@@ -1,4 +1,5 @@
 'use client';
+import { HelpTip } from '../chrome/HelpTip';
 
 import { ChapterHead, InkLink, PaperCard, SealStamp } from '@theatron/ui';
 import { useState } from 'react';
@@ -50,9 +51,22 @@ export function JudgeEntry() {
       <ChapterHead
         number="開"
         eyebrow="裁判台"
-        title="開一屆賽事"
-        lede="建立之後報名立刻開著。段位、抽籤、開封盤都在建立之後才做 —— 這一頁只決定這屆叫什麼、掛在哪、以及規則的幾個數字。"
+        title={
+          <>
+            開一屆賽事
+            <HelpTip
+              label="建立賽事"
+              text="先填名稱、社群與規則；評段、抽籤及盤口管理會在建立後開放。"
+            />
+          </>
+        }
+        lede="建立後即開放報名。"
       />
+      {process.env.NEXT_PUBLIC_TOURNAMENT_SLUG && (
+        <InkLink href={`/judge/${encodeURIComponent(process.env.NEXT_PUBLIC_TOURNAMENT_SLUG)}`}>
+          管理目前賽事
+        </InkLink>
+      )}
       <CreateTournamentForm onCreated={setCreated} />
     </div>
   );

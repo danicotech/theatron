@@ -12,6 +12,8 @@ import {
 } from '@theatron/ui';
 import { useCallback, useEffect, useState } from 'react';
 
+import { useTournamentRealtime } from '../realtime/useTournamentRealtime';
+import { ConnectionStatus } from '../realtime/ConnectionStatus';
 import { activityApi } from '../../lib/api/activity';
 import { platformApi } from '../../lib/api/client';
 import type { RankInfo, Tournament } from '../../lib/api/gen/hestia/activity/v1/common_pb';
@@ -22,6 +24,7 @@ import { inkMark } from '../tournament/inkMarks';
 import { DrawPanel } from './DrawPanel';
 import { MatchList } from './MatchList';
 import { nextPhase, PHASES, phaseKey } from './phases';
+import { RegistrationRoster } from './RegistrationRoster';
 import { RankingPanel } from './RankingPanel';
 
 import styles from './JudgeConsole.module.css';
@@ -46,6 +49,7 @@ export interface JudgeConsoleProps {
 }
 
 export function JudgeConsole({ slug }: JudgeConsoleProps) {
+  const sync = useTournamentRealtime(slug);
   const [viewer, setViewer] = useState<Viewer>('loading');
   const [tournament, setTournament] = useState<Tournament | null>(null);
   const [ranks, setRanks] = useState<RankInfo[]>([]);
@@ -78,6 +82,12 @@ export function JudgeConsole({ slug }: JudgeConsoleProps) {
     });
   }, [load]);
 
+  useEffect(() => {
+    if (sync.tournament) {
+      setTournament(sync.tournament);
+      setRanks(sync.ranks);
+    }
+  }, [sync.tournament, sync.ranks]);
   if (error !== null && tournament === null) {
     return (
       <p className={styles.error} role="alert">
@@ -94,7 +104,7 @@ export function JudgeConsole({ slug }: JudgeConsoleProps) {
   const next = nextPhase(phase);
 
   async function advance() {
-    if (next === undefined || advancing) return;
+    if (next === undefined || advancing || sync.status !== 'ready') return;
     setAdvancing(true);
     setError(null);
     try {
@@ -113,6 +123,7 @@ export function JudgeConsole({ slug }: JudgeConsoleProps) {
 
   return (
     <div className={styles.console}>
+      <ConnectionStatus slug={slug} state={sync} />
       {/* 裁判台不在觀眾的導覽序列裡,印記用「裁」而不是編號。 */}
       <ChapterHead
         number="裁"
@@ -136,7 +147,7 @@ export function JudgeConsole({ slug }: JudgeConsoleProps) {
             index="JUDGES ONLY"
             headingLevel={2}
             title="下面的動作要裁判身分。"
-            note="評段、抽籤、判定勝負都會進稽核紀錄,所以必須記在一個平台帳號上。"
+            help="評段、抽籤、判定勝負都會進稽核紀錄,所以必須記在一個平台帳號上。"
             stamp={<SealStamp text="憑印" />}
             tilt="none"
             action={
@@ -151,7 +162,9 @@ export function JudgeConsole({ slug }: JudgeConsoleProps) {
         </section>
       ) : (
         <section className={styles.panel} aria-label={`${phaseLabelOf(phase)}的操作`}>
-          {phase === TournamentPhase.RANKING ? (
+          {phase === TournamentPhase.SIGNUP || phase === TournamentPhase.SIGNUP_CLOSED ? (
+            <RegistrationRoster slug={slug} />
+          ) : phase === TournamentPhase.RANKING ? (
             <RankingPanel
               slug={slug}
               ranks={ranks}
@@ -184,17 +197,17 @@ export function JudgeConsole({ slug }: JudgeConsoleProps) {
       {viewer === 'anonymous' || next === undefined ? null : (
         <footer className={styles.advance}>
           <Button
+            variant="primary"
             size="lg"
             loading={advancing}
+            disabled={sync.status !== 'ready'}
             onClick={() => {
               void advance();
             }}
           >
             推進到「{next.label}」
           </Button>
-          <p className={styles.advanceNote}>
-            階段只往前走。走不走得動由伺服器判斷 —— 例如還有人沒評段就不能開始抽籤。
-          </p>
+          <p className={styles.advanceNote}>賽事階段只能向前推進，無法復原。</p>
         </footer>
       )}
     </div>

@@ -53,7 +53,12 @@ export function SetupChecklist({ entries, confirm }: SetupChecklistProps) {
         <>
           <p className={styles.hint}>確認之後才能開打,而且只能確認一次。</p>
           <div className={styles.actions}>
-            <Button size="lg" loading={confirm.pending} onClick={confirm.onConfirm}>
+            <Button
+              variant="primary"
+              size="lg"
+              loading={confirm.pending}
+              onClick={confirm.onConfirm}
+            >
               確認開賽前設定
             </Button>
           </div>

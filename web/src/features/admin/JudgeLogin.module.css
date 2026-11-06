@@ -97,3 +97,11 @@
   outline: 2px solid var(--text-primary);
   outline-offset: 2px;
 }
+
+/* The passcode disclosure is a real control: a full 44px tap row. */
+.page details > summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  cursor: pointer;
+}

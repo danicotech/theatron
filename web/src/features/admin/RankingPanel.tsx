@@ -1,5 +1,6 @@
 'use client';
 
+import { BuildCard } from '../signup/BuildCard';
 import { ConnectError } from '@connectrpc/connect';
 import { Button, RankSigil } from '@theatron/ui';
 import { useEffect, useState } from 'react';
@@ -174,6 +175,27 @@ export function RankingPanel({ slug, ranks, onRanked }: RankingPanelProps) {
           </div>
         </dl>
 
+        <dl className={styles.facts}>
+          {(
+            [
+              ['流派', current.character?.style],
+              ['武器', current.character?.weapon],
+              ['裝備', current.character?.equipment],
+              ['武學', current.character?.arts],
+              [
+                '規則確認',
+                current.acceptedRulesVersion
+                  ? '已確認版本 ' + current.acceptedRulesVersion
+                  : '尚未確認',
+              ],
+            ] as const
+          ).map(([label, value]) => (
+            <div className={styles.fact} key={label}>
+              <dt>{label}</dt>
+              <dd>{label === '流派' ? <BuildCard name={value} /> : value || '未填'}</dd>
+            </div>
+          ))}
+        </dl>
         {current.artsNote === '' ? null : (
           <div className={styles.prose}>
             <span className={styles.proseLabel}>常用武學 / PVP 經驗</span>
@@ -228,6 +250,7 @@ export function RankingPanel({ slug, ranks, onRanked }: RankingPanelProps) {
       )}
 
       <Button
+        variant="primary"
         size="lg"
         loading={pending}
         disabled={picked === null}

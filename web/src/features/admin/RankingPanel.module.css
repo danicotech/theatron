@@ -91,7 +91,7 @@
 }
 
 .blank {
-  color: var(--border-subtle);
+  color: var(--text-secondary);
 }
 
 .prose {
@@ -180,15 +180,15 @@
 }
 
 .option:focus-visible {
-  outline: 2px solid var(--text-primary);
+  outline: 2px solid var(--accent-action-primary);
   outline-offset: 2px;
 }
 
 /* 選中用邊框加粗而不是換底色:段位本身沒有語意色,
    借金色或薄荷色會讓「這是錢」「這是贏」的約定失效。 */
 .picked {
-  border-color: var(--text-primary);
-  box-shadow: inset 0 0 0 1px var(--text-primary);
+  border-color: var(--accent-action-primary);
+  box-shadow: inset 0 0 0 1px var(--accent-action-primary);
 }
 
 .noteLabel {
@@ -210,11 +210,11 @@
 }
 
 .note::placeholder {
-  color: var(--border-subtle);
+  color: var(--text-secondary);
 }
 
 .note:focus-visible {
-  outline: 2px solid var(--text-primary);
+  outline: 2px solid var(--accent-action-primary);
   outline-offset: 1px;
 }
 

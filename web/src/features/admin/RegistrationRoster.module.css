@@ -1,0 +1,31 @@
+.roster {
+  display: grid;
+  gap: var(--space-4);
+  color: var(--text-primary);
+}
+.entry {
+  padding-block: var(--space-4);
+  border-block-end: 1px solid var(--border-subtle);
+}
+.entry summary {
+  cursor: pointer;
+  min-block-size: var(--hit-target);
+  overflow-wrap: anywhere;
+}
+.entry dl {
+  display: grid;
+  gap: var(--space-3);
+}
+.entry dl div {
+  display: grid;
+  grid-template-columns: minmax(5rem, 1fr) minmax(0, 3fr);
+  gap: var(--space-3);
+}
+.entry dt {
+  color: var(--text-secondary);
+}
+.entry dd {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

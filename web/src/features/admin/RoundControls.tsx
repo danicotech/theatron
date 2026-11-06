@@ -1,5 +1,6 @@
 'use client';
 
+import { HelpTip } from '../chrome/HelpTip';
 import type { Timestamp } from '@bufbuild/protobuf/wkt';
 import { timestampMs } from '@bufbuild/protobuf/wkt';
 import { Button, Card, CardBody, CardHeader } from '@theatron/ui';
@@ -55,7 +56,7 @@ export function RoundControls({
             : `第 ${roundNo} 回合開始前,前置(讓守關元、讓半血)要再做一次。做完再按,計時從按下那一刻起算。`}
         </p>
         <div className={styles.actions}>
-          <Button size="lg" loading={pending} onClick={onStart}>
+          <Button variant="primary" size="lg" loading={pending} onClick={onStart}>
             第 {roundNo} 回合正式決鬥開始
           </Button>
         </div>
@@ -118,13 +119,17 @@ function LiveRound({
     <Card live aria-label={`第 ${round.roundNo} 回合`}>
       <CardHeader
         live
-        label={`第 ${round.roundNo} 回合 · 進行中`}
+        label={
+          <>
+            第 {round.roundNo} 回合 · 進行中
+            <HelpTip label="判定回合勝者" text="分出勝負後點勝者，再按確認。" />
+          </>
+        }
         aside={<span className={styles.mono}>{bestOf > 1 ? `先拿 ${need} 勝` : '單場定勝負'}</span>}
       />
       <CardBody>
         <div className={styles.timerBlock}>
           {round.startedAt === undefined ? null : <RoundTimer startedAt={round.startedAt} />}
-          <p className={styles.hint}>分出勝負後點勝者,再按下面那顆確定。</p>
 
           <div className={styles.pickRow} role="group" aria-label="回合勝者">
             {sides.map((s) => (

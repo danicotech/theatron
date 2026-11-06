@@ -1,0 +1,94 @@
+.section {
+  padding: 24px 0;
+  color: var(--text-auth-ink);
+}
+.section h3 {
+  margin: 0 0 8px;
+  font-size: 24px;
+}
+.section p {
+  margin: 4px 0 12px;
+  line-height: 1.6;
+}
+.help {
+  color: var(--text-auth-muted);
+  font-size: 14px;
+}
+.section ul {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-auth);
+}
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1 1 240px;
+  min-width: 0;
+}
+.identity h4 {
+  margin: 0;
+  font-size: 18px;
+  overflow-wrap: anywhere;
+}
+.identity p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--text-auth-muted);
+  overflow-wrap: anywhere;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  background: var(--surface-auth-field);
+  font-size: 12px;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.file {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 8px 16px;
+  position: relative;
+  background: var(--surface-auth-field);
+  cursor: pointer;
+}
+.file input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.file:focus-within {
+  outline: 2px solid var(--text-auth-ink);
+  outline-offset: 3px;
+}
+.file:has(input:disabled) {
+  opacity: 0.6;
+  cursor: wait;
+}
+.feedback {
+  flex-basis: 100%;
+}
