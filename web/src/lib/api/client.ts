@@ -4,6 +4,7 @@
 // 這個檔案只做兩件事:設定 transport、把 service 綁成具名 client。
 // 不在這裡宣告任何 request / response 的形狀(專案鐵則 6)。
 
+import { memberFetch } from './memberSession';
 import { createClient, type Client } from '@connectrpc/connect';
 import { createConnectTransport } from '@connectrpc/connect-web';
 
@@ -27,7 +28,7 @@ export const platformTransport = createConnectTransport({
   // 登入流程把 OAuth state 綁在 HttpOnly cookie 上(擋 login CSRF / session fixation)。
   // 少了這一行,CompleteDiscordLogin 永遠回 permission_denied。
   // 來源:hestia/proto/README.md「前端契約」。
-  fetch: (input, init) => fetch(input, { ...init, credentials: 'include' }),
+  fetch: memberFetch,
 });
 
 export const platformApi: {

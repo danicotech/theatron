@@ -28,7 +28,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file hestia/activity/v1/common.proto.
  */
 export const file_hestia_activity_v1_common: GenFile = /*@__PURE__*/
-  fileDesc("Ch9oZXN0aWEvYWN0aXZpdHkvdjEvY29tbW9uLnByb3RvEhJoZXN0aWEuYWN0aXZpdHkudjEi+gEKClRvdXJuYW1lbnQSEQoJcHVibGljX2lkGAEgASgJEgwKBHNsdWcYAiABKAkSDAoEbmFtZRgDIAEoCRIyCgVwaGFzZRgEIAEoDjIjLmhlc3RpYS5hY3Rpdml0eS52MS5Ub3VybmFtZW50UGhhc2USFwoPYnBfcGVyX3JhbmtfZ2FwGAUgASgDEhQKDHBsYXllcl9jb3VudBgGIAEoBRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIPCgdiZXN0X29mGAggASgFEhkKEXRoaXJkX3BsYWNlX21hdGNoGAkgASgIImQKCFJhbmtJbmZvEiYKBHJhbmsYASABKA4yGC5oZXN0aWEuYWN0aXZpdHkudjEuUmFuaxIMCgRuYW1lGAIgASgJEg0KBXRpdGxlGAMgASgJEhMKC2Rlc2NyaXB0aW9uGAQgASgJIsUBCgZQbGF5ZXISEQoJcHVibGljX2lkGAEgASgJEhQKDGRpc3BsYXlfbmFtZRgCIAEoCRIPCgdnYW1lX2lkGAMgASgJEiYKBHJhbmsYBCABKA4yGC5oZXN0aWEuYWN0aXZpdHkudjEuUmFuaxIwCgZzdGF0dXMYBSABKA4yIC5oZXN0aWEuYWN0aXZpdHkudjEuUGxheWVyU3RhdHVzEg8KB3NlZWRfbm8YBiABKAUSFgoOdXNlcl9wdWJsaWNfaWQYByABKAkikQUKBU1hdGNoEhEKCXB1YmxpY19pZBgBIAEoCRINCgVyb3VuZBgCIAEoBRIMCgRzbG90GAMgASgFEhsKE3AxX3BsYXllcl9wdWJsaWNfaWQYBCABKAkSGwoTcDJfcGxheWVyX3B1YmxpY19pZBgFIAEoCRIfChd3aW5uZXJfcGxheWVyX3B1YmxpY19pZBgGIAEoCRIvCgZzdGF0dXMYByABKA4yHy5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hTdGF0dXMSOAoLcmVzdWx0X2tpbmQYCCABKA4yIy5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hSZXN1bHRLaW5kEhUKDWhhbmRpY2FwX29wZW4YCSABKAgSEgoKc3RyZWFtX3VybBgKIAEoCRIzCgpzdGFydGVkX2F0GAsgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgAiAEBEjQKC2ZpbmlzaGVkX2F0GAwgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgBiAEBEisKBGtpbmQYDSABKA4yHS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hLaW5kEjsKEnNldHVwX2NvbmZpcm1lZF9hdBgOIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBIAogBARIuCgZyb3VuZHMYDyADKAsyHi5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hSb3VuZBIVCg1wMV9yb3VuZF93aW5zGBAgASgFEhUKDXAyX3JvdW5kX3dpbnMYESABKAVCDQoLX3N0YXJ0ZWRfYXRCDgoMX2ZpbmlzaGVkX2F0QhUKE19zZXR1cF9jb25maXJtZWRfYXQitQEKCk1hdGNoUm91bmQSEAoIcm91bmRfbm8YASABKAUSLgoKc3RhcnRlZF9hdBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASNAoLZmluaXNoZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wSACIAQESHwoXd2lubmVyX3BsYXllcl9wdWJsaWNfaWQYBCABKAlCDgoMX2ZpbmlzaGVkX2F0Ip4CCglWaW9sYXRpb24SEQoJcHVibGljX2lkGAEgASgJEhcKD21hdGNoX3B1YmxpY19pZBgCIAEoCRIQCghyb3VuZF9ubxgDIAEoBRIYChBwbGF5ZXJfcHVibGljX2lkGAQgASgJEhsKE3BsYXllcl9kaXNwbGF5X25hbWUYBSABKAkSFgoOaXRlbV9wdWJsaWNfaWQYBiABKAkSEQoJaXRlbV9uYW1lGAcgASgJEjMKBnJ1bGluZxgIIAEoDjIjLmhlc3RpYS5hY3Rpdml0eS52MS5WaW9sYXRpb25SdWxpbmcSDAoEbm90ZRgJIAEoCRIuCgpjcmVhdGVkX2F0GAogASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJYCgxCcmFja2V0Um91bmQSDQoFcm91bmQYASABKAUSDQoFbGFiZWwYAiABKAkSKgoHbWF0Y2hlcxgDIAMoCzIZLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaCKHAgoMSGFuZGljYXBJdGVtEhEKCXB1YmxpY19pZBgBIAEoCRI2CghjYXRlZ29yeRgCIAEoDjIkLmhlc3RpYS5hY3Rpdml0eS52MS5IYW5kaWNhcENhdGVnb3J5EgwKBG5hbWUYAyABKAkSEwoLZGVzY3JpcHRpb24YBCABKAkSDAoEY29zdBgFIAEoAxISCgpyZXBlYXRhYmxlGAYgASgIEhwKFHJlcXVpcmVzX3RhcmdldF9ub3RlGAcgASgIEhIKCnNvcnRfb3JkZXIYCCABKAUSCwoDa2V5GAkgASgJEhcKD2FwcGxpZXNfdG9fYm90aBgKIAEoCBIPCgdzZWNvbmRzGAsgASgDIrICChFIYW5kaWNhcFNlbGVjdGlvbhIRCglwdWJsaWNfaWQYASABKAkSFgoOaXRlbV9wdWJsaWNfaWQYAiABKAkSEQoJaXRlbV9uYW1lGAMgASgJEjYKCGNhdGVnb3J5GAQgASgOMiQuaGVzdGlhLmFjdGl2aXR5LnYxLkhhbmRpY2FwQ2F0ZWdvcnkSDAoEY29zdBgFIAEoAxITCgt0YXJnZXRfbm90ZRgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIQCghpdGVtX2tleRgIIAEoCRITCgtkcmF3X3Jlc3VsdBgJIAEoCRIXCg9hcHBsaWVzX3RvX2JvdGgYCiABKAgSFAoMcmVmZXJlZV9ub3RlGAsgASgJIm8KCEJwQnVkZ2V0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRIYChBwbGF5ZXJfcHVibGljX2lkGAIgASgJEg4KBmJ1ZGdldBgDIAEoAxINCgVzcGVudBgEIAEoAxIRCglyZW1haW5pbmcYBSABKAMiqwIKDk1hdGNoSGFuZGljYXBzEhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRIvCgZzdGF0dXMYAiABKA4yHy5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hTdGF0dXMSLAoGYnVkZ2V0GAMgASgLMhwuaGVzdGlhLmFjdGl2aXR5LnYxLkJwQnVkZ2V0EjkKCnNlbGVjdGlvbnMYBCADKAsyJS5oZXN0aWEuYWN0aXZpdHkudjEuSGFuZGljYXBTZWxlY3Rpb24SJAocY29uc3RyYWluZWRfcGxheWVyX3B1YmxpY19pZBgFIAEoCRIyCglsb2NrZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wSACIAQFCDAoKX2xvY2tlZF9hdCphCgRSYW5rEhQKEFJBTktfVU5TUEVDSUZJRUQQABIQCgxSQU5LX0tBSVNIQU4QARIRCg1SQU5LX0RVQU5TSFVJEAISDwoLUkFOS19GRUlIVUEQAxINCglSQU5LX1dVV08QBCqOAgoPVG91cm5hbWVudFBoYXNlEiAKHFRPVVJOQU1FTlRfUEhBU0VfVU5TUEVDSUZJRUQQABIbChdUT1VSTkFNRU5UX1BIQVNFX1NJR05VUBABEiIKHlRPVVJOQU1FTlRfUEhBU0VfU0lHTlVQX0NMT1NFRBACEhwKGFRPVVJOQU1FTlRfUEhBU0VfUkFOS0lORxADEhsKF1RPVVJOQU1FTlRfUEhBU0VfUkFOS0VEEAQSHAoYVE9VUk5BTUVOVF9QSEFTRV9EUkFXSU5HEAUSIAocVE9VUk5BTUVOVF9QSEFTRV9JTl9QUk9HUkVTUxAGEh0KGVRPVVJOQU1FTlRfUEhBU0VfRklOSVNIRUQQByqkAQoLTWF0Y2hTdGF0dXMSHAoYTUFUQ0hfU1RBVFVTX1VOU1BFQ0lGSUVEEAASGAoUTUFUQ0hfU1RBVFVTX1BFTkRJTkcQARIWChJNQVRDSF9TVEFUVVNfUkVBRFkQAhIXChNNQVRDSF9TVEFUVVNfTE9DS0VEEAMSFQoRTUFUQ0hfU1RBVFVTX0xJVkUQBBIVChFNQVRDSF9TVEFUVVNfRE9ORRAFKnIKD01hdGNoUmVzdWx0S2luZBIhCh1NQVRDSF9SRVNVTFRfS0lORF9VTlNQRUNJRklFRBAAEhwKGE1BVENIX1JFU1VMVF9LSU5EX05PUk1BTBABEh4KGk1BVENIX1JFU1VMVF9LSU5EX1dBTEtPVkVSEAIqWwoJTWF0Y2hLaW5kEhoKFk1BVENIX0tJTkRfVU5TUEVDSUZJRUQQABIWChJNQVRDSF9LSU5EX0JSQUNLRVQQARIaChZNQVRDSF9LSU5EX1RISVJEX1BMQUNFEAIqrgEKD1Zpb2xhdGlvblJ1bGluZxIgChxWSU9MQVRJT05fUlVMSU5HX1VOU1BFQ0lGSUVEEAASHAoYVklPTEFUSU9OX1JVTElOR19XQVJOSU5HEAESHwobVklPTEFUSU9OX1JVTElOR19ST1VORF9MT1NTEAISHwobVklPTEFUSU9OX1JVTElOR19NQVRDSF9MT1NTEAMSGQoVVklPTEFUSU9OX1JVTElOR19OT05FEAQqggEKDFBsYXllclN0YXR1cxIdChlQTEFZRVJfU1RBVFVTX1VOU1BFQ0lGSUVEEAASGAoUUExBWUVSX1NUQVRVU19BQ1RJVkUQARIcChhQTEFZRVJfU1RBVFVTX0VMSU1JTkFURUQQAhIbChdQTEFZRVJfU1RBVFVTX1dJVEhEUkFXThADKugBChBIYW5kaWNhcENhdGVnb3J5EiEKHUhBTkRJQ0FQX0NBVEVHT1JZX1VOU1BFQ0lGSUVEEAASHAoYSEFORElDQVBfQ0FURUdPUllfV0VBUE9OEAESGwoXSEFORElDQVBfQ0FURUdPUllfU0tJTEwQAhIdChlIQU5ESUNBUF9DQVRFR09SWV9ERUZFTlNFEAMSHAoYSEFORElDQVBfQ0FURUdPUllfUE9JU09OEAQSHQoZSEFORElDQVBfQ0FURUdPUllfVklDVE9SWRAFEhoKFkhBTkRJQ0FQX0NBVEVHT1JZX1JVTEUQBkJAWj5naXRodWIuY29tL2Rhbmljb3RlY2gvaGVzdGlhL2dlbi9oZXN0aWEvYWN0aXZpdHkvdjE7YWN0aXZpdHl2MWIGcHJvdG8z", [file_google_protobuf_timestamp]);
+  fileDesc("Ch9oZXN0aWEvYWN0aXZpdHkvdjEvY29tbW9uLnByb3RvEhJoZXN0aWEuYWN0aXZpdHkudjEikQIKClRvdXJuYW1lbnQSEQoJcHVibGljX2lkGAEgASgJEgwKBHNsdWcYAiABKAkSDAoEbmFtZRgDIAEoCRIyCgVwaGFzZRgEIAEoDjIjLmhlc3RpYS5hY3Rpdml0eS52MS5Ub3VybmFtZW50UGhhc2USFwoPYnBfcGVyX3JhbmtfZ2FwGAUgASgDEhQKDHBsYXllcl9jb3VudBgGIAEoBRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIPCgdiZXN0X29mGAggASgFEhkKEXRoaXJkX3BsYWNlX21hdGNoGAkgASgIEhUKDXJ1bGVzX3ZlcnNpb24YCiABKAkiaAoPQ2hhcmFjdGVyQ29uZmlnEg0KBXN0eWxlGAEgASgJEg4KBndlYXBvbhgCIAEoCRIRCgllcXVpcG1lbnQYAyABKAkSDAoEYXJ0cxgEIAEoCRIVCg1zbmFwc2hvdF9qc29uGAUgASgJImQKCFJhbmtJbmZvEiYKBHJhbmsYASABKA4yGC5oZXN0aWEuYWN0aXZpdHkudjEuUmFuaxIMCgRuYW1lGAIgASgJEg0KBXRpdGxlGAMgASgJEhMKC2Rlc2NyaXB0aW9uGAQgASgJIpYCCgZQbGF5ZXISEQoJcHVibGljX2lkGAEgASgJEhQKDGRpc3BsYXlfbmFtZRgCIAEoCRIPCgdnYW1lX2lkGAMgASgJEiYKBHJhbmsYBCABKA4yGC5oZXN0aWEuYWN0aXZpdHkudjEuUmFuaxIwCgZzdGF0dXMYBSABKA4yIC5oZXN0aWEuYWN0aXZpdHkudjEuUGxheWVyU3RhdHVzEg8KB3NlZWRfbm8YBiABKAUSFgoOdXNlcl9wdWJsaWNfaWQYByABKAkSNgoJY2hhcmFjdGVyGAggASgLMiMuaGVzdGlhLmFjdGl2aXR5LnYxLkNoYXJhY3RlckNvbmZpZxIXCg9nYW1lX2F2YXRhcl91cmwYCSABKAkikQUKBU1hdGNoEhEKCXB1YmxpY19pZBgBIAEoCRINCgVyb3VuZBgCIAEoBRIMCgRzbG90GAMgASgFEhsKE3AxX3BsYXllcl9wdWJsaWNfaWQYBCABKAkSGwoTcDJfcGxheWVyX3B1YmxpY19pZBgFIAEoCRIfChd3aW5uZXJfcGxheWVyX3B1YmxpY19pZBgGIAEoCRIvCgZzdGF0dXMYByABKA4yHy5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hTdGF0dXMSOAoLcmVzdWx0X2tpbmQYCCABKA4yIy5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hSZXN1bHRLaW5kEhUKDWhhbmRpY2FwX29wZW4YCSABKAgSEgoKc3RyZWFtX3VybBgKIAEoCRIzCgpzdGFydGVkX2F0GAsgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgAiAEBEjQKC2ZpbmlzaGVkX2F0GAwgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgBiAEBEisKBGtpbmQYDSABKA4yHS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hLaW5kEjsKEnNldHVwX2NvbmZpcm1lZF9hdBgOIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBIAogBARIuCgZyb3VuZHMYDyADKAsyHi5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hSb3VuZBIVCg1wMV9yb3VuZF93aW5zGBAgASgFEhUKDXAyX3JvdW5kX3dpbnMYESABKAVCDQoLX3N0YXJ0ZWRfYXRCDgoMX2ZpbmlzaGVkX2F0QhUKE19zZXR1cF9jb25maXJtZWRfYXQitQEKCk1hdGNoUm91bmQSEAoIcm91bmRfbm8YASABKAUSLgoKc3RhcnRlZF9hdBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASNAoLZmluaXNoZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wSACIAQESHwoXd2lubmVyX3BsYXllcl9wdWJsaWNfaWQYBCABKAlCDgoMX2ZpbmlzaGVkX2F0Ip4CCglWaW9sYXRpb24SEQoJcHVibGljX2lkGAEgASgJEhcKD21hdGNoX3B1YmxpY19pZBgCIAEoCRIQCghyb3VuZF9ubxgDIAEoBRIYChBwbGF5ZXJfcHVibGljX2lkGAQgASgJEhsKE3BsYXllcl9kaXNwbGF5X25hbWUYBSABKAkSFgoOaXRlbV9wdWJsaWNfaWQYBiABKAkSEQoJaXRlbV9uYW1lGAcgASgJEjMKBnJ1bGluZxgIIAEoDjIjLmhlc3RpYS5hY3Rpdml0eS52MS5WaW9sYXRpb25SdWxpbmcSDAoEbm90ZRgJIAEoCRIuCgpjcmVhdGVkX2F0GAogASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJYCgxCcmFja2V0Um91bmQSDQoFcm91bmQYASABKAUSDQoFbGFiZWwYAiABKAkSKgoHbWF0Y2hlcxgDIAMoCzIZLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaCKHAgoMSGFuZGljYXBJdGVtEhEKCXB1YmxpY19pZBgBIAEoCRI2CghjYXRlZ29yeRgCIAEoDjIkLmhlc3RpYS5hY3Rpdml0eS52MS5IYW5kaWNhcENhdGVnb3J5EgwKBG5hbWUYAyABKAkSEwoLZGVzY3JpcHRpb24YBCABKAkSDAoEY29zdBgFIAEoAxISCgpyZXBlYXRhYmxlGAYgASgIEhwKFHJlcXVpcmVzX3RhcmdldF9ub3RlGAcgASgIEhIKCnNvcnRfb3JkZXIYCCABKAUSCwoDa2V5GAkgASgJEhcKD2FwcGxpZXNfdG9fYm90aBgKIAEoCBIPCgdzZWNvbmRzGAsgASgDIrICChFIYW5kaWNhcFNlbGVjdGlvbhIRCglwdWJsaWNfaWQYASABKAkSFgoOaXRlbV9wdWJsaWNfaWQYAiABKAkSEQoJaXRlbV9uYW1lGAMgASgJEjYKCGNhdGVnb3J5GAQgASgOMiQuaGVzdGlhLmFjdGl2aXR5LnYxLkhhbmRpY2FwQ2F0ZWdvcnkSDAoEY29zdBgFIAEoAxITCgt0YXJnZXRfbm90ZRgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIQCghpdGVtX2tleRgIIAEoCRITCgtkcmF3X3Jlc3VsdBgJIAEoCRIXCg9hcHBsaWVzX3RvX2JvdGgYCiABKAgSFAoMcmVmZXJlZV9ub3RlGAsgASgJIm8KCEJwQnVkZ2V0EhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRIYChBwbGF5ZXJfcHVibGljX2lkGAIgASgJEg4KBmJ1ZGdldBgDIAEoAxINCgVzcGVudBgEIAEoAxIRCglyZW1haW5pbmcYBSABKAMiqwIKDk1hdGNoSGFuZGljYXBzEhcKD21hdGNoX3B1YmxpY19pZBgBIAEoCRIvCgZzdGF0dXMYAiABKA4yHy5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hTdGF0dXMSLAoGYnVkZ2V0GAMgASgLMhwuaGVzdGlhLmFjdGl2aXR5LnYxLkJwQnVkZ2V0EjkKCnNlbGVjdGlvbnMYBCADKAsyJS5oZXN0aWEuYWN0aXZpdHkudjEuSGFuZGljYXBTZWxlY3Rpb24SJAocY29uc3RyYWluZWRfcGxheWVyX3B1YmxpY19pZBgFIAEoCRIyCglsb2NrZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wSACIAQFCDAoKX2xvY2tlZF9hdCphCgRSYW5rEhQKEFJBTktfVU5TUEVDSUZJRUQQABIQCgxSQU5LX0tBSVNIQU4QARIRCg1SQU5LX0RVQU5TSFVJEAISDwoLUkFOS19GRUlIVUEQAxINCglSQU5LX1dVV08QBCqOAgoPVG91cm5hbWVudFBoYXNlEiAKHFRPVVJOQU1FTlRfUEhBU0VfVU5TUEVDSUZJRUQQABIbChdUT1VSTkFNRU5UX1BIQVNFX1NJR05VUBABEiIKHlRPVVJOQU1FTlRfUEhBU0VfU0lHTlVQX0NMT1NFRBACEhwKGFRPVVJOQU1FTlRfUEhBU0VfUkFOS0lORxADEhsKF1RPVVJOQU1FTlRfUEhBU0VfUkFOS0VEEAQSHAoYVE9VUk5BTUVOVF9QSEFTRV9EUkFXSU5HEAUSIAocVE9VUk5BTUVOVF9QSEFTRV9JTl9QUk9HUkVTUxAGEh0KGVRPVVJOQU1FTlRfUEhBU0VfRklOSVNIRUQQByqkAQoLTWF0Y2hTdGF0dXMSHAoYTUFUQ0hfU1RBVFVTX1VOU1BFQ0lGSUVEEAASGAoUTUFUQ0hfU1RBVFVTX1BFTkRJTkcQARIWChJNQVRDSF9TVEFUVVNfUkVBRFkQAhIXChNNQVRDSF9TVEFUVVNfTE9DS0VEEAMSFQoRTUFUQ0hfU1RBVFVTX0xJVkUQBBIVChFNQVRDSF9TVEFUVVNfRE9ORRAFKnIKD01hdGNoUmVzdWx0S2luZBIhCh1NQVRDSF9SRVNVTFRfS0lORF9VTlNQRUNJRklFRBAAEhwKGE1BVENIX1JFU1VMVF9LSU5EX05PUk1BTBABEh4KGk1BVENIX1JFU1VMVF9LSU5EX1dBTEtPVkVSEAIqWwoJTWF0Y2hLaW5kEhoKFk1BVENIX0tJTkRfVU5TUEVDSUZJRUQQABIWChJNQVRDSF9LSU5EX0JSQUNLRVQQARIaChZNQVRDSF9LSU5EX1RISVJEX1BMQUNFEAIqrgEKD1Zpb2xhdGlvblJ1bGluZxIgChxWSU9MQVRJT05fUlVMSU5HX1VOU1BFQ0lGSUVEEAASHAoYVklPTEFUSU9OX1JVTElOR19XQVJOSU5HEAESHwobVklPTEFUSU9OX1JVTElOR19ST1VORF9MT1NTEAISHwobVklPTEFUSU9OX1JVTElOR19NQVRDSF9MT1NTEAMSGQoVVklPTEFUSU9OX1JVTElOR19OT05FEAQqggEKDFBsYXllclN0YXR1cxIdChlQTEFZRVJfU1RBVFVTX1VOU1BFQ0lGSUVEEAASGAoUUExBWUVSX1NUQVRVU19BQ1RJVkUQARIcChhQTEFZRVJfU1RBVFVTX0VMSU1JTkFURUQQAhIbChdQTEFZRVJfU1RBVFVTX1dJVEhEUkFXThADKugBChBIYW5kaWNhcENhdGVnb3J5EiEKHUhBTkRJQ0FQX0NBVEVHT1JZX1VOU1BFQ0lGSUVEEAASHAoYSEFORElDQVBfQ0FURUdPUllfV0VBUE9OEAESGwoXSEFORElDQVBfQ0FURUdPUllfU0tJTEwQAhIdChlIQU5ESUNBUF9DQVRFR09SWV9ERUZFTlNFEAMSHAoYSEFORElDQVBfQ0FURUdPUllfUE9JU09OEAQSHQoZSEFORElDQVBfQ0FURUdPUllfVklDVE9SWRAFEhoKFkhBTkRJQ0FQX0NBVEVHT1JZX1JVTEUQBkJAWj5naXRodWIuY29tL2Rhbmljb3RlY2gvaGVzdGlhL2dlbi9oZXN0aWEvYWN0aXZpdHkvdjE7YWN0aXZpdHl2MWIGcHJvdG8z", [file_google_protobuf_timestamp]);
 
 /**
  * Tournament 是一屆賽事的公開檢視。
@@ -91,6 +91,13 @@ export type Tournament = Message<"hestia.activity.v1.Tournament"> & {
    * @generated from field: bool third_place_match = 9;
    */
   thirdPlaceMatch: boolean;
+
+  /**
+   * Current acknowledgement version from tournaments.config.rules_version.
+   *
+   * @generated from field: string rules_version = 10;
+   */
+  rulesVersion: string;
 };
 
 /**
@@ -104,6 +111,46 @@ export const TournamentSchema: GenMessage<Tournament> = /*@__PURE__*/
  * RankInfo 是段位的顯示資料。名稱與境界描述存在 tournaments.config,
  * 逐屆可調措辭 —— 所以由伺服器給,前端不要自己寫死中文。
  *
+ * @generated from message hestia.activity.v1.CharacterConfig
+ */
+export type CharacterConfig = Message<"hestia.activity.v1.CharacterConfig"> & {
+  /**
+   * @generated from field: string style = 1;
+   */
+  style: string;
+
+  /**
+   * @generated from field: string weapon = 2;
+   */
+  weapon: string;
+
+  /**
+   * @generated from field: string equipment = 3;
+   */
+  equipment: string;
+
+  /**
+   * @generated from field: string arts = 4;
+   */
+  arts: string;
+
+  /**
+   * Versioned, validated display snapshot of equipped items at confirmation.
+   * Empty for legacy registrations; never contains the personal warehouse.
+   *
+   * @generated from field: string snapshot_json = 5;
+   */
+  snapshotJson: string;
+};
+
+/**
+ * Describes the message hestia.activity.v1.CharacterConfig.
+ * Use `create(CharacterConfigSchema)` to create a new message.
+ */
+export const CharacterConfigSchema: GenMessage<CharacterConfig> = /*@__PURE__*/
+  messageDesc(file_hestia_activity_v1_common, 1);
+
+/**
  * @generated from message hestia.activity.v1.RankInfo
  */
 export type RankInfo = Message<"hestia.activity.v1.RankInfo"> & {
@@ -139,11 +186,11 @@ export type RankInfo = Message<"hestia.activity.v1.RankInfo"> & {
  * Use `create(RankInfoSchema)` to create a new message.
  */
 export const RankInfoSchema: GenMessage<RankInfo> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 1);
+  messageDesc(file_hestia_activity_v1_common, 2);
 
 /**
  * Player 是一位參賽者的公開檢視。
- *
+ * 
  * 刻意不含通行碼相關的任何東西 —— 連「是否已重新產生過」都不揭露。
  *
  * @generated from message hestia.activity.v1.Player
@@ -195,6 +242,20 @@ export type Player = Message<"hestia.activity.v1.Player"> & {
    * @generated from field: string user_public_id = 7;
    */
   userPublicId: string;
+
+  /**
+   * Confirmed registration loadout, included only in published match/bracket responses.
+   *
+   * @generated from field: hestia.activity.v1.CharacterConfig character = 8;
+   */
+  character?: CharacterConfig | undefined;
+
+  /**
+   * Admin-supplied, normalized JPEG thumbnail. Empty means not provided. Never a Discord avatar.
+   *
+   * @generated from field: string game_avatar_url = 9;
+   */
+  gameAvatarUrl: string;
 };
 
 /**
@@ -202,7 +263,7 @@ export type Player = Message<"hestia.activity.v1.Player"> & {
  * Use `create(PlayerSchema)` to create a new message.
  */
 export const PlayerSchema: GenMessage<Player> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 2);
+  messageDesc(file_hestia_activity_v1_common, 3);
 
 /**
  * Match 是一場比賽的公開檢視。
@@ -321,11 +382,11 @@ export type Match = Message<"hestia.activity.v1.Match"> & {
  * Use `create(MatchSchema)` to create a new message.
  */
 export const MatchSchema: GenMessage<Match> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 3);
+  messageDesc(file_hestia_activity_v1_common, 4);
 
 /**
  * MatchRound 是一個回合。
- *
+ * 
  * 計時器是衍生值:前端算 now() − started_at,伺服器不存倒數狀態。直播頁與
  * 裁判頁看的是同一個 started_at,不會各算各的(grill Q4)。
  *
@@ -364,7 +425,7 @@ export type MatchRound = Message<"hestia.activity.v1.MatchRound"> & {
  * Use `create(MatchRoundSchema)` to create a new message.
  */
 export const MatchRoundSchema: GenMessage<MatchRound> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 4);
+  messageDesc(file_hestia_activity_v1_common, 5);
 
 /**
  * Violation 是一筆違規紀錄(schemas/27)。只記事實,不自動觸發任何後果。
@@ -436,14 +497,14 @@ export type Violation = Message<"hestia.activity.v1.Violation"> & {
  * Use `create(ViolationSchema)` to create a new message.
  */
 export const ViolationSchema: GenMessage<Violation> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 5);
+  messageDesc(file_hestia_activity_v1_common, 6);
 
 /**
  * BracketRound 是對戰表的一輪。
- *
+ * 
  * 手機版是**分輪檢視**而不是縮小的完整樹(視覺規範硬規則 3),
  * 所以資料本來就按輪分組回傳,前端不需要自己 group by。
- *
+ * 
  * 放在 common 而不是 tournament.proto,是因為裁判抽籤的回應也要用它 ——
  * 讓 judge.proto 去 import tournament.proto 會把「公開讀取」與「後台操作」
  * 兩個服務綁在一起,那條依賴沒有理由存在。
@@ -477,7 +538,7 @@ export type BracketRound = Message<"hestia.activity.v1.BracketRound"> & {
  * Use `create(BracketRoundSchema)` to create a new message.
  */
 export const BracketRoundSchema: GenMessage<BracketRound> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 6);
+  messageDesc(file_hestia_activity_v1_common, 7);
 
 /**
  * HandicapItem 是一個可購買的讓武項目。
@@ -563,11 +624,11 @@ export type HandicapItem = Message<"hestia.activity.v1.HandicapItem"> & {
  * Use `create(HandicapItemSchema)` to create a new message.
  */
 export const HandicapItemSchema: GenMessage<HandicapItem> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 7);
+  messageDesc(file_hestia_activity_v1_common, 8);
 
 /**
  * HandicapSelection 是一次已成立的讓武選擇。
- *
+ * 
  * 每買一次一列 —— 同一項目買三次就是三列,不是一列 qty=3。
  * 這樣每次購買都留有自己的價格快照與指定內容。
  *
@@ -651,11 +712,11 @@ export type HandicapSelection = Message<"hestia.activity.v1.HandicapSelection"> 
  * Use `create(HandicapSelectionSchema)` to create a new message.
  */
 export const HandicapSelectionSchema: GenMessage<HandicapSelection> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 8);
+  messageDesc(file_hestia_activity_v1_common, 9);
 
 /**
  * BpBudget 是某人在某場的讓武預算。
- *
+ * 
  * BP 不是貨幣:每輪依段位差重新發放,該場有效,**賽後作廢**,不跨輪累積、不找零。
  * 所以它不進平台帳本、不走 Ledger、不需冪等鍵。
  *
@@ -700,11 +761,11 @@ export type BpBudget = Message<"hestia.activity.v1.BpBudget"> & {
  * Use `create(BpBudgetSchema)` to create a new message.
  */
 export const BpBudgetSchema: GenMessage<BpBudget> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 9);
+  messageDesc(file_hestia_activity_v1_common, 10);
 
 /**
  * MatchHandicaps 是一場比賽的讓武全貌,封盤後公開。
- *
+ * 
  * 封盤前,選手只看得到自己買的;封盤後,雙方與觀眾都看得到全部 ——
  * 這正是「怕說明不夠清楚讓參加者混亂」的解方,所以這個訊息同時也是
  * Discord 公告的資料來源。
@@ -743,7 +804,7 @@ export type MatchHandicaps = Message<"hestia.activity.v1.MatchHandicaps"> & {
 
   /**
    * 封盤時間;空 = 尚未封盤,此時 selections 只會包含請求者自己的。
-   *
+   * 
    * 唯一的例外是 JudgeService.ReviewHandicap:裁判在封盤前也拿得到完整內容
    * (場上要他執行的規則就寫在那些項目裡)。所以**不要拿 locked_at 為空
    * 去推論「這份內容還是秘密」**—— 它只說明這場封盤了沒有。
@@ -758,11 +819,11 @@ export type MatchHandicaps = Message<"hestia.activity.v1.MatchHandicaps"> & {
  * Use `create(MatchHandicapsSchema)` to create a new message.
  */
 export const MatchHandicapsSchema: GenMessage<MatchHandicaps> = /*@__PURE__*/
-  messageDesc(file_hestia_activity_v1_common, 10);
+  messageDesc(file_hestia_activity_v1_common, 11);
 
 /**
  * Rank 是試鋒段位。**數值即 rank_level**,由低至高。
- *
+ * 
  * 段位不是榮譽排名,唯一用途是衡量雙方實力差距以決定讓武 BP:
  * 每差一段,低段位者得 8 BP;高段位者永不獲得反向補償。
  *
@@ -880,13 +941,13 @@ export const TournamentPhaseSchema: GenEnum<TournamentPhase> = /*@__PURE__*/
 
 /**
  * MatchStatus 是單場狀態。讓武與下注是**兩條不同的時間線**:
- *
+ * 
  *   PENDING  對手未齊    讓武 ✗  下注 ✗
  *   READY    已開盤      讓武 ✓  下注 ✓
  *   LOCKED   讓武已封盤  讓武 ✗  下注 ✓
  *   LIVE     比賽中      讓武 ✗  下注 ✗
  *   DONE     已分勝負    讓武 ✗  下注 ✗
- *
+ * 
  * 讓武要早收(對手需要時間適應被施加的限制),下注可以開到開賽前一刻。
  *
  * @generated from enum hestia.activity.v1.MatchStatus
@@ -960,7 +1021,7 @@ export const MatchResultKindSchema: GenEnum<MatchResultKind> = /*@__PURE__*/
 
 /**
  * MatchKind 區分晉級樹上的一場與季軍戰。
- *
+ * 
  * 季軍戰(schemas/20,grill Q15)不屬於晉級樹:準決賽兩位敗者加打一場,
  * 勝者不晉級。它是一場普通比賽 —— 讓武、下注、設定確認、違規那一整套完全適用。
  *
@@ -1064,7 +1125,7 @@ export const PlayerStatusSchema: GenEnum<PlayerStatus> = /*@__PURE__*/
 
 /**
  * HandicapCategory 是讓武項目的六大分類。
- *
+ * 
  * 系統**刻意不做互斥檢查**:只要 BP 夠就能買,同一項目也能重複買。
  * VICTORY 類同時選多項會互相矛盾(例如「撐過 90 秒即獲勝」+「時間結束即勝利」),
  * 那由裁判臨場判 —— 前端只給非阻擋式提示,不擋購買。

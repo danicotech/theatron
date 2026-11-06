@@ -2,41 +2,16 @@
 // @generated from file hestia/activity/v1/signup.proto (package hestia.activity.v1, syntax proto3)
 /* eslint-disable */
 
-// 報名與選手登入(schemas/20、26)。
-//
-// ── 為什麼不用平台帳號 ──────────────────────────────────────────
-//
-// 報名**不需要**平台帳號。門檻要夠低:百業的成員未必都綁過 Discord OAuth,
-// 而「先去登入再回來報名」會直接勸退一部分人。
-//
-// 代價是活動層要自己認一組身分。這造成雙軌:
-//   選手    → 遊戲ID → 活動層 session
-//   下注者  → 平台帳號 Bearer → 要動平台代幣
-// 兩者可以是同一人:選手事後 BindPlatformAccount 即可。領獎**必須**先綁。
-//
-// ── 登入只要遊戲ID(2026-09-13 定案,推翻先前的通行碼登入)──────
-//
-// 報名只有 game_id 必填,登入也只要 game_id —— 沒有通行碼這一步了。
-//
-// 代價是清楚的而且是被接受的:遊戲ID 全服唯一且公開(對戰表上就印著),
-// 所以任何人知道某位選手的遊戲ID 就能以他的身分登入、花掉他的 BP、
-// 改他的讓武選擇。換來的是報名到登入之間沒有任何要抄、會抄錯、會弄丟的東西。
-//
-// 唯一的門鎖是**狀態**:只有 status = ACTIVE 的選手登得進來。棄賽
-// (JudgeService.WithdrawPlayer)因此同時是「把這個人擋在外面」的手段,
-// 不只是賽程上的處置;已淘汰者同樣登不進來。三種失敗(查無此 ID、
-// 非 ACTIVE、格式不合)對呼叫端是**同一個**錯誤,不做任何區分。
-//
-// 通行碼沒有消失,只是不再是給選手看的東西:tournament_players.passcode_hash
-// 照舊產生並寫入(NOT NULL),它的同伴 passcode_issued_at 則是**已發出的
-// session 的作廢依據**。裁判的「重新產生通行碼」會把這個人現在所有的
-// session 踢掉,但他可以立刻用遊戲ID 再進來 —— 那是「踢下線」,不是
-// 「擋在外面」。要擋在外面只有棄賽一條路,而棄賽單獨就夠(它同時讓
-// 現有 session 失效)。
+// 帳號註冊由 platform.AuthService.RegisterMember 負責。
+// Register 與 Login 需要已登入的會員帳號；遊戲 ID 只識別報名選手，不是憑證。
+// Login 只取得目前帳號擁有且為 ACTIVE 的報名，換發獨立活動 session。
+// 舊版未綁定選手不能僅憑公開的遊戲 ID 自動冒領，須經人工核實後綁定。
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
 import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
-import type { Match, Player, Rank, Tournament } from "./common_pb";
+import type { Timestamp } from "@bufbuild/protobuf/wkt";
+import { file_google_protobuf_timestamp } from "@bufbuild/protobuf/wkt";
+import type { CharacterConfig, Match, Player, Rank, Tournament } from "./common_pb";
 import { file_hestia_activity_v1_common } from "./common_pb";
 import type { Message } from "@bufbuild/protobuf";
 
@@ -44,7 +19,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file hestia/activity/v1/signup.proto.
  */
 export const file_hestia_activity_v1_signup: GenFile = /*@__PURE__*/
-  fileDesc("Ch9oZXN0aWEvYWN0aXZpdHkvdjEvc2lnbnVwLnByb3RvEhJoZXN0aWEuYWN0aXZpdHkudjEi8wEKD1JlZ2lzdGVyUmVxdWVzdBIXCg90b3VybmFtZW50X3NsdWcYASABKAkSDwoHZ2FtZV9pZBgCIAEoCRIUCgxkaXNwbGF5X25hbWUYAyABKAkSFAoMZGlzY29yZF9uYW1lGAQgASgJEjEKD3NlbGZfcmF0ZWRfcmFuaxgFIAEoDjIYLmhlc3RpYS5hY3Rpdml0eS52MS5SYW5rEhMKC2xhZGRlcl9yYW5rGAYgASgJEhQKDGxhZGRlcl9zY29yZRgHIAEoBRIRCglhcnRzX25vdGUYCCABKAkSGQoRYXZhaWxhYmlsaXR5X25vdGUYCSABKAkimQEKEFJlZ2lzdGVyUmVzcG9uc2USKgoGcGxheWVyGAEgASgLMhouaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllchIYChByZXR1cm5pbmdfZmVuY2VyGAMgASgIEi8KDXByZXZpb3VzX3JhbmsYBCABKA4yGC5oZXN0aWEuYWN0aXZpdHkudjEuUmFua0oECAIQA1IIcGFzc2NvZGUiSAoMTG9naW5SZXF1ZXN0EhcKD3RvdXJuYW1lbnRfc2x1ZxgBIAEoCRIPCgdnYW1lX2lkGAIgASgJSgQIAxAEUghwYXNzY29kZSI7Cg1Mb2dpblJlc3BvbnNlEioKBnBsYXllchgBIAEoCzIaLmhlc3RpYS5hY3Rpdml0eS52MS5QbGF5ZXIiDwoNTG9nb3V0UmVxdWVzdCIQCg5Mb2dvdXRSZXNwb25zZSIUChJHZXRNeVBsYXllclJlcXVlc3Qi+AEKE0dldE15UGxheWVyUmVzcG9uc2USKgoGcGxheWVyGAEgASgLMhouaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllchIyCgp0b3VybmFtZW50GAIgASgLMh4uaGVzdGlhLmFjdGl2aXR5LnYxLlRvdXJuYW1lbnQSNQoNY3VycmVudF9tYXRjaBgDIAEoCzIZLmhlc3RpYS5hY3Rpdml0eS52MS5NYXRjaEgAiAEBEjgKDHJlZ2lzdHJhdGlvbhgEIAEoCzIiLmhlc3RpYS5hY3Rpdml0eS52MS5NeVJlZ2lzdHJhdGlvbkIQCg5fY3VycmVudF9tYXRjaCLIAQoOTXlSZWdpc3RyYXRpb24SFAoMZGlzcGxheV9uYW1lGAEgASgJEhQKDGRpc2NvcmRfbmFtZRgCIAEoCRIxCg9zZWxmX3JhdGVkX3JhbmsYAyABKA4yGC5oZXN0aWEuYWN0aXZpdHkudjEuUmFuaxITCgtsYWRkZXJfcmFuaxgEIAEoCRIUCgxsYWRkZXJfc2NvcmUYBSABKAUSEQoJYXJ0c19ub3RlGAYgASgJEhkKEWF2YWlsYWJpbGl0eV9ub3RlGAcgASgJIlUKGVVwZGF0ZVJlZ2lzdHJhdGlvblJlcXVlc3QSOAoMcmVnaXN0cmF0aW9uGAEgASgLMiIuaGVzdGlhLmFjdGl2aXR5LnYxLk15UmVnaXN0cmF0aW9uIoIBChpVcGRhdGVSZWdpc3RyYXRpb25SZXNwb25zZRIqCgZwbGF5ZXIYASABKAsyGi5oZXN0aWEuYWN0aXZpdHkudjEuUGxheWVyEjgKDHJlZ2lzdHJhdGlvbhgCIAEoCzIiLmhlc3RpYS5hY3Rpdml0eS52MS5NeVJlZ2lzdHJhdGlvbiIcChpCaW5kUGxhdGZvcm1BY2NvdW50UmVxdWVzdCJJChtCaW5kUGxhdGZvcm1BY2NvdW50UmVzcG9uc2USKgoGcGxheWVyGAEgASgLMhouaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllcjLeBAoNU2lnbnVwU2VydmljZRJXCghSZWdpc3RlchIjLmhlc3RpYS5hY3Rpdml0eS52MS5SZWdpc3RlclJlcXVlc3QaJC5oZXN0aWEuYWN0aXZpdHkudjEuUmVnaXN0ZXJSZXNwb25zZSIAEk4KBUxvZ2luEiAuaGVzdGlhLmFjdGl2aXR5LnYxLkxvZ2luUmVxdWVzdBohLmhlc3RpYS5hY3Rpdml0eS52MS5Mb2dpblJlc3BvbnNlIgASUQoGTG9nb3V0EiEuaGVzdGlhLmFjdGl2aXR5LnYxLkxvZ291dFJlcXVlc3QaIi5oZXN0aWEuYWN0aXZpdHkudjEuTG9nb3V0UmVzcG9uc2UiABJgCgtHZXRNeVBsYXllchImLmhlc3RpYS5hY3Rpdml0eS52MS5HZXRNeVBsYXllclJlcXVlc3QaJy5oZXN0aWEuYWN0aXZpdHkudjEuR2V0TXlQbGF5ZXJSZXNwb25zZSIAEnUKElVwZGF0ZVJlZ2lzdHJhdGlvbhItLmhlc3RpYS5hY3Rpdml0eS52MS5VcGRhdGVSZWdpc3RyYXRpb25SZXF1ZXN0Gi4uaGVzdGlhLmFjdGl2aXR5LnYxLlVwZGF0ZVJlZ2lzdHJhdGlvblJlc3BvbnNlIgASeAoTQmluZFBsYXRmb3JtQWNjb3VudBIuLmhlc3RpYS5hY3Rpdml0eS52MS5CaW5kUGxhdGZvcm1BY2NvdW50UmVxdWVzdBovLmhlc3RpYS5hY3Rpdml0eS52MS5CaW5kUGxhdGZvcm1BY2NvdW50UmVzcG9uc2UiAEJAWj5naXRodWIuY29tL2Rhbmljb3RlY2gvaGVzdGlhL2dlbi9oZXN0aWEvYWN0aXZpdHkvdjE7YWN0aXZpdHl2MWIGcHJvdG8z", [file_hestia_activity_v1_common]);
+  fileDesc("Ch9oZXN0aWEvYWN0aXZpdHkvdjEvc2lnbnVwLnByb3RvEhJoZXN0aWEuYWN0aXZpdHkudjEiywIKD1JlZ2lzdGVyUmVxdWVzdBIXCg90b3VybmFtZW50X3NsdWcYASABKAkSDwoHZ2FtZV9pZBgCIAEoCRIUCgxkaXNwbGF5X25hbWUYAyABKAkSFAoMZGlzY29yZF9uYW1lGAQgASgJEjEKD3NlbGZfcmF0ZWRfcmFuaxgFIAEoDjIYLmhlc3RpYS5hY3Rpdml0eS52MS5SYW5rEhMKC2xhZGRlcl9yYW5rGAYgASgJEhQKDGxhZGRlcl9zY29yZRgHIAEoBRIRCglhcnRzX25vdGUYCCABKAkSGQoRYXZhaWxhYmlsaXR5X25vdGUYCSABKAkSNgoJY2hhcmFjdGVyGAogASgLMiMuaGVzdGlhLmFjdGl2aXR5LnYxLkNoYXJhY3RlckNvbmZpZxIeChZhY2NlcHRlZF9ydWxlc192ZXJzaW9uGAsgASgJIpkBChBSZWdpc3RlclJlc3BvbnNlEioKBnBsYXllchgBIAEoCzIaLmhlc3RpYS5hY3Rpdml0eS52MS5QbGF5ZXISGAoQcmV0dXJuaW5nX2ZlbmNlchgDIAEoCBIvCg1wcmV2aW91c19yYW5rGAQgASgOMhguaGVzdGlhLmFjdGl2aXR5LnYxLlJhbmtKBAgCEANSCHBhc3Njb2RlIkgKDExvZ2luUmVxdWVzdBIXCg90b3VybmFtZW50X3NsdWcYASABKAkSDwoHZ2FtZV9pZBgCIAEoCUoECAMQBFIIcGFzc2NvZGUiOwoNTG9naW5SZXNwb25zZRIqCgZwbGF5ZXIYASABKAsyGi5oZXN0aWEuYWN0aXZpdHkudjEuUGxheWVyIg8KDUxvZ291dFJlcXVlc3QiEAoOTG9nb3V0UmVzcG9uc2UiFAoSR2V0TXlQbGF5ZXJSZXF1ZXN0IvgBChNHZXRNeVBsYXllclJlc3BvbnNlEioKBnBsYXllchgBIAEoCzIaLmhlc3RpYS5hY3Rpdml0eS52MS5QbGF5ZXISMgoKdG91cm5hbWVudBgCIAEoCzIeLmhlc3RpYS5hY3Rpdml0eS52MS5Ub3VybmFtZW50EjUKDWN1cnJlbnRfbWF0Y2gYAyABKAsyGS5oZXN0aWEuYWN0aXZpdHkudjEuTWF0Y2hIAIgBARI4CgxyZWdpc3RyYXRpb24YBCABKAsyIi5oZXN0aWEuYWN0aXZpdHkudjEuTXlSZWdpc3RyYXRpb25CEAoOX2N1cnJlbnRfbWF0Y2gi1wIKDk15UmVnaXN0cmF0aW9uEhQKDGRpc3BsYXlfbmFtZRgBIAEoCRIUCgxkaXNjb3JkX25hbWUYAiABKAkSMQoPc2VsZl9yYXRlZF9yYW5rGAMgASgOMhguaGVzdGlhLmFjdGl2aXR5LnYxLlJhbmsSEwoLbGFkZGVyX3JhbmsYBCABKAkSFAoMbGFkZGVyX3Njb3JlGAUgASgFEhEKCWFydHNfbm90ZRgGIAEoCRIZChFhdmFpbGFiaWxpdHlfbm90ZRgHIAEoCRI2CgljaGFyYWN0ZXIYCCABKAsyIy5oZXN0aWEuYWN0aXZpdHkudjEuQ2hhcmFjdGVyQ29uZmlnEh4KFmFjY2VwdGVkX3J1bGVzX3ZlcnNpb24YCSABKAkSNQoRcnVsZXNfYWNjZXB0ZWRfYXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIlUKGVVwZGF0ZVJlZ2lzdHJhdGlvblJlcXVlc3QSOAoMcmVnaXN0cmF0aW9uGAEgASgLMiIuaGVzdGlhLmFjdGl2aXR5LnYxLk15UmVnaXN0cmF0aW9uIoIBChpVcGRhdGVSZWdpc3RyYXRpb25SZXNwb25zZRIqCgZwbGF5ZXIYASABKAsyGi5oZXN0aWEuYWN0aXZpdHkudjEuUGxheWVyEjgKDHJlZ2lzdHJhdGlvbhgCIAEoCzIiLmhlc3RpYS5hY3Rpdml0eS52MS5NeVJlZ2lzdHJhdGlvbiIcChpCaW5kUGxhdGZvcm1BY2NvdW50UmVxdWVzdCJJChtCaW5kUGxhdGZvcm1BY2NvdW50UmVzcG9uc2USKgoGcGxheWVyGAEgASgLMhouaGVzdGlhLmFjdGl2aXR5LnYxLlBsYXllcjLeBAoNU2lnbnVwU2VydmljZRJXCghSZWdpc3RlchIjLmhlc3RpYS5hY3Rpdml0eS52MS5SZWdpc3RlclJlcXVlc3QaJC5oZXN0aWEuYWN0aXZpdHkudjEuUmVnaXN0ZXJSZXNwb25zZSIAEk4KBUxvZ2luEiAuaGVzdGlhLmFjdGl2aXR5LnYxLkxvZ2luUmVxdWVzdBohLmhlc3RpYS5hY3Rpdml0eS52MS5Mb2dpblJlc3BvbnNlIgASUQoGTG9nb3V0EiEuaGVzdGlhLmFjdGl2aXR5LnYxLkxvZ291dFJlcXVlc3QaIi5oZXN0aWEuYWN0aXZpdHkudjEuTG9nb3V0UmVzcG9uc2UiABJgCgtHZXRNeVBsYXllchImLmhlc3RpYS5hY3Rpdml0eS52MS5HZXRNeVBsYXllclJlcXVlc3QaJy5oZXN0aWEuYWN0aXZpdHkudjEuR2V0TXlQbGF5ZXJSZXNwb25zZSIAEnUKElVwZGF0ZVJlZ2lzdHJhdGlvbhItLmhlc3RpYS5hY3Rpdml0eS52MS5VcGRhdGVSZWdpc3RyYXRpb25SZXF1ZXN0Gi4uaGVzdGlhLmFjdGl2aXR5LnYxLlVwZGF0ZVJlZ2lzdHJhdGlvblJlc3BvbnNlIgASeAoTQmluZFBsYXRmb3JtQWNjb3VudBIuLmhlc3RpYS5hY3Rpdml0eS52MS5CaW5kUGxhdGZvcm1BY2NvdW50UmVxdWVzdBovLmhlc3RpYS5hY3Rpdml0eS52MS5CaW5kUGxhdGZvcm1BY2NvdW50UmVzcG9uc2UiAEJAWj5naXRodWIuY29tL2Rhbmljb3RlY2gvaGVzdGlhL2dlbi9oZXN0aWEvYWN0aXZpdHkvdjE7YWN0aXZpdHl2MWIGcHJvdG8z", [file_google_protobuf_timestamp, file_hestia_activity_v1_common]);
 
 /**
  * RegisterRequest 是一份報名表。
@@ -123,6 +98,18 @@ export type RegisterRequest = Message<"hestia.activity.v1.RegisterRequest"> & {
    * @generated from field: string availability_note = 9;
    */
   availabilityNote: string;
+
+  /**
+   * @generated from field: hestia.activity.v1.CharacterConfig character = 10;
+   */
+  character?: CharacterConfig | undefined;
+
+  /**
+   * Empty is allowed for legacy clients and records no acknowledgement.
+   *
+   * @generated from field: string accepted_rules_version = 11;
+   */
+  acceptedRulesVersion: string;
 };
 
 /**
@@ -351,6 +338,25 @@ export type MyRegistration = Message<"hestia.activity.v1.MyRegistration"> & {
    * @generated from field: string availability_note = 7;
    */
   availabilityNote: string;
+
+  /**
+   * @generated from field: hestia.activity.v1.CharacterConfig character = 8;
+   */
+  character?: CharacterConfig | undefined;
+
+  /**
+   * If supplied, must match Tournament.rules_version.
+   *
+   * @generated from field: string accepted_rules_version = 9;
+   */
+  acceptedRulesVersion: string;
+
+  /**
+   * Output only. The server ignores client-provided timestamps.
+   *
+   * @generated from field: google.protobuf.Timestamp rules_accepted_at = 10;
+   */
+  rulesAcceptedAt?: Timestamp | undefined;
 };
 
 /**
@@ -464,7 +470,7 @@ export const SignupService: GenService<{
     output: typeof RegisterResponseSchema;
   },
   /**
-   * 用遊戲ID 換發活動層 session。沒有通行碼,只有 ACTIVE 的選手登得進來(見檔頭)。
+   * 以目前會員帳號取得自己的報名並換發活動層 session。
    *
    * @generated from rpc hestia.activity.v1.SignupService.Login
    */

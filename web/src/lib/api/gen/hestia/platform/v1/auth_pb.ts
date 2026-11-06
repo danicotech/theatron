@@ -2,9 +2,9 @@
 // @generated from file hestia/platform/v1/auth.proto (package hestia.platform.v1, syntax proto3)
 /* eslint-disable */
 
-// 登入:OAuth2(第一個 provider 是 Discord)為主,另有一條本地憑證的路
-// (LocalLogin,identities.provider = 'local'),見 schemas/02-identity.md。
-// 本檔只是契約——handler 目前一律回 unimplemented,實作由 identity 層補上。
+// 會員以自選帳號與密碼註冊/登入(provider=member)，Email 存於 users。
+// discord_username 沿用既有契約名稱，代表自填帳號，不是已驗證的 Discord 身分。
+// OAuth 與管理員 LocalLogin 保留各自的驗證及權限邊界。
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
 import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
@@ -18,7 +18,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file hestia/platform/v1/auth.proto.
  */
 export const file_hestia_platform_v1_auth: GenFile = /*@__PURE__*/
-  fileDesc("Ch1oZXN0aWEvcGxhdGZvcm0vdjEvYXV0aC5wcm90bxISaGVzdGlhLnBsYXRmb3JtLnYxIskBCgdTZXNzaW9uEhQKDGFjY2Vzc190b2tlbhgBIAEoCRI7ChdhY2Nlc3NfdG9rZW5fZXhwaXJlc19hdBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASFQoNcmVmcmVzaF90b2tlbhgDIAEoCRI8ChhyZWZyZXNoX3Rva2VuX2V4cGlyZXNfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhYKDnVzZXJfcHVibGljX2lkGAUgASgJIjAKGFN0YXJ0RGlzY29yZExvZ2luUmVxdWVzdBIUCgxyZWRpcmVjdF91cmkYASABKAkiQQoZU3RhcnREaXNjb3JkTG9naW5SZXNwb25zZRIVCg1hdXRob3JpemVfdXJsGAEgASgJEg0KBXN0YXRlGAIgASgJIjoKG0NvbXBsZXRlRGlzY29yZExvZ2luUmVxdWVzdBIMCgRjb2RlGAEgASgJEg0KBXN0YXRlGAIgASgJIn4KHENvbXBsZXRlRGlzY29yZExvZ2luUmVzcG9uc2USLAoHc2Vzc2lvbhgBIAEoCzIbLmhlc3RpYS5wbGF0Zm9ybS52MS5TZXNzaW9uEjAKB3Byb2ZpbGUYAiABKAsyHy5oZXN0aWEucGxhdGZvcm0udjEuVXNlclByb2ZpbGUiOQoRTG9jYWxMb2dpblJlcXVlc3QSEgoKbG9naW5fbmFtZRgBIAEoCRIQCghwYXNzY29kZRgCIAEoCSJ0ChJMb2NhbExvZ2luUmVzcG9uc2USLAoHc2Vzc2lvbhgBIAEoCzIbLmhlc3RpYS5wbGF0Zm9ybS52MS5TZXNzaW9uEjAKB3Byb2ZpbGUYAiABKAsyHy5oZXN0aWEucGxhdGZvcm0udjEuVXNlclByb2ZpbGUiLgoVUmVmcmVzaFNlc3Npb25SZXF1ZXN0EhUKDXJlZnJlc2hfdG9rZW4YASABKAkiRgoWUmVmcmVzaFNlc3Npb25SZXNwb25zZRIsCgdzZXNzaW9uGAEgASgLMhsuaGVzdGlhLnBsYXRmb3JtLnYxLlNlc3Npb24iJgoNTG9nb3V0UmVxdWVzdBIVCg1yZWZyZXNoX3Rva2VuGAEgASgJIhAKDkxvZ291dFJlc3BvbnNlMpEECgtBdXRoU2VydmljZRJwChFTdGFydERpc2NvcmRMb2dpbhIsLmhlc3RpYS5wbGF0Zm9ybS52MS5TdGFydERpc2NvcmRMb2dpblJlcXVlc3QaLS5oZXN0aWEucGxhdGZvcm0udjEuU3RhcnREaXNjb3JkTG9naW5SZXNwb25zZRJ5ChRDb21wbGV0ZURpc2NvcmRMb2dpbhIvLmhlc3RpYS5wbGF0Zm9ybS52MS5Db21wbGV0ZURpc2NvcmRMb2dpblJlcXVlc3QaMC5oZXN0aWEucGxhdGZvcm0udjEuQ29tcGxldGVEaXNjb3JkTG9naW5SZXNwb25zZRJbCgpMb2NhbExvZ2luEiUuaGVzdGlhLnBsYXRmb3JtLnYxLkxvY2FsTG9naW5SZXF1ZXN0GiYuaGVzdGlhLnBsYXRmb3JtLnYxLkxvY2FsTG9naW5SZXNwb25zZRJnCg5SZWZyZXNoU2Vzc2lvbhIpLmhlc3RpYS5wbGF0Zm9ybS52MS5SZWZyZXNoU2Vzc2lvblJlcXVlc3QaKi5oZXN0aWEucGxhdGZvcm0udjEuUmVmcmVzaFNlc3Npb25SZXNwb25zZRJPCgZMb2dvdXQSIS5oZXN0aWEucGxhdGZvcm0udjEuTG9nb3V0UmVxdWVzdBoiLmhlc3RpYS5wbGF0Zm9ybS52MS5Mb2dvdXRSZXNwb25zZUJAWj5naXRodWIuY29tL2Rhbmljb3RlY2gvaGVzdGlhL2dlbi9oZXN0aWEvcGxhdGZvcm0vdjE7cGxhdGZvcm12MWIGcHJvdG8z", [file_google_protobuf_timestamp, file_hestia_platform_v1_common]);
+  fileDesc("Ch1oZXN0aWEvcGxhdGZvcm0vdjEvYXV0aC5wcm90bxISaGVzdGlhLnBsYXRmb3JtLnYxIskBCgdTZXNzaW9uEhQKDGFjY2Vzc190b2tlbhgBIAEoCRI7ChdhY2Nlc3NfdG9rZW5fZXhwaXJlc19hdBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASFQoNcmVmcmVzaF90b2tlbhgDIAEoCRI8ChhyZWZyZXNoX3Rva2VuX2V4cGlyZXNfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhYKDnVzZXJfcHVibGljX2lkGAUgASgJIjAKGFN0YXJ0RGlzY29yZExvZ2luUmVxdWVzdBIUCgxyZWRpcmVjdF91cmkYASABKAkiQQoZU3RhcnREaXNjb3JkTG9naW5SZXNwb25zZRIVCg1hdXRob3JpemVfdXJsGAEgASgJEg0KBXN0YXRlGAIgASgJIjoKG0NvbXBsZXRlRGlzY29yZExvZ2luUmVxdWVzdBIMCgRjb2RlGAEgASgJEg0KBXN0YXRlGAIgASgJIn4KHENvbXBsZXRlRGlzY29yZExvZ2luUmVzcG9uc2USLAoHc2Vzc2lvbhgBIAEoCzIbLmhlc3RpYS5wbGF0Zm9ybS52MS5TZXNzaW9uEjAKB3Byb2ZpbGUYAiABKAsyHy5oZXN0aWEucGxhdGZvcm0udjEuVXNlclByb2ZpbGUiOQoRTG9jYWxMb2dpblJlcXVlc3QSEgoKbG9naW5fbmFtZRgBIAEoCRIQCghwYXNzY29kZRgCIAEoCSJ0ChJMb2NhbExvZ2luUmVzcG9uc2USLAoHc2Vzc2lvbhgBIAEoCzIbLmhlc3RpYS5wbGF0Zm9ybS52MS5TZXNzaW9uEjAKB3Byb2ZpbGUYAiABKAsyHy5oZXN0aWEucGxhdGZvcm0udjEuVXNlclByb2ZpbGUiLgoVUmVmcmVzaFNlc3Npb25SZXF1ZXN0EhUKDXJlZnJlc2hfdG9rZW4YASABKAkiRgoWUmVmcmVzaFNlc3Npb25SZXNwb25zZRIsCgdzZXNzaW9uGAEgASgLMhsuaGVzdGlhLnBsYXRmb3JtLnYxLlNlc3Npb24iJgoNTG9nb3V0UmVxdWVzdBIVCg1yZWZyZXNoX3Rva2VuGAEgASgJIhAKDkxvZ291dFJlc3BvbnNlIo4BCg1NZW1iZXJQcm9maWxlEhEKCXB1YmxpY19pZBgBIAEoCRIUCgxkaXNwbGF5X25hbWUYAiABKAkSGAoQZGlzY29yZF91c2VybmFtZRgDIAEoCRISCgpkaXNjb3JkX2lkGAQgASgJEhIKCmNhbl9tYW5hZ2UYBSABKAgSEgoKYXZhdGFyX3VybBgGIAEoCSJoChVSZWdpc3Rlck1lbWJlclJlcXVlc3QSFAoMZGlzcGxheV9uYW1lGAEgASgJEhgKEGRpc2NvcmRfdXNlcm5hbWUYAiABKAkSEAoIcGFzc3dvcmQYAyABKAkSDQoFZW1haWwYBCABKAkiQAoSTG9naW5NZW1iZXJSZXF1ZXN0EhgKEGRpc2NvcmRfdXNlcm5hbWUYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiQwoOTWVtYmVyUmVzcG9uc2USMQoGbWVtYmVyGAEgASgLMiEuaGVzdGlhLnBsYXRmb3JtLnYxLk1lbWJlclByb2ZpbGUiEgoQR2V0TWVtYmVyUmVxdWVzdDKkBgoLQXV0aFNlcnZpY2USXwoOUmVnaXN0ZXJNZW1iZXISKS5oZXN0aWEucGxhdGZvcm0udjEuUmVnaXN0ZXJNZW1iZXJSZXF1ZXN0GiIuaGVzdGlhLnBsYXRmb3JtLnYxLk1lbWJlclJlc3BvbnNlElkKC0xvZ2luTWVtYmVyEiYuaGVzdGlhLnBsYXRmb3JtLnYxLkxvZ2luTWVtYmVyUmVxdWVzdBoiLmhlc3RpYS5wbGF0Zm9ybS52MS5NZW1iZXJSZXNwb25zZRJVCglHZXRNZW1iZXISJC5oZXN0aWEucGxhdGZvcm0udjEuR2V0TWVtYmVyUmVxdWVzdBoiLmhlc3RpYS5wbGF0Zm9ybS52MS5NZW1iZXJSZXNwb25zZRJwChFTdGFydERpc2NvcmRMb2dpbhIsLmhlc3RpYS5wbGF0Zm9ybS52MS5TdGFydERpc2NvcmRMb2dpblJlcXVlc3QaLS5oZXN0aWEucGxhdGZvcm0udjEuU3RhcnREaXNjb3JkTG9naW5SZXNwb25zZRJ5ChRDb21wbGV0ZURpc2NvcmRMb2dpbhIvLmhlc3RpYS5wbGF0Zm9ybS52MS5Db21wbGV0ZURpc2NvcmRMb2dpblJlcXVlc3QaMC5oZXN0aWEucGxhdGZvcm0udjEuQ29tcGxldGVEaXNjb3JkTG9naW5SZXNwb25zZRJbCgpMb2NhbExvZ2luEiUuaGVzdGlhLnBsYXRmb3JtLnYxLkxvY2FsTG9naW5SZXF1ZXN0GiYuaGVzdGlhLnBsYXRmb3JtLnYxLkxvY2FsTG9naW5SZXNwb25zZRJnCg5SZWZyZXNoU2Vzc2lvbhIpLmhlc3RpYS5wbGF0Zm9ybS52MS5SZWZyZXNoU2Vzc2lvblJlcXVlc3QaKi5oZXN0aWEucGxhdGZvcm0udjEuUmVmcmVzaFNlc3Npb25SZXNwb25zZRJPCgZMb2dvdXQSIS5oZXN0aWEucGxhdGZvcm0udjEuTG9nb3V0UmVxdWVzdBoiLmhlc3RpYS5wbGF0Zm9ybS52MS5Mb2dvdXRSZXNwb25zZUJAWj5naXRodWIuY29tL2Rhbmljb3RlY2gvaGVzdGlhL2dlbi9oZXN0aWEvcGxhdGZvcm0vdjE7cGxhdGZvcm12MWIGcHJvdG8z", [file_google_protobuf_timestamp, file_hestia_platform_v1_common]);
 
 /**
  * Session 是一次登入產生的憑證。
@@ -95,7 +95,7 @@ export type StartDiscordLoginResponse = Message<"hestia.platform.v1.StartDiscord
 
   /**
    * CSRF state,回呼時原樣帶回。
-   *
+   * 
    * 同一個值也會由伺服器寫成 HttpOnly cookie(hestia_oauth_state),
    * 回呼時兩邊必須相符——光有簽章擋不住 login CSRF / session fixation:
    * 簽章只證明「這是我們發的」,不證明「它屬於發起登入的那個瀏覽器」。
@@ -125,7 +125,7 @@ export type CompleteDiscordLoginRequest = Message<"hestia.platform.v1.CompleteDi
 
   /**
    * StartDiscordLogin 發出的 state。
-   *
+   * 
    * 伺服器會同時比對 HttpOnly cookie 裡的同名值,不符(或 cookie 缺失)
    * 一律拒絕(PermissionDenied)。**前端契約**:瀏覽器端的 Connect client
    * 必須設 `credentials: "include"`,否則 cookie 不會被送出,登入永遠失敗。
@@ -166,13 +166,13 @@ export const CompleteDiscordLoginResponseSchema: GenMessage<CompleteDiscordLogin
 
 /**
  * LocalLogin:不經 Discord 的登入(identities.provider = 'local')。
- *
+ * 
  * 為什麼需要:裁判的每一個動作(評段、抽籤、判勝負、發獎)都必須記在平台
  * 帳號上(admin_audit_logs.actor_user_id 是 NOT NULL,權限走 user_roles),
  * 但辦一場賽事不該被迫先去接 Discord。所以這不是「繞過平台帳號」,
  * 是給平台帳號第二種登入方式 —— 發出來的 Session 與 Discord 登入的**完全同型**,
  * 之後每一支 RPC、每一筆稽核都不必分辨來源。
- *
+ * 
  * 帳號**沒有自助註冊**:local 身分只由 `admin create-judge` 建立。
  *
  * @generated from message hestia.platform.v1.LocalLoginRequest
@@ -291,13 +291,167 @@ export const LogoutResponseSchema: GenMessage<LogoutResponse> = /*@__PURE__*/
 /**
  * AuthService 全部方法都不需要 Authorization header(RefreshSession 用
  * refresh_token 自證,Logout 兩者皆可)——認證攔截器對本服務整體豁免。
- *
+ * 
  * **前端契約**:登入流程依賴 HttpOnly cookie(OAuth state 綁瀏覽器),
  * 瀏覽器端的 Connect client 一律要設 `credentials: "include"`。
  *
+ * @generated from message hestia.platform.v1.MemberProfile
+ */
+export type MemberProfile = Message<"hestia.platform.v1.MemberProfile"> & {
+  /**
+   * @generated from field: string public_id = 1;
+   */
+  publicId: string;
+
+  /**
+   * @generated from field: string display_name = 2;
+   */
+  displayName: string;
+
+  /**
+   * @generated from field: string discord_username = 3;
+   */
+  discordUsername: string;
+
+  /**
+   * Verified Discord snowflake, never a self-declared login name.
+   *
+   * @generated from field: string discord_id = 4;
+   */
+  discordId: string;
+
+  /**
+   * UI hint only; every privileged RPC still checks current authorization.
+   *
+   * @generated from field: bool can_manage = 5;
+   */
+  canManage: boolean;
+
+  /**
+   * @generated from field: string avatar_url = 6;
+   */
+  avatarUrl: string;
+};
+
+/**
+ * Describes the message hestia.platform.v1.MemberProfile.
+ * Use `create(MemberProfileSchema)` to create a new message.
+ */
+export const MemberProfileSchema: GenMessage<MemberProfile> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_auth, 11);
+
+/**
+ * @generated from message hestia.platform.v1.RegisterMemberRequest
+ */
+export type RegisterMemberRequest = Message<"hestia.platform.v1.RegisterMemberRequest"> & {
+  /**
+   * @generated from field: string display_name = 1;
+   */
+  displayName: string;
+
+  /**
+   * @generated from field: string discord_username = 2;
+   */
+  discordUsername: string;
+
+  /**
+   * @generated from field: string password = 3;
+   */
+  password: string;
+
+  /**
+   * @generated from field: string email = 4;
+   */
+  email: string;
+};
+
+/**
+ * Describes the message hestia.platform.v1.RegisterMemberRequest.
+ * Use `create(RegisterMemberRequestSchema)` to create a new message.
+ */
+export const RegisterMemberRequestSchema: GenMessage<RegisterMemberRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_auth, 12);
+
+/**
+ * @generated from message hestia.platform.v1.LoginMemberRequest
+ */
+export type LoginMemberRequest = Message<"hestia.platform.v1.LoginMemberRequest"> & {
+  /**
+   * @generated from field: string discord_username = 1;
+   */
+  discordUsername: string;
+
+  /**
+   * @generated from field: string password = 2;
+   */
+  password: string;
+};
+
+/**
+ * Describes the message hestia.platform.v1.LoginMemberRequest.
+ * Use `create(LoginMemberRequestSchema)` to create a new message.
+ */
+export const LoginMemberRequestSchema: GenMessage<LoginMemberRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_auth, 13);
+
+/**
+ * @generated from message hestia.platform.v1.MemberResponse
+ */
+export type MemberResponse = Message<"hestia.platform.v1.MemberResponse"> & {
+  /**
+   * @generated from field: hestia.platform.v1.MemberProfile member = 1;
+   */
+  member?: MemberProfile | undefined;
+};
+
+/**
+ * Describes the message hestia.platform.v1.MemberResponse.
+ * Use `create(MemberResponseSchema)` to create a new message.
+ */
+export const MemberResponseSchema: GenMessage<MemberResponse> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_auth, 14);
+
+/**
+ * @generated from message hestia.platform.v1.GetMemberRequest
+ */
+export type GetMemberRequest = Message<"hestia.platform.v1.GetMemberRequest"> & {
+};
+
+/**
+ * Describes the message hestia.platform.v1.GetMemberRequest.
+ * Use `create(GetMemberRequestSchema)` to create a new message.
+ */
+export const GetMemberRequestSchema: GenMessage<GetMemberRequest> = /*@__PURE__*/
+  messageDesc(file_hestia_platform_v1_auth, 15);
+
+/**
  * @generated from service hestia.platform.v1.AuthService
  */
 export const AuthService: GenService<{
+  /**
+   * @generated from rpc hestia.platform.v1.AuthService.RegisterMember
+   */
+  registerMember: {
+    methodKind: "unary";
+    input: typeof RegisterMemberRequestSchema;
+    output: typeof MemberResponseSchema;
+  },
+  /**
+   * @generated from rpc hestia.platform.v1.AuthService.LoginMember
+   */
+  loginMember: {
+    methodKind: "unary";
+    input: typeof LoginMemberRequestSchema;
+    output: typeof MemberResponseSchema;
+  },
+  /**
+   * @generated from rpc hestia.platform.v1.AuthService.GetMember
+   */
+  getMember: {
+    methodKind: "unary";
+    input: typeof GetMemberRequestSchema;
+    output: typeof MemberResponseSchema;
+  },
   /**
    * @generated from rpc hestia.platform.v1.AuthService.StartDiscordLogin
    */
