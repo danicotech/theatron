@@ -16,7 +16,7 @@
   /* 觸控目標下限。印面本身就比這個大,但整顆按鈕的判定區要一起夠大。 */
   min-block-size: var(--hit-target);
   padding: var(--space-4) clamp(20px, 3vw, 32px) var(--space-4) var(--space-4);
-  border: 1px solid color-mix(in oklab, var(--state-live) 46%, transparent);
+  border: 1px solid color-mix(in oklab, var(--accent-brand) 46%, transparent);
   border-radius: var(--radius-control);
   background-color: color-mix(in oklab, var(--surface-raised) 72%, transparent);
   color: var(--text-primary);
@@ -58,8 +58,8 @@
   pointer-events: none;
   background: radial-gradient(
     circle at var(--ink-x) var(--ink-y),
-    color-mix(in oklab, var(--state-live) 72%, transparent) 0%,
-    color-mix(in oklab, var(--state-live) 38%, transparent)
+    color-mix(in oklab, var(--accent-brand) 72%, transparent) 0%,
+    color-mix(in oklab, var(--accent-brand) 38%, transparent)
       calc(var(--ink-radius) - var(--ink-edge)),
     transparent var(--ink-radius)
   );
@@ -70,7 +70,7 @@
 /* ─────────────────────────────────────────────────────── 狀態 */
 
 .seal[data-state='hover'] {
-  border-color: var(--state-live);
+  border-color: var(--accent-brand);
   background-color: var(--surface-overlay);
 }
 
@@ -82,7 +82,7 @@
 
 /* 蓋完了:印章留在紙上,邊框改成實的朱線。 */
 .seal[data-state='active'] {
-  border-color: var(--state-live);
+  border-color: var(--accent-brand);
 }
 
 .seal[data-state='active'] .face {

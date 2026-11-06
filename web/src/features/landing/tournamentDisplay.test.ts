@@ -6,6 +6,7 @@ import {
   MatchStatus,
   Rank,
   RankInfoSchema,
+  CharacterConfigSchema,
 } from '../../lib/api/gen/hestia/activity/v1/common_pb';
 import { GetBracketResponseSchema } from '../../lib/api/gen/hestia/activity/v1/tournament_pb';
 import { tournamentDisplay } from './tournamentDisplay';
@@ -82,7 +83,18 @@ describe('首頁公開賽程投影', () => {
     });
   });
 
-  it('只傳必要公開欄位，段位優先用伺服器措辭，沒有配裝或身份欄位', () => {
+  it('公開參賽配置跟隨對應選手，不從其他選手補值', () => {
+    const response = bracket();
+    response.players[0]!.character = create(CharacterConfigSchema, {
+      style: '已確認流派',
+      snapshotJson: 'saved-snapshot',
+    });
+    const view = tournamentDisplay('event', { bracket: response, ranks: [], bestOf: 3 });
+    expect(view.players[0]!.character?.snapshotJson).toBe('saved-snapshot');
+    expect(view.players[1]!.character).toBeUndefined();
+  });
+
+  it('只傳必要公開欄位，段位優先用伺服器措辭，不帶會員身份', () => {
     const view = tournamentDisplay('event', {
       bracket: bracket(),
       ranks: [create(RankInfoSchema, { rank: Rank.FEIHUA, name: '本屆飛花' })],

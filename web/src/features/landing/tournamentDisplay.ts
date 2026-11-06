@@ -11,9 +11,17 @@ import type { GetBracketResponse } from '../../lib/api/gen/hestia/activity/v1/to
 export interface TournamentPlayerDisplay {
   id: string;
   name: string;
+  gameAvatarUrl?: string;
   rank: number;
   rankName: string;
   seed: number;
+  character?: {
+    style: string;
+    weapon: string;
+    equipment: string;
+    arts: string;
+    snapshotJson: string;
+  };
 }
 
 export interface TournamentMatchDisplay {
@@ -72,9 +80,21 @@ export function tournamentDisplay(
       return {
         id: player.publicId,
         name: player.displayName,
+        ...(player.gameAvatarUrl ? { gameAvatarUrl: player.gameAvatarUrl } : {}),
         rank,
         rankName: rank ? ranks.find((r) => r.rank === rank)?.name || rankNames[rank]! : '',
         seed: player.seedNo,
+        ...(player.character
+          ? {
+              character: {
+                style: player.character.style,
+                weapon: player.character.weapon,
+                equipment: player.character.equipment,
+                arts: player.character.arts,
+                snapshotJson: player.character.snapshotJson,
+              },
+            }
+          : {}),
       };
     }),
     rounds: bracket.rounds.map((round) => ({

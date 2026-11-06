@@ -39,7 +39,8 @@ export function activityDisplay(
     kind: 'ready',
     phase: state - 1,
     status: statuses[state] ?? '活動階段尚未公布',
-    label: state === TournamentPhase.SIGNUP ? '報名參賽' : bracket ? '查看對戰表' : '查看賽事資訊',
-    href: root + (state === TournamentPhase.SIGNUP ? '/signup' : bracket ? '/bracket' : ''),
+    label: state === TournamentPhase.SIGNUP ? '報名參賽' : bracket ? '查看賽程' : '查看賽事資訊',
+    href:
+      state === TournamentPhase.SIGNUP ? root + '/enroll' : bracket ? '/#schedule' : '/#register',
   };
 }

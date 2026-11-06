@@ -42,7 +42,7 @@ describe('TournamentHome', () => {
     render(<TournamentHome slug="s" />);
     expect(await screen.findByRole('link', { name: '報名參賽' })).toHaveAttribute(
       'href',
-      '/t/s/signup',
+      '/t/s/enroll',
     );
   });
 
@@ -80,7 +80,10 @@ describe('TournamentHome', () => {
 
   it('進站後看得到自己是誰,連到我的報名', async () => {
     api.getTournament.mockResolvedValue(t(TournamentPhase.SIGNUP));
-    api.getMyPlayer.mockResolvedValue({ player: { displayName: '李璃' } });
+    api.getMyPlayer.mockResolvedValue({
+      tournament: { slug: 's' },
+      player: { displayName: '李璃' },
+    });
     render(<TournamentHome slug="s" />);
     expect(await screen.findByRole('link', { name: '我的報名(李璃)' })).toHaveAttribute(
       'href',
@@ -124,3 +127,7 @@ describe('TournamentHome', () => {
     await expectNoAxeViolations(container);
   });
 });
+
+vi.mock('../realtime/useTournamentRealtime', () => ({
+  useTournamentRealtime: () => ({ status: 'ready', revision: 0, ranks: [] }),
+}));

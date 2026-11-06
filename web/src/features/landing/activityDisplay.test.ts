@@ -15,17 +15,17 @@ describe('首頁活動展示狀態', () => {
     expect(activityDisplay('test', 'error').kind).toBe('error');
   });
   it.each([
-    [TournamentPhase.SIGNUP, '報名參賽', '/signup'],
-    [TournamentPhase.SIGNUP_CLOSED, '查看賽事資訊', ''],
-    [TournamentPhase.RANKING, '查看賽事資訊', ''],
-    [TournamentPhase.RANKED, '查看賽事資訊', ''],
-    [TournamentPhase.DRAWING, '查看對戰表', '/bracket'],
-    [TournamentPhase.IN_PROGRESS, '查看對戰表', '/bracket'],
-    [TournamentPhase.FINISHED, '查看對戰表', '/bracket'],
+    [TournamentPhase.SIGNUP, '報名參賽', '/t/test-event/enroll'],
+    [TournamentPhase.SIGNUP_CLOSED, '查看賽事資訊', '/#register'],
+    [TournamentPhase.RANKING, '查看賽事資訊', '/#register'],
+    [TournamentPhase.RANKED, '查看賽事資訊', '/#register'],
+    [TournamentPhase.DRAWING, '查看賽程', '/#schedule'],
+    [TournamentPhase.IN_PROGRESS, '查看賽程', '/#schedule'],
+    [TournamentPhase.FINISHED, '查看賽程', '/#schedule'],
   ] as const)('階段 %s 的文案和目的地一致', (phase, label, suffix) => {
     expect(activityDisplay('test-event', phase)).toMatchObject({
       label,
-      href: `/t/test-event${suffix}`,
+      href: suffix,
       kind: 'ready',
     });
   });

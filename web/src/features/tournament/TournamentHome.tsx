@@ -4,6 +4,8 @@ import { ConnectError } from '@connectrpc/connect';
 import { ChapterHead, InkLink, InkTitle, PaperCard, PhaseTrack, SealStamp } from '@theatron/ui';
 import { useEffect, useState } from 'react';
 
+import { useTournamentRealtime } from '../realtime/useTournamentRealtime';
+import { ConnectionStatus } from '../realtime/ConnectionStatus';
 import { activityApi } from '../../lib/api/activity';
 import type { Tournament } from '../../lib/api/gen/hestia/activity/v1/common_pb';
 import { TournamentPhase } from '../../lib/api/gen/hestia/activity/v1/common_pb';
@@ -31,6 +33,7 @@ export interface TournamentHomeProps {
 const WAR_LETTER = inkMark('ink-war-letter');
 
 export function TournamentHome({ slug }: TournamentHomeProps) {
+  const sync = useTournamentRealtime(slug);
   const [t, setT] = useState<Tournament | null>(null);
   const [me, setMe] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -41,12 +44,12 @@ export function TournamentHome({ slug }: TournamentHomeProps) {
     void activityApi.signup
       .getMyPlayer({})
       .then((res) => {
-        setMe(res.player?.displayName ?? null);
+        setMe(res.tournament?.slug === slug ? (res.player?.displayName ?? null) : null);
       })
       .catch(() => {
         setMe(null);
       });
-  }, []);
+  }, [slug, sync.revision]);
 
   useEffect(() => {
     void activityApi.tournament
@@ -59,6 +62,12 @@ export function TournamentHome({ slug }: TournamentHomeProps) {
       });
   }, [slug]);
 
+  useEffect(() => {
+    if (sync.tournament) {
+      setT(sync.tournament);
+      setError(null);
+    }
+  }, [sync.tournament]);
   if (error !== null) {
     return (
       <p className={styles.error} role="alert">
@@ -70,7 +79,7 @@ export function TournamentHome({ slug }: TournamentHomeProps) {
     return <p className={styles.loading}>讀取賽事…</p>;
   }
 
-  const signupOpen = t.phase === TournamentPhase.SIGNUP;
+  const signupOpen = t.phase === TournamentPhase.SIGNUP && sync.status === 'ready';
   const bracketOpen =
     t.phase === TournamentPhase.DRAWING ||
     t.phase === TournamentPhase.IN_PROGRESS ||
@@ -78,6 +87,7 @@ export function TournamentHome({ slug }: TournamentHomeProps) {
 
   return (
     <div className={styles.page}>
+      <ConnectionStatus slug={slug} state={sync} />
       <ChapterHead number="壹" eyebrow="百業試鋒" title={t.name} />
 
       <PhaseTrack steps={PHASES} current={phaseKey(t.phase)} />
@@ -94,7 +104,7 @@ export function TournamentHome({ slug }: TournamentHomeProps) {
               <InkLink href={`/t/${slug}/me`}>{`我的報名(${me})`}</InkLink>
             )}
             {/* 抽籤開始就有入口:確認前是「還沒公布」的空狀態,不是 404。 */}
-            {bracketOpen ? <InkLink href={`/t/${slug}/bracket`}>對戰表</InkLink> : null}
+            {bracketOpen ? <InkLink href="/#schedule">賽程</InkLink> : null}
             <InkLink href={`/t/${slug}/rules`}>規則與讓武項目</InkLink>
           </nav>
         </section>
@@ -113,11 +123,13 @@ export function TournamentHome({ slug }: TournamentHomeProps) {
           action={
             signupOpen ? (
               /* 紙上唯一的朱紅。對比修正住在 PaperCard 的 --state-live,這裡不再算一次。 */
-              <InkLink href={`/t/${slug}/signup`} tone="vermilion">
+              <InkLink href={`/t/${slug}/enroll`} tone="vermilion">
                 報名參賽
               </InkLink>
             ) : (
-              <span className={styles.paperClosed}>報名已截止</span>
+              <span className={styles.paperClosed}>
+                {t.phase === TournamentPhase.SIGNUP ? '正在同步，稍後即可報名' : '報名已截止'}
+              </span>
             )
           }
           stamp={<SealStamp text="試鋒" />}
@@ -132,7 +144,7 @@ export function TournamentHome({ slug }: TournamentHomeProps) {
 function nowCopy(phase: TournamentPhase): string {
   switch (phase) {
     case TournamentPhase.SIGNUP:
-      return '報名開著。填一個遊戲ID 就算報名,其餘欄位是給御風羽評段用的材料。';
+      return '報名開著。填寫遊戲ID 並確認規則即可報名，其餘欄位提供御風羽評段參考。';
     case TournamentPhase.SIGNUP_CLOSED:
       return '報名已截止。御風羽正在逐人評定段位。';
     case TournamentPhase.RANKING:
