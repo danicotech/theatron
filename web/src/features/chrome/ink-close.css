@@ -1,0 +1,158 @@
+/* Shared brush-cross for dismiss controls. Native labels, positions and handlers stay intact.
+   Text-only return actions opt out; this never selects a close-room business action. */
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false']) {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  place-items: center;
+  gap: 0 !important;
+  width: 44px !important;
+  min-width: 44px;
+  height: 44px !important;
+  min-height: 44px;
+  padding: 8px !important;
+  box-sizing: border-box;
+  flex: none;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--text-auth-ink) !important;
+  cursor: pointer;
+  transform: none !important;
+  transition: color 200ms ease;
+}
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false'])
+  > * {
+  display: none !important;
+}
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false'])::before,
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false'])::after {
+  content: '' !important;
+  display: block !important;
+  position: static !important;
+  grid-area: 1 / 1;
+  width: 27px !important;
+  height: 5px !important;
+  padding: 0;
+  margin: 0;
+  border: 0 !important;
+  background: currentColor !important;
+  opacity: 1 !important;
+  pointer-events: none;
+  clip-path: polygon(
+    0 28%,
+    12% 5%,
+    37% 16%,
+    64% 0,
+    96% 22%,
+    100% 45%,
+    88% 66%,
+    56% 84%,
+    25% 100%,
+    4% 73%
+  );
+  transform-origin: center !important;
+  mask-image: linear-gradient(currentColor, currentColor);
+  mask-repeat: no-repeat;
+  mask-position: left center;
+  mask-size: 100% 100%;
+  transition:
+    transform 240ms cubic-bezier(0.2, 0.75, 0.25, 1),
+    color 200ms ease !important;
+}
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false'])::before {
+  transform: rotate(45deg) !important;
+}
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false'])::after {
+  transform: rotate(-45deg) scaleX(0.94) !important;
+}
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false']):enabled:is(
+    :hover,
+    :focus-visible
+  ) {
+  color: var(--accent-action-primary) !important;
+}
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false']):enabled:is(
+    :hover,
+    :focus-visible
+  )::before {
+  transform: rotate(45deg) !important;
+  animation: ink-close-write 340ms cubic-bezier(0.2, 0.65, 0.25, 1) both;
+}
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false']):enabled:is(
+    :hover,
+    :focus-visible
+  )::after {
+  transform: rotate(-45deg) scaleX(0.94) !important;
+  animation: ink-close-write 340ms 130ms cubic-bezier(0.2, 0.65, 0.25, 1) both;
+}
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not(
+    [data-ink-close='false']
+  ):enabled:active::before {
+  transform: rotate(45deg) scale(0.9) !important;
+}
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not(
+    [data-ink-close='false']
+  ):enabled:active::after {
+  transform: rotate(-45deg) scale(0.9) !important;
+}
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false']):focus-visible {
+  outline: 2px solid var(--accent-action-primary);
+  outline-offset: 3px;
+}
+html[data-theme]
+  body
+  button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false']):disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme]
+    body
+    button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false']),
+  html[data-theme]
+    body
+    button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false'])::before,
+  html[data-theme]
+    body
+    button:is([aria-label^='關閉'], [data-ink-close]):not([data-ink-close='false'])::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Two dry-brush strokes, no ripple, halo or moving button surface. */
+@keyframes ink-close-write {
+  from {
+    mask-size: 0% 100%;
+  }
+  to {
+    mask-size: 100% 100%;
+  }
+}

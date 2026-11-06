@@ -19,3 +19,13 @@
   letter-spacing: 0.2em;
   color: var(--text-secondary);
 }
+
+.line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.line svg {
+  width: 24px;
+  height: 24px;
+}

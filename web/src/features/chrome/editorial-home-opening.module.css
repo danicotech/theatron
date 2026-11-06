@@ -1,0 +1,44 @@
+.mount,
+.stage {
+  position: absolute;
+  inset: 0;
+}
+.stage {
+  isolation: isolate;
+  overflow: hidden;
+  container-type: size;
+}
+.composition {
+  position: absolute;
+  width: min(100%, 177.7778svh);
+  height: min(56.25vw, 100%);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  container-type: size;
+}
+.veil {
+  position: absolute;
+  inset: 0;
+  background: var(--surface-scene-glass);
+}
+.portal {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 4;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: 0 0;
+}
+.portalImage {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+}
+@media (max-width: 1023px) {
+  .composition {
+    width: min(100%, 80.0866svh);
+    height: min(124.8649vw, 100%);
+  }
+}

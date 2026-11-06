@@ -1,0 +1,178 @@
+/* G palette: opaque inverse ink, with semantic variations for selected/actions.
+   The label is inverted only below the wave; original content owns layout and focus. */
+html[data-theme] body [data-ink-surface='g'] {
+  --ink-g-fill: var(--text-primary);
+  --ink-g-on-fill: var(--surface-base);
+  background-color: var(--ink-original-bg) !important;
+  color: var(--ink-original-color) !important;
+  scale: 1 !important;
+  /* The wave owns the color transition. A second CSS color tween flashes
+     the old palette when the underlying control adopts the filled palette. */
+  transition: none !important;
+}
+html[data-theme]
+  body
+  [data-ink-surface='g']:is(
+    [aria-current],
+    [aria-pressed='true'],
+    [aria-selected='true'],
+    [data-ink-variant='primary'],
+    .lj-nav__member,
+    .cta
+  ) {
+  --ink-g-fill: var(--accent-action-primary);
+  --ink-g-on-fill: var(--text-on-action);
+}
+html[data-theme] body [data-ink-surface='g'][data-ink-variant='money'] {
+  --ink-g-fill: color-mix(in srgb, var(--accent-money) 35%, var(--text-primary));
+  --ink-g-on-fill: var(--surface-base);
+}
+html[data-theme] body [data-ink-surface='g'][data-ink-variant='danger'] {
+  --ink-g-fill: color-mix(in srgb, var(--state-live) 65%, var(--text-primary));
+  --ink-g-on-fill: var(--surface-base);
+}
+html[data-theme][data-color-mode='dark'] body [data-ink-surface='g'][data-ink-variant='money'] {
+  --ink-g-fill: var(--accent-money);
+}
+html[data-theme][data-color-mode='dark'] body [data-ink-surface='g'][data-ink-variant='danger'] {
+  --ink-g-fill: color-mix(in srgb, var(--state-live) 55%, var(--text-primary));
+}
+html[data-theme] body .ink-g-layer {
+  --ink-light: var(--text-on-scene, var(--text-primary));
+  --ink-shadow: var(--surface-wood, var(--surface-base));
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: block;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+  opacity: 1 !important;
+  background-color: transparent !important;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  transition: none !important;
+}
+html[data-theme] body .ink-g-layer > .water-light {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  transform: none !important;
+  pointer-events: none;
+}
+html[data-theme] body .ink-g-label {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+  background-color: transparent !important;
+  clip-path: inset(100% 0 0);
+  pointer-events: none;
+  transition: none !important;
+}
+/* One ink surface needs one paired foreground/background, including nested
+   BuildCards, badges and captions. Cloning their old paper background while
+   inverting only their text makes both light and dark themes unreadable.
+   Only the masked copy is flattened during filling; the original is untouched
+   until full coverage, and all overrides disappear when the wave clears. */
+html[data-theme] body .ink-g-label,
+html[data-theme] body .ink-g-label *,
+html[data-theme] body [data-ink-filled] > :not(.ink-g-layer),
+html[data-theme] body [data-ink-filled] > :not(.ink-g-layer) * {
+  color: var(--ink-g-on-fill) !important;
+  -webkit-text-fill-color: currentColor !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: currentColor !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+html[data-theme]
+  body
+  [data-ink-surface='g']:is([aria-current], [aria-pressed='true'], [aria-selected='true'])
+  > .ink-g-layer {
+  box-shadow: inset 0 -2px 0 var(--ink-g-on-fill);
+}
+html[data-theme] body .ink-g-fluid {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  transform: none !important;
+  pointer-events: none;
+}
+html[data-theme] body .ink-g-fill {
+  fill: var(--ink-g-fill);
+  stroke: none;
+}
+html[data-theme] body .ink-g-back {
+  opacity: 0.3;
+}
+html[data-theme] body :is(.ink-g-bubbles, .ink-g-burst) {
+  fill: none;
+  stroke: var(--ink-g-on-fill);
+  stroke-width: 1.05;
+}
+html[data-theme] body :is(.ink-g-bubbles, .ink-g-burst) ellipse {
+  vector-effect: non-scaling-stroke;
+}
+html[data-theme] body :is(.ink-g-bubbles, .ink-g-burst) {
+  opacity: 0.35;
+}
+/* Commit the actual control's palette while retaining the same opaque wave
+   and label renderers. No visibility swap or second text paint at full tide. */
+html[data-theme] body [data-ink-surface='g'][data-ink-filled] {
+  background-color: var(--ink-g-fill) !important;
+  background-image: none !important;
+  color: var(--ink-g-on-fill) !important;
+  border-color: var(--ink-g-fill) !important;
+  box-shadow: none;
+}
+html[data-theme]
+  body
+  [data-ink-filled]:is([aria-current], [aria-pressed='true'], [aria-selected='true']) {
+  box-shadow: inset 0 -2px 0 var(--ink-g-on-fill);
+}
+/* G replaces the old moving highlights; drawer entrance and current chapter remain. */
+html[data-theme] body header[data-site-nav][data-nav-motion] :is(a[href], button, summary) {
+  transform: none;
+  scale: 1;
+}
+html[data-theme] body header[data-site-nav][data-nav-motion] :is(a[href], button, summary)::before {
+  content: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-nav-motion]
+  :is(.lj-nav__toggle, .lj-nav__close)::after {
+  content: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-nav-motion]
+  .lj-nav__chapters
+  a:not([aria-current])::after,
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__drawer-links a::after {
+  content: none;
+}
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__arrow {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme] body .ink-g-fluid {
+    visibility: hidden;
+  }
+}

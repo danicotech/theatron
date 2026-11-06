@@ -1,0 +1,164 @@
+/* Hold the server-rendered home until its opening/skip decision is installed. */
+[data-home-entry-pending] .baiye-home > :is(main, .site-header) {
+  visibility: hidden;
+}
+html[data-theme] body #boot[data-fire2d] .boot-fallback,
+html[data-theme] body #boot[data-fire2d] .boot-fabric {
+  animation: none !important;
+}
+html[data-theme] body #boot[data-fire2d] .boot-fabric {
+  mask-image: none;
+}
+/* During the lightweight opening the fabric is already rasterized once. */
+html[data-theme] body #boot[data-fire2d][data-raster] .boot-fallback {
+  visibility: hidden;
+}
+/* Reveal the prepared 2D page through the hole while its controls stay inert. */
+html[data-theme]
+  body[data-intro]
+  [data-opening-burn]
+  > :is(main, .site-header, #stage, .foreground, .grid-title-wrap) {
+  opacity: 1;
+  transition: none;
+}
+html[data-theme] body #boot[data-fire2d] .opening-fire {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+html[data-theme] body #boot[data-fire2d] #ignite {
+  z-index: 3;
+  color: var(--text-on-scene, var(--text-primary));
+  background: transparent;
+  transform: none;
+}
+html[data-theme] body #boot[data-fire2d] .opening-fire-particles {
+  z-index: 3;
+}
+html[data-theme] body #boot[data-fire2d][data-state='burning'] .ignite-prompt {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 180ms ease,
+    transform 240ms ease;
+}
+
+/* The curtain stays dark in both site themes; these controls use scene contrast. */
+#boot .opening-mode {
+  position: absolute;
+  z-index: 8;
+  top: max(20px, env(safe-area-inset-top));
+  right: max(20px, env(safe-area-inset-right));
+  display: flex;
+  width: max-content;
+  max-width: calc(100% - 40px);
+  padding: 3px;
+  gap: 3px;
+  border: 1px solid var(--paper-dim);
+  background: var(--ink);
+  color: var(--paper);
+}
+#boot .opening-mode a {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  min-height: 44px;
+  color: var(--paper);
+  background: transparent;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+#boot .opening-mode strong {
+  font: 600 13px/1.5 var(--font-body);
+  white-space: nowrap;
+}
+#boot .opening-mode a[aria-current='true'] {
+  background: var(--paper);
+  color: var(--ink);
+}
+#boot .opening-mode a:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  #boot .opening-mode a:hover {
+    border-color: var(--paper-dim);
+  }
+}
+#boot[data-state='burning'] .opening-mode {
+  visibility: hidden;
+  pointer-events: none;
+}
+@media (max-height: 500px) {
+  #boot .opening-mode {
+    top: 16px;
+  }
+  #boot .opening-mode a {
+    min-height: 44px;
+    padding: 6px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #boot .opening-mode a {
+    transition: none;
+  }
+}
+
+html[data-theme] body #boot[data-editorial] {
+  background: var(--surface-scene-glass);
+}
+html[data-theme] body #boot[data-editorial][data-state='burning'] {
+  background: transparent;
+}
+html[data-theme] body #boot[data-editorial] .boot-fallback {
+  display: none;
+}
+html[data-theme] body #boot[data-editorial] .boot-loading {
+  display: grid;
+  z-index: 6;
+  opacity: 1;
+  transition: none;
+}
+html[data-theme] body #boot[data-editorial] .ignite-prompt {
+  display: none;
+}
+html[data-theme] body #boot[data-editorial] #ignite {
+  display: none;
+}
+#boot[data-editorial] [data-frame-entry] {
+  transition: opacity 160ms ease;
+}
+#boot[data-editorial][data-state='burning'] [data-frame-entry] {
+  opacity: 0;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  #boot[data-editorial] [data-frame-entry] {
+    transition: none;
+  }
+}
+html[data-theme] body #boot[data-editorial] .editorial-enter-prompt {
+  position: absolute;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  right: 24px;
+  padding: 10px 16px;
+  border: 1px solid currentColor;
+  background: var(--surface-scene-glass);
+  font: 500 14px/1.4 var(--font-body);
+  letter-spacing: 0.12em;
+}
+html[data-theme] body #boot[data-editorial][data-state='loading'] #ignite {
+  opacity: 1;
+}
+html[data-theme] body #boot[data-editorial] #ignite:disabled .editorial-enter-prompt {
+  visibility: hidden;
+}

@@ -1,31 +1,33 @@
 'use client';
 
+import { useEffect } from 'react';
+import { mountNavigation } from './navigationRuntime';
 import { usePathname } from 'next/navigation';
 
+import { mountHelpHints } from './helpHints';
 import { Atmosphere } from './Atmosphere';
 import { SiteNav } from './SiteNav';
+import { mountInkWave } from './inkWave';
 
-/**
- * theatron 自己的頁首與氛圍層 —— 自帶頁首的那幾頁以外的每一頁。
- *
- * 首頁（`app/lunjianMarkup.ts`）與備戰方案（`app/loadout/loadoutMarkup.ts`）
- * 都是從 lab 生成的**整頁**版面，各自帶著品牌字、工具列與狀態列。
- * 再疊一層 theatron 的導覽列就是兩套頁首打架：同一個位置兩條橫線、
- * 兩組品牌字、tab 兩次才進得了內容 —— 而且上面那條會**蓋住底下那排按鈕**，
- * 備戰方案的「匯出 JSON」就是這樣點不到的。
- *
- * 判斷放在客戶端而不是拆 route group：拆 group 要動到 /t、/judge、/login
- * 四個 layout 的檔案位置，改動面比這一個檔案大得多，而換到的只是同一件事。
- */
-const OWN_CHROME = new Set(['/', '/home', '/loadout', '/sportsbook']);
+/** 原論劍與首頁在生成標記中掛載同一導覽；工具頁保留工具列並預留主導覽高度。 */
+const OWN_CHROME = new Set(['/', '/home']);
 
 export function SiteChrome() {
   const path = usePathname();
+  useEffect(() => mountInkWave(), [path]);
+  useEffect(() => mountHelpHints(), [path]);
+  useEffect(() => {
+    const header = document.querySelector<HTMLElement>('header[data-site-nav]');
+    return header ? mountNavigation(header) : undefined;
+  }, [path]);
   if (OWN_CHROME.has(path)) return null;
   return (
-    <>
+    <div
+      data-site-chrome
+      data-page-nav-offset={path === '/loadout' || path === '/sportsbook' ? 'true' : undefined}
+    >
       <SiteNav />
-      <Atmosphere />
-    </>
+      {path !== '/loadout' && path !== '/sportsbook' ? <Atmosphere /> : null}
+    </div>
   );
 }

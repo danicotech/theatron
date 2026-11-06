@@ -1,0 +1,77 @@
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+  background: var(--surface-scene-glass);
+}
+.scene img {
+  position: absolute;
+  pointer-events: none;
+  max-width: none;
+  object-fit: contain;
+}
+.scene .gate {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+  filter: brightness(0.78);
+}
+.shade {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--surface-scene-glass) 8%, transparent);
+  z-index: 2;
+}
+.bamboo {
+  z-index: 6;
+  width: min(48cqw, 660px);
+  left: -6cqw;
+  bottom: -5cqh;
+  filter: brightness(0.88) saturate(0.85);
+}
+.plum {
+  z-index: 5;
+  width: min(32cqw, 440px);
+  right: -4cqw;
+  top: 8cqh;
+  filter: brightness(0.8);
+}
+.pine {
+  z-index: 5;
+  width: min(44cqw, 600px);
+  right: -12cqw;
+  bottom: -22cqh;
+  scale: -1 1;
+  filter: brightness(0.8) saturate(0.8);
+}
+.blossom {
+  z-index: 7;
+  width: min(54cqw, 760px);
+  right: -9cqw;
+  bottom: 0;
+  filter: brightness(0.95);
+}
+@container (max-width:600px) {
+  .bamboo {
+    width: 82cqw;
+    left: -20cqw;
+    bottom: -2cqh;
+  }
+  .plum {
+    width: 65cqw;
+    right: -18cqw;
+    top: 13cqh;
+  }
+  .blossom {
+    width: 110cqw;
+    right: -34cqw;
+  }
+  .pine {
+    width: 76cqw;
+    right: -22cqw;
+    bottom: -12cqh;
+  }
+}

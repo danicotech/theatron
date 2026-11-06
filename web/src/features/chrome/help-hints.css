@@ -1,0 +1,61 @@
+html[data-theme] body button[data-help] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  flex: 0 0 44px;
+  inline-size: 44px;
+  block-size: 44px;
+  min-block-size: 44px;
+  padding: 0;
+  margin: 0 0 0 4px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--accent-info);
+  font: 600 16px/1 var(--font-body);
+  letter-spacing: 0;
+  cursor: help;
+}
+html[data-theme] body button[data-help] > span {
+  display: grid;
+  place-items: center;
+  inline-size: 22px;
+  block-size: 22px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  font: inherit;
+}
+html[data-theme] body button[data-help]:focus-visible {
+  outline: 2px solid var(--accent-info);
+  outline-offset: -3px;
+}
+html[data-theme] body .help-tooltip {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  z-index: 1000;
+  inline-size: max-content;
+  max-inline-size: min(360px, calc(100vw / var(--zoom-local, 1) - 24px));
+  max-block-size: calc(100dvh / var(--zoom-local, 1) - 24px);
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  border: 1px solid var(--accent-info);
+  background: var(--surface-auth-paper);
+  color: var(--text-auth-ink);
+  font: 400 16px/1.65 var(--font-body);
+  letter-spacing: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--surface-wood) 18%, transparent);
+}
+html[data-theme] body .help-tooltip[hidden] {
+  display: none;
+}
+.help-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}

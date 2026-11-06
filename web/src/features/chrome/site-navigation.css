@@ -1,0 +1,615 @@
+/* One geometry and motion system for the stage, home and functional pages. */
+html[data-theme] {
+  --nav-h: 64px;
+  --nav-enter: 380ms;
+  --nav-exit: 230ms;
+  --nav-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+html[data-theme] body header[data-site-nav] {
+  position: fixed;
+  inset: 0 0 auto;
+  height: calc(var(--nav-h) + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) 0 0;
+  z-index: 80;
+  background: var(--surface-base);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__inner {
+  display: grid;
+  grid-template-columns: 176px minmax(0, 1fr) 176px;
+  align-items: center;
+  gap: 16px;
+  width: min(100%, 1440px);
+  height: 100%;
+  padding: 0 max(32px, env(safe-area-inset-right)) 0 max(32px, env(safe-area-inset-left));
+  margin: 0 auto;
+}
+html[data-theme] body header[data-site-nav] a {
+  text-decoration: none;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  min-height: 44px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: inherit;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__seal {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 32px;
+  border: 1px solid currentColor;
+  color: var(--accent-brand);
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__chapters {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  width: auto;
+  overflow: visible;
+  padding: 0;
+  margin: 0;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__chapters a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 8px;
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__chapters a::after {
+  content: '';
+  position: absolute;
+  inset: auto 4px 3px;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms var(--nav-ease);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__chapters a[aria-current] {
+  color: var(--accent-action-primary);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__chapters a[aria-current]::after {
+  transform: scaleX(1);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__arrow {
+  display: none;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__member {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  color: inherit;
+  font-size: var(--text-md);
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__member small {
+  display: none;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__toggle,
+html[data-theme] body header[data-site-nav] .lj-nav__close {
+  position: relative;
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  flex: none;
+}
+html[data-theme] body header[data-site-nav] :is(.lj-nav__toggle, .lj-nav__close) span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  transition: transform 220ms var(--nav-ease);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__toggle[aria-expanded='true'] span:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__toggle[aria-expanded='true'] span:last-child {
+  transform: translateY(-3.5px) rotate(-45deg);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__close span:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__close span:last-child {
+  transform: translateY(-3.5px) rotate(-45deg);
+}
+html[data-theme] body header[data-site-nav] :is(a, button) {
+  transition:
+    transform 180ms var(--nav-ease),
+    background-color 180ms ease,
+    color 180ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+html[data-theme] body header[data-site-nav] :is(a, button):active {
+  transform: translateY(1px) scale(0.97);
+  transition-duration: 70ms;
+}
+html[data-theme] body header[data-site-nav] :is(a, button):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer {
+  --text-primary: var(--text-auth-ink);
+  --text-secondary: var(--text-auth-muted);
+  --border-subtle: var(--border-auth);
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: min(380px, calc(100vw / var(--zoom-local, 1) - 32px));
+  max-width: none;
+  height: calc(100dvh / var(--zoom-local, 1));
+  max-height: calc(100dvh / var(--zoom-local, 1));
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-right: 1px solid var(--border-auth);
+  background-color: var(--surface-auth-paper);
+  background-image:
+    linear-gradient(
+      color-mix(in oklab, var(--surface-auth-paper) 62%, transparent),
+      color-mix(in oklab, var(--surface-auth-paper) 62%, transparent)
+    ),
+    var(--surface-paper-texture);
+  background-position: center;
+  background-size: cover;
+  color: var(--text-auth-ink);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 12px 0 40px color-mix(in oklab, var(--surface-wood) 24%, transparent);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer[open] {
+  display: flex;
+  flex-direction: column;
+  animation: nav-slide-in var(--nav-enter) var(--nav-ease) both;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer::backdrop {
+  background: color-mix(in oklab, var(--surface-wood) 65%, transparent);
+  animation: nav-dim-in var(--nav-enter) ease both;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer[data-closing] {
+  animation: nav-slide-out var(--nav-exit) cubic-bezier(0.4, 0, 1, 1) both;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer[data-closing]::backdrop {
+  animation: nav-dim-out var(--nav-exit) ease both;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: none;
+  min-height: calc(88px + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) 24px 0;
+  border-bottom: 1px solid color-mix(in oklab, var(--border-auth) 50%, transparent);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer-links {
+  display: grid;
+  padding: 16px 24px;
+  gap: 0;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer-links a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 56px;
+  padding: 8px 12px;
+  border-bottom: 1px solid color-mix(in oklab, var(--border-auth) 35%, transparent);
+  color: var(--text-auth-ink);
+  font-size: var(--text-lg);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer-links a[aria-current] {
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer-links .lj-nav__arrow {
+  display: block;
+  font-size: 16px;
+  opacity: 0.65;
+  transition: transform 180ms ease;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer-foot {
+  margin-top: auto;
+  padding: 20px 24px max(24px, env(safe-area-inset-bottom));
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer-foot > .lj-nav__member {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 48px;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__utilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  padding-top: 12px;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__utilities :is(a, button, summary) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-auth-muted);
+  font-size: var(--text-md);
+  cursor: pointer;
+}
+@media (hover: hover) {
+  html[data-theme]
+    body
+    header[data-site-nav]
+    .lj-nav__chapters
+    a:is([data-nav-hover], :focus-visible) {
+    color: var(--text-primary);
+  }
+  html[data-theme]
+    body
+    header[data-site-nav]
+    .lj-nav__chapters
+    a:is([data-nav-hover], :focus-visible)::after {
+    transform: scaleX(1);
+  }
+  html[data-theme]
+    body
+    header[data-site-nav]
+    :is(.lj-nav__member, .lj-nav__toggle, .lj-nav__close):is([data-nav-hover], :focus-visible) {
+    background: color-mix(in oklab, currentColor 7%, transparent);
+  }
+  html[data-theme]
+    body
+    header[data-site-nav]
+    .lj-nav__drawer-links
+    a:is([data-nav-hover], :focus-visible):not([aria-current]) {
+    background: color-mix(in oklab, var(--border-auth) 15%, transparent);
+  }
+  html[data-theme]
+    body
+    header[data-site-nav]
+    .lj-nav__drawer-links
+    a:is([data-nav-hover], :focus-visible)
+    .lj-nav__arrow {
+    transform: translate(3px, -2px);
+  }
+}
+@keyframes nav-slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes nav-slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes nav-dim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes nav-dim-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (min-width: 1024px) {
+  html[data-theme] body header[data-site-nav] .lj-nav__toggle {
+    display: none;
+  }
+}
+@media (max-width: 1023px) {
+  html[data-theme] {
+    --nav-h: 64px;
+  }
+  html[data-theme] body header[data-site-nav] .lj-nav__inner {
+    grid-template-columns: 100px minmax(0, 1fr) 100px;
+    padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+    gap: 8px;
+  }
+  html[data-theme] body header[data-site-nav] .lj-nav__inner > .lj-nav__brand {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    font-size: 20px;
+  }
+  html[data-theme] body header[data-site-nav] .lj-nav__inner > .lj-nav__brand .lj-nav__seal {
+    display: none;
+  }
+  html[data-theme] body header[data-site-nav] .lj-nav__chapters {
+    display: none;
+  }
+  html[data-theme] body header[data-site-nav] .lj-nav__actions {
+    display: contents;
+  }
+  html[data-theme] body header[data-site-nav] .lj-nav__toggle {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+  }
+  html[data-theme] body header[data-site-nav] .lj-nav__actions > .lj-nav__member {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    padding-inline: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme] body header[data-site-nav] *,
+  html[data-theme] body header[data-site-nav] *::after,
+  html[data-theme] body header[data-site-nav] .lj-nav__drawer::backdrop {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+html[data-theme] body header[data-site-nav] .lj-nav__drawer .nav-more {
+  position: static;
+  margin-top: 12px;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer .nav-more summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer-links a::after {
+  content: none;
+}
+
+html[data-theme] body header[data-site-nav] .lj-nav__drawer-links {
+  width: 100%;
+  max-width: none;
+  justify-content: stretch;
+  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr);
+  overflow: visible;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__drawer-links a {
+  width: 100%;
+}
+body:has([data-page-nav-offset]) {
+  padding-top: calc(var(--nav-h) * var(--screen-scale, 1) + env(safe-area-inset-top));
+}
+body:has([data-page-nav-offset]) header.top {
+  top: calc(var(--nav-h) + env(safe-area-inset-top));
+}
+
+html[data-theme] body header[data-site-nav] .lj-nav__chapters a {
+  min-width: 44px;
+}
+
+/* GSAP owns timing; CSS owns the glass light, paper ink and geometry. */
+html[data-theme] body header[data-site-nav][data-nav-motion] :is(a[href], button, summary) {
+  --nav-hover: 0;
+  --nav-press: 0;
+  --nav-flash: 0;
+  --nav-pointer-x: 0px;
+  --nav-pointer-y: 0px;
+  position: relative;
+  isolation: isolate;
+  transform: translate(
+      var(--nav-pointer-x),
+      calc(var(--nav-pointer-y) - var(--nav-hover) * 2px + var(--nav-press) * 2px)
+    )
+    scale(calc(1 - var(--nav-press) * 0.045));
+  scale: 1;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-nav-motion]
+  :is(
+    .lj-nav__member,
+    .lj-nav__chapters a,
+    .lj-nav__drawer-links a,
+    .lj-nav__utilities a,
+    summary
+  )::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent,
+    color-mix(in oklab, currentColor 13%, transparent),
+    transparent
+  );
+  opacity: calc(var(--nav-hover) * 0.8 + var(--nav-flash) * 0.2);
+  transform: scaleX(var(--nav-hover));
+  transform-origin: left;
+}
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__chapters a::after {
+  transform: scaleX(var(--nav-hover));
+  transition: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-nav-motion]
+  .lj-nav__chapters
+  a[aria-current]::after {
+  transform: scaleX(1);
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-nav-motion]
+  :is(.lj-nav__toggle, .lj-nav__close)::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid currentColor;
+  opacity: calc(0.15 + var(--nav-hover) * 0.65 + var(--nav-press) * 0.2);
+  transform: rotate(calc(45deg + var(--nav-hover) * 90deg))
+    scale(calc(0.8 + var(--nav-hover) * 0.1 - var(--nav-press) * 0.08));
+  pointer-events: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-nav-motion]
+  :is(.lj-nav__toggle, .lj-nav__close)::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border: 1px solid currentColor;
+  opacity: calc(var(--nav-flash) * 0.6);
+  transform: scale(calc(1.1 - var(--nav-flash) * 0.2));
+  pointer-events: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-nav-motion]
+  .lj-nav__toggle:not([aria-expanded='true'])
+  span:first-child {
+  transform: translateX(calc(var(--nav-hover) * -3px));
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-nav-motion]
+  .lj-nav__toggle:not([aria-expanded='true'])
+  span:last-child {
+  transform: translateX(calc(var(--nav-hover) * 3px));
+}
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__brand .lj-nav__seal {
+  transform: rotate(calc(var(--nav-hover) * -8deg));
+}
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__drawer[open],
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__drawer[data-closing],
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__drawer::backdrop {
+  animation: none;
+}
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__drawer::backdrop {
+  opacity: var(--nav-shade, 1);
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-nav-motion]
+  :is(.lj-nav__drawer-head, .lj-nav__drawer-links a, .lj-nav__drawer-foot) {
+  translate: var(--nav-reveal-x, 0px) 0;
+  opacity: var(--nav-reveal-opacity, 1);
+}
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__drawer-links a {
+  transform: translate(calc(var(--nav-hover) * 6px + var(--nav-pointer-x)), var(--nav-pointer-y))
+    scale(calc(1 - var(--nav-press) * 0.025));
+}
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__drawer-links a::after {
+  content: '';
+  position: absolute;
+  inset: 14px auto 14px 0;
+  width: 2px;
+  background: currentColor;
+  opacity: var(--nav-hover);
+  transform: scaleY(var(--nav-hover));
+}
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__arrow {
+  transform: translate(calc(var(--nav-hover) * 4px), calc(var(--nav-hover) * -4px))
+    rotate(calc(var(--nav-press) * 6deg));
+  opacity: calc(0.65 + var(--nav-hover) * 0.35);
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme] body header[data-site-nav][data-nav-motion] :is(a[href], button, summary) {
+    transform: none;
+    scale: 1;
+  }
+  html[data-theme] body header[data-site-nav][data-nav-motion] *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+  html[data-theme]
+    body
+    header[data-site-nav][data-nav-motion]
+    :is(a[href], button, summary):is(:is([data-nav-hover], :focus-visible), :focus-visible) {
+    background-color: color-mix(in oklab, currentColor 10%, transparent);
+  }
+}
+
+/* Crossed strokes: an icon-specific response, independent of the fluid fill. */
+html[data-theme] body header[data-site-nav] .lj-nav__close {
+  color: var(--text-primary);
+  background: transparent !important;
+  overflow: visible;
+}
+html[data-theme] body header[data-site-nav] .lj-nav__close > span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 23px;
+  height: 1.5px;
+  transform-origin: center;
+  background: currentColor;
+  transition: color 180ms ease;
+}
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__close > span:first-child {
+  transform: translate(-50%, -50%) rotate(calc(45deg + var(--nav-hover, 0) * 90deg))
+    scaleX(calc(var(--nav-close-reveal, 1) * (1 - var(--nav-press, 0) * 0.22)));
+}
+html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__close > span:last-child {
+  transform: translate(-50%, -50%) rotate(calc(-45deg + var(--nav-hover, 0) * 90deg))
+    scaleX(calc(var(--nav-close-reveal, 1) * (1 - var(--nav-press, 0) * 0.22)));
+}
+html[data-theme] body header[data-site-nav] .lj-nav__close[data-nav-hover] {
+  color: var(--accent-action-primary);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__close:focus-visible {
+  outline: 1px solid var(--accent-action-primary);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__close > span:first-child {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  html[data-theme] body header[data-site-nav][data-nav-motion] .lj-nav__close > span:last-child {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}

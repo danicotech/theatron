@@ -10,8 +10,8 @@ import styles from './Atmosphere.module.css';
 export function Atmosphere() {
   return (
     <>
-      <div className={styles.vignette} aria-hidden="true" />
-      <div className={styles.grain} aria-hidden="true" />
+      <div className={styles.vignette} aria-hidden="true" data-site-atmosphere />
+      <div className={styles.grain} aria-hidden="true" data-site-atmosphere />
     </>
   );
 }

@@ -19,7 +19,12 @@ export function WorldBackdrop({
   plate = '/world/bg-night-crow-courtyard.webp',
 }: WorldBackdropProps) {
   return (
-    <div className={styles.backdrop} aria-hidden="true" data-testid="world-backdrop">
+    <div
+      className={styles.backdrop}
+      aria-hidden="true"
+      data-testid="world-backdrop"
+      data-world-backdrop
+    >
       <img className={styles.plate} src={plate} alt="" decoding="async" fetchPriority="low" />
       <div className={styles.scrim} />
     </div>

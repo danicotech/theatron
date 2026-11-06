@@ -1,3 +1,4 @@
+import { BrandMark } from './BrandMark';
 import styles from './Colophon.module.css';
 
 /**
@@ -11,9 +12,12 @@ import styles from './Colophon.module.css';
  */
 export function Colophon() {
   return (
-    <footer className={styles.foot}>
+    <footer className={styles.foot} data-site-colophon>
       <span className={styles.rail} aria-hidden="true" />
-      <p className={styles.line}>論劍 · 月下論劍</p>
+      <p className={styles.line}>
+        <BrandMark />
+        夜鴉閣
+      </p>
     </footer>
   );
 }

@@ -1,0 +1,691 @@
+/* Approved 02: a single wood/paper surface shared by every site header.
+   Material and lettering use independent light/dark treatments. */
+html[data-theme] {
+  --nav-h: 128px;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] {
+  --text-primary: var(--text-on-notice);
+  --text-secondary: var(--text-auth-muted);
+  --nav-ink: var(--text-on-notice);
+  --nav-accent: var(--accent-brand-on-paper);
+  --nav-plaque: url('/navigation-02/plaque.webp');
+  --nav-paper: url('/navigation-02/paper.webp');
+  --nav-material-filter: none;
+  inset: calc(18px + env(safe-area-inset-top)) 0 auto;
+  width: min(1340px, calc(100% - 48px));
+  height: 94px;
+  margin-inline: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  backdrop-filter: none;
+  color: var(--nav-ink);
+  font-family: var(--font-display);
+  isolation: isolate;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner {
+  width: 100%;
+  height: 100%;
+  min-height: 94px;
+  margin: 0;
+  padding: 16px 28px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 24px;
+  border: solid transparent;
+  border-image: none;
+  position: relative;
+  isolation: isolate;
+  color: var(--nav-ink);
+  background: none;
+}
+/* Only the material is tinted; live type and focus outlines stay crisp. */
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border: solid transparent;
+  border-image: var(--nav-plaque) 65 100 fill / 16px 26px / 0 stretch;
+  filter: var(--nav-material-filter);
+}
+html[data-theme][data-color-mode='dark'] body header[data-site-nav][data-site-nav][data-site-nav] {
+  --nav-ink: var(--text-auth-ink);
+  --nav-accent: var(--accent-action-primary);
+  --text-primary: var(--text-auth-ink);
+  --text-secondary: var(--text-auth-muted);
+  --nav-material-filter: brightness(0.22) saturate(0.45);
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand {
+  color: var(--nav-ink);
+  font: 800 28px/1.4 var(--font-display);
+  gap: 8px;
+  letter-spacing: 0.04em;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .brand-mark {
+  color: var(--nav-accent);
+  width: 36px;
+  height: 40px;
+  flex-shrink: 0;
+  overflow: visible;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  width: 100%;
+  gap: 6px;
+  overflow: visible;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a {
+  padding: 8px 0;
+  min-height: 56px;
+  font: 800 23px/1.5 var(--font-display);
+  letter-spacing: 0.03em;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] :is(a, button, summary) {
+  color: var(--nav-ink);
+  text-decoration: none;
+  transform: none;
+  translate: none;
+  background: transparent;
+  box-shadow: none;
+  transition: color 180ms ease;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  :is(a, button, summary)::before {
+  display: none;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__arrow {
+  display: none;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions {
+  gap: 12px;
+  white-space: nowrap;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__member {
+  border: 0;
+  padding: 8px 4px;
+  font: 700 16px/1.5 var(--font-display);
+  color: var(--nav-accent);
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__member small {
+  display: none;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__theme {
+  border: 0;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px;
+  display: grid;
+  place-items: center;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .scene-choice {
+  display: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  :is(.lj-nav__toggle, .lj-nav__close) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: auto;
+  min-width: 44px;
+  height: 48px;
+  padding: 8px 4px;
+  font: 700 16px/1.5 var(--font-display);
+  color: var(--nav-ink);
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__toggle::after {
+  content: '更多';
+  position: static;
+  border: 0;
+  opacity: 1;
+  transform: none;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__toggle span {
+  display: none;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__close::after {
+  content: '收起目錄 ×';
+  position: static;
+  border: 0;
+  opacity: 1;
+  transform: none;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__close span {
+  display: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  :is(
+    .lj-nav__chapters a,
+    .lj-nav__drawer-links a,
+    .lj-nav__drawer-foot a,
+    .lj-nav__drawer-foot button,
+    .lj-nav__drawer-foot summary
+  ) {
+  position: relative;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  :is(
+    .lj-nav__chapters a,
+    .lj-nav__drawer-links a,
+    .lj-nav__drawer-foot a,
+    .lj-nav__drawer-foot button,
+    .lj-nav__drawer-foot summary
+  )::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 4px;
+  width: auto;
+  height: 5px;
+  background: var(--nav-accent);
+  opacity: 1;
+  clip-path: polygon(0 45%, 45% 0, 100% 35%, 97% 75%, 25% 100%, 1% 80%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--nav-ease);
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  :is(
+    .lj-nav__chapters a,
+    .lj-nav__drawer-links a,
+    .lj-nav__drawer-foot a,
+    .lj-nav__drawer-foot button,
+    .lj-nav__drawer-foot summary
+  ):is(:hover, :focus-visible, :active, [aria-current], [data-nav-hover]) {
+  color: var(--nav-accent);
+  background: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  :is(
+    .lj-nav__chapters a,
+    .lj-nav__drawer-links a,
+    .lj-nav__drawer-foot a,
+    .lj-nav__drawer-foot button,
+    .lj-nav__drawer-foot summary
+  ):is(:hover, :focus-visible, :active, [aria-current], [data-nav-hover])::after {
+  transform: scaleX(1);
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__drawer {
+  inset: calc(18px + env(safe-area-inset-top)) 0 auto;
+  margin: 0 auto;
+  width: min(680px, calc(100% - 48px));
+  height: auto;
+  max-height: calc(100dvh / var(--zoom-local, 1) - 36px - env(safe-area-inset-top));
+  padding: 12px 22px 16px;
+  border: solid transparent;
+  border-image: var(--nav-plaque) 65 100 / 13px 19px / 0 stretch;
+  isolation: isolate;
+  background: none;
+  color: var(--nav-ink);
+  box-shadow: none;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__drawer::before {
+  display: block;
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: solid transparent;
+  border-image: var(--nav-plaque) 65 100 / 13px 19px / 0 stretch;
+  filter: var(--nav-material-filter);
+  z-index: -1;
+  pointer-events: none;
+  background: var(--surface-notice) var(--nav-paper) center top/auto 1000px no-repeat;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__drawer::backdrop {
+  background: color-mix(in srgb, var(--surface-wood) 24%, transparent);
+  animation: none;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__drawer[open] {
+  display: block;
+  animation: none;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__drawer-head {
+  padding: 0;
+  min-height: 48px;
+  border: 0;
+  opacity: 1;
+  translate: none;
+  position: relative;
+  top: 0;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__drawer-links {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 12px 0 0;
+  gap: 0;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__drawer-links a {
+  justify-content: center;
+  min-height: 52px;
+  border: 0;
+  font: 800 22px/1.5 var(--font-display);
+  padding: 8px 4px;
+  opacity: var(--nav-reveal-opacity, 1);
+  translate: 0 var(--nav-reveal-x, 0px);
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__drawer-foot {
+  margin: 8px 0 0;
+  padding: 8px 0 0;
+  border-top: 1px solid var(--border-auth);
+  opacity: var(--nav-reveal-opacity, 1);
+  translate: 0 var(--nav-reveal-x, 0px);
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__drawer-foot
+  :is(a, button, summary) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  width: 100%;
+  padding: 8px 4px;
+  border: 0;
+  text-align: center;
+  font-family: var(--font-display);
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__utilities {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__drawer-foot
+  .stage-modes {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: static;
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__drawer-foot
+  .lj-nav__theme {
+  display: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__drawer-foot
+  .lj-nav__theme::before {
+  display: inline;
+  content: attr(aria-label);
+  margin-right: 8px;
+}
+/**** Approved primary CTA motion: one assembly, fixed right pivot. ****/
+html[data-theme] body .home-plaque__face {
+  transform-origin: 100% 50%;
+  transition: transform 0.36s cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+html[data-theme] body .home-plaque:is(:hover, :focus-visible) .home-plaque__face {
+  transform: translate(-2px, -2px) rotate(-3deg);
+}
+html[data-theme] body .home-plaque:active .home-plaque__face {
+  transform: translateY(1px);
+}
+@media (min-width: 801px) and (max-width: 1280px) {
+  html[data-theme] {
+    --nav-h: 176px;
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] {
+    height: 146px;
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 48px minmax(0, 1fr);
+    gap: 2px 24px;
+    padding: 12px 28px 18px;
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand {
+    font-size: 26px;
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters {
+    grid-row: 2;
+    grid-column: 1/-1;
+    border-top: 1px solid var(--border-auth);
+    padding-top: 2px;
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a {
+    min-height: 48px;
+    padding-block: 4px;
+    font-size: 22px;
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+@media (max-width: 800px) {
+  html[data-theme] {
+    --nav-h: 104px;
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] {
+    width: calc(100% - 24px);
+    height: 76px;
+    inset-block-start: calc(12px + env(safe-area-inset-top));
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner {
+    min-height: 76px;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    padding: 12px 20px;
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand {
+    font-size: 24px;
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters {
+    display: none;
+  }
+  html[data-theme]
+    body
+    header[data-site-nav][data-site-nav][data-site-nav]
+    .lj-nav__actions
+    > :not(.lj-nav__toggle) {
+    display: none;
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__toggle::after {
+    content: '章節目錄';
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__drawer {
+    inset-block-start: calc(12px + env(safe-area-inset-top));
+    width: calc(100% - 24px);
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top));
+    padding: 12px 20px 16px;
+  }
+  html[data-theme]
+    body
+    header[data-site-nav][data-site-nav][data-site-nav]
+    .lj-nav__drawer-foot
+    .lj-nav__theme {
+    display: flex;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] *,
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  html[data-theme] body .home-plaque .home-plaque__face {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Explicit display typography wins the legacy global body-font migration. */
+html[data-theme] body header[data-site-nav] :is(a, button, summary, span) {
+  font-family: var(--font-display) !important;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__member {
+  background: none;
+}
+
+@media (max-width: 800px) {
+  html[data-theme]
+    body
+    header[data-site-nav][data-site-nav][data-site-nav]
+    .lj-nav__drawer-foot
+    :is(a, button, summary) {
+    font-size: 18px;
+  }
+}
+
+/* The paper belongs to the scroll container, so short screens never reveal a transparent footer. */
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__drawer {
+  background: var(--surface-notice) var(--nav-paper) center top / auto 1000px repeat-y;
+  background-clip: padding-box;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__drawer::before {
+  display: none;
+}
+
+/* Semantic utility motion: horizon exchange, opening a gate, unfolding a catalogue. */
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  :is(.lj-nav__member, .lj-nav__toggle) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .nav-action-art {
+  display: block;
+  flex: none;
+  overflow: visible;
+  transform: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  :is(.nav-action-art path) {
+  transition:
+    transform 420ms cubic-bezier(0.2, 0.75, 0.25, 1),
+    opacity 280ms ease;
+  transform-box: fill-box;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .nav-door-left {
+  transform-origin: left center;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .nav-door-right {
+  transform-origin: right center;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .nav-door-light {
+  opacity: 0;
+  stroke: var(--nav-accent);
+  stroke-width: 3;
+  transform: scaleY(0.3);
+  transform-origin: center;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__member:is(:hover, :focus-visible, :active, [data-nav-hover])
+  .nav-door-left {
+  transform: scaleX(0.3);
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__member:is(:hover, :focus-visible, :active, [data-nav-hover])
+  .nav-door-right {
+  transform: scaleX(0.3);
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__member:is(:hover, :focus-visible, :active, [data-nav-hover])
+  .nav-door-light {
+  opacity: 0.8;
+  transform: scaleY(1);
+  transition-delay: 80ms;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__actions
+  .lj-nav__member::after {
+  content: '';
+  position: absolute;
+  inset: auto 4px 3px;
+  height: 3px;
+  background: var(--nav-accent);
+  clip-path: polygon(0 45%, 45% 0, 100% 35%, 97% 75%, 25% 100%, 1% 80%);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 360ms ease;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__actions
+  .lj-nav__member:is(:hover, :focus-visible, :active, [data-nav-hover])::after {
+  transform: scaleX(1);
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__toggle:is(:hover, :focus-visible, :active, [data-nav-hover], [aria-expanded='true']) {
+  color: var(--nav-accent);
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__toggle:is(:hover, :focus-visible, :active, [data-nav-hover], [aria-expanded='true'])
+  .nav-catalogue-top {
+  transform: translateY(-3px);
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__toggle:is(:hover, :focus-visible, :active, [data-nav-hover], [aria-expanded='true'])
+  .nav-catalogue-middle {
+  transform: scaleX(1.35);
+  transform-origin: left;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__toggle:is(:hover, :focus-visible, :active, [data-nav-hover], [aria-expanded='true'])
+  .nav-catalogue-bottom {
+  transform: translateY(3px);
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .nav-action-art path {
+    transition: none !important;
+  }
+}
+
+@media (max-width: 800px) {
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner::before {
+    border-image-width: 13px 19px;
+  }
+}
+/* Existing hero texture stays inside the same moving face; no second card. */
+html[data-theme][data-color-mode='dark'] body .home-plaque__material {
+  filter: brightness(0.22) saturate(0.45);
+}
+html[data-theme][data-color-mode='dark'] body .home-plaque__label {
+  color: var(--text-auth-ink);
+}
+html[data-theme][data-color-mode='dark'] body .home-plaque--register .home-plaque__label {
+  color: var(--accent-action-primary);
+}
+
+/* A scrolling drawer keeps its paper on the scroll container, so tall menus
+   never expose a transparent lower edge. Tint the paper without tinting type. */
+html[data-theme][data-color-mode='dark']
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__drawer {
+  background-color: var(--surface-auth-field);
+  background-blend-mode: multiply;
+}
+
+/* Treat the raven and wordmark as one signature. Preserve the logo silhouette;
+   motion belongs to the complete mark, never its mirrored halves. */
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand {
+  --brand-word-ink: var(--nav-ink);
+  --brand-rule-scale: 0;
+  --brand-lift: 0px;
+  --brand-mark-scale: 1;
+  --brand-word-x: 0px;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .brand-wordmark {
+  position: relative;
+  color: var(--brand-word-ink);
+  transition: color 220ms ease-out;
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .brand-wordmark::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -6px;
+  height: 3px;
+  background: var(--nav-accent);
+  clip-path: polygon(0 28%, 12% 12%, 42% 23%, 73% 4%, 100% 28%, 97% 67%, 64% 90%, 28% 75%, 2% 100%);
+  transform: scaleX(var(--brand-rule-scale));
+  transform-origin: left center;
+  pointer-events: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-site-nav][data-site-nav]
+  .lj-nav__brand:focus-visible {
+  --brand-word-ink: var(--nav-accent);
+  --brand-rule-scale: 1;
+  --brand-lift: -1px;
+  --brand-mark-scale: 1.04;
+  --brand-word-x: 1px;
+}
+@media (hover: hover) and (pointer: fine) {
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand:hover {
+    --brand-word-ink: var(--nav-accent);
+    --brand-rule-scale: 1;
+    --brand-lift: -1px;
+    --brand-mark-scale: 1.04;
+    --brand-word-x: 1px;
+  }
+}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand:active {
+  --brand-word-ink: var(--nav-accent);
+  --brand-rule-scale: 1;
+  --brand-lift: 1px;
+  --brand-mark-scale: 0.98;
+  --brand-word-x: 0px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .brand-mark {
+    translate: 0 var(--brand-lift);
+    scale: var(--brand-mark-scale);
+    transition:
+      translate 240ms ease-out,
+      scale 240ms ease-out;
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .brand-wordmark {
+    translate: var(--brand-word-x) var(--brand-lift);
+    transition:
+      translate 240ms ease-out,
+      color 220ms ease-out;
+  }
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .brand-wordmark::after {
+    transition: transform 280ms cubic-bezier(0.2, 0.7, 0.25, 1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .brand-wordmark {
+    transition: none;
+  }
+}
+@media (max-width: 800px) {
+  html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav] .brand-mark {
+    width: 32px;
+    height: 36px;
+  }
+}

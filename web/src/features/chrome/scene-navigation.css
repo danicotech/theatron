@@ -1,0 +1,51 @@
+/* Opaque paper / ink chrome shares the notice-board material language. */
+html[data-theme] body:has(#world, #home-world) header[data-site-nav] {
+  background: var(--surface-auth-paper);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-bottom-color: color-mix(in srgb, var(--text-auth-ink) 24%, transparent);
+  color: var(--text-auth-ink);
+}
+html[data-theme] body:has(#world, #home-world) header[data-site-nav] .lj-nav__inner {
+  --text-primary: var(--text-auth-ink);
+  --text-secondary: var(--text-auth-muted);
+  --border-subtle: var(--border-auth);
+  color: var(--text-auth-ink);
+}
+html[data-theme] body:has(#world, #home-world) header[data-site-nav] .lj-nav__inner .brand-mark {
+  color: var(--accent-brand);
+}
+html[data-theme]
+  body:has(#world, #home-world)
+  header[data-site-nav]
+  .lj-nav__inner
+  .lj-nav__member {
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
+  border-color: var(--accent-action-primary);
+  box-shadow: none;
+}
+html[data-theme]
+  body:has(#world, #home-world)
+  header[data-site-nav]
+  .lj-nav__inner
+  .lj-nav__member:is([data-nav-hover], :focus-visible) {
+  background: var(--accent-action-hover);
+  color: var(--text-on-action);
+}
+html[data-theme] body:has(#world, #home-world) header[data-site-nav] .lj-nav__inner .lj-nav__theme {
+  color: var(--text-auth-ink);
+  border-color: var(--border-auth);
+}
+html[data-theme]
+  body:has(#world, #home-world)
+  header[data-site-nav]
+  .lj-nav__chapters
+  a:is([data-nav-hover], :focus-visible),
+html[data-theme]
+  body:has(#world, #home-world)
+  header[data-site-nav]
+  .lj-nav__chapters
+  a[aria-current] {
+  color: var(--accent-action-primary);
+}

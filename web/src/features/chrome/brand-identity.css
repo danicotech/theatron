@@ -1,0 +1,45 @@
+.brand-mark {
+  flex: none;
+  display: block;
+  color: var(--accent-brand);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__brand {
+  gap: 9px;
+}
+html[data-theme] body header[data-site-nav] .brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-display);
+  font-size: 21px;
+  line-height: 1.15;
+  letter-spacing: 0.12em;
+}
+.baiye-home .lj-nav__inner .brand-mark {
+  color: var(--accent-brand-on-dark);
+}
+@media (max-width: 1023px) {
+  .lj-nav__inner .brand-mark {
+    width: 28px;
+    height: 32px;
+  }
+  html[data-theme] body header[data-site-nav] .lj-nav__inner .brand-wordmark {
+    font-size: 19px;
+  }
+}
+@media (max-width: 359px) {
+  html[data-theme] body header[data-site-nav] .lj-nav__inner {
+    gap: 8px;
+  }
+  html[data-theme] body header[data-site-nav] .lj-nav__inner .lj-nav__brand {
+    gap: 5px;
+  }
+  .lj-nav__inner .brand-mark {
+    width: 24px;
+    height: 28px;
+  }
+  html[data-theme] body header[data-site-nav] .lj-nav__inner .brand-wordmark {
+    font-size: 18px;
+    letter-spacing: 0.06em;
+  }
+}
