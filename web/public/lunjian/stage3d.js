@@ -1,11 +1,27 @@
 /** 保留原有場景與燃布引擎；開場只在資源準備好後接受點擊。 */
+export function stageMode(){
+  const query = new URLSearchParams(location.search).get('stage');
+  if (query === '2d' || query === '3d') return query;
+  try { return localStorage.getItem('lunjian:stage-mode:v1') === '3d' ? '3d' : '2d'; }
+  catch { return '2d'; }
+}
+export function stageControls(signal){
+  document.querySelectorAll('[data-stage-mode]').forEach(link => {
+    const mode = link.dataset.stageMode;
+    const url = new URL(location.href); url.searchParams.set('stage', mode);
+    link.href = url.href;
+    link.setAttribute('aria-current', String(stageMode() === mode));
+    link.addEventListener('click', () => {
+      const target = new URL(location.href); target.searchParams.set('stage', mode);
+      link.href = target.href;
+      try { localStorage.setItem('lunjian:stage-mode:v1', mode); } catch {}
+      // A document navigation releases the old WebGL context and its RAF loop.
+    }, {signal});
+  });
+}
 function want3D(){
   if (matchMedia('(prefers-reduced-motion:reduce)').matches) return false;
-  const ask = new URLSearchParams(location.search).get('stage');
-  if (ask === '2d') return false;
-  if (ask === '3d') return true;
-  try { return !!document.createElement('canvas').getContext('webgl2'); }
-  catch { return false; }
+  return stageMode() === '3d';
 }
 
 export async function mountStage3D(runtime){
@@ -15,19 +31,26 @@ export async function mountStage3D(runtime){
   window.__stage3d = true;
   const S = L.S, body = document.body, qs = new URLSearchParams(location.search);
   const signal = L.lifetime.signal;
+  stageControls(signal);
   const on = (type, fn, options = {}) => window.addEventListener(type, fn, {...options, signal});
   let openingSeen=false;
-  try{openingSeen=sessionStorage.getItem('lunjian:opening-seen:v1')==='1';}catch{}
+  try{openingSeen=qs.get('intro')!=='1'&&sessionStorage.getItem('lunjian:opening-seen:v1')==='1';}catch{}
   const shouldIntro = () => !openingSeen && S.shown === 0 && qs.get('intro') !== '0' && !body.classList.contains('reading');
   const weights = {module:8, renderer:5, 'texture-banner-cloth':5, 'texture-wood':5, 'texture-cloth':5, geometry:26, title:8, art:5, portrait:10, shaders:12, frame:11};
   const labels = {module:'展開江湖', renderer:'點亮月色', 'texture-banner-cloth':'織起殘旗', 'texture-wood':'雕琢木色', 'texture-cloth':'整理旗紋', geometry:'築起山門', title:'掛上匾額', art:'鋪陳近景', portrait:'迎候來者', shaders:'準備光影', frame:'江湖已開'};
   const done = new Set();
+  let stageTime = performance.now();
+  const timings = {};
   const stage = name => {
     if (signal.aborted) return;
+    if (qs.get('perf') === '1') {
+      const now = performance.now(); timings[name] = Math.round(now - stageTime); stageTime = now;
+      (L.canvas || document.getElementById('world')).dataset.stageTimings = JSON.stringify(timings);
+    }
     done.add(name);
     L.introProgress(Math.min(100, [...done].reduce((sum, key) => sum + (weights[key] || 0), 0)), labels[name] || '準備入場');
   };
-  if (!want3D()) { await L.prepareFallback(); return null; }
+  if (!want3D() || body.classList.contains('reading')) { await L.prepareFallback(); return null; }
   body.dataset.stage = '3d';
   if (shouldIntro()) L.beginIntro();
 
@@ -41,7 +64,7 @@ export async function mountStage3D(runtime){
     scene = await createScene(L.canvas || document.getElementById('world'), stage);
     if (signal.aborted) { scene.dispose(); return null; }
     S.scene3d = scene;
-    await scene.banner.prepare();
+    if (shouldIntro()) await scene.banner.prepare();
     if (signal.aborted) { scene.dispose(); return null; }
     if (shouldIntro()) {
       // 真正放在布幕的 Three.js scene 裡，燃洞才會露出後面的雙俠。
@@ -94,7 +117,7 @@ export async function mountStage3D(runtime){
       L.cleanups.push(() => backdrop.dispose());
       on('resize', resize); resize(); stage('portrait');
     }
-    await scene.prepare();
+    await scene.prepare({opening:shouldIntro()});
     if (signal.aborted) { backdrop?.dispose(); scene.dispose(); return null; }
     }
   } catch (error) {
@@ -106,6 +129,23 @@ export async function mountStage3D(runtime){
     return null;
   }
 
+  const environment = window.__JZ3D?.environment;
+  if (environment?.moon) {
+    const positionMoon = () => {
+      environment.moon.position.set(50 * innerWidth / innerHeight, 60, -150);
+      environment.sky?.material?.uniforms?.uMoon?.value.copy(environment.moon.position).normalize();
+    };
+    positionMoon();
+    on('resize', positionMoon);
+    environment.moon.scale.setScalar(.65);
+    const material = environment.moon.material;
+    if (material?.fragmentShader) {
+      material.fragmentShader = material.fragmentShader
+        .replace('vec3(.28,.38,.49)', 'vec3(.55,.60,.66)')
+        .replaceAll(')*.12', ')*.035');
+      material.needsUpdate = true;
+    }
+  }
   body.dataset.stage = '3d';
   L.applyGrid(S.shown || 0, {animate:false}); scene.seek(S.shot || 0);
   const BURN = 3.5, HOLD = .8, FADE = .9;
@@ -144,9 +184,17 @@ export async function mountStage3D(runtime){
     L.burningIntro();
   };
   S.enter3d = enter;
+  let lastRenderAt = 0;
   S.render3d = (now, dtMs) => {
     if (signal.aborted) return;
-    const dt = Math.min(dtMs, 50) / 1000;
+    if (body.classList.contains('reading') && mode === 'journey') {
+      if(window.__JZ3D?.path)window.__JZ3D.path.entry=0;
+      lastRenderAt=0;return;
+    }
+    // Decorative scenery does not need to redraw at high-refresh display rates.
+    if (lastRenderAt && now - lastRenderAt < 1000 / 30) return;
+    const dt = Math.min(lastRenderAt ? now - lastRenderAt : dtMs, 50) / 1000;
+    lastRenderAt = now;
     t += dt;
     if (mode === 'burning') {
       // 布料積分限制 dt；敘事用真實經過時間，背景分頁不會讓開場卡住。
@@ -164,7 +212,8 @@ export async function mountStage3D(runtime){
     const pointerGain = HYBRID_ENTRY[chapters[cameraChapter]?.id] ? .35 : 1;
     scene.render(t, p, S.frac, dt, 0, (S.mx || 0) * pointerGain, (S.my || 0) * pointerGain, 1);
   };
-  scene.render(0, shared ? 1 : -1, S.frac, 0, 0, 0, 0, 1); stage('frame');
+  if (!shouldIntro()) scene.seek(S.shot || 0);
+  scene.render(0, shouldIntro() ? -1 : 1, S.frac, 0, 0, 0, 0, 1); stage('frame');
   if (shouldIntro()) L.readyIntro(ignite); else enter();
   on('pagehide', () => { backdrop?.dispose(); scene.dispose(); }, {once:true});
   return scene;

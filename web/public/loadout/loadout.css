@@ -37,7 +37,7 @@
 html,body{margin:0}
 body{
   background:var(--bg); color:var(--ink); font-family:var(--serif);
-  font-size:14px; line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100dvh;
+  font-size:var(--text-xs,14px); line-height:1.6; -webkit-font-smoothing:antialiased; min-height:calc(100dvh / var(--zoom-local, 1));
 }
 button,input,select,textarea{font:inherit;color:inherit}
 button{background:none;border:0;cursor:pointer}
@@ -45,7 +45,7 @@ button{background:none;border:0;cursor:pointer}
 /* ── 頁首 ───────────────────────────────────────────────────────────── */
 .top{
   position:sticky;top:0;z-index:8;display:flex;align-items:center;gap:12px;
-  padding:10px clamp(12px,2vw,22px);background:#080d13e8;
+  padding:10px clamp(12px,calc(2vw / var(--zoom-local, 1)),22px);background:#080d13e8;
   backdrop-filter:blur(10px);border-bottom:1px solid var(--line);flex-wrap:wrap;
 }
 /* 這是 <h1>：整頁的標題就是品牌那一塊，不要為了語意再多塞一個看不見的標題。
@@ -53,13 +53,13 @@ button{background:none;border:0;cursor:pointer}
 .brand{display:flex;align-items:baseline;gap:9px;margin-right:auto;
   margin-block:0;font-size:inherit;font-weight:inherit}
 .brand b{font-size:18px;letter-spacing:.24em;font-weight:600}
-.brand span{font-size:14px;letter-spacing:.3em;color:var(--faint)}
+.brand span{font-size:var(--text-xs,14px);letter-spacing:.3em;color:var(--faint)}
 .return-duel{flex:none;min-height:44px;white-space:nowrap;text-decoration:none;color:var(--gold-soft)}
 @media(max-width:600px){.brand span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.return-duel{padding-inline:8px;letter-spacing:0}}
 .act{
   display:inline-flex;align-items:center;gap:6px;padding:6px 13px;
   border:1px solid var(--line);border-radius:3px;background:#ffffff06;
-  font-size:14px;letter-spacing:.09em;color:var(--dim);
+  font-size:var(--text-xs,14px);letter-spacing:.09em;color:var(--dim);
   transition:border-color .16s var(--ease-out),color .16s var(--ease-out),background .16s var(--ease-out);
 }
 .act:hover{border-color:var(--line-hard);color:var(--ink);background:#ffffff0d}
@@ -71,7 +71,7 @@ button{background:none;border:0;cursor:pointer}
    報名文字永遠只反映當前這隻，這件事必須一眼看得出來。 */
 .roles{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .roles button{
-  padding:4px 11px;border-radius:999px;font-size:14px;letter-spacing:.06em;
+  padding:4px 11px;border-radius:999px;font-size:var(--text-xs,14px);letter-spacing:.06em;
   border:1px solid var(--line);color:var(--faint);
   transition:border-color .16s var(--ease-out),color .16s var(--ease-out),background .16s var(--ease-out);
 }
@@ -83,26 +83,26 @@ button{background:none;border:0;cursor:pointer}
 .rm{padding:14px 16px 6px}
 .rm-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .rm-chips button{
-  padding:5px 13px;border-radius:3px;font-size:14px;letter-spacing:.04em;
+  padding:5px 13px;border-radius:3px;font-size:var(--text-xs,14px);letter-spacing:.04em;
   border:1px solid var(--line);color:var(--dim);
 }
 .rm-chips button[data-on]{background:var(--gold)1f;border-color:#c9a22773;color:#e0b94e;font-weight:600}
 .rm-tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:14px}
-.rm-tabs button{position:relative;padding:7px 12px 8px;font-size:14px;color:var(--faint)}
+.rm-tabs button{position:relative;padding:7px 12px 8px;font-size:var(--text-xs,14px);color:var(--faint)}
 .rm-tabs button[data-on]{color:var(--ink);font-weight:600}
 .rm-tabs button[data-on]::after{content:'';position:absolute;left:8px;right:8px;bottom:-1px;
   height:2px;background:var(--gold);border-radius:1px}
 .rm-field{display:flex;flex-direction:column;gap:5px;margin-bottom:6px}
-.rm-field > span{font-size:14px;letter-spacing:.14em;color:var(--faint)}
+.rm-field > span{font-size:var(--text-xs,14px);letter-spacing:.14em;color:var(--faint)}
 .rm-input{position:relative;display:flex;align-items:center}
 .rm-input input{
-  flex:1;padding:8px 52px 8px 11px;font-size:14px;border:1px solid var(--line);border-radius:3px;
+  flex:1;padding:8px 52px 8px 11px;font-size:var(--text-xs,14px);border:1px solid var(--line);border-radius:3px;
   background:#00000047;color:var(--ink);
 }
 .rm-input input:focus{outline:1px solid var(--gold)}
-.rm-input .count{position:absolute;right:11px;font-family:var(--mono);font-size:14px;color:var(--faint)}
+.rm-input .count{position:absolute;right:11px;font-family:var(--mono);font-size:var(--text-xs,14px);color:var(--faint)}
 .rm-input .count[data-over]{color:var(--red-soft)}
-.rm-note{margin:10px 0 0;font-size:14px;color:var(--faint);line-height:1.6}
+.rm-note{margin:10px 0 0;font-size:var(--text-xs,14px);color:var(--faint);line-height:1.6}
 .pick-foot .danger{color:var(--red-soft);border-color:#b32f2859}
 .pick-foot .save{background:#3f8f5e;color:#0b1a12;border-color:#3f8f5e;font-weight:600}
 .pick-foot .save:hover{filter:brightness(1.12)}
@@ -113,14 +113,14 @@ button{background:none;border:0;cursor:pointer}
    原始 JSON 收進「進階」裡 —— 想看的人還是看得到，但不擋在路上。 */
 .io-sec{padding:13px 16px;border-top:1px solid var(--line)}
 .io-sec:first-child{border-top:0}
-.io-lab{font-size:14px;letter-spacing:.18em;color:var(--faint);margin-bottom:9px}
+.io-lab{font-size:var(--text-xs,14px);letter-spacing:.18em;color:var(--faint);margin-bottom:9px}
 .io-row{
   display:flex;align-items:center;gap:10px;padding:9px 11px;margin-bottom:6px;
   border:1px solid var(--line);border-radius:3px;background:#ffffff05;
 }
-.io-row .nm{font-size:14px;font-weight:600;min-width:86px}
-.io-row .sum{flex:1;min-width:0;font-size:14px;color:var(--faint);line-height:1.5}
-.io-row .tag{flex:none;font-size:14px;letter-spacing:.1em;padding:1px 7px;border-radius:999px;
+.io-row .nm{font-size:var(--text-xs,14px);font-weight:600;min-width:86px}
+.io-row .sum{flex:1;min-width:0;font-size:var(--text-xs,14px);color:var(--faint);line-height:1.5}
+.io-row .tag{flex:none;font-size:var(--text-xs,14px);letter-spacing:.1em;padding:1px 7px;border-radius:999px;
   border:1px solid var(--line);color:var(--faint)}
 .io-row[data-me]{border-color:#c9a22759;background:var(--gold)0f}
 .io-row[data-me] .tag{border-color:#c9a22773;color:#e0b94e}
@@ -133,13 +133,13 @@ button{background:none;border:0;cursor:pointer}
   transition:border-color .16s var(--ease-out),background .16s var(--ease-out);
 }
 .io-drop:hover,.io-drop[data-over]{border-color:var(--gold);background:var(--gold)0f}
-.io-drop b{font-size:14px;font-weight:600;color:var(--dim)}
-.io-drop span{font-size:14px;color:var(--faint);line-height:1.6}
+.io-drop b{font-size:var(--text-xs,14px);font-weight:600;color:var(--dim)}
+.io-drop span{font-size:var(--text-xs,14px);color:var(--faint);line-height:1.6}
 .io-paste{width:100%;min-height:96px;margin-top:10px;padding:10px;font-family:var(--mono);
-  font-size:14px;line-height:1.6;border:1px solid var(--line);border-radius:3px;
+  font-size:var(--text-xs,14px);line-height:1.6;border:1px solid var(--line);border-radius:3px;
   background:#00000047;color:var(--ink);resize:vertical}
 .io-paste:focus{outline:1px solid var(--gold)}
-.io-diff{display:flex;align-items:baseline;gap:9px;font-size:14px;line-height:2;
+.io-diff{display:flex;align-items:baseline;gap:9px;font-size:var(--text-xs,14px);line-height:2;
   border-bottom:1px dotted #ffffff14}
 .io-diff .k{flex:none;min-width:52px;color:var(--faint)}
 .io-diff .a{color:var(--faint);text-decoration:line-through;opacity:.7}
@@ -147,15 +147,15 @@ button{background:none;border:0;cursor:pointer}
 .io-diff .b{color:var(--ink);font-weight:600}
 .io-diff[data-same] .b{color:var(--faint);font-weight:400}
 .io-adv{margin-top:11px}
-.io-adv summary{cursor:pointer;font-size:14px;color:var(--faint);letter-spacing:.06em}
+.io-adv summary{cursor:pointer;font-size:var(--text-xs,14px);color:var(--faint);letter-spacing:.06em}
 .io-adv summary:hover{color:var(--dim)}
 .io-adv pre{max-height:220px;overflow:auto;margin:9px 0 0;padding:10px;font-family:var(--mono);
-  font-size:14px;line-height:1.55;border:1px solid var(--line);border-radius:3px;
+  font-size:var(--text-xs,14px);line-height:1.55;border:1px solid var(--line);border-radius:3px;
   background:#00000047;color:var(--dim);white-space:pre-wrap;word-break:break-all}
-.io-warn{margin:9px 0 0;font-size:14px;color:var(--red-soft);line-height:1.6}
-.io-hint{margin:9px 0 0;font-size:14px;color:var(--faint);line-height:1.6}
+.io-warn{margin:9px 0 0;font-size:var(--text-xs,14px);color:var(--red-soft);line-height:1.6}
+.io-hint{margin:9px 0 0;font-size:var(--text-xs,14px);color:var(--faint);line-height:1.6}
 .seg{display:flex;gap:4px;margin-bottom:11px}
-.seg button{flex:1;padding:7px 10px;font-size:14px;border:1px solid var(--line);border-radius:3px;
+.seg button{flex:1;padding:7px 10px;font-size:var(--text-xs,14px);border:1px solid var(--line);border-radius:3px;
   color:var(--faint)}
 .seg button[data-on]{background:var(--gold)1f;border-color:#c9a22773;color:#e0b94e;font-weight:600}
 
@@ -163,9 +163,18 @@ button{background:none;border:0;cursor:pointer}
 .wrap{
   display:grid;gap:var(--gap);align-items:start;
   grid-template-columns:var(--col-l) minmax(0,1fr) var(--col-r);
-  padding:var(--gap) clamp(12px,2vw,22px) 56px;max-width:1980px;margin:0 auto;
+  padding:var(--gap) clamp(12px,calc(2vw / var(--zoom-local, 1)),22px) 56px;max-width:1980px;margin:0 auto;
 }
-@media (max-width:1340px){ .wrap{grid-template-columns:var(--col-l) minmax(0,1fr)} .col-3{grid-column:1/-1} }
+/* Keep the action panel beside the workspace, never below a long inventory. */
+@media (min-width:1100px) and (max-width:1340px){
+ .wrap{grid-template-columns:minmax(280px,.95fr) minmax(320px,1.2fr) minmax(280px,.85fr);gap:16px}
+}
+@media (min-width:901px) and (max-width:1099px){
+ .wrap{grid-template-columns:minmax(0,1fr) 300px}
+ .col-1{grid-column:1;grid-row:1}
+ .col-2{grid-column:1;grid-row:2}
+ .col-3{grid-column:2;grid-row:1 / span 2}
+}
 @media (max-width:900px){ .wrap{grid-template-columns:minmax(0,1fr)} .col-1,.col-3{grid-column:auto} }
 .col{display:flex;flex-direction:column;gap:var(--gap);min-width:0}
 
@@ -175,12 +184,12 @@ button{background:none;border:0;cursor:pointer}
   padding:13px 13px 15px;
 }
 .card > h2{
-  margin:0 0 11px;font-size:14px;letter-spacing:.28em;font-weight:600;color:var(--dim);
+  margin:0 0 11px;font-size:var(--text-xs,14px);letter-spacing:.28em;font-weight:600;color:var(--dim);
   display:flex;align-items:center;gap:9px;
 }
-.card > h2 .cap{margin-left:auto;letter-spacing:.04em;font-size:14px;color:var(--faint);
+.card > h2 .cap{margin-left:auto;letter-spacing:.04em;font-size:var(--text-xs,14px);color:var(--faint);
   font-family:var(--mono);font-weight:400}
-.hint{margin:9px 0 0;font-size:14px;line-height:1.55;color:var(--faint)}
+.hint{margin:9px 0 0;font-size:var(--text-xs,14px);line-height:1.55;color:var(--faint)}
 
 /* ── 流派卡 ─────────────────────────────────────────────────────────
    照工具站的 .martial-build-picker 抄（數值取自 MartialBuildPicker-*.css）。
@@ -215,7 +224,7 @@ button{background:none;border:0;cursor:pointer}
 /* 兩個武學固定同一列。原本用 flex-wrap，等級輸入一進來就把第二個擠到下一行，
    跟參考圖差很多 —— 改成兩欄 grid，寬度不夠是讓名字截斷，不是換行。 */
 .bpick-strip{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-.bpick-item{display:flex;min-width:0;align-items:center;gap:6px;font-size:14px;font-weight:700}
+.bpick-item{display:flex;min-width:0;align-items:center;gap:6px;font-size:var(--text-xs,14px);font-weight:700}
 .bpick-item > img{width:42px;height:42px;object-fit:contain;flex:none}
 .bpick-item .id{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;align-items:flex-start}
 .bpick-item .nm{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -225,11 +234,11 @@ button{background:none;border:0;cursor:pointer}
 /* 等級欄：`/20` 那個後綴在這裡是雜訊（上限寫在浮層裡），隱藏。
    輸入框要放得下三位數，32px 會把「20」切掉。 */
 .bpick-item .step{flex:none;font-weight:400}
-.bpick-item .step button{width:22px;height:22px;font-size:14px}
-.bpick-item .step input{width:32px;height:22px;font-size:14px}
-.bpick-item .step .unit{padding:0 6px 0 4px;font-size:14px}
-.bpick-none{margin:8px 0 0;font-size:14px;color:var(--faint);font-weight:400}
-.bhead-req{margin:10px 0 0;font-size:14px;color:var(--faint);line-height:1.5}
+.bpick-item .step button{width:22px;height:22px;font-size:var(--text-xs,14px)}
+.bpick-item .step input{width:32px;height:22px;font-size:var(--text-xs,14px)}
+.bpick-item .step .unit{padding:0 6px 0 4px;font-size:var(--text-xs,14px)}
+.bpick-none{margin:8px 0 0;font-size:var(--text-xs,14px);color:var(--faint);font-weight:400}
+.bhead-req{margin:10px 0 0;font-size:var(--text-xs,14px);color:var(--faint);line-height:1.5}
 .bhead-req b{font-weight:400;color:var(--dim)}
 
 /* ── 心法／奇術四格 ─────────────────────────────────────────────────── */
@@ -237,7 +246,7 @@ button{background:none;border:0;cursor:pointer}
 /* 心法格是「一張卡」，所以圖框照卡的比例 .64。
    奇術沒有卡、只有墨印，用同一個比例會被撐成整張卡那麼高 —— 壓成近方形。 */
 .slots[data-kind="art"] figure{aspect-ratio:.82}
-.slots[data-kind="art"] .seal{font-size:14px;padding:3px 1px}
+.slots[data-kind="art"] .seal{font-size:var(--text-xs,14px);padding:3px 1px}
 /* 外面這一層畫框線、底色與角落那顆金點；裡面的 .slot 才是按鈕。
    為什麼要分兩層：右下角調數值的晶片本身也是按鈕，而按鈕不能包按鈕 ——
    螢幕報讀器會把內層當成外層的一部分唸掉，鍵盤也走不進去，
@@ -256,18 +265,18 @@ button{background:none;border:0;cursor:pointer}
 .slot figure{margin:0;width:100%;aspect-ratio:.64;display:grid;place-items:center;overflow:hidden;
   border-radius:2px;background:#00000038}
 .slot img{max-width:100%;max-height:100%;object-fit:contain;display:block}
-.slot .nm{font-size:14px;line-height:1.25;font-weight:600;letter-spacing:.02em;
+.slot .nm{font-size:var(--text-xs,14px);line-height:1.25;font-weight:600;letter-spacing:.02em;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
 .slotwrap[data-empty] .nm{font-weight:400;color:var(--faint)}
 .slotwrap[data-empty] figure{font-size:17px;color:var(--faint);background:#ffffff05}
 .slotwrap[data-main]{border-color:#c9a2274d;background:var(--gold)0f}
 .slotwrap[data-main]::after{
   content:'主';position:absolute;top:4px;right:4px;background:var(--gold);color:#16130a;
-  font-size:14px;font-weight:700;letter-spacing:.08em;padding:0 4px;border-radius:2px;line-height:1.5;
+  font-size:var(--text-xs,14px);font-weight:700;letter-spacing:.08em;padding:0 4px;border-radius:2px;line-height:1.5;
 }
 /* 四格並排時一格只有 ~72px，加減鈕要縮一號才排得下 */
-.slotwrap .step button{width:22px;height:22px;font-size:14px}
-.slotwrap .step input{width:30px;height:22px;font-size:14px}
+.slotwrap .step button{width:22px;height:22px;font-size:var(--text-xs,14px)}
+.slotwrap .step input{width:30px;height:22px;font-size:var(--text-xs,14px)}
 .slotwrap .step .unit{display:none}
 .slots[data-kind="art"] .step input{width:34px}
 .slotwrap .req{position:absolute;top:4px;left:4px;width:5px;height:5px;border-radius:50%;
@@ -276,7 +285,7 @@ button{background:none;border:0;cursor:pointer}
 .seal{
   width:100%;height:100%;display:grid;place-items:center;color:#f6ece2;border-radius:2px;
   background:radial-gradient(90% 80% at 32% 22%,#a8483d,#8c3a30 58%,#752923);
-  font-size:14px;letter-spacing:.03em;line-height:1.1;padding:4px 2px;
+  font-size:var(--text-xs,14px);letter-spacing:.03em;line-height:1.1;padding:4px 2px;
   writing-mode:vertical-rl;text-orientation:upright;
   box-shadow:0 0 0 1px #00000047 inset;text-shadow:0 1px 1px #0000004d;
 }
@@ -291,27 +300,27 @@ button{background:none;border:0;cursor:pointer}
 .chip{
   display:inline-flex;align-items:center;gap:3px;min-height:26px;padding:2px 9px;
   border:1px solid var(--line);border-radius:999px;background:#00000047;
-  font-family:var(--mono);font-size:14px;color:var(--dim);line-height:1;
+  font-family:var(--mono);font-size:var(--text-xs,14px);color:var(--dim);line-height:1;
   transition:border-color .14s var(--ease-out),color .14s var(--ease-out),background .14s var(--ease-out);
 }
 .chip:hover{border-color:var(--gold);color:var(--gold);background:var(--gold)1a}
 .chip[data-empty]{color:var(--faint);border-style:dashed}
-.chip .u{font-size:14px;opacity:.75}
+.chip .u{font-size:var(--text-xs,14px);opacity:.75}
 
 .pop{position:fixed;inset:0;z-index:72;display:none}
 .pop[data-on]{display:block}
 .pop-box{
-  position:absolute;min-width:190px;max-width:min(320px,calc(100vw - 20px));
+  position:absolute;min-width:190px;max-width:min(320px,calc(calc(100vw / var(--zoom-local, 1)) - 20px));
   background:var(--panel-2);border:1px solid var(--line-hard);border-radius:5px;
   box-shadow:0 20px 50px -18px #000;padding:11px;
 }
-.pop-title{font-size:14px;letter-spacing:.14em;color:var(--faint);margin-bottom:9px}
+.pop-title{font-size:var(--text-xs,14px);letter-spacing:.14em;color:var(--faint);margin-bottom:9px}
 .pop-grid{display:grid;gap:5px;grid-template-columns:repeat(5,1fr)}
 /* 帶圖的面板要寬一點：兩欄 × 圖 ＋ 兩行字，五欄的寬度擠不下 */
-#pop-box:has(.rich){width:min(420px,calc(100vw - 24px))}
+#pop-box:has(.rich){width:min(420px,calc(calc(100vw / var(--zoom-local, 1)) - 24px))}
 .pop-grid button{
   min-height:44px;display:grid;place-items:center;border:1px solid var(--line);border-radius:4px;
-  font-family:var(--mono);font-size:14px;color:var(--dim);background:#ffffff05;
+  font-family:var(--mono);font-size:var(--text-xs,14px);color:var(--dim);background:#ffffff05;
   transition:background .12s var(--ease-out),border-color .12s var(--ease-out),color .12s var(--ease-out);
 }
 .pop-grid button:hover{background:var(--gold)1f;border-color:#c9a22773;color:#e0b94e}
@@ -323,12 +332,12 @@ button{background:none;border:0;cursor:pointer}
   gap:1px 9px;align-items:center;padding:7px 10px;text-align:left;min-height:52px;
 }
 .pop-grid button.rich .pop-art{grid-column:1;grid-row:1/3;width:38px;height:38px;object-fit:contain}
-.pop-grid button.rich .pop-t{grid-column:2;grid-row:1;font-size:14px;letter-spacing:.04em;align-self:end}
-.pop-grid button.rich small{grid-column:2;grid-row:2;font-size:14px;color:var(--faint);
+.pop-grid button.rich .pop-t{grid-column:2;grid-row:1;font-size:var(--text-xs,14px);letter-spacing:.04em;align-self:end}
+.pop-grid button.rich small{grid-column:2;grid-row:2;font-size:var(--text-xs,14px);color:var(--faint);
   align-self:start;font-family:var(--mono);letter-spacing:.02em}
 .pop-grid button.rich[data-on] small{color:#5a4a16}
 .pop-grid button.rich .seal{grid-column:1;grid-row:1/3;width:38px;height:38px;display:grid;place-items:center;
-  font-size:14px;border:1px solid var(--line);border-radius:3px}
+  font-size:var(--text-xs,14px);border:1px solid var(--line);border-radius:3px}
 
 /* 關著時的樣子：也看得到圖，不用點開才知道現在是哪一把 */
 .pickfld{
@@ -343,12 +352,12 @@ button{background:none;border:0;cursor:pointer}
 /* 三欄各自釘死。只靠自動排版的話，跨兩列的箭頭會被塞進文字那一欄，
    文字被擠到最右邊 —— 看起來像是右對齊，其實是排錯格。 */
 .pickfld img,.pickfld .seal{grid-column:1;grid-row:1/3;width:30px;height:30px;object-fit:contain}
-.pickfld .seal{display:grid;place-items:center;font-size:14px;border:1px solid var(--line);border-radius:3px}
-.pickfld .pf-t{grid-column:2;grid-row:1;font-size:14px;align-self:end;text-align:left;
+.pickfld .seal{display:grid;place-items:center;font-size:var(--text-xs,14px);border:1px solid var(--line);border-radius:3px}
+.pickfld .pf-t{grid-column:2;grid-row:1;font-size:var(--text-xs,14px);align-self:end;text-align:left;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pickfld small{grid-column:2;grid-row:2;font-size:14px;color:var(--faint);align-self:start;
+.pickfld small{grid-column:2;grid-row:2;font-size:var(--text-xs,14px);color:var(--faint);align-self:start;
   text-align:left;font-family:var(--mono)}
-.pickfld .pf-caret{grid-column:3;grid-row:1/3;color:var(--faint);font-size:14px}
+.pickfld .pf-caret{grid-column:3;grid-row:1/3;color:var(--faint);font-size:var(--text-xs,14px)}
 
 /* 選單列：一列一件事。會刪東西的標紅，跟「整理一下」那幾項分開。 */
 .pop-menu{grid-template-columns:1fr!important;gap:2px}
@@ -356,8 +365,8 @@ button{background:none;border:0;cursor:pointer}
   display:flex;flex-direction:column;align-items:flex-start;gap:1px;
   padding:8px 11px;min-height:44px;text-align:left;justify-content:center;
 }
-.pop-menu button.menurow .mr-t{font-size:14px;letter-spacing:.04em}
-.pop-menu button.menurow small{font-size:14px;color:var(--faint);line-height:1.4}
+.pop-menu button.menurow .mr-t{font-size:var(--text-xs,14px);letter-spacing:.04em}
+.pop-menu button.menurow small{font-size:var(--text-xs,14px);color:var(--faint);line-height:1.4}
 .pop-menu button.menurow:hover small{color:var(--dim)}
 .pop-menu button.sep{margin-top:7px;border-top:1px solid var(--line-hard);border-radius:0 0 4px 4px}
 .pop-menu button.danger{color:var(--red-soft)}
@@ -371,36 +380,36 @@ button{background:none;border:0;cursor:pointer}
 .goal{
   display:grid;grid-template-columns:1fr 62px 58px 1fr auto 28px;
   gap:0 7px;align-items:center;padding:5px 0;
-  border-bottom:1px solid var(--line-soft);font-size:14px;
+  border-bottom:1px solid var(--line-soft);font-size:var(--text-xs,14px);
 }
 .goal:last-child{border-bottom:0}
 .goal .gk{color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .goal .gv{
-  padding:3px 5px;font-size:14px;font-family:var(--mono);text-align:right;
+  padding:3px 5px;font-size:var(--text-xs,14px);font-family:var(--mono);text-align:right;
   border:1px solid var(--line);border-radius:3px;background:#00000047;color:var(--gold-soft);
   width:100%;
 }
 .goal .gv:focus{outline:1px solid var(--gold)}
-.goal .gnow{font-family:var(--mono);font-size:14px;color:var(--faint);text-align:right}
+.goal .gnow{font-family:var(--mono);font-size:var(--text-xs,14px);color:var(--faint);text-align:right}
 .goal .gbar{display:block;height:4px;border-radius:2px;background:#ffffff14;overflow:hidden}
 .goal .gbar i{display:block;height:100%;background:var(--red);border-radius:2px;
   transition:width .2s var(--ease-out)}
 .goal[data-done] .gbar i{background:var(--gold)}
-.goal .gpct{font-family:var(--mono);font-size:14px;color:var(--faint);white-space:nowrap}
+.goal .gpct{font-family:var(--mono);font-size:var(--text-xs,14px);color:var(--faint);white-space:nowrap}
 .goal[data-done] .gpct{color:var(--gold-soft)}
 /* 移除鈕。看起來小沒關係，但**點擊面積**要夠 ——
    量出來只有 18×18，低於觸控目標的 24px 下限。長寬拉到 28，
    叉叉本身的字級不動，所以視覺上一樣不搶戲。 */
 .goal .gx{
   width:28px;height:28px;border-radius:4px;border:0;background:none;
-  color:var(--faint);font-size:14px;line-height:1;
+  color:var(--faint);font-size:var(--text-xs,14px);line-height:1;
   display:grid;place-items:center;
 }
 .goal .gx:hover{background:var(--red-soft)26;color:var(--red-soft)}
 
 /* 排序與篩選兩顆並排，高度要一樣 —— 差 6px 就看得出來沒對齊 */
 .sortsel{
-  min-height:32px;padding:0 8px;font-size:14px;border:1px solid var(--line-hard);
+  min-height:32px;padding:0 8px;font-size:var(--text-xs,14px);border:1px solid var(--line-hard);
   border-radius:6px;background:var(--panel-2);color:var(--ink);font-family:var(--serif);
 }
 .sortsel:focus{outline:1px solid var(--gold)}
@@ -414,7 +423,7 @@ button{background:none;border:0;cursor:pointer}
   height:32px;padding:0 10px;line-height:1;text-align:left;cursor:pointer;
 }
 .filtsel > span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.filtsel .pf-caret{margin-left:auto;color:var(--faint);font-size:14px}
+.filtsel .pf-caret{margin-left:auto;color:var(--faint);font-size:var(--text-xs,14px)}
 .filtsel[data-on]{border-color:var(--edge-gold);background:var(--gold)1f;color:var(--gold-soft)}
 .filtsel:hover{border-color:var(--gold)}
 
@@ -425,19 +434,19 @@ button{background:none;border:0;cursor:pointer}
   width:13px;height:13px;border:1px solid var(--line-hard);border-radius:3px;
 }
 .pop-menu button[role=menuitemcheckbox][data-on]::before{
-  content:'✓';display:grid;place-items:center;font-size:14px;line-height:1;
+  content:'✓';display:grid;place-items:center;font-size:var(--text-xs,14px);line-height:1;
   border-color:var(--gold);background:var(--gold);color:#16130a;
 }
 
 .pop-foot{display:flex;gap:6px;align-items:center;margin-top:9px}
 .pop-foot input{
   flex:1;min-width:0;height:38px;padding:0 10px;text-align:center;font-family:var(--mono);
-  font-size:14px;border:1px solid var(--line);border-radius:4px;background:#00000047;color:var(--ink);
+  font-size:var(--text-xs,14px);border:1px solid var(--line);border-radius:4px;background:#00000047;color:var(--ink);
 }
 .pop-foot input:focus{outline:1px solid var(--gold)}
 .pop-foot button{
   min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:4px;
-  font-size:14px;color:var(--faint);
+  font-size:var(--text-xs,14px);color:var(--faint);
 }
 .pop-foot button:hover{border-color:#b32f2859;color:var(--red-soft)}
 .pop-foot button.ok{border-color:var(--edge-gold);color:var(--gold-soft)}
@@ -454,7 +463,7 @@ button{background:none;border:0;cursor:pointer}
    兩種都不必打字，也都還是可以直接改數字。 */
 .stars{display:flex;gap:1px;align-items:center}
 .stars button{
-  width:20px;height:24px;display:grid;place-items:center;font-size:15px;line-height:1;
+  width:20px;height:24px;display:grid;place-items:center;font-size:var(--text-sm,15px);line-height:1;
   color:#ffffff2e;transition:color .12s var(--ease-out),transform .12s var(--ease-out);
 }
 .stars button:hover{transform:scale(1.18)}
@@ -467,18 +476,18 @@ button{background:none;border:0;cursor:pointer}
   border-radius:3px;overflow:hidden;background:#00000047}
 .step button{
   width:26px;height:26px;display:grid;place-items:center;flex:none;
-  font-size:15px;line-height:1;color:var(--dim);font-family:var(--mono);
+  font-size:var(--text-sm,15px);line-height:1;color:var(--dim);font-family:var(--mono);
   transition:background .12s var(--ease-out),color .12s var(--ease-out);
 }
 .step button:hover{background:#ffffff14;color:var(--ink)}
 .step button:disabled{color:#ffffff1f;cursor:default;background:none}
 .step input{
   width:40px;height:26px;padding:0 2px;text-align:center;border:0;background:none;
-  font-family:var(--mono);font-size:14px;color:var(--ink);
+  font-family:var(--mono);font-size:var(--text-xs,14px);color:var(--ink);
   border-left:1px solid var(--line);border-right:1px solid var(--line);
 }
 .step input:focus{outline:1px solid var(--gold);outline-offset:-1px}
-.step .unit{padding:0 7px 0 5px;font-size:14px;color:var(--faint);font-family:var(--mono);
+.step .unit{padding:0 7px 0 5px;font-size:var(--text-xs,14px);color:var(--faint);font-family:var(--mono);
   letter-spacing:.04em;white-space:nowrap}
 /* 數字輸入的上下小箭頭在這個尺寸下完全點不到，收掉。 */
 .step input::-webkit-outer-spin-button,.step input::-webkit-inner-spin-button{
@@ -509,7 +518,7 @@ button{background:none;border:0;cursor:pointer}
 .scol{display:grid;gap:6px;min-height:0}
 /* 空格：一個大的＋號，跟工具站一樣置中 */
 /* 縮圖格裡同理：墨印跟著圖的尺寸走，不要自己撐開 */
-.thumb .seal{width:auto;height:auto;max-height:52px;min-height:34px;padding:5px 3px;font-size:14px}
+.thumb .seal{width:auto;height:auto;max-height:52px;min-height:34px;padding:5px 3px;font-size:var(--text-xs,14px)}
 .thumb .plus{
   font-family:var(--serif);
   font-size:26px;line-height:1;color:#faf2dcbf;text-shadow:0 2px 10px #0000008f;
@@ -531,11 +540,11 @@ button{background:none;border:0;cursor:pointer}
   color:#dee5ecdb;
 }
 .tip[data-skin="panel"] .tip-h{
-  margin:0;padding:12px 14px 2px;font-size:14px;font-weight:600;
+  margin:0;padding:12px 14px 2px;font-size:var(--text-xs,14px);font-weight:600;
   letter-spacing:.06em;color:#f2d48a;
 }
 .tip[data-skin="panel"] .sub{
-  margin:0;padding:0 14px 8px;font-size:14px;line-height:1.5;
+  margin:0;padding:0 14px 8px;font-size:var(--text-xs,14px);line-height:1.5;
   color:#dae1ee9e;border-bottom:1px solid #ffffff12;
 }
 .tip[data-skin="panel"] .sec{padding:8px 14px 2px}
@@ -543,7 +552,7 @@ button{background:none;border:0;cursor:pointer}
 /* 群組小標左邊那根金色短棒，就是它的 accent-bar-title */
 .tip[data-skin="panel"] .grp{
   position:relative;margin:0 0 4px;padding-left:12px;line-height:1.2;
-  font-size:14px;font-weight:600;letter-spacing:.06em;color:#f2d48a;
+  font-size:var(--text-xs,14px);font-weight:600;letter-spacing:.06em;color:#f2d48a;
 }
 .tip[data-skin="panel"] .grp::before{
   content:'';position:absolute;top:50%;left:0;width:4px;height:calc(100% - 2px);
@@ -552,7 +561,7 @@ button{background:none;border:0;cursor:pointer}
 }
 .tip[data-skin="panel"] .arow{
   display:flex;min-height:30px;align-items:center;justify-content:space-between;
-  gap:12px;font-size:14px;letter-spacing:.05em;color:#dee5ecdb;
+  gap:12px;font-size:var(--text-xs,14px);letter-spacing:.05em;color:#dee5ecdb;
   border:0;padding:0;background:none;
 }
 .tip[data-skin="panel"] .arow .k{color:#dee5ecdb}
@@ -562,7 +571,7 @@ button{background:none;border:0;cursor:pointer}
 /* 最後那段「合計」壓一層底，跟上面幾段分開 */
 .tip[data-skin="panel"] .sec:last-child{background:#ffffff08;padding-bottom:10px}
 .tip[data-skin="panel"] .none{
-  margin:0;padding:10px 14px 12px;font-size:14px;line-height:1.6;color:#dae1ee9e;
+  margin:0;padding:10px 14px 12px;font-size:var(--text-xs,14px);line-height:1.6;color:#dae1ee9e;
 }
 
 /* ── 武器套裝・弓箭・武庫的彈窗 ─────────────────────────────────── */
@@ -574,9 +583,9 @@ button{background:none;border:0;cursor:pointer}
    停用之後按鈕就變成沒反應也沒訊息，而那是最難查的一種壞法。 */
 .pick-box.ask-box{width:min(460px,100%)}
 .ask-body{padding:14px 15px 4px;display:flex;flex-direction:column;gap:7px}
-.ask-body p{margin:0;font-size:14px;line-height:1.65;color:var(--ink)}
-.ask-body p.sub{font-size:14px;line-height:1.6;color:var(--faint)}
-.ask-body p.warn{font-size:14px;color:var(--red-soft)}
+.ask-body p{margin:0;font-size:var(--text-xs,14px);line-height:1.65;color:var(--ink)}
+.ask-body p.sub{font-size:var(--text-xs,14px);line-height:1.6;color:var(--faint)}
+.ask-body p.warn{font-size:var(--text-xs,14px);color:var(--red-soft)}
 .pick-foot .ok[data-danger]{background:var(--red);border-color:var(--red);color:#fff}
 .pick-foot .ok[data-danger]:hover{filter:brightness(1.12)}
 
@@ -585,33 +594,33 @@ button{background:none;border:0;cursor:pointer}
    一個來源一塊板，板上左邊名稱右邊數值 —— 跟工具站同一種讀法。
    只用既有的色票（金／墨／淡），不另外開一套顏色。 */
 .pick-box.src-box{width:min(960px,100%)}
-.src-sub{margin:0;padding:11px 15px 0;font-size:14px;line-height:1.5;color:var(--faint)}
+.src-sub{margin:0;padding:11px 15px 0;font-size:var(--text-xs,14px);line-height:1.5;color:var(--faint)}
 /* min-height:0 是關鍵：flex 子項預設 min-height:auto，不歸零它就不肯縮，
    overflow:auto 也不會生效，底下的「關閉」會被推到視窗外面點不到。 */
 .src-body{display:flex;flex-direction:column;gap:12px;
   min-height:0;overflow:auto;padding:12px 15px 4px}
 .spanel{border:1px solid var(--line);border-radius:4px;background:#00000033;padding:12px 14px}
 .spanel-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:10px}
-.spanel-h h4{margin:0;font-size:15px;letter-spacing:.1em;font-weight:600;color:#e0b94e}
-.spanel-h .hint2{font-size:14px;color:var(--faint);line-height:1.5}
+.spanel-h h4{margin:0;font-size:var(--text-sm,15px);letter-spacing:.1em;font-weight:600;color:#e0b94e}
+.spanel-h .hint2{font-size:var(--text-xs,14px);color:var(--faint);line-height:1.5}
 .spanel-h .tags{margin-left:auto;display:flex;flex-wrap:wrap;gap:5px}
 .spanel-h .tags span{
   padding:3px 9px;border:1px solid var(--line);border-radius:999px;
-  font-size:14px;letter-spacing:.04em;color:var(--dim);background:#ffffff08;
+  font-size:var(--text-xs,14px);letter-spacing:.04em;color:var(--dim);background:#ffffff08;
 }
 /* 一個來源一小塊。名字在左上、角落標它是第幾件／哪一類。 */
 .sgrp{border-top:1px solid var(--line-soft);padding-top:9px;margin-top:9px}
 .sgrp:first-child{border-top:0;padding-top:0;margin-top:0}
 .sgrp-h{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
-.sgrp-h b{font-size:14px;font-weight:600;letter-spacing:.04em;color:var(--ink)}
-.sgrp-h small{margin-left:auto;font-size:14px;color:var(--faint);letter-spacing:.08em}
-.srow{display:flex;align-items:baseline;gap:10px;padding:3px 0;font-size:14px}
+.sgrp-h b{font-size:var(--text-xs,14px);font-weight:600;letter-spacing:.04em;color:var(--ink)}
+.sgrp-h small{margin-left:auto;font-size:var(--text-xs,14px);color:var(--faint);letter-spacing:.08em}
+.srow{display:flex;align-items:baseline;gap:10px;padding:3px 0;font-size:var(--text-xs,14px)}
 .srow .k{color:var(--dim);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.srow .v{margin-left:auto;font-family:var(--mono);font-size:14px;color:var(--gold-soft);
+.srow .v{margin-left:auto;font-family:var(--mono);font-size:var(--text-xs,14px);color:var(--gold-soft);
   font-weight:600;white-space:nowrap}
-.srow .v .sub{margin-left:5px;font-size:14px;font-weight:400;color:var(--faint)}
+.srow .v .sub{margin-left:5px;font-size:var(--text-xs,14px);font-weight:400;color:var(--faint)}
 .srow[data-p] .v{color:var(--red-soft)}
-.spanel .none{margin:0;font-size:14px;color:var(--faint)}
+.spanel .none{margin:0;font-size:var(--text-xs,14px);color:var(--faint)}
 
 /* ── 快速添加 ─────────────────────────────────────────────────────
    一次補一整套（八件）。卡片只列「這一格會拿到哪幾條詞條」——
@@ -620,20 +629,20 @@ button{background:none;border:0;cursor:pointer}
 .qadd-bar{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;
   padding:12px 15px 0;margin-bottom:12px}
 .qadd-fld{display:flex;flex-direction:column;gap:4px;min-width:0}
-.qadd-fld > span{font-size:14px;letter-spacing:.16em;color:var(--faint)}
-.qadd-fld select{padding:6px 8px;font-size:14px;border:1px solid var(--line);border-radius:3px;
+.qadd-fld > span{font-size:var(--text-xs,14px);letter-spacing:.16em;color:var(--faint)}
+.qadd-fld select{padding:6px 8px;font-size:var(--text-xs,14px);border:1px solid var(--line);border-radius:3px;
   background:#00000047;color:var(--ink);font-family:var(--serif);min-width:150px}
 .qadd-modes{display:flex;gap:6px}
-.qadd-modes button{padding:7px 14px;font-size:14px;border:1px solid var(--line);
+.qadd-modes button{padding:7px 14px;font-size:var(--text-xs,14px);border:1px solid var(--line);
   border-radius:3px;color:var(--dim);
   transition:border-color .15s var(--ease-out),color .15s var(--ease-out),background .15s var(--ease-out)}
 .qadd-modes button:hover{border-color:var(--gold);color:var(--gold)}
 .qadd-modes button[data-on]{border-color:#c9a22773;background:var(--gold)1f;color:#e0b94e;font-weight:600}
-#qadd-all,#qadd-none{margin-left:auto;padding:7px 12px;font-size:14px;
+#qadd-all,#qadd-none{margin-left:auto;padding:7px 12px;font-size:var(--text-xs,14px);
   border:1px solid var(--line);border-radius:3px;color:var(--dim)}
 #qadd-all{margin-left:auto}#qadd-none{margin-left:0}
 #qadd-all:hover,#qadd-none:hover{border-color:var(--gold);color:var(--gold)}
-/* 跟 .src-body 同一個理由：手機一欄八張卡一定超過 88dvh，要自己會捲。 */
+/* 跟 .src-body 同一個理由：手機一欄八張卡一定超過 calc(88dvh / var(--zoom-local, 1))，要自己會捲。 */
 .qadd-grid{display:grid;gap:8px;grid-template-columns:repeat(4,minmax(0,1fr));
   min-height:0;overflow:auto;padding:0 15px 4px}
 @media (max-width:900px){ .qadd-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
@@ -647,25 +656,25 @@ button{background:none;border:0;cursor:pointer}
 .qcard:hover{border-color:#c9a22773}
 .qcard[data-on]{border-color:#c9a22773;background:var(--gold)1a}
 .qcard-h{display:flex;align-items:baseline;gap:7px}
-.qcard-h .part{font-size:14px;letter-spacing:.14em;color:var(--faint)}
-.qcard-h .nm{font-size:14px;font-weight:600;letter-spacing:.03em;color:var(--dim)}
+.qcard-h .part{font-size:var(--text-xs,14px);letter-spacing:.14em;color:var(--faint)}
+.qcard-h .nm{font-size:var(--text-xs,14px);font-weight:600;letter-spacing:.03em;color:var(--dim)}
 .qcard[data-on] .nm{color:var(--ink)}
-.qcard-h .tick{margin-left:auto;font-size:14px;color:var(--faint)}
+.qcard-h .tick{margin-left:auto;font-size:var(--text-xs,14px);color:var(--faint)}
 .qcard[data-on] .tick{color:#e0b94e}
 .qcard ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px}
-.qcard li{font-size:14px;line-height:1.35;color:var(--gold-soft);
+.qcard li{font-size:var(--text-xs,14px);line-height:1.35;color:var(--gold-soft);
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .qcard li.p{color:var(--red-soft)}
-.qcard li.f::before{content:'首　';color:var(--faint);font-size:14px}
+.qcard li.f::before{content:'首　';color:var(--faint);font-size:var(--text-xs,14px)}
 
 .pick-box.eqsel-box{width:min(1160px,100%)}
 .eqsec{margin-bottom:16px}
 .eqsec:last-child{margin-bottom:6px}
 .eqsec h3{
-  margin:0 0 9px;font-size:14px;letter-spacing:.14em;font-weight:600;color:var(--gold-soft);
+  margin:0 0 9px;font-size:var(--text-xs,14px);letter-spacing:.14em;font-weight:600;color:var(--gold-soft);
   display:flex;align-items:baseline;gap:10px;
 }
-.eqsec h3 span{font-size:14px;letter-spacing:.04em;color:var(--faint);font-weight:400}
+.eqsec h3 span{font-size:var(--text-xs,14px);letter-spacing:.04em;color:var(--faint);font-weight:400}
 /* 武器套裝有十一個，讓它自己排幾行都行。 */
 .eqgrid{display:grid;gap:7px;grid-template-columns:repeat(auto-fill,minmax(min(196px,100%),1fr))}
 
@@ -710,7 +719,7 @@ button{background:none;border:0;cursor:pointer}
 /* 一條屬性是一個整體，不能從「最大外功攻擊 +373」中間那個空格斷開。
    放不下就截斷加點點，比斷成兩行好讀。 */
 .eqopt-t small{
-  font-size:14px;line-height:1.35;color:#e0d8c2ad;
+  font-size:var(--text-xs,14px);line-height:1.35;color:#e0d8c2ad;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .eqopt-i{position:relative;z-index:1;width:52px;height:52px;object-fit:contain;flex:none}
@@ -724,7 +733,7 @@ button{background:none;border:0;cursor:pointer}
 .thumb .sbadge{
   position:absolute;top:4px;left:5px;z-index:2;
   font-family:var(--serif);
-  font-size:14px;line-height:11px;color:#b99476;
+  font-size:var(--text-xs,14px);line-height:11px;color:#b99476;
 }
 /* 配裝格的底是 bg/r1.png（紫裝 r2）—— 工具站的 --equipment-slot-gold-bg
    指的是這一張。1088×2164 的直幅，上暗下金、帶細直紋。
@@ -788,10 +797,10 @@ button{background:none;border:0;cursor:pointer}
    陰影**只有一層**且很輕（0 1px 2px rgba(0,0,0,.7)）。
    我先前疊了三層厚陰影去壓金底，結果字周圍糊成一團黑，
    看起來就像又蓋了一層遮罩 —— 字夠粗夠白的話根本不需要那麼重。 */
-.thumb .t{font-size:14px;color:#fff;line-height:20px;font-weight:700;
+.thumb .t{font-size:var(--text-xs,14px);color:#fff;line-height:20px;font-weight:700;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;
   text-shadow:0 1px 2px #000000b3}
-.thumb .s{position:absolute;top:3px;left:3px;z-index:2;font-size:14px;line-height:1.4;padding:0 4px;
+.thumb .s{position:absolute;top:3px;left:3px;z-index:2;font-size:var(--text-xs,14px);line-height:1.4;padding:0 4px;
   border-radius:2px;background:#000000bf;color:#f0cf5c;letter-spacing:.02em;font-weight:600}
 /* 空格：壓暗、抽掉彩度、虛線邊，配上大大的＋。
    跟上面填滿的那組擺在一起要一眼分得出來，不能只差一點點。 */
@@ -806,14 +815,14 @@ button{background:none;border:0;cursor:pointer}
 .thumb[data-done]:hover{box-shadow:inset 0 -2px 0 #c9a227bf,0 0 0 1px var(--line) inset}
 
 /* ── 屬性小計 ───────────────────────────────────────────────────────── */
-.tot{display:flex;align-items:baseline;gap:6px;font-size:14px;line-height:1.95;padding:0 2px}
+.tot{display:flex;align-items:baseline;gap:6px;font-size:var(--text-xs,14px);line-height:1.95;padding:0 2px}
 .tot .k{flex:none;max-width:56%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--dim)}
 .tot::before{content:'';flex:1;align-self:center;height:0;margin:0 3px;
   border-bottom:1px dotted #ffffff1f;order:1}
 .tot .v{order:2;font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600;
-  font-size:14px;letter-spacing:.01em}
-.tot .n{font-size:14px;color:var(--faint);font-family:var(--mono);margin-left:4px}
-.tot .ideal{color:var(--faint);font-weight:400;font-size:14px}
+  font-size:var(--text-xs,14px);letter-spacing:.01em}
+.tot .n{font-size:var(--text-xs,14px);color:var(--faint);font-family:var(--mono);margin-left:4px}
+.tot .ideal{color:var(--faint);font-weight:400;font-size:var(--text-xs,14px)}
 
 /* ── 裝備倉庫 ───────────────────────────────────────────────────────── */
 /* 倉庫抬頭。照工具站：EQUIPMENT 小字金色、標題大字**沒有外框**、
@@ -821,17 +830,17 @@ button{background:none;border:0;cursor:pointer}
    我原本把標題框起來、頁籤加底線加數字徽章，看起來像兩套系統疊在一起。 */
 .vault-head{position:relative;display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
 .vault-head .kicker{display:block;margin-bottom:2px;font-family:var(--mono);
-  font-size:14px;letter-spacing:.34em;color:#c79a3a}
+  font-size:var(--text-xs,14px);letter-spacing:.34em;color:#c79a3a}
 .vault-head h2{margin:0;font-size:25px;letter-spacing:.14em;font-weight:600;line-height:1.2}
 .vault-head .right{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 /* 使用說明是淺色藥丸，跟那三顆金色的動作鈕分開 —— 它不是動作，是說明。 */
 .act-ghost{
-  padding:5px 14px;border-radius:999px;font-size:14px;letter-spacing:.06em;
+  padding:5px 14px;border-radius:999px;font-size:var(--text-xs,14px);letter-spacing:.06em;
   background:#e9ecf2;color:#1b2026;font-weight:600;
 }
 .act-ghost:hover{background:#fff}
 .act-gold{
-  padding:5px 14px;border-radius:999px;font-size:14px;letter-spacing:.06em;
+  padding:5px 14px;border-radius:999px;font-size:var(--text-xs,14px);letter-spacing:.06em;
   background:var(--gold)1f;color:#e0b94e;border:1px solid #c9a22740;font-weight:600;
   transition:background .16s var(--ease-out),border-color .16s var(--ease-out);
 }
@@ -841,7 +850,7 @@ button{background:none;border:0;cursor:pointer}
    而捲軸會蓋住底下那條選中的金線，也讓後半段的頁籤根本看不到。 */
 .tabs{display:flex;flex-wrap:wrap;gap:0 2px;margin-bottom:12px;align-items:center}
 .tabs button{
-  position:relative;padding:6px 13px 7px;font-size:14px;letter-spacing:.04em;color:var(--dim);
+  position:relative;padding:6px 13px 7px;font-size:var(--text-xs,14px);letter-spacing:.04em;color:var(--dim);
   white-space:nowrap;transition:color .15s var(--ease-out);
 }
 .tabs button:first-child{padding-left:0}
@@ -849,7 +858,7 @@ button{background:none;border:0;cursor:pointer}
 .tabs button[data-on]{color:#e0b94e;font-weight:600}
 /* 數字保留但壓得比字淡 —— 工具站沒有這個，但「待填 8」是這一頁最有用的一個數字。
    不用 opacity：10px 的字要 4.5:1，--faint 打在面板上剛好 4.85，再乘就破了。 */
-.tabs button .n{font-family:var(--mono);font-size:14px;color:var(--faint);margin-left:5px}
+.tabs button .n{font-family:var(--mono);font-size:var(--text-xs,14px);color:var(--faint);margin-left:5px}
 .tabs button[data-on] .n{color:#c79a3a;opacity:.85}
 /* 空的分類壓淡但照樣列 —— 整理倉庫時要看的就是「哪裡還缺」，藏起來反而沒用。
    **不用 opacity 壓。** 原本是 .42，對比只剩 1.88:1，等於看不到；
@@ -861,7 +870,7 @@ button{background:none;border:0;cursor:pointer}
 /* 分類方式。兩種分法看的是不同的問題：
    依部位＝「這個洞我有幾件可選」，依套裝＝「時雨我湊到幾件了」。 */
 .seg{display:flex;margin-right:12px;border:1px solid var(--line-hard);border-radius:6px;overflow:hidden}
-.seg button{padding:5px 11px;font-size:14px;color:var(--dim);white-space:nowrap}
+.seg button{padding:5px 11px;font-size:var(--text-xs,14px);color:var(--dim);white-space:nowrap}
 .seg button+button{border-left:1px solid var(--line-hard)}
 .seg button:hover{color:var(--ink);background:#ffffff0a}
 .seg button[data-on]{background:var(--gold)1f;color:#e0b94e}
@@ -897,21 +906,21 @@ button{background:none;border:0;cursor:pointer}
   font-size:34px;line-height:34px;font-weight:400;color:#faf2dce6;
   text-shadow:0 2px 10px #0000008f;
 }
-.addcard b{font-size:14px;letter-spacing:.08em;font-weight:600;color:#faf2dcd9;
+.addcard b{font-size:var(--text-xs,14px);letter-spacing:.08em;font-weight:600;color:#faf2dcd9;
   text-shadow:0 1px 6px #000000a6}
-.addcard small{font-size:14px;color:#faf2dc8c;letter-spacing:.02em;
+.addcard small{font-size:var(--text-xs,14px);color:#faf2dc8c;letter-spacing:.02em;
   text-shadow:0 1px 6px #000000a6}
 /* 左上角標，跟工具站同一個位置 */
 .addcard::after{
   content:'新';position:absolute;top:6px;left:7px;z-index:1;
   font-family:var(--serif);
-  font-size:14px;line-height:13px;color:#b99476;
+  font-size:var(--text-xs,14px);line-height:13px;color:#b99476;
 }
 
 /* 倉庫空的時候一定要給一個明確的下一步，不然只會看到一片空白 */
 .blank{
   grid-column:1/-1;border:1px dashed var(--line-hard);border-radius:8px;
-  padding:28px 20px;text-align:center;color:var(--dim);font-size:14px;
+  padding:28px 20px;text-align:center;color:var(--dim);font-size:var(--text-xs,14px);
 }
 .blank p{margin:0 0 12px}
 
@@ -929,7 +938,7 @@ button{background:none;border:0;cursor:pointer}
 /* 屬性列的通用版面：標籤靠左吃掉剩餘寬度、數值靠右。
    .ecard 另有自己的一份，其餘地方（浮層）吃這一份。 */
 .arow{display:flex;align-items:center;justify-content:space-between;gap:12px;
-  font-size:14px;line-height:1.8}
+  font-size:var(--text-xs,14px);line-height:1.8}
 .arow .k{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--dim)}
 .arow .v{flex:none;font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600}
 .ecard{
@@ -952,7 +961,7 @@ button{background:none;border:0;cursor:pointer}
   background:#d8d9df;border-top:1px solid #0000001f;
 }
 .ecard-act button{
-  min-height:32px;padding:0 11px;border-radius:5px;font-size:14px;
+  min-height:32px;padding:0 11px;border-radius:5px;font-size:var(--text-xs,14px);
   border:1px solid #00000033;background:#f2f2f5;color:#262728;
   transition:border-color .15s var(--ease-out),background .15s var(--ease-out);
 }
@@ -1004,7 +1013,7 @@ button{background:none;border:0;cursor:pointer}
 .ecard .band{
   position:absolute;left:0;right:0;top:0;z-index:2;
   display:flex;align-items:center;gap:6px;padding:4px 10px;
-  font-size:14px;letter-spacing:.06em;color:#f4e6b4;background:#00000059;
+  font-size:var(--text-xs,14px);letter-spacing:.06em;color:#f4e6b4;background:#00000059;
 }
 .ecard[data-q="purple"] .band{color:#ded0f0}
 .ecard .band .q{margin-left:auto;font-weight:700;color:#f6ecc9}
@@ -1012,7 +1021,7 @@ button{background:none;border:0;cursor:pointer}
 .ecard .who{flex:1;min-width:0;padding:32px 0 10px 12px}
 .ecard .who b{display:block;font-size:17px;line-height:1.3;letter-spacing:.03em;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ecard .who small{display:block;margin-top:6px;font-size:14px;color:#e1e5eea3;letter-spacing:.02em}
+.ecard .who small{display:block;margin-top:6px;font-size:var(--text-xs,14px);color:#e1e5eea3;letter-spacing:.02em}
 /* 物件置底，貼著 hero 的下緣。
    原本用 margin-top 把它推下去，結果是懸在中間、下面留一條空 ——
    斜置的長兵器（刀、槍）看起來就像被切掉半截。
@@ -1030,13 +1039,13 @@ button{background:none;border:0;cursor:pointer}
 /* 墨印本身是 width/height:100% —— 那是給格子用的。
    放進 hero 這種 flex 容器會被拉成整張卡那麼大，變成一整片紅。
    凡是圖片有固定尺寸的地方，墨印就吃同一組尺寸。 */
-.ecard-hero .seal{font-size:14px;padding:6px 3px;align-self:flex-end;margin-bottom:6px}
+.ecard-hero .seal{font-size:var(--text-xs,14px);padding:6px 3px;align-self:flex-end;margin-bottom:6px}
 
 /* 以下都在淺底上 */
 .ecard .base{padding:10px 14px 8px;border-top:1px solid #807b852e}
 .ecard .tunes{padding:8px 14px 14px;border-top:1px solid #807b8529}
 .ecard .arow{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:19px}
-.ecard .base .arow{font-size:14px;font-weight:700;margin-bottom:5px}
+.ecard .base .arow{font-size:var(--text-xs,14px);font-weight:700;margin-bottom:5px}
 .ecard .base .arow .k{color:#2e2f34eb}
 /* 下面這三個顏色是打在**淺色**卡身 #e4e5ea 上的，不是打在暗底上，
    所以要往深調才會有對比。原值分別只有 4.00／4.02／2.75，都不到 4.5：
@@ -1051,7 +1060,7 @@ button{background:none;border:0;cursor:pointer}
   font-variant-numeric:tabular-nums}
 /* 詞條預設就是金褐；滾得差的才轉色。菱形用 clip-path 切，不是文字符號 ——
    ◆ 這個字在不同字體下大小差很多，切出來的形狀到哪都一樣。 */
-.ecard .tunes .arow{font-size:14px;color:#845800;margin-bottom:2px}
+.ecard .tunes .arow{font-size:var(--text-xs,14px);color:#845800;margin-bottom:2px}
 .ecard .tunes .arow .k{display:inline-flex;align-items:center;gap:8px;flex:1;min-width:0;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:inherit}
 .ecard .tunes .arow .k::before{
@@ -1072,9 +1081,9 @@ button{background:none;border:0;cursor:pointer}
 .ecard .tunes .arow.empty{color:#5a5860}
 .ecard .foot{
   margin-top:auto;padding:6px 14px 8px;border-top:1px solid #807b8529;
-  display:flex;align-items:center;gap:8px;font-size:14px;color:#5c5d66;font-family:var(--mono);
+  display:flex;align-items:center;gap:8px;font-size:var(--text-xs,14px);color:#5c5d66;font-family:var(--mono);
 }
-.ecard .foot .pct{margin-left:auto;font-size:14px;font-weight:700;color:#7d5c22;
+.ecard .foot .pct{margin-left:auto;font-size:var(--text-xs,14px);font-weight:700;color:#7d5c22;
   font-variant-numeric:tabular-nums}
 .ecard .foot .pct[data-low]{color:#8b8c94}
 
@@ -1082,36 +1091,36 @@ button{background:none;border:0;cursor:pointer}
 .grad{display:flex;align-items:baseline;gap:9px;margin:0 0 6px}
 .grad b{font-size:36px;line-height:1;font-family:var(--mono);color:var(--gold);
   font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.grad span{font-size:14px;letter-spacing:.2em;color:var(--faint)}
+.grad span{font-size:var(--text-xs,14px);letter-spacing:.2em;color:var(--faint)}
 .gradbar{height:3px;border-radius:2px;background:#ffffff14;overflow:hidden;margin:0 0 12px}
 .gradbar i{display:block;height:100%;border-radius:2px;
   background:linear-gradient(90deg,#b32f28,#c9a227);transition:width .4s var(--ease-out)}
 .radar{width:100%;height:auto;display:block;margin:0 auto 4px}
-.legend{display:flex;gap:14px;justify-content:center;font-size:14px;color:var(--faint);margin-bottom:11px}
+.legend{display:flex;gap:14px;justify-content:center;font-size:var(--text-xs,14px);color:var(--faint);margin-bottom:11px}
 .legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px}
-.lab{font-size:14px;letter-spacing:.2em;color:var(--faint);margin:13px 0 6px;font-weight:600}
+.lab{font-size:var(--text-xs,14px);letter-spacing:.2em;color:var(--faint);margin:13px 0 6px;font-weight:600}
 
 /* ── 報名欄位 ───────────────────────────────────────────────────────── */
 /* 懸掛縮排：一行放不下時，續行對齊內容而不是對齊「心法」那兩個字。 */
 .sheet{
-  white-space:pre-wrap;word-break:break-word;font-family:var(--serif);font-size:14px;
+  white-space:pre-wrap;word-break:break-word;font-family:var(--serif);font-size:var(--text-xs,14px);
   line-height:1.95;margin:0;padding:11px 11px 11px calc(11px + 3.6em);text-indent:-3.6em;
   border:1px solid var(--line);border-radius:3px;background:#00000038;min-height:110px;color:var(--dim);
 }
 .mini{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
-.mini button{font-size:14px;letter-spacing:.08em;padding:5px 10px;border:1px solid var(--line);
+.mini button{font-size:var(--text-xs,14px);letter-spacing:.08em;padding:5px 10px;border:1px solid var(--line);
   border-radius:3px;color:var(--faint);transition:.15s var(--ease-out)}
 .mini button:hover{border-color:var(--line-hard);color:var(--ink)}
 .send{margin-top:11px;padding-top:11px;border-top:1px solid var(--line)}
-.send label{display:block;font-size:14px;letter-spacing:.2em;color:var(--faint);margin-bottom:5px}
+.send label{display:block;font-size:var(--text-xs,14px);letter-spacing:.2em;color:var(--faint);margin-bottom:5px}
 .send-row{display:flex;gap:5px}
-.send input{flex:1;min-width:0;padding:6px 8px;font-size:14px;border:1px solid var(--line);
+.send input{flex:1;min-width:0;padding:6px 8px;font-size:var(--text-xs,14px);border:1px solid var(--line);
   border-radius:3px;background:#00000047;color:var(--ink)}
 .send input:focus{outline:1px solid var(--gold)}
-.send button{padding:6px 13px;font-size:14px;letter-spacing:.08em;border-radius:3px;
+.send button{padding:6px 13px;font-size:var(--text-xs,14px);letter-spacing:.08em;border-radius:3px;
   color:#16130a;background:var(--gold);font-weight:600}
 .send button:hover{filter:brightness(1.1)}
-.warn{margin:8px 0 0;font-size:14px;color:var(--red-soft);line-height:1.5}
+.warn{margin:8px 0 0;font-size:var(--text-xs,14px);color:var(--red-soft);line-height:1.5}
 
 /* ── overlay ────────────────────────────────────────────────────────── */
 /* ── 2026-09-18 設計定案的落地 ───────────────────────────────────
@@ -1119,26 +1128,21 @@ button{background:none;border:0;cursor:pointer}
    寫在 DESIGN_MEMORY.md。這一段只補現況缺的三件，沒有重寫既有的 .tot／.grad ——
    那兩個本來就已經是這個調性了。 */
 
-/* B：右欄分頁。解「右欄太長要一直捲」 */
-.rtabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:11px}
-.rtabs button{padding:8px 14px;font-size:14px;letter-spacing:.1em;color:var(--faint);
-  border-bottom:2px solid transparent;margin-bottom:-1px;min-height:34px;
-  transition:color .15s var(--ease-out),border-color .15s var(--ease-out)}
-.rtabs button:hover{color:var(--dim)}
-.rtabs button[data-on]{color:#e0b94e;border-bottom-color:var(--gold);font-weight:600}
-.col-3 > .card[data-pane]{display:none}
-.col-3 > .card[data-pane][data-on]{display:block}
+/* Right column follows reading order: power, goals, enrollment. */
+.col-3 > .card[data-pane]{display:block}
+.wrap .col-3 > .card + .card{padding-top:24px;border-top:1px solid var(--line)}
+.wrap .col-3 > .card:first-child > h2{min-height:64px;padding-bottom:12px;border-bottom:1px solid var(--line)}
 
 /* 換算值。解「數字不夠讀」——「原始值（換算後）」原本擠成一串，現在分開：
    原始值是金的主角，換算值退成灰色小字，溢出標紅。 */
-.tot .conv{margin-left:6px;font-family:var(--mono);font-size:14px;font-weight:400;
+.tot .conv{margin-left:6px;font-family:var(--mono);font-size:var(--text-xs,14px);font-weight:400;
   color:var(--faint);font-variant-numeric:tabular-nums}
 .tot .conv[data-over]{color:var(--red-soft)}
 
 /* D：說明收進標題列的 ⓘ。解「說明太多」——
    那幾段灰字是第一次看才需要的，不該天天佔六行。 */
 .why{width:28px;height:28px;min-height:28px;margin-left:auto;flex:none;
-  border:1px solid var(--line-hard);border-radius:50%;font-size:14px;line-height:1;
+  border:1px solid var(--line-hard);border-radius:50%;font-size:var(--text-xs,14px);line-height:1;
   color:var(--faint);display:inline-grid;place-items:center;
   transition:border-color .15s var(--ease-out),color .15s var(--ease-out)}
 .why:hover,.why[data-on]{border-color:var(--gold);color:var(--gold)}
@@ -1182,13 +1186,13 @@ button{background:none;border:0;cursor:pointer}
 .secbar[data-on]{display:grid;grid-auto-flow:column;grid-auto-columns:1fr}
 .secbar button{
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-  min-height:52px;padding:7px 4px 8px;font-size:14px;letter-spacing:.08em;color:var(--dim);
+  min-height:52px;padding:7px 4px 8px;font-size:var(--text-xs,14px);letter-spacing:.08em;color:var(--dim);
   border-top:2px solid transparent;margin-top:-1px;
   transition:color .15s var(--ease-out),border-color .15s var(--ease-out);
 }
 /* 不用 opacity 壓淡 —— 它會連對比一起壓掉（這一頁踩過兩次了）。
    靠色階分：標籤 --dim、數字 --faint，兩個都過 4.5:1。 */
-.secbar button .n{font-family:var(--mono);font-size:14px;color:var(--faint)}
+.secbar button .n{font-family:var(--mono);font-size:var(--text-xs,14px);color:var(--faint)}
 .secbar button[data-on]{color:#e0b94e;border-top-color:var(--gold)}
 
 @media (max-width:900px){
@@ -1246,28 +1250,28 @@ button{background:none;border:0;cursor:pointer}
    原本是「報名欄位」一塊文字 ＋ 三顆同重量的小鈕 ＋ 一個要自己打代號的框，
    看不出來是誰的，也看不出來能不能送。 */
 #reg-who{margin-left:auto;font-family:var(--mono);color:var(--gold-soft);
-  font-size:14px;letter-spacing:.06em}
+  font-size:var(--text-xs,14px);letter-spacing:.06em}
 
 /* 還差什麼。完成不是一個感覺，是四個數字。 */
 .ready{list-style:none;margin:0 0 12px;padding:0;display:grid;
   grid-template-columns:1fr 1fr;gap:1px;background:var(--line-soft);
   border:1px solid var(--line);border-radius:4px;overflow:hidden}
 .ready li{display:flex;align-items:baseline;gap:7px;padding:8px 10px;background:var(--panel);
-  font-size:14px;color:var(--faint)}
-.ready li b{margin-left:auto;font-family:var(--mono);font-size:14px;font-weight:600;
+  font-size:var(--text-xs,14px);color:var(--faint)}
+.ready li b{margin-left:auto;font-family:var(--mono);font-size:var(--text-xs,14px);font-weight:600;
   color:var(--dim);font-variant-numeric:tabular-nums}
 .ready li[data-ok] b{color:var(--jade)}
 .ready li[data-no] b{color:var(--red-soft)}
 
 .reg-fld{display:flex;flex-direction:column;gap:5px;margin-bottom:9px}
-.reg-fld > span{font-size:14px;letter-spacing:.16em;color:var(--faint)}
-.reg-fld input{padding:9px 11px;font-size:14px;border:1px solid var(--line);border-radius:3px;
+.reg-fld > span{font-size:var(--text-xs,14px);letter-spacing:.16em;color:var(--faint)}
+.reg-fld input{padding:9px 11px;font-size:var(--text-xs,14px);border:1px solid var(--line);border-radius:3px;
   background:#00000047;color:var(--ink);font-family:var(--mono)}
 .reg-fld input:focus{outline:1px solid var(--gold)}
 
 /* 唯一的主要動作。這一頁只有這一顆是實心的 —— 一個畫面一個強調。 */
 .reg-go{
-  width:100%;min-height:44px;border-radius:3px;font-size:14px;letter-spacing:.14em;
+  width:100%;min-height:44px;border-radius:3px;font-size:var(--text-xs,14px);letter-spacing:.14em;
   font-weight:600;background:var(--gold);color:#14100a;border:1px solid var(--gold);
   transition:filter .15s var(--ease-out);
 }
@@ -1276,7 +1280,7 @@ button{background:none;border:0;cursor:pointer}
 
 /* 要送出的那段文字收起來。它是結果不是輸入，確認一次就夠，不必一直佔六行。 */
 .reg-adv{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
-.reg-adv summary{list-style:none;cursor:pointer;font-size:14px;letter-spacing:.1em;
+.reg-adv summary{list-style:none;cursor:pointer;font-size:var(--text-xs,14px);letter-spacing:.1em;
   color:var(--faint);min-height:28px;display:flex;align-items:center}
 .reg-adv summary::-webkit-details-marker{display:none}
 .reg-adv summary::before{content:'▸ ';color:var(--gold);margin-right:3px}
@@ -1286,10 +1290,10 @@ button{background:none;border:0;cursor:pointer}
    兩條帶子：上面是控制（分類／排序／篩選 ＋ 件數），下面是部位頁籤。
    原本擠在同一個 flex-wrap 容器裡，斷行的位置由寬度決定，不由語意決定。 */
 .vbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:9px}
-.vbar .lab{font-size:14px;letter-spacing:.14em;color:var(--faint);flex:none}
+.vbar .lab{font-size:var(--text-xs,14px);letter-spacing:.14em;color:var(--faint);flex:none}
 /* 標籤與它的控制項是一組，換行時一起走。 */
 .vbar .fld2{display:inline-flex;align-items:center;gap:7px;min-width:0}
-.vbar .count{margin-left:auto;font-family:var(--mono);font-size:14px;color:var(--faint);
+.vbar .count{margin-left:auto;font-family:var(--mono);font-size:var(--text-xs,14px);color:var(--faint);
   font-variant-numeric:tabular-nums;white-space:nowrap}
 .vbar .seg{margin-right:0}
 
@@ -1322,11 +1326,11 @@ button{background:none;border:0;cursor:pointer}
 /* 對話框置中，但下緣要留 safe-area —— 不然按鈕會貼到 home indicator 上。 */
 .pick{position:fixed;inset:0;z-index:40;display:none;background:#040709e0;
   padding-bottom:env(safe-area-inset-bottom,0px);
-  backdrop-filter:blur(6px);padding:clamp(10px,3vw,40px)}
+  backdrop-filter:blur(6px);padding:clamp(10px,calc(3vw / var(--zoom-local, 1)),40px)}
 /* 軌道要寫死 minmax(0,1fr)：grid 的自動軌會撐到內容的 max-content，
    所以卡片網格一寬，整個彈窗就跟著超出畫面（量到 390px 視窗下窗寬 802px）。 */
 .pick[data-on]{display:grid;grid-template-columns:minmax(0,1fr);place-items:center}
-.pick-box{width:min(1020px,100%);max-width:100%;max-height:88dvh;display:flex;flex-direction:column;
+.pick-box{width:min(1020px,100%);max-width:100%;max-height:calc(88dvh / var(--zoom-local, 1));display:flex;flex-direction:column;
   background:var(--panel);border:1px solid var(--line-hard);color:var(--ink);border-radius:5px;
   box-shadow:0 30px 80px -24px #000}
 /* 對話框的頁首以前是 <header>。**不能是 <header>** —— 它不在 article／section
@@ -1334,11 +1338,11 @@ button{background:none;border:0;cursor:pointer}
    對話框一開就是兩個 banner，螢幕報讀器的地標清單會出現兩個同名的東西。 */
 .pick-box > .pbh{display:flex;align-items:center;gap:11px;padding:13px 15px;
   border-bottom:1px solid var(--line);flex-wrap:wrap}
-.pick-box h3{margin:0;font-size:14px;letter-spacing:.26em;color:var(--ink);font-weight:600}
-.pick-box input[type=search]{padding:5px 10px;font-size:14px;border:1px solid var(--line);
+.pick-box h3{margin:0;font-size:var(--text-xs,14px);letter-spacing:.26em;color:var(--ink);font-weight:600}
+.pick-box input[type=search]{padding:5px 10px;font-size:var(--text-xs,14px);border:1px solid var(--line);
   border-radius:3px;background:#00000047;color:var(--ink);min-width:150px}
 .filters{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
-.filters button{font-size:14px;letter-spacing:.06em;padding:4px 10px;border:1px solid var(--line);
+.filters button{font-size:var(--text-xs,14px);letter-spacing:.06em;padding:4px 10px;border:1px solid var(--line);
   border-radius:3px;color:var(--faint)}
 .filters button[data-on]{background:var(--gold);color:#16130a;border-color:var(--gold);font-weight:600}
 .pick-close{font-size:19px;line-height:1;padding:0 4px;color:var(--faint)}
@@ -1358,8 +1362,8 @@ button{background:none;border:0;cursor:pointer}
   border-radius:3px;background:#ffffff05;text-align:center;transition:.14s var(--ease-out)}
 .gcard:hover{border-color:var(--gold);background:var(--gold)0f;transform:translateY(-1px)}
 .gcard img{width:100%;aspect-ratio:.64;object-fit:contain}
-.gcard .nm{font-size:14px;font-weight:600;line-height:1.3}
-.gcard .sub{font-size:14px;color:var(--faint);line-height:1.4}
+.gcard .nm{font-size:var(--text-xs,14px);font-weight:600;line-height:1.3}
+.gcard .sub{font-size:var(--text-xs,14px);color:var(--faint);line-height:1.4}
 .gcard[data-req] .nm::after{content:' ✦';color:var(--gold)}
 .gcard[data-picked]{border-color:var(--gold);background:var(--gold)21}
 .gcard .seal{aspect-ratio:.64;width:100%;height:auto}
@@ -1367,37 +1371,37 @@ button{background:none;border:0;cursor:pointer}
    印章靠上不置中 —— 描述兩行時置中會讓印章飄到中間，一排卡的印章高低不一。 */
 .gcard-wide{flex-direction:row;align-items:flex-start;text-align:left;gap:10px;padding:9px 11px}
 .gcard-wide img{width:42px;aspect-ratio:1;flex:none}
-.gcard-wide .seal{width:32px;height:46px;flex:none;font-size:14px}
+.gcard-wide .seal{width:32px;height:46px;flex:none;font-size:var(--text-xs,14px)}
 .gc-body{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
 .gc-line{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
-.gcard-wide .nm{font-size:14px}
+.gcard-wide .nm{font-size:var(--text-xs,14px)}
 /* 分類是「這招歸哪一類」，跟名字是兩回事，給它自己的底色才分得開 */
 .gc-tag{
-  flex:none;font-size:14px;letter-spacing:.08em;line-height:1.5;
+  flex:none;font-size:var(--text-xs,14px);letter-spacing:.08em;line-height:1.5;
   padding:1px 6px;border-radius:3px;color:var(--gold-soft);
   background:var(--gold)1f;border:1px solid #c9a22733;
 }
-.gcard-wide .sub{font-size:14px;line-height:1.5;color:var(--dim)}
+.gcard-wide .sub{font-size:var(--text-xs,14px);line-height:1.5;color:var(--dim)}
 .pick-foot{padding:10px 15px 13px;border-top:1px solid var(--line);display:flex;gap:6px;
   align-items:center;flex-wrap:wrap}
-.pick-foot input[type=text]{flex:1;min-width:150px;padding:6px 9px;font-size:14px;
+.pick-foot input[type=text]{flex:1;min-width:150px;padding:6px 9px;font-size:var(--text-xs,14px);
   border:1px solid var(--line);border-radius:3px;background:#00000047;color:var(--ink)}
-.pick-foot button{padding:6px 13px;font-size:14px;letter-spacing:.08em;border:1px solid var(--line);
+.pick-foot button{padding:6px 13px;font-size:var(--text-xs,14px);letter-spacing:.08em;border:1px solid var(--line);
   border-radius:3px;color:var(--dim)}
 .pick-foot button:hover{border-color:var(--line-hard);color:var(--ink)}
 .pick-foot .clear{margin-left:auto;color:var(--red-soft);border-color:#b32f2859}
 .pick-foot .ok{background:var(--gold);color:#16130a;border-color:var(--gold);font-weight:600}
 .io{display:block!important}
-.io textarea{width:100%;min-height:220px;padding:10px;font-family:var(--mono);font-size:14px;
+.io textarea{width:100%;min-height:220px;padding:10px;font-family:var(--mono);font-size:var(--text-xs,14px);
   line-height:1.6;border:1px solid var(--line);border-radius:3px;background:#00000047;
   color:var(--ink);resize:vertical}
-.io h4{margin:0 0 6px;font-size:14px;letter-spacing:.2em;color:var(--gold)}
-.io p{margin:0 0 10px;font-size:14px;line-height:1.7;color:var(--dim)}
-.io ul{margin:0 0 12px;padding-left:1.2em;font-size:14px;line-height:1.8;color:var(--dim)}
-.io table{border-collapse:collapse;width:100%;font-size:14px;margin:0 0 14px}
+.io h4{margin:0 0 6px;font-size:var(--text-xs,14px);letter-spacing:.2em;color:var(--gold)}
+.io p{margin:0 0 10px;font-size:var(--text-xs,14px);line-height:1.7;color:var(--dim)}
+.io ul{margin:0 0 12px;padding-left:1.2em;font-size:var(--text-xs,14px);line-height:1.8;color:var(--dim)}
+.io table{border-collapse:collapse;width:100%;font-size:var(--text-xs,14px);margin:0 0 14px}
 .io th,.io td{border:1px solid var(--line);padding:5px 8px;text-align:left}
 .io th{background:var(--gold)1a;color:var(--gold);font-weight:600}
-.io code{font-family:var(--mono);font-size:14px;color:var(--jade)}
+.io code{font-family:var(--mono);font-size:var(--text-xs,14px);color:var(--jade)}
 
 /* ── 裝備編輯窗 ─────────────────────────────────────────────────────── */
 /* 編輯窗分兩欄：左邊預覽、右邊表單。
@@ -1408,7 +1412,7 @@ button{background:none;border:0;cursor:pointer}
   padding:13px 13px 16px;overflow:auto;border-right:1px solid var(--line);
   background:#0c131c;display:flex;flex-direction:column;gap:9px;
 }
-.ed-side-cap{font-size:14px;letter-spacing:.16em;color:var(--faint)}
+.ed-side-cap{font-size:var(--text-xs,14px);letter-spacing:.16em;color:var(--faint)}
 /* 預覽那張卡不會被點，也不用 hover 抬起來 */
 .ecard.preview{pointer-events:none}
 .ecard.preview:hover{transform:none;box-shadow:none}
@@ -1425,8 +1429,8 @@ button{background:none;border:0;cursor:pointer}
 .ed{padding:13px 15px 4px;overflow:auto}
 .ed-grid{display:grid;gap:9px;grid-template-columns:repeat(auto-fit,minmax(142px,1fr));margin-bottom:13px}
 .fld{display:flex;flex-direction:column;gap:4px;min-width:0}
-.fld > span{font-size:14px;letter-spacing:.16em;color:var(--faint)}
-.fld select,.fld input{padding:6px 8px;font-size:14px;border:1px solid var(--line);border-radius:3px;
+.fld > span{font-size:var(--text-xs,14px);letter-spacing:.16em;color:var(--faint)}
+.fld select,.fld input{padding:6px 8px;font-size:var(--text-xs,14px);border:1px solid var(--line);border-radius:3px;
   background:#00000047;color:var(--ink);font-family:var(--serif);width:100%}
 .fld select:focus,.fld input:focus{outline:1px solid var(--gold)}
 /* 階的加減鈕。原生 number 自己畫的上下箭頭約 13px 寬，手指點不到，
@@ -1439,7 +1443,7 @@ button{background:none;border:0;cursor:pointer}
 .stepb{
   flex:0 0 auto;min-width:38px;padding:0 6px;
   border:1px solid var(--line);border-radius:3px;background:#00000047;
-  color:var(--dim);font-family:var(--mono);font-size:14px;line-height:1;
+  color:var(--dim);font-family:var(--mono);font-size:var(--text-xs,14px);line-height:1;
   transition:border-color .14s var(--ease-out),color .14s var(--ease-out),background .14s var(--ease-out);
 }
 .stepb:hover{border-color:var(--gold);color:var(--gold);background:var(--gold)1a}
@@ -1447,14 +1451,14 @@ button{background:none;border:0;cursor:pointer}
 .stepb:focus-visible{outline:1px solid var(--gold);outline-offset:1px}
 .ed-tools{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:11px;
   padding-bottom:11px;border-bottom:1px solid var(--line)}
-.ed-tools button{font-size:14px;letter-spacing:.08em;padding:5px 11px;border:1px solid var(--line);
+.ed-tools button{font-size:var(--text-xs,14px);letter-spacing:.08em;padding:5px 11px;border:1px solid var(--line);
   border-radius:3px;color:var(--dim)}
 .ed-tools button:hover{border-color:var(--gold);color:var(--gold)}
-.chk{display:inline-flex;align-items:center;gap:5px;font-size:14px;color:var(--faint)}
+.chk{display:inline-flex;align-items:center;gap:5px;font-size:var(--text-xs,14px);color:var(--faint)}
 .chk input{accent-color:var(--gold)}
 .trow{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;margin-bottom:6px}
 @media (max-width:620px){ .trow{grid-template-columns:1fr auto} .trow .chk{grid-column:1/-1} }
-.trow select{padding:6px 8px;font-size:14px;border:1px solid var(--line);border-radius:3px;
+.trow select{padding:6px 8px;font-size:var(--text-xs,14px);border:1px solid var(--line);border-radius:3px;
   background:#00000047;color:var(--ink);font-family:var(--serif);min-width:0}
 /* 展開後那一列是作業系統畫的，不吃上面的 background —— 要直接給 option 上色，
    並且宣告 color-scheme，否則 Windows 會配一套亮底藍選取，整片看不清楚。 */
@@ -1462,10 +1466,10 @@ select{color-scheme:dark}
 select option{background:#16202c;color:#e9e3d6}
 select option:checked{background:#2a3a4d}
 .trow .val{display:flex;align-items:center;gap:5px}
-.trow .val input{width:86px;padding:6px 8px;text-align:right;font-family:var(--mono);font-size:14px;
+.trow .val input{width:86px;padding:6px 8px;text-align:right;font-family:var(--mono);font-size:var(--text-xs,14px);
   border:1px solid var(--line);border-radius:3px;background:#00000047;color:var(--ink)}
 /* 上限與色條疊成一欄。cap 若是 inline，裡面的 block 色條會塌掉。 */
-.trow .cap{display:flex;flex-direction:column;gap:3px;font-size:14px;color:var(--faint);
+.trow .cap{display:flex;flex-direction:column;gap:3px;font-size:var(--text-xs,14px);color:var(--faint);
   font-family:var(--mono);min-width:60px}
 .bar{height:3px;border-radius:2px;background:#ffffff14;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--gold)}
@@ -1480,10 +1484,10 @@ select option:checked{background:#2a3a4d}
 .grid[data-build]{grid-template-columns:repeat(auto-fill,minmax(min(316px,100%),1fr));gap:6px}
 /* 選擇窗裡的卡也要 min-height，否則列被壓縮時它不會抗議 */
 .grid[data-build] .bpick{min-height:104px}
-/* 工具站那個窗是 min(820px,100vw-32px) 的兩欄。
+/* 工具站那個窗是 min(820px,calc(100vw / var(--zoom-local, 1))-32px) 的兩欄。
    我的 pick-box 是 1020px，不限寬就會排成三欄、每張被拉得很扁。 */
 .grid[data-build]{max-width:800px;margin:0 auto;width:100%}
-.pick-note{padding:0 15px 11px;margin:-4px 0 0;font-size:14px;color:var(--dim);line-height:1.6}
+.pick-note{padding:0 15px 11px;margin:-4px 0 0;font-size:var(--text-xs,14px);color:var(--dim);line-height:1.6}
 
 /* ── 浮動說明 ───────────────────────────────────────────────────────── */
 /* 卡片上放不下的細節走浮層。它只讀不寫，所以 pointer-events 關掉 ——
@@ -1504,7 +1508,7 @@ select option:checked{background:#2a3a4d}
 .tip[data-paper]{background:linear-gradient(#f2f2f4 0%,#ebecef 46%,#e4e5ea 100%);color:#262728}
 /* 頂帶一路都是金橄欖，左端亮一點、右端沉一點，但**不沉到黑**。
    原本那條末端接近全黑，跟淺卡身接在一起像斷掉。 */
-.tip .band{display:flex;align-items:center;gap:6px;padding:5px 12px;font-size:14px;
+.tip .band{display:flex;align-items:center;gap:6px;padding:5px 12px;font-size:var(--text-xs,14px);
   letter-spacing:.08em;color:#f0e4bd;
   background:linear-gradient(95deg,#c29a22 0%,#9c7b1e 52%,#7a601a 100%)}
 .tip[data-q="purple"] .band{color:#ece0ff;
@@ -1535,7 +1539,7 @@ select option:checked{background:#2a3a4d}
 /* 浮層的標題用 div 不用 h4：它不是章節標題，
    進了標題大綱就會變成 h2 之後直接跳 h4（heading-order）。 */
 .tip .tip-h{margin:0;padding:14px 14px 3px;font-size:21px;letter-spacing:.04em;font-weight:600}
-.tip .sub{margin:0;padding:0 14px 13px;font-size:14px;letter-spacing:.02em}
+.tip .sub{margin:0;padding:0 14px 13px;font-size:var(--text-xs,14px);letter-spacing:.02em}
 .tip[data-paper] .tip-h{color:#262728}
 .tip[data-paper] .sub{color:#5c5d66}
 .tip-head .tip-h,.tip[data-paper] .tip-head .tip-h{position:relative;z-index:1;color:#f5f7fbf5}
@@ -1543,8 +1547,8 @@ select option:checked{background:#2a3a4d}
 .tip .sec{padding:9px 14px;border-top:1px solid var(--line-soft)}
 .tip[data-paper] .sec{border-top-color:#807b852e}
 .tip .sec:first-child{border-top:0}
-.tip .lab{font-size:14px;letter-spacing:.18em;color:var(--faint);margin-bottom:5px}
-.tip .grp{font-size:14px;font-weight:600;margin:0 0 4px;letter-spacing:.04em}
+.tip .lab{font-size:var(--text-xs,14px);letter-spacing:.18em;color:var(--faint);margin-bottom:5px}
+.tip .grp{font-size:var(--text-xs,14px);font-weight:600;margin:0 0 4px;letter-spacing:.04em}
 /* 武學天賦：每一組三行（需求／額外／生效率），組間畫一條線。
    生效率滿了就整行轉綠，不必去讀那個百分比。 */
 .tip .tal{padding:2px 0}
@@ -1555,9 +1559,9 @@ select option:checked{background:#2a3a4d}
 .tip .sec + .sec .grp{margin-top:0}
 .tip[data-paper] .lab{color:#b82c1d}
 .tip[data-paper] .grp{color:#845800}
-.tip .arow{font-size:14px;line-height:2}
-.tip .arow .v{font-size:14px;display:inline-flex;align-items:baseline;gap:7px}
-.tip .arow .v .cap{font-size:14px;opacity:.6;font-weight:500}
+.tip .arow{font-size:var(--text-xs,14px);line-height:2}
+.tip .arow .v{font-size:var(--text-xs,14px);display:inline-flex;align-items:baseline;gap:7px}
+.tip .arow .v .cap{font-size:var(--text-xs,14px);opacity:.6;font-weight:500}
 .tip[data-paper] .arow .k{color:#2e2f34}
 .tip[data-paper] .arow .v{color:#845800;font-weight:700}
 .tip[data-paper] .arow.t .v{font-weight:700}
@@ -1578,7 +1582,7 @@ select option:checked{background:#2a3a4d}
 }
 .tip .arow .k{display:inline-flex;align-items:center;flex:1;min-width:0}
 .tip[data-paper] .arow.empty,.tip[data-paper] .arow.empty .k,.tip[data-paper] .arow.empty .v{color:#5a5860}
-.tip .none{padding:11px 14px;font-size:14px;color:var(--faint);line-height:1.6}
+.tip .none{padding:11px 14px;font-size:var(--text-xs,14px);color:var(--faint);line-height:1.6}
 .tip[data-paper] .none{color:#635a4c}
 
 .card > h2 .cap + .more{margin-left:9px}
@@ -1586,7 +1590,7 @@ select option:checked{background:#2a3a4d}
    量出來只有 23px，低於觸控目標的 24px 下限。min-height 拉到 28，
    字級不動，所以版面看起來一樣。 */
 .more{margin-left:auto;min-height:28px;display:inline-flex;align-items:center;
-  font-size:14px;letter-spacing:.06em;color:var(--faint);
+  font-size:var(--text-xs,14px);letter-spacing:.06em;color:var(--faint);
   border:1px solid var(--line);border-radius:3px;padding:0 9px;font-family:var(--serif)}
 .more:hover{border-color:var(--gold);color:var(--gold)}
 /* 觸控裝置上把數值晶片也放大。桌機維持 26px：
@@ -1600,7 +1604,7 @@ select option:checked{background:#2a3a4d}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));
   transform:translate(-50%,12px);z-index:60;
   background:var(--panel-2);border:1px solid var(--line-hard);color:var(--ink);
-  padding:8px 18px;border-radius:3px;font-size:14px;letter-spacing:.06em;
+  padding:8px 18px;border-radius:3px;font-size:var(--text-xs,14px);letter-spacing:.06em;
   box-shadow:0 14px 34px -12px #000;opacity:0;pointer-events:none;
   transition:opacity .2s,transform .2s var(--ease-out)}
 .toast[data-on]{opacity:1;transform:translate(-50%,0)}
@@ -1621,20 +1625,20 @@ select option:checked{background:#2a3a4d}
 /* Shared hierarchy; tool details remain secondary to the next action. */
 [hidden]{display:none!important}
 body{font-size:16px;line-height:1.65}
-button,input,select{font-size:14px}
+button,input,select{font-size:var(--text-xs,14px)}
 .card h2,.vault-head h2{font-size:16px;line-height:1.5}
-.hint,.cap,.kicker,.io-hint,.lab,.legend{font-size:14px;line-height:1.65}
-.wrap{max-width:1120px;margin-inline:auto}
-.start-guide{grid-column:1/-1;padding:16px 0;border-bottom:1px solid var(--line);margin-bottom:12px;font-size:14px}
-.start-guide p{margin:0 0 6px}
-.start-guide button{background:none;border:0;color:inherit;text-decoration:underline;text-underline-offset:4px;min-height:44px;padding:4px 8px}
-.start-guide p+ p{font-size:14px}
+.hint,.cap,.kicker,.io-hint,.lab,.legend{font-size:var(--text-xs,14px);line-height:1.65}
+.wrap{max-width:1800px;width:100%;margin-inline:auto}
+
+
+
+
 .bhead{width:100%;text-align:left;font:inherit;color:inherit}
 button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 button:disabled{opacity:.5;cursor:not-allowed}
 .blank{min-height:0;padding:24px 16px}
 #radar-empty{padding:20px 0}
-@media(max-width:1023px){.wrap{padding-inline:16px}.start-guide{display:block!important}.start-guide p{display:flex;flex-wrap:wrap;align-items:center}.hint{line-height:1.65}}
+@media(max-width:1023px){.wrap{padding-inline:16px}.hint{line-height:1.65}}
 
 /* Short control feedback; illustration and scene movement are independent. */
 button:disabled{cursor:not-allowed;opacity:.5}
@@ -1658,7 +1662,7 @@ select:focus-visible,textarea:focus-visible{outline:2px solid currentColor;outli
 .rtabs button,.vault-tools button,#btn-tools,.blank button,.pick-foot button,.seg button,.chip{min-height:44px;min-width:44px}
 .build-trigger{width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;padding:0;min-height:44px}
 .build-trigger:focus-visible{outline-offset:4px}
-.pop-box{min-width:min(284px,calc(100vw - 20px))}
+.pop-box{min-width:min(284px,calc(calc(100vw / var(--zoom-local, 1)) - 20px))}
 .pop-grid button,.pop-foot button{min-width:44px;min-height:44px}
 .pick-box input[type=search]{min-height:44px}
 @media(max-width:600px){
@@ -1675,12 +1679,12 @@ select:focus-visible,textarea:focus-visible{outline:2px solid currentColor;outli
 }
 
 /* Native modal top layer owns focus and background inertness. */
-dialog.pick,dialog.pop{margin:0;width:100%;height:100dvh;max-width:none;max-height:none;border:0;color:var(--ink);box-sizing:border-box}
+dialog.pick,dialog.pop{margin:0;width:100%;height:calc(100dvh / var(--zoom-local, 1));max-width:none;max-height:none;border:0;color:var(--ink);box-sizing:border-box}
 dialog.pick .pick-foot .save{color:var(--bg);font-weight:600}
 dialog.pick .pbh > .pick-close{margin-left:auto}
 .ecard-act button,.tabs button,.sortsel{min-width:44px;min-height:44px}
 dialog.pick button{min-width:44px;min-height:44px}
-.ed-preview summary{min-height:44px;display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--gold);font-size:14px}
+.ed-preview summary{min-height:44px;display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--gold);font-size:var(--text-xs,14px)}
 .ed-preview summary::before{content:'＋'}
 .ed-preview[open] summary::before{content:'−'}
 .ed-preview summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
@@ -1690,7 +1694,7 @@ dialog.pick button{min-width:44px;min-height:44px}
   .ed-side .ecard{width:100%}
   .ed-wrap .ed{overflow:visible}
 }
-.edit-feedback{margin:0;padding:8px 15px;color:var(--dim);font-size:14px;line-height:1.6}
+.edit-feedback{margin:0;padding:8px 15px;color:var(--dim);font-size:var(--text-xs,14px);line-height:1.6}
 .pick input:not([type=checkbox]):not([type=radio]),.pick select,.pick textarea,.pop input,.pop select,#main input:not([type=checkbox]):not([type=radio]),#main select,#main textarea{min-height:44px;min-width:44px}
 button.io-drop{width:100%;font:inherit;text-align:left}
 dialog.pop{padding:0;background:transparent}
@@ -1713,18 +1717,18 @@ button,input,select,textarea{font-family:var(--serif)}
 #pick-grid[data-build]{grid-template-columns:repeat(2,minmax(0,1fr))}
 #pick .gcard{padding:12px;gap:8px}
 #pick .gcard .nm{font-size:18px;line-height:1.5;white-space:nowrap}
-#pick .gcard .sub{font-size:15px;line-height:1.65;color:var(--dim)}
+#pick .gcard .sub{font-size:var(--text-sm,15px);line-height:1.65;color:var(--dim)}
 #pick .gcard-wide{gap:14px;align-items:center;padding:14px}
-#pick .gcard-wide .seal{width:44px;height:60px;font-size:15px;font-family:var(--serif)}
+#pick .gcard-wide .seal{width:44px;height:60px;font-size:var(--text-sm,15px);font-family:var(--serif)}
 #pick .gc-line{flex-wrap:nowrap;gap:12px}
-#pick .gc-tag{font-size:14px;letter-spacing:0;white-space:nowrap}
+#pick .gc-tag{font-size:var(--text-xs,14px);letter-spacing:0;white-space:nowrap}
 #pick .gc-body{gap:6px}
 #pick .bpick{padding:18px;min-height:130px}
 #pick .bpick-header{font-size:26px}
 #pick .bpick-item{font-size:17px;gap:10px}
 #pick .bpick-strip{gap:16px;margin-top:14px}
 #pick .bpick-icon{width:44px;height:60px;margin:0}
-#pick .bpick-none{font-size:15px}
+#pick .bpick-none{font-size:var(--text-sm,15px)}
 #pick .pick-foot{padding:14px 20px;gap:10px}
 #pick .pick-foot input,#pick .pick-foot button{font-size:16px}
 #pick .pick-foot button{white-space:nowrap}
@@ -1740,7 +1744,7 @@ button,input,select,textarea{font-family:var(--serif)}
  #pick .gcard-wide{gap:10px;padding:12px}
  #pick .gcard-wide .seal{width:36px;flex-shrink:0}
  #pick .gc-line{gap:8px}
- #pick .gc-tag{font-size:14px;padding-inline:4px}
+ #pick .gc-tag{font-size:var(--text-xs,14px);padding-inline:4px}
  #pick .bpick{padding:14px}
  #pick .bpick-item{font-size:16px;gap:6px}
  #pick .bpick-item>img{width:30px;height:34px}
@@ -1749,7 +1753,162 @@ button,input,select,textarea{font-family:var(--serif)}
 }
 
 /* 奇術以完整書名的線裝冊呈現；封面高度隨字數增長。 */
-#pick .skill-book{position:relative;display:flex;align-items:flex-start;justify-content:flex-end;flex:none;box-sizing:border-box;width:66px;min-height:116px;height:calc(var(--book-chars,5) * 20px + 28px);padding:10px 7px 10px 18px;background:linear-gradient(90deg,var(--bg) 0 15%,var(--panel) 15% 100%);border:1px solid var(--line);border-right:4px double var(--ink);border-radius:1px 4px 4px 1px;box-shadow:2px 3px 0 var(--line)}
-#pick .skill-book::before{content:"";position:absolute;left:5px;top:14px;bottom:14px;width:10px;border-left:1px solid var(--dim);background:repeating-linear-gradient(0deg,transparent 0 19px,var(--ink) 19px 21px,transparent 21px 28px)}
-#pick .skill-book-title{display:block;writing-mode:vertical-rl;text-orientation:upright;white-space:nowrap;word-break:keep-all;overflow-wrap:normal;font:500 16px/1.25 var(--serif);letter-spacing:.05em;background:var(--ink);color:var(--bg);padding:6px 3px;border:3px double var(--dim);text-shadow:none}
+.skill-book{position:relative;display:flex;align-items:flex-start;justify-content:flex-end;flex:none;box-sizing:border-box;width:66px;min-height:116px;height:calc(var(--book-chars,5) * 20px + 28px);padding:10px 7px 10px 18px;background:linear-gradient(90deg,var(--bg) 0 15%,var(--panel) 15% 100%);border:1px solid var(--line);border-right:4px double var(--ink);border-radius:1px 4px 4px 1px;box-shadow:2px 3px 0 var(--line)}
+.skill-book::before{content:"";position:absolute;left:5px;top:14px;bottom:14px;width:10px;border-left:1px solid var(--dim);background:repeating-linear-gradient(0deg,transparent 0 19px,var(--ink) 19px 21px,transparent 21px 28px)}
+.skill-book-title{display:block;writing-mode:vertical-rl;text-orientation:upright;white-space:nowrap;word-break:keep-all;overflow-wrap:normal;font:500 16px/1.25 var(--serif);letter-spacing:.05em;background:var(--ink);color:var(--bg);padding:6px 3px;border:3px double var(--dim);text-shadow:none}
 
+
+/* Compact toolbar and full-width workbench. */
+.icon-act{width:44px;height:44px;padding:0;justify-content:center;flex:none}
+
+
+
+
+
+
+
+
+#storage-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+#storage-status[data-state="error"]{position:static;width:auto;height:auto;overflow:visible;clip-path:none;grid-column:1/-1;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-block:8px}
+#storage-retry{min-height:44px;padding:8px 16px}
+#storage-message{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#storage-status[data-state="error"] #storage-message{position:static;width:auto;height:auto;margin:0;clip-path:none;white-space:normal}
+
+.slots[data-kind="art"] figure{aspect-ratio:auto;min-height:124px;background:none;overflow:visible;padding:5px}
+.slots[data-kind="art"] .skill-book{width:min(100%,66px);min-height:112px;height:auto;align-self:stretch;padding:8px 5px 8px 16px;box-shadow:2px 3px 0 var(--line-hard)}
+.slots[data-kind="art"] .skill-book-title{font-size:var(--text-xs,14px);line-height:1.25;white-space:normal;max-height:180px;overflow-wrap:anywhere}
+.slots[data-kind="art"] .nm{white-space:normal;overflow-wrap:anywhere;line-height:1.5}
+@media(min-width:1341px){.wrap{grid-template-columns:minmax(360px,1fr) minmax(0,1.35fr) minmax(300px,.85fr);gap:20px}}
+@media(max-width:1023px){}
+@media(max-width:900px){
+ .top{flex-wrap:wrap}.brand{flex:1}.acts,.acts[data-open]{display:flex;position:static;flex-direction:row;min-width:0;gap:6px;padding:0;background:none;border:0;box-shadow:none}
+ .acts .navhome{display:none}.acts[data-open] .act{padding:0;justify-content:center;border:1px solid var(--line);width:44px;height:44px}
+ #btn-more{display:none!important}
+}
+@media(max-width:480px){.top .brand{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.top .acts{margin-left:0;flex-basis:100%;justify-content:flex-end}.top{gap:8px}.return-duel{font-size:var(--text-xs,14px);flex:none}.roles{flex:1;min-width:120px}#storage-status[data-state="error"]{flex-basis:100%}}
+
+
+/* Equipment editor: one primary form, a quiet live preview, and a stable action bar. */
+#edit .pick-box{width:min(1180px,100%);max-height:calc(calc(100dvh / var(--zoom-local, 1)) - 48px);background:var(--surface-base,var(--bg));border-color:var(--border-subtle,var(--line))}
+#edit .pbh{padding:18px 28px;gap:16px;border-color:var(--border-subtle,var(--line))}
+#edit-title{font-size:22px;line-height:1.5;letter-spacing:.04em}
+#edit .ed-wrap{grid-template-columns:minmax(0,1fr) 280px;overflow:auto;overscroll-behavior:contain;align-items:start}
+#edit .ed{padding:28px;overflow:visible;min-width:0}
+#edit .ed-section + .ed-section{margin-top:30px;padding-top:24px;border-top:1px solid var(--border-subtle,var(--line))}
+#edit .ed-section h4{margin:0 0 18px;font-size:18px;letter-spacing:.04em;color:var(--text-primary,var(--ink));font-weight:600}
+#edit .ed-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 24px;margin:0}
+#edit .fld{gap:8px}
+#edit .fld > span,#edit .tune-choice > span,#edit .value-label{font-size:var(--text-xs,14px);letter-spacing:0;color:var(--text-secondary,var(--dim))}
+#edit .fld select,#edit .fld input,#edit .pickfld,#edit .trow select,#edit .trow input,#edit .stepb{background:var(--surface-raised,var(--panel));color:var(--text-primary,var(--ink));border:1px solid var(--border-subtle,var(--line));font-size:16px;min-height:46px;border-radius:3px}
+#edit .fld select,#edit .fld input,#edit .trow select{padding:10px 12px}
+#edit .pickfld{padding:8px 12px;min-height:64px}
+#edit .pickfld img{width:38px;height:44px;object-fit:contain}
+#edit .stepper{gap:8px}
+#edit .stepb{min-width:46px;padding:0 10px}
+#edit .ed-section-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;margin-bottom:12px}
+#edit .ed-section-head h4{margin:0}
+#edit .ed-tools{margin:0;padding:0;border:0;gap:12px;align-items:center}
+#edit .ed-tools button,#edit .ed-batch summary{font-size:var(--text-xs,14px);letter-spacing:0;padding:8px 10px;color:var(--text-secondary,var(--dim));background:none;border:1px solid transparent;min-height:44px;cursor:pointer}
+#edit .ed-tools button:hover,#edit .ed-batch summary:hover{background:var(--surface-raised,var(--panel));color:var(--text-primary,var(--ink))}
+#edit .ed-batch{position:relative}
+#edit .ed-batch[open]{padding:0 8px 8px;border:1px solid var(--border-subtle,var(--line));background:var(--surface-raised,var(--panel))}
+#edit .ed-batch[open] button{display:block;width:100%;text-align:left}
+#edit .chk{min-height:44px;gap:8px;color:var(--text-secondary,var(--dim));cursor:pointer;white-space:nowrap}
+#edit .chk input{width:16px;height:16px;accent-color:var(--text-primary,var(--ink))}
+#edit .trow{grid-template-columns:minmax(0,1fr) 150px 62px;gap:12px;align-items:start;margin:0;padding:12px 0}
+#edit .trow + .trow{border-top:1px solid var(--border-subtle,var(--line))}
+#edit .tune-choice{display:grid;gap:8px;min-width:0;grid-column:1;grid-row:1}
+#edit .trow .val{display:grid;gap:8px;min-width:0;grid-column:2;grid-row:1}
+#edit .trow .val input{width:100%;padding:10px 12px;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+#edit .trow .val input:disabled{opacity:.55}
+#edit .trow .chk{grid-column:3;grid-row:1;margin-top:29px}
+#edit .trow > span:empty{display:none}
+#edit .trow .cap{font-size:var(--text-xs,14px);line-height:1.5;color:var(--text-secondary,var(--dim));min-width:0;gap:0}
+#edit .trow .bar{display:none}
+#edit .ed-side{position:sticky;top:0;padding:28px 20px;overflow:visible;background:var(--surface-raised,var(--panel));border:0;border-left:1px solid var(--border-subtle,var(--line));min-width:0;align-self:stretch}
+#edit .ed-preview{position:sticky;top:28px}
+#edit .ed-preview summary{color:var(--text-secondary,var(--dim));font-size:var(--text-xs,14px);letter-spacing:.04em;margin-bottom:12px}
+#edit .ecard.preview{width:100%;box-shadow:none;background:transparent;color:var(--text-primary,var(--ink));border:0}
+#edit .ecard.preview .ecard-hero{background:transparent;min-height:190px;display:flex;flex-direction:column;padding:0}
+#edit .ecard.preview .ecard-hero::before,#edit .ecard.preview .ecard-hero::after{display:none}
+#edit .ecard.preview .band{position:static;padding:0;background:none;flex-wrap:wrap;gap:6px;font-size:var(--text-xs,14px);color:var(--text-secondary,var(--dim))}
+#edit .ecard.preview .band .q{color:var(--text-secondary,var(--dim))}
+#edit .ecard.preview .who{padding:14px 0 0;flex:none;order:2}
+#edit .ecard.preview .who b{color:var(--text-primary,var(--ink));font-size:18px;text-shadow:none}
+#edit .ecard.preview .who small{color:var(--text-secondary,var(--dim))}
+#edit .ecard.preview .ecard-hero img{position:static;width:100%;height:130px;max-height:none;object-fit:contain;margin:16px 0 0;filter:none;order:1}
+#edit .ecard.preview .base,#edit .ecard.preview .tunes,#edit .ecard.preview .foot{padding:16px 0;background:none;border-color:var(--border-subtle,var(--line))}
+#edit .ecard.preview .arow{gap:12px;min-height:26px;font-weight:400}
+#edit .ecard.preview .arow .k,#edit .ecard.preview .arow .v,#edit .ecard.preview .pct{color:var(--text-primary,var(--ink))}
+#edit .ecard.preview .arow.empty .k,#edit .ecard.preview .foot{color:var(--text-secondary,var(--dim))}
+#edit .ecard.preview .tunes .k::before{display:none}
+#edit .pick-foot{padding:16px 28px;gap:12px;background:var(--surface-base,var(--bg));border-color:var(--border-subtle,var(--line));flex-shrink:0}
+#edit .pick-foot button{padding:10px 20px;font-size:16px;letter-spacing:.02em;min-height:46px}
+#edit #edit-clear{margin:0 auto 0 0;border-color:transparent;color:var(--text-secondary,var(--dim));background:none}
+#edit #edit-clear:hover{color:var(--state-live,var(--red-soft))}
+#edit #edit-save{background:var(--text-primary,var(--ink));color:var(--surface-base,var(--bg));border-color:var(--text-primary,var(--ink))}
+#edit #edit-cancel{background:none;color:var(--text-secondary,var(--dim))}
+#edit .edit-feedback:empty{display:none}
+#edit .edit-feedback{padding:10px 28px}
+#edit :is(button,select,input,summary):focus-visible{outline:2px solid var(--text-primary,var(--ink));outline-offset:3px}
+@media(max-width:900px){
+ #edit .pick-box{max-height:calc(calc(100dvh / var(--zoom-local, 1)) - 24px)}
+ #edit .ed-wrap{display:flex;flex-direction:column;align-items:stretch}
+ #edit .ed-side{position:static;order:-1;padding:12px 20px;border:0;border-bottom:1px solid var(--border-subtle,var(--line))}
+ #edit .ed-preview{position:static}#edit .ed-preview summary{margin:0}
+ #edit .ed-preview[open] .ecard{max-width:320px;margin:12px auto}
+ #edit .ed{padding:24px 20px}#edit .pbh{padding:14px 20px}#edit .pick-foot{padding:12px 20px}
+}
+@media(max-width:540px){
+ #edit{padding:8px}#edit .pick-box{max-height:calc(calc(100dvh / var(--zoom-local, 1)) - 16px)}
+ #edit-title{font-size:18px}#edit .pbh{padding:12px 16px}
+ #edit .ed{padding:20px 16px}#edit .ed-grid{grid-template-columns:1fr;gap:18px}
+ #edit .ed-side{padding:8px 16px}#edit .ed-section-head{display:block}
+ #edit .ed-tools{margin-top:8px;gap:8px}
+ #edit .trow{grid-template-columns:minmax(0,1fr) 62px;gap:10px;padding:16px 0}
+ #edit .tune-choice{grid-column:1/-1;grid-row:1}
+ #edit .trow .val{grid-column:1;grid-row:2;grid-template-columns:52px minmax(0,1fr);align-items:center;gap:6px 12px}
+ #edit .trow .cap{grid-column:2}#edit .trow .chk{grid-column:2;grid-row:2;margin-top:0}
+ #edit .pick-foot{padding:12px 16px calc(12px + env(safe-area-inset-bottom));gap:8px}
+ #edit .pick-foot button{font-size:var(--text-xs,14px);padding:10px 12px}
+}
+
+
+/* Three work surfaces share one frame, header baseline and spacing rhythm. */
+.wrap > .col{padding:16px;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+.wrap > .col > .card{padding:0;background:none;border:0;border-radius:0}
+.wrap .workspace-head{box-sizing:border-box;display:flex;align-items:center;gap:8px;min-height:64px;padding:0 0 12px;margin:0;border-bottom:1px solid var(--line);flex:none}
+html[data-theme] body .wrap .workspace-head h2{font-size:24px!important;line-height:1.4!important;margin:0!important;letter-spacing:.06em!important}
+.wrap .vault-head{margin-bottom:16px;flex-wrap:wrap}
+.wrap .vault-head .right{margin-left:auto}
+.wrap .vault-head .act-gold{min-height:44px;padding:8px 12px;white-space:nowrap}
+.wrap .col-1 > .card{padding-top:16px;border-top:1px solid var(--line-soft)}
+html[data-theme] body .wrap > .col > .card > h2{font-size:22px!important;line-height:1.4!important;margin:0 0 16px!important;flex-wrap:wrap;gap:8px}
+.wrap #build-card{margin:0;border:0;border-radius:0}
+.wrap .slots .nm,.wrap .bpick-item .nm{white-space:normal;overflow-wrap:anywhere;line-height:1.5}
+@media(max-width:900px){.wrap > .col{padding:14px}.wrap .workspace-head{min-height:56px}}
+
+/* Keep complete target names and editable numbers readable in the narrow column. */
+.wrap .goal{grid-template-columns:minmax(88px,1fr) minmax(0,1fr) auto 44px;gap:8px;padding:12px 0}
+.wrap .goal .gk{grid-column:1/4;grid-row:1;white-space:normal;overflow:visible;line-height:1.5}
+.wrap .goal .gx{grid-column:4;grid-row:1/3;width:44px;height:44px}
+.wrap .goal .gv{grid-column:1;grid-row:2;min-width:0;box-sizing:border-box}
+.wrap .goal .gnow{grid-column:2;grid-row:2;overflow-wrap:anywhere}
+.wrap .goal .gpct{grid-column:3;grid-row:2}
+.wrap .goal .gbar{grid-column:1/5;grid-row:3}
+
+/* Build cards keep complete names at every container width. */
+.bpick { min-height:124px; padding:16px; color:var(--text-primary); container-type:inline-size; }
+.bpick-header > span,.bpick-item .nm { white-space:normal; overflow:visible; text-overflow:clip; overflow-wrap:anywhere; }
+.bpick-item { font-size:var(--text-base,16px); }
+.bpick-icon { position:absolute; right:8px; width:48px; opacity:.18; pointer-events:none; }
+.bpick-content { position:relative; z-index:1; }
+.bpick-strip { padding-right:24px; }
+@container (max-width:270px) { .bpick-strip { grid-template-columns:minmax(0,1fr); } }
+#build-card[data-empty]{padding:0;border:1px solid var(--accent-action-primary);background:var(--surface-raised);cursor:pointer}
+#build-card[data-empty] .build-trigger{padding:20px;min-height:124px;cursor:pointer}
+#build-card[data-empty] .bpick-header{font-size:22px;color:var(--accent-action-primary)}
+#build-card[data-empty]:hover,#build-card[data-empty]:focus-within{outline:2px solid var(--accent-action-primary);outline-offset:3px;background:var(--surface-overlay)}
+.build-add{display:grid;place-items:center;width:44px;height:44px;flex:none;border:1px solid currentColor;font-size:28px}
+.build-next{margin-left:auto;font-size:24px}
+.bpick-header .build-change{margin-left:auto;font:500 var(--text-base,16px)/1.5 var(--ui);color:var(--accent-action-primary);border-bottom:1px solid currentColor}

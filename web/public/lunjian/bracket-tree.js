@@ -10,7 +10,7 @@ let serial = 0;
 const SVG = 'http://www.w3.org/2000/svg';
 const NODE_WIDTH = 128, COLUMN_GAP = 48, HEADER = 72;
 
-export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpty=false, matchActionLabel='查看比武', playerActionLabel='查看選手資料', championArt='art/manga-champion.webp'} = {}) {
+export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpty=false, showJudgeLink=true, matchActionLabel='查看比武', playerActionLabel='查看選手資料', championArt='/lunjian/art/manga-champion.webp'} = {}) {
   if (!host) throw new TypeError('A bracket host is required');
   instances.get(host)?.destroy();
   const doc = host.ownerDocument, view = doc.defaultView;
@@ -58,7 +58,7 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
       host.append(empty);
       if (ownedFocus) { empty.tabIndex = -1; empty.focus({preventScroll:true}); }
     };
-    delete host.dataset.links;
+    delete host.dataset.links; delete host.dataset.density;
     const placeholder = previewEmpty && (!input?.published || !input?.rounds?.some(round=>round?.matches?.length));
     host.toggleAttribute('data-placeholder',placeholder);
     // A display-only outline, never written back into tournament state.
@@ -140,11 +140,21 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
     }
     const expectedEdges = treeRounds.slice(0, -1).reduce((count, round) => count + round.matches.length, 0);
     host.dataset.links = edges.length === expectedEdges ? 'complete' : edges.length ? 'partial' : 'unknown';
+    function helpControl(label, text) {
+      const button=el('button','tt-help');button.type='button';
+      button.dataset.help=text;button.dataset.inkWave='off';
+      button.setAttribute('aria-label',label+'說明');
+      const mark=el('span','','!');mark.setAttribute('aria-hidden','true');button.append(mark);
+      return button;
+    }
     const meta = el('div', 'tt-meta');
-    meta.append(el('p', 'tt-format', placeholder ? '賽程示意 · 實際輪次與籤位待公布' : `${players.size} 位選手${Number(data.bestOf) > 1 ? ` · BO${Number(data.bestOf)}` : ''}`));
+    if (placeholder) {
+      const state=el('p','tt-explanation','賽程待公布');
+      state.append(helpControl('賽程','此為賽程示意，實際對戰待公布。點擊選手、場次或冠軍卡可查看資訊。'));meta.append(state);
+    } else meta.append(el('p', 'tt-format', `${players.size} 位選手${Number(data.bestOf) > 1 ? ` · BO${Number(data.bestOf)}` : ''}`));
     if (data.demo) meta.append(el('strong', 'tt-demo', '示範資料'));
     if (edges.length < expectedEdges) meta.append(el('p', 'tt-connection-note', '部分晉級關係待公布；尚未確認的路線不連線。'));
-    if(data.slug && !data.demo){
+    if(showJudgeLink && data.slug && !data.demo){
       const judge=el('a','tt-judge-link','裁判台');judge.href=`/judge/${encodeURIComponent(data.slug)}`;meta.append(judge);
     }
     host.append(meta);
@@ -181,6 +191,39 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
       if (predecessor) return `第${predecessor.round}輪第${predecessor.slot + 1}場勝者`;
       return match.round === rounds[0].round ? '參賽選手待定' : '待上一輪勝者';
     };
+    let stateDialog = null;
+    function showCardState(title, match, trigger) {
+      stateDialog?.remove();
+      const dialog=el('dialog','tt-card-dialog');stateDialog=dialog;
+      const heading=el('h2','tt-card-dialog-title',title);heading.id=id+'-card-title';
+      dialog.setAttribute('aria-labelledby',heading.id);
+      const close=el('button','tt-card-close','×');close.type='button';close.setAttribute('aria-label','關閉賽程資訊');close.dataset.inkWave='off';
+      const round=rounds.find(item=>item.round===match.round);
+      const context=el('p','tt-card-context',`${round?.label || '賽程'} · 第${match.slot+1}場`);
+      const message=el('p','tt-card-message',placeholder
+        ? '對戰與時間尚未公布。'
+        : `${seatText(match,0)} 對 ${seatText(match,1)}。${match.status==='done'?'本場已結束。':match.status==='live'?'本場進行中。':'本場尚未開賽。'}`);
+      context.append(helpControl(title,placeholder?'目前是賽程示意，實際對戰、參賽選手與開賽時間尚未公布。公布後，可從這張卡查看選手資料與比武內容。':'請以大會公布的賽程資訊為準。'));
+      const header=el('header','tt-card-header');header.append(context,close);
+      message.id=id+'-card-message';dialog.setAttribute('aria-describedby',message.id);
+      dialog.append(header,heading,message);host.append(dialog);
+      const dismiss=()=>{if(dialog.open && typeof dialog.close === 'function')dialog.close();else dialog.removeAttribute('open');dialog.remove();if(stateDialog===dialog)stateDialog=null;if(trigger.isConnected)trigger.focus({preventScroll:true});};
+      close.addEventListener('click',dismiss);
+      dialog.addEventListener('cancel',event=>{event.preventDefault();dismiss();});
+      dialog.addEventListener('keydown',event=>{event.stopPropagation();if(event.key==='Escape'){event.preventDefault();dismiss();}});
+      dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dismiss();}});
+      if(typeof dialog.showModal==='function')dialog.showModal();else dialog.setAttribute('open','');
+      close.focus({preventScroll:true});
+    }
+    cleanups.push(()=>{stateDialog?.remove();stateDialog=null;});
+    function prepareCardAction(control) {
+      control.dataset.inkWave='off';
+    }
+    function selectMatch(match,trigger,title) {
+      if(disposed || generation!==token)return;
+      if(placeholder || !onSelect)showCardState(title || '場次資訊',match,trigger);
+      else onSelect(match.id,trigger);
+    }
     function matchButton(match) {
       const group = el('div', 'tt-match');
       group.dataset.round = String(match.round);
@@ -190,21 +233,22 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
       const knownWinner = status === 'done' && match.winner && [match.p1,match.p2].includes(match.winner);
       const state = placeholder ? '待公布' : match.bye ? (!match.p1 || !match.p2 ? '輪空' : '不戰而勝') : ({upcoming:'待開賽',live:'交鋒中',done:'已結束'})[status];
       const button = el('button', 'tt-node'); button.type = 'button';
-      button.disabled=placeholder;
+      button.disabled=false;
       button.dataset.matchId = match.id; button.dataset.round = String(match.round); button.dataset.kind = match.kind;
       button.dataset.status = status;
       const scoreLabel=status!=='upcoming' && !match.bye && Number(data.bestOf)>1 && Number.isFinite(match.s1) && Number.isFinite(match.s2) ? `，${match.s1} 比 ${match.s2}` : '';
       button.setAttribute('aria-label', `${group.getAttribute('aria-label')}，${state}${scoreLabel}，${matchActionLabel}`);
-      if(placeholder)button.setAttribute('aria-label',`${group.getAttribute('aria-label')}，賽程待公布`);
+      if(placeholder)button.setAttribute('aria-label',`${group.getAttribute('aria-label')}，查看待公布資訊`);
       button.append(el('span','tt-match-number',match.kind === 'third' ? '季軍賽' : `第${match.slot+1}場`),
         el('span','tt-junction-score',status === 'upcoming' || match.bye ? '比武' : `${match.s1 ?? 0}:${match.s2 ?? 0}`),el('span','tt-state',state));
-      listen(button,'click',()=>{if(!disposed && generation===token)onSelect?.(match.id,button);});
+      prepareCardAction(button);
+      listen(button,'click',()=>selectMatch(match,button,placeholder?'對戰待公布':'場次資訊'));
       // The match junction and the two player controls are siblings, never nested buttons.
       group.append(button); buttons.set(match.id,button); groups.set(match.id,group);
       [0,1].forEach(seat=>{
         const playerId=match[seat===0?'p1':'p2'], player=playerId ? players.get(String(playerId)) : null;
         const row=el('button','tt-player');row.type='button';
-        row.disabled=placeholder;
+        row.disabled=false;
         row.dataset.matchId=match.id;row.dataset.round=String(match.round);row.dataset.seat=String(seat);
         if(player)row.dataset.playerId=String(playerId);
         row.dataset.status=status;
@@ -214,7 +258,7 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
         if(knownWinner && playerId===match.winner)row.dataset.winner='true';
         else if(knownWinner && player)row.dataset.eliminated='true';
         row.setAttribute('aria-label',`${seatText(match,seat)}，${player ? playerActionLabel : matchActionLabel}`);
-        if(placeholder)row.setAttribute('aria-label','席位待定');
+        if(placeholder)row.setAttribute('aria-label','席位待定，查看席位資訊');
         const seal=el('span','tt-player-seal',player ? Array.from(String(player.name || '').trim())[0] || '俠' : '候');
         seal.setAttribute('aria-hidden','true');
         const identity=el('span','tt-identity');identity.append(el('span','tt-name',seatText(match,seat)));
@@ -232,9 +276,11 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
         }
         const score=match[seat===0?'s1':'s2'];
         row.append(el('span','tt-score',Number(data.bestOf)>1 && status!=='upcoming' && !match.bye && Number.isFinite(score)?score:'—'));
+        prepareCardAction(row);
         listen(row,'click',()=>{
           if(disposed || generation!==token)return;
-          if(player && onPlayer)onPlayer(String(playerId),match.id,row);else onSelect?.(match.id,row);
+          if(placeholder)showCardState('席位待定',match,row);
+          else if(player && onPlayer)onPlayer(String(playerId),match.id,row);else selectMatch(match,row,'選手與場次資訊');
         });
         const highlight=()=>highlightPlayer(playerId);
         listen(row,'pointerenter',highlight);listen(row,'focus',highlight);
@@ -261,9 +307,10 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
         const offset = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
         if (offset || event.key === 'Home' || event.key === 'End') {
           event.preventDefault(); event.stopPropagation();
-          const next = event.key === 'Home' ? 0 : event.key === 'End' ? roundKeys.length - 1 :
-            (roundKeys.indexOf(key) + offset + roundKeys.length) % roundKeys.length;
-          selectRound(roundKeys[next], true);
+          const available=roundKeys.filter(round=>!tabButtons.get(round)?.hidden);
+          const next = event.key === 'Home' ? 0 : event.key === 'End' ? available.length - 1 :
+            (available.indexOf(key) + offset + available.length) % available.length;
+          selectRound(available[next], true);
         } else if (event.key === 'ArrowDown') {
           event.preventDefault(); event.stopPropagation(); panel.querySelector('button')?.focus();
         }
@@ -272,13 +319,23 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
     const count = Math.max(1,treeRounds.length);
     const hasFinal=lastRound?.matches.length===1;
     const sideCount=hasFinal ? count-1 : count;
-    const crownGap=16, crownWidth=128;
-    const minimumWidth=(sideCount*2+2)*112+sideCount*2*COLUMN_GAP+crownWidth+crownGap*2;
-    const availableWidth=()=>Math.max(0,(host.clientWidth || viewport.clientWidth)-24);
-    const isCompact=()=>!!mobile?.matches || data.layoutPreference==='round' || (data.layoutPreference!=='tree' && availableWidth()>0 && availableWidth()<minimumWidth);
+    const fieldSize=Math.max(players.size,(treeRounds[0]?.matches.length || 1)*2);
+    host.dataset.density=fieldSize<=4?'spacious':fieldSize<=8?'comfortable':'dense';
+    let crownGap=16, crownWidth=128, columnGap=COLUMN_GAP, headerHeight=HEADER;
+    let baseWidth=(sideCount*2+2)*144+sideCount*2*COLUMN_GAP+128+32;
+    const maxScale=fieldSize<=4?1.75:fieldSize<=8?1.3:1.12;
+    let minimumWidth=(sideCount*2+2)*112+sideCount*2*COLUMN_GAP+crownWidth+crownGap*2;
+    const availableWidth=()=>{
+      const containerWidth=host.clientWidth || viewport.clientWidth;
+      const inset=Math.min(160,Math.max(0,containerWidth-960)*.28);
+      return Math.max(0,containerWidth-24-inset);
+    };
+    const isCompact=()=>host.dataset.presentation==='bounty' ? (view.innerWidth<1024 || data.layoutPreference==='round') : !!mobile?.matches || data.layoutPreference==='round' || (data.layoutPreference!=='tree' && availableWidth()>0 && availableWidth()<minimumWidth);
     let nodeWidth=NODE_WIDTH, centerWidth=0, centerX=0, width=0;
     const columnLabels=[];
+    let selectBountyRound=null;
     function selectRound(key, focus = false) {
+      if(selectBountyRound){selectBountyRound(key,focus);return;}
       if (disposed || generation !== token || !panels.has(key)) return;
       selectedRound = key;
       const compact = isCompact();
@@ -301,16 +358,16 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
     selectRound(selectedRound);
     if(sideCount){
       for(const side of ['left','right']){
-        const heading=el('p','tt-side-heading',side==='left'?'左路群俠 →':'← 右路群俠');
+        const heading=el('p','tt-side-heading',side==='left'?'左路群俠':'右路群俠');
         heading.dataset.side=side;heading.setAttribute('aria-hidden','true');canvas.append(heading);
       }
     }
     const finalMatch=hasFinal ? lastRound.matches[0] : null;
     const champion=finalMatch?.status==='done' && finalMatch.winner && [finalMatch.p1,finalMatch.p2].includes(finalMatch.winner) ? players.get(String(finalMatch.winner)) : null;
     const finalCrest=el('button','tt-final-crest tt-champion');finalCrest.type='button';
-    finalCrest.disabled=placeholder;
+    finalCrest.disabled=false;
     finalCrest.setAttribute('aria-label',champion ? `冠軍 ${champion.name}，查看決賽` : '冠軍待定，查看決賽');
-    if(placeholder)finalCrest.setAttribute('aria-label','冠軍待定');
+    if(placeholder)finalCrest.setAttribute('aria-label','冠軍待定，查看決賽資訊');
     const championSignature=champion?`${finalMatch.id}:${champion.id}`:'';
     nextResults.set('champion',championSignature);
     if(champion){
@@ -320,49 +377,111 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
     }
     const championImage=el('img','tt-champion-art');championImage.src=championArt;championImage.alt='';championImage.width=1024;championImage.height=1536;
     finalCrest.append(el('span','tt-champion-label',placeholder ? '冠軍' : '百業試鋒 · 冠軍'),championImage,el('span','tt-champion-name',champion?.name || '冠軍待定'));
+    prepareCardAction(finalCrest);
     if(finalMatch){
       groups.get(finalMatch.id).replaceChildren(cards.get(`${finalMatch.id}:0`),finalCrest,cards.get(`${finalMatch.id}:1`),buttons.get(finalMatch.id));
-      listen(finalCrest,'click',()=>{if(!disposed && generation===token)onSelect?.(finalMatch.id,finalCrest);});
+      listen(finalCrest,'click',()=>selectMatch(finalMatch,finalCrest,champion?'冠軍決賽':'冠軍待定'));
     }
+    // Same elimination geometry as the judge tree; only identity presentation differs.
+    const identityPresentation=host.dataset.presentation === 'bounty';
+    if(identityPresentation){
+      const toneFor=(left)=>(host.dataset.tones==='red-left'?left:!left)?'red':'blue';
+      function decorateSeat(match,seat,left){
+        const card=cards.get(`${match.id}:${seat}`);card.dataset.tone=toneFor(left);const player=players.get(String(match[seat===0?'p1':'p2']));
+        const avatar=el('span','tt-avatar');avatar.setAttribute('aria-hidden','true');
+        const fallback=()=>{avatar.replaceChildren();const icon=doc.createElementNS(SVG,'svg');icon.setAttribute('viewBox','0 0 24 24');const path=doc.createElementNS(SVG,'path');path.setAttribute('d','M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM4 21v-3a8 8 0 0 1 16 0v3');icon.append(path);avatar.append(icon);};
+        fallback();
+        if(/^\/(?:api\/)?activity\/avatars\/[A-Za-z0-9_-]{1,64}\/[a-f0-9]{64}$/.test(player?.gameAvatarUrl||'')){
+          const photo=el('img','');photo.src=player.gameAvatarUrl;photo.alt='';photo.width=48;photo.height=48;photo.decoding='async';
+          listen(photo,'error',fallback);avatar.replaceChildren(photo);
+        }
+        card.prepend(avatar);
+        const state=el('span','tt-bounty-seat-state',placeholder?'待公布':match.bye?'輪空':match.status==='done'?'賽果已定':match.status==='live'?'交鋒中':'待開賽');
+        card.querySelector('.tt-identity').append(state);
+        return card;
+      }
+      rounds.forEach(round=>round.matches.forEach(match=>[0,1].forEach(seat=>decorateSeat(match,seat,seat===0))));
+      canvas.querySelectorAll('.tt-side-heading').forEach(label=>label.textContent=toneFor(label.dataset.side==='left')==='red'?'紅方':'藍方');
+      viewport.setAttribute('aria-label','比賽賽程，左右兩路晉級至中央決賽；過寬時可在圖內橫向捲動');
+    }
+
     treeRounds.forEach((round,index)=>{
       const central=hasFinal && index===count-1;
       for(const side of central ? ['final'] : ['left','right']){
-        const label=el('p','tt-column-title',round.label);label.dataset.side=side;
+        const label=el('h3','tt-column-title',round.label);label.dataset.side=side;
         columnLabels.push({label,side,index,central});
         label.setAttribute('aria-hidden','true');canvas.append(label);
       }
     });
+    // Batch intrinsic measurements before choosing tree/round mode. Never squeeze a name.
+    let intrinsicSize=null;
+    function measureCards(){
+      if(intrinsicSize)return intrinsicSize;
+      const shelf=el('div','tt-measure');shelf.setAttribute('aria-hidden','true');shelf.inert=true;
+      const originals=[...cards.values(),...buttons.values()];
+      const probes=originals.map(original=>{
+        const clone=original.cloneNode(true);clone.tabIndex=-1;
+        clone.style.cssText='position:static!important;inline-size:max-content!important;width:max-content!important;min-width:0!important;max-width:none!important;';
+        if(original.classList.contains('tt-player'))clone.style.gridTemplateColumns=identityPresentation?'40px max-content auto':'22px max-content 24px';
+        shelf.append(clone);return clone;
+      });
+      const crownLabels=[...finalCrest.querySelectorAll('.tt-champion-label,.tt-champion-name')].map(label=>{
+        const clone=label.cloneNode(true);clone.style.cssText='display:block;width:max-content;white-space:nowrap';shelf.append(clone);return clone;
+      });
+      host.append(shelf);
+      const sizes=probes.map(probe=>Math.ceil(layoutBox(probe).width));
+      const seat=identityPresentation?Math.min(240,Math.max(180,...sizes.slice(0,cards.size))):Math.max(112,...sizes.slice(0,cards.size));
+      const junction=Math.max(COLUMN_GAP,...sizes.slice(cards.size));
+      const crown=Math.max(128,...crownLabels.map(label=>Math.ceil(layoutBox(label).width)+32));
+      shelf.remove();
+      const measured={seat,gap:junction>COLUMN_GAP?junction+24:COLUMN_GAP,crown};
+      if(sizes.length && sizes.every(size=>size>0))intrinsicSize=measured;
+      return measured;
+    }
+    // Sizes in the tree's own pixels: a large-screen zoom on the page (app/large-screen.css) is taken back out.
+    function layoutBox(el){const box=el.getBoundingClientRect(),zoom=el.currentCSSZoom||1;return {width:box.width/zoom,height:box.height/zoom};}
     function layout(){
       raf=0;if(disposed || generation!==token)return;
+      canvas.style.setProperty('--tree-ui-scale','1');
+      const natural=measureCards();
+      minimumWidth=(sideCount*2+2)*natural.seat+sideCount*2*natural.gap+natural.crown+32;
+      baseWidth=(sideCount*2+2)*Math.max(144,natural.seat)+sideCount*2*natural.gap+natural.crown+32;
       const focused=doc.activeElement;
       const focusedRound=host.contains(focused)?focused.closest('[data-round]')?.dataset.round:null;
       selectRound(focusedRound && panels.has(focusedRound)?focusedRound:selectedRound);
       if(!isCompact() && focused?.classList.contains('tt-tab'))panels.get(selectedRound)?.querySelector('button')?.focus({preventScroll:true});
       const available=availableWidth();
-      nodeWidth=available>0?Math.max(112,Math.min(144,(available-sideCount*2*COLUMN_GAP-crownWidth-crownGap*2)/(sideCount*2+2))):NODE_WIDTH;
+      // Grow the geometry, not a scaled bitmap: hit targets, type and connectors remain crisp.
+      const scale=!isCompact() && available>0?Math.max(1,Math.min(maxScale,available/baseWidth)):1;
+      columnGap=natural.gap*scale;crownGap=16*scale;crownWidth=natural.crown*scale;headerHeight=HEADER+40*(scale-1);
+      canvas.style.setProperty('--tree-ui-scale',String(scale));
+      canvas.style.setProperty('--tree-seat-min',`${68*scale}px`);
+      nodeWidth=available>0?Math.max(natural.seat,Math.min(Math.max(144,natural.seat)*scale,(available-sideCount*2*columnGap-crownWidth-crownGap*2)/(sideCount*2+2))):NODE_WIDTH;
       centerWidth=nodeWidth*2+crownWidth+crownGap*2;
-      centerX=sideCount*(nodeWidth+COLUMN_GAP);
+      centerX=sideCount*(nodeWidth+columnGap);
       width=centerX*2+centerWidth;
       canvas.style.setProperty('--tree-node-width',`${nodeWidth}px`);
       canvas.style.removeProperty('--tree-seat-height');
       finalCrest.style.width=`${crownWidth}px`;
       columnLabels.forEach(({label,side,index,central})=>{
-        const x=side==='final'?centerX:side==='left'?index*(nodeWidth+COLUMN_GAP):width-nodeWidth-index*(nodeWidth+COLUMN_GAP);
+        const x=side==='final'?centerX:side==='left'?index*(nodeWidth+columnGap):width-nodeWidth-index*(nodeWidth+columnGap);
         label.style.left=`${x}px`;label.style.width=`${central?centerWidth:nodeWidth}px`;
       });
       // Measure single seats, not a pair container; long names enlarge every row consistently.
-      const height=Math.max(68,...[...cards.values()].map(card=>Math.ceil(card.getBoundingClientRect().height || card.scrollHeight || 0)));
+      const height=Math.max(68*scale,...[...cards.values()].map(card=>Math.ceil(layoutBox(card).height || card.scrollHeight || 0)));
       const seats=Math.max(2,...treeRounds.map(round=>Math.ceil(round.matches.length/2)*2));
-      const crownHeight=Math.max(156,Math.ceil(finalCrest.getBoundingClientRect().height || finalCrest.scrollHeight || 0));
+      const crownHeight=Math.max(156+80*(scale-1),Math.ceil(layoutBox(finalCrest).height || finalCrest.scrollHeight || 0));
       const bodyHeight=Math.max(crownHeight+height*2+80,seats*(height+28));
-      const mid=HEADER+bodyHeight/2, thirds=all.filter(match=>match.kind==='third');
+      const mid=headerHeight+bodyHeight/2, thirds=all.filter(match=>match.kind==='third');
       const thirdTop=mid+Math.max(height,crownHeight)+120;
-      const totalHeight=Math.max(HEADER+bodyHeight,thirds.length?thirdTop+thirds.length*(height*2+88):0)+20;
+      const totalHeight=Math.max(headerHeight+bodyHeight,thirds.length?thirdTop+thirds.length*(height*2+88):0)+20;
       canvas.style.width=`${width}px`;canvas.style.height=`${totalHeight}px`;
       canvas.style.setProperty('--tree-seat-height',`${height}px`);positions.clear();
       function place(match,side,xy,junction){
         const button=buttons.get(match.id);button.dataset.side=side;groups.get(match.id).dataset.side=side;
-        button.style.left=`${junction.x-24}px`;button.style.top=`${junction.y-28}px`;
+        const junctionWidth=layoutBox(button).width || 48*scale;
+        const junctionHeight=layoutBox(button).height || 56*scale;
+        button.style.left=`${junction.x-junctionWidth/2}px`;button.style.top=`${junction.y-junctionHeight/2}px`;
         xy.forEach((point,seat)=>{
           const card=cards.get(`${match.id}:${seat}`);card.style.left=`${point.x}px`;card.style.top=`${point.y-height/2}px`;
           card.dataset.side=side;
@@ -375,12 +494,12 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
       treeRounds.forEach((round,index)=>{
         const central=hasFinal && index===count-1, split=Math.ceil(round.matches.length/2);
         round.matches.forEach((match,order)=>{
-          if(central){place(match,'final',[{x:centerX,y:mid},{x:centerX+centerWidth-nodeWidth,y:mid}],{x:centerX+centerWidth/2,y:mid+crownHeight/2+42});return;}
+          if(central){place(match,'final',[{x:centerX,y:mid},{x:centerX+centerWidth-nodeWidth,y:mid}],{x:centerX+centerWidth/2,y:mid+crownHeight/2+Math.max(56*Math.max(1,scale*.8),layoutBox(buttons.get(match.id)).height)/2+16});return;}
           const side=order<split?'left':'right',local=side==='left'?order:order-split;
           const total=side==='left'?split:round.matches.length-split;
-          const x=side==='left'?index*(nodeWidth+COLUMN_GAP):width-nodeWidth-index*(nodeWidth+COLUMN_GAP);
-          const xy=[0,1].map(seat=>({x,y:HEADER+(local*2+seat+.5)*bodyHeight/(total*2)}));
-          place(match,side,xy,{x:x+(side==='left'?nodeWidth+COLUMN_GAP/2:-COLUMN_GAP/2),y:(xy[0].y+xy[1].y)/2});
+          const x=side==='left'?index*(nodeWidth+columnGap):width-nodeWidth-index*(nodeWidth+columnGap);
+          const xy=[0,1].map(seat=>({x,y:headerHeight+(local*2+seat+.5)*bodyHeight/(total*2)}));
+          place(match,side,xy,{x:x+(side==='left'?nodeWidth+columnGap/2:-columnGap/2),y:(xy[0].y+xy[1].y)/2});
         });
       });
       if(finalMatch){finalCrest.style.left=`${centerX+(centerWidth-crownWidth)/2}px`;finalCrest.style.top=`${mid-crownHeight/2}px`;finalCrest.style.width=`${crownWidth}px`;}
@@ -432,6 +551,7 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
       observer.observe(host); cards.forEach(card => observer.observe(card));if(finalMatch)observer.observe(finalCrest);
     }
     listen(view, 'resize', requestLayout);
+    doc.fonts?.ready.then(()=>{if(!disposed && generation===token){intrinsicSize=null;requestLayout();}});
     if (mobile?.addEventListener) listen(mobile, 'change', () => {
       const focused = doc.activeElement;
       const focusedRound = host.contains(focused) ? focused.closest('[data-round]')?.dataset.round : null;
@@ -447,7 +567,7 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
     disposed = true; clearRender();
     signal?.removeEventListener('abort', destroy);
     host.replaceChildren();
-    delete host.dataset.links; delete host.dataset.view; delete host.dataset.tones; delete host.dataset.placeholder;
+    delete host.dataset.links; delete host.dataset.view; delete host.dataset.tones; delete host.dataset.placeholder; delete host.dataset.density;
     if (!hadClass) host.classList.remove('tournament-tree');
     if (instances.get(host) === controller) instances.delete(host);
   }

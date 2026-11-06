@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>斜湧墨浪 · 按鈕動態試映</title>
+<style>
+:root{color-scheme:light;--surface-base:#f8f3e8;--surface-raised:#eee7d8;--text-primary:#292724;--text-secondary:#70685c;--border-subtle:#b9ae9b;--accent-action-primary:#9f322c;--ink-paper:#fff6df;--ink-on-paper:#853127;--font-display:'Noto Serif TC',serif;--font-body:'Noto Sans TC',system-ui,sans-serif;--font-mono:ui-monospace,monospace}
+[data-theme=dark]{color-scheme:dark;--surface-base:#141b20;--surface-raised:#222c32;--text-primary:#f5eee2;--text-secondary:#bfb7aa;--border-subtle:#536067;--accent-action-primary:#b6443a;--ink-on-paper:#753a2e}
+*{box-sizing:border-box}body{margin:0;background:var(--surface-base);color:var(--text-primary);font-family:var(--font-body);line-height:1.7}main{width:min(1100px,calc(100% - 48px));margin:32px auto 72px}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-subtle);padding-bottom:16px;gap:16px}.wordmark{font-family:var(--font-display);font-size:20px;letter-spacing:.14em}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent-action-primary);outline-offset:5px}.plain,select{background:transparent;color:var(--text-primary);border:1px solid var(--border-subtle);min-height:44px;padding:8px 16px}.plain:hover{background:var(--surface-raised)}.intro{padding:34px 0 22px}.eyebrow{color:var(--accent-action-primary);font-size:14px;letter-spacing:.15em}h1{font-family:var(--font-display);font-size:clamp(30px,5vw,52px);font-weight:600;margin:8px 0}p{margin:8px 0;color:var(--text-secondary)}.controls{display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);padding:18px 0}.controls label{display:flex;align-items:center;gap:8px}.timeline{display:flex;align-items:center;gap:18px;margin:24px 0}.timeline input{flex:1;min-width:80px;accent-color:var(--accent-action-primary)}output{font-family:var(--font-mono);min-width:4ch}.samples{display:grid;grid-template-columns:1fr 1fr;gap:32px}article{min-width:0}h2{font-size:22px;font-weight:600;margin:8px 0}.meta{display:flex;justify-content:space-between;font-size:13px;gap:12px;color:var(--text-secondary)}.large{height:190px;margin:24px 0 12px}.ink{position:relative;display:block;width:100%;overflow:hidden;isolation:isolate;border:1px solid var(--accent-action-primary);border-radius:0;background:var(--accent-action-primary);color:var(--ink-paper);padding:0;min-height:56px;--fill:var(--ink-paper);--on-fill:var(--ink-on-paper)}.ink .base,.ink .inverse{display:flex;align-items:center;justify-content:space-between;position:absolute;inset:0;padding:18px 24px;pointer-events:none;text-align:left}.ink.large .base,.ink.large .inverse{padding:28px;font-size:32px;font-family:var(--font-display)}.ink svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.ink .inverse{color:var(--on-fill);clip-path:inset(100% 0 0)}.front{fill:var(--fill)}.back{fill:var(--fill);opacity:.3}.bubbles{fill:none;stroke:var(--on-fill);stroke-width:.7;opacity:.35}.small-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}.neutral{background:var(--surface-base);color:var(--text-primary);border-color:var(--border-subtle);--fill:var(--text-primary);--on-fill:var(--surface-base)}.caption{font-size:14px;min-height:48px}.notes{margin-top:30px;padding-top:20px;border-top:1px solid var(--border-subtle)}.notes strong{color:var(--text-primary)}.reduced{display:none}@media(prefers-reduced-motion:reduce){.reduced{display:block}}@media(max-width:640px){main{width:calc(100% - 32px);margin-top:20px}.samples{grid-template-columns:1fr;gap:34px}.large{height:160px}.intro{padding-top:24px}.controls{gap:12px}.controls label{font-size:14px}.ink.large .base,.ink.large .inverse{font-size:28px}.small-row .base,.small-row .inverse{padding:12px}.wordmark{font-size:17px}}
+.ripples{fill:none;stroke:var(--on-fill);stroke-width:1.2}.click-flash{fill:var(--on-fill);stroke:none}
+</style>
+</head>
+<body><main>
+<header><span class="wordmark">夜鴉閣 / 墨浪試映</span><button class="plain" id="theme" aria-pressed="false">切換深色</button></header>
+<section class="intro"><div class="eyebrow">G · 斜向湧墨</div><h1>右側先湧上，左側緩緩跟進。</h1><p>浪面維持平緩的小斜度，右側稍快、左側輕輕跟進，不再拉開大幅高低差。</p></section>
+<div class="controls"><button class="plain" id="replay">一起播放 ↗</button><button class="plain" id="pause">繼續</button><label>速度 <select id="speed"><option value="2.25" selected>已採用 2.25×</option><option value="1.5">前版 1.5×</option><option value="1">原速 1×</option><option value="0.5">慢速 0.5×</option></select></label><label><input type="checkbox" id="bubbles" checked> 墨中氣泡</label></div>
+<label class="timeline">進度 <input id="progress" type="range" min="0" max="100" value="0" aria-label="動畫進度"><output id="percent">0%</output></label>
+<p class="reduced">已啟用減少動態：按鈕直接換色，也可拖曳進度逐格查看。</p>
+<div class="samples">
+<article><div class="meta"><span>建議版本</span><span>右側先到頂 · 左側晚 0.12 秒</span></div><h2>柔斜湧浪</h2><button class="ink large" data-delay="0.12" aria-label="預覽柔斜湧浪"><span class="base">讓武 <span>↗</span></span></button><p class="caption">縮小兩端時間差，浪面更平緩。保留柔軟疊浪與少量浮泡，適合導覽與一般按鈕。</p><div class="small-row"><button class="ink" data-delay="0.12"><span class="base">報名參賽 <span>↗</span></span></button><button class="ink neutral" data-delay="0.12"><span class="base">查看賽程 <span>↗</span></span></button></div></article>
+<article><div class="meta"><span>已選定 · 全站採用</span><span>右側先到頂 · 左側晚 0.20 秒</span></div><h2>長浪追湧</h2><button class="ink large" data-delay="0.20" aria-label="預覽長浪追湧"><span class="base">讓武 <span>↗</span></span></button><p class="caption">比左版多一點斜度，仍保持接近的左右高度；右側稍早填滿，左側自然收尾。</p><div class="small-row"><button class="ink" data-delay="0.20"><span class="base">報名參賽 <span>↗</span></span></button><button class="ink neutral" data-delay="0.20"><span class="base">查看賽程 <span>↗</span></span></button></div></article>
+</div><div class="notes"><p><strong>停留持續冒細泡；點擊激起漣漪與一簇浮泡。</strong> 點擊時按鈕輕輕回彈，移開才退墨。Tab 聚焦也能持續預覽，Enter／空白鍵可試點擊。</p><p>拖曳進度可停在斜浪中段。紅色按鈕使用象牙墨＋深朱紅字；一般按鈕依深淺模式反向配色。此頁只示範，不會送出報名，全站已採用右側「長浪追湧」。</p></div>
+</main>
+<script>
+(()=>{
+const ns='http://www.w3.org/2000/svg', reduced=matchMedia('(prefers-reduced-motion: reduce)'), progress=document.querySelector('#progress'),percent=document.querySelector('#percent');
+const duration=1.55;let raf=0,last=0,time=0,playing=false,speed=2.25;
+const clamp=x=>Math.max(0,Math.min(1,x));
+const ease=t=>t*t*(3-2*t);
+const motions=[...document.querySelectorAll('.ink')].map((el,i)=>{
+ const svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 320 100');svg.setAttribute('preserveAspectRatio','none');svg.setAttribute('aria-hidden','true');
+ svg.innerHTML=`<defs><clipPath id="wave-${i}"><path/></clipPath></defs><path class="back"/><path class="front"/><g class="bubbles" clip-path="url(#wave-${i})">${'<ellipse/>'.repeat(6)}</g><g class="ripples" clip-path="url(#wave-${i})"><ellipse class="click-flash"/><ellipse/><ellipse/></g><g class="bubbles burst" clip-path="url(#wave-${i})">${'<ellipse/>'.repeat(9)}</g>`;
+ const label=el.querySelector('.base').cloneNode(true);label.className='inverse';label.setAttribute('aria-hidden','true');el.append(svg,label);
+ return {el,svg,label,delay:Number(el.dataset.delay),local:0,active:false,hold:false,pointer:false,keyboard:false,bubbleTime:0,clickAge:2,clickX:160,clickY:50,pulse:null,ratio:1,
+  bubbles:[...svg.querySelector('.bubbles').children],burst:[...svg.querySelector('.burst').children],rings:[...svg.querySelector('.ripples').children]};
+});
+function path(t,delay,back=false){
+ const points=[];
+ for(let i=0;i<=64;i++){
+  const x=i/64, local=clamp((t-(1-x)*delay+(back?.045:0))/1.12);
+  const envelope=Math.sin(Math.PI*local);
+  const wave=(Math.sin(x*9.2-t*7.3+(back?1.3:0))*3.6+Math.sin(x*17+t*3)*1.1)*envelope;
+  const rebound=Math.sin(local*Math.PI*3)*2.2*envelope;
+  points.push([x*320,107-114*ease(local)+wave+rebound]);
+ }
+ return {d:points.map((p,i)=>(i?'L':'M')+p.map(n=>n.toFixed(2)).join(',')).join(' ')+' L320,110 L0,110 Z',clip:'polygon('+points.map(p=>`${p[0]/3.2}% ${p[1]}%`).join(',')+',100% 110%,0% 110%)'};
+}
+function draw(m,t){
+ const p=path(t,m.delay), back=path(t,m.delay,true);m.svg.querySelector('.front').setAttribute('d',p.d);m.svg.querySelector('clipPath path').setAttribute('d',p.d);m.svg.querySelector('.back').setAttribute('d',back.d);m.label.style.clipPath=p.clip;
+ const ratio=m.ratio, enabled=document.querySelector('#bubbles').checked&&!reduced.matches;
+ const fade=clamp(t/.3);
+ m.bubbles.forEach((bubble,i)=>{
+  const p=(m.bubbleTime*(.29+i*.014)+i*.163)%1, r=(1.4+i%3)*1.62;
+  ellipse(bubble,24+i*54+Math.sin(m.bubbleTime*1.8+i)*4,108-p*119,r*ratio,r,enabled?fade*Math.min(1,p*9,(1-p)*7):0);
+ });
+ const age=m.clickAge, impact=clamp(age/.85), visible=age<1&&!reduced.matches;
+ m.rings.forEach((ring,i)=>{
+  const p=clamp((age-i*.08)/.8),r=3+ease(p)*132;
+  ellipse(ring,m.clickX,m.clickY,r*ratio,r,visible?(1-p)*(i===0?.14:.7):0);
+ });
+ m.burst.forEach((bubble,i)=>{
+  const spread=(i-4)*8, r=(2.5+i%3)*1.62;
+  ellipse(bubble,m.clickX+spread*ease(impact),m.clickY-impact*(38+i%3*14),r*ratio,r,visible&&enabled?Math.sin(Math.PI*impact)*.95:0);
+ });
+}
+function ellipse(el,x,y,rx,ry,opacity){Object.entries({cx:x,cy:y,rx,ry,opacity}).forEach(([key,value])=>el.setAttribute(key,String(value)));}
+function measure(){motions.forEach(m=>{m.ratio=m.el.clientHeight/Math.max(1,m.el.clientWidth)*3.2;draw(m,m.local)});}
+function showAll(t){motions.forEach(m=>{m.local=t;m.bubbleTime=t;draw(m,t)});progress.value=String(Math.round(t/duration*100));percent.value=progress.value+'%';}
+const bubbling=m=>m.hold&&document.querySelector('#bubbles').checked&&!reduced.matches;
+const running=m=>m.active||bubbling(m)||m.clickAge<1;
+function wake(){if(!raf){last=0;raf=requestAnimationFrame(tick)}}
+function tick(now){const dt=Math.min((now-(last||now-16))/1000,.04)*speed;last=now;raf=0;
+ if(playing){time=Math.min(duration,time+dt);showAll(time);if(time===duration){playing=false;document.querySelector('#pause').textContent='繼續';}}
+ else motions.forEach(m=>{if(running(m)){
+  m.bubbleTime+=dt;m.clickAge+=dt;
+  if(m.active){m.local=Math.max(0,Math.min(duration,m.local+(m.hold?dt:-dt)));if(m.local===(m.hold?duration:0))m.active=false;}
+  draw(m,m.local);
+ }});
+ if(playing||motions.some(running))raf=requestAnimationFrame(tick);
+}
+function stopInteractions(){motions.forEach(m=>{m.active=false;m.hold=false;m.pointer=false;m.keyboard=false;m.clickAge=2;m.pulse?.cancel();});}
+function replay(){stopInteractions();time=0;playing=!reduced.matches;showAll(reduced.matches?duration:0);document.querySelector('#pause').textContent=playing?'暫停':'繼續';if(playing)wake();}
+document.querySelector('#replay').onclick=replay;
+document.querySelector('#pause').onclick=()=>{if(reduced.matches)return;if(time>=duration)time=0;playing=!playing;stopInteractions();document.querySelector('#pause').textContent=playing?'暫停':'繼續';if(playing)wake();};
+progress.oninput=()=>{playing=false;time=Number(progress.value)/100*duration;stopInteractions();showAll(time);document.querySelector('#pause').textContent='繼續';};
+document.querySelector('#speed').onchange=e=>{speed=Number(e.target.value)};
+document.querySelector('#bubbles').onchange=()=>{motions.forEach(m=>draw(m,m.local));if(motions.some(running))wake();};
+document.querySelector('#theme').onclick=e=>{const dark=document.documentElement.dataset.theme!=='dark';document.documentElement.dataset.theme=dark?'dark':'light';e.currentTarget.textContent=dark?'切換淺色':'切換深色';e.currentTarget.setAttribute('aria-pressed',String(dark));};
+motions.forEach(m=>{
+ const set=hold=>{playing=false;m.hold=hold;m.active=true;document.querySelector('#pause').textContent='繼續';if(reduced.matches){m.local=hold?duration:0;draw(m,m.local);m.active=false}else wake();};
+ m.el.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){m.pointer=true;set(true)}});
+ m.el.addEventListener('pointerleave',()=>{m.pointer=false;set(m.keyboard)});
+ m.el.addEventListener('pointercancel',()=>{m.pointer=false;set(m.keyboard)});
+ m.el.addEventListener('focus',()=>{m.keyboard=m.el.matches(':focus-visible');if(m.keyboard)set(true)});
+ m.el.addEventListener('blur',()=>{m.keyboard=false;set(m.pointer)});
+ m.el.addEventListener('click',e=>{
+  const box=m.el.getBoundingClientRect();m.clickX=e.detail?clamp((e.clientX-box.left)/box.width)*320:160;m.clickY=e.detail?clamp((e.clientY-box.top)/box.height)*100:50;
+  set(m.pointer||m.keyboard);m.local=reduced.matches?duration:Math.max(m.local,.9);m.clickAge=reduced.matches?2:0;
+  m.pulse?.cancel();if(!reduced.matches)m.pulse=m.el.animate([{transform:'scale(1)'},{transform:'scale(.96)',offset:.18},{transform:'scale(1.015)',offset:.55},{transform:'scale(1)'}],{duration:520/speed,easing:'cubic-bezier(.22,.7,.25,1)'});
+  draw(m,m.local);if(!reduced.matches)wake();
+ });
+});
+function suspend(){cancelAnimationFrame(raf);raf=0;playing=false;stopInteractions();showAll(0);document.querySelector('#pause').textContent='繼續';}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)suspend()});
+addEventListener('blur',suspend);
+reduced.addEventListener('change',suspend);
+addEventListener('resize',measure);
+addEventListener('pagehide',()=>cancelAnimationFrame(raf));
+measure();showAll(0);
+})();
+</script></body></html>

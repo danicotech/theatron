@@ -1,4 +1,54 @@
+// 2D is idle by default: no snow canvas, autonomous dolly, or moving text.
+function mountHomeParallax(host, signal, reduced){
+  const layers=Array.from(host.querySelectorAll('[data-home-depth]:not([data-home-title])'));
+  const fine=matchMedia('(hover: hover) and (pointer: fine) and (min-width: 768px)');
+  let raf=0,last=0,x=0,y=0,aimX=0,aimY=0,stopped=false;
+  const enabled=()=>!stopped&&!signal.aborted&&!document.hidden&&!reduced.matches&&fine.matches;
+  const clear=()=>{
+    if(raf)cancelAnimationFrame(raf);
+    raf=0;last=0;x=y=aimX=aimY=0;
+    layers.forEach(el=>el.style.removeProperty('transform'));
+  };
+  const frame=now=>{
+    raf=0;
+    if(!enabled()){clear();return;}
+    const dt=last?Math.min((now-last)/1000,.05):1/60;last=now;
+    const blend=1-Math.exp(-dt*12);
+    x+=(aimX-x)*blend;y+=(aimY-y)*blend;
+    const settled=Math.abs(aimX-x)<.002&&Math.abs(aimY-y)<.002;
+    if(settled){x=aimX;y=aimY;}
+    for(const el of layers){
+      const depth=Number(el.dataset.homeDepth);
+      const scale=el.classList.contains('home-scenery')?1.08:1;
+      el.style.transform=`translate3d(${(-x*12*depth).toFixed(2)}px,${(-y*8*depth).toFixed(2)}px,0) scale(${scale})`;
+    }
+    if(!settled)raf=requestAnimationFrame(frame);
+    else last=0;
+  };
+  const wake=()=>{if(enabled()&&!raf&&(Math.abs(aimX-x)>.002||Math.abs(aimY-y)>.002))raf=requestAnimationFrame(frame);};
+  const reset=()=>{aimX=aimY=0;wake();};
+  addEventListener('pointermove',event=>{
+    if(!enabled()||event.pointerType==='touch')return;
+    aimX=Math.max(-1,Math.min(1,event.clientX/innerWidth*2-1));
+    aimY=Math.max(-1,Math.min(1,event.clientY/innerHeight*2-1));
+    wake();
+  },{passive:true,signal});
+  document.documentElement.addEventListener('pointerleave',reset,{signal});
+  addEventListener('blur',reset,{signal});
+  addEventListener('resize',clear,{signal});
+  document.addEventListener('visibilitychange',clear,{signal});
+  reduced.addEventListener('change',clear,{signal});
+  fine.addEventListener('change',clear,{signal});
+  addEventListener('pagehide',clear,{signal});
+  addEventListener('pageshow',clear,{signal});
+  signal.addEventListener('abort',()=>{stopped=true;clear();},{once:true});
+}
+
+
 export async function mountHomeStage(canvas, signal){
+  const {stageMode,stageControls}=await import('./stage3d.js');
+  if(signal.aborted)return;
+  stageControls(signal);
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const host=canvas?.closest('.baiye-home');
   let readySent=false,stopped=false;
@@ -11,16 +61,19 @@ export async function mountHomeStage(canvas, signal){
     });
   };
   if(!canvas || signal.aborted)return;
-  if(reduced.matches||host.hasAttribute('data-scene-fallback')){ready();return;}
+  if(reduced.matches){ready();return;}
   const query=new URLSearchParams(location.search);
   let openingSeen=false;
   try{openingSeen=sessionStorage.getItem('lunjian:opening-seen:v1')==='1';}catch{}
-  const wantsIntro=!openingSeen&&!!host.querySelector('#boot')&&query.get('intro')!=='0';
-  if(!wantsIntro&&query.get('stage')==='2d'){ready();return;}
+  const wantsIntro=(!openingSeen||query.get('intro')==='1')&&!!host.querySelector('#boot')&&query.get('intro')!=='0';
+  if(host.hasAttribute('data-scene-fallback')||stageMode()!=='3d'){
+    mountHomeParallax(host,signal,reduced);ready();return;
+  }
   const layers=Array.from(host.querySelectorAll('[data-home-depth]'),element=>({
     element,depth:Number(element.dataset.homeDepth),side:Number(element.dataset.homeSide||0)
   }));
   let intro,introActive=false;
+  host.addEventListener('lunjian:home-opening-fallback-complete',()=>intro?.enterStage(),{signal});
   let scene,raf=0,last=0,time=0,mx=0,my=0,aimX=0,aimY=0,titleX=0,titleY=0;
   let moonEnvironment,originalMoon,originalMoonDirection;
   const positionMoon=()=>{
@@ -78,6 +131,7 @@ export async function mountHomeStage(canvas, signal){
   },{signal});
   function frame(now){
     if(signal.aborted||stopped||reduced.matches||document.hidden||!scene)return;
+    if(last&&now-last<1000/30){raf=requestAnimationFrame(frame);return;}
     const dt=last?Math.min((now-last)/1000,.05):0;last=now;time+=dt;
     if(introActive){intro.S.render3d?.(now,dt*1000);raf=requestAnimationFrame(frame);return;}
     const path=window.__JZ3D?.path;
@@ -105,7 +159,10 @@ export async function mountHomeStage(canvas, signal){
       const {createHomeIntro}=await import('./home-intro.js');
       if(signal.aborted||reduced.matches)return;
       introActive=true;
-      intro=createHomeIntro(host,canvas,signal,()=>{introActive=false;time=0;});
+      intro=createHomeIntro(host,canvas,signal,()=>{
+        introActive=false;time=0;
+        if(!scene){mountHomeParallax(host,signal,reduced);ready();}
+      });
       const {mountStage3D}=await import('./stage3d.js');
       if(signal.aborted||reduced.matches){intro.destroy();return;}
       host.dataset.scene='3d';

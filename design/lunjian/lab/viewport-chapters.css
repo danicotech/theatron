@@ -1,13 +1,15 @@
 /* Viewport chapters: limited to invitation, duel and rewards. */
 html[data-theme] body:has([data-paper-site]) #main #rewards .chapter-sticky{background:none;isolation:auto}
 html[data-theme] body:has([data-paper-site]) #main #rewards .chapter-sticky::before{content:none}
-html[data-theme] body:has([data-paper-site]) #main #rewards .awards-stage{background:none!important;border:0!important;border-image:none!important;box-shadow:none!important;padding:0!important;color:var(--text-on-scene)}
-html[data-theme] body:has([data-paper-site]) #main #rewards .awards-heading{text-shadow:0 2px 8px #0009;color:var(--text-on-scene)}
-html[data-theme] body:has([data-paper-site]) #main #rewards .podium-frame{border:14px solid transparent;border-image:url('/navigation-02/plaque.webp') 65 100 / 14px 18px / 0 stretch;box-shadow:none;background:var(--surface-paper);color:var(--text-on-paper);isolation:isolate}
-html[data-theme] body:has([data-paper-site]) #main #rewards .podium-frame figcaption{background-color:var(--surface-paper);background-image:var(--surface-paper-texture);background-size:cover;border:0;padding:12px 18px;gap:16px}
+html[data-theme] body:has([data-paper-site]) #main #rewards .awards-stage{padding:12px 20px;box-sizing:border-box;color:var(--text-on-paper)}
+html[data-theme] body:has([data-paper-site]) #main #rewards .awards-heading{text-shadow:none;color:var(--text-on-paper)}
+html[data-theme] body:has([data-paper-site]) #main #rewards .podium-board{box-sizing:border-box;border:0;border-image:none;padding:0;background:none;isolation:isolate}
+html[data-theme] body:has([data-paper-site]) #main #rewards .podium-frame{border:2px solid var(--text-on-paper);border-image:none;box-shadow:none;background:transparent;color:var(--text-on-paper);isolation:isolate}
+html[data-theme] body:has([data-paper-site]) #main #rewards .podium-art{box-shadow:none}
+html[data-theme] body:has([data-paper-site]) #main #rewards .podium-frame figcaption{background:none;border:0;border-top:1px solid var(--paper-faint,#8c8170);padding:8px 14px;gap:16px}
 html[data-theme] body:has([data-paper-site]) #main #rewards .podium-frame h3{font:600 clamp(20px,1.8vw,26px)/1.35 var(--serif)}
 html[data-theme] body:has([data-paper-site]) #main #rewards .podium-frame [data-prize-name]{font:500 clamp(18px,1.5vw,22px)/1.4 var(--serif)}
-html[data-theme] body:has([data-paper-site]) #main #rewards .awards-note{background:none;border:0;margin:0;padding:4px 0;color:var(--text-on-scene);text-shadow:0 1px 4px #000}
+html[data-theme] body:has([data-paper-site]) #main #rewards .awards-note{background:none;border:0;margin:0;padding:4px 0;color:var(--text-on-paper);text-shadow:none}
 html[data-theme] body:has([data-paper-site]) #main #rewards .chapter-nav{background:none}
 .handicap-detail-dialog{width:min(720px,calc(100vw - 32px));max-height:calc(100dvh - 40px);padding:24px;border:14px solid transparent;border-image:url('/navigation-02/plaque.webp') 65 100 / 14px 18px / 0 stretch;background:var(--surface-paper);color:var(--text-on-paper);overflow:auto}
 .handicap-detail-dialog::backdrop{background:#071019b8}
@@ -58,15 +60,15 @@ html[data-theme] body:has([data-paper-site]) #main #rewards .chapter-nav{backgro
  html[data-theme] body:has([data-paper-site]):not(.reading) #main #duel.battle-art-ready.chapter>.chapter-sticky{padding:0;height:100svh;box-sizing:border-box}
 }
 @media(max-width:767px){
- html[data-theme] body:has([data-paper-site]) #main #rewards .awards-stage{padding:0}
- html[data-theme] body:has([data-paper-site]) #main #rewards .podium-frame{border-width:10px;border-image-width:10px 14px}
- html[data-theme] body:has([data-paper-site]) #main #rewards .awards-note{padding:16px 0;gap:8px}
+ html[data-theme] body:has([data-paper-site]) #main #rewards .awards-stage{padding:12px 8px}
+ html[data-theme] body:has([data-paper-site]) #main #rewards .podium-board{border:0;padding:0;gap:12px}
+ html[data-theme] body:has([data-paper-site]) #main #rewards .awards-note{padding:8px 0;gap:8px}
 }
 
 
-html[data-theme] body:has([data-paper-site]) #main #rewards .chapter-calligraphy{color:var(--text-on-scene)!important;text-shadow:0 2px 8px #0009}
+html[data-theme] body:has([data-paper-site]) #main #rewards .chapter-calligraphy{color:var(--text-on-paper)!important;text-shadow:none}
 
-html[data-theme] body:has([data-paper-site]) #main #rewards .awards-note p{color:var(--text-on-scene)!important;text-shadow:0 1px 4px #000}
+html[data-theme] body:has([data-paper-site]) #main #rewards .awards-note p{color:var(--text-on-paper)!important;text-shadow:none}
 @media(min-width:1024px) and (min-height:700px){
  html[data-theme] body:has([data-paper-site]):not(.reading) #main #duel:not(.battle-art-ready)>.chapter-sticky{padding-bottom:20px}
 }

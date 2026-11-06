@@ -6,7 +6,8 @@ import {createBackdropKit} from 'jz/js/backdrop-kit.js';
 
 // Meter-scale reconstruction of arena-poster.webp. No photographic scenery planes.
 // Z runs from the forecourt (+) through the gate (-). Y=0 is the courtyard.
-export function environment(scene, textures) {
+export async function environment(scene, textures, onStage=()=>{}) {
+  const breathe=async name=>{onStage(name);await new Promise(resolve=>setTimeout(resolve,0));};
   const root = new THREE.Group(); root.name = 'Arena / architectural reconstruction'; scene.add(root);
   let seed = 1847;
   const random = () => ((seed = Math.imul(seed, 1664525) + 1013904223 | 0) >>> 0) / 4294967296;
@@ -53,7 +54,7 @@ export function environment(scene, textures) {
     }
     const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;ownedTextures.push(t);return t;
   }
-  const woodMap=surface('wood'), stoneMap=surface('stone'), snowMap=surface('snow');
+  const woodMap=surface('wood');await breathe('wood-map');const stoneMap=surface('stone');await breathe('stone-map');const snowMap=surface('snow');await breathe('snow-map');
   const wood=material({map:woodMap,color:0xc4bcaf,roughness:.94,bumpMap:woodMap,bumpScale:.13});
   const carved=material({map:woodMap,color:0xa6a49c,roughness:.88,bumpMap:woodMap,bumpScale:.09});
   const darkWood=material({map:woodMap,color:0x474b4c,roughness:.95});
@@ -100,6 +101,7 @@ export function environment(scene, textures) {
     const ring=new THREE.Mesh(rg,arenaMaterial);ring.position.set(0,.125,-8);ring.name='Arena / inlaid boundary ring';ring.receiveShadow=true;root.add(ring);
   }
 
+  await breathe('environment-'+'Masonry enclosure');
   // Masonry enclosure: real staggered blocks, wall thickness, buttresses, snow
   // coping and crenellations. The gap in the rear wall stays physically open.
   const rampartMats=[0xc0ccd5,0xa7bac6,0xcbd3d7].map(color=>material({map:stoneMap,color,roughness:.92,bumpMap:stoneMap,bumpScale:.17}));
@@ -230,6 +232,7 @@ export function environment(scene, textures) {
     for(let dy=-h/2;dy<=h/2;dy+=.37)box(x,y+dy,z+.16,w,.042,.05,carved);
   }
   function gateStructure(gateZ,deckY){
+
   // Reference gate: four massive front posts, deep passage and a forward-facing
   // pointed gable crossing ONE broad hip roof. It is not a two-storey pagoda.
   const gateColumn=remember(new THREE.CylinderGeometry(1,1,1,20));
@@ -307,6 +310,7 @@ export function environment(scene, textures) {
 
   }
 
+  await breathe('environment-'+'Double-storey flanking halls');
   // Double-storey flanking halls and receding galleries.
   function hall(cx,cz,w=10,d=11,tiers=2,elevation=0) {
     box(cx,(elevation+.8)/2,cz,w+1.2,elevation+.8,d+1.4,stone);box(cx,elevation+.84,cz,w+1.3,.12,d+1.5,snow);
@@ -333,8 +337,10 @@ export function environment(scene, textures) {
     }
   }
   const gateZ=-43,deckY=1.5;
-  const assetKit=createArenaKit();assetKit.instanceStatic();root.add(assetKit.root);
-  const backdropKit=createBackdropKit();root.add(backdropKit.root);
+  await breathe("base-architecture");
+  const assetKit=await createArenaKit();assetKit.instanceStatic();root.add(assetKit.root);
+  await breathe("arena-kit");
+  const backdropKit=await createBackdropKit();root.add(backdropKit.root);await breathe("backdrop-kit");
 
   // Restore the earlier forecourt as a separate lower terrace, then join its
   // landing directly to the current snow arena. The original gate dimensions
@@ -362,6 +368,7 @@ export function environment(scene, textures) {
   const foreSnow=new THREE.Mesh(foreSnowG,foreSnowM);foreSnow.position.z=17;foreSnow.name='Continuous lower forecourt snow';foreSnow.receiveShadow=true;addModel(foreSnow);
   placement.identity();
 
+  await breathe('environment-'+'Snow-laden plum branches');
   // Snow-laden plum branches are tapered round members, not a billboard tree.
   function tree(x,z,height=8){
     function branch(a,len,angle,azimuth,r,depth){
@@ -389,6 +396,7 @@ export function environment(scene, textures) {
   for(const side of [-1,1]){tree(side*15,4,9);tree(side*17,-11,10);}
   placement.identity();
 
+  await breathe('environment-'+'Actual bamboo stems');
   // Actual bamboo stems; the same continuous wind drives stems, flags and snow.
   const bamboo=new THREE.Group();bamboo.name='Bamboo grove / wind deformation';root.add(bamboo);
   const bambooGeometry=remember(new THREE.CylinderGeometry(.065,.10,1,6,5));
@@ -439,6 +447,7 @@ export function environment(scene, textures) {
   }
   const flameRig=createFlameRig(root,flameOrigins,{time:wind});
 
+  await breathe('environment-'+'Continuous mountain terrain');
   // Continuous mountain terrain with overlapping eroded ridges, not cone silhouettes.
   const mountainMaterial=material({color:0x8294a5,roughness:1,vertexColors:true});
   const mg=remember(new THREE.PlaneGeometry(300,125,150,72));mg.rotateX(-Math.PI/2);
@@ -455,6 +464,7 @@ export function environment(scene, textures) {
   mg.setAttribute('color',new THREE.Float32BufferAttribute(mc,3));mg.computeVertexNormals();
   const mountains=new THREE.Mesh(mg,mountainMaterial);mountains.position.set(0,-7,-128);mountains.name='Continuous eroded mountain range';root.add(mountains);
 
+  await breathe('environment-'+'Sky is a closed sphere');
   // Sky is a closed sphere with procedural moving cloud density, not sky.webp.
   const skyGeometry=remember(new THREE.SphereGeometry(290,48,24));
   const noiseGLSL=`float hash(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}float noise3(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(mix(hash(i),hash(i+vec3(1,0,0)),f.x),mix(hash(i+vec3(0,1,0)),hash(i+vec3(1,1,0)),f.x),f.y),mix(mix(hash(i+vec3(0,0,1)),hash(i+vec3(1,0,1)),f.x),mix(hash(i+vec3(0,1,1)),hash(i+vec3(1,1,1)),f.x),f.y),f.z);}float fbm(vec3 p){float a=.5,v=0.;for(int i=0;i<5;i++){v+=a*noise3(p);p=p*2.03+vec3(13.1);a*=.5;}return v;}`;
@@ -470,6 +480,7 @@ export function environment(scene, textures) {
 
   // Upload repeated timber/tile/snow elements once, keeping architecture draw calls bounded.
   for(const {g,m,items} of batches.values()) {
+    await new Promise(resolve=>setTimeout(resolve,0));
     const mesh=new THREE.InstancedMesh(g,m,items.length);items.forEach((a,i)=>mesh.setMatrixAt(i,a));
     mesh.name='Instanced '+(m===snow?'snow':m===wood?'timber':m===stone?'masonry':m===tile?'roof tiles':'architectural detail');
     mesh.castShadow=m!==snow&&items.length<1600;mesh.receiveShadow=true;mesh.computeBoundingSphere();root.add(mesh);
@@ -482,3 +493,4 @@ export function environment(scene, textures) {
     dispose(){flameRig.dispose();backdropKit.dispose();assetKit.dispose();standards.dispose();root.removeFromParent();sky.removeFromParent();moon.removeFromParent();for(const l of [moonlight,bounce,...lamps]){l.removeFromParent();l.shadow?.dispose();}moonlight.target.removeFromParent();for(const g of geometries)g.dispose();for(const m of materials)m.dispose();for(const t of ownedTextures)t.dispose();}
   };
 }
+

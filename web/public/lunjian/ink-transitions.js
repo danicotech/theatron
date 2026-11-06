@@ -39,22 +39,37 @@ export function makeInkField(width,height,style){
  }
  return {width,height,field,revealField,pigment,fiber};
 }
-export function createInkTransition(canvas,{style='flow'}={}){
+export function createInkTransition(canvas,{style='flow',workerUrl=null,onReady=()=>{}}={}){
  const ctx=canvas.getContext('2d',{alpha:true});if(!ctx)return null;
  let kind=resolveInkStyle(style),map=null,pixels=null,disposed=false,lastWidth=0,lastHeight=0;
+ let worker=null,revision=0;
+ if(workerUrl && typeof Worker!=='undefined'){
+  try{
+   worker=new Worker(workerUrl,{type:'module'});
+   worker.onmessage=({data})=>{if(disposed||data.revision!==revision)return;map=data.map;onReady(true);};
+   worker.onerror=()=>{worker?.terminate();worker=null;onReady(false);};
+  }catch{onReady(false);}
+ }
  function resize(width,height){
   let w=Math.min(420,Math.max(180,Math.round(width*.36))),h=Math.max(100,Math.round(w*height/width));
   const shrink=Math.min(1,Math.sqrt(140000/(w*h)));w=Math.round(w*shrink);h=Math.round(h*shrink);
   if(w===lastWidth&&h===lastHeight)return;
   canvas.width=w;canvas.height=h;lastWidth=w;lastHeight=h;
-  map=makeInkField(w,h,kind);pixels=ctx.createImageData(w,h);
+  map=null;pixels=ctx.createImageData(w,h);revision++;onReady(false);
+  if(worker)worker.postMessage({width:w,height:h,style:kind,revision});
+  else if(!workerUrl){map=makeInkField(w,h,kind);onReady(true);}
  }
  function setStyle(next){kind=resolveInkStyle(next);lastWidth=0;}
  function render(progress){
   if(disposed)return;
-  const r=canvas.getBoundingClientRect();resize(r.width||800,r.height||500);
-  const phase=inkPhase(progress,kind);
   if(progress<=0||progress>=1){ctx.clearRect(0,0,canvas.width,canvas.height);return;}
+  // The canvas is hidden while the worker prepares. Measure its stable container,
+  // otherwise readiness toggles between real size and the zero-size fallback.
+  const r=canvas.parentElement?.getBoundingClientRect()||canvas.getBoundingClientRect();
+  if(r.width&&r.height)resize(r.width,r.height);
+  else if(!pixels)resize(800,500);
+  const phase=inkPhase(progress,kind);
+  if(!map)return;
   const c=ease(phase.cover),v=ease(phase.reveal),data=pixels.data;
   const wet=kind==='mist'?.21:kind==='flow'?.11:.085;
   for(let i=0;i<map.field.length;i++){
@@ -75,6 +90,6 @@ export function createInkTransition(canvas,{style='flow'}={}){
   }
   ctx.putImageData(pixels,0,0);
  }
- function dispose(){disposed=true;map=null;pixels=null;canvas.width=1;canvas.height=1;}
+ function dispose(){disposed=true;worker?.terminate();worker=null;map=null;pixels=null;canvas.width=1;canvas.height=1;}
  return {render,setStyle,prepare:resize,dispose};
 }

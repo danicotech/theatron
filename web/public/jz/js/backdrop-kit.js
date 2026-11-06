@@ -1,10 +1,12 @@
+import {mergeVerticesCooperatively} from './cooperative-geometry.js';
 import * as T from 'jz/vendor/three.module.js';
-import {mergeGeometries,mergeVertices} from 'jz/vendor/BufferGeometryUtils.js';
+import {mergeGeometries} from 'jz/vendor/BufferGeometryUtils.js';
 
 // Image-guided authored geometry, not image-to-mesh inference or camera billboards.
 // Metres, Y up, front +Z. Originals remain reusable at an identity transform.
 export const BACKDROP_IDS=['01-twin-gallery','02-arched-bridge','03-ancient-tree','04-tree-rock','05-frost-grove','06-spirit-lantern'];
-export function createBackdropKit(){
+export async function createBackdropKit(){
+  const breathe=()=>new Promise(resolve=>setTimeout(resolve,0));
   let seed=150926;const rnd=()=>((seed=Math.imul(seed,1664525)+1013904223|0)>>>0)/4294967296;
   const V=(x,y,z)=>new T.Vector3(x,y,z),textures=[],materials=[],geometries=new Set(),prototypes=new Map();
   function texture(bark=false){
@@ -26,7 +28,7 @@ export function createBackdropKit(){
     geo.applyMatrix4(new T.Matrix4().compose(p,q,s));
     if(!batches.has(material))batches.set(material,[]);batches.get(material).push(geo);
   }
-  function finish(){for(const [material,parts]of batches){const raw=mergeGeometries(parts),g=mergeVertices(raw);raw.dispose();geometries.add(g);const mesh=new T.Mesh(g,material);mesh.name=group.name+' / '+material.name;mesh.castShadow=false;mesh.receiveShadow=true;group.add(mesh);for(const p of parts)p.dispose();}prototypes.set(group.name,group);return group;}
+  async function finish(){await breathe();for(const [material,parts]of batches){await breathe();const raw=mergeGeometries(parts),g=await mergeVerticesCooperatively(raw);raw.dispose();geometries.add(g);const mesh=new T.Mesh(g,material);mesh.name=group.name+' / '+material.name;mesh.castShadow=false;mesh.receiveShadow=true;group.add(mesh);for(const p of parts)p.dispose();}prototypes.set(group.name,group);return group;}
   function box(x,y,z,w,h,d,material=m.wood){add(new T.BoxGeometry(w,h,d),material,V(x,y,z));}
   function beam(a,b,r,material=m.wood,r2=r){const d=b.clone().sub(a);add(new T.CylinderGeometry(r2,r,d.length(),6),material,a.clone().add(b).multiplyScalar(.5),V(1,1,1),new T.Quaternion().setFromUnitVectors(V(0,1,0),d.normalize()));}
   function blob(x,y,z,sx,sy,sz,material,detail=1){const g=new T.IcosahedronGeometry(1,detail),a=g.attributes.position;for(let i=0;i<a.count;i++){const n=1+.09*Math.sin(a.getX(i)*9+a.getY(i)*13+a.getZ(i)*7);a.setXYZ(i,a.getX(i)*n,a.getY(i)*n,a.getZ(i)*n);}g.computeVertexNormals();add(g,material,V(x,y,z),V(sx,sy,sz));}
@@ -86,7 +88,7 @@ export function createBackdropKit(){
     for(const dx of [-9,9])for(let k=0;k<3;k++){
       add(new T.CylinderGeometry(.17,.17,.42,8),m.paper,V(x+dx,13.2-k*.52,5.1));beam(V(x+dx,13.6,5.1),V(x+dx,11.5,5.1),.025);
     }
-  }finish();
+  }await finish();
 
   begin(BACKDROP_IDS[1]);
   const arch=x=>.38+2.4*(1-(x/12)**2);
@@ -97,7 +99,7 @@ export function createBackdropKit(){
     for(let i=0;i<=12;i++){const x=-12+i*2;box(x,arch(x)+.8,z,.16,1.6,.16);box(x,arch(x)+1.62,z,.3,.16,.3);box(x,arch(x)+1.73,z,.3,.05,.3,m.snow);}
     for(let x=-11.5;x<12;x+=.5)box(x,arch(x)+.8,z,.04,1.3,.06);
   }
-  for(const x of [-12,12])box(x,.16,0,1,.32,4,m.stone);finish();
+  for(const x of [-12,12])box(x,.16,0,1,.32,4,m.stone);await finish();
 
   function twigs(origin,direction,length,radius,depth,material=m.bark){
     const mid=origin.clone().addScaledVector(direction,length*.48).add(V((rnd()-.5)*length*.25,length*.12,(rnd()-.5)*length*.3));const end=origin.clone().addScaledVector(direction,length).add(V((rnd()-.5)*length*.25,length*.1,(rnd()-.5)*length*.3));
@@ -116,11 +118,11 @@ export function createBackdropKit(){
       if(leafy)for(let k=1;k<4;k++)for(let j=0;j<15;j++){const a=pts[k];blob(a.x+(rnd()-.5)*5*scale,a.y+rnd()*2*scale,a.z+(rnd()-.5)*4*scale,(.5+rnd())*scale,.35*scale,(.5+rnd())*scale,m.leaf,0);}
     }
   }
-  begin(BACKDROP_IDS[2]);ancient();finish();
+  begin(BACKDROP_IDS[2]);ancient();await finish();
   begin(BACKDROP_IDS[3]);
   // Two crag pillars and an offset cap preserve a real open pocket in the rock.
   for(const side of [-1,1])for(let i=0;i<6;i++){const x=side*(3+i*.15),y=1.5+i*2.3;blob(x,y,-1,3.4-i*.15,2.5,4.5-i*.3,m.stone,1);if(i%2===0)blob(x,y+1.8,-.8,2.8-i*.14,.25,3.4-i*.3,m.snow,1);}
-  blob(0,14,-1.5,6,3.5,4,m.stone,1);ancient(-1,15,-1,.8,true);finish();
+  blob(0,14,-1.5,6,3.5,4,m.stone,1);ancient(-1,15,-1,.8,true);await finish();
   begin(BACKDROP_IDS[4]);
   for(let k=0;k<3;k++){
     const x=(k-1)*3.6,z=k===1?-1:1,h=9+k*1.9;
@@ -131,10 +133,10 @@ export function createBackdropKit(){
     const x=4+rnd()*3,z=-2+rnd()*4,h=6+rnd()*3;
     beam(V(x,0,z),V(x+.4,h,z+.2),.08,m.bamboo,.055);
     for(let j=1;j<h;j++){add(new T.TorusGeometry(.09,.019,4,6),m.bamboo,V(x+.4*j/h,j,z+.2*j/h),V(1,1,1),new T.Quaternion().setFromAxisAngle(V(1,0,0),Math.PI/2));if(j>h*.5)for(let q=0;q<3;q++){const a=rnd()*6.28;const end=V(x+Math.cos(a)*.9,j+.35,z+Math.sin(a)*.9);beam(V(x,j,z),end,.015,m.bamboo);blob(end.x,end.y,end.z,.32,.025,.075,m.bamboo,0);}}
-  }finish();
+  }await finish();
   begin(BACKDROP_IDS[5]);box(0,.15,0,2.8,.3,1.8,m.stone);
   for(const sign of [-1,1]){const pts=[];for(let i=0;i<=24;i++){const a=-Math.PI*.48+i/24*Math.PI*1.65;pts.push(V(sign*Math.cos(a)*1.35,2.05+Math.sin(a)*1.75,sign*.14*Math.sin(a*2)));}taper(pts,.18,.025,m.spirit,36,8);}
-  beam(V(0,3.8,0),V(0,2.6,0),.025,m.dark);box(0,2.35,0,.58,.7,.58,m.paper);for(const x of [-.32,.32])for(const z of [-.32,.32])box(x,2.35,z,.045,.82,.045,m.dark);box(0,2.8,0,.78,.12,.78,m.dark);box(0,1.92,0,.7,.1,.7,m.dark);finish();
+  beam(V(0,3.8,0),V(0,2.6,0),.025,m.dark);box(0,2.35,0,.58,.7,.58,m.paper);for(const x of [-.32,.32])for(const z of [-.32,.32])box(x,2.35,z,.045,.82,.045,m.dark);box(0,2.8,0,.78,.12,.78,m.dark);box(0,1.92,0,.7,.1,.7,m.dark);await finish();
 
   const root=new T.Group();root.name='Rear-wall backdrop / twin pavilions and ancient tree';
   for(const [w,h,d,x,y,z]of [[128,8,58,0,4,-92],[78,2,20,0,9,-80]]){

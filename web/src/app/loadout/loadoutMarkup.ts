@@ -15,23 +15,20 @@ export const LOADOUT_MARKUP = String.raw`
   <div class="acts" id="acts">
     <!-- 選單第一項就是出口。只靠左上角的品牌字當連結，手機上沒人看得出來那可以點。 -->
     <a class="act navhome" id="navhome" href="/">← 返回比武</a>
-    <button class="act" id="btn-guide">規則</button>
-    <button class="act" id="btn-import">匯入</button>
-    <button class="act" id="btn-export">匯出 JSON</button>
-    <button class="act" data-primary id="btn-copy">複製配置</button>
+    <button class="act icon-act" type="button" id="btn-guide" aria-label="規則說明" title="規則說明"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 4m0 3h.01"/></svg></button>
+    <button class="act icon-act" type="button" id="btn-import" aria-label="匯入配置" title="匯入配置"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 16v5h16v-5"/></svg></button>
+    <button class="act icon-act" type="button" id="btn-export" aria-label="匯出配置" title="匯出配置"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M4 16v5h16v-5"/></svg></button>
+    <button class="act icon-act" type="button" id="btn-copy" aria-label="複製配置" title="複製配置"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="1"/><path d="M16 8V3H3v13h5"/></svg></button>
   </div>
   <button class="act more-btn" id="btn-more" type="button"
           aria-label="選單" aria-expanded="false" hidden>☰</button>
 </header>
 
 <main class="wrap" id="main">
-  <section class="start-guide" aria-label="備戰順序">
-    <p><button type="button" id="step-build">1 選流派</button><span>→ 2 配置武學與裝備 → </span><button type="button" id="step-check">3 檢查與前往報名</button></p>
-    <p id="storage-status" data-state="pending"><span id="storage-message" role="status">正在讀取本機配置…</span><button type="button" id="storage-retry" hidden>重試儲存</button><button type="button" id="backup-export">匯出 JSON 備份</button></p>
-    <p id="empty-actions">先選流派或新增配置，即可複製與匯出。</p>
-  </section>
+  <div class="loadout-storage" id="storage-status" data-state="pending"><span id="storage-message" role="status">正在讀取本機配置…</span><button type="button" id="storage-retry" hidden>重試儲存</button></div>
   <!-- 左欄 -->
   <div class="col col-1">
+    <header class="workspace-head"><h2>角色配置<button type="button" data-help="選擇流派後會帶入對應武器與武學，再配置心法、奇術及裝備。" aria-label="角色配置說明"><span aria-hidden="true">!</span></button></h2></header>
     <div class="bpick bhead" id="build-card"><button type="button" class="build-trigger" id="bhead" disabled aria-label="選擇流派" aria-haspopup="dialog" aria-controls="pick"></button></div>
 
     <section class="card">
@@ -43,7 +40,7 @@ export const LOADOUT_MARKUP = String.raw`
     <section class="card">
       <h2>奇術<span class="cap">4 主動格</span></h2>
       <div class="slots" data-kind="art" id="arts"></div>
-      <p class="hint">走完五音啟太平可擴到 8。控制、解控與防禦、功能各帶一個比較不會被卡死。<br>奇術沒有官方圖，用墨印代替；清單也一定不完整，可以自己打。</p>
+      <p class="hint">走完五音啟太平可擴到 8。控制、解控與防禦、功能各帶一個比較不會被卡死。<br>奇術以書冊呈現；清單未收錄的名稱也可以自訂。</p>
     </section>
 
     <section class="card">
@@ -62,9 +59,8 @@ export const LOADOUT_MARKUP = String.raw`
   <!-- 中欄 -->
   <div class="col col-2">
     <section class="card">
-      <div class="vault-head">
+      <div class="vault-head workspace-head">
         <div>
-          <span class="kicker">EQUIPMENT</span>
           <h2>裝備倉庫</h2>
         </div>
         <div class="right">
@@ -88,9 +84,6 @@ export const LOADOUT_MARKUP = String.raw`
 
   <!-- 右欄 -->
   <div class="col col-3">
-    <!-- 右欄本來是三張卡疊起來，高 1472px，而視窗只有 1000px ——
-         永遠有東西看不到。改成三個分頁，每一頁都在一屏內。 -->
-    <div class="rtabs" id="rtabs" role="tablist" aria-label="右欄分頁"></div>
     <section class="card" data-pane="power">
       <h2>戰力<span class="cap">當前 vs 全滿</span></h2>
       <div class="grad"><b id="grad">–</b><span>畢業率</span></div>
@@ -106,17 +99,14 @@ export const LOADOUT_MARKUP = String.raw`
     </section>
 
     <section class="card" data-pane="goal">
-      <h2>屬性目標<span class="cap" id="goal-cap">尚未設定</span>
+      <h2>屬性目標<button type="button" data-help="按「加入屬性」選擇目標，或用目前數值帶入後調整。達成率比較目前屬性與你設定的目標。" aria-label="屬性目標說明"><span aria-hidden="true">!</span></button><span class="cap" id="goal-cap">尚未設定</span>
         <button class="more" id="goal-add" type="button">加入屬性</button>
         <button class="more" id="goal-seed" type="button">用目前數值帶入</button>
       </h2>
       <div class="grad"><b id="goal-rate">–</b><span>達成率</span></div>
       <div class="gradbar"><i id="goalbar" style="width:0"></i></div>
       <div id="goals"></div>
-      <p class="hint">目標是<b>你自己訂的</b>。畢業率回答「裝備滾得好不好」，答不了「這樣夠不夠打」——
-        夠不夠得跟一個目標比，而那個目標只有你知道要打什麼、卡哪條線。<br>
-        每一條算 min(1, 你的值 ÷ 目標)，整體取平均；封頂在 100% 是刻意的，
-        某條超標三倍不該把還沒達標的蓋過去。</p>
+
     </section>
 
     <section class="card" data-pane="sheet">
@@ -239,14 +229,14 @@ export const LOADOUT_MARKUP = String.raw`
     </div>
     <div class="ed-wrap">
       <!-- 紙娃娃：邊調邊看。窄螢幕會落到表單上面，不會被擠掉 -->
-      <aside class="ed-side" id="edit-side"></aside>
       <div class="ed" id="edit-body"></div>
+      <aside class="ed-side" id="edit-side" aria-label="裝備即時預覽"></aside>
     </div>
     <p id="edit-feedback" class="edit-feedback" role="status"></p>
     <div class="pick-foot">
-      <button id="edit-clear" class="clear">清空這件</button>
+      <button id="edit-clear" class="clear">重設裝備</button>
       <button id="edit-cancel">取消</button>
-      <button id="edit-save" class="ok">儲存</button>
+      <button id="edit-save" class="ok">儲存裝備</button>
     </div>
   </div>
 </dialog>
@@ -323,4 +313,4 @@ export const LOADOUT_MARKUP = String.raw`
 `;
 
 // 內容雜湊，給 <link> 與 <script> 當 ?v= 破快取用。
-export const LOADOUT_VERSION = "77ed090f87";
+export const LOADOUT_VERSION = "fc05544b11";

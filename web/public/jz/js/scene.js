@@ -24,7 +24,7 @@ export async function createScene(canvas, onStage=()=>{}) {
  // Photographic sky/mountains/pagodas/midground are no longer loaded or rendered.
  const textures=await Promise.all(['banner-cloth','wood','cloth'].map(load));const [cloth,wood,weave]=textures;
  await breathe();
- const env=environment(scene,{cloth,wood}),snow=particles(scene),banner=new Banner(curtainScene,cloth,weave),embers=createEmbers(curtainScene,banner),path=new CameraPath(camera);
+ const env=await environment(scene,{cloth,wood},onStage);await breathe();const snow=particles(scene),banner=new Banner(curtainScene,cloth,weave),embers=createEmbers(curtainScene,banner),path=new CameraPath(camera);
  onStage("geometry");await breathe();
  await mountNightCrowTitle(scene);onStage("title");await breathe();
  const layered=await mountLayeredArt(scene);onStage("art");
@@ -40,7 +40,26 @@ export async function createScene(canvas, onStage=()=>{}) {
  resize();addEventListener('resize',resize);addEventListener('pointerdown',down);addEventListener('pointermove',move);addEventListener('pointerup',up);addEventListener('pointercancel',up);addEventListener('keydown',key);addEventListener('wheel',wheel,{passive:false});
  const api={camera:curtainCamera,banner,
  seek(value){path.seek(value);},
- async prepare(){path.opening();if(renderer.compileAsync){await renderer.compileAsync(scene,camera);await renderer.compileAsync(curtainScene,curtainCamera);}else{renderer.compile(scene,camera);renderer.compile(curtainScene,curtainCamera);}onStage("shaders");},
+ async prepare({opening=true}={}){
+   path.opening();
+   // Texture uploads and shader preparation yield separately from model construction.
+   const uploaded=new Set();
+   for(const [world,view] of opening?[[scene,camera],[curtainScene,curtainCamera]]:[[scene,camera]]){
+    const objects=[];
+    world.traverseVisible(object=>{if(object.material)objects.push(object);});
+    for(const object of objects){
+     for(const material of Array.isArray(object.material)?object.material:[object.material]){
+      for(const texture of Object.values(material))if(texture?.isTexture&&!uploaded.has(texture)){
+       renderer.initTexture(texture);uploaded.add(texture);await breathe();
+      }
+     }
+     if(renderer.compileAsync)await renderer.compileAsync(object,view,world);
+     else renderer.compile(object,view,world);
+     await breathe();
+    }
+   }
+   onStage("shaders");
+  },
   setExplore(value){explore=value;dragging=false;if(value){target.set(0,camera.position.z>45?2:4,camera.position.z>45?55:-14);offset.subVectors(camera.position,target);orbit.setFromVector3(offset);}return explore;},
   render(t,p,progress,dt,nudge,mx=0,my=0,approach=0){if(disposed)return;const journey=p>=1;
    if(journey){if(explore){camera.position.copy(offset.setFromSpherical(orbit).add(target));camera.lookAt(target);}else path.update(progress,dt,mx,my,approach);if(!clothReleased){banner.dispose();embers.dispose();clothReleased=true;}}

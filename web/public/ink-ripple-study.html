@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="dark">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>全幅水波 · 點擊漣漪試映</title>
+<style>
+:root{color-scheme:dark;--surface-base:#141b20;--surface-raised:#20292e;--text-primary:#f5eee2;--text-secondary:#c0b6a7;--border-subtle:#526068;--accent-action-primary:#e48b76;--ink-fill:#f5eee2;--ink-text:#713e32;--ink-light:#fffef9;--ink-shadow:#703b2e;--font-display:'Noto Serif TC',serif;--font-body:'Noto Sans TC',system-ui,sans-serif;--font-mono:ui-monospace,monospace}
+[data-theme=light]{color-scheme:light;--surface-base:#f8f3e8;--surface-raised:#eee7da;--text-primary:#292724;--text-secondary:#70665b;--border-subtle:#b5a895;--accent-action-primary:#9f322c;--ink-fill:#292724;--ink-text:#fff6e5;--ink-light:#fff6e5;--ink-shadow:#030404}
+*{box-sizing:border-box}body{margin:0;background:var(--surface-base);color:var(--text-primary);font-family:var(--font-body);line-height:1.65}main{max-width:1160px;margin:30px auto 64px;padding:0 26px}header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-bottom:20px;border-bottom:1px solid var(--border-subtle)}.brand{font-family:var(--font-display);letter-spacing:.12em;font-size:19px}button,select,input{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent-action-primary);outline-offset:5px}.plain,select{background:var(--surface-base);color:var(--text-primary);border:1px solid var(--border-subtle);padding:9px 14px;min-height:44px}.plain:hover{background:var(--surface-raised)}.intro{padding:28px 0 24px}.kicker{color:var(--accent-action-primary);font-size:14px;letter-spacing:.13em}h1{font:500 clamp(28px,4vw,44px)/1.4 var(--font-display);margin:8px 0 12px}p{margin:8px 0;color:var(--text-secondary)}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:18px 0;border-block:1px solid var(--border-subtle)}label{display:flex;align-items:center;gap:10px}.timeline{margin:20px 0 30px;gap:16px}.timeline input{flex:1;min-width:70px;accent-color:var(--accent-action-primary)}output{font-family:var(--font-mono);min-width:4ch}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}article{min-width:0}h2{font-size:23px;margin:8px 0 12px;font-weight:600}.tag{font-family:var(--font-mono);color:var(--accent-action-primary)}.caption{font-size:14px;min-height:70px;margin:0 0 24px}.sample-note{display:flex;justify-content:space-between;font-size:12px;color:var(--text-secondary);margin:15px 0 8px}.water{position:relative;isolation:isolate;overflow:hidden;display:block;width:100%;height:56px;padding:0;border:1px solid var(--border-subtle);border-radius:0;background:var(--ink-fill);color:var(--ink-text);touch-action:manipulation}.water.large{height:154px}.water .label{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:19px;pointer-events:none}.water.large .label{font:500 24px var(--font-display)}.water svg{position:absolute;inset:0;display:block;width:100%;height:100%;pointer-events:none;overflow:hidden}.bubble{fill:none;stroke:var(--ink-text);stroke-width:1.05}.highlight{stroke:var(--ink-light);fill:none}.shadow{stroke:var(--ink-shadow);fill:none}.pick{width:100%;margin-top:20px}.pick[aria-pressed=true]{border-color:var(--accent-action-primary);color:var(--accent-action-primary);background:var(--surface-raised)}footer{border-top:1px solid var(--border-subtle);margin-top:32px;padding-top:20px;font-size:14px}.status{color:var(--text-primary)}.reduced{display:none}@media(prefers-reduced-motion:reduce){.reduced{display:block}}@media(max-width:850px){.grid{grid-template-columns:1fr}article{padding-bottom:24px;border-bottom:1px solid var(--border-subtle)}.caption{min-height:0;margin-bottom:14px}.samples{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}.water.large{height:112px}.pick{width:auto}.timeline{margin-bottom:24px}}@media(max-width:480px){main{padding:0 18px;margin-top:20px}.samples{grid-template-columns:1fr}.water.large{height:128px}.controls{gap:12px}.controls label{font-size:14px}select{max-width:205px}.brand{font-size:16px}}
+.water-light{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.water{user-select:none;-webkit-user-select:none}.water[data-press-active]{border-color:var(--ink-text)}#hold[aria-pressed=true]{background:var(--surface-raised);border-color:var(--accent-action-primary);color:var(--accent-action-primary)}
+.water[data-demo-drag]::after{content:"";position:absolute;left:var(--touch-x,50%);top:var(--touch-y,50%);width:10px;height:10px;border:1px solid var(--ink-text);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:3;opacity:.6}#drag-demo[aria-pressed=true]{border-color:var(--accent-action-primary);color:var(--accent-action-primary)}</style></head>
+<body><main>
+<header><span class="brand">夜鴉閣 / 水波試映</span><button class="plain" id="theme">切換淺色</button></header>
+<div class="intro"><div class="kicker">長浪追湧 · 絲滑水面</div><h1>拖曳水面，牽動整片波紋。</h1><p>按住拖曳，水面沿著手勢形成連續尾流；波紋互相交疊、抵達邊緣後回流，放開再慢慢平息。</p><p>試著在放大區左右來回或畫圈，也可按「示範拖曳水面」觀察。小圓點只標示示範手勢的位置。</p></div>
+<div class="controls"><button class="plain" id="replay">三款一起試播 ↗</button><button class="plain" id="hold" aria-pressed="false">示範持續按住</button><button class="plain" id="drag-demo" aria-pressed="false">示範拖曳水面</button><label>速度 <select id="speed"><option value="1">實際速度</option><option value="0.5">慢速觀察 0.5×</option></select></label><label>氣泡 <select id="bubble-size"><option value="0">關閉</option><option value="1">清楚可見 · 10–16px</option><option value="1.2" selected>適中 · 12–18px</option><option value="1.4">更大 · 14–22px</option></select></label></div>
+<label class="timeline">逐格查看 <input type="range" min="0" max="100" value="0" id="progress" aria-label="漣漪進度"><output id="percent">0%</output></label>
+<p class="reduced">依減少動態設定停用自動播放；拖曳進度仍可查看每個階段。</p>
+<div class="grid">
+<article data-variant="a"><div class="tag">A / 清水擴散</div><h2>細浪連環</h2><p class="caption">較窄的接觸面，拖曳產生細緻的連續尾流，放開後較快平息。</p><div class="samples"><div><div class="sample-note"><span>實際導覽尺寸</span><span>高 56px</span></div><button class="water" aria-label="試播 A 導覽按鈕"><span class="label">報名 <span>↗</span></span></button></div><div><div class="sample-note"><span>放大觀察</span><span>可點任意位置</span></div><button class="water large" aria-label="試播 A 放大按鈕"><span class="label">細浪連環 <span>↗</span></span></button></div></div><button class="plain pick" aria-pressed="false">選擇 A</button></article>
+<article data-variant="b"><div class="tag">B / 柔亮液面</div><h2>水膜推湧</h2><p class="caption">較寬的接觸面，水面隨手勢柔和推開，前緣與尾流連成一片。</p><div class="samples"><div><div class="sample-note"><span>實際導覽尺寸</span><span>高 56px</span></div><button class="water" aria-label="試播 B 導覽按鈕"><span class="label">報名 <span>↗</span></span></button></div><div><div class="sample-note"><span>放大觀察</span><span>可點任意位置</span></div><button class="water large" aria-label="試播 B 放大按鈕"><span class="label">水膜推湧 <span>↗</span></span></button></div></div><button class="plain pick" aria-pressed="false">選擇 B</button></article>
+<article data-variant="c"><div class="tag">C / 水面回流</div><h2>滿幅回瀾</h2><p class="caption">較低的阻尼讓尾流停留更久；來回拖曳可看見波紋干涉與邊緣回流。</p><div class="samples"><div><div class="sample-note"><span>實際導覽尺寸</span><span>高 56px</span></div><button class="water" aria-label="試播 C 導覽按鈕"><span class="label">報名 <span>↗</span></span></button></div><div><div class="sample-note"><span>放大觀察</span><span>可點任意位置</span></div><button class="water large" aria-label="試播 C 放大按鈕"><span class="label">滿幅回瀾 <span>↗</span></span></button></div></div><button class="plain pick" aria-pressed="false">選擇 C</button></article>
+</div><footer><p class="status" id="choice" role="status">尚未選擇。可先用慢速或拖曳進度比較。</p><p>這是獨立 Demo，沒有改動全站漣漪。氣泡以實際像素設定大小，不再隨按鈕高度縮成小點；漣漪範圍則會隨按鈕與點擊位置調整。</p></footer>
+</main>
+<script type="module">
+import { InkWaterSurface } from './ink-water-surface.js?v=continuous';
+(()=>{
+const ns='http://www.w3.org/2000/svg',reduced=matchMedia('(prefers-reduced-motion: reduce)'),slider=document.querySelector('#progress'),output=document.querySelector('#percent');
+let raf=0,last=0,speed=1,bubbleScale=1.2,globalAge=2,globalPlay=false,selected='',holdDemo=false,dragDemo=false,dragTime=0;
+const clamp=x=>Math.max(0,Math.min(1,x)),duration=1.1;
+function circle(cls){const n=document.createElementNS(ns,'circle');n.setAttribute('class',cls);return n;}
+function attr(n,values){for(const [key,value]of Object.entries(values))n.setAttribute(key,String(value));}
+const models=[...document.querySelectorAll('.water')].map(el=>{
+ const svg=document.createElementNS(ns,'svg');svg.setAttribute('aria-hidden','true');el.prepend(svg);
+ const variant=el.closest('article').dataset.variant;
+ const surface=new InkWaterSurface(el,{variant});
+ const bubbles=Array.from({length:5},()=>{const n=circle('bubble');svg.append(n);return n;});
+ return{el,svg,surface,variant,bubbles,w:1,h:1,x:.5,y:.5,age:2,bubbleTime:0,hover:false,keyboard:false,press:false,pointerId:null,suppressClick:false,box:null};
+});
+function geometry(m){const r=m.el.getBoundingClientRect();m.w=r.width;m.h=r.height;m.svg.setAttribute('viewBox',`0 0 ${m.w} ${m.h}`);m.surface.resize();}
+function render(m){
+ m.el.toggleAttribute('data-press-active',m.press);
+ m.bubbles.forEach((n,i)=>{
+  const p=(m.bubbleTime*(.28+i*.017)+i*.19)%1,r=Math.min(bubbleScale===1.2?9:11,(5+i%4)*bubbleScale);
+  attr(n,{cx:(.09+i*.205)*m.w+Math.sin(m.bubbleTime*1.7+i)*3,cy:m.h+12-p*(m.h+26),r,opacity:bubbleScale&&!reduced.matches&&((m.hover||m.keyboard||m.press)||globalPlay)?Math.min(1,p*8,(1-p)*6)*.42:0});
+ });
+}
+function alive(m){return !reduced.matches&&(m.surface.active||m.press||m.age<duration||bubbleScale&&(m.hover||m.keyboard));}
+function wake(){if(!raf){last=0;raf=requestAnimationFrame(tick)}}
+function tick(now){const dt=Math.min(.035,(now-(last||now-16))/1000)*speed;last=now;raf=0;
+ if(globalPlay){globalAge=Math.min(duration,globalAge+dt);slider.value=Math.round(globalAge/duration*100);output.value=slider.value+'%';if(globalAge===duration)globalPlay=false;}
+ if(dragDemo){dragTime+=dt;models.forEach(m=>{m.x=.5+.34*Math.sin(dragTime*1.6);m.y=.5+.24*Math.sin(dragTime*2.3);m.surface.move(m.x,m.y);m.el.style.setProperty("--touch-x",m.x*100+"%");m.el.style.setProperty("--touch-y",m.y*100+"%")});} models.forEach(m=>{if(alive(m)||globalPlay){m.age=Math.min(2,m.age+dt);m.bubbleTime+=dt;m.surface.step(dt);render(m)}});
+ if(globalPlay||models.some(alive))raf=requestAnimationFrame(tick);
+}
+function trigger(m,event){globalPlay=false;const box=m.el.getBoundingClientRect();m.x=event?.detail?clamp((event.clientX-box.left)/box.width):.5;m.y=event?.detail?clamp((event.clientY-box.top)/box.height):.5;geometry(m);m.age=reduced.matches?duration:0;
+ if(!reduced.matches)m.surface.pulse(m.x,m.y);
+ render(m);if(!reduced.matches)wake();
+}
+models.forEach(m=>{
+ m.el.addEventListener('pointerdown',e=>{if(e.button!==0)return;m.suppressClick=true;m.pointerId=e.pointerId;m.box=m.el.getBoundingClientRect();m.x=clamp((e.clientX-m.box.left)/m.box.width);m.y=clamp((e.clientY-m.box.top)/m.box.height);m.el.setPointerCapture(e.pointerId);begin(m)});
+ m.el.addEventListener('pointermove',e=>{if(m.press&&e.pointerId===m.pointerId){m.x=clamp((e.clientX-m.box.left)/m.box.width);m.y=clamp((e.clientY-m.box.top)/m.box.height);m.surface.move(m.x,m.y);if(reduced.matches)render(m)}});
+ const release=e=>{if(e.pointerId===m.pointerId){m.pointerId=null;end(m)}};
+ m.el.addEventListener('pointerup',release);m.el.addEventListener('pointercancel',release);m.el.addEventListener('lostpointercapture',release);
+ m.el.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();if(!e.repeat){m.x=.5;m.y=.5;begin(m)}}});
+ m.el.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();end(m)}});
+ m.el.addEventListener('click',e=>{if(m.suppressClick){m.suppressClick=false;return}trigger(m,e)});
+ m.el.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){m.hover=true;if(!reduced.matches)wake()}});
+ m.el.addEventListener('pointerleave',()=>{m.hover=false;render(m)});
+ m.el.addEventListener('pointercancel',()=>{m.hover=false;render(m)});
+ m.el.addEventListener('focus',()=>{m.keyboard=m.el.matches(':focus-visible');if(m.keyboard&&!reduced.matches)wake()});
+ m.el.addEventListener('blur',()=>{m.keyboard=false;end(m);render(m)});
+});
+function begin(m){globalPlay=false;geometry(m);m.press=true;m.age=reduced.matches?duration:0;if(!reduced.matches)m.surface.press(m.x,m.y);render(m);if(!reduced.matches)wake();}
+function end(m){if(!m.press)return;m.press=false;m.surface.release();m.age=reduced.matches?2:0;render(m);if(!reduced.matches)wake();}
+function clearHold(){holdDemo=false;dragDemo=false;dragTime=0;document.querySelector('#drag-demo').setAttribute('aria-pressed','false');document.querySelector('#drag-demo').textContent='示範拖曳水面';models.forEach(m=>m.el.removeAttribute('data-demo-drag'));document.querySelector('#hold').setAttribute('aria-pressed','false');document.querySelector('#hold').textContent='示範持續按住';models.forEach(m=>end(m));}
+document.querySelector('#hold').onclick=()=>{const next=!holdDemo;clearHold();holdDemo=next;document.querySelector('#hold').setAttribute('aria-pressed',String(holdDemo));document.querySelector('#hold').textContent=holdDemo?'放開水面':'示範持續按住';models.forEach(m=>{if(holdDemo){m.x=.5;m.y=.5;begin(m)}else end(m)});};
+document.querySelector('#drag-demo').onclick=()=>{const next=!dragDemo;clearHold();dragDemo=next;dragTime=0;document.querySelector('#drag-demo').setAttribute('aria-pressed',String(next));document.querySelector('#drag-demo').textContent=next?'停止示範拖曳':'示範拖曳水面';if(next)models.forEach(m=>{m.x=.5;m.y=.5;m.el.setAttribute('data-demo-drag','');begin(m)});};
+document.querySelector('#replay').onclick=()=>{clearHold();models.forEach(m=>trigger(m));globalAge=0;globalPlay=!reduced.matches;slider.value=reduced.matches?100:0;output.value=slider.value+'%';if(globalPlay)wake();};
+slider.oninput=()=>{clearHold();globalPlay=false;globalAge=Number(slider.value)/100*duration;output.value=slider.value+'%';models.forEach(m=>{m.hover=false;m.keyboard=false;m.x=.5;m.y=.5;geometry(m);m.age=globalAge;m.surface.seek(Number(slider.value)/100);render(m)});cancelAnimationFrame(raf);raf=0;};
+document.querySelector('#speed').onchange=e=>{speed=Number(e.target.value)};
+document.querySelector('#bubble-size').onchange=e=>{bubbleScale=Number(e.target.value);models.forEach(render);if(models.some(alive))wake();};
+document.querySelector('#theme').onclick=e=>{const dark=document.documentElement.dataset.theme!=='dark';document.documentElement.dataset.theme=dark?'dark':'light';e.currentTarget.textContent=dark?'切換淺色':'切換深色';models.forEach(m=>m.surface.refreshPalette());};
+document.querySelectorAll('.pick').forEach(button=>button.onclick=()=>{const v=button.closest('article').dataset.variant;selected=selected===v?'':v;document.querySelectorAll('.pick').forEach(b=>{const yes=b.closest('article').dataset.variant===selected;b.setAttribute('aria-pressed',String(yes));b.textContent=(yes?'已選 ':'選擇 ')+b.closest('article').dataset.variant.toUpperCase();});document.querySelector('#choice').textContent=selected?`已選 ${selected.toUpperCase()} · ${button.closest('article').querySelector('h2').textContent}，告訴我即可套用。`:'尚未選擇。可先用慢速或拖曳進度比較。';});
+function stop(){clearHold();cancelAnimationFrame(raf);raf=0;globalPlay=false;models.forEach(m=>{if(m.pointerId!==null&&m.el.hasPointerCapture(m.pointerId))m.el.releasePointerCapture(m.pointerId);m.pointerId=null;m.suppressClick=false;m.press=false;m.age=2;m.hover=false;m.keyboard=false;m.surface.clear();render(m)});}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});addEventListener('blur',stop);addEventListener('pagehide',stop);reduced.addEventListener('change',stop);
+addEventListener('resize',()=>models.forEach(m=>{geometry(m);render(m)}));models.forEach(m=>{geometry(m);render(m)});
+})();
+</script></body></html>

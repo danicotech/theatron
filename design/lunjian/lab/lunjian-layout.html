@@ -4196,6 +4196,8 @@ function stopComicMotion(){
 }
 function playComicScene(section,underCover=false){
   stopComicMotion();
+  // Rewards enter as one paper surface with the chapter transition.
+  if(section.id==='rewards')return;
   // An editorial portrait already owns the reveal; do not hide panels inside its window.
   if(document.querySelector(`[data-editorial-transition="#${section.id}"]`)) return;
   if (reduced.matches || body.classList.contains('reading') || body.hasAttribute('data-intro') || (body.hasAttribute('data-cut') && !underCover) || typeof anime.timeline !== 'function') return;

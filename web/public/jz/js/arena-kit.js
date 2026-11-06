@@ -1,11 +1,13 @@
+import {mergeVerticesCooperatively} from './cooperative-geometry.js';
 import * as T from 'jz/vendor/three.module.js';
-import {mergeGeometries,mergeVertices} from 'jz/vendor/BufferGeometryUtils.js';
+import {mergeGeometries} from 'jz/vendor/BufferGeometryUtils.js';
 import {createRavenStandardFactory} from 'jz/js/raven-standard.js';
 
 // Image-guided, metre-scale modeling. This is not AI image-to-mesh inference.
 // Every asset has volume, a floor-centred pivot and independently exportable geometry.
 export const ASSET_IDS=['01-main-hall','02-stair-dais','03-arena-floor','04-black-standard','05-ivory-standard','06-timber-railing','07-spear-rack','08-iron-brazier','09-hanging-lantern','10-watchtower','11-side-gallery','12-snow-plum','13-snow-pine','14-crest-curtain'];
-export function createArenaKit(){
+export async function createArenaKit(){
+  const breathe=()=>new Promise(resolve=>setTimeout(resolve,0));
   let seed=91427;
   const rnd=()=>((seed=Math.imul(seed,1664525)+1013904223|0)>>>0)/4294967296;
   const V=(x,y,z)=>new T.Vector3(x,y,z), textures=[], prototypes=new Map();
@@ -33,7 +35,7 @@ export function createArenaKit(){
   function beam(a,b,r,m=mats.wood,r2=r){const d=b.clone().sub(a);add(new T.CylinderGeometry(r2,r,d.length(),r<.1?5:10),m,a.clone().add(b).multiplyScalar(.5),V(1,1,1),new T.Quaternion().setFromUnitVectors(V(0,1,0),d.normalize()));}
   function ball(x,y,z,sx,sy,sz,m){add(new T.IcosahedronGeometry(1,1),m,V(x,y,z),V(sx,sy,sz));}
   function torus(x,y,z,r,t,m,rx=0){const geo=new T.TorusGeometry(r,t,5,32);geo.rotateX(rx);add(geo,m,V(x,y,z));}
-  function finish(){for(const [m,parts]of batches){const raw=mergeGeometries(parts),geometry=mergeVertices(raw);raw.dispose();const mesh=new T.Mesh(geometry,m);mesh.name=g.name+' / '+m.name;mesh.castShadow=mesh.receiveShadow=true;g.add(mesh);for(const p of parts)p.dispose();}prototypes.set(g.name,g);return g;}
+  async function finish(){await breathe();for(const [m,parts]of batches){await breathe();const raw=mergeGeometries(parts),geometry=await mergeVerticesCooperatively(raw);raw.dispose();const mesh=new T.Mesh(geometry,m);mesh.name=g.name+' / '+m.name;mesh.castShadow=mesh.receiveShadow=true;g.add(mesh);for(const p of parts)p.dispose();}prototypes.set(g.name,g);return g;}
   function post(x,y,z,h,r=.25){beam(V(x,y,z),V(x,y+h,z),r,mats.wood,r*.9);for(const a of [.15,h-.35]){beam(V(x,y+a,z),V(x,y+a+.1,z),r*1.06,mats.iron);}box(x,y+.1,z,r*2.7,.2,r*2.7,mats.stone);}
   function bracket(x,y,z,span=1){for(let k=0;k<3;k++){box(x,y+k*.18,z,span-k*.2,.15,.18);box(x,y+k*.18+.075,z,.18,.15,span-k*.2);}for(const side of [-1,1])beam(V(x,y-.6,z),V(x+side*.48,y+.05,z),.06);}
   function roof(cx,y,cz,w,d,rise){
@@ -95,7 +97,7 @@ export function createArenaKit(){
   box(0,1.5,3,3.2,.18,1.3);box(0,.99,3.5,2.8,.95,.14,mats.dark);
   for(const x of [-1.25,1.25])for(const z of [2.55,3.45])box(x,.95,z,.17,1.1,.17);
   torus(0,1,3.61,.30,.033,mats.wood);box(0,1.68,3.1,.48,.16,.35,mats.iron);
-  finish();
+  await finish();
 
   begin(ASSET_IDS[1]);box(0,1.8,0,33,3.6,16,mats.stone);
   for(let i=0;i<15;i++){const h=(15-i)*.24,z=8+i*.48+(i>=9?1.25:0);box(0,h/2,z,10.8,h,.52,mats.stone);box(0,h+.02,z,10.8,.045,.10,mats.snow);}
@@ -107,7 +109,7 @@ export function createArenaKit(){
     beam(V(side*5.9,2.25,12.2),V(side*5.9,2.25,13.45),.16,mats.stone);
     beam(V(side*5.9,2.25,13.45),V(side*5.9,.9,16.3),.16,mats.stone);
     for(let i=0;i<6;i++){const x=side*(7+i*1.7);box(x,1.85,8.04,1.6,3.35,.12,mats.dark);box(x,1.85,8.13,1.38,3.12,.10,mats.stone);}
-  }finish();
+  }await finish();
 
   begin(ASSET_IDS[2]);add(new T.CylinderGeometry(18,18,.16,128),mats.stone,V(0,.08,0));
   // Yin-yang is genuine tessellated inlay with two small circular stone inserts.
@@ -116,35 +118,35 @@ export function createArenaKit(){
   for(const [z,m] of [[-5,mats.black],[5,mats.white]]){const c=new T.CircleGeometry(1.12,32);c.rotateX(-Math.PI/2);add(c,m,V(0,.23,z));}
   for(const r of [10.2,13.4,13.65,15.4,17.5])torus(0,.17,0,r,.04,mats.white,Math.PI/2);
   for(let i=0;i<128;i++){const a=i*Math.PI/64;beam(V(Math.cos(a)*15.7,.175,Math.sin(a)*15.7),V(Math.cos(a)*17.3,.175,Math.sin(a)*17.3),.018,mats.black);}
-  for(let i=0;i<100;i++){const a=rnd()*Math.PI*2,r=11+rnd()*6.7;ball(Math.cos(a)*r,.19,Math.sin(a)*r,.25+rnd()*.7,.018,.15+rnd()*.5,mats.snow);}finish();
+  for(let i=0;i<100;i++){const a=rnd()*Math.PI*2,r=11+rnd()*6.7;ball(Math.cos(a)*r,.19,Math.sin(a)*r,.25+rnd()*.7,.018,.15+rnd()*.5,mats.snow);}await finish();
 
   const flagFactory=createRavenStandardFactory();
   for(const [id,light]of [[ASSET_IDS[3],false],[ASSET_IDS[4],true]]){const f=flagFactory.create({light,size:1});f.name=id;f.userData={assetId:id,method:'image-guided-parametric-modeling',reference:'images/'+id+'.png'};prototypes.set(id,f);}
   begin(ASSET_IDS[5]);for(const x of [-1.5,1.5]){box(x,.62,0,.25,1.24,.25);box(x,1.29,0,.4,.18,.4);box(x,1.4,0,.38,.055,.38,mats.snow);for(const y of [.3,.7,1.12])ball(x,y,.16,.04,.04,.035,mats.iron);}
-  for(const y of [.3,.7,1.12]){box(0,y,0,3,.16,.14);box(0,y+.09,0,3,.025,.13,mats.snow);}finish();
+  for(const y of [.3,.7,1.12]){box(0,y,0,3,.16,.14);box(0,y+.09,0,3,.025,.13,mats.snow);}await finish();
   begin(ASSET_IDS[6]);for(const x of [-1.3,1.3]){box(x,.9,0,.16,1.8,.16);box(x,.09,0,.2,.18,1.3);beam(V(x,.7,0),V(x,.12,.58),.05);}
   for(const y of [.35,1.4])box(0,y,0,2.9,.14,.15);
-  for(let i=0;i<5;i++){let x=(i-2)*.52,h=3.9-i*.19;beam(V(x,.08,.12),V(x,h-.5,.12),.032);const s=new T.Shape();s.moveTo(0,0);s.lineTo(.12,.2);s.lineTo(0,.8);s.lineTo(-.12,.2);s.closePath();const e=new T.ExtrudeGeometry(s,{depth:.04,bevelEnabled:false});add(e,mats.iron,V(x,h-.65,.10));for(let k=0;k<4;k++)torus(x,h-.67-k*.04,.12,.044,.01,mats.iron,Math.PI/2);}finish();
+  for(let i=0;i<5;i++){let x=(i-2)*.52,h=3.9-i*.19;beam(V(x,.08,.12),V(x,h-.5,.12),.032);const s=new T.Shape();s.moveTo(0,0);s.lineTo(.12,.2);s.lineTo(0,.8);s.lineTo(-.12,.2);s.closePath();const e=new T.ExtrudeGeometry(s,{depth:.04,bevelEnabled:false});add(e,mats.iron,V(x,h-.65,.10));for(let k=0;k<4;k++)torus(x,h-.67-k*.04,.12,.044,.01,mats.iron,Math.PI/2);}await finish();
   begin(ASSET_IDS[7]);
   const profile=[V(.12,0,0),V(.48,.12,0),V(.72,.44,0),V(.76,.52,0)].map(p=>new T.Vector2(p.x,p.y));
   add(new T.LatheGeometry(profile,32),mats.iron,V(0,.9,0));
   torus(0,1.42,0,.75,.055,mats.iron,Math.PI/2);
   for(let i=0;i<12;i++){const a=i*Math.PI/6;beam(V(Math.cos(a)*.42,1,Math.sin(a)*.42),V(Math.cos(a)*.77,1.5,Math.sin(a)*.77),.033,mats.iron);}
   for(let i=0;i<3;i++){const a=i*Math.PI*2/3;beam(V(Math.cos(a)*.6,.05,Math.sin(a)*.6),V(Math.cos(a)*.35,1,Math.sin(a)*.35),.06,mats.iron);}
-  for(let i=0;i<15;i++)ball((rnd()-.5)*.85,1.14,(rnd()-.5)*.85,.11,.07,.09,mats.black);finish();
+  for(let i=0;i<15;i++)ball((rnd()-.5)*.85,1.14,(rnd()-.5)*.85,.11,.07,.09,mats.black);await finish();
   begin(ASSET_IDS[8]);box(0,.55,0,.36,.68,.36,mats.paper);
   for(const x of [-.23,.23])for(const z of [-.23,.23])box(x,.55,z,.055,.88,.055);
-  box(0,.1,0,.55,.1,.55);box(0,1,0,.65,.14,.65,mats.dark);box(0,1.08,0,.6,.035,.6,mats.snow);torus(0,1.23,0,.1,.018,mats.iron);finish();
+  box(0,.1,0,.55,.1,.55);box(0,1,0,.65,.14,.65,mats.dark);box(0,1.08,0,.6,.035,.6,mats.snow);torus(0,1.23,0,.1,.018,mats.iron);await finish();
   begin(ASSET_IDS[9]);box(0,4,0,8,8,8,mats.stone);
   for(let y=.25;y<8;y+=.55)for(let x=-3.9;x<4;x+=.8){box(x,y,4.02,.76,.5,.12,mats.stone);box(4.02,y,x,.12,.5,.76,mats.stone);}
   for(const x of [-3,3])for(const z of [-3,3])post(x,8,z,4,.23);
   box(0,8.05,0,9,.2,9);box(0,10,-3.3,6.5,3.8,.16,mats.dark);
   for(const side of [-1,1])for(let j=-4;j<=4;j++){box(j,8.7,side*4.2,.075,1.2,.075);box(side*4.2,8.7,j,.075,1.2,.075);}
   for(const z of [-4.2,4.2])box(0,9.3,z,8.6,.13,.15);
-  roof(0,12,0,10.5,10.5,2.5);finish();
+  roof(0,12,0,10.5,10.5,2.5);await finish();
   begin(ASSET_IDS[10]);box(0,.18,0,5,.36,6);
   for(const x of [-2,2])for(const z of [-2.5,2.5]){post(x,.36,z,3.5,.2);bracket(x,3.8,z,.8);}
-  roof(0,4.1,0,6.7,7,1.4);finish();
+  roof(0,4.1,0,6.7,7,1.4);await finish();
   function tree(pine){
     function branch(a,len,angle,az,r,depth){const b=a.clone().add(V(Math.sin(angle)*Math.cos(az)*len,Math.cos(angle)*len,Math.sin(angle)*Math.sin(az)*len));beam(a,b,r,mats.wood,r*.64);
       if(depth>1){const sa=a.clone().lerp(b,.25),sb=b.clone();sa.y+=r*.75;sb.y+=r*.7;beam(sa,sb,r*.45,mats.snow,r*.25);}
@@ -153,7 +155,7 @@ export function createArenaKit(){
       branch(b,len*.71,angle+.38,az+.7,r*.6,depth-1);branch(b,len*.59,angle+.8,az-1.9,r*.5,depth-1);
     }branch(V(0,0,0),3.3,.15,.8,.3,5);
   }
-  begin(ASSET_IDS[11]);tree(false);finish();begin(ASSET_IDS[12]);tree(true);finish();
+  begin(ASSET_IDS[11]);tree(false);await finish();begin(ASSET_IDS[12]);tree(true);await finish();
   begin(ASSET_IDS[13]);
   function hangingCloth(x,w,h,mat,name){const geo=new T.PlaneGeometry(w,h,48,48),p=geo.attributes.position;
     for(let i=0;i<p.count;i++){const fall=T.MathUtils.clamp((h/2-p.getY(i))/h,0,1);p.setZ(i,Math.sin(p.getX(i)*3.2)*.08+Math.sin(p.getX(i)*1.7)*.22*fall);p.setY(i,p.getY(i)-Math.pow(fall,12)*(.10+.15*Math.sin(p.getX(i)*13)));}geo.computeVertexNormals();
@@ -163,7 +165,7 @@ export function createArenaKit(){
   }
   hangingCloth(0,8.8,10,flagFactory.createCurtainMaterial(),'Central black-white raven curtain');
   for(const side of [-1,1])hangingCloth(side*6.4,2,10,flagFactory.standards[side<0?0:1].flag.material,'Side raven curtain');
-  finish();
+  await finish();
 
   const root=new T.Group();root.name='Tournament asset assembly';
   function place(id,x,y,z,scale=1,ry=0){const a=prototypes.get(id).clone(true);a.position.set(x,y,z);a.scale.setScalar(scale);a.rotation.y=ry;root.add(a);return a;}

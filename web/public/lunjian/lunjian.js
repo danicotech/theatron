@@ -8,7 +8,8 @@ const lifetime = new AbortController();
 let destroyed = false;
 const timers = new Set(), frames = new Set(), cleanups = [];
 let comicTimelines = [], comicTargets = [], comicObserver = null, comicSequence = null;
-let chapterTitles=null,bracketTree=null,arenaTicket=null;
+let chapterTitles=null,bracketTree=null,arenaTicket=null,battleDuel=null,battleDuelModule=null,battleDuelRevision=0;
+cleanups.push(()=>battleDuel?.destroy());
 let bracketModule=null,ticketModule=null,editorModule=null,bracketEditor=null;
 const previewDrafts=Object.create(null);
 cleanups.push(()=>{bracketTree?.destroy();arenaTicket?.destroy();bracketEditor?.destroy();});
@@ -241,11 +242,10 @@ const DWELL = 11000;
 const inkEl = $('#ink-wipe');
 // 試映頁與整站共用同一個渲染器。失敗時仍有可操作的淡紙備援。
 let inkRenderer = null;
-if (!reduced.matches) import('/lunjian/ink-transitions.js').then(module => {
+if (!reduced.matches) import('/lunjian/ink-transitions.js?v=b91e900d31f7').then(module => {
   if (destroyed) return;
-  inkRenderer = module.createInkTransition($('#ink-canvas'),{style:inkStyle});
-  inkRenderer?.prepare(innerWidth,Math.max(100,innerHeight-$('.site-header').getBoundingClientRect().height));
-  inkEl.toggleAttribute('data-renderer',!!inkRenderer);
+  inkRenderer = module.createInkTransition($('#ink-canvas'),{style:inkStyle,workerUrl:'/lunjian/ink-field-worker.js',onReady:ready=>inkEl.toggleAttribute('data-renderer',ready)});
+  inkRenderer?.prepare(innerWidth,innerHeight);
   cleanups.push(() => inkRenderer?.dispose());
 }).catch(() => {});
 function paintInkBloom(cover,reveal){
@@ -501,10 +501,6 @@ function updateDeck(dt){
   const at = TICK_AT[g] + (SPANS[g] / SPAN_TOTAL) * S.frac;
   $('#rail-pos').style.top = (at * 100).toFixed(2) + '%';
   // Rules are persistent content; scene time never controls readability.
-  $$('.case-step').forEach(el => { el.setAttribute('data-on',''); el.removeAttribute('aria-hidden'); });
-  const tbl = $('#rules .rule-table');
-  tbl.style.removeProperty('opacity');
-  tbl.style.removeProperty('transition');
 }
 
 /* ══ 首屏書寫「論劍」════════════════════════════════
@@ -512,6 +508,7 @@ function updateDeck(dt){
    這支工作檔用簡化骨架驗時間軸與版位：論 15 筆、劍 15 筆，
    900ms + 250ms 停 + 900ms = 2050ms，只播一次。 */
 function buildWordmark(){
+  if ($('#wordmark').hidden) return;
   if (reduced.matches) { $('#wordmark').textContent = '論劍'; return; }
   const el = $('#wordmark');
   el.classList.add('ink-title');
@@ -519,6 +516,7 @@ function buildWordmark(){
   mountInk(el, {track:.14, dur:2400, gap:44, charGap:300});
 }
 function playWordmark(){
+  if ($('#wordmark').hidden) return;
   if (reduced.matches || body.classList.contains('reading')) return;
   // 只播一次的旗標在 playInk 裡（每張 svg 自己記），這裡不再多包一層 ——
   // 多包一層會在字形還沒載入時就把旗標燒掉，載入後反而不播。
@@ -655,7 +653,31 @@ function renderDuel(){
   if(!S.duelOdds){ $('#duel-odds').textContent=''; $('#duel-odds').removeAttribute('data-show'); }
   renderDuelArtwork(m,study);
   renderDuelActions(m,study);
+  renderBattleDuel(m,study);
   applyLean();
+}
+/* The approved C–H battle art can replace the silhouette arena once its module is ready (user, 2026-10-31).
+   It is off: the duel keeps the silhouette arena with the two figures (user, 2026-11-01). */
+const DUEL_BATTLE_ART=false;
+function renderBattleDuel(match,study){
+  if(!DUEL_BATTLE_ART)return;
+  const revision=++battleDuelRevision,section=$('#duel');
+  let host=$('#battle-duel-host');
+  if(!host){host=document.createElement('div');host.id='battle-duel-host';section.querySelector('.arena-composition').before(host);}
+  host.hidden=!!study;
+  section.classList.toggle('battle-art-ready',!study && !!battleDuel);
+  if(study)return;
+  const render=create=>{
+    if(destroyed || revision!==battleDuelRevision)return;
+    if(!battleDuel)battleDuel=create({host,signal:lifetime.signal,onPlayer:(id,matchId,trigger)=>{
+      const m=findMatch(matchId),p=byId(id);if(!m || !p)return;
+      openDossier(p,handicap(byId(m.p1),byId(m.p2)),m,trigger);
+    },onReturn:()=>goTo(chapters.findIndex(ch=>ch.id==='schedule'),{focus:()=>bracketTree?.focusMatch?.(S.selectedMatchId)?null:$('#schedule .chapter-sticky')})});
+    battleDuel.render(DATA,match);section.classList.add('battle-art-ready');
+  };
+  if(battleDuel){battleDuel.render(DATA,match);section.classList.add('battle-art-ready');return;}
+  if(!battleDuelModule)battleDuelModule=import('/lunjian/battle-view.js?v=20c3f32f430b').then(m=>m.createBattleDuel).catch(()=>{battleDuelModule=null;return null;});
+  battleDuelModule.then(create=>{if(create)render(create);});
 }
 function renderDuelArtwork(match,study){
   invalidateDuelGeometry();
@@ -710,7 +732,7 @@ function renderRegister(){
   } : activity;
   $$('[data-activity-status]').forEach(el => { el.textContent = view.status; });
   $$('[data-activity-cta]').forEach(a => { a.textContent = view.label; a.href = view.href; });
-  const localRegistration = !!sportsbookData || preview || !activity.slug;
+  const localRegistration = !!sportsbookData || preview;
   const registrationLink = $('#register-cta');
   registrationLink.toggleAttribute('data-registration-entry',localRegistration);
   registrationLink.textContent=localRegistration ? (sportsbookData && !sportsbookData.registration ? '查看參賽資訊' : '開始報名') : view.label;
@@ -735,6 +757,7 @@ function updateActivity(view){ activity = view; if (!preview) setPhase('signup')
 function updateTournament(view){
   if(destroyed || JSON.stringify(tournament)===JSON.stringify(view)) return;
   tournament=view;if(!preview) setPhase(PHASE);
+  if(!preview) refreshDossier();
 }
 
 
@@ -758,12 +781,13 @@ function renderBracket(){
   }else bracketEditor?.close();
   $('[data-tournament-retry]').hidden=preview || !activity.slug;
   if(!DATA.published || !DATA.rounds.length){
-    status.textContent=!preview && tournament.kind==='loading' ? '正在讀取賽程…' : !preview && tournament.kind==='error' ? '賽程讀取失敗，請重新整理。' : '抽籤後公布完整賽程與選手名單。';
-  }else status.textContent=DATA.demo ? '體驗賽程' : `${DATA.players.length} 位選手 · ${DATA.rounds.length} 輪`;
+    status.textContent=!preview && tournament.kind==='loading' ? '正在讀取賽程…' : !preview && tournament.kind==='error' ? '賽程讀取失敗，請重新整理。' : '';
+  }else status.textContent='';
+  status.hidden=!status.textContent;
   if(bracketTree){bracketTree.render(DATA);bracketEditor?.refreshSeats();return;}
   if(!bracketModule){
     host.textContent='正在展開對戰樹…';
-    bracketModule=import('/lunjian/bracket-tree.js?v=2f89b0bb96c8').then(({createBracketTree})=>{
+    bracketModule=import('/lunjian/battle-view.js?v=20c3f32f430b').then(({createBracketTree})=>{
       if(destroyed) return;
       bracketTree=createBracketTree({host,previewEmpty:true,onSelect:selectScheduleMatch,onPlayer:selectBracketPlayer,signal:lifetime.signal,championArt:'/lunjian/art/manga-champion.webp'});bracketTree.render(DATA);bracketEditor?.refreshSeats();
       return createBracketTree;
@@ -789,7 +813,7 @@ function selectDuelMatch(id){
   S.selectedMatchId=id;S.duelPreview=null;S.duelOutcome=null;
   arenaTicket?.close();closeDossier(false);
   const url=new URL(location.href);url.searchParams.set('match',id);url.hash='duel';history.pushState(null,'',url);
-  renderDuel();goTo(chapters.findIndex(ch=>ch.id==='duel'),{history:true,focus:()=>$('#duel .duelist[data-side="left"]')});
+  renderDuel();goTo(chapters.findIndex(ch=>ch.id==='duel'),{history:true,focus:()=>{battleDuel?.focus();return battleDuel?null:$('#duel .duelist[data-side="left"]');}});
   $('#announcement').textContent='已選取場次，進入比武。可點選人物查看備戰方案。';
 }
 function bettingLink(m,p){
@@ -804,17 +828,17 @@ function betActionHTML(m,p,side,demo){
     return `<button type="button" class="duel-bet" data-arena-bet="${side}">選 ${escapeHTML(p.name)} · ${sportsbookData?'下注':'模擬下注'}</button>`;
   }
   const href=bettingLink(m,p);
-  return href ? `<a class="duel-bet" href="${escapeHTML(href)}">${m.status==='done' ? '查看' : '選'} ${escapeHTML(p.name)} · ${m.status==='done' ? '盤口結果' : '前往下注'}</a>` : '';
+  return href ? `<button type="button" class="duel-bet" data-duel-markets="${escapeHTML(m.id)}" data-outcome="${m.p1===p.id?'p1':'p2'}">${m.status==='done' ? '查看' : '選'} ${escapeHTML(p.name)} · ${m.status==='done' ? '盤口結果' : '查看賠率'}</button>` : '';
 }
 function renderDuelActions(m,study){
   $('#duel-match-label').textContent=!m && S.selectedMatchId ? '此場次目前無法讀取，請返回賽程重新選擇。' : '';
-  const center = S.selectedMatchId && !m ? '' : !DATA.demo && activity.slug && m?.id
-    ? `<a class="duel-bet" href="/t/${encodeURIComponent(activity.slug)}/m/${encodeURIComponent(m.id)}#markets">觀局雅集</a>`
-    : !DATA.demo && activity.slug ? '' : `<button type="button" class="duel-bet" data-duel-center>觀局雅集</button>`;
-  $('#duel-bet-actions').innerHTML=center;
+  $('#duel-bet-actions').innerHTML='';
+  const lobby=$('[data-duel-lobby]');
+  lobby.toggleAttribute('data-duel-center',!!DATA.demo);
+  document.dispatchEvent(new CustomEvent('lunjian:duel-context',{detail:{matchId:!DATA.demo&&DATA.published?m?.id:'',p1:m?.p1,p2:m?.p2}}));
 }
-on($('[data-return-bracket]'),'click',()=>{arenaTicket?.close();goTo(chapters.findIndex(ch=>ch.id==='schedule'),{focus:()=>$$('#bracket-host .tt-node[data-match-id]').find(el=>el.dataset.matchId===S.selectedMatchId && !el.closest('[hidden]')) || $$('#bracket-host .tt-tab[aria-selected="true"]').find(el=>!el.closest('[hidden]')) || $('#schedule .chapter-sticky')});});
 on(document,'click',event=>{
+  if(event.target.closest('[data-duel-markets]'))closeDossier(false);
   const trigger=event.target.closest('[data-arena-bet]');
   if(!trigger || !duelContext.demo)return;
   if(preview){closeDossier();openSportsbook(duelContext.match?.id,trigger.dataset.arenaBet==='left'?'p1':'p2');return;}
@@ -901,7 +925,7 @@ function dossierHTML(p, hc){
     const names=String(c.weapon||'').split(/[、，,\n／/]+/).map(x=>x.trim()).filter(Boolean);
     return head+`<section class="dz-sec"><h4>武器</h4><div class="dz-gear-grid">${names.length?names.map(n=>dossierTile(n)).join(''):'<p>待公開</p>'}</div></section>${c.style?`<p class="dz-note">${escapeHTML(c.style)}</p>`:''}<details class="dz-details"><summary>裝備與武學</summary>${[['equipment','裝備'],['arts','武學']].map(([k,n])=>`<h4>${n}</h4><p class="dz-note">${escapeHTML(c[k]||'待公開')}</p>`).join('')}</details>`+end;
   }
-  if(p.pending || !p.loadout || (!managerMode && (p.demo || preview))) return head+'<p class="dz-empty">武器與裝備待公開</p>'+end;
+  if(p.pending || !p.loadout || (!managerMode && (p.demo || preview))) return head+'<p class="dz-empty">尚未提交參賽配置</p>'+end;
   const lo=p.loadout;
   return head+`<section class="dz-sec"><h4>武器</h4><div class="dz-gear-grid">${lo.weapons.map(w=>dossierTile(w.art,w.role+'武器')).join('')}</div></section>
     <section class="dz-sec"><h4>心法</h4><div class="dz-mind-grid">${lo.xinfa.map(n=>dossierTile(n,n===lo.zhu?'主修':'')).join('')}</div></section>
@@ -1010,10 +1034,23 @@ addEventListener('pointermove', e => {
 /* 點卡看配置。卡上放「這個人是誰」，點下去才看「他帶了什麼、讓了什麼」。 */
 const dz = $('#psheet');
 let dossierReturn=null;
+let activeDossier=null;
 const dossierInert=[];
+function refreshDossier(){
+  if(dz.hidden || !activeDossier) return;
+  const {playerId,matchId,options,signature}=activeDossier;
+  const p=byId(playerId),m=findMatch(matchId);
+  if(!p || !m || (m.p1!==playerId && m.p2!==playerId)){closeDossier();return;}
+  const hc=handicap(byId(m.p1),byId(m.p2));
+  if(JSON.stringify([p,hc,m])===signature) return;
+  openDossier(p,hc,m,dossierReturn,{...options,refresh:true});
+}
 function openDossier(p,hc,m,trigger,options={}){
   if(!p || destroyed) return;
-  if(DATA.demo && !p.character && !options.demoData){
+  const sheet=$('.dz-sheet'),scrollTop=sheet.scrollTop;
+  const focused=document.activeElement;
+  const focusIndex=[...dz.querySelectorAll('button,a[href],summary,[tabindex="0"]')].indexOf(focused);
+  if((DATA.demo || p.demo) && !p.character && !options.demoData){
     if(dossierDemoData){openDossier(p,hc,m,trigger,{...options,demoData:dossierDemoData});return;}
     fetch('/lunjian/dossier-demo.json').then(r=>{if(!r.ok)throw new Error('load');return r.json();}).then(data=>{dossierDemoData=data;if(!destroyed && !dz.hidden && $('#dz-title')?.textContent===p.name)openDossier(p,hc,m,trigger,{...options,demoData:data});}).catch(()=>{});
   }
@@ -1023,21 +1060,45 @@ function openDossier(p,hc,m,trigger,options={}){
       dossierInert.push([node,node.inert]);node.inert=true;
     }
   }
+  activeDossier=DATA.demo || p.demo ? null : {playerId:p.id,matchId:m?.id,options:{fromBracket:!!options.fromBracket},signature:JSON.stringify([p,hc,m])};
   $('#dz-body').innerHTML=options.demoData ? demoDossierHTML(p,options.demoData) : dossierHTML(p,hc);
+  // The React host reuses the registration/member card renderer; standalone lab keeps its fallback.
+  const profile=options.demoData?.profiles[Array.from(String(p.id)).reduce((n,c)=>n+c.charCodeAt(0),0)%options.demoData.profiles.length];
+  if(p.character || profile){
+    const host=document.createElement('div');
+    const body=$('#dz-body');
+    body.querySelector('.dz-head').after(host);
+    const event=new CustomEvent('lunjian:dossier-loadout',{cancelable:true,detail:{host,character:p.character,profile}});
+    if(!document.dispatchEvent(event)){
+      body.querySelectorAll('.dz-sec:not(.demo-bp),.dz-note,.dz-details').forEach(node=>node.remove());
+    }else host.remove();
+  }
   const acts=$('#dz-actions');
   if(options.fromBracket){
-    acts.innerHTML='<button type="button" class="dz-bet" data-dz-match>前往此場比武</button><button type="button" class="dz-bet" data-dz-close>返回賽程</button>';
+    acts.innerHTML='<button type="button" class="dz-bet" data-ink-wave="off" data-dz-match>前往此場比武</button><button type="button" class="dz-bet" data-ink-wave="off" data-dz-close>返回賽程</button>';
     $('[data-dz-match]').onclick=()=>selectDuelMatch(m.id);
-  }else acts.innerHTML=betActionHTML(m,p,p===duelPeople.right?'right':'left',duelContext.demo)+'<button type="button" class="dz-bet" data-dz-close>返回比武</button>';
+  }else acts.innerHTML=betActionHTML(m,p,p===duelPeople.right?'right':'left',duelContext.demo)+'<button type="button" class="dz-bet" data-ink-wave="off" data-dz-close>返回比武</button>';
   resetDuelProximity(true);
-  dz.hidden=false;$('.dz-sheet').scrollTop=0;$('.dz-close').focus({preventScroll:true});
+  dz.hidden=false;
+  if(options.refresh){
+    const current=activeDossier;
+    if(!focused?.isConnected && focusIndex>=0) dz.querySelectorAll('button,a[href],summary,[tabindex="0"]')[focusIndex]?.focus({preventScroll:true});
+    sheet.scrollTop=scrollTop;
+    // React mounts the shared cards after this event; restore reading position after that commit.
+    requestAnimationFrame(()=>{if(!destroyed && !dz.hidden && activeDossier===current) sheet.scrollTop=scrollTop;});
+  }else {sheet.scrollTop=0;$('.dz-close').focus({preventScroll:true});}
 }
 function closeDossier(restore=true){
+  activeDossier=null;
   if(dz.hidden) return;
   dz.hidden=true;
+  document.dispatchEvent(new Event('lunjian:dossier-close'));
   dossierInert.splice(0).forEach(([node,was])=>{node.inert=was;});
   if(restore){
-    const replacement=dossierReturn?.dataset.seat!==undefined ? $$('#bracket-host .tt-player').find(el=>el.dataset.matchId===dossierReturn.dataset.matchId && el.dataset.seat===dossierReturn.dataset.seat) : null;
+    // A live update may have rebuilt the trigger: find the same seat in the battle view first, then in the full table.
+    const battleRoot=$('#bracket-host .battle-art-host')?.shadowRoot;
+    const battleReplacement=battleRoot && dossierReturn?.dataset.player && dossierReturn?.dataset.match ? battleRoot.querySelector(`[data-player="${CSS.escape(dossierReturn.dataset.player)}"][data-match="${CSS.escape(dossierReturn.dataset.match)}"]`) : null;
+    const replacement=battleReplacement || (dossierReturn?.dataset.seat!==undefined ? $$('#bracket-host .tt-player').find(el=>el.dataset.matchId===dossierReturn.dataset.matchId && el.dataset.seat===dossierReturn.dataset.seat) : null);
     (dossierReturn?.isConnected?dossierReturn:replacement)?.focus();
   }
   dossierReturn=null;
@@ -1101,11 +1162,11 @@ function setDuelFocus(side){
 function updateDuelProximity(){
   const p=duelProximity;
   if(p.dirty){
-    const arena=$('#duel .arena-composition').getBoundingClientRect();
-    p.anchors={radius:Math.max(220,Math.min(arena.width*.5,innerHeight*.65))};
+    const composition=$('#duel .arena-composition'),arena=composition.getBoundingClientRect(),zoom=composition.currentCSSZoom||1; // offsets are in the zoomed chapter's own pixels
+    p.anchors={radius:Math.max(220*zoom,Math.min(arena.width*.5,innerHeight*.65))};
     for(const side of ['left','right']){
       const el=duelFigures[side];
-      p.anchors[side]={x:arena.left+el.offsetLeft+el.offsetWidth*.5,y:arena.top+el.offsetTop+el.offsetHeight*.5};
+      p.anchors[side]={x:arena.left+(el.offsetLeft+el.offsetWidth*.5)*zoom,y:arena.top+(el.offsetTop+el.offsetHeight*.5)*zoom};
     }
     p.dirty=false;
   }
@@ -1155,8 +1216,26 @@ addEventListener('pointermove', e => {
 }, {passive:true});
 
 /* ══ 主迴圈 ═════════════════════════════════════════ */
+let mainFrame=0;
+const parallaxHosts=[$('#stage'),$('.foreground')].filter(Boolean);
+const parallaxValues={};
+function updateParallax(name,value){
+  if(parallaxValues[name]===value)return;
+  parallaxValues[name]=value;
+  for(const host of parallaxHosts)host.style.setProperty(name,value);
+}
+function resumeFrames(){
+  if(!mainFrame&&!document.hidden&&!destroyed){S.last=0;mainFrame=requestAnimationFrame(tick);}
+}
+on(document,'visibilitychange',()=>{
+  if(document.hidden){cancelAnimationFrame(mainFrame);mainFrame=0;S.last=0;}
+  else resumeFrames();
+});
 function tick(now){
+  mainFrame=0;
   if(destroyed||!chapters[0]?.isConnected)return;
+  if(document.hidden)return;
+  if(S.last && now-S.last<1000/30){mainFrame=requestAnimationFrame(tick);return;}
   const dt = Math.min(now - (S.last || now), 50); S.last = now;
   updateDeck(dt);
   tickCut(now);
@@ -1174,14 +1253,14 @@ function tick(now){
   if(focusChanged) applyLean();
   const kp = 1 - Math.exp(-2.6 * dt/1000);
   S.mx += (S.tmx - S.mx) * kp; S.my += (S.tmy - S.my) * kp;
-  body.style.setProperty('--mx', S.mx.toFixed(4));
-  body.style.setProperty('--my', S.my.toFixed(4));
-  body.style.setProperty('--breath', smooth(S.frac).toFixed(3));
+  updateParallax('--mx',S.mx.toFixed(3));
+  updateParallax('--my',S.my.toFixed(3));
+  updateParallax('--breath',smooth(S.frac).toFixed(3));
   // 3D 每一幀由這裡帶（S.render3d 由下面那支 module 掛上來）。
   // 用同一個 rAF，不另開一圈 —— 兩圈各自跑會在切格那幾幀錯開。
   if (S.render3d) S.render3d(now, dt);
   if (body.hasAttribute('data-debug')) drawHUD();
-  requestAnimationFrame(tick);
+  mainFrame=requestAnimationFrame(tick);
 }
 function drawHUD(){
   $('#hud').textContent =
@@ -1208,6 +1287,10 @@ function stopComicMotion(){
 }
 function playComicScene(section,underCover=false){
   stopComicMotion();
+  // Rewards enter as one paper surface with the chapter transition.
+  if(section.id==='rewards')return;
+  // An editorial portrait already owns the reveal; do not hide panels inside its window.
+  if(document.querySelector(`[data-editorial-transition="#${section.id}"]`)) return;
   if (reduced.matches || body.classList.contains('reading') || body.hasAttribute('data-intro') || (body.hasAttribute('data-cut') && !underCover) || typeof anime.timeline !== 'function') return;
   const panels = [...section.querySelectorAll('[data-comic-frame]')];
   comicTargets = panels.flatMap(frame => [frame,...frame.querySelectorAll('[data-comic-layer]')]);
@@ -1240,10 +1323,11 @@ function playComicScene(section,underCover=false){
     const layers = kind => [...frame.querySelectorAll(`[data-comic-layer="${kind}"]`)];
     // Finish each layer before the next: scenery, people, foreground, dialogue.
     let layerAt=0;
-    for(const [kind,duration] of [['scene',240],['character',360],['foreground',220],['caption',280]]){
+    for(const [kind,duration] of [['scene',240],['character',360],['foreground',220],['caption',560]]){
       const targets=layers(kind);
       if(!targets.length) continue;
-      timeline.add({targets,opacity:target => [0,Number.parseFloat(getComputedStyle(target).opacity)||1],duration},layerAt);
+      timeline.add({targets,opacity:target => [0,Number.parseFloat(getComputedStyle(target).opacity)||1],
+        ...(kind === 'caption' ? {translateX:[entrySide*(innerWidth < 768 ? 24 : 48),0],easing:'easeOutCubic'} : {}),duration},layerAt);
       layerAt+=duration;
     }
     if(layers('stamp').length) timeline.add({targets:layers('stamp'),opacity:[0,1],scale:[1.55,1],rotate:[-7,-5],duration:420,easing:'cubicBezier(.34,1.56,.64,1)'},layerAt);
@@ -1326,11 +1410,12 @@ if (purposeDetails) {
   on(summary,'click',e=>{
     if(reduced.matches || body.classList.contains('reading') || !purposeDetails.animate) return;
     e.preventDefault();
-    const from = purposeDetails.getBoundingClientRect().height;
+    const height = el => el.getBoundingClientRect().height / (el.currentCSSZoom || 1); // the chapter is zoomed on large screens
+    const from = height(purposeDetails);
     targetOpen = motion ? !targetOpen : !purposeDetails.open;
     reset();
     purposeDetails.open = true;
-    const to = targetOpen ? purposeDetails.getBoundingClientRect().height : summary.getBoundingClientRect().height;
+    const to = targetOpen ? height(purposeDetails) : height(summary);
     motion = purposeDetails.animate([{height:from+'px'},{height:to+'px'}],{duration:380,easing:'cubic-bezier(.22,.61,.36,1)',fill:'both'});
     motion.onfinish=()=>{purposeDetails.open=targetOpen;reset();};
   });
@@ -1342,6 +1427,7 @@ cleanups.push(()=>{if(rulesDialog?.open)rulesDialog.close();});
 /* ══ 啟動 ═══════════════════════════════════════════ */
 $$('.phase-pick button').forEach(b => on(b, 'click', () => setPhase(b.dataset.phase)));
 function setReading(on) {
+  if(handicapDetailDialog.open){handicapDetailDialog.close();restoreHandicapDetail();}
   stopComicMotion();
   if (on) $$('.manga-fulltext,.handicap-group').forEach(d => d.open = true);
   body.classList.toggle('reading', on);
@@ -1367,11 +1453,43 @@ function handicapHash(hash=location.hash){
   const target=document.getElementById(hash.slice(1));
   return target?.matches('.handicap-group') ? target : null;
 }
+const handicapDetailDialog=document.createElement('dialog');
+handicapDetailDialog.className='handicap-detail-dialog';
+handicapDetailDialog.setAttribute('aria-labelledby','handicap-detail-title');
+handicapDetailDialog.innerHTML='<header class="handicap-detail-heading"><h2 id="handicap-detail-title"></h2><button type="button" class="handicap-detail-close" aria-label="關閉限制說明">×</button></header><div class="handicap-detail-body"></div>';
+document.body.append(handicapDetailDialog);
+let activeHandicapDetail=null;
+const compactHandicap=()=>matchMedia('(min-width:1024px) and (min-height:700px)').matches&&!body.classList.contains('reading');
+function restoreHandicapDetail(){
+  if(!activeHandicapDetail)return;
+  const {group,marker,trigger}=activeHandicapDetail;
+  marker.replaceWith(group);group.open=false;activeHandicapDetail=null;
+  if(trigger?.isConnected)trigger.focus({preventScroll:true});
+}
+on(handicapDetailDialog,'close',restoreHandicapDetail);
+on(handicapDetailDialog.querySelector('button'),'click',()=>handicapDetailDialog.close());
+on(handicapDetailDialog,'click',event=>{if(event.target!==handicapDetailDialog)return;const r=handicapDetailDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)handicapDetailDialog.close();});
+on(window,'resize',()=>{if(handicapDetailDialog.open&&!compactHandicap())handicapDetailDialog.close();});
+on(window,'hashchange',()=>{if(handicapDetailDialog.open&&location.hash!=='#'+activeHandicapDetail?.group.id)handicapDetailDialog.close();});
+cleanups.push(()=>{restoreHandicapDetail();handicapDetailDialog.remove();});
 function revealHandicapGroup(group){
+  if(compactHandicap()){
+    if(activeHandicapDetail?.group===group)return;
+    restoreHandicapDetail();
+    const marker=document.createComment('handicap-detail-origin');
+    const trigger=document.querySelector('.handicap-categories a[href="#'+group.id+'"]');
+    group.before(marker);activeHandicapDetail={group,marker,trigger};
+    handicapDetailDialog.querySelector('h2').textContent=group.querySelector('summary').textContent.replace(/\s*\+\s*$/,'').trim();
+    handicapDetailDialog.querySelector('.handicap-detail-body').append(group);group.open=true;
+    handicapDetailDialog.showModal();return;
+  }
   group.open=true;
   group.querySelector('summary').focus({preventScroll:true});
   group.scrollIntoView({block:'start',behavior:'instant'});
 }
+
+
+
 function syncHash(){
   const group=handicapHash(), id=group ? 'invitation' : location.hash.slice(1);
   const selected=new URLSearchParams(location.search).get('match') || '';
@@ -1384,7 +1502,10 @@ addEventListener('popstate', syncHash);
 addEventListener('hashchange', syncHash);
 addEventListener('scroll', () => {
   if (!body.classList.contains('reading')) return;
-  const index = chapters.findIndex(c => c.getBoundingClientRect().bottom > 160);
+  const scale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--screen-scale')) || 1; // matches the scaled scroll-margin-top
+  // The last chapter cannot scroll up to its margin, so the bottom of the page belongs to it.
+  const atEnd = scrollY + innerHeight >= document.documentElement.scrollHeight - 2;
+  const index = atEnd ? chapters.length - 1 : chapters.findIndex(c => c.getBoundingClientRect().bottom > 160 * scale);
   if (index >= 0) { S.shown = S.target = index; markNav(index); }
 }, {passive:true});
 on($('#ignite'), 'click', e => { if ($('#boot').dataset.state === 'ready') S.ignite?.(e); });
@@ -1404,7 +1525,8 @@ function markNav(k){
     const current = a.getAttribute('href') === '#' + id;
     a.toggleAttribute('data-here', current);
     if (current) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
-    if (current && innerWidth < 1024) a.scrollIntoView({block:'nearest', inline:'nearest', behavior:'instant'});
+    // 章節列放不下時（手機導覽列）把目前這章捲到正中，前後章都露出來；放得下就不用捲。
+    if (current && a.parentElement.scrollWidth > a.parentElement.clientWidth) a.scrollIntoView({block:'nearest', inline:'center', behavior:'instant'});
   });
 }
 
@@ -1442,7 +1564,7 @@ addEventListener('keydown', e => {
   if (body.hasAttribute('data-intro')) return;
   if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
   if (body.classList.contains('reading')) return;
-  if (arenaTicket?.isOpen() || !$('#vs').hidden || !$('#psheet').hidden || (moreMenu.open && moreMenu.contains(t))) return;            // 對立圖開著時方向鍵不換格
+  if (document.querySelector('dialog[open]') || arenaTicket?.isOpen() || !$('#vs').hidden || !$('#psheet').hidden || (moreMenu.open && moreMenu.contains(t))) return;            // 對立圖開著時方向鍵不換格
   const reader = (chapters[S.shown].dataset.layout === 'editorial' || chapters[S.shown].classList.contains('folio-chapter') || ['duel','schedule'].includes(chapters[S.shown].id)) && chapters[S.shown].querySelector('.chapter-sticky');
   const vertical = {ArrowDown:64, ArrowUp:-64, PageDown:innerHeight*.75, PageUp:-innerHeight*.75}[e.key];
   if (reader && vertical) { e.preventDefault(); reader.scrollBy({top:vertical, behavior:'instant'}); return; }
@@ -1509,7 +1631,7 @@ else swapTo(0);
 if (handicapHash()) revealHandicapGroup(handicapHash());
 /* 3D 與 2D 都等待點燃。模組缺失時由 2D 序幕接手，不自動略過。 */
 let openingSeen=false;
-try{openingSeen=sessionStorage.getItem('lunjian:opening-seen:v1')==='1';}catch{}
+try{openingSeen=qs.get('intro')!=='1'&&sessionStorage.getItem('lunjian:opening-seen:v1')==='1';}catch{}
 if (!openingSeen && g0 <= 0 && !reduced.matches && qs.get('intro') !== '0' && !body.classList.contains('reading')){
   $('#boot').hidden = false;
   beginIntro();
@@ -1530,14 +1652,14 @@ INK.load('/lunjian/glyphs.json?v=bc72d0cfb6b9').then(() => {
   // 大標不在 chapters 裡，載入前那一次 applyGrid 掛不到它 —— 清掉記號再跑一次。
   delete $('#grid-title').dataset.word;
   applyGrid(S.shown, {animate:false});
-  import('/lunjian/chapter-titles.js?v=014d26ecfed1').then(({createChapterTitles})=>{
+  import('/lunjian/chapter-titles.js?v=bb8bbb736592').then(({createChapterTitles})=>{
     if(destroyed) return;
     chapterTitles=createChapterTitles({root:document,staticMode:reduced.matches || body.classList.contains('reading')});
     chapterTitles.enter(chapters[S.shown]);
   }).catch(()=>{});
 }).catch(() => {});
 
-requestAnimationFrame(tick);
+resumeFrames();
 /* 僅供美術採樣：直接繪製指定暈墨進度，不推進換頁狀態或切換內容。
    正式換頁依實際時間推進，稀疏影格也必須先完整覆蓋再揭幕。 */
 function holdCut(p = .45){

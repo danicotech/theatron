@@ -1,0 +1,141 @@
+/* Site-wide navigation: the approved raven, timber frame and lantern (nav-schedule-preview).
+   Every page wears it — the stage chapters, /home and the React routes.
+   Generated to web/public/lunjian/timber-navigation.css by tools/to-theatron.py and linked from
+   the root layout. html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] expands to a selector one attribute stronger than plaque-navigation.css.
+   Ink colours are tied to the painted paper keys (fixed artwork), not to the theme slots.
+   Image layers (.battle-nav-frame, .battle-nav-raven) are injected by
+   web/src/features/chrome/navigationArtwork.ts and carry no text. */
+html[data-theme][data-theme]{--nav-h:112px}
+.battle-nav-frame,.battle-nav-raven{display:none}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav]{background:none;border:0;box-shadow:none;height:96px;padding:12px 60px 0}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav]::before,html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav]::after{display:none}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner{
+ --battle-key:url('/battle-preview/assets/key-day-v4.webp');--battle-key-hover:url('/battle-preview/assets/key-day-hover-v6.webp');--battle-key-fill:var(--surface-auth-canvas);--battle-nav-ink:var(--text-auth-ink);
+ position:relative;isolation:isolate;display:grid;grid-template-columns:170px minmax(0,1fr) 250px;gap:0;max-width:1340px;width:100%;min-height:0;height:76px;margin:0 auto;padding:12px 24px 12px 12px;background:none;border:0;box-shadow:none;overflow:visible;color:var(--battle-nav-ink);
+}
+html[data-theme][data-color-mode=dark] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner{--battle-key:url('/battle-preview/assets/key-night-v4.webp');--battle-key-hover:url('/battle-preview/assets/key-night-hover-v4.webp')}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner::before,html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner::after{display:none}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .battle-nav-frame{display:grid;position:absolute;z-index:5;pointer-events:none;left:0;top:0;width:calc(100% + 35px);height:100.5px;grid-template-columns:39px minmax(0,1fr) 86px}
+.battle-nav-frame i{background-repeat:no-repeat;background-size:100% 100%}
+.battle-nav-frame i:first-child{background-image:url('/battle-preview/assets/frame-lantern-day-left.webp')}
+.battle-nav-frame i:nth-child(2){background-image:url('/battle-preview/assets/frame-lantern-day-middle.webp');margin-right:-8px}
+.battle-nav-frame i:last-child{background-image:url('/battle-preview/assets/frame-lantern-day-right-bleed.webp');margin-left:-8px;mask-image:linear-gradient(to right,transparent,black 16px)}
+html[data-color-mode=dark] .battle-nav-frame i:first-child{background-image:url('/battle-preview/assets/frame-lantern-night-left.webp')}
+html[data-color-mode=dark] .battle-nav-frame i:nth-child(2){background-image:url('/battle-preview/assets/frame-lantern-night-middle.webp')}
+html[data-color-mode=dark] .battle-nav-frame i:last-child{background-image:url('/battle-preview/assets/frame-lantern-night-right-bleed.webp')}
+/* The lit frame only reveals the lantern paper; posts, arm and chain never move. */
+.battle-nav-frame--lit{opacity:0;transition:opacity .32s ease-out}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .battle-nav-frame.battle-nav-frame--lit{z-index:6}
+.battle-nav-frame--lit i:not(:last-child){visibility:hidden}
+.battle-nav-frame--lit i:last-child{background-image:url('/battle-preview/assets/frame-lantern-day-lit-v4-right-bleed.webp');mask-image:radial-gradient(ellipse 17% 21% at 81% 66%,black 72%,transparent 100%)}
+html[data-color-mode=dark] .battle-nav-frame--lit i:last-child{background-image:url('/battle-preview/assets/frame-lantern-night-lit-v4-right-bleed.webp')}
+/* Warm light spilling from the lit glass; screen blend brightens the paper instead of covering it. */
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .battle-nav-frame--lit::after{content:'';position:absolute;right:-20px;top:30px;width:76px;height:76px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,206,120,.62) 0,rgba(255,170,70,.26) 38%,rgba(255,150,50,0) 70%);mix-blend-mode:screen}
+.lj-nav__inner:is([data-lantern=lit],:has(:focus-visible)) .battle-nav-frame--lit{opacity:1}
+/* The lantern hangs past the bar: these pads let the pointer stay "on the nav" over it.
+   They sit only outside the bar's box, so they never cover a control. */
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .battle-nav-frame:not(.battle-nav-frame--lit)::before,html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .battle-nav-frame:not(.battle-nav-frame--lit)::after{content:'';position:absolute;right:0;pointer-events:auto}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .battle-nav-frame:not(.battle-nav-frame--lit)::before{top:0;width:35px;height:100%}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .battle-nav-frame:not(.battle-nav-frame--lit)::after{bottom:0;width:86px;height:24.5px}
+@media(prefers-reduced-motion:reduce){.battle-nav-frame--lit{transition:none}}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand{position:relative;z-index:6;display:flex;align-items:center;justify-content:center;width:100%;height:64px;min-height:0;margin:-6px 0;padding:0 12px;color:var(--text-on-scene);background:url('/battle-preview/assets/brand.webp') center/100% 100% no-repeat;font:800 26px/1.2 var(--serif);letter-spacing:.05em;transform:none;gap:0}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand .brand-mark{display:none}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand .brand-wordmark{position:relative;display:block;color:var(--text-on-scene);font:inherit;letter-spacing:inherit;translate:0 0;transition:translate 240ms ease-out,color 220ms ease-out}
+/* Restored brand motion: ink rule sweeps in under the wordmark and the word lifts a pixel. */
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand .brand-wordmark::after{content:'';display:block;position:absolute;inset:auto 0 -5px;height:3px;background:var(--accent-fire-core);clip-path:polygon(0 28%,12% 12%,42% 23%,73% 4%,100% 28%,97% 67%,64% 90%,28% 75%,2% 100%);transform:scaleX(0);transform-origin:left center;transition:transform 280ms cubic-bezier(.2,.7,.25,1);pointer-events:none}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand:is(:hover,:focus-visible) .brand-wordmark{translate:1px -1px;color:var(--accent-fire-core)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand:is(:hover,:focus-visible) .brand-wordmark::after{transform:scaleX(1)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand:active .brand-wordmark{translate:0 1px}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .battle-nav-raven{display:block;position:absolute;left:-32px;bottom:8px;width:51px;height:75px;pointer-events:none;background:url('/battle-preview/assets/raven.webp') center bottom/contain no-repeat;transition:none}
+html[data-theme][data-color-mode=dark] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .battle-nav-raven{background-image:url('/battle-preview/assets/raven-night.webp')}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand:is(:hover,:focus-visible) .battle-nav-raven{background-image:url('/battle-preview/assets/raven-hover.webp')}
+html[data-theme][data-color-mode=dark] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand:is(:hover,:focus-visible) .battle-nav-raven{background-image:url('/battle-preview/assets/raven-alert-night.webp')}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));height:50px;gap:0;min-width:0;width:100%;border:0;padding:0;margin:0}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a{position:relative;display:flex;align-items:center;justify-content:center;height:50px;min-height:0;min-width:0;padding:0 4px;font:700 clamp(16px,calc(1.4vw / var(--zoom-local, 1)),20px)/1.3 var(--serif);letter-spacing:.02em;color:var(--battle-nav-ink);background:var(--battle-key) center/360px 120px var(--battle-key-fill);transform:none;transition:color 180ms ease}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a::before{display:none}
+/* Restored chapter motion: a brush stroke sweeps under the label on hover, focus and the current chapter. */
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a::after{content:'';display:block;position:absolute;inset:auto 14% 7px;width:auto;height:4px;background:var(--accent-brand-on-paper);opacity:1;clip-path:polygon(0 45%,45% 0,100% 35%,97% 75%,25% 100%,1% 80%);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a:is(:hover,:focus-visible){background-image:var(--battle-key-hover);color:var(--accent-action-hover)}
+html[data-theme][data-color-mode=dark] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a:is(:hover,:focus-visible){color:var(--accent-fire-core)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a:is(:hover,:focus-visible,[aria-current])::after{transform:scaleX(1)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a[aria-current]::after{background:var(--accent-fire-core)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a[aria-current]{background-image:url('/battle-preview/assets/key-selected-v4.webp');color:var(--text-on-scene)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a:active{background-image:url('/battle-preview/assets/key-pressed-v4.webp')}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__brand{grid-column:1;grid-row:1;justify-self:stretch;order:0}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters{grid-column:2;grid-row:1}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions{display:flex;align-items:center;justify-content:flex-end;grid-column:3;grid-row:1;height:50px;gap:4px;padding:0 12px 0 8px;background:var(--battle-key) center/360px 120px var(--battle-key-fill);color:var(--battle-nav-ink);z-index:4}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions :is(button,summary,a){color:var(--battle-nav-ink);min-height:44px;white-space:nowrap;background:none;border:0;box-shadow:none;font:700 16px/1.4 var(--serif)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions .lj-nav__member{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;flex:none;background:none;border:0;padding:8px 10px;color:var(--battle-nav-ink)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions .lj-nav__member::before{display:none}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions .lj-nav__member{position:relative}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions .lj-nav__member::after{content:'';display:block;position:absolute;inset:auto 6px 4px;height:3px;background:var(--accent-brand-on-paper);clip-path:polygon(0 45%,45% 0,100% 35%,97% 75%,25% 100%,1% 80%);transform:scaleX(0);transform-origin:center;transition:transform 360ms ease}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions .lj-nav__member:is(:hover,:focus-visible,:active)::after{transform:scaleX(1)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions .lj-nav__theme{color:var(--battle-nav-ink)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .scene-choice{display:none}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__toggle{display:inline-flex;align-items:center;gap:6px;width:auto;min-width:44px;height:44px;padding:0 8px;color:var(--battle-nav-ink)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__toggle>span:not(.nav-more-label){display:none}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__toggle .nav-more-label{font:700 16px/1 var(--serif)}
+html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__toggle .nav-action-art,html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__member .nav-action-art{width:18px;height:22px}
+/* 1160–1279: one row, tighter keys. Below 1160 the keys no longer fit in seven equal cells, so the row shows as
+   many whole keys as fit and folds the rest into 更多, whose drawer lists every chapter (user, 2026-11-03).
+   mountChapterRow (navigationArtwork.ts) marks the folded keys; it does so only while the row clips. */
+@media(max-width:1279px){
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav]{padding:12px 46px 0}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner{grid-template-columns:150px minmax(0,1fr) 230px;padding-right:16px}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a{font-size:16px;padding:0 2px}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions{padding:0 6px}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions .lj-nav__member{padding:8px 6px}
+}
+@media(max-width:1159px){
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner{grid-template-columns:150px minmax(0,1fr) auto}
+ /* The paper runs under the whole row, so the space either side of the centred keys is paper too. */
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters{display:flex;justify-content:center;justify-content:safe center;overflow:hidden;background:var(--battle-key) center/360px 120px var(--battle-key-fill)}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a{flex:none;padding:0 14px}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a[data-nav-folded]{display:none}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions{grid-column:3;grid-row:1;justify-content:flex-end;border-left:1px solid color-mix(in srgb,var(--battle-nav-ink) 30%,transparent)}
+}
+/* Up to 800px the bar keeps only the catalogue (the drawer carries the member entry and the day/night switch,
+   plaque-navigation.css), leaving the chapter row room for more than one key. */
+@media(max-width:800px){
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions>:not(.lj-nav__toggle){display:none}
+}
+/* Phones (and short landscape screens) get their own bar rather than the desktop timber shrunk down
+   (user, 2026-11-01). The 夜鴉閣 plate runs the bar's full height, flush with the top-left corner; the plaque strip
+   starts behind its right edge and sits 8px in from top and bottom, so the chapter row and the catalogue sit on the
+   plate's centreline. The bar keeps the scene's night behind them so chapters do not show through the gaps. Posts and
+   lantern stay on wider screens. */
+@media(max-width:600px),(max-width:1159px) and (max-height:500px){
+ html[data-theme][data-theme]{--nav-h:calc(68px + env(safe-area-inset-top))}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav]{inset:0 0 auto;width:100%;height:calc(68px + env(safe-area-inset-top));margin:0;padding:env(safe-area-inset-top) 0 0;background:var(--surface-scene-glass)}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .battle-nav-frame{display:none}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner{grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:44px;align-items:center;gap:8px;max-width:none;height:68px;min-height:0;padding:12px 14px 12px 0}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner::before{display:block;inset:8px 0 8px 116px;border-image-width:10px 16px}
+ /* The negative margins keep the row at 44px; the focus ring is drawn inside the plate because its top and left
+    sides sit on the screen edge. */
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__inner>.lj-nav__brand{width:124px;height:68px;margin:-12px 0;padding:0 18px 0 38px;font-size:21px;outline-offset:-4px}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .battle-nav-raven{left:5px;bottom:8px;width:32px;height:48px}
+ /* All seven chapters in one row that scrolls sideways when it does not fit; markNav (lunjian-layout.html)
+    scrolls the current one into view. The row starts at flex-start (centring would push its first links past the
+    unscrollable left edge) and the auto margins centre it when it fits. */
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters{display:flex;justify-content:flex-start;align-items:center;padding-inline:12px;height:44px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;scroll-padding-inline:16px;mask-image:linear-gradient(to right,transparent,black 12px,black calc(100% - 12px),transparent)}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters::-webkit-scrollbar{display:none}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a{flex:none;height:44px;padding:0 9px;background:none;color:var(--battle-nav-ink);font:700 16px/1.2 var(--serif);letter-spacing:.06em}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a:first-child{margin-left:auto}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a:last-child{margin-right:auto}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a::after{inset:auto 8px 6px;height:3px}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a:is(:hover,:focus-visible){background:none;color:var(--accent-brand-on-paper)}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a[aria-current]{background:none;color:var(--accent-brand-on-paper)}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a[aria-current]::after{background:var(--accent-brand-on-paper)}
+ html[data-theme][data-color-mode=dark] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a:is(:hover,:focus-visible,[aria-current]){color:var(--accent-fire-core)}
+ html[data-theme][data-color-mode=dark] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__chapters a[aria-current]::after{background:var(--accent-fire-core)}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions{grid-column:3;height:44px;gap:0;padding:0 0 0 6px;background:none;border-left:1px solid color-mix(in srgb,var(--battle-nav-ink) 30%,transparent)}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__actions>:not(.lj-nav__toggle){display:none}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__toggle{min-width:44px;padding:0 4px;font:700 15px/1 var(--serif)}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__toggle .nav-more-label{display:none}
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__toggle::after{content:'目錄'}
+ /* The bar has no room for the day/night switch, so the drawer carries it here too (plaque-navigation.css only opens it up to 800px). */
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] .lj-nav__drawer-foot .lj-nav__theme{display:flex}
+}
+@media(prefers-reduced-motion:reduce){
+ html[data-theme] body header[data-site-nav][data-site-nav][data-site-nav][data-site-nav] :is(.lj-nav__chapters a,.lj-nav__chapters a::after,.lj-nav__member::after,.brand-wordmark,.brand-wordmark::after){transition:none}
+}
