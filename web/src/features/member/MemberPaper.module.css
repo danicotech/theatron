@@ -1,0 +1,77 @@
+/* One paper theme for entry and authenticated member surfaces. */
+:global(html):has(.surface),
+:global(body):has(.surface) {
+  --surface-base: var(--surface-auth-paper);
+  --surface-raised: var(--surface-auth-field);
+  --surface-overlay: color-mix(in oklab, var(--surface-auth-paper) 85%, var(--border-auth));
+  --text-primary: var(--text-auth-ink);
+  --text-secondary: var(--text-auth-muted);
+  --border-subtle: var(--border-auth);
+  --state-win: var(--state-auth-ready);
+  background: var(--surface-auth-canvas);
+}
+:global(body):has(.surface) :global([data-site-atmosphere]),
+:global(body):has(.surface) :global([data-world-backdrop]),
+:global(body):has(.surface) :global([data-site-colophon]) {
+  display: none;
+}
+.surface {
+  min-block-size: calc(100svh / var(--zoom-local, 1));
+  padding: calc(var(--nav-h) + env(safe-area-inset-top) + var(--space-8))
+    max(var(--space-6), env(safe-area-inset-right)) 64px
+    max(var(--space-6), env(safe-area-inset-left));
+  background: linear-gradient(
+    115deg,
+    color-mix(in oklab, var(--surface-auth-canvas) 82%, var(--surface-wood)),
+    var(--surface-auth-canvas) 45%,
+    color-mix(in oklab, var(--surface-auth-canvas) 92%, var(--surface-wood))
+  );
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.surface ::selection {
+  color: var(--text-on-action);
+  background: var(--accent-action-primary);
+}
+.surface input:not([type='checkbox']),
+.surface textarea,
+.surface select {
+  min-block-size: 48px;
+  max-inline-size: 100%;
+  font-size: 16px;
+  caret-color: var(--accent-action-primary);
+}
+.surface input::placeholder,
+.surface textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+.surface input[type='checkbox'] {
+  accent-color: var(--accent-action-primary);
+}
+.surface button[type='submit']:not([data-plaque]) {
+  --button-bg: var(--accent-action-primary);
+  --button-bg-hover: var(--accent-action-hover);
+  --button-fg: var(--text-on-action);
+  --button-border: var(--accent-action-primary);
+  min-block-size: 48px;
+}
+.surface :is(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--accent-action-primary);
+  outline-offset: 4px;
+}
+.surface [role='alert'] {
+  border: 1px solid var(--state-live);
+}
+@media (max-width: 767px) {
+  .surface {
+    padding: calc(var(--nav-h) + env(safe-area-inset-top) + var(--space-4)) var(--space-4)
+      var(--space-8);
+  }
+}
+@media (max-width: 380px) {
+  .surface {
+    padding-inline: var(--space-3);
+  }
+}

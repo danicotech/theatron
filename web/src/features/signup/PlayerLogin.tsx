@@ -1,84 +1,109 @@
 'use client';
-
-import { ConnectError } from '@connectrpc/connect';
+import { safeReturnPath } from '../member/returnPath';
+import { formValue } from './formValue';
+import { Code, ConnectError } from '@connectrpc/connect';
 import { Button } from '@theatron/ui';
 import { useRouter } from 'next/navigation';
-import { useId, useState, type FormEvent } from 'react';
-
+import { useId, useRef, useState, type FormEvent } from 'react';
 import { activityApi } from '../../lib/api/activity';
-
+import { platformApi } from '../../lib/api/client';
 import styles from './PlayerLogin.module.css';
-
-/**
- * 選手進站。
- *
- * **只要遊戲ID,沒有密碼**(2026-09-13 定案)。代價是明確的:遊戲ID 全服唯一
- * 且公開,所以知道你遊戲ID 的人就能用你的身分花掉你的 BP。裁判能做的補救是
- * 把人標成棄賽 —— 非參賽中的選手一律進不來。
- *
- * 因此這一頁**不寫「登入」兩個字**:沒有密碼的東西叫登入會讓人以為它保護了什麼。
- */
-
 export interface PlayerLoginProps {
   slug: string;
+  next?: string;
+  onSuccess?: () => Promise<void>;
 }
-
-export function PlayerLogin({ slug }: PlayerLoginProps) {
-  const router = useRouter();
-  const id = useId();
-  const [pending, setPending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
+export function PlayerLogin({ slug, onSuccess, next = '' }: PlayerLoginProps) {
+  const router = useRouter(),
+    id = useId(),
+    lock = useRef(false);
+  const [pending, setPending] = useState(false),
+    [error, setError] = useState('');
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (pending) return;
-    const v = new FormData(e.currentTarget).get('gameId');
-    const gameId = typeof v === 'string' ? v.trim() : '';
-    if (gameId === '') return;
-
+    if (lock.current) return;
+    lock.current = true;
     setPending(true);
-    setError(null);
+    setError('');
+    const data = new FormData(e.currentTarget);
     try {
-      await activityApi.signup.login({ tournamentSlug: slug, gameId });
-      router.push(`/t/${slug}/me`);
+      await platformApi.auth.loginMember({
+        discordUsername: formValue(data, 'discord'),
+        password: formValue(data, 'password'),
+      });
+      if (safeReturnPath(next)) {
+        router.replace(safeReturnPath(next));
+        return;
+      }
+      const { member } = await platformApi.auth.getMember({});
+      if (member?.canManage) {
+        router.replace('/judge');
+        return;
+      }
+      try {
+        await activityApi.signup.login({ tournamentSlug: slug });
+      } catch (err) {
+        if (ConnectError.from(err).code === Code.NotFound) {
+          router.push(`/t/${encodeURIComponent(slug)}/enroll`);
+          return;
+        }
+        throw err;
+      }
+      if (onSuccess) await onSuccess();
+      else router.push(`/t/${encodeURIComponent(slug)}/me`);
     } catch (err) {
-      setError(ConnectError.from(err).message);
+      setError(ConnectError.from(err).rawMessage);
+    } finally {
+      lock.current = false;
       setPending(false);
     }
   }
-
   return (
-    <form
-      className={styles.form}
-      onSubmit={(e) => {
-        void submit(e);
-      }}
-      noValidate
-    >
+    <form className={styles.form} onSubmit={(e) => void submit(e)}>
       <div className={styles.field}>
-        <label className={styles.label} htmlFor={id}>
-          遊戲ID
+        <label className={styles.label} htmlFor={id + 'discord'}>
+          帳號
         </label>
         <input
           className={styles.input}
-          id={id}
-          name="gameId"
-          required
-          autoComplete="off"
+          id={id + 'discord'}
+          name="discord"
+          autoComplete="username"
+          autoCapitalize="none"
           spellCheck={false}
-          autoFocus
+          required
+          disabled={pending}
         />
-        <p className={styles.help}>就是你報名時填的那一個。</p>
       </div>
-
-      {error === null ? null : (
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor={id + 'password'}>
+          密碼
+        </label>
+        <input
+          className={styles.input}
+          id={id + 'password'}
+          name="password"
+          type="password"
+          autoComplete="current-password"
+          required
+          disabled={pending}
+        />
+      </div>
+      {error && (
         <p className={styles.error} role="alert">
           {error}
         </p>
       )}
-
-      <Button type="submit" size="lg" loading={pending} fullWidth>
-        進站
+      <Button
+        variant="primary"
+        type="submit"
+        loading={pending}
+        size="lg"
+        fullWidth
+        data-plaque="accent"
+        data-ink-wave="off"
+      >
+        登入
       </Button>
     </form>
   );

@@ -1,0 +1,12 @@
+.page {
+  width: min(1120px, calc(100% - 32px));
+  margin: var(--space-8) auto;
+  padding: clamp(20px, 4vw, 48px);
+  background: var(--surface-auth-paper);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+}
+.page h1 {
+  margin: 0 0 var(--space-6);
+  font: var(--weight-display) clamp(28px, 4vw, 42px) var(--font-display);
+}

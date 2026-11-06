@@ -1,0 +1,64 @@
+.page {
+  composes: surface from './MemberPaper.module.css';
+}
+.paper {
+  box-sizing: border-box;
+  inline-size: min(100%, 640px);
+  margin: var(--space-6) auto;
+}
+.page .header {
+  border: 0;
+  padding: 0;
+}
+.page .header > div {
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: var(--space-6);
+}
+.page .header h1 {
+  writing-mode: horizontal-tb;
+  min-block-size: 0;
+  margin: 0;
+  --type-h1: clamp(36px, 4vw, 48px);
+  --type-heading-gap: 0;
+}
+.body {
+  min-inline-size: 0;
+}
+.tabs {
+  display: flex;
+  gap: var(--space-6);
+  border-block-end: 1px solid var(--border-subtle);
+}
+.tabs a {
+  min-block-size: var(--hit-target);
+  display: flex;
+  align-items: center;
+  padding-inline: var(--space-3);
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-block-end: 2px solid transparent;
+}
+.tabs a[aria-current='page'] {
+  color: var(--text-primary);
+  border-color: var(--accent-action-primary);
+  font-weight: var(--weight-body-bold);
+}
+.tabs a:hover {
+  color: var(--text-primary);
+  background: var(--surface-overlay);
+}
+.tabs a:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 3px;
+}
+.content {
+  padding-block-start: var(--space-6);
+}
+.content form {
+  max-inline-size: none;
+}
+.status {
+  max-inline-size: 640px;
+  margin: calc(15svh / var(--zoom-local, 1)) auto 0;
+}

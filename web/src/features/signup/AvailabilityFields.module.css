@@ -1,0 +1,92 @@
+.group {
+  color-scheme: light;
+  grid-column: 1/-1;
+  display: grid;
+  gap: var(--space-3);
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+:global(html[data-color-mode='dark']) .group {
+  color-scheme: dark;
+}
+.group legend {
+  font-size: var(--text-md);
+  font-weight: var(--weight-body-bold);
+  padding: 0 0 var(--space-3);
+}
+.group legend small {
+  font-size: var(--text-sm);
+  font-weight: normal;
+  color: var(--text-secondary);
+}
+.slot {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr)) auto;
+  align-items: end;
+  gap: var(--space-3);
+}
+.slot div {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+.slot label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+.slot input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-auth-field);
+  color: var(--text-primary);
+  padding: var(--space-2);
+  font: inherit;
+  color-scheme: inherit;
+}
+.remove,
+.add {
+  min-width: var(--hit-target);
+  min-height: 48px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  font: inherit;
+  cursor: pointer;
+}
+.remove {
+  font-size: var(--text-xl);
+}
+.add {
+  justify-self: start;
+}
+.group :is(button, input):focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+.legacy p {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .slot {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-block-end: var(--space-3);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .slot div:first-child {
+    grid-column: 1/-1;
+    grid-row: 1;
+    padding-inline-end: calc(var(--hit-target) + var(--space-3));
+  }
+  .slot .remove {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+}

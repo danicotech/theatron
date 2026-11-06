@@ -1,130 +1,207 @@
 'use client';
-
-import { useSearchParams } from 'next/navigation';
-
+import { formValue } from './formValue';
+import { create } from '@bufbuild/protobuf';
 import { ConnectError } from '@connectrpc/connect';
 import { Button } from '@theatron/ui';
-import { useEffect, useId, useState, type FormEvent } from 'react';
-
+import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 import { activityApi } from '../../lib/api/activity';
-import type { RankInfo } from '../../lib/api/gen/hestia/activity/v1/common_pb';
-import { Rank } from '../../lib/api/gen/hestia/activity/v1/common_pb';
-
+import {
+  Rank,
+  type RankInfo,
+  type CharacterConfig,
+} from '../../lib/api/gen/hestia/activity/v1/common_pb';
+import type { MemberProfile } from '../../lib/api/gen/hestia/platform/v1/auth_pb';
+import { MyRegistrationSchema } from '../../lib/api/gen/hestia/activity/v1/signup_pb';
 import { readRegistration, RegistrationFields } from './RegistrationFields';
-
+import { readAvailability } from './AvailabilityFields';
+import { SelectedLoadout } from './SelectedLoadout';
 import styles from './SignupForm.module.css';
-
-/**
- * 報名。
- *
- * **只有遊戲ID 必填。** 其餘欄位是給裁判評段用的材料,填得越細,段位評得越準 ——
- * 所以它們的說明寫的是「這會幫到你」,不是「這一欄還沒填」。把六個欄位都標成
- * 必填,擋掉的不是敷衍的人,是懶得開電腦的人。
- *
- * 欄位本身來自 RegistrationFields:報名與事後修改是同一組欄位,只能有一份定義。
- */
-
 export interface SignupFormProps {
   slug: string;
-  onDone: (name: string) => void;
+  member: MemberProfile;
+  onDone: (name: string, gameId: string) => void;
+  disabled?: boolean;
+  rulesVersion?: string;
 }
-
-export function SignupForm({ slug, onDone }: SignupFormProps) {
-  const gameIdField = useId();
-  /* 備戰方案頁（/loadout）按「完成報名」會導到 ?arts=<方案文字>。
-     沒有這一段的話,使用者按完落地看到的是一張空白表單 —— 等於那顆按鈕沒作用。 */
-  const artsFromBuild = useSearchParams().get('arts') ?? undefined;
-
-  const [ranks, setRanks] = useState<RankInfo[]>([]);
-  const [selfRated, setSelfRated] = useState<Rank>(Rank.UNSPECIFIED);
-  const [pending, setPending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
+export function SignupForm({
+  slug,
+  member,
+  onDone,
+  disabled = false,
+  rulesVersion = '',
+}: SignupFormProps) {
+  const id = useId(),
+    lock = useRef(false),
+    formRef = useRef<HTMLFormElement>(null);
+  const [ranks, setRanks] = useState<RankInfo[]>([]),
+    [selfRated, setSelfRated] = useState(Rank.UNSPECIFIED);
+  const [pending, setPending] = useState(false),
+    [error, setError] = useState('');
+  const [character, setCharacter] = useState<Pick<
+    CharacterConfig,
+    'style' | 'weapon' | 'equipment' | 'arts'
+  > | null>(null);
+  const [draft, setDraft] = useState<Record<string, string>>({}),
+    [loaded, setLoaded] = useState(false);
+  const draftKey = `enrollment-draft:${slug}:${member.publicId}`;
   useEffect(() => {
+    try {
+      const parsed: unknown = JSON.parse(sessionStorage.getItem(draftKey) ?? '{}');
+      if (parsed && typeof parsed === 'object') {
+        const valid = Object.fromEntries(
+          Object.entries(parsed).filter(
+            ([key, value]) =>
+              ['gameId', 'ladderRank', 'arts', 'availability', 'selfRated'].includes(key) &&
+              typeof value === 'string',
+          ),
+        );
+        setDraft(valid);
+        const rank = Number(valid.selfRated);
+        if ([0, 1, 2, 3, 4].includes(rank)) setSelfRated(rank);
+      }
+    } catch {
+      /* unavailable storage does not block enrollment */
+    }
+    setLoaded(true);
     void activityApi.tournament
       .listRanks({ tournamentSlug: slug })
-      .then((r) => {
-        setRanks(r.ranks);
-      })
-      .catch(() => {
-        // 段位清單讀不到不該擋住報名 —— 自評本來就是選填的。
-        setRanks([]);
-      });
-  }, [slug]);
-
-  async function submit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (pending) return;
-    const form = new FormData(e.currentTarget);
-    const rawGameId = form.get('gameId');
-    const gameId = typeof rawGameId === 'string' ? rawGameId.trim() : '';
-    const reg = readRegistration(form, selfRated);
-
-    setPending(true);
-    setError(null);
+      .then((res) => setRanks(res.ranks))
+      .catch(() => setRanks([]));
+  }, [slug, draftKey]);
+  function saveDraft() {
+    if (!formRef.current) return;
+    const data = new FormData(formRef.current);
+    const values: Record<string, string> = {
+      ...draft,
+      selfRated: data.has('selfRated') ? formValue(data, 'selfRated') : String(selfRated),
+    };
+    for (const key of ['gameId', 'ladderRank', 'arts', 'availability'])
+      if (data.has(key)) values[key] = formValue(data, key);
+    if (data.has('availabilityEditor')) {
+      try {
+        values.availability = readAvailability(data);
+      } catch {
+        /* Keep last complete slots while a new row is being entered. */
+      }
+    }
     try {
-      const res = await activityApi.signup.register({ tournamentSlug: slug, gameId, ...reg });
-      onDone(res.player?.displayName ?? (reg.displayName || gameId));
+      sessionStorage.setItem(draftKey, JSON.stringify(values));
+    } catch {
+      setError('瀏覽器無法保存草稿，離開前請先記下已填資料。');
+    }
+  }
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (lock.current || disabled) return;
+    if (!character) {
+      setError('請先選擇並確認報名武庫。');
+      return;
+    }
+    const data = new FormData(event.currentTarget),
+      gameId = formValue(data, 'gameId').trim();
+    if (!gameId) {
+      setError('請填寫遊戲 ID。');
+      return;
+    }
+    lock.current = true;
+    setPending(true);
+    setError('');
+    try {
+      const reg = readRegistration(data, selfRated, rulesVersion);
+      const res = await activityApi.signup.register({
+        tournamentSlug: slug,
+        gameId,
+        displayName: member.displayName,
+        discordName: member.discordUsername,
+        selfRatedRank: reg.selfRatedRank,
+        ladderRank: reg.ladderRank,
+        ladderScore: 0,
+        artsNote: reg.artsNote,
+        availabilityNote: reg.availabilityNote,
+        character,
+        acceptedRulesVersion: reg.acceptedRulesVersion,
+      });
+      if (!res.player) throw new Error('未收到報名結果，請到我的報名確認。');
+      try {
+        sessionStorage.removeItem(draftKey);
+      } catch {
+        /* enrollment has already been committed */
+      }
+      onDone(res.player.displayName, gameId);
     } catch (err) {
-      setError(ConnectError.from(err).message);
+      setError(ConnectError.from(err).rawMessage);
     } finally {
+      lock.current = false;
       setPending(false);
     }
   }
-
+  if (!loaded) return <p role="status">正在讀取報名草稿…</p>;
+  const defaults = create(MyRegistrationSchema, {
+    displayName: member.displayName,
+    discordName: member.discordUsername,
+    ladderRank: draft.ladderRank ?? '',
+    artsNote: draft.arts ?? '',
+    availabilityNote: draft.availability ?? '',
+  });
   return (
     <form
+      ref={formRef}
       className={styles.form}
-      onSubmit={(e) => {
-        void submit(e);
-      }}
-      noValidate
+      onSubmit={(e) => void submit(e)}
+      onChange={saveDraft}
     >
-      <div className={styles.required}>
-        <div className={styles.gameIdField}>
-          <label className={styles.gameIdLabel} htmlFor={gameIdField}>
-            遊戲ID
-          </label>
-          <input
-            className={styles.gameIdInput}
-            id={gameIdField}
-            name="gameId"
-            required
-            autoComplete="off"
-            spellCheck={false}
-            autoFocus
-          />
-          <p className={styles.gameIdHelp}>場上辨識用,也是你之後進站的方式。全服唯一。</p>
-        </div>
-      </div>
-
-      <fieldset className={styles.optional} disabled={pending}>
-        <legend className={styles.legend}>下面都可以留空</legend>
-        <p className={styles.legendNote}>
-          這些是御風羽評段時看的材料。填得越具體,段位評得越貼近你的實力 —— 評得準,讓武 BP
-          才會落在對的一邊。
-        </p>
-
-        <RegistrationFields
-          ranks={ranks}
-          selfRated={selfRated}
-          onSelfRated={setSelfRated}
-          displayNameHelp="對戰表上要怎麼稱呼你。留空就用遊戲ID。"
-          artsDefault={artsFromBuild}
+      <fieldset className={styles.optional} disabled={pending || disabled}>
+        <legend className={styles.legend}>一・選擇報名武庫</legend>
+        <SelectedLoadout
+          slug={slug}
+          memberId={member.publicId}
+          onConfirm={setCharacter}
+          onEdit={saveDraft}
         />
       </fieldset>
-
-      {error === null ? null : (
+      {character && (
+        <fieldset className={styles.optional} disabled={pending || disabled}>
+          <legend className={styles.legend}>二・參賽資料</legend>
+          <div className={styles.gameIdField}>
+            <label className={styles.gameIdLabel} htmlFor={id}>
+              遊戲 ID
+            </label>
+            <input
+              className={styles.gameIdInput}
+              id={id}
+              name="gameId"
+              required
+              maxLength={128}
+              defaultValue={draft.gameId ?? ''}
+              autoComplete="off"
+            />
+          </div>
+          <RegistrationFields
+            personalOnly
+            defaults={defaults}
+            ranks={ranks}
+            selfRated={selfRated}
+            onSelfRated={setSelfRated}
+            rulesVersion={rulesVersion}
+            rulesHref="/#rules"
+          />
+          <Button
+            variant="primary"
+            type="submit"
+            size="lg"
+            loading={pending}
+            disabled={disabled}
+            fullWidth
+          >
+            確認報名
+          </Button>
+        </fieldset>
+      )}
+      {error && (
         <p className={styles.error} role="alert">
           {error}
         </p>
       )}
-
-      <div className={styles.actions}>
-        <Button type="submit" size="lg" loading={pending} fullWidth>
-          報名參賽
-        </Button>
-      </div>
     </form>
   );
 }

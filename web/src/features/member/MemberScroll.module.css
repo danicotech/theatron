@@ -1,0 +1,47 @@
+/* The member pages' inscription: a vertical title beside the seal on wide screens, one row on phones. */
+.title {
+  position: relative;
+  border-inline-end: 1px solid color-mix(in oklab, var(--border-auth) 55%, transparent);
+  padding-inline-end: 32px;
+}
+.inscription {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-block-end: 24px;
+}
+.inscription h1 {
+  writing-mode: vertical-rl;
+  min-block-size: 2.8em;
+}
+.seal {
+  display: block;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  color: var(--accent-brand);
+  transform-origin: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 767px) {
+  .title {
+    border-inline-end: 0;
+    border-bottom: 1px solid color-mix(in oklab, var(--border-auth) 50%, transparent);
+    padding: 0 0 24px;
+  }
+  .inscription {
+    align-items: center;
+    justify-content: space-between;
+    margin-block-end: 8px;
+  }
+  .inscription h1 {
+    writing-mode: horizontal-tb;
+    min-block-size: 0;
+  }
+  .seal {
+    width: 40px;
+    height: 40px;
+  }
+}

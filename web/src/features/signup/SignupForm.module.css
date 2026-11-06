@@ -103,3 +103,49 @@
     min-inline-size: 220px;
   }
 }
+
+.form {
+  gap: 24px;
+}
+.optional {
+  min-inline-size: 0;
+  gap: 20px;
+}
+.legend {
+  font-size: 18px;
+  color: var(--text-primary);
+  letter-spacing: 0.06em;
+  padding-inline-end: 12px;
+}
+.optionalNote {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--text-secondary);
+  margin-inline-start: 8px;
+}
+.gameIdInput {
+  min-block-size: 48px;
+  font-size: 16px;
+}
+.gameIdLabel::after {
+  content: '必填';
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-inline-start: 8px;
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0;
+  border: 0;
+}
+.actions button {
+  min-block-size: 52px;
+  --button-bg: var(--accent-action-primary);
+  --button-bg-hover: var(--accent-action-hover);
+  --button-fg: var(--text-on-action);
+  --button-border: var(--accent-action-primary);
+}

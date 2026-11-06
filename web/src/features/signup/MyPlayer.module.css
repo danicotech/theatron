@@ -114,7 +114,7 @@
 .error {
   margin: 0;
   padding: var(--space-3);
-  border-inline-start: 2px solid var(--state-live);
+  border: 1px solid var(--state-live);
   background-color: color-mix(in oklab, var(--state-live) 8%, transparent);
   color: var(--text-primary);
   font-size: var(--text-sm);
@@ -190,7 +190,7 @@
 }
 
 .blank {
-  color: var(--border-subtle);
+  color: var(--text-secondary);
 }
 
 .regNote {
@@ -243,4 +243,65 @@
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+.identity h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: 0.08em;
+}
+.identity p {
+  margin: var(--space-2) 0 0;
+  color: var(--text-secondary);
+}
+
+.account {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: var(--space-4);
+}
+.identity {
+  min-inline-size: 0;
+}
+.account > button {
+  flex-shrink: 0;
+}
+.connection {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+.connection p {
+  margin: 0;
+}
+.saved {
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--state-win);
+  color: var(--text-primary);
+}
+.fields {
+  min-inline-size: 0;
+}
+@media (max-width: 767px) {
+  .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .fact {
+    min-inline-size: 0;
+  }
+  .account {
+    flex-wrap: wrap;
+  }
+  .identity h3 {
+    font-size: var(--text-xl);
+  }
+  .regList {
+    border-inline: 0;
+  }
+  .regRow {
+    padding-inline: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

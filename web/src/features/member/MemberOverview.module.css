@@ -1,0 +1,182 @@
+.profile {
+  position: relative;
+  isolation: isolate;
+  max-inline-size: 920px;
+  color: var(--text-primary);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-2);
+}
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border: 1px solid var(--border-subtle);
+  border-block-end: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  letter-spacing: 0.25em;
+  color: var(--text-secondary);
+}
+.identity {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: 48px var(--space-8);
+  border: 1px solid var(--border-subtle);
+  border-block-start: 0;
+  overflow: hidden;
+  min-block-size: 240px;
+}
+.landscape {
+  position: absolute;
+  z-index: -1;
+  inline-size: 70%;
+  block-size: 100%;
+  inset-inline-end: 0;
+  inset-block-end: 0;
+  stroke: var(--border-subtle);
+  stroke-width: 1;
+  opacity: 0.45;
+  pointer-events: none;
+}
+.avatar {
+  flex: 0 0 112px;
+  inline-size: 112px;
+  block-size: 112px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
+  font-family: var(--font-display);
+  font-size: 48px;
+  border: 4px solid var(--surface-raised);
+  outline: 1px solid var(--accent-action-primary);
+  outline-offset: 7px;
+}
+.avatar img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+.name {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+  padding-inline-end: var(--space-8);
+}
+.caption {
+  display: block;
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+  margin-block-end: var(--space-3);
+}
+.name h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: var(--weight-display);
+  line-height: 1.4;
+}
+.name p {
+  margin: var(--space-2) 0;
+  color: var(--text-secondary);
+}
+.badge {
+  display: inline-block;
+  margin-block-start: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--accent-action-primary);
+  color: var(--accent-action-primary);
+  background: var(--surface-raised);
+  font-size: var(--text-xs);
+}
+.seal {
+  position: absolute;
+  inset-inline-end: var(--space-6);
+  inset-block-start: var(--space-6);
+  writing-mode: vertical-rl;
+  padding: var(--space-2) var(--space-1);
+  border: 3px double var(--accent-action-primary);
+  color: var(--accent-action-primary);
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  transform: rotate(5deg);
+}
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: var(--space-2) var(--space-6) var(--space-4);
+  column-gap: var(--space-8);
+}
+.facts > div {
+  padding-block: var(--space-6);
+  border-block-end: 1px solid var(--border-subtle);
+}
+.facts dt {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  margin-block-end: var(--space-3);
+}
+.facts dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-body-bold);
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .masthead {
+    padding: var(--space-3) var(--space-4);
+  }
+  .identity {
+    gap: var(--space-6);
+    padding: var(--space-8) var(--space-6);
+    min-block-size: 210px;
+    align-items: flex-start;
+  }
+  .avatar {
+    flex-basis: 72px;
+    inline-size: 72px;
+    block-size: 72px;
+    font-size: 32px;
+    margin-block-start: var(--space-2);
+  }
+  .name {
+    padding-inline-end: 0;
+  }
+  .name h3 {
+    font-size: 28px;
+  }
+  .seal {
+    display: none;
+  }
+  .facts {
+    padding-inline: var(--space-4);
+    column-gap: var(--space-4);
+  }
+  .facts dd {
+    font-size: var(--text-md);
+  }
+  .landscape {
+    inline-size: 100%;
+    opacity: 0.25;
+  }
+}
+@media (max-width: 380px) {
+  .identity {
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  .facts {
+    grid-template-columns: 1fr;
+  }
+}

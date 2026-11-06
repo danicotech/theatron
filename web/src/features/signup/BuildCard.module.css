@@ -1,0 +1,83 @@
+.card {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 124px;
+  padding: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  text-align: start;
+  white-space: normal;
+  container-type: inline-size;
+}
+.content {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+  z-index: 1;
+}
+.heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+.card .heading strong {
+  font: 600 var(--text-xl)/1.4 var(--font-body);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+.card img.sigil {
+  inline-size: 20px;
+  block-size: 28px;
+  object-fit: contain;
+  flex: none;
+}
+.martials {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  padding-inline-end: var(--space-6);
+}
+.martial {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-inline-size: 0;
+  font: 500 var(--text-base)/1.5 var(--font-body);
+  color: var(--text-primary);
+}
+.martial > span {
+  overflow-wrap: anywhere;
+}
+.card img.icon {
+  inline-size: 36px;
+  block-size: 36px;
+  object-fit: contain;
+  flex: none;
+}
+.card img.family {
+  position: absolute;
+  inset-inline-end: var(--space-2);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  inline-size: 48px;
+  block-size: 64px;
+  object-fit: contain;
+  opacity: 0.18;
+  pointer-events: none;
+}
+.empty {
+  grid-column: 1 / -1;
+  color: var(--text-secondary);
+  font: 400 var(--text-base)/1.5 var(--font-body);
+}
+@container (max-width: 270px) {
+  .martials {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+}

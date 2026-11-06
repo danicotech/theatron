@@ -1,122 +1,186 @@
+import catalog from '../../../public/loadout/data/catalog.json';
 import { create } from '@bufbuild/protobuf';
-import { expectNoAxeViolations } from '@theatron/ui/testing';
-import { render, screen } from '@testing-library/react';
+import { Code, ConnectError } from '@connectrpc/connect';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-
-import { Rank, RankInfoSchema } from '../../lib/api/gen/hestia/activity/v1/common_pb';
-
-import { PlayerLogin } from './PlayerLogin';
+import { beforeEach, afterEach, expect, it, vi } from 'vitest';
+import { MemberProfileSchema } from '../../lib/api/gen/hestia/platform/v1/auth_pb';
 import { SignupForm } from './SignupForm';
-
-const api = vi.hoisted(() => ({ register: vi.fn(), login: vi.fn(), listRanks: vi.fn() }));
-const push = vi.hoisted(() => vi.fn());
-
+import { MemberRegistration } from './MemberRegistration';
+import { PlayerLogin } from './PlayerLogin';
+import { SelectedLoadout } from './SelectedLoadout';
+const api = vi.hoisted(() => ({
+  register: vi.fn(),
+  login: vi.fn(),
+  listRanks: vi.fn(),
+  registerMember: vi.fn(),
+  loginMember: vi.fn(),
+  getMember: vi.fn(),
+  push: vi.fn(),
+}));
 vi.mock('../../lib/api/activity', () => ({
   activityApi: {
     signup: { register: api.register, login: api.login },
     tournament: { listRanks: api.listRanks },
   },
 }));
-
-/* useSearchParams:表單會讀 ?arts=(備戰方案頁帶過來的那段文字)。
-   預設回空的 —— 直接開報名表的人身上沒有那個參數。 */
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({ push }),
-  useSearchParams: () => new URLSearchParams(searchParams),
+vi.mock('../../lib/api/client', () => ({
+  platformApi: {
+    auth: {
+      registerMember: api.registerMember,
+      loginMember: api.loginMember,
+      getMember: api.getMember,
+    },
+  },
 }));
-let searchParams = '';
-
-const RANKS = [
-  create(RankInfoSchema, { rank: Rank.KAISHAN, name: '開山', title: '初試之境' }),
-  create(RankInfoSchema, { rank: Rank.FEIHUA, name: '飛花', title: '純熟之境' }),
-];
-
-describe('SignupForm', () => {
-  beforeEach(() => {
-    Object.values(api).forEach((m) => {
-      m.mockReset();
-    });
-    push.mockReset();
-    api.listRanks.mockResolvedValue({ ranks: RANKS, bpPerRankGap: 8n });
-    api.register.mockResolvedValue({ player: { displayName: '李璃' } });
-  });
-
-  // 使用者 2026-09-13 定案:只有遊戲ID 必填。
-  it('只填遊戲ID 就送得出去,其餘欄位送空值', async () => {
-    render(<SignupForm slug="s" onDone={vi.fn()} />);
-    await userEvent.type(screen.getByLabelText('遊戲ID'), '李璃');
-    await userEvent.click(screen.getByRole('button', { name: '報名參賽' }));
-
-    expect(api.register).toHaveBeenCalledWith({
-      tournamentSlug: 's',
-      gameId: '李璃',
-      displayName: '',
-      discordName: '',
-      selfRatedRank: Rank.UNSPECIFIED,
-      ladderRank: '',
-      ladderScore: 0,
-      artsNote: '',
-      availabilityNote: '',
-    });
-  });
-
-  it('自評段位可以選,也可以再點一次取消', async () => {
-    render(<SignupForm slug="s" onDone={vi.fn()} />);
-    const feihua = await screen.findByRole('button', { name: /飛花/ });
-    await userEvent.click(feihua);
-    expect(feihua).toHaveAttribute('aria-pressed', 'true');
-    await userEvent.click(feihua);
-    expect(feihua).toHaveAttribute('aria-pressed', 'false');
-  });
-
-  // 段位清單讀不到不該讓人報不了名 —— 自評本來就是選填。
-  it('段位清單讀不到仍然報得了名', async () => {
-    api.listRanks.mockRejectedValue(new Error('boom'));
-    const onDone = vi.fn();
-    render(<SignupForm slug="s" onDone={onDone} />);
-    await userEvent.type(screen.getByLabelText('遊戲ID'), '無名');
-    await userEvent.click(screen.getByRole('button', { name: '報名參賽' }));
-    expect(onDone).toHaveBeenCalledWith('李璃');
-  });
-
-  it('帶著 ?arts= 進來時,常用武學那一格會預先填好', async () => {
-    // 備戰方案頁按「完成報名」導過來的就是這個樣子。
-    // 沒有這一段的話,使用者落地看到的是一張空白表單 —— 那顆按鈕等於沒作用。
-    searchParams = 'arts=' + encodeURIComponent('武器　主 陌刀 95級｜副 拳套 95級');
-    render(<SignupForm slug="bai-ye" onDone={() => {}} />);
-    const box = await screen.findByLabelText('常用武學 / PVP 經驗');
-    expect(box).toHaveValue('武器　主 陌刀 95級｜副 拳套 95級');
-    searchParams = '';
-  });
-
-  it('沒有無障礙違規', async () => {
-    const { container } = render(<SignupForm slug="s" onDone={vi.fn()} />);
-    await screen.findByRole('button', { name: /飛花/ });
-    await expectNoAxeViolations(container);
-  });
+vi.mock('next/navigation', () => ({ useRouter: () => ({ push: api.push, replace: api.push }) }));
+const member = create(MemberProfileSchema, {
+  publicId: 'member-1',
+  displayName: '夜鴉',
+  discordUsername: 'raven',
 });
-
-describe('PlayerLogin', () => {
-  beforeEach(() => {
-    api.login.mockReset();
-    push.mockReset();
-    api.login.mockResolvedValue({});
+beforeEach(() => {
+  Object.values(api).forEach((mock) => mock.mockReset());
+  localStorage.clear();
+  sessionStorage.clear();
+  history.replaceState(null, '', '/');
+  localStorage.setItem(
+    'lunjian.loadout.v3',
+    JSON.stringify({
+      v: 3,
+      roles: [
+        { id: 1, name: '雙武器方案', data: { build: catalog.builds[0]!.key } },
+        { id: 2, name: '備用方案', data: { build: catalog.builds[1]!.key } },
+      ],
+    }),
+  );
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve(catalog) }),
+  );
+  api.listRanks.mockResolvedValue({ ranks: [] });
+  api.register.mockResolvedValue({ player: { displayName: '夜鴉' } });
+  api.registerMember.mockResolvedValue({ member });
+  api.loginMember.mockResolvedValue({ member });
+  api.getMember.mockResolvedValue({ member });
+  api.login.mockResolvedValue({});
+});
+afterEach(() => vi.unstubAllGlobals());
+async function confirmRole() {
+  await userEvent.click(await screen.findByRole('button', { name: /雙武器方案/ }));
+  await userEvent.click(screen.getByRole('button', { name: '使用此武庫，確認' }));
+}
+it('registration sends email, account and raw password then returns to enrollment', async () => {
+  render(<MemberRegistration slug="s" />);
+  expect(screen.getByLabelText('密碼')).toHaveAttribute('minlength', '8');
+  expect(screen.getByLabelText('密碼')).toHaveAccessibleDescription('至少 8 個字元。');
+  expect(screen.queryByLabelText('遊戲 ID')).not.toBeInTheDocument();
+  await userEvent.type(screen.getByLabelText('Email'), 'raven@example.com');
+  await userEvent.type(screen.getByLabelText('帳號'), 'raven');
+  await userEvent.type(screen.getByLabelText('密碼'), '  CaseSensitive-2026  ');
+  await userEvent.click(screen.getByRole('button', { name: '註冊並登入' }));
+  expect(api.registerMember).toHaveBeenCalledWith({
+    displayName: 'raven',
+    discordUsername: 'raven',
+    email: 'raven@example.com',
+    password: '  CaseSensitive-2026  ',
   });
-
-  // 沒有通行碼欄位:送出去的東西裡不該有它,畫面上也不該有。
-  it('只送遊戲ID,沒有通行碼', async () => {
-    render(<PlayerLogin slug="s" />);
-    expect(screen.queryByLabelText(/通行碼/)).not.toBeInTheDocument();
-    await userEvent.type(screen.getByLabelText('遊戲ID'), '李璃');
-    await userEvent.click(screen.getByRole('button', { name: '進站' }));
-    expect(api.login).toHaveBeenCalledWith({ tournamentSlug: 's', gameId: '李璃' });
-    expect(push).toHaveBeenCalledWith('/t/s/me');
+  expect(api.register).not.toHaveBeenCalled();
+  expect(api.push).toHaveBeenCalledWith('/t/s/enroll');
+});
+it('new member login continues to enrollment when no registration exists', async () => {
+  api.login.mockRejectedValue(new ConnectError('not enrolled', Code.NotFound));
+  render(<PlayerLogin slug="s" />);
+  await userEvent.type(screen.getByLabelText('帳號'), '@raven');
+  await userEvent.type(screen.getByLabelText('密碼'), 'CaseSensitive-2026');
+  await userEvent.click(screen.getByRole('button', { name: '登入' }));
+  expect(api.login).toHaveBeenCalledWith({ tournamentSlug: 's' });
+  expect(api.push).toHaveBeenCalledWith('/t/s/enroll');
+});
+it('requires explicit loadout confirmation before personal enrollment', async () => {
+  render(<SignupForm slug="s" member={member} onDone={vi.fn()} />);
+  expect(screen.queryByLabelText('遊戲 ID')).not.toBeInTheDocument();
+  await userEvent.click(await screen.findByRole('button', { name: /雙武器方案/ }));
+  expect(screen.queryByLabelText('遊戲 ID')).not.toBeInTheDocument();
+  await userEvent.click(screen.getByRole('button', { name: '使用此武庫，確認' }));
+  expect(screen.getByLabelText('遊戲 ID')).toBeInTheDocument();
+  expect(screen.queryByLabelText('論劍積分')).not.toBeInTheDocument();
+  expect(screen.getByLabelText('常用武學').tagName).toBe('SELECT');
+});
+it('returning from the weapon library requires confirmation even with an existing enrollment', async () => {
+  history.replaceState(null, '', '/?loadoutRole=2');
+  const onConfirm = vi.fn();
+  const { container } = render(
+    <SelectedLoadout
+      slug="s"
+      memberId="member-1"
+      defaults={{ style: '原流派', weapon: '原武器', equipment: '', arts: '' }}
+      onConfirm={onConfirm}
+      returnTarget="member"
+    />,
+  );
+  const confirm = await screen.findByRole('button', { name: '使用此武庫，確認' });
+  expect(container.querySelector('input[name="loadoutPending"]')).toHaveValue('true');
+  expect(container.querySelector('input[name="characterStyle"]')).toHaveValue('原流派');
+  expect(onConfirm).not.toHaveBeenCalled();
+  await userEvent.click(confirm);
+  expect(container.querySelector('input[name="loadoutPending"]')).toHaveValue('false');
+  expect(container.querySelector('input[name="characterStyle"]')).toHaveValue(
+    catalog.builds[1]!.name,
+  );
+  expect(onConfirm).toHaveBeenCalledOnce();
+});
+it('submits chosen loadout, martial and multiple calendar ranges together', async () => {
+  const onDone = vi.fn();
+  render(<SignupForm slug="s" member={member} onDone={onDone} rulesVersion="v1" />);
+  await confirmRole();
+  await userEvent.type(screen.getByLabelText('遊戲 ID'), 'game-raven');
+  await screen.findByRole('option', { name: catalog.martials[0]!.name });
+  await userEvent.selectOptions(screen.getByLabelText('常用武學'), catalog.martials[0]!.name);
+  await userEvent.selectOptions(screen.getByLabelText('論劍段位'), '飛花');
+  await userEvent.click(screen.getByRole('button', { name: '＋ 新增時段' }));
+  fireEvent.change(screen.getByLabelText('日期 1'), { target: { value: '2026-11-01' } });
+  fireEvent.change(screen.getByLabelText('開始時間 1'), { target: { value: '18:00' } });
+  fireEvent.change(screen.getByLabelText('結束時間 1'), { target: { value: '20:00' } });
+  await userEvent.click(screen.getByRole('checkbox'));
+  await userEvent.click(screen.getByRole('button', { name: '確認報名' }));
+  expect(api.register).toHaveBeenCalledWith(
+    expect.objectContaining({
+      displayName: '夜鴉',
+      discordName: 'raven',
+      ladderRank: '飛花',
+      ladderScore: 0,
+      artsNote: catalog.martials[0]!.name,
+      availabilityNote: '2026-11-01 18:00–20:00',
+    }),
+  );
+  const sent = api.register.mock.lastCall?.[0] as {
+    character: { style: string; weapon: string; snapshotJson: string };
+  };
+  expect(sent.character.style).toBe(catalog.builds[0]!.name);
+  expect(sent.character.weapon).toContain('主');
+  expect(JSON.parse(sent.character.snapshotJson)).toMatchObject({
+    version: 1,
+    preview: { style: [{ name: catalog.builds[0]!.name }] },
   });
-
-  it('空的遊戲ID 不送出', async () => {
-    render(<PlayerLogin slug="s" />);
-    await userEvent.click(screen.getByRole('button', { name: '進站' }));
-    expect(api.login).not.toHaveBeenCalled();
-  });
+  expect(onDone).toHaveBeenCalledWith('夜鴉', 'game-raven');
+});
+it('changing the loadout requires confirmation again before submission', async () => {
+  render(<SignupForm slug="s" member={member} onDone={vi.fn()} />);
+  await confirmRole();
+  await userEvent.type(screen.getByLabelText('遊戲 ID'), 'raven');
+  await userEvent.click(screen.getByRole('button', { name: /備用方案/ }));
+  await userEvent.click(screen.getByRole('button', { name: '確認報名' }));
+  expect(await screen.findByRole('alert')).toHaveTextContent('請先確認');
+  expect(api.register).not.toHaveBeenCalled();
+});
+it('rejects partially entered time ranges without submitting', async () => {
+  render(<SignupForm slug="s" member={member} onDone={vi.fn()} />);
+  await confirmRole();
+  await userEvent.type(screen.getByLabelText('遊戲 ID'), 'raven');
+  await userEvent.click(screen.getByRole('button', { name: '＋ 新增時段' }));
+  fireEvent.change(screen.getByLabelText('日期 1'), { target: { value: '2026-11-01' } });
+  await userEvent.click(screen.getByRole('button', { name: '確認報名' }));
+  expect(await screen.findByRole('alert')).toHaveTextContent('請完整選擇');
+  expect(api.register).not.toHaveBeenCalled();
 });

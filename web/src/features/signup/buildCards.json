@@ -1,0 +1,200 @@
+[
+  {
+    "key": "LIESHI_JUN",
+    "name": "裂石鈞",
+    "family": "LIESHI",
+    "img": "martial/LIESHI_JUN.png",
+    "familyImg": "arsenal/LIESHI.png",
+    "martials": [
+      {
+        "key": "LIESHI_JUN_SFPZ",
+        "name": "十方破陣",
+        "img": "martial/LIESHI_JUN_SFPZ.png"
+      },
+      {
+        "key": "LIESHI_JUN_ZXDF",
+        "name": "斬雪刀法",
+        "img": "martial/LIESHI_JUN_ZXDF.png"
+      }
+    ]
+  },
+  {
+    "key": "LIESHI_WEI",
+    "name": "裂石威",
+    "family": "LIESHI",
+    "img": "martial/LIESHI_WEI.png",
+    "familyImg": "arsenal/LIESHI.png",
+    "martials": [
+      {
+        "key": "LIESHI_WEI_BFFLQ",
+        "name": "八方風雷槍",
+        "img": "martial/LIESHI_WEI_BFFLQ.png"
+      },
+      {
+        "key": "LIESHI_WEI_JFDF",
+        "name": "嗟夫刀法",
+        "img": "martial/LIESHI_WEI_JFDF.png"
+      }
+    ]
+  },
+  {
+    "key": "MINGJIN_HONG",
+    "name": "鳴金虹",
+    "family": "MINGJIN",
+    "img": "martial/MINGJIN_HONG.png",
+    "familyImg": "arsenal/MINGJIN.png",
+    "martials": [
+      {
+        "key": "MINGJIN_HONG_WMJF",
+        "name": "無名劍法",
+        "img": "martial/MINGJIN_HONG_WMJF.png"
+      },
+      {
+        "key": "MINGJIN_HONG_WMQF",
+        "name": "無名槍法",
+        "img": "martial/MINGJIN_HONG_WMQF.png"
+      }
+    ]
+  },
+  {
+    "key": "MINGJIN_YING",
+    "name": "鳴金影",
+    "family": "MINGJIN",
+    "img": "martial/MINGJIN_YING.png",
+    "familyImg": "arsenal/MINGJIN.png",
+    "martials": [
+      {
+        "key": "MINGJIN_YING_JJJJ",
+        "name": "積矩九劍",
+        "img": "martial/MINGJIN_YING_JJJJ.png"
+      },
+      {
+        "key": "MINGJIN_YING_JQJSQ",
+        "name": "九曲驚神槍",
+        "img": "martial/MINGJIN_YING_JQJSQ.png"
+      }
+    ]
+  },
+  {
+    "key": "POZHU_CHEN",
+    "name": "破竹塵",
+    "family": "POZHU",
+    "img": "martial/POZHU_CHEN.png",
+    "familyImg": "arsenal/POZHU.png",
+    "martials": [
+      {
+        "key": "POZHU_CHEN_SZXY",
+        "name": "粟子行雲",
+        "img": "martial/POZHU_CHEN_SZXY.png"
+      },
+      {
+        "key": "POZHU_CHEN_ZMYC",
+        "name": "醉夢游春",
+        "img": "martial/POZHU_CHEN_ZMYC.png"
+      }
+    ]
+  },
+  {
+    "key": "POZHU_FENG",
+    "name": "破竹風",
+    "family": "POZHU",
+    "img": "martial/POZHU_FENG.png",
+    "familyImg": "arsenal/POZHU.png",
+    "martials": [
+      {
+        "key": "POZHU_FENG_NLSG",
+        "name": "泥犁三垢",
+        "img": "martial/POZHU_FENG_NLSG.png"
+      },
+      {
+        "key": "POZHU_FENG_SZYC",
+        "name": "粟子游塵",
+        "img": "martial/POZHU_FENG_SZYC.png"
+      }
+    ]
+  },
+  {
+    "key": "POZHU_YUAN",
+    "name": "破竹鳶",
+    "family": "POZHU",
+    "img": "martial/POZHU_YUAN.png",
+    "familyImg": "arsenal/POZHU.png",
+    "martials": [
+      {
+        "key": "POZHU_YUAN_QJST",
+        "name": "千機索天",
+        "img": "martial/POZHU_YUAN_QJST.png"
+      },
+      {
+        "key": "POZHU_YUAN_TZCX",
+        "name": "天志垂象",
+        "img": "martial/POZHU_YUAN_TZCX.png"
+      }
+    ]
+  },
+  {
+    "key": "POZHU_ZUN",
+    "name": "破竹樽",
+    "family": "POZHU",
+    "img": "martial/POZHU_ZUN.png",
+    "familyImg": "arsenal/POZHU.png",
+    "martials": []
+  },
+  {
+    "key": "QIANSI_LIN",
+    "name": "牽絲霖",
+    "family": "QIANSI",
+    "img": "martial/QIANSI_LIN.png",
+    "familyImg": "arsenal/QIANSI.png",
+    "martials": [
+      {
+        "key": "QIANSI_LIN_MCYD",
+        "name": "明川藥典",
+        "img": "martial/QIANSI_LIN_MCYD.png"
+      },
+      {
+        "key": "QIANSI_LIN_QXYHG",
+        "name": "千香引魂蠱",
+        "img": "martial/QIANSI_LIN_QXYHG.png"
+      }
+    ]
+  },
+  {
+    "key": "QIANSI_YI",
+    "name": "牽絲翊",
+    "family": "QIANSI",
+    "img": "martial/QIANSI_YI.png",
+    "familyImg": "arsenal/QIANSI.png",
+    "martials": [
+      {
+        "key": "QIANSI_YI_WDNC",
+        "name": "文動霓裳",
+        "img": "martial/QIANSI_YI_WDNC.png"
+      },
+      {
+        "key": "QIANSI_YI_XYCY",
+        "name": "杏游草野",
+        "img": "martial/QIANSI_YI_XYCY.png"
+      }
+    ]
+  },
+  {
+    "key": "QIANSI_YU",
+    "name": "牽絲玉",
+    "family": "QIANSI",
+    "img": "martial/QIANSI_YU.png",
+    "familyImg": "arsenal/QIANSI.png",
+    "martials": [
+      {
+        "key": "QIANSI_YU_JCCS",
+        "name": "九重春色",
+        "img": "martial/QIANSI_YU_JCCS.png"
+      },
+      {
+        "key": "QIANSI_YU_QSZB",
+        "name": "青山執筆",
+        "img": "martial/QIANSI_YU_QSZB.png"
+      }
+    ]
+  }
+]

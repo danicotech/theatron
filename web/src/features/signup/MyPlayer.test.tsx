@@ -1,9 +1,10 @@
+import catalog from '../../../public/loadout/data/catalog.json';
 import { create } from '@bufbuild/protobuf';
 import { Code, ConnectError } from '@connectrpc/connect';
 import { expectNoAxeViolations } from '@theatron/ui/testing';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
   PlayerStatus,
@@ -13,6 +14,7 @@ import {
 } from '../../lib/api/gen/hestia/activity/v1/common_pb';
 
 import { MyPlayer } from './MyPlayer';
+vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn() }) }));
 
 const api = vi.hoisted(() => ({
   getMyPlayer: vi.fn(),
@@ -46,6 +48,7 @@ function ok(over: Record<string, unknown> = {}, phase = TournamentPhase.SIGNUP) 
     player: {
       displayName: '李璃',
       gameId: 'liLi',
+      userPublicId: 'member-1',
       rank: Rank.UNSPECIFIED,
       status: PlayerStatus.ACTIVE,
       seedNo: 0,
@@ -57,6 +60,10 @@ function ok(over: Record<string, unknown> = {}, phase = TournamentPhase.SIGNUP) 
 
 describe('MyPlayer', () => {
   beforeEach(() => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve(catalog) }),
+    );
     api.getMyPlayer.mockReset();
     api.listRanks.mockReset();
     api.updateRegistration.mockReset();
@@ -96,7 +103,7 @@ describe('MyPlayer', () => {
   it('沒進站時給進站與報名兩條路', async () => {
     api.getMyPlayer.mockRejectedValue(new ConnectError('未認證', Code.Unauthenticated));
     render(<MyPlayer slug="s" />);
-    expect(await screen.findByRole('link', { name: '用遊戲ID 進站' })).toHaveAttribute(
+    expect(await screen.findByRole('link', { name: '登入會員' })).toHaveAttribute(
       'href',
       '/t/s/login',
     );
@@ -113,9 +120,9 @@ describe('MyPlayer', () => {
     api.getMyPlayer.mockResolvedValue(ok());
     render(<MyPlayer slug="s" />);
     expect(await screen.findByText('liLi_discord')).toBeInTheDocument();
-    expect(screen.getByText('玄鐵 · 1820')).toBeInTheDocument();
+    expect(screen.getByText('玄鐵')).toBeInTheDocument();
     expect(screen.getByText('常用太玄經')).toBeInTheDocument();
-    expect(screen.getByText('未填')).toBeInTheDocument();
+    expect(screen.getAllByText('未填').length).toBeGreaterThan(0);
   });
 
   it('報名期可以改,送出的是整份資料', async () => {
@@ -123,9 +130,7 @@ describe('MyPlayer', () => {
     render(<MyPlayer slug="s" />);
     await userEvent.click(await screen.findByRole('button', { name: '修改' }));
 
-    const discord = screen.getByLabelText('Discord 名稱');
-    await userEvent.clear(discord);
-    await userEvent.type(discord, '新名字');
+    await userEvent.selectOptions(screen.getByLabelText('論劍段位'), '飛花');
     await userEvent.click(screen.getByRole('button', { name: '儲存' }));
 
     expect(api.updateRegistration).toHaveBeenCalledTimes(1);
@@ -133,8 +138,8 @@ describe('MyPlayer', () => {
       registration: Record<string, unknown>;
     };
     expect(sent.registration).toMatchObject({
-      discordName: '新名字',
-      ladderRank: '玄鐵',
+      discordName: 'liLi_discord',
+      ladderRank: '飛花',
       ladderScore: 1820,
       artsNote: '常用太玄經',
     });
@@ -145,8 +150,9 @@ describe('MyPlayer', () => {
     api.getMyPlayer.mockResolvedValue(ok());
     render(<MyPlayer slug="s" />);
     await userEvent.click(await screen.findByRole('button', { name: '修改' }));
-    expect(screen.getByLabelText('Discord 名稱')).toHaveValue('liLi_discord');
-    expect(screen.getByLabelText('論劍積分')).toHaveValue('1820');
+    expect(screen.getByLabelText('論劍段位')).toHaveValue('玄鐵');
+    expect(screen.getByLabelText('常用武學')).toHaveValue('常用太玄經');
+    expect(screen.queryByLabelText('論劍積分')).not.toBeInTheDocument();
   });
 
   it('取消不送出任何東西', async () => {
@@ -164,7 +170,7 @@ describe('MyPlayer', () => {
     render(<MyPlayer slug="s" />);
     await screen.findByRole('heading', { name: '李璃' });
     expect(screen.queryByRole('button', { name: '修改' })).not.toBeInTheDocument();
-    expect(screen.getByText(/御風羽正是照著它們評段/)).toBeInTheDocument();
+    expect(screen.getByText(/報名已截止，參賽資料已鎖定/)).toBeInTheDocument();
   });
 
   it('儲存失敗時顯示伺服器給的理由,而且留在編輯畫面', async () => {
@@ -187,3 +193,133 @@ describe('MyPlayer', () => {
     await expectNoAxeViolations(container);
   });
 });
+
+vi.mock('../realtime/useTournamentRealtime', () => ({
+  useTournamentRealtime: () => ({ status: 'ready', revision: 0, ranks: [] }),
+}));
+
+// 個人資料及角色配置共用全量更新 API，分頁編輯不可清掉另一頁的資料。
+it('修改我的報名保留已保存的四項角色配置', async () => {
+  const original = ok();
+  const character = { style: '鳴金', weapon: '劍', equipment: '明川', arts: '太玄' };
+  api.getMyPlayer.mockResolvedValue({
+    ...original,
+    registration: { ...original.registration, character },
+  });
+  api.listRanks.mockResolvedValue({ ranks: RANKS });
+  api.updateRegistration.mockResolvedValue({});
+  render(<MyPlayer slug="s" view="registration" />);
+  await userEvent.click(await screen.findByRole('button', { name: '修改' }));
+  expect(screen.queryByLabelText('流派')).not.toBeInTheDocument();
+  await userEvent.selectOptions(screen.getByLabelText('論劍段位'), '飛花');
+  await userEvent.click(screen.getByRole('button', { name: '儲存' }));
+  const sent = api.updateRegistration.mock.lastCall?.[0] as {
+    registration: Record<string, unknown>;
+  };
+  expect(sent.registration).toMatchObject({
+    discordName: 'liLi_discord',
+    ladderRank: '飛花',
+    character,
+  });
+});
+it('修改角色配置保留個人報名資料', async () => {
+  const original = ok();
+  localStorage.setItem(
+    'lunjian.loadout.v3',
+    JSON.stringify({
+      v: 3,
+      roles: [{ id: 1, name: '已保存方案', data: { build: catalog.builds[0]!.key } }],
+    }),
+  );
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve(catalog) }),
+  );
+  api.getMyPlayer.mockResolvedValue(original);
+  api.listRanks.mockResolvedValue({ ranks: RANKS });
+  api.updateRegistration.mockResolvedValue({});
+  render(<MyPlayer slug="s" view="character" />);
+  await screen.findByRole('link', { name: '編輯個人武庫 ↗' });
+  expect(screen.queryByLabelText('Discord 名稱')).not.toBeInTheDocument();
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve(catalog) }),
+  );
+  await screen.findByRole('combobox', { name: '武庫方案' });
+  await userEvent.click(screen.getByRole('button', { name: '確認更新參賽配置' }));
+
+  const sent = api.updateRegistration.mock.lastCall?.[0] as {
+    registration: Record<string, unknown>;
+  };
+  expect(sent.registration).toMatchObject({
+    discordName: 'liLi_discord',
+    displayName: '李璃',
+    character: { style: '裂石鈞' },
+  });
+});
+
+afterEach(() => {
+  vi.unstubAllGlobals();
+  localStorage.clear();
+});
+
+it.each([
+  TournamentPhase.SIGNUP,
+  TournamentPhase.SIGNUP_CLOSED,
+  TournamentPhase.RANKING,
+  TournamentPhase.RANKED,
+  TournamentPhase.DRAWING,
+])('allows changing the competition loadout before start: %s', async (phase) => {
+  const original = ok({}, phase);
+  Object.assign(original.registration, {
+    character: { style: '原參賽流派', weapon: '原武器', equipment: '', arts: '' },
+  });
+  localStorage.setItem(
+    'lunjian.loadout.v3',
+    JSON.stringify({
+      v: 3,
+      roles: [{ id: 2, name: '重新選擇方案', data: { build: catalog.builds[0]!.key } }],
+    }),
+  );
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve(catalog) }),
+  );
+  api.updateRegistration.mockReset().mockResolvedValue({});
+  api.getMyPlayer.mockResolvedValue(original);
+  api.listRanks.mockResolvedValue({ ranks: RANKS });
+  render(<MyPlayer slug="s" view="character" />);
+  await screen.findByRole('link', { name: '編輯個人武庫 ↗' });
+  expect(screen.queryByText('本屆參賽配置已鎖定')).not.toBeInTheDocument();
+  expect(screen.getByRole('link', { name: '編輯個人武庫 ↗' })).toBeInTheDocument();
+  expect(screen.getByText('開賽前 · 可更換參賽配置')).toBeInTheDocument();
+  await userEvent.selectOptions(
+    await screen.findByRole('combobox', { name: '武庫方案' }),
+    'library:2',
+  );
+  expect(screen.getByRole('heading', { name: '待確認配置' })).toBeInTheDocument();
+  expect(api.updateRegistration).not.toHaveBeenCalled();
+  await userEvent.click(screen.getByRole('button', { name: '確認更新參賽配置' }));
+  expect(api.updateRegistration).toHaveBeenCalledTimes(1);
+  const sent = api.updateRegistration.mock.lastCall?.[0] as {
+    registration: { character: { snapshotJson: string } };
+  };
+  expect(sent.registration.character).toMatchObject({
+    style: '裂石鈞',
+  });
+  expect(sent.registration.character.snapshotJson).toContain('"version":1');
+});
+it.each([TournamentPhase.IN_PROGRESS, TournamentPhase.FINISHED])(
+  'locks only the competition snapshot after start: %s',
+  async (phase) => {
+    api.getMyPlayer.mockResolvedValue(ok({}, phase));
+    api.listRanks.mockResolvedValue({ ranks: RANKS });
+    render(<MyPlayer slug="s" view="character" />);
+    expect(await screen.findByRole('link', { name: '編輯個人武庫 ↗' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: '修改' })).not.toBeInTheDocument();
+    expect(screen.getByText(/本屆參賽配置已鎖定/)).toBeInTheDocument();
+    expect(screen.queryByRole('combobox', { name: '武庫方案' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: '確認更新參賽配置' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '個人武庫說明' })).toBeInTheDocument();
+  },
+);
