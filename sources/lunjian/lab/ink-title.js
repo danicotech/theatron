@@ -95,8 +95,8 @@ function strokeSVG(word, o = {}){
 
     if (item.punct !== undefined){
       inner[item.ci] = (inner[item.ci] || '') +
-        `<g class="ink-punct" style="--at:${t.toFixed(0)}ms">${item.punct}</g>`;
-      t += 90;
+        `<g class="ink-punct" style="--at:${t.toFixed(0)}ms;--dur:160ms">${item.punct}</g>`;
+      t += 160;
       return;
     }
 
@@ -142,6 +142,14 @@ function strokeSVG(word, o = {}){
   });
   body += `<g class="ink-lace-set">${lace}</g>`;
 
+  // Scale the entire timeline, including lift/character gaps and initial delay.
+  // A per-stroke minimum must never extend a title's total time budget.
+  if (Number.isFinite(o.maxDuration) && o.maxDuration > 0 && t > o.maxDuration) {
+    const scale = o.maxDuration / t;
+    const retime = markup => markup.replace(/(--(?:at|dur):)([\d.]+)ms/g,
+      (_, key, value) => key + (Math.floor(Number(value) * scale * 1000) / 1000) + 'ms');
+    defs = retime(defs); body = retime(body); t = o.maxDuration;
+  }
   const vbW = W + 360;
   const vbH = vert ? (1024 + (chars.length - 1) * ADV + 360) : 1500;
   return `<svg class="ink-svg wild" viewBox="-180 -180 ${vbW} ${vbH}"

@@ -18,7 +18,7 @@ export function readRegistrationRoles(storage, catalog, eventId, userId) {
         const state = fromJSON(role.data, catalog, idx);
         const character = enrollmentCharacter(state, catalog, idx);
         roles.push({id: String(role.id), source, name: String(role.name || '未命名角色').slice(0, 80), character,
-          ready: Object.values(character).every(value => value.trim() && value.length <= 4000)});
+          ready: Object.entries(character).every(([key,value]) => value.trim() && value.length <= (key === 'style' || key === 'weapon' ? 200 : 2000))});
       } catch { /* A damaged role must not prevent other saved roles from being selected. */ }
     }
   }

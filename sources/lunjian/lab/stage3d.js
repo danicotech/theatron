@@ -1,11 +1,27 @@
 /** 保留原有場景與燃布引擎；開場只在資源準備好後接受點擊。 */
+export function stageMode(){
+  const query = new URLSearchParams(location.search).get('stage');
+  if (query === '2d' || query === '3d') return query;
+  try { return localStorage.getItem('lunjian:stage-mode:v1') === '3d' ? '3d' : '2d'; }
+  catch { return '2d'; }
+}
+export function stageControls(signal){
+  document.querySelectorAll('[data-stage-mode]').forEach(link => {
+    const mode = link.dataset.stageMode;
+    const url = new URL(location.href); url.searchParams.set('stage', mode);
+    link.href = url.href;
+    link.setAttribute('aria-current', String(stageMode() === mode));
+    link.addEventListener('click', () => {
+      const target = new URL(location.href); target.searchParams.set('stage', mode);
+      link.href = target.href;
+      try { localStorage.setItem('lunjian:stage-mode:v1', mode); } catch {}
+      // A document navigation releases the old WebGL context and its RAF loop.
+    }, {signal});
+  });
+}
 function want3D(){
   if (matchMedia('(prefers-reduced-motion:reduce)').matches) return false;
-  const ask = new URLSearchParams(location.search).get('stage');
-  if (ask === '2d') return false;
-  if (ask === '3d') return true;
-  try { return !!document.createElement('canvas').getContext('webgl2'); }
-  catch { return false; }
+  return stageMode() === '3d';
 }
 
 export async function mountStage3D(runtime){
@@ -15,6 +31,7 @@ export async function mountStage3D(runtime){
   window.__stage3d = true;
   const S = L.S, body = document.body, qs = new URLSearchParams(location.search);
   const signal = L.lifetime.signal;
+  stageControls(signal);
   const on = (type, fn, options = {}) => window.addEventListener(type, fn, {...options, signal});
   let openingSeen=false;
   try{openingSeen=sessionStorage.getItem('lunjian:opening-seen:v1')==='1';}catch{}
@@ -106,6 +123,23 @@ export async function mountStage3D(runtime){
     return null;
   }
 
+  const environment = window.__JZ3D?.environment;
+  if (environment?.moon) {
+    const positionMoon = () => {
+      environment.moon.position.set(50 * innerWidth / innerHeight, 60, -150);
+      environment.sky?.material?.uniforms?.uMoon?.value.copy(environment.moon.position).normalize();
+    };
+    positionMoon();
+    on('resize', positionMoon);
+    environment.moon.scale.setScalar(.65);
+    const material = environment.moon.material;
+    if (material?.fragmentShader) {
+      material.fragmentShader = material.fragmentShader
+        .replace('vec3(.28,.38,.49)', 'vec3(.55,.60,.66)')
+        .replaceAll(')*.12', ')*.035');
+      material.needsUpdate = true;
+    }
+  }
   body.dataset.stage = '3d';
   L.applyGrid(S.shown || 0, {animate:false}); scene.seek(S.shot || 0);
   const BURN = 3.5, HOLD = .8, FADE = .9;
@@ -144,9 +178,13 @@ export async function mountStage3D(runtime){
     L.burningIntro();
   };
   S.enter3d = enter;
+  let lastRenderAt = 0;
   S.render3d = (now, dtMs) => {
     if (signal.aborted) return;
-    const dt = Math.min(dtMs, 50) / 1000;
+    // Decorative scenery does not need to redraw at high-refresh display rates.
+    if (lastRenderAt && now - lastRenderAt < 1000 / 30) return;
+    const dt = Math.min(lastRenderAt ? now - lastRenderAt : dtMs, 50) / 1000;
+    lastRenderAt = now;
     t += dt;
     if (mode === 'burning') {
       // 布料積分限制 dt；敘事用真實經過時間，背景分頁不會讓開場卡住。

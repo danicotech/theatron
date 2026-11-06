@@ -32,6 +32,7 @@ CSS 與 JS 兩邊各有一組要前綴。
 用法：python tools/loadout-to-theatron.py
 """
 import hashlib
+import json
 import io
 import os
 import re
@@ -40,7 +41,7 @@ import shutil
 HERE = os.path.dirname(os.path.abspath(__file__))
 LAB = os.path.dirname(HERE)
 SRC = os.path.abspath(os.path.join(LAB, '../loadout'))          # 素材與資料的家
-TH = os.path.abspath(os.path.join(LAB, '../../../../theatron/web'))
+TH = os.path.abspath(os.path.join(LAB, '../../../web'))
 PUB = os.path.join(TH, 'public/loadout')
 APP = os.path.join(TH, 'src/app/loadout')
 
@@ -121,3 +122,12 @@ print('JS     %6.0f KB' % (len(js.encode()) / 1024))
 print('標記   %6.0f KB' % (len(markup.encode()) / 1024))
 print('素材   %d 檔' % copied)
 print('合計   %.1f MB → %s' % (size / 1048576, os.path.relpath(PUB, TH)))
+
+# Shared React build identity cards: names/artwork only, never player state.
+with io.open(os.path.join(SRC, 'data/catalog.json'), encoding='utf-8') as source:
+    catalog = json.load(source)
+martials = {m['key']: m for m in catalog['martials']}
+card_builds = [{**{k: b.get(k, '') for k in ['key', 'name', 'family', 'img', 'familyImg']},
+    'martials': [{k: martials[m].get(k, '') for k in ['key', 'name', 'img']} for m in b['martials'] if m in martials]} for b in catalog['builds']]
+with io.open(os.path.join(TH, 'src/features/signup/buildCards.json'), 'w', encoding='utf-8', newline='\n') as target:
+    target.write(json.dumps(card_builds, ensure_ascii=False, indent=2) + '\n')

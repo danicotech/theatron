@@ -17,3 +17,6 @@ python sources/lunjian/lab/tools/loadout-to-theatron.py
 生成器會替換資產目錄。執行前確認其 `TH` 指向本 clone 的 `web/`，且目的地沒有尚未回存來源的修改；若 clone 改名，先修正生成器的目標路徑。不要將此快照的原始碼交給自動格式化，否則會破壞與正本的位元組一致性。
 
 後端即時同步另見 [交接規格](../../docs/REALTIME_INTEGRATION.md)。瀏覽器驗收腳本目前仍使用原開發機的 Playwright 路徑，換機後需先設定可用的 Playwright；單元測試和 build 不需要該環境。
+
+
+2026-10-13：to-theatron.py 額外輸出 public/jz/js/particles-plum.js，只同步 lab/jz/js/particles.js 的 PETALS／BLOOMS 數量到凍結 public 粒子程式；其餘雪粒子參數與原 particles.js 保留。layout importmap 指向新檔以避免舊零數量版本。

@@ -10,7 +10,7 @@ let serial = 0;
 const SVG = 'http://www.w3.org/2000/svg';
 const NODE_WIDTH = 128, COLUMN_GAP = 48, HEADER = 72;
 
-export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpty=false, matchActionLabel='查看比武', playerActionLabel='查看選手資料', championArt='art/manga-champion.webp'} = {}) {
+export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpty=false, showJudgeLink=true, matchActionLabel='查看比武', playerActionLabel='查看選手資料', championArt='art/manga-champion.webp'} = {}) {
   if (!host) throw new TypeError('A bracket host is required');
   instances.get(host)?.destroy();
   const doc = host.ownerDocument, view = doc.defaultView;
@@ -58,7 +58,7 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
       host.append(empty);
       if (ownedFocus) { empty.tabIndex = -1; empty.focus({preventScroll:true}); }
     };
-    delete host.dataset.links;
+    delete host.dataset.links; delete host.dataset.density;
     const placeholder = previewEmpty && (!input?.published || !input?.rounds?.some(round=>round?.matches?.length));
     host.toggleAttribute('data-placeholder',placeholder);
     // A display-only outline, never written back into tournament state.
@@ -141,10 +141,12 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
     const expectedEdges = treeRounds.slice(0, -1).reduce((count, round) => count + round.matches.length, 0);
     host.dataset.links = edges.length === expectedEdges ? 'complete' : edges.length ? 'partial' : 'unknown';
     const meta = el('div', 'tt-meta');
-    meta.append(el('p', 'tt-format', placeholder ? '賽程示意 · 實際輪次與籤位待公布' : `${players.size} 位選手${Number(data.bestOf) > 1 ? ` · BO${Number(data.bestOf)}` : ''}`));
+    if (placeholder) {
+      meta.append(el('p', 'tt-explanation', '此為賽程示意，實際對戰待公布。'));
+    } else meta.append(el('p', 'tt-format', `${players.size} 位選手${Number(data.bestOf) > 1 ? ` · BO${Number(data.bestOf)}` : ''}`));
     if (data.demo) meta.append(el('strong', 'tt-demo', '示範資料'));
     if (edges.length < expectedEdges) meta.append(el('p', 'tt-connection-note', '部分晉級關係待公布；尚未確認的路線不連線。'));
-    if(data.slug && !data.demo){
+    if(showJudgeLink && data.slug && !data.demo){
       const judge=el('a','tt-judge-link','裁判台');judge.href=`/judge/${encodeURIComponent(data.slug)}`;meta.append(judge);
     }
     host.append(meta);
@@ -272,9 +274,17 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
     const count = Math.max(1,treeRounds.length);
     const hasFinal=lastRound?.matches.length===1;
     const sideCount=hasFinal ? count-1 : count;
-    const crownGap=16, crownWidth=128;
+    const fieldSize=Math.max(players.size,(treeRounds[0]?.matches.length || 1)*2);
+    host.dataset.density=fieldSize<=4?'spacious':fieldSize<=8?'comfortable':'dense';
+    let crownGap=16, crownWidth=128, columnGap=COLUMN_GAP, headerHeight=HEADER;
+    const baseWidth=(sideCount*2+2)*144+sideCount*2*COLUMN_GAP+128+32;
+    const maxScale=fieldSize<=4?1.75:fieldSize<=8?1.3:1.12;
     const minimumWidth=(sideCount*2+2)*112+sideCount*2*COLUMN_GAP+crownWidth+crownGap*2;
-    const availableWidth=()=>Math.max(0,(host.clientWidth || viewport.clientWidth)-24);
+    const availableWidth=()=>{
+      const containerWidth=host.clientWidth || viewport.clientWidth;
+      const inset=Math.min(160,Math.max(0,containerWidth-960)*.28);
+      return Math.max(0,containerWidth-24-inset);
+    };
     const isCompact=()=>!!mobile?.matches || data.layoutPreference==='round' || (data.layoutPreference!=='tree' && availableWidth()>0 && availableWidth()<minimumWidth);
     let nodeWidth=NODE_WIDTH, centerWidth=0, centerX=0, width=0;
     const columnLabels=[];
@@ -339,30 +349,37 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
       selectRound(focusedRound && panels.has(focusedRound)?focusedRound:selectedRound);
       if(!isCompact() && focused?.classList.contains('tt-tab'))panels.get(selectedRound)?.querySelector('button')?.focus({preventScroll:true});
       const available=availableWidth();
-      nodeWidth=available>0?Math.max(112,Math.min(144,(available-sideCount*2*COLUMN_GAP-crownWidth-crownGap*2)/(sideCount*2+2))):NODE_WIDTH;
+      // Grow the geometry, not a scaled bitmap: hit targets, type and connectors remain crisp.
+      const scale=!isCompact() && available>0?Math.max(1,Math.min(maxScale,available/baseWidth)):1;
+      columnGap=COLUMN_GAP*scale;crownGap=16*scale;crownWidth=128*scale;headerHeight=HEADER+40*(scale-1);
+      canvas.style.setProperty('--tree-ui-scale',String(scale));
+      canvas.style.setProperty('--tree-seat-min',`${68*scale}px`);
+      nodeWidth=available>0?Math.max(112,Math.min(144*scale,(available-sideCount*2*columnGap-crownWidth-crownGap*2)/(sideCount*2+2))):NODE_WIDTH;
       centerWidth=nodeWidth*2+crownWidth+crownGap*2;
-      centerX=sideCount*(nodeWidth+COLUMN_GAP);
+      centerX=sideCount*(nodeWidth+columnGap);
       width=centerX*2+centerWidth;
       canvas.style.setProperty('--tree-node-width',`${nodeWidth}px`);
       canvas.style.removeProperty('--tree-seat-height');
       finalCrest.style.width=`${crownWidth}px`;
       columnLabels.forEach(({label,side,index,central})=>{
-        const x=side==='final'?centerX:side==='left'?index*(nodeWidth+COLUMN_GAP):width-nodeWidth-index*(nodeWidth+COLUMN_GAP);
+        const x=side==='final'?centerX:side==='left'?index*(nodeWidth+columnGap):width-nodeWidth-index*(nodeWidth+columnGap);
         label.style.left=`${x}px`;label.style.width=`${central?centerWidth:nodeWidth}px`;
       });
       // Measure single seats, not a pair container; long names enlarge every row consistently.
-      const height=Math.max(68,...[...cards.values()].map(card=>Math.ceil(card.getBoundingClientRect().height || card.scrollHeight || 0)));
+      const height=Math.max(68*scale,...[...cards.values()].map(card=>Math.ceil(card.getBoundingClientRect().height || card.scrollHeight || 0)));
       const seats=Math.max(2,...treeRounds.map(round=>Math.ceil(round.matches.length/2)*2));
-      const crownHeight=Math.max(156,Math.ceil(finalCrest.getBoundingClientRect().height || finalCrest.scrollHeight || 0));
+      const crownHeight=Math.max(156+80*(scale-1),Math.ceil(finalCrest.getBoundingClientRect().height || finalCrest.scrollHeight || 0));
       const bodyHeight=Math.max(crownHeight+height*2+80,seats*(height+28));
-      const mid=HEADER+bodyHeight/2, thirds=all.filter(match=>match.kind==='third');
+      const mid=headerHeight+bodyHeight/2, thirds=all.filter(match=>match.kind==='third');
       const thirdTop=mid+Math.max(height,crownHeight)+120;
-      const totalHeight=Math.max(HEADER+bodyHeight,thirds.length?thirdTop+thirds.length*(height*2+88):0)+20;
+      const totalHeight=Math.max(headerHeight+bodyHeight,thirds.length?thirdTop+thirds.length*(height*2+88):0)+20;
       canvas.style.width=`${width}px`;canvas.style.height=`${totalHeight}px`;
       canvas.style.setProperty('--tree-seat-height',`${height}px`);positions.clear();
       function place(match,side,xy,junction){
         const button=buttons.get(match.id);button.dataset.side=side;groups.get(match.id).dataset.side=side;
-        button.style.left=`${junction.x-24}px`;button.style.top=`${junction.y-28}px`;
+        const junctionWidth=button.getBoundingClientRect().width || 48*scale;
+        const junctionHeight=button.getBoundingClientRect().height || 56*scale;
+        button.style.left=`${junction.x-junctionWidth/2}px`;button.style.top=`${junction.y-junctionHeight/2}px`;
         xy.forEach((point,seat)=>{
           const card=cards.get(`${match.id}:${seat}`);card.style.left=`${point.x}px`;card.style.top=`${point.y-height/2}px`;
           card.dataset.side=side;
@@ -375,12 +392,12 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
       treeRounds.forEach((round,index)=>{
         const central=hasFinal && index===count-1, split=Math.ceil(round.matches.length/2);
         round.matches.forEach((match,order)=>{
-          if(central){place(match,'final',[{x:centerX,y:mid},{x:centerX+centerWidth-nodeWidth,y:mid}],{x:centerX+centerWidth/2,y:mid+crownHeight/2+42});return;}
+          if(central){place(match,'final',[{x:centerX,y:mid},{x:centerX+centerWidth-nodeWidth,y:mid}],{x:centerX+centerWidth/2,y:mid+crownHeight/2+Math.max(56*Math.max(1,scale*.8),buttons.get(match.id).getBoundingClientRect().height)/2+16});return;}
           const side=order<split?'left':'right',local=side==='left'?order:order-split;
           const total=side==='left'?split:round.matches.length-split;
-          const x=side==='left'?index*(nodeWidth+COLUMN_GAP):width-nodeWidth-index*(nodeWidth+COLUMN_GAP);
-          const xy=[0,1].map(seat=>({x,y:HEADER+(local*2+seat+.5)*bodyHeight/(total*2)}));
-          place(match,side,xy,{x:x+(side==='left'?nodeWidth+COLUMN_GAP/2:-COLUMN_GAP/2),y:(xy[0].y+xy[1].y)/2});
+          const x=side==='left'?index*(nodeWidth+columnGap):width-nodeWidth-index*(nodeWidth+columnGap);
+          const xy=[0,1].map(seat=>({x,y:headerHeight+(local*2+seat+.5)*bodyHeight/(total*2)}));
+          place(match,side,xy,{x:x+(side==='left'?nodeWidth+columnGap/2:-columnGap/2),y:(xy[0].y+xy[1].y)/2});
         });
       });
       if(finalMatch){finalCrest.style.left=`${centerX+(centerWidth-crownWidth)/2}px`;finalCrest.style.top=`${mid-crownHeight/2}px`;finalCrest.style.width=`${crownWidth}px`;}
@@ -447,7 +464,7 @@ export function createBracketTree({host, onSelect, onPlayer, signal, previewEmpt
     disposed = true; clearRender();
     signal?.removeEventListener('abort', destroy);
     host.replaceChildren();
-    delete host.dataset.links; delete host.dataset.view; delete host.dataset.tones; delete host.dataset.placeholder;
+    delete host.dataset.links; delete host.dataset.view; delete host.dataset.tones; delete host.dataset.placeholder; delete host.dataset.density;
     if (!hadClass) host.classList.remove('tournament-tree');
     if (instances.get(host) === controller) instances.delete(host);
   }

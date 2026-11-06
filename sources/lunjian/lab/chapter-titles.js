@@ -96,13 +96,12 @@ export function createChapterTitles({root = document, staticMode = false} = {}) 
       const text = label(host);
       plain(host);
       if (!text || typeof view.strokeSVG !== 'function') return;
-      const isRegistration = host.classList.contains('registration-seal-label');
       let markup;
       try {
         markup = view.strokeSVG(text, {
           glyphStyles: {'旨': {width: 68, cursive: .25}},
-          track: .10, dur: isRegistration ? 2000 : [...text].length > 2 ? 3600 : 2400,
-          gap: isRegistration ? 12 : 24, charGap: isRegistration ? 80 : 160, lace: false,
+          track: .10, dur: 1500, maxDuration: 1500,
+          gap: 12, charGap: 60, lace: false,
         });
       } catch { return; } // Missing glyph/engine: retain the real readable name.
       if (!markup) return;

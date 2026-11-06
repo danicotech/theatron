@@ -1,4 +1,7 @@
 export async function mountHomeStage(canvas, signal){
+  const {stageMode,stageControls}=await import('./stage3d.js');
+  if(signal.aborted)return;
+  stageControls(signal);
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const host=canvas?.closest('.baiye-home');
   let readySent=false,stopped=false;
@@ -16,7 +19,7 @@ export async function mountHomeStage(canvas, signal){
   let openingSeen=false;
   try{openingSeen=sessionStorage.getItem('lunjian:opening-seen:v1')==='1';}catch{}
   const wantsIntro=!openingSeen&&!!host.querySelector('#boot')&&query.get('intro')!=='0';
-  if(!wantsIntro&&query.get('stage')==='2d'){ready();return;}
+  if(!wantsIntro&&stageMode()!=='3d'){ready();return;}
   const layers=Array.from(host.querySelectorAll('[data-home-depth]'),element=>({
     element,depth:Number(element.dataset.homeDepth),side:Number(element.dataset.homeSide||0)
   }));
@@ -78,6 +81,7 @@ export async function mountHomeStage(canvas, signal){
   },{signal});
   function frame(now){
     if(signal.aborted||stopped||reduced.matches||document.hidden||!scene)return;
+    if(last&&now-last<1000/30){raf=requestAnimationFrame(frame);return;}
     const dt=last?Math.min((now-last)/1000,.05):0;last=now;time+=dt;
     if(introActive){intro.S.render3d?.(now,dt*1000);raf=requestAnimationFrame(frame);return;}
     const path=window.__JZ3D?.path;

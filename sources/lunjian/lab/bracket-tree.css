@@ -1,5 +1,5 @@
 /* One name slip per seat. The small junction is the match action. */
-.tournament-tree{width:100%;max-width:100%;min-width:0;color:var(--paper);font:14px/1.6 var(--ui);--tree-seat-height:68px}
+.tournament-tree{width:100%;max-width:100%;min-width:0;color:var(--paper);font:14px/1.6 var(--ui);--tree-seat-min:68px;--tree-ui-scale:1}
 .tournament-tree *{box-sizing:border-box}
 .tournament-tree [hidden]{display:none!important}
 .tournament-tree .tt-meta{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:8px 20px;margin:0 0 12px}
@@ -27,7 +27,7 @@
 .tournament-tree .tt-state{font:12px/1.4 var(--ui);color:var(--paper-soft)}
 .tournament-tree .tt-node[data-status="live"]{border-color:var(--red-soft)}
 .tournament-tree .tt-node[data-status="live"] .tt-state{color:var(--red-soft)}
-.tournament-tree .tt-player{position:absolute;display:grid;grid-template-columns:22px minmax(0,1fr) 18px;align-items:center;gap:5px;width:var(--tree-node-width,128px);min-height:var(--tree-seat-height);padding:7px 6px;border:1px solid var(--paper-dim);border-radius:0;background:var(--paper) url('art/bracket-card-light.webp') center/100% 100%;color:var(--ink);text-align:left;cursor:pointer}
+.tournament-tree .tt-player{position:absolute;display:grid;grid-template-columns:22px minmax(0,1fr) 18px;align-items:center;gap:5px;width:var(--tree-node-width,128px);min-height:var(--tree-seat-height,var(--tree-seat-min));padding:7px 6px;border:1px solid var(--paper-dim);border-radius:0;background:var(--paper) url('art/bracket-card-light.webp') center/100% 100%;color:var(--ink);text-align:left;cursor:pointer}
 .tournament-tree .tt-player-seal{display:grid;place-items:center;width:22px;height:30px;border:1px solid var(--paper-faint);font:600 18px/1 var(--serif);color:var(--paper-faint)}
 .tournament-tree .tt-identity{display:block;min-width:0}
 .tournament-tree .tt-name{display:block;white-space:normal;overflow-wrap:anywhere;font:600 14px/1.5 var(--serif)}
@@ -151,3 +151,25 @@ body.reading .tournament-tree .tt-champion :is(.tt-champion-stamp,.tt-champion-a
 @keyframes tt-tear-lower{from{transform:translate(0,0) rotate(0)}to{transform:translate(2px,4px) rotate(1deg)}}
 body.reading .tournament-tree :is(.tt-cut-piece,.tt-cut-flash){animation:none!important}
 .chapter:not([data-on]) .tournament-tree :is(.tt-cut-piece,.tt-cut-flash){animation-play-state:paused}
+
+/* Sparse fields use the available stage; typography follows the measured tree geometry. */
+.tournament-tree[data-view="tree"] .tt-player {grid-template-columns:calc(22px * var(--tree-ui-scale)) minmax(0,1fr) calc(18px * var(--tree-ui-scale));gap:calc(5px * var(--tree-ui-scale));padding:calc(10px * var(--tree-ui-scale)) calc(6px * var(--tree-ui-scale));}
+.tournament-tree[data-view="tree"] .tt-name {font-size:calc(14px * var(--tree-ui-scale));}
+.tournament-tree[data-view="tree"] .tt-player-seal {width:calc(22px * var(--tree-ui-scale));height:calc(30px * var(--tree-ui-scale));font-size:calc(18px * var(--tree-ui-scale));}
+.tournament-tree[data-view="tree"] .tt-score {font-size:calc(20px * var(--tree-ui-scale));}
+.tournament-tree[data-view="tree"] .tt-node {--tree-action-scale:max(1,calc(var(--tree-ui-scale) * .8));width:calc(48px * var(--tree-action-scale));min-height:calc(56px * var(--tree-action-scale));}
+.tournament-tree[data-view="tree"] :is(.tt-match-number,.tt-state) {font-size:calc(12px * var(--tree-action-scale));}
+.tournament-tree[data-view="tree"] :is(.tt-junction-score,.tt-column-title,.tt-champion-label) {font-size:calc(14px * var(--tree-ui-scale));}
+.tournament-tree[data-view="tree"] .tt-side-heading {font-size:calc(16px * var(--tree-ui-scale));}
+.tournament-tree[data-view="tree"] .tt-column-title {top:calc(30px * var(--tree-ui-scale));}
+.tournament-tree[data-view="tree"] .tt-final-crest {min-height:calc(156px + 80px * (var(--tree-ui-scale) - 1));}
+.tournament-tree[data-view="tree"] .tt-champion-art {height:calc(80px + 40px * (var(--tree-ui-scale) - 1));}
+.tournament-tree[data-view="tree"] .tt-champion-name {font-size:calc(18px * var(--tree-ui-scale));}
+.tournament-tree[data-density="spacious"] .tt-format {font-size:14px;}
+.tournament-tree[data-view="round"][data-density="spacious"] .tt-player {min-height:88px;}
+.tournament-tree[data-view="round"][data-density="spacious"] :is(.tt-name,.tt-champion-name) {font-size:20px;}
+.tournament-tree[data-view="round"][data-density="comfortable"] .tt-name {font-size:18px;}
+.tournament-tree[data-view="round"] :is(.tt-match-number,.tt-state) {font-size:14px;}
+
+.tournament-tree .tt-explanation{font:500 18px/1.65 var(--ui);color:var(--paper);text-align:center;max-width:100%;padding-block:8px;text-wrap:pretty;}
+.tournament-tree[data-view="tree"] .tt-node .tt-junction-score{font-size:calc(14px * var(--tree-action-scale));}

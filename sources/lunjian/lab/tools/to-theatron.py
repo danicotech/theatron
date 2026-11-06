@@ -28,7 +28,8 @@ import shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 LAB = os.path.dirname(HERE)
-TH = os.path.abspath(os.path.join(LAB, '../../../../theatron/web'))
+TH = os.path.abspath(os.path.join(LAB, '../../../web'))
+assert os.path.isdir(os.path.join(TH, 'src/app')), 'Invalid theatron output root'
 PUB = os.path.join(TH, 'public/lunjian')
 BASE = '/lunjian/'
 
@@ -38,7 +39,7 @@ src = io.open(os.path.join(LAB, 'lunjian-layout.html'), encoding='utf-8').read()
 css = re.search(r'<style>(.*?)</style>', src, re.S)
 assert css, '找不到 <style>'
 css = css.group(1)
-for extra_css in ['bracket-tree.css', 'arena-ticket.css', 'bracket-editor.css']:
+for extra_css in ['bracket-tree.css', 'arena-ticket.css', 'bracket-editor.css', 'paper-theme.css']:
     css += '\n' + io.open(os.path.join(LAB, extra_css), encoding='utf-8').read()
 
 # 主驅動是最長的那個內聯 <script>（沒有 src、沒有 type）
@@ -98,7 +99,7 @@ io.open(os.path.join(TH, 'src/app/lunjianMarkup.ts'), 'w', encoding='utf-8', new
 
 # Static public landing page shares the lab source and asset pipeline.
 home = io.open(os.path.join(LAB, 'home.html'), encoding='utf-8').read()
-header = re.search(r'<header class="site-header">.*?</header>', src, re.S).group(0)
+header = re.search(r'<header class="site-header"[^>]*>.*?</header>', src, re.S).group(0)
 header = re.sub(r'<a data-manager-only.*?</a>', '', header)
 header = re.sub(r'<div data-manager-only class="phase-pick".*?</div>', '', header, flags=re.S)
 header = re.sub(r'<button[^>]*data-reading-toggle[^>]*>.*?</button>', '<a href="/?view=reading">靜態閱讀</a>', header)
@@ -119,6 +120,14 @@ bracket_js = prefix(io.open(os.path.join(LAB, 'bracket-tree.js'), encoding='utf-
 io.open(os.path.join(TH, 'src/features/bracket/bracketTreeRuntime.js'), 'w', encoding='utf-8', newline='\n').write('// Generated from lab/bracket-tree.js; do not edit.\n' + bracket_js)
 io.open(os.path.join(PUB, 'bracket-tree.css'), 'w', encoding='utf-8', newline='\n').write(prefix(io.open(os.path.join(LAB, 'bracket-tree.css'), encoding='utf-8').read()))
 
+# Restore authored plum counts while retaining the released snow shader and density.
+# The original frozen module stays intact; this explicit override has a new asset URL.
+particle_counts = re.search(r'const PETALS=\d+, BLOOMS=\d+', io.open(os.path.join(LAB, 'jz/js/particles.js'), encoding='utf-8').read()).group(0)
+particle_base = io.open(os.path.join(TH, 'public/jz/js/particles.js'), encoding='utf-8').read()
+particle_override, replaced = re.subn(r'const PETALS=\d+, BLOOMS=\d+', particle_counts, particle_base)
+assert replaced == 1, 'Expected one particle population setting'
+io.open(os.path.join(TH, 'public/jz/js/particles-plum.js'), 'w', encoding='utf-8', newline='\n').write(particle_override)
+
 # ── 素材 ─────────────────────────────────────────────────────────────────
 copied = 0
 for rel in ['art', 'type', 'vendor']:
@@ -130,7 +139,7 @@ for rel in ['art', 'type', 'vendor']:
     # _src 是轉檔前的原圖，不上線
     shutil.copytree(s0, d0, ignore=shutil.ignore_patterns('_src'))
     copied += sum(len(f) for _, _, f in os.walk(d0))
-for f in ['boot-symbol.js', 'dossier-demo.json', 'home-stage.js', 'home-intro.js', 'home-return.js', 'glyphs.json', 'brush.js', 'ink-title.js', 'ink-wave.js', 'ink-transitions.js', 'motion-study.html', 'chapter-titles.js', 'bracket-tree.js', 'arena-ticket.js', 'bracket-editor.js', 'stage3d.js']:
+for f in ['boot-symbol.js', 'dossier-demo.json', 'home-stage.js', 'home-intro.js', 'home-return.js', 'glyphs.json', 'brush.js', 'ink-title.js', 'ink-wave.js', 'ink-transitions.js', 'motion-study.html', 'ink-interaction-study.html', 'chapter-titles.js', 'bracket-tree.js', 'arena-ticket.js', 'bracket-editor.js', 'stage3d.js']:
     p = os.path.join(LAB, f)
     if os.path.exists(p):
         if f == 'home-intro.js':

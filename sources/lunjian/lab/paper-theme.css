@@ -1,0 +1,245 @@
+/* Fighter dossier is an overlay outside #main; it needs its own complete theme. */
+.psheet .dz-sheet {
+  --text-on-paper: var(--text-auth-ink);
+  --text-on-paper-muted: var(--text-auth-muted);
+  --paper-faint: var(--text-auth-muted);
+  --paper-live: var(--accent-auth-action);
+  --crease: var(--border-auth);
+  box-sizing: border-box;
+  width: min(680px, calc(100vw - 32px));
+  padding: 28px 32px;
+  background: var(--surface-auth-paper);
+  color: var(--text-auth-ink);
+  border: 1px solid var(--border-auth);
+  scrollbar-width: none;
+}
+.psheet .dz-sheet::before { display: none; }
+.psheet .dz-sheet::-webkit-scrollbar { display: none; }
+.psheet .dz-close {
+  background: var(--surface-auth-field);
+  color: var(--text-auth-ink);
+  border: 1px solid var(--border-auth);
+}
+.psheet .dz-head { margin-top: -44px; padding: 0 60px 20px 0; }
+.psheet .dz-name { color: var(--text-auth-ink); font-size: clamp(28px, 3vw, 40px); line-height: 1.3; }
+.psheet :is(.dz-rank,.dz-odds,.dz-empty,.dz-sec h4,.dz-gear strong,.dz-details) { color: var(--text-auth-ink); }
+.psheet :is(.dz-kicker,.dz-note,.dz-sub,.dz-kind,.dz-row dt,.dz-gear small) { color: var(--text-auth-muted); }
+.psheet .dz-note { font-size: 15px; }
+.psheet .dz-empty { margin: 24px 0; padding: 24px; background: var(--surface-auth-field); border-left: 3px solid var(--border-auth); font-size: 16px; line-height: 1.75; }
+.psheet .dz-gear { background: var(--surface-auth-field); border: 1px solid var(--border-auth); }
+.psheet .dz-actions { margin-top: 24px; justify-content: flex-end; }
+.psheet .dz-bet { min-height: 48px; background: var(--text-auth-ink); color: var(--surface-auth-paper); font-size: 15px; }
+.psheet .dz-bet:hover { background: var(--accent-auth-action); }
+.psheet :is(button,summary):focus-visible { outline: 2px solid var(--text-auth-ink); outline-offset: 4px; }
+@media (max-width: 600px) {
+  body[data-device="mobile"] .psheet .dz-sheet { width: calc(100vw - 24px); padding: 20px; }
+  .psheet .dz-empty { padding: 20px 16px; }
+  .psheet .dz-actions .dz-bet { width: 100%; }
+}
+/* Original seven chapters, now printed on the same paper as member services. */
+html:has([data-paper-site]),
+body:has([data-paper-site]) {
+  color-scheme: light;
+  --surface-base: var(--surface-auth-paper);
+  --surface-raised: var(--surface-auth-field);
+  --surface-overlay: color-mix(in oklab, var(--surface-auth-paper) 85%, var(--border-auth));
+  --text-primary: var(--text-auth-ink);
+  --text-secondary: var(--text-auth-muted);
+  --border-subtle: var(--border-auth);
+  --surface-paper: var(--surface-auth-paper);
+  --text-on-paper: var(--text-auth-ink);
+  --text-on-paper-muted: var(--text-auth-muted);
+  --paper: var(--text-auth-ink);
+  --muted: var(--text-auth-muted);
+  --paper-soft: var(--text-auth-muted);
+  --paper-dim: var(--text-auth-muted);
+  --paper-faint: var(--text-auth-muted);
+  --line: var(--border-auth);
+  --rule: var(--border-auth);
+  --money: var(--accent-auth-action);
+  --chapter-gold: var(--accent-auth-action);
+  --red-soft: var(--paper-live);
+}
+body:has([data-paper-site]) {
+  color: var(--text-auth-ink);
+}
+/* Background stage/world/scenery are deliberately untouched. */
+body:has([data-paper-site]) #main > .chapter > .chapter-sticky {
+  background:transparent;
+  color: var(--text-auth-ink);
+}
+body:has([data-paper-site]) #main > .chapter > .chapter-sticky::before { display: none; }
+body:has([data-paper-site]) #main :is(.manga-page,.comic-board,.manga-heading,.awards-stage,.awards-heading,.schedule-heading) {
+  background: transparent;
+  color: var(--text-auth-ink);
+  text-shadow: none;
+}
+body:has([data-paper-site]) #main :is(.frame-caption,.frame-speech,.manga-fulltext,.manga-bp,.manga-catalog,.paper,.panel,.rule-ranks > div,.bnode,.podium-frame figcaption,.rules-open,.registration-invitation) {
+  background-color: var(--surface-auth-field);
+  color: var(--text-auth-ink);
+  border-color: var(--border-auth);
+}
+body:has([data-paper-site]) #main :is(.manga-heading,.awards-heading,.schedule-heading,.registration-chapter-title) {
+  border-bottom: 1px solid var(--border-auth);
+  padding-block: 16px;
+  margin-block: 0 24px;
+  min-height: 80px;
+}
+body:has([data-paper-site]) #main > .chapter:not(#duel) :is(h1,h2,h3,.chapter-calligraphy) {
+  color: var(--text-auth-ink);
+  text-shadow: none;
+}
+body:has([data-paper-site]) #main .chapter-nav {
+  --chapter-nav-color: var(--text-auth-ink);
+  --chapter-nav-border: var(--border-auth);
+  --chapter-nav-surface: transparent;
+}
+body:has([data-paper-site]) .home-actions a:first-child {
+  background: var(--accent-auth-action);
+  color: var(--surface-auth-field);
+  border-color: var(--accent-auth-action);
+}
+body:has([data-paper-site]) .home-actions a {
+  background: var(--surface-auth-field);
+  border-color: var(--border-auth);
+  color: var(--text-auth-ink);
+}
+body:has([data-paper-site]) .home-copy h1 { color: var(--text-auth-ink); text-shadow: none; }
+body:has([data-paper-site]) .home-copy { padding:48px 24px; border:1px solid var(--border-auth); width:min(100%,720px); }
+body:has([data-paper-site]) :is(.cta,.link-line,.bracket-switch button) { color:var(--text-auth-ink);border-color:var(--border-auth); }
+body:has([data-paper-site]) .cta:hover { color:var(--text-auth-ink);background:var(--surface-overlay); }
+body:has([data-paper-site]) :is(.bracket-switch button[aria-selected='true']) { color:var(--surface-auth-field);background:var(--accent-auth-action); }
+body:has([data-paper-site]) #main .awards-note { background:var(--surface-auth-field);color:var(--text-auth-ink);border-color:var(--border-auth); }
+/* Paper belongs to content panels, with the existing animated world visible around them. */
+body:has([data-paper-site]) #main :is(.manga-page,.registration-stage,.awards-stage),
+body:has([data-paper-site]) .home-copy {
+  background-color:var(--surface-auth-paper);
+  background-image:linear-gradient(color-mix(in oklab,var(--surface-auth-paper) 70%,transparent),color-mix(in oklab,var(--surface-auth-paper) 70%,transparent)),var(--surface-paper-texture);
+  background-position:center;
+  background-size:cover;
+  color:var(--text-auth-ink);
+}
+body:has([data-paper-site]) #main :is(.manga-page,.registration-stage,.awards-stage) { padding:24px; border:1px solid var(--border-auth); }
+body:has([data-paper-site]) :is(#rewards) > .chapter-sticky > .chapter-nav { background:var(--surface-auth-paper);padding:16px; }
+@media(max-width:767px) {
+  body:has([data-paper-site]) #main :is(.manga-page,.registration-stage,.awards-stage) { padding:16px; }
+  body:has([data-paper-site]) #main :is(.manga-heading,.awards-heading,.schedule-heading,.registration-chapter-title) { min-height:64px;margin-bottom:16px;padding-block:12px; }
+}
+
+/* Dialogue is white inked card stock, distinct from the oil-paper chapter mount. */
+body:has([data-paper-site]) #main [data-comic-layer='caption']:is(.frame-caption,.frame-speech) {
+  background: var(--surface-dialogue);
+  color: var(--comic-ink);
+  border: 2px solid var(--comic-ink);
+  border-radius: 0;
+  box-shadow: 5px 5px 0 color-mix(in srgb,var(--comic-ink) 65%,transparent);
+  transform: none;
+}
+body:has([data-paper-site]) #main :is(#rules,#invitation) .frame-caption {
+  margin: 16px 20px 22px;
+  max-width: calc(100% - 40px);
+}
+@media(max-width:767px) {
+  body:has([data-paper-site]) #main :is(#rules,#invitation) .frame-caption { margin:12px 12px 18px;max-width:calc(100% - 24px); }
+  body:has([data-paper-site]) #main [data-comic-layer='caption']:is(.frame-caption,.frame-speech) { box-shadow:4px 4px 0 color-mix(in srgb,var(--comic-ink) 65%,transparent); }
+}
+
+/* Restore the arena's original full-screen silhouettes, VS and foot-level names. */
+body:has([data-paper-site]) #duel {
+ --paper:var(--text-arena);--paper-soft:var(--text-arena-muted);--muted:var(--text-arena-muted);--chapter-gold:var(--text-arena);--line:var(--border-arena);
+ color:var(--text-arena);
+}
+body:has([data-paper-site]) #duel .chapter-sticky { color:var(--text-arena); }
+body:has([data-paper-site]) #duel .chapter-nav { --chapter-nav-color:var(--text-arena);--chapter-nav-border:var(--border-arena); }
+/* One translucent paper veil; original bracket cards retain their faction artwork. */
+body:has([data-paper-site]) #schedule.chapter .chapter-sticky {
+ background:color-mix(in srgb,var(--surface-auth-paper) 72%,transparent);
+ isolation:isolate;
+}
+body:has([data-paper-site]) #schedule :is(#bracket-panel,.schedule-heading) { background:transparent; }
+html[data-color-mode='dark'] body:has([data-paper-site]) { color-scheme:dark; }
+html[data-color-mode='dark'] body:has([data-paper-site]) #main [data-comic-layer='caption']:is(.frame-caption,.frame-speech) { color:var(--text-auth-ink);border-color:var(--border-auth); }
+
+body:has([data-paper-site]) #duel .fighter .nm { color:var(--text-arena); }
+body:has([data-paper-site]) #schedule.chapter .chapter-sticky::before {
+ display:block;content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+ background:var(--surface-paper-texture) center/cover;opacity:.12;
+}
+body:has([data-paper-site]) .tournament-tree :is(.tt-player,.tt-node,.tt-champion,.tt-tab) {
+ --paper:var(--text-arena);--paper-soft:var(--text-arena-muted);--paper-dim:var(--text-arena-muted);--paper-faint:var(--border-arena);--money:var(--text-arena);
+}
+html[data-color-mode='dark'] body:has([data-paper-site]) .comic-board { --comic-paper:var(--surface-auth-paper);--comic-ink:var(--text-auth-ink); }
+html[data-color-mode='dark'] body:has([data-paper-site]) :is(.manga-kicker,.frame-caption .manga-kicker) { color:var(--text-danger); }
+html[data-color-mode='dark'] body:has([data-paper-site]) .closeup-layer { mix-blend-mode:normal; }
+html[data-color-mode='dark'] body:not(.reading):not([data-intro]):is([data-grid='1'],[data-grid='2']) :is(#world,#stage img.bg) { opacity:.45;mix-blend-mode:normal; }
+
+/* Rewards use one full-width paper veil; content and pagination share an axis. */
+body:has([data-paper-site]) #rewards.chapter > .chapter-sticky {
+  max-width:none;width:100%;isolation:isolate;
+  background:color-mix(in srgb,var(--surface-auth-paper) 72%,transparent);
+}
+body:has([data-paper-site]) #rewards.chapter > .chapter-sticky::before {
+  display:block;content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:var(--surface-paper-texture) center/cover;opacity:.12;
+}
+body:has([data-paper-site]) #main #rewards .awards-stage,
+body:has([data-paper-site]) #rewards.chapter > .chapter-sticky > .chapter-nav {
+  width:100%;max-width:1184px;margin-inline:auto;box-sizing:border-box;
+  background:transparent;
+}
+body:has([data-paper-site]) #main #rewards .awards-stage {padding:0;border:0;}
+body:has([data-paper-site]) #rewards.chapter > .chapter-sticky > .chapter-nav {padding-inline:0;}
+
+/* Full-bleed dark scene veil, with paper retained only on content surfaces. */
+body:has([data-paper-site]) :is(.dz-scrim,.vs-scrim){background:var(--surface-modal-scrim)}
+body:has([data-paper-site]) :is(#schedule,#rewards).chapter>.chapter-sticky{background:var(--surface-scene-scrim)}
+body:has([data-paper-site]) #main :is(.schedule-heading,.awards-heading) :is(h1,h2,h3,.chapter-calligraphy){color:var(--text-on-scene)}
+body:has([data-paper-site]) :is(#schedule,#rewards) .chapter-nav{--chapter-nav-color:var(--text-on-scene);--chapter-nav-border:var(--text-on-scene-muted)}
+body:has([data-paper-site]):not(.reading):not([data-intro]):is([data-grid='1'],[data-grid='2']){background:var(--surface-scene-glass)}
+body:has([data-paper-site]):not(.reading):not([data-intro]):is([data-grid='1'],[data-grid='2']) :is(#world,#stage img.bg){opacity:.65;mix-blend-mode:normal;filter:brightness(.5)}
+/* The panel is the clipping rectangle; all image corners share its coordinates. */
+body:has([data-paper-site]) .ink-frame{overflow:hidden}
+body:has([data-paper-site]) .ink-frame :is(.frame-art,.frame-art img,.figure-window){padding:0}
+body:has([data-paper-site]) .ink-frame .frame-art{inset:0}
+body:has([data-paper-site]) .ink-frame .figure-window{inset:0}
+body:has([data-paper-site]) :is(#rules,#invitation) .frame-art img{visibility:visible;opacity:.8}
+body:has([data-paper-site]) #rules .frame-assess .judge-layer{inset:0 14% auto;width:72%;height:260px}
+body:has([data-paper-site]) #rules .frame-assess .judge-layer img{width:100%;height:auto;object-position:center top}
+body:has([data-paper-site]) #rules .frame-battle :is(.novice-pair,.veteran-pair){top:0;bottom:auto;width:48%;height:100%}
+body:has([data-paper-site]) #rules .frame-battle .novice-pair{left:0}
+body:has([data-paper-site]) #rules .frame-battle .veteran-pair{right:0}
+body:has([data-paper-site]) #rules .frame-battle .figure-layer img{width:100%;height:auto;object-position:center top}
+body:has([data-paper-site]) .frame-stage .novice-breakout{top:0;bottom:auto;height:180%}
+body:has([data-paper-site]) :is(#rules,#invitation) .ink-frame:has(.layered-scene){padding-top:0}
+.layered-scene{position:relative;isolation:isolate;overflow:hidden;height:260px;width:100%;flex:none}
+.layered-scene>img{position:absolute;display:block;width:100%;height:100%;object-fit:cover;inset:0}
+.layered-scene .scene-background{z-index:0}
+.layered-scene .scene-character{z-index:1;object-fit:contain;width:90%;height:95%;left:5%;top:0}
+.layered-scene .scene-props{z-index:2;top:16%;height:100%;object-fit:contain}
+.ink-frame:has(.layered-scene) figcaption{z-index:3}
+@media(max-width:767px){
+ body:has([data-paper-site]) #rules .frame-assess .judge-layer{height:210px}
+ body:has([data-paper-site]) #rules .frame-battle :is(.novice-pair,.veteran-pair){width:64%}
+ body:has([data-paper-site]) #rules .frame-battle .novice-pair{left:-13%}
+ body:has([data-paper-site]) #rules .frame-battle .veteran-pair{right:-13%}
+}
+
+@media(max-width:767px){.layered-scene{height:210px}}
+
+/* Alternate diagonal contacts retain the comic slant without detached corners. */
+body:has([data-paper-site]) .ink-frame{--frame-cut:polygon(0 0,100% 3%,100% 100%,0 97%)}
+body:has([data-paper-site]) .ink-frame:nth-child(even){--frame-cut:polygon(0 3%,100% 0,100% 97%,0 100%)}
+body:has([data-paper-site]) .ink-frame :is(.frame-art,.figure-window,.layered-scene){clip-path:var(--frame-cut)}
+body:has([data-paper-site]) .ink-frame .frame-art img{clip-path:none}
+/* Only the purpose comic outlines the image's diagonal edge inside its panel. */
+body:has([data-paper-site]) #prologue .purpose-board > .ink-frame::after{
+ content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+ background:var(--comic-ink);
+ clip-path:polygon(evenodd,0 0,100% 3%,100% 100%,0 97%,0 0,2px 2px,2px calc(97% - 2px),calc(100% - 2px) calc(100% - 2px),calc(100% - 2px) calc(3% + 2px),2px 2px);
+}
+body:has([data-paper-site]) #prologue .purpose-board > .ink-frame:nth-child(even)::after{
+ clip-path:polygon(evenodd,0 3%,100% 0,100% 97%,0 100%,0 3%,2px calc(3% + 2px),2px calc(100% - 2px),calc(100% - 2px) calc(97% - 2px),calc(100% - 2px) 2px,2px calc(3% + 2px));
+}
+body:has([data-paper-site]) #rules .frame-battle .figure-layer img{height:100%;object-fit:cover;transform:none}
+.frame-pledge .scene-character{left:25%;width:75%}
+.frame-pledge .scene-props{left:0;top:20%;width:60%;height:85%;object-fit:contain;object-position:left bottom}

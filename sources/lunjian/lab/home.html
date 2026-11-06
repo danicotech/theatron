@@ -2,8 +2,8 @@
 .baiye-home{min-height:100svh;color:var(--paper);font-family:var(--serif);isolation:isolate}
 .home-hero{position:relative;isolation:isolate;min-height:100svh;display:grid;place-items:center;padding:calc(var(--nav-h) + 32px) 24px 64px;overflow:hidden}
 .home-scenery,.home-world{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
-.home-scenery{filter:brightness(.58)}.home-world{opacity:0}.baiye-home[data-scene="3d"] .home-world{opacity:1}.baiye-home[data-scene="3d"] .home-scenery{opacity:0}
-.home-hero:before{content:"";position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 20%,transparent);pointer-events:none;z-index:2}
+.home-scenery{filter:brightness(.78)}.home-world{opacity:0}.baiye-home[data-scene="3d"] .home-world{opacity:1}.baiye-home[data-scene="3d"] .home-scenery{opacity:0}
+.home-hero:before{content:"";position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 8%,transparent);pointer-events:none;z-index:2}
 .home-copy{text-align:center;position:relative;z-index:10;width:100%;padding-block:32px}
 .home-copy h1{font:500 clamp(68px,12vw,174px)/1.2 var(--serif);letter-spacing:.08em;margin:0 0 48px;text-shadow:0 4px 30px var(--ink)}
 .home-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:18px}
@@ -17,4 +17,47 @@
 .home-pine{z-index:5;width:min(44vw,600px);right:-12vw;bottom:-22vh;scale:-1 1;filter:brightness(.8) saturate(.8)}
 .baiye-home :focus-visible{outline:2px solid var(--paper);outline-offset:4px}
 @media(max-width:600px){.home-copy h1{font-size:clamp(54px,14vw,84px);letter-spacing:.04em;margin-bottom:36px}.home-hero{padding-inline:16px}.home-actions{gap:12px}.home-actions a{padding:12px 22px}.home-bamboo{width:82vw;left:-20vw;bottom:-2vh}.home-plum{width:65vw;right:-18vw;top:13vh}.home-blossom{width:110vw;right:-34vw;bottom:0}.home-pine{width:76vw;right:-22vw;bottom:-12vh}}
+/* The landing title floats directly over the original world. */
+.home-copy{background:none;border:0;box-shadow:none}
+.home-copy h1{color:var(--text-primary);text-shadow:0 2px 4px var(--surface-scene-glass)}
+/* Kage-inspired editorial scale: the world is the hero, with a large title and a quiet action rail. */
+.home-copy {
+  --text-primary:var(--text-arena);
+  --surface-base:var(--surface-scene-glass);
+  --type-h1: clamp(76px, 9.4vw, 144px);
+  --type-heading-leading: 1.16;
+  --type-heading-tracking: .16em;
+  --type-heading-gap: .42em;
+  width: min(100%, 1160px);
+  padding-block: 16px;
+}
+.home-copy h1 { padding-inline-start: .16em; }
+.home-actions { gap: 24px; align-items: center; }
+.home-actions a {
+  min-height: 64px; min-width: 208px; padding: 16px 30px;
+  font-size: 20px; letter-spacing: .14em; white-space: nowrap;
+  border-color: color-mix(in srgb,var(--text-primary) 65%,transparent);
+  background:color-mix(in srgb,var(--surface-base) 74%,transparent);
+  color:var(--text-primary);
+}
+.home-actions a:first-child { background:transparent; color:var(--text-primary); border-color:transparent; border-bottom-color:color-mix(in srgb,var(--text-primary) 65%,transparent); }
+.home-actions a:last-child { background:var(--text-primary); color:var(--surface-base); }
+.home-actions a::after { content:'↗'; display:inline-block; margin-inline-start:24px; transition:transform 220ms ease; }
+.home-actions a:hover::after { transform:translate(3px,-3px); }
+.home-actions a:hover { box-shadow:0 0 0 3px color-mix(in srgb,var(--text-primary) 20%,transparent); }
+.home-actions a:active { scale:.97; }
+@media(max-width:600px) {
+ .home-copy { --type-h1:clamp(44px,12vw,72px); --type-heading-tracking:.1em; --type-heading-gap:.65em; }
+ .home-copy h1 { padding-inline-start:.1em; }
+ .home-actions { gap:16px; }
+ .home-actions a { min-width:0; min-height:56px; padding:12px 16px; font-size:17px; letter-spacing:.04em; }
+ .home-actions a::after { margin-inline-start:12px; }
+}
+@media(max-height:500px) and (min-width:601px) {
+ .home-copy { --type-h1:clamp(56px,10vh,80px); --type-heading-gap:.25em; padding:0; }
+ .home-hero { padding-block:calc(var(--nav-h) + 16px) 24px; }
+ .home-actions a { min-height:52px; }
+}
+@media(prefers-reduced-motion:reduce) { .home-actions a::after { transition:none; } }
+
 </style></head><body><div class="baiye-home"><canvas id="home-world" class="home-world" aria-hidden="true"></canvas><!-- SHARED_BOOT --><!-- SHARED_HEADER --><main class="home-hero"><img class="home-scenery" src="art/bg/scene-gate.webp" alt=""><img class="home-foreground home-bamboo" data-home-depth="1.8" data-home-side="-1" src="art/fg-bamboo.webp" alt=""><img class="home-foreground home-plum" data-home-depth="1.2" data-home-side="1" src="art/fg-plum-branch-v3.webp" alt=""><img class="home-foreground home-pine" data-home-depth=".8" data-home-side="1" src="art/fg-snow-pine.webp" alt=""><img class="home-foreground home-blossom" data-home-depth="2.2" data-home-side="1" src="art/fg-snow-plum.webp" alt=""><div class="home-copy"><h1 data-home-depth=".65" data-home-title>百業試鋒</h1><div class="home-actions"><a href="/#prologue">了解賽制</a><a href="/#register">提筆報名</a></div></div></main></div></body></html>

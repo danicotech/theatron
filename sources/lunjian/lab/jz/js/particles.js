@@ -94,11 +94,11 @@ export function particles(scene) {
 
   /* ---------------------------------------------------------- 梅瓣
      原本只有 44 片、0.14×0.08 的小薄片，而且旋轉是 shader 裡的假 2D 轉。
-     現在 240 片，真的三軸翻滾，用 InstancedMesh 一次畫完。            */
+     現在 48 個，真的三軸翻滾，用 InstancedMesh 一次畫完。            */
   /* PETALS 與 BLOOMS 原本被設成 0 —— 上面那段註解寫著「現在 240 片」，
      但實際上一片都不會生成，畫面上完全沒有飄落的梅瓣。
-     240 片紅瓣 ＋ 64 朵白花，用 InstancedMesh 一次畫完，成本是兩個 draw call。 */
-  const PETALS=240, BLOOMS=64, SPREAD=15, AHEAD=12, RANGE=34;
+     36 片紅瓣 ＋ 12 朵白花，用 InstancedMesh 一次畫完，成本是兩個 draw call。 */
+  const PETALS=48, BLOOMS=12, SPREAD=15, AHEAD=12, RANGE=34;
   const petalGeo=createPetalGeometry('red',10);petalGeo.scale(.25,.25,.25);
   const bloomGeo=createFlowerGeometry('white',true);bloomGeo.scale(.19,.19,.19);
   geometries.push(petalGeo,bloomGeo);

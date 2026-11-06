@@ -94,6 +94,7 @@ function storageStatus(state, message) {
   if (!status) return;
   status.dataset.state = state;
   $('#storage-message').textContent = message;
+  status.title = message;
   $('#storage-retry').hidden = state !== 'error';
 }
 function flushSave() {
@@ -480,6 +481,7 @@ function buildCard(b, current) {
   if (current) {
     const sw = el('img', { src: ASSETS + 'ui/switch.png', alt: '切換流派' });
     sw.className = 'bpick-switch';
+    head.append(el('span', { className: 'build-change', textContent: '更換流派' }));
     head.append(sw);
   }
   content.append(head);
@@ -580,14 +582,14 @@ function renderBuild() {
   host.className = 'build-trigger bpick-content';
   frame.replaceChildren(host);
   frame.removeAttribute('data-family');
+  frame.toggleAttribute('data-empty', !b);
   host.onclick = openBuildPicker;
   host.disabled = false;
   host.setAttribute('aria-label', b ? '更換流派，目前 ' + b.name : '選擇流派');
 
   if (!b) {
     host.append(el('div', { className: 'bpick-content' }, [
-      el('div', { className: 'bpick-header' }, [el('span', { textContent: '選一個流派' })]),
-      el('p', { className: 'bpick-none', textContent: '十一個流派。選了之後武器與武學會自動跟上，點這裡開始。' }),
+      el('div', { className: 'bpick-header' }, [el('span', { className: 'build-add', textContent: '＋', 'aria-hidden': 'true' }), el('span', { textContent: '選擇流派' }), el('span', { className: 'build-next', textContent: '→', 'aria-hidden': 'true' })]),
     ]));
     return;
   }
@@ -710,6 +712,12 @@ function renderMinds() {
   });
 }
 
+function skillBook(name) {
+  const book = el('span', { className: 'skill-book', 'aria-hidden': 'true' }, [el('span', { className: 'skill-book-title', textContent: name })]);
+  book.style.setProperty('--book-chars', String(Array.from(name).length));
+  return book;
+}
+
 function renderArts() {
   const host = $('#arts');
   host.textContent = '';
@@ -718,7 +726,7 @@ function renderArts() {
       empty: !a,
       name: a ? a.name : '奇術 ' + (i + 1),
       figure: a
-        ? el('span', { className: 'seal', textContent: a.name.slice(0, 5) })
+        ? skillBook(a.name)
         : el('span', { textContent: '＋' }),
       // 奇術沒有公開上限，列 1–10 當捷徑，超出的自己打
       chip: a ? valueChip(a.lv, {
@@ -1337,7 +1345,7 @@ function renderVault() {
     const box = el('div', { className: 'blank' });
     box.append(el('p', {
       textContent: !S.vault.length
-        ? '倉庫是空的。先把你有的裝備登記進來，再決定這次要帶哪幾件。'
+        ? '倉庫尚無裝備。'
         : vaultOnly.size
           ? '這個分類底下沒有符合篩選的東西。'
           : '這個分類底下還沒有東西。',
@@ -2547,9 +2555,18 @@ function buildShell() {
   }
   target.searchParams.set('intro', '0');
   target.hash = 'duel';
+  const returningToEnrollment = params.get('returnTo') === 'enrollment';
+  const memberSlug = ['member', 'enrollment'].includes(params.get('returnTo')) ? params.get('t') : null;
+  if (memberSlug) {
+    target.pathname = '/t/' + encodeURIComponent(memberSlug) + (returningToEnrollment ? '/enroll' : '/me');
+    target.search = returningToEnrollment ? '' : '?view=character';
+    target.hash = '';
+  }
   for (const a of [$('#home'), $('#navhome'), $('#return-duel')]) if (a) {
     a.href = target.href;
-    a.setAttribute('aria-label', '返回比武');
+    const returnLabel = memberSlug ? (returningToEnrollment ? '返回報名' : '返回會員專區') : '返回比武';
+    a.setAttribute('aria-label', returnLabel);
+    if (memberSlug && a.id === 'return-duel') a.textContent = returnLabel;
     on(a, 'click', event => {
       if (saveT && !flushSave()) { event.preventDefault(); $('#storage-retry').focus(); }
     });
@@ -2604,74 +2621,21 @@ function buildShell() {
 }
 
 
-/* ── 右欄分頁與說明收合 ───────────────────────────────────────────────────
-   2026-09-18 設計定案的兩件事（見 DESIGN_MEMORY.md）：
-
-   分頁    右欄原本三張卡疊起來 1472px，視窗只有 1000px，永遠有東西看不到。
-   ⓘ      每張卡底下那段灰字是第一次看才需要的，不該天天佔六行。
-           收進標題列，點了才展開；展開狀態記在 localStorage，
-           因為「我想一直看著這段」也是合理的偏好。 */
-const PANES = [['power', '戰力'], ['goal', '目標'], ['sheet', '準備報名']];
-const PANE_KEY = 'lunjian.loadout.pane';
-let PANE = 'power';
-
-function showPane(k) {
-  PANE = PANES.some((p) => p[0] === k) ? k : 'power';
-  try { localStorage.setItem(PANE_KEY, PANE); } catch { /* 存不了就算了 */ }
-  for (const b of $('#rtabs').children) { b.toggleAttribute('data-on', b.dataset.k === PANE); b.setAttribute('aria-selected', String(b.dataset.k === PANE)); }
-  for (const c of document.querySelectorAll('.col-3 > .card[data-pane]')) {
-    c.toggleAttribute('data-on', c.dataset.pane === PANE);
-  }
-}
-
-function buildPanes() {
-  const host = $('#rtabs');
-  if (!host) return;
-  host.replaceChildren();
-  for (const [k, n] of PANES) {
-    const b = el('button', { type: 'button', textContent: n, 'data-k': k, role: 'tab' });
-    on(b, 'click', () => showPane(k));
-    host.append(b);
-  }
-  try { PANE = localStorage.getItem(PANE_KEY) || 'power'; } catch { PANE = 'power'; }
-  showPane(PANE);
-}
-
 /* 把卡片底下那段 .hint 收進標題列的 ⓘ。
    不改標記、不改文案 —— 就地把既有的那一段藏起來，掛一顆鈕去開它。
    這樣文案還是只有一份，不會有「說明改了但收合版沒改」的事。 */
-const WHY_KEY = 'lunjian.loadout.why';
-let WHY = new Set();
 function foldHints() {
   document.querySelectorAll('.why').forEach(n => n.remove());
-  try { WHY = new Set(JSON.parse(localStorage.getItem(WHY_KEY) || '[]')); } catch { WHY = new Set(); }
-  // 用 .card 起手不用 h2 起手：裝備倉庫那張卡的 h2 包在 .vault-head 裡面，
-  // 從 h2 往上抓 parentElement 會抓到那層 div，找不到底下的 .hint。
-  document.querySelectorAll('.col .card').forEach((card, i) => {
+  document.querySelectorAll('.col .card').forEach(card => {
     const h2 = card.querySelector('h2');
-    if (!h2) return;
-    const hint = [...card.children].find((x) => x.classList.contains('hint') && x.id !== 'radar-empty' && x.id !== 'reg-why');
-    if (!hint || h2.querySelector('.why')) return;
-    const id = card.dataset.pane || (card.querySelector('[id]') || {}).id || ('c' + i);
-    const open = WHY.has(id);
-    hint.hidden = !open;
-    const b = el('button', {
-      className: 'why', type: 'button', textContent: 'ⓘ',
-      'aria-label': '這一塊在算什麼', 'aria-expanded': open ? 'true' : 'false',
-    });
-    if (open) b.setAttribute('data-on', '');
-    on(b, 'click', () => {
-      const now = hint.hidden;
-      hint.hidden = !now;
-      b.toggleAttribute('data-on', now);
-      b.setAttribute('aria-expanded', now ? 'true' : 'false');
-      if (now) WHY.add(id); else WHY.delete(id);
-      try { localStorage.setItem(WHY_KEY, JSON.stringify([...WHY])); } catch { /* 算了 */ }
-    });
+    const hint = [...card.children].find(x => x.classList.contains('hint') && x.id !== 'radar-empty' && x.id !== 'reg-why');
+    if (!h2 || !hint) return;
+    hint.hidden = true;
+    const b = el('button', {className:'why',type:'button','data-help':hint.textContent,'aria-label':(h2.firstChild?.textContent || '區塊')+'說明'});
+    b.append(el('span',{'aria-hidden':'true',textContent:'!'}));
     h2.append(b);
   });
 }
-
 
 // ── 屬性彙總與雷達 ───────────────────────────────────────────────────────
 let attrAll = false;
@@ -2682,7 +2646,7 @@ function renderTotals() {
   const ga = $('#gear-attr');
   ga.textContent = '';
   if (!A.tune.length) {
-    ga.append(el('p', { className: 'hint', textContent: '還沒填任何詞條。點中欄的裝備卡開始。' }));
+    ga.append(el('p', { className: 'hint', textContent: '尚未填寫詞條。' }));
   } else {
     const idealBy = new Map(A.ideal.map((r) => [r.k, r.v]));
     const LR = levelResist(C);
@@ -2780,8 +2744,7 @@ function renderGoals() {
 
   if (!G.rows.length) {
     host.append(el('p', { className: 'hint',
-      textContent: '還沒設目標。先按「加入屬性」挑幾條你在乎的，'
-        + '或按「用目前數值帶入」把現在的數字當起點再往上調。' }));
+      textContent: '尚未設定目標。' }));
   }
 
   for (const r of G.rows) {
@@ -2942,9 +2905,8 @@ function render() {
   renderReady();
   const configured = state => !!formatNote(state, C, IDX) || state.vault.length > 0;
   const any = ROLES.some(r => configured(r.state));
-  ['#btn-export','[data-export]','#backup-export'].forEach(sel => { $(sel).disabled = !any; $(sel).title = any ? '匯出 JSON 備份' : '尚無配置可匯出'; });
+  ['#btn-export','[data-export]'].forEach(sel => { $(sel).disabled = !any; $(sel).title = any ? '匯出 JSON 備份' : '尚無配置可匯出'; });
   ['#btn-copy','[data-copy]'].forEach(sel => { $(sel).disabled = !t; $(sel).title = t ? '複製目前配置' : '先選流派或配置武學'; });
-  $('#empty-actions').hidden = any;
   persist();
   const warn = $('#warn');
   warn.hidden = t.length <= 1200;
@@ -2998,6 +2960,13 @@ function renderReady() {
   const why = $('#reg-why');
   const noBuild = !rows[0].ok;
   const localEvent = new URLSearchParams(location.search).get('sportsEvent');
+  const returnTo = new URLSearchParams(location.search).get('returnTo');
+  if (returnTo === 'member' || returnTo === 'enrollment') {
+    go.disabled = noBuild;
+    go.textContent = returnTo === 'member' ? '保存並返回會員專區' : '保存並返回報名';
+    why.textContent = noBuild ? '請先選擇流派。' : '武庫保存在此瀏覽器，返回後確認使用。';
+    return;
+  }
   go.disabled = noBuild || (!slug && !localEvent);
   go.textContent = localEvent ? '帶回角色設定' : '前往報名';
   if (noBuild) why.textContent = '先選流派。其餘幾項都被它收斂，沒選的話這份方案還不成立。';
@@ -3006,7 +2975,7 @@ function renderReady() {
   else if (miss.length) {
     why.textContent = '還差 ' + miss.map((r) => r.k).join('、')
       + '。可先帶入報名表補齊；此處尚未提交報名。';
-  } else why.textContent = '會把下面那段文字帶進報名表的「常用武學 / PVP 經驗」。';
+  } else why.textContent = '保存武庫後，前往報名確認使用。';
 }
 
 
@@ -3021,7 +2990,12 @@ function openPick(cfg) {
   $('#pick-title').textContent = cfg.title;
   $('#pick-q').value = '';
   const note = $('#pick-note');
-  note.hidden = !cfg.note;
+  note.hidden = true;
+  if(cfg.note){
+    const help=el('button',{type:'button','data-help':cfg.note,'aria-label':cfg.title+'說明'});
+    help.append(el('span',{'aria-hidden':'true',textContent:'!'}));
+    $('#pick-title').append(help);
+  }
   note.textContent = cfg.note || '';
   $('#pick-foot').hidden = !(cfg.custom || cfg.onClear);
   $('#pick-custom').hidden = !cfg.custom;
@@ -3072,9 +3046,7 @@ function drawPick() {
     }
     const c = el('button', { className: 'gcard' + (P.wide ? ' gcard-wide' : ''), type: 'button' });
     if (!r.img && P.wide) {
-      const book = el('span', { className: 'skill-book', 'aria-hidden': 'true' }, [el('span', { className: 'skill-book-title', textContent: r.name })]);
-      book.style.setProperty('--book-chars', String(Array.from(r.name).length));
-      c.append(book);
+      c.append(skillBook(r.name));
     } else {
       c.append(r.img ? img(r.img, r.name) : el('span', { className: 'seal', textContent: r.name.slice(0, 4) }));
     }
@@ -3177,7 +3149,7 @@ function openEditItem(it) {
     draft: JSON.parse(JSON.stringify(it)),
     placement: wornAt(it) || null,
   };
-  $('#edit-feedback').textContent = '按儲存後套用變更；取消會捨棄本次修改。';
+  $('#edit-feedback').textContent = '';
   const at = wornAt(it);
   $('#edit-title').textContent = '修改裝備　' + sm.name
     + (it.label ? '・' + it.label : '') + (at ? '（' + slotNameOf(at) + '）' : '（備在倉庫）');
@@ -3230,10 +3202,10 @@ function fieldSel(label, value, options, onChange) {
 function drawPreview() {
   const side = $('#edit-side');
   if (!side || !ED) return;
-  const expanded = side.querySelector('details')?.open ?? !matchMedia('(max-width:760px)').matches;
+  const expanded = side.querySelector('details')?.open ?? !matchMedia('(max-width:900px)').matches;
   side.textContent = '';
   const preview = el('details', { className: 'ed-preview', open: expanded });
-  preview.append(el('summary', { textContent: '查看裝備預覽' }));
+  preview.append(el('summary', { textContent: '裝備預覽' }));
   preview.append(cardForItem(ED.draft, { preview: true, at: ED.placement }));
   side.append(preview);
 }
@@ -3248,8 +3220,8 @@ function drawEdit() {
   const head = el('div', { className: 'ed-grid' });
   // 這一件現在掛在哪一格。防具只有自己那一格，武器主副都行。
   const at = ED.placement;
-  head.append(fieldSel('掛在哪一格', at || '',
-    [{ v: '', t: '— 備在倉庫（不掛） —' }].concat(
+  head.append(fieldSel('裝備位置', at || '',
+    [{ v: '', t: '僅存放倉庫' }].concat(
       fitsOf(p).map((x) => ({ v: x, t: slotNameOf(x) }))),
     (v) => { ED.placement = v; }));
   // 裝備類別：武器可以選兵器型別，防具每個部位只有一件所以固定。
@@ -3258,7 +3230,7 @@ function drawEdit() {
   if (s.isWeapon) {
     const b0 = IDX[S.build];
     const own = new Set((b0 ? b0.martials : []).map((k) => IDX[k] && IDX[k].weaponKey).filter(Boolean));
-    head.append(fieldPick('裝備類別', p.partKey,
+    head.append(fieldPick('武器類型', p.partKey,
       (C.weapons || []).map((w) => {
         const gw = baseOf(w.key);
         return {
@@ -3287,12 +3259,12 @@ function drawEdit() {
     fixed.append(el('span', { className: 'pf-t', textContent: (gb && gb.name) || s.part }));
     fixed.append(el('small', { textContent: s.name }));
     head.append(el('label', { className: 'fld' }, [
-      el('span', { textContent: '裝備類別' }), fixed,
+      el('span', { textContent: '裝備部位' }), fixed,
     ]));
   }
   head.append(fieldSel('品質', p.quality,
-    [{ v: 'gold', t: '金' }, { v: 'purple', t: '紫' }], (v) => { p.quality = v || 'gold'; }));
-  head.append(fieldSel('套裝', conf.set,
+    [{ v: 'gold', t: '金色品質' }, { v: 'purple', t: '紫色品質' }], (v) => { p.quality = v || 'gold'; }));
+  head.append(fieldSel('所屬套裝', conf.set,
     [{ v: '', t: '— 未指定 —' }].concat(C.sets.map((x) => ({ v: x.key, t: x.name }))),
     (v) => { conf.set = v; }));
   /* 階不是一個一個按的東西。
@@ -3355,21 +3327,23 @@ function drawEdit() {
   // 名稱擺最後一格：前面五欄是「這件是什麼」，名字是你自己給的，性質不同。
   // 同部位擺兩件時就靠它分辨 —— 資料表只有部位名（傘、冠胄），
   // 兩頂冠胄擺在一起長得一模一樣。
-  const nameLab = s.isWeapon ? '武器名稱' : '裝備名稱';
+  const nameLab = '自訂名稱（選填）';
   const lab = el('input', {
     type: 'text', value: p.label || '', maxLength: 12,
     placeholder: s.isWeapon ? ((itemName(p.partKey) || '流星雲傘')) : '爆傷／減傷／備用',
   });
   on(lab, 'change', () => { p.label = lab.value.trim().slice(0, 12); drawPreview(); });
   head.append(el('label', { className: 'fld' }, [el('span', { textContent: nameLab }), lab]));
-  body.append(head);
+  const basic = el('section', { className: 'ed-section', 'aria-label': '基本設定' });
+  basic.append(el('h4', { textContent: '基本設定' }), head);
+  body.append(basic);
   drawPreview();
 
   const tools = el('div', { className: 'ed-tools' });
   const cy = el('input', { type: 'checkbox', checked: !!p.chengyin });
   on(cy, 'change', () => { p.chengyin = cy.checked; });
   tools.append(el('label', { className: 'chk' }, [cy, el('span', { textContent: '承音' })]));
-  const bmax = el('button', { type: 'button', textContent: '全部最大' });
+  const bmax = el('button', { type: 'button', textContent: '填入詞條上限' });
   on(bmax, 'click', () => {
     const tM = new Map(C.tunings.map((t) => [t.key, t]));
     const pM = new Map(C.pitches.map((x) => [x.key, x]));
@@ -3379,7 +3353,7 @@ function drawEdit() {
     drawEdit();
   });
   tools.append(bmax);
-  const bbase = el('button', { type: 'button', textContent: '全部基準' });
+  const bbase = el('button', { type: 'button', textContent: '填入詞條基準' });
   on(bbase, 'click', () => {
     const tM = new Map(C.tunings.map((t) => [t.key, t]));
     if (p.first.k && tM.has(p.first.k)) p.first.v = tM.get(p.first.k).base;
@@ -3387,28 +3361,24 @@ function drawEdit() {
     drawEdit();
   });
   tools.append(bbase);
-  const bsug = el('button', { type: 'button', textContent: '套用建議' });
+  const bsug = el('button', { type: 'button', textContent: '套用流派建議' });
   bsug.title = '依這個流派的武學天賦挑詞條，填基準值。填完再照你自己那件改。';
   on(bsug, 'click', () => { suggestPiece(s, p); drawEdit(); });
   tools.append(bsug);
-  tools.append(el('span', {
-    className: 'hint', style: 'margin:0',
-    textContent: gb ? '基礎屬性：' + (p.quality === 'purple' ? gb.purple : gb.gold)
-      .map((a) => a.n + ' ' + fmtVal(a.v) + (a.pct ? '%' : '')).join('　') : '',
-  }));
-  body.append(tools);
-
-  // 首詞條
-  body.append(el('div', { className: 'ed-lab', textContent: '調律詞條' }));
-  body.append(tuneRow(p.first, tuningsFor(C, s.partKey, 'first'), false));
-  // 副詞條 ×4
+  const batch = el('details', { className: 'ed-batch' });
+  batch.append(el('summary', { textContent: '批次填值' }), bbase, bmax);
+  tools.append(batch);
+  const tuning = el('section', { className: 'ed-section', 'aria-label': '調律詞條' });
+  const tuningHead = el('div', { className: 'ed-section-head' }, [
+    el('h4', { textContent: '調律詞條' }), tools,
+  ]);
+  tuning.append(tuningHead, tuneRow(p.first, tuningsFor(C, s.partKey, 'first'), false));
   const secList = tuningsFor(C, s.partKey, 'sec');
-  for (let i = 0; i < 4; i++) {
-    body.append(tuneRow(p.sec[i], secList, true, i + 1));
-  }
-  // 定音
-  body.append(el('div', { className: 'ed-lab', textContent: '定音詞條' }));
-  body.append(tuneRow(p.pitch, pitchesFor(C, s.partKey), false, null, true));
+  for (let i = 0; i < 4; i++) tuning.append(tuneRow(p.sec[i], secList, true, i + 1));
+  body.append(tuning);
+  const pitch = el('section', { className: 'ed-section', 'aria-label': '定音詞條' });
+  pitch.append(el('h4', { textContent: '定音詞條' }), tuneRow(p.pitch, pitchesFor(C, s.partKey), false, null, true));
+  body.append(pitch);
 
   if (!tuningsFor(C, s.partKey, 'first').length) {
     body.append(el('p', {
@@ -3422,8 +3392,8 @@ function tuneRow(cell, options, withCarry, n, isPitch) {
   const row = el('div', { className: 'trow' });
   // 六個下拉長得一模一樣，沒有旁邊的文字標籤（版面塞不下六個），
   // 所以名字要寫在 aria-label 上 —— 第一個 option 只是提示，不算名字。
-  const label = isPitch ? '定音詞條' : '調律詞條' + (n ? ' ' + n : '');
-  const sel = el('select', { 'aria-label': label });
+  const label = isPitch ? '定音效果' : n ? '副詞條 ' + n : '主詞條';
+  const sel = el('select', { 'aria-label': label, 'data-tune-key': label });
   sel.append(el('option', { value: '', textContent: '請選擇' + label }));
   for (const t of options) {
     sel.append(el('option', {
@@ -3436,8 +3406,9 @@ function tuneRow(cell, options, withCarry, n, isPitch) {
     cell.k = sel.value || null;
     if (!cell.k) cell.v = null;
     drawEdit();
+    [...edit.querySelectorAll('[data-tune-key]')].find(node => node.dataset.tuneKey === label)?.focus({ preventScroll: true });
   });
-  row.append(sel);
+  row.append(el('label', { className: 'tune-choice' }, [el('span', { textContent: label }), sel]));
 
   if (withCarry) {
     const c = el('input', { type: 'checkbox', checked: !!cell.carry });
@@ -3450,12 +3421,19 @@ function tuneRow(cell, options, withCarry, n, isPitch) {
   const meta = options.find((t) => t.key === cell.k);
   const inp = el('input', {
     type: 'number', step: '0.01', value: cell.v == null ? '' : cell.v,
-    placeholder: meta ? fmtVal(meta.max) : '數值', disabled: !cell.k,
+    placeholder: meta ? fmtVal(meta.max) : '—', disabled: !cell.k,
+    'aria-label': label + '數值', 'data-value-key': label,
+  });
+  on(inp, 'input', () => {
+    const v = parseFloat(inp.value);
+    cell.v = Number.isFinite(v) ? v : null;
+    drawPreview();
   });
   on(inp, 'change', () => {
     const v = parseFloat(inp.value);
     cell.v = Number.isFinite(v) ? v : null;
     drawEdit();
+    [...edit.querySelectorAll('[data-value-key]')].find(node => node.dataset.valueKey === label)?.focus({ preventScroll: true });
   });
   const tone = meta ? rollTone(cell.v, meta.max) : 0;
   const bar = el('span', { className: 'bar' });
@@ -3464,10 +3442,10 @@ function tuneRow(cell, options, withCarry, n, isPitch) {
     style: 'width:' + (meta && Number.isFinite(cell.v)
       ? Math.max(0, Math.min(100, cell.v / meta.max * 100)) : 0) + '%',
   }));
-  row.append(el('span', { className: 'val' }, [
-    inp,
+  row.append(el('label', { className: 'val' }, [
+    el('span', { className: 'value-label', textContent: '數值' }), inp,
     el('span', { className: 'cap' }, [
-      document.createTextNode(meta ? '/ ' + fmtVal(meta.max) : ''),
+      document.createTextNode(meta ? '上限 ' + fmtVal(meta.max) + (meta.pct ? '%' : '') : ''),
       bar,
     ]),
   ]));
@@ -3743,7 +3721,7 @@ function openExport() {
     const slug = ($('#slug').value || '').trim();
     if (!slug) { report('請先在準備報名填寫賽事代號。', true); return; }
     const requestIO = IO;
-    const url = location.origin + '/t/' + encodeURIComponent(slug) + '/signup?arts=' + encodeURIComponent(text());
+    const url = location.origin + '/t/' + encodeURIComponent(slug) + '/enroll?arts=' + encodeURIComponent(text());
     try {
       await navigator.clipboard.writeText(url);
       report('報名連結已複製；尚未提交報名', false, requestIO);
@@ -4011,6 +3989,19 @@ async function copyText() {
 let signupPending = false;
 function goSignup() {
   if (signupPending) return;
+  const memberParams = new URLSearchParams(location.search);
+  const enrollmentSlug = memberParams.get('returnTo') === 'enrollment' ? memberParams.get('t') : null;
+  if (enrollmentSlug) {
+    if (!flushSave()) { $('#storage-retry').focus(); return; }
+    location.href = '/t/' + encodeURIComponent(enrollmentSlug) + '/enroll?loadoutRole=' + encodeURIComponent(String(ROLES[ACTIVE].id));
+    return;
+  }
+  const memberSlug = memberParams.get('returnTo') === 'member' ? memberParams.get('t') : null;
+  if (memberSlug) {
+    if (!flushSave()) { $('#storage-retry').focus(); return; }
+    location.href = '/t/' + encodeURIComponent(memberSlug) + '/me?view=character&loadoutRole=' + encodeURIComponent(String(ROLES[ACTIVE].id));
+    return;
+  }
   const localEvent = new URLSearchParams(location.search).get('sportsEvent');
   const slug = $('#slug').value.trim();
   if (!slug && !localEvent) { toast('先填賽事代號'); $('#slug').focus(); return; }
@@ -4031,7 +4022,7 @@ function goSignup() {
   returnUrl.searchParams.set('artsUser', localOwner);
   returnUrl.searchParams.set('loadoutRole', String(ROLES[ACTIVE].id));
   returnUrl.searchParams.set('roleSource', roleSource);
-  const url = localEvent ? returnUrl.href : '/t/' + encodeURIComponent(slug) + '/signup?arts=' + encodeURIComponent(t);
+  const url = localEvent ? returnUrl.href : '/t/' + encodeURIComponent(slug) + '/enroll?loadoutRole=' + encodeURIComponent(String(ROLES[ACTIVE].id));
   if (!flushSave()) { $('#storage-retry').focus(); return; }
   signupPending = true;
   $('#btn-go').disabled = true;
@@ -4110,7 +4101,6 @@ async function boot() {
   ]) on(dialog, 'cancel', e => { e.preventDefault(); close(); });
 
   buildShell();
-  buildPanes();
   foldHints();
 
 
@@ -4173,9 +4163,6 @@ async function boot() {
     if (e.key === 'Enter' && !$('#btn-go').disabled) goSignup();
   });
   try { $('#slug').value = options.slug || new URLSearchParams(location.search).get('slug') || localStorage.getItem(SLUG_KEY) || ''; } catch { $('#slug').value = options.slug || ''; }
-  on($('#backup-export'), 'click', openExport);
-  on($('#step-build'), 'click', openBuildPicker);
-  on($('#step-check'), 'click', () => { if (mq.matches) showSec('power'); showPane('sheet'); $('#slug').focus(); });
   on($('[data-copy]'), 'click', copyText);
   on($('[data-export]'), 'click', openExport);
   on($('[data-reset]'), 'click', async () => {
