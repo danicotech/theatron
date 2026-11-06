@@ -40,7 +40,7 @@ describe('首頁 · 論劍', () => {
 
   it('導覽列列得出七格，連結都指向真的錨點', () => {
     render(<HomePage />);
-    const nav = screen.getByRole('navigation', { name: '主要導覽' });
+    const nav = screen.getByRole('navigation', { name: '全站導覽' });
     const hrefs = within(nav)
       .getAllByRole('link')
       .map((a) => a.getAttribute('href'))

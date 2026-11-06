@@ -3,7 +3,14 @@ import { readFileSync } from 'node:fs';
 import { runInThisContext } from 'node:vm';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-type Player = { id: string; name: string; rank: number; seed: number; rankName?: string };
+type Player = {
+  id: string;
+  name: string;
+  rank: number;
+  seed: number;
+  rankName?: string;
+  gameAvatarUrl?: string;
+};
 type Match = {
   id: string;
   round: number;
@@ -787,12 +794,24 @@ describe('完整左右晉級賽程樹', () => {
     expect(host.querySelectorAll('.tt-node')).toHaveLength(3);
     expect(host.textContent).not.toContain('選手1');
     expect(host.textContent).not.toContain('8 位選手');
-    expect(host.textContent).toContain('實際輪次與籤位待公布');
+    expect(host.textContent).toContain('賽程待公布');
+    expect(host.querySelector('[data-help]')?.getAttribute('data-help')).toContain('此為賽程示意');
     host
       .querySelectorAll<HTMLButtonElement>('.tt-player,.tt-node,.tt-champion')
       .forEach((button) => {
-        expect(button.disabled).toBe(true);
+        expect(button.disabled).toBe(false);
+        button.focus();
         button.click();
+        const dialog = host.querySelector<HTMLDialogElement>('.tt-card-dialog')!;
+        expect(dialog.querySelector('h2')?.textContent).toBeTruthy();
+        expect(dialog.querySelector('.tt-card-dialog-title [data-help]')).toBeNull();
+        expect(
+          dialog.querySelector('.tt-card-context [data-help]')?.getAttribute('data-help'),
+        ).toContain('實際對戰、參賽選手與開賽時間尚未公布');
+        expect(dialog.textContent).toContain('對戰與時間尚未公布。');
+        dialog.querySelector<HTMLButtonElement>('.tt-card-close')!.click();
+        expect(host.querySelector('.tt-card-dialog')).toBeNull();
+        expect(document.activeElement).toBe(button);
       });
     expect(onSelect).not.toHaveBeenCalled();
     expect(onPlayer).not.toHaveBeenCalled();
@@ -833,5 +852,167 @@ describe('完整左右晉級賽程樹', () => {
     await vi.advanceTimersByTimeAsync(100);
     expect(onSelect).not.toHaveBeenCalled();
     expect(host.childElementCount).toBe(0);
+  });
+});
+
+it('small fields expand, then release their size when the roster or container changes', () => {
+  let width = 1440;
+  Object.defineProperty(host, 'clientWidth', { configurable: true, get: () => width });
+  const tree = mount(fixture(4));
+  const size = () =>
+    parseFloat(
+      host.querySelector<HTMLElement>('.tt-canvas')!.style.getPropertyValue('--tree-node-width'),
+    );
+  const four = size();
+  expect(four).toBeGreaterThan(210);
+  tree.render(fixture(8));
+  const eight = size();
+  expect(eight).toBeLessThan(four);
+  tree.render(fixture(16));
+  expect(size()).toBeLessThan(eight);
+  tree.render(fixture(4));
+  expect(size()).toBe(four);
+  width = 900;
+  window.dispatchEvent(new Event('resize'));
+  vi.runOnlyPendingTimers();
+  expect(size()).toBeLessThan(four);
+  const canvas = host.querySelector<HTMLElement>('.tt-canvas')!;
+  expect(parseFloat(canvas.style.width)).toBeLessThanOrEqual(width - 24);
+  const before = canvas.style.height;
+  window.dispatchEvent(new Event('resize'));
+  vi.runOnlyPendingTimers();
+  expect(canvas.style.height).toBe(before);
+  tree.destroy();
+  expect(host.dataset.density).toBeUndefined();
+});
+
+describe('懸賞雙榜 schedule presentation', () => {
+  it('keeps four-player side seats, final seats and actions in distinct boards', () => {
+    host.dataset.presentation = 'bounty';
+    const onSelect = vi.fn();
+    mount(fixture(4), onSelect);
+    expect(host.dataset.view).toBe('bounty');
+    expect(host.querySelectorAll('.tt-bounty-board')).toHaveLength(3);
+    expect(
+      host.querySelector('[data-side="left"].tt-bounty-board')?.querySelectorAll('.tt-player'),
+    ).toHaveLength(2);
+    expect(
+      host.querySelector('[data-side="right"].tt-bounty-board')?.querySelectorAll('.tt-player'),
+    ).toHaveLength(2);
+    expect(
+      host.querySelector('[data-side="final"].tt-bounty-board')?.querySelectorAll('.tt-player'),
+    ).toHaveLength(2);
+    node('m1-0').click();
+    expect(onSelect).toHaveBeenCalledWith('m1-0', node('m1-0'));
+    expect(host.querySelectorAll('.tt-node')).toHaveLength(3);
+    expect(host.querySelectorAll('.tt-champion')).toHaveLength(1);
+  });
+  it('supports larger fields, third-place matches, mobile round changes and desktop restoration', () => {
+    host.dataset.presentation = 'bounty';
+    const data = fixture(16);
+    data.rounds
+      .at(-1)!
+      .matches.push({ ...data.rounds.at(-1)!.matches[0]!, id: 'third', kind: 'third', slot: 1 });
+    mount(data);
+    expect(host.querySelectorAll('.tt-node')).toHaveLength(16);
+    expect(panel(1).hidden).toBe(false);
+    expect(panel(2).hidden).toBe(true);
+    expect(panel(4).hidden).toBe(false);
+    tab(2).click();
+    expect(panel(1).hidden).toBe(true);
+    expect(panel(2).hidden).toBe(false);
+    mobile = true;
+    window.dispatchEvent(new Event('resize'));
+    expect(host.dataset.view).toBe('bounty-round');
+    expect(panel(4).hidden).toBe(true);
+    tab(4).click();
+    expect(panel(4).hidden).toBe(false);
+    expect(panel(2).hidden).toBe(true);
+    expect(host.querySelector('[data-side="third"].tt-bounty-board')).not.toBeNull();
+    mobile = false;
+    window.dispatchEvent(new Event('resize'));
+    expect(panel(3).hidden).toBe(false);
+    expect(panel(4).hidden).toBe(false);
+    expect(tab(4).hidden).toBe(true);
+  });
+  it('preserves focused seats across polling and changes color routes without inventing results', () => {
+    host.dataset.presentation = 'bounty';
+    const data = fixture(8);
+    data.tones = 'blue-left';
+    data.demo = false;
+    const tree = mount(data);
+    const first = seat('m1-0');
+    first.focus();
+    expect(first.dataset.tone).toBe('blue');
+    expect(host.querySelector('.tt-bounty-board[data-side="right"]')).toHaveAttribute(
+      'data-tone',
+      'red',
+    );
+    tree.render(data);
+    expect(document.activeElement).toBe(seat('m1-0'));
+    expect(host.dataset.links).toBe('unknown');
+    expect(host.querySelector('.tt-champion')).toHaveTextContent('冠軍待定');
+    expect(host.querySelector('.tt-champion')).not.toHaveAttribute('data-confirmed');
+    const count = host.querySelectorAll('button').length;
+    tree.render(data);
+    expect(host.querySelectorAll('button')).toHaveLength(count);
+    tree.destroy();
+    expect(host.childElementCount).toBe(0);
+  });
+  it('keeps keyboard arrows on visible desktop round tabs', () => {
+    host.dataset.presentation = 'bounty';
+    mount(fixture(8));
+    tab(2).focus();
+    key(tab(2), 'ArrowRight');
+    expect(document.activeElement).toBe(tab(1));
+    expect(panel(1).hidden).toBe(false);
+  });
+});
+
+describe('bounty partial and confirmed schedules', () => {
+  it('does not overlay the latest partial round over the chosen source round', () => {
+    host.dataset.presentation = 'bounty';
+    const data = fixture(16);
+    data.rounds.pop();
+    mount(data);
+    expect(panel(1).hidden).toBe(false);
+    expect(panel(2).hidden).toBe(true);
+    expect(panel(3).hidden).toBe(true);
+    expect(host.querySelector('.tt-champion')).toBeNull();
+    tab(2).click();
+    expect(panel(1).hidden).toBe(true);
+    expect(panel(2).hidden).toBe(false);
+    expect(panel(3).hidden).toBe(true);
+  });
+  it('keeps real player actions and confirmed scores on the new notices', () => {
+    host.dataset.presentation = 'bounty';
+    const data = fixture(4),
+      match = data.rounds[0]!.matches[0]!;
+    data.demo = false;
+    Object.assign(match, { status: 'done', winner: match.p1, s1: 2, s2: 1 });
+    const onPlayer = vi.fn();
+    const tree = createBracketTree({ host, onPlayer });
+    controllers.push(tree);
+    tree.render(data);
+    seat(match.id).click();
+    expect(onPlayer).toHaveBeenCalledWith(match.p1, match.id, seat(match.id));
+    expect(node(match.id)).toHaveTextContent('2:1');
+    expect(seat(match.id, 1)).toHaveAttribute('data-eliminated');
+  });
+});
+
+describe('admin game avatars', () => {
+  it('uses only supplied game portraits and restores the neutral placeholder on failed image loads', () => {
+    host.dataset.presentation = 'bounty';
+    const data = fixture(4);
+    data.players[0]!.gameAvatarUrl = '/api/activity/avatars/p1/' + 'a'.repeat(64);
+    data.players[1]!.gameAvatarUrl = 'https://discord.example/avatar.png';
+    mount(data);
+    const photo = host.querySelector('.tt-avatar img') as HTMLImageElement;
+    expect(photo).not.toBeNull();
+    expect(host.querySelectorAll('.tt-avatar img')).toHaveLength(1);
+    photo.dispatchEvent(new Event('error'));
+    expect(host.querySelectorAll('.tt-avatar img')).toHaveLength(0);
+    expect(host.querySelectorAll('.tt-avatar svg').length).toBeGreaterThan(0);
   });
 });

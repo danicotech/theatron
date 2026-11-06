@@ -15,7 +15,7 @@ import { LOADOUT_MARKUP, LOADOUT_VERSION } from './loadoutMarkup';
  * 所以它不綁賽事、不需要登入。賽事底下的 `/t/[slug]/me/loadout` 會導到這裡。
  */
 export const metadata: Metadata = {
-  title: '我的武學配置 · 論劍',
+  title: '我的武學配置',
   description: '配流派、心法、奇術與八件裝備，算出屬性總計與畢業率，產生可以貼進報名的方案文字。',
 };
 

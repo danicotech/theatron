@@ -9,7 +9,7 @@ const source = readFileSync('web/public/lunjian/stage3d.js', 'utf8');
 const mount = runInThisContext(
   '(async function(imports){' +
     source
-      .replace('export async function', 'async function')
+      .replace(/export /g, '')
       .replace("import('jz/js/scene.js')", 'Promise.resolve(imports.scene)')
       .replace("import('jz/vendor/three.module.js')", 'Promise.resolve(imports.three)') +
     ';return mountStage3D();})',
@@ -24,6 +24,21 @@ class Resource {
 }
 
 const cleanups: Array<() => void> = [];
+it('直接進文章不準備或繪製已跳過的燃燒布幕', async () => {
+  const f = fixture();
+  history.replaceState(null, '', '/?stage=3d&intro=0#prologue');
+  await mount(f.imports);
+  expect(f.scene.banner.prepare).not.toHaveBeenCalled();
+  expect(f.scene.prepare).toHaveBeenCalledWith({ opening: false });
+  expect(f.render.mock.calls.every(([, progress]) => progress === 1)).toBe(true);
+});
+it('靜態閱讀不建立3D場景', async () => {
+  const f = fixture();
+  document.body.classList.add('reading');
+  await mount(f.imports);
+  expect(f.imports.scene.createScene).not.toHaveBeenCalled();
+  expect(f.runtime.prepareFallback).toHaveBeenCalledOnce();
+});
 afterEach(() => {
   cleanups.splice(0).forEach((cleanup) => cleanup());
   document.body.replaceChildren();

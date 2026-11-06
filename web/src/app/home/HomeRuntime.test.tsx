@@ -35,3 +35,17 @@ it('保留活動參數，兩個首頁入口改用站內導覽並交接場景', (
   expect(handoff).toHaveBeenCalledTimes(2);
   document.removeEventListener('lunjian:home-handoff', handoff);
 });
+
+it('routes completed editorial navigation without starting another opening', () => {
+  document.body.innerHTML = '<div class="baiye-home"></div>';
+  render(<HomeRuntime revision="test" />);
+  const event = new CustomEvent('lunjian:editorial-navigate', {
+    cancelable: true,
+    detail: { href: location.origin + '/?intro=0&stage=2d#rules' },
+  });
+  act(() => {
+    document.querySelector('.baiye-home')!.dispatchEvent(event);
+  });
+  expect(event.defaultPrevented).toBe(true);
+  expect(router.push).toHaveBeenCalledWith('/?intro=0&stage=2d#rules', { scroll: false });
+});

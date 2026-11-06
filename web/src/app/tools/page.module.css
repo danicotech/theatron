@@ -1,0 +1,9 @@
+.page {
+  box-sizing: border-box;
+  display: grid;
+  align-content: center;
+  min-block-size: calc(100svh / var(--zoom-local, 1));
+  max-inline-size: 1320px;
+  margin-inline: auto;
+  padding: calc(var(--nav-h) + var(--space-8)) var(--pad) calc(var(--space-8) * 2);
+}

@@ -13,7 +13,7 @@ html {
   /* 導覽列是固定的,跳到頁內錨點時標題會落在它底下。多留的這一段放在 html 上,
      是全站唯一的一處;元素自己的 scroll-margin 只負責它額外要閃開的東西
      (例如讓武頁那條黏著的餘額計)。 */
-  scroll-padding-block-start: calc(var(--nav-h) + var(--space-4));
+  scroll-padding-block-start: calc((var(--nav-h) + var(--space-4)) * var(--screen-scale, 1));
 }
 
 body {
@@ -140,4 +140,19 @@ summary,
   :where(button, a, summary, input, select, textarea, dialog) {
     transition: none !important;
   }
+}
+
+/* Hide scroll chrome across the application without disabling native scrolling. */
+html,
+body,
+body * {
+  scrollbar-width: none !important;
+  scrollbar-gutter: auto !important;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+body *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }

@@ -1,0 +1,120 @@
+/* Noto TC is the single type system, including imported legacy pages. */
+html[data-theme],
+html[data-theme] body {
+  --font-display: 'Noto Serif TC', serif;
+  --font-body: 'Noto Sans TC', sans-serif;
+  --font-mono: 'Noto Sans TC', sans-serif;
+  --serif: var(--font-display);
+  --ui: var(--font-body);
+  --mono: var(--font-body);
+  --type-h1: clamp(36px, 4.5vw, 44px);
+  --type-h2: clamp(28px, 3vw, 32px);
+  --type-h3: clamp(20px, 2.2vw, 24px);
+  --type-heading-leading: 1.4;
+  --type-heading-tracking: 0.04em;
+  --type-heading-gap: 0.6em;
+}
+/* Legacy styles include Arial and brush fonts. This migration deliberately
+   owns the family centrally; weight and content-specific layout remain local. */
+html[data-theme] body,
+html[data-theme] body * {
+  font-family: var(--font-body) !important;
+}
+html[data-theme] body :is(h1, h2),
+html[data-theme] body :is(h1, h2) *,
+html[data-theme] body [data-type-display],
+html[data-theme] body [data-type-display] * {
+  font-family: var(--font-display) !important;
+}
+html[data-theme] body :is(h1, h2, h3) {
+  line-height: var(--type-heading-leading) !important;
+  letter-spacing: var(--type-heading-tracking) !important;
+  font-weight: 600 !important;
+  margin-block: 0 var(--type-heading-gap) !important;
+  text-wrap: balance;
+}
+html[data-theme] body h1 {
+  font-size: var(--type-h1) !important;
+}
+html[data-theme] body h2 {
+  font-size: var(--type-h2) !important;
+}
+html[data-theme] body h3 {
+  font-size: var(--type-h3) !important;
+}
+/* Functional headings and controls use reading type; only page/section titles
+   and explicit display marks use the literary face. Both palettes share scale. */
+html[data-theme] body :is(h4, h5, h6) {
+  font-family: var(--font-body) !important;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+html[data-theme] body h4 {
+  font-size: 20px;
+}
+html[data-theme] body :is(h5, h6) {
+  font-size: 18px;
+}
+html[data-theme] body :is(strong, b) {
+  font-weight: var(--weight-body-bold);
+}
+html[data-theme] body small {
+  font-size: var(--text-xs);
+  line-height: 1.6;
+}
+html[data-theme] body :is(button, input, textarea, select) {
+  font-size: var(--text-md);
+}
+html[data-theme] body label {
+  font-size: var(--text-md);
+  font-weight: var(--weight-body-medium);
+}
+html[data-theme] body :is(code, pre, .mono) {
+  font-variant-numeric: tabular-nums;
+}
+/* Chapter titles retain the original lab SVG brush animation and sizing.
+   Plain text fallback and all other type continue using the Noto TC system. */
+
+/* Card type follows the semantic outline; contextual labels are not extra headings. */
+html[data-theme] body :is(.frame-caption, .frame-speech) h3 {
+  font-size: clamp(20px, 2vw, 24px) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.01em !important;
+  text-wrap: pretty;
+}
+html[data-theme] body :is(.frame-caption, .frame-speech) > small {
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+html[data-theme] body :is(.frame-caption, .frame-speech) > small:has([data-help]) {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+html[data-theme] body :is(article, dialog, [role='dialog']) p {
+  text-wrap: pretty;
+}
+html[data-theme] body .tt-card-context {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* A readable caption at phone widths, instead of a narrow speech column. */
+@media (max-width: 767px) {
+  html[data-theme] body .manga-page .frame-speech {
+    width: calc(100% - 24px);
+    max-width: none;
+    right: 12px;
+    top: auto;
+    bottom: 16px;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  html[data-theme] body .manga-page .frame-veteran .frame-caption {
+    max-width: calc(100% - 24px);
+    left: 12px;
+  }
+}

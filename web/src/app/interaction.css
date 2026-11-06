@@ -1,0 +1,53 @@
+/* One restrained ink/press response for navigation, buttons and disclosures. */
+html[data-theme] body :is(a[href], button, summary, input[type='submit'], input[type='button']) {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease,
+    scale 180ms ease;
+}
+@media (hover: hover) {
+  html[data-theme] body header[data-site-nav] .lj-nav__drawer-links a:hover .lj-nav__arrow {
+    transform: translate(2px, -2px);
+  }
+}
+html[data-theme]
+  body
+  :is(
+    a[href],
+    button:not(:disabled),
+    summary,
+    input[type='submit']:not(:disabled),
+    input[type='button']:not(:disabled)
+  ):not([aria-disabled='true']):not(.duelist, .vs-fig, .fighter):active {
+  scale: 0.975;
+  transition-duration: 70ms;
+}
+html[data-theme]
+  body
+  :is(a[href], button, summary, input[type='submit'], input[type='button']):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+html[data-theme] body .lj-nav__arrow {
+  transition: transform 180ms ease;
+}
+html[data-theme] body :is(button:disabled, [aria-disabled='true']) {
+  cursor: not-allowed;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme]
+    body
+    :is(a[href], button, summary, input[type='submit'], input[type='button'], .lj-nav__arrow) {
+    transition: none !important;
+  }
+  html[data-theme]
+    body
+    :is(a[href], button, summary, input[type='submit'], input[type='button']):active {
+    scale: none;
+  }
+}

@@ -2,6 +2,7 @@ import { create } from '@bufbuild/protobuf';
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { WatchTournamentResponseSchema } from '../lib/api/gen/hestia/activity/v1/watch_pb';
 import { TournamentPhase } from '../lib/api/gen/hestia/activity/v1/common_pb';
 import {
   GetBracketResponseSchema,
@@ -11,7 +12,19 @@ import {
 import { LunjianRuntime } from './LunjianRuntime';
 
 const api = vi.hoisted(() => ({ getTournament: vi.fn(), getBracket: vi.fn(), listRanks: vi.fn() }));
-vi.mock('../lib/api/activity', () => ({ activityApi: { tournament: api } }));
+vi.mock('../lib/api/activity', () => ({
+  activityApi: {
+    tournament: api,
+    watch: {
+      watchTournament: async function* (_req: unknown, options: { signal: AbortSignal }) {
+        yield create(WatchTournamentResponseSchema, { update: { case: 'heartbeat', value: {} } });
+        await new Promise<void>((resolve) =>
+          options.signal.addEventListener('abort', () => resolve(), { once: true }),
+        );
+      },
+    },
+  },
+}));
 
 beforeEach(() => {
   Object.values(api).forEach((method) => method.mockReset());
@@ -30,6 +43,31 @@ afterEach(() => {
 });
 
 describe('活動 API 整合', () => {
+  it('依賴載入前保留章節遮擋，初始化完成才放行首幀', async () => {
+    vi.stubEnv('NEXT_PUBLIC_TOURNAMENT_SLUG', '');
+    const gate = document.createElement('div');
+    gate.className = 'chapter-entry';
+    gate.setAttribute('data-entry-pending', '');
+    document.body.append(gate);
+    const { unmount } = render(<LunjianRuntime revision="entry-test" />);
+    expect(gate.hasAttribute('data-entry-pending')).toBe(true);
+    for (const src of [
+      '/lunjian/vendor/anime.min.js',
+      '/lunjian/brush.js',
+      '/lunjian/ink-title.js',
+      '/lunjian/lunjian.js',
+    ]) {
+      await waitFor(() => expect(document.querySelector(`script[src^="${src}"]`)).not.toBeNull());
+      await act(async () => {
+        fireEvent.load(document.querySelector(`script[src^="${src}"]`)!);
+        await Promise.resolve();
+      });
+      if (src !== '/lunjian/lunjian.js') expect(gate.hasAttribute('data-entry-pending')).toBe(true);
+    }
+    expect(gate.hasAttribute('data-entry-pending')).toBe(false);
+    unmount();
+    gate.remove();
+  });
   it('新版樣式載入後停用舊版，避免已刪除的銀章和定位規則殘留', () => {
     vi.stubEnv('NEXT_PUBLIC_TOURNAMENT_SLUG', '');
     const links = ['/lunjian/lunjian.css?v=old', '/lunjian/lunjian.css?v=new', '/other.css'].map(
@@ -72,7 +110,7 @@ describe('活動 API 整合', () => {
     );
     await waitFor(() =>
       expect(window.__LUNJIAN!.updateActivity).toHaveBeenLastCalledWith(
-        expect.objectContaining({ href: '/t/test-event/signup', label: '報名參賽' }),
+        expect.objectContaining({ href: '/t/test-event/enroll', label: '報名參賽' }),
       ),
     );
     const call = api.getTournament.mock.calls[0] as [{ slug: string }, { signal: AbortSignal }];
@@ -96,13 +134,18 @@ describe('活動 API 整合', () => {
     });
     await waitFor(() =>
       expect(window.__LUNJIAN!.updateActivity).toHaveBeenLastCalledWith(
-        expect.objectContaining({ href: '/t/test-event/bracket' }),
+        expect.objectContaining({ href: '/#schedule' }),
       ),
     );
   });
-  it('離開時中止請求並清除重試監聽', () => {
-    api.getTournament.mockImplementation(() => new Promise(() => {}));
+  it('離開時中止請求並清除重試監聽', async () => {
+    api.getTournament
+      .mockImplementationOnce(() => new Promise(() => {}))
+      .mockResolvedValue(
+        create(GetTournamentResponseSchema, { tournament: { phase: TournamentPhase.SIGNUP } }),
+      );
     const { unmount } = render(<LunjianRuntime />);
+    await waitFor(() => expect(api.getTournament).toHaveBeenCalledOnce());
     const call = api.getTournament.mock.calls[0] as [{ slug: string }, { signal: AbortSignal }];
     unmount();
     expect(call[1].signal.aborted).toBe(true);
@@ -211,7 +254,7 @@ describe('首頁公開對戰表整合', () => {
     }
   });
 
-  it('對戰表失敗不改活動 CTA；獨立重試不重送活動 API', async () => {
+  it('快照任一必要讀取失敗即暫停 CTA，重連完整重讀', async () => {
     api.getTournament.mockResolvedValue(
       create(GetTournamentResponseSchema, { tournament: { phase: TournamentPhase.SIGNUP } }),
     );
@@ -225,7 +268,7 @@ describe('首頁公開對戰表整合', () => {
       ),
     );
     expect(window.__LUNJIAN!.updateActivity).toHaveBeenLastCalledWith(
-      expect.objectContaining({ href: '/t/test-event/signup', kind: 'ready' }),
+      expect.objectContaining({ kind: 'error' }),
     );
     act(() => {
       document.dispatchEvent(new Event('lunjian:retry-tournament'));
@@ -235,7 +278,7 @@ describe('首頁公開對戰表整合', () => {
         expect.objectContaining({ kind: 'ready', published: true }),
       ),
     );
-    expect(api.getTournament).toHaveBeenCalledOnce();
+    expect(api.getTournament).toHaveBeenCalledTimes(2);
     expect(api.getBracket).toHaveBeenCalledTimes(2);
   });
 
@@ -243,7 +286,11 @@ describe('首頁公開對戰表整合', () => {
     let oldResponse!: (
       response: ReturnType<typeof create<typeof GetBracketResponseSchema>>,
     ) => void;
-    api.getTournament.mockImplementation(() => new Promise(() => {}));
+    api.getTournament
+      .mockImplementationOnce(() => new Promise(() => {}))
+      .mockResolvedValue(
+        create(GetTournamentResponseSchema, { tournament: { phase: TournamentPhase.SIGNUP } }),
+      );
     api.getBracket
       .mockImplementationOnce(
         () =>
@@ -258,6 +305,7 @@ describe('首頁公開對戰表整合', () => {
         }),
       );
     const { unmount } = render(<LunjianRuntime />);
+    await waitFor(() => expect(api.getBracket).toHaveBeenCalledOnce());
     const oldCall = api.getBracket.mock.calls[0] as [unknown, { signal: AbortSignal }];
     const oldSignal = oldCall[1].signal;
     act(() => {
@@ -295,26 +343,26 @@ describe('首頁公開對戰表整合', () => {
     expect(api.getBracket).toHaveBeenCalledTimes(2);
   });
 
-  it('背景更新不先清空對戰表，卸載清除輪詢計時', async () => {
+  it('成功串流不定時輪詢，卸載清除心跳計時', async () => {
     vi.useFakeTimers();
     api.getTournament.mockResolvedValue(
       create(GetTournamentResponseSchema, { tournament: { phase: TournamentPhase.IN_PROGRESS } }),
     );
     const { unmount } = render(<LunjianRuntime />);
     await act(async () => {
-      await vi.advanceTimersByTimeAsync(0);
+      await vi.advanceTimersByTimeAsync(50);
     });
     const update = vi.mocked(window.__LUNJIAN!.updateTournament);
     update.mockClear();
     await act(async () => {
       await vi.advanceTimersByTimeAsync(10_000);
     });
-    expect(api.getBracket).toHaveBeenCalledTimes(2);
+    expect(api.getBracket).toHaveBeenCalledTimes(1);
     expect(update).not.toHaveBeenCalledWith(expect.objectContaining({ kind: 'loading' }));
     unmount();
     await act(async () => {
       await vi.advanceTimersByTimeAsync(20_000);
     });
-    expect(api.getBracket).toHaveBeenCalledTimes(2);
+    expect(api.getBracket).toHaveBeenCalledTimes(1);
   });
 });

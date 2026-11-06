@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import type { NextRequest } from 'next/server';
+import { discordLoginHref, safeReturnPath } from '../../features/member/returnPath';
 
 /**
  * `/login` —— 從 Discord 點進來的登入入口。
@@ -11,11 +12,17 @@ import type { NextRequest } from 'next/server';
  * 這條路原本由 hestia 的 loginshim.go 暫代 —— 那時前端還不存在。現在由這裡
  * 接手,**網址沒變**,所以已經發出去的連結不會壞。任何時刻只有一個實作。
  *
- * 查詢字串原封不動帶過去(`?redirect=…` 要留著)。**不在這裡驗 redirect**:
- * 伺服器端的 CleanRedirect 已經驗了,在這裡再寫一份規則,兩份遲早不一致 ——
- * 而不一致的那一份會是 open redirect 的破口。
+ * 以共用回程規則保留報名、注單或管理目的頁，授權後由 /auth/continue
+ * 恢復會員身分。OAuth 失敗改回登入頁顯示錯誤，避免再次自動授權的迴圈。
  */
 export function GET(req: NextRequest): never {
-  const qs = req.nextUrl.search;
-  redirect(`/api/auth/discord/start${qs}`);
+  const query = req.nextUrl.searchParams;
+  const next = safeReturnPath(query.get('next') ?? query.get('redirect'));
+  if (query.has('login_error')) {
+    const slug = process.env.NEXT_PUBLIC_TOURNAMENT_SLUG;
+    const params = new URLSearchParams({ login_error: 'oauth_failed' });
+    if (next) params.set('next', next);
+    redirect(slug ? `/t/${encodeURIComponent(slug)}/login?${params}` : '/judge/login');
+  }
+  redirect(discordLoginHref(next));
 }

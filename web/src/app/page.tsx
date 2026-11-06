@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 
-import { SportsbookBridge } from '../features/sportsbook/SportsbookBridge';
+import { DossierLoadoutBridge } from '../features/signup/DossierLoadoutBridge';
+import { RegistrationBridge } from '../features/signup/RegistrationBridge';
+import { DuelBettingBridge } from '../features/betting/DuelBettingBridge';
+import { ScheduleAdminBridge } from '../features/admin/ScheduleAdminBridge';
 import { LunjianRuntime } from './LunjianRuntime';
 import { LUNJIAN_MARKUP, LUNJIAN_REVISION } from './lunjianMarkup';
 
@@ -19,7 +22,7 @@ import { LUNJIAN_MARKUP, LUNJIAN_REVISION } from './lunjianMarkup';
  * 因為那本來就是語意化的 section 與 h2，動的只是上面那層布景。
  */
 export const metadata: Metadata = {
-  title: '百業試鋒｜群俠赴約',
+  title: { absolute: '夜鴉閣 | 論劍試鋒' },
   description: '論劍，月下論劍。踏雪入關，了解段位與 BP 讓武制度、賽程及報名資訊。',
 };
 
@@ -34,8 +37,19 @@ export default function Page() {
       {/* suppressHydrationWarning：這段標記落地之後會被 lunjian.js 大改 ——
           加 data-on、塞進度軌的七段、填對戰資料。React 比對伺服器與客戶端
           兩份 DOM 時會看到差異並警告，但那個差異是刻意的，不是壞掉。 */}
-      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: LUNJIAN_MARKUP }} />
-      <SportsbookBridge />
+      <noscript>
+        <style>{'.chapter-entry[data-entry-pending] #main{opacity:1;animation:none}'}</style>
+      </noscript>
+      <div
+        className="chapter-entry"
+        data-entry-pending=""
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: LUNJIAN_MARKUP }}
+      />
+      <RegistrationBridge />
+      <DossierLoadoutBridge />
+      <DuelBettingBridge />
+      <ScheduleAdminBridge />
       <LunjianRuntime key={LUNJIAN_REVISION} revision={LUNJIAN_REVISION} />
     </>
   );

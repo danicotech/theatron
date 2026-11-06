@@ -1,19 +1,23 @@
-import { ChapterHead } from '@theatron/ui';
 import type { Metadata } from 'next';
-
+import { MemberAccess } from '../../../../features/member/MemberAccess';
+import { DiscordAccess } from '../../../../features/member/DiscordAccess';
+import { safeReturnPath } from '../../../../features/member/returnPath';
 import { PlayerLogin } from '../../../../features/signup/PlayerLogin';
-
-import styles from '../page.module.css';
-
-export const metadata: Metadata = { title: '進站 · 百業試鋒' };
-
-export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export const metadata: Metadata = { title: '會員登入' };
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ next?: string; login_error?: string }>;
+}) {
+  const { slug } = await params,
+    query = await searchParams;
+  const next = safeReturnPath(query.next, '');
   return (
-    <main id="main" className={`${styles.page} ${styles.stack}`}>
-      {/* 進站不在導覽的序列裡,印記用「門」而不是編號。 */}
-      <ChapterHead number="門" eyebrow="百業試鋒 · 進站" title="進站" />
-      <PlayerLogin slug={slug} />
-    </main>
+    <MemberAccess slug={slug} mode="login" next={next}>
+      <PlayerLogin slug={slug} next={next} />
+      <DiscordAccess next={next} error={query.login_error ?? ''} />
+    </MemberAccess>
   );
 }

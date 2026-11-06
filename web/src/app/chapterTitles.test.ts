@@ -92,6 +92,27 @@ afterEach(() => {
 });
 
 describe('七章真實毛筆筆順與閱讀保護', () => {
+  it('長標題與高筆畫數連同停筆、換字與延遲仍不超過 1500ms', () => {
+    const render = (window as unknown as { strokeSVG: StrokeSVG }).strokeSVG;
+    for (const word of ['讓武', '規則說明', '讓武規則說明'.repeat(8)]) {
+      const holder = document.createElement('div');
+      holder.innerHTML = render(word, {
+        dur: 1500,
+        maxDuration: 1500,
+        gap: 40,
+        charGap: 190,
+        delay: 300,
+        lace: false,
+      })!;
+      for (const nib of holder.querySelectorAll<SVGElement>('.ink-nib')) {
+        expect(
+          parseFloat(nib.style.getPropertyValue('--at')) +
+            parseFloat(nib.style.getPropertyValue('--dur')),
+        ).toBeLessThanOrEqual(1500);
+      }
+    }
+  });
+
   it('整頁一個主標題，章節名稱是 H2，標語不搶標題層級', () => {
     expect(document.querySelectorAll('h1')).toHaveLength(1);
     for (const id of ['prologue', 'rules', 'invitation']) {
@@ -101,18 +122,21 @@ describe('七章真實毛筆筆順與閱讀保護', () => {
     expect(document.querySelector('.schedule-edition')).toBeNull();
     expect(document.querySelector('.schedule-heading > p')).toBeNull();
   });
-  it('報名在 2.6 秒內逐筆寫完，其他章節保持原有速度', () => {
+  it('所有章節的完整筆順都在 1.5 秒內寫完', () => {
     const controller = mount();
     controller.enter('register');
     const last = nibs(heading('register')).at(-1)!;
     const end =
       parseFloat(last.style.getPropertyValue('--at')) +
       parseFloat(last.style.getPropertyValue('--dur'));
-    expect(end).toBeLessThan(2600);
-    expect(end).toBeGreaterThan(1500);
+    expect(end).toBeLessThanOrEqual(1500);
+    expect(end).toBeGreaterThan(1000);
     controller.enter('rules');
     const rulesLast = nibs(heading('rules')).at(-1)!;
-    expect(parseFloat(rulesLast.style.getPropertyValue('--at'))).toBeGreaterThan(3000);
+    expect(
+      parseFloat(rulesLast.style.getPropertyValue('--at')) +
+        parseFloat(rulesLast.style.getPropertyValue('--dur')),
+    ).toBeLessThanOrEqual(1500);
   });
   it.each(chapters)('%s 的「%s」以 %i 個獨立筆畫依序書寫', (id, text, expectedCount) => {
     const controller = mount();
@@ -140,6 +164,7 @@ describe('七章真實毛筆筆順與閱讀保護', () => {
       expect(start).toBeGreaterThan(previousEnd);
       expect(duration).toBeGreaterThan(0);
       previousEnd = start + duration;
+      expect(previousEnd).toBeLessThanOrEqual(1500);
     }
     finish(strokes[0]!);
     expect(host.dataset.titleState).toBe('writing');

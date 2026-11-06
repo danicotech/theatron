@@ -125,7 +125,7 @@ describe('比武黑影、腳邊資料與備戰詳情互動', () => {
       target.click();
       expectSheetOpen();
       expect(element('#dz-title').textContent).toContain(name);
-      expect(element('#dz-body').textContent).toContain('武器與裝備待公開');
+      expect(element('#dz-body').textContent).toContain('尚未提交參賽配置');
       expect(element('#dz-body').textContent).not.toMatch(/危寂長劍|積矩九劍|百鬼打穴手|聞人夜/);
       key(document.activeElement!, 'Escape');
       expect(sheet().hidden).toBe(true);
@@ -331,7 +331,7 @@ it('公開模式不啟動人物試看，也不輸出模擬下注或假配裝', (
   click('[data-duel-preview="after"]');
   expect(element('#duel-name-l').textContent).toBe(before);
   click('#duel .fighter[data-side="left"]');
-  expect(element('#dz-body').textContent).toContain('武器與裝備待公開');
+  expect(element('#dz-body').textContent).toContain('尚未提交參賽配置');
   expect(element('#dz-body').querySelector('img')).toBeNull();
   expect(element('#dz-body').textContent).not.toContain('模擬下注');
 });

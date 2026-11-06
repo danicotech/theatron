@@ -15,8 +15,9 @@ const source = readFileSync('web/public/lunjian/lunjian.js', 'utf8')
     'Promise.resolve({createBracketEditor:globalThis.testCreateEditor})',
   )
   .replace(
-    /import\('[^']*bracket-tree\.js[^']*'\)/g,
-    'Promise.resolve({createBracketTree:globalThis.testCreateTree})',
+    // The page loads battle-view.js, whose schedule wraps this same tree; the wiring is what is tested here.
+    /import\('[^']*(?:bracket-tree|battle-view)\.js[^']*'\)/g,
+    'Promise.resolve({createBracketTree:globalThis.testCreateTree,createBattleDuel:globalThis.testCreateDuel})',
   )
   .replace(
     /import\('[^']*arena-ticket\.js[^']*'\)/g,
@@ -229,6 +230,60 @@ describe('賽程 → 指定場次比武 → 選手與投注', () => {
     expect(element('#psheet').hidden).toBe(true);
   });
 
+  it.each(['bracket', 'duel'])(
+    '已開啟的 %s 選手配置隨確認更新同步，保留閱讀位置與焦點',
+    async (origin) => {
+      await mount();
+      await publish();
+      const initial = formal();
+      initial.players[0]!.character = {
+        style: '裂石鈞',
+        weapon: '劍',
+        equipment: '',
+        arts: '',
+        snapshotJson: 'old-confirmed',
+      };
+      runtime().updateTournament(initial);
+      const updates: string[] = [];
+      const listener = (event: Event) => {
+        const detail = (
+          event as CustomEvent<{ host: HTMLElement; character: { snapshotJson: string } }>
+        ).detail;
+        event.preventDefault();
+        detail.host.textContent = detail.character.snapshotJson;
+        updates.push(detail.character.snapshotJson);
+      };
+      document.addEventListener('lunjian:dossier-loadout', listener);
+      try {
+        if (origin === 'duel') {
+          runtime().selectDuelMatch('match/one');
+          await vi.advanceTimersByTimeAsync(4000);
+          click('#duel .duelist[data-side="left"]');
+        } else click('#bracket-host .tt-player[data-player-id="p/a"]');
+        element('.dz-sheet').scrollTop = 260;
+        const close = element<HTMLButtonElement>('.dz-close');
+        close.focus();
+        const updated = structuredClone(initial);
+        updated.players[0]!.character!.snapshotJson = 'latest-confirmed';
+        runtime().updateTournament(updated);
+        await vi.advanceTimersByTimeAsync(50);
+        expect(updates).toEqual(['old-confirmed', 'latest-confirmed']);
+        expect(element('#dz-body').textContent).toContain('latest-confirmed');
+        expect(element('#psheet').hidden).toBe(false);
+        expect(element('.dz-sheet').scrollTop).toBe(260);
+        expect(document.activeElement).toBe(close);
+        runtime().updateTournament(structuredClone(updated));
+        expect(updates).toHaveLength(2);
+        const removed = structuredClone(updated);
+        removed.players = removed.players.filter((p) => p.id !== 'p/a');
+        runtime().updateTournament(removed);
+        expect(element('#psheet').hidden).toBe(true);
+      } finally {
+        document.removeEventListener('lunjian:dossier-loadout', listener);
+      }
+    },
+  );
+
   it('從賽程選取指定場次，網址、雙方、比分與勝者同步，保留原滿版比武', async () => {
     await mount();
     await publish();
@@ -246,11 +301,6 @@ describe('賽程 → 指定場次比武 → 選手與投注', () => {
     expect(element('#duel .arena-composition').dataset.outcome).toBe('right');
     expect(element('#vs').hidden).toBe(true);
     expect(element('#duel-name-l').querySelector('img')).toBeNull();
-    click('[data-return-bracket]');
-    await vi.advanceTimersByTimeAsync(4000);
-    expect(location.hash).toBe('#schedule');
-    expect(document.querySelector('.chapter[data-on]')?.id).toBe('schedule');
-    expect(document.activeElement).toBe(node('match-two'));
   });
 
   it('深連結等候 API 後仍選對場；詳情與正式下注目的地帶入同一選手，不補造裝備', async () => {
@@ -263,16 +313,14 @@ describe('賽程 → 指定場次比武 → 選手與投注', () => {
     click('#duel .duelist[data-side="right"]');
     expect(element('#psheet').hidden).toBe(false);
     expect(element('#dz-title').textContent).toBe('夜雨');
-    expect(element('#dz-body').textContent).toContain('武器與裝備待公開');
+    expect(element('#dz-body').textContent).toContain('尚未提交參賽配置');
     expect(element('#dz-body').textContent).not.toMatch(/危寂長劍|積矩九劍|百鬼打穴手/);
-    expect(element<HTMLAnchorElement>('#dz-actions a').getAttribute('href')).toBe(
-      '/t/autumn-cup/m/match%2Fone?player=p%3Fb#markets',
+    expect(element('#dz-actions [data-duel-markets]').getAttribute('data-duel-markets')).toBe(
+      'match/one',
     );
-    expect(
-      [...document.querySelectorAll<HTMLAnchorElement>('#duel-bet-actions a')].map((a) =>
-        a.getAttribute('href'),
-      ),
-    ).toEqual(['/t/autumn-cup/m/match%2Fone#markets']);
+    expect(element('#dz-actions [data-outcome]').getAttribute('data-outcome')).toBe('p2');
+    // 比武底部不再放選手快捷下注，下注只從詳情與觀局雅集進入。
+    expect(element('#duel-bet-actions').children).toHaveLength(0);
     expect(document.querySelector('[data-arena-bet]')).toBeNull();
   });
 
@@ -303,9 +351,6 @@ describe('賽程 → 指定場次比武 → 選手與投注', () => {
     expect(element('#duel-match-label').textContent).toContain('此場次目前無法讀取');
     expect(element('#duel-bet-actions').children).toHaveLength(0);
     expect(element('#duel-score').textContent).toBe('');
-    click('[data-return-bracket]');
-    await vi.advanceTimersByTimeAsync(4000);
-    expect(document.activeElement).toBe(element('#schedule .chapter-sticky'));
   });
 
   it('示範比武交接同一場次與右側選手到運彩中心，先還原焦點且不直接扣點', async () => {
@@ -371,9 +416,9 @@ it('本機報名活動不誤判完賽，報名與管理入口帶上同屆識別'
   const s = initialState();
   const id = apply(s, { type: 'activity-create', name: '春日會', capacity: 8 }, 'activity');
   runtime().applySportsbookEvent!(present(s.events[0]!));
-  expect(element<HTMLAnchorElement>('[data-activity-cta]').href).toContain(
-    `event=${id}&tab=participation`,
-  );
+  const registrationUrl = new URL(element<HTMLAnchorElement>('[data-activity-cta]').href);
+  expect(registrationUrl.searchParams.get('event')).toBe(id);
+  expect(registrationUrl.searchParams.get('tab')).toBe('participation');
   expect(element('#local-event-tools').hidden).toBe(false);
   expect(element<HTMLAnchorElement>('#local-event-manage').href).toContain(
     `event=${id}&mode=manage`,
@@ -398,4 +443,96 @@ it('報名者角色帶入比武詳情，姓名與配置以文字安全呈現', a
   expect(element('#dz-body').textContent).toContain('青鋒');
   expect(element('#dz-body').textContent).toContain('<script>alert(1)</script>');
   expect(element('#dz-body').querySelector('script,img')).toBeNull();
+});
+
+// The page itself loads battle-view.js; these run the real module so its shadow-DOM wiring is covered.
+describe('賽程戰局（battle view）實際接線', () => {
+  beforeEach(async () => {
+    const module = (await import(/* @vite-ignore */ labSource('battle-view.js'))) as {
+      createBracketTree: unknown;
+      createBattleDuel: unknown;
+    };
+    vi.stubGlobal('testCreateTree', module.createBracketTree);
+    vi.stubGlobal('testCreateDuel', module.createBattleDuel);
+    // jsdom has no modal dialog methods; the battle view opens its player card with them.
+    HTMLDialogElement.prototype.showModal = function (this: HTMLDialogElement) {
+      this.open = true;
+      this.querySelector('button')?.focus();
+    };
+    HTMLDialogElement.prototype.close = function (this: HTMLDialogElement) {
+      this.open = false;
+    };
+  });
+  const battleRoot = () => document.querySelector('#bracket-host .battle-art-host')!.shadowRoot!;
+
+  it('掛上戰局並保留完整對戰表；點場次籤進入同場比武', async () => {
+    await mount();
+    await publish();
+    const host = element('#bracket-host');
+    expect(host.classList.contains('battle-live')).toBe(true);
+    expect(battleRoot().querySelector('.ab-tree')).not.toBeNull();
+    expect(host.querySelector('details.battle-results .tt-player')).not.toBeNull();
+    // A hostile name renders as text, never as markup.
+    expect(battleRoot().querySelector('img[src="x"]')).toBeNull();
+    battleRoot().querySelector<HTMLButtonElement>('[data-match-open="match-two"]')!.click();
+    await vi.advanceTimersByTimeAsync(4000);
+    expect(location.hash).toBe('#duel');
+    expect(new URL(location.href).searchParams.get('match')).toBe('match-two');
+    expect(element('#duel-name-r').textContent).toBe('遠山');
+    // The duel keeps the silhouette arena (user, 2026-11-01): the C–H battle art is not mounted.
+    expect(element('#duel').classList.contains('battle-art-ready')).toBe(false);
+    expect(document.querySelector('#battle-duel-host .battle-art-host')).toBeNull();
+  });
+
+  it('從戰局名牌開啟配置，即時更新重建名牌後關閉，焦點回到同一名牌', async () => {
+    await mount();
+    await publish();
+    const seat = () =>
+      battleRoot().querySelector<HTMLButtonElement>('[data-player="p?b"][data-match="match/one"]')!;
+    seat().focus();
+    seat().click();
+    battleRoot().querySelector<HTMLButtonElement>('[data-configuration="p?b"]')!.click();
+    expect(element('#psheet').hidden).toBe(false);
+    expect(element('#dz-title').textContent).toBe('夜雨');
+    const before = seat();
+    const updated = formal();
+    updated.rounds[0]!.matches[0]!.s1 = 1;
+    runtime().updateTournament(updated);
+    await vi.advanceTimersByTimeAsync(1);
+    expect(before.isConnected).toBe(false);
+    click('#dz-actions [data-dz-close]');
+    expect(battleRoot().activeElement).toBe(seat());
+  });
+
+  it('選手資料開著時遇到即時更新，從同一名牌重新開啟，焦點留在對話框內', async () => {
+    await mount();
+    await publish();
+    battleRoot()
+      .querySelector<HTMLButtonElement>('[data-player="p?b"][data-match="match/one"]')!
+      .click();
+    const before = battleRoot().querySelector<HTMLDialogElement>('#champion-dialog')!;
+    expect(before.open).toBe(true);
+    const updated = formal();
+    updated.rounds[0]!.matches[0]!.s1 = 1;
+    runtime().updateTournament(updated);
+    await vi.advanceTimersByTimeAsync(1);
+    expect(before.isConnected).toBe(false);
+    const dialog = battleRoot().querySelector<HTMLDialogElement>('#champion-dialog')!;
+    expect(dialog.open).toBe(true);
+    expect(dialog.querySelector('h3')!.textContent).toBe('夜雨');
+    expect(dialog.contains(battleRoot().activeElement)).toBe(true);
+  });
+
+  it('管理員切到編輯時，完整對戰表立即展開', async () => {
+    await mount('/?mode=manage&preview=1&phase=finished&stage=2d&intro=0#schedule');
+    await vi.advanceTimersByTimeAsync(1);
+    const table = element<HTMLDetailsElement>('#bracket-host details.battle-results');
+    expect(table.open).toBe(false);
+    [...document.querySelectorAll<HTMLButtonElement>('#bracket-tools button')]
+      .find((b) => b.textContent === '編輯')!
+      .click();
+    await vi.advanceTimersByTimeAsync(1);
+    expect(table.hidden).toBe(false);
+    expect(table.open).toBe(true);
+  });
 });

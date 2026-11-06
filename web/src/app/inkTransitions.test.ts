@@ -3,7 +3,11 @@ import { runInThisContext } from 'node:vm';
 import { describe, expect, it, vi } from 'vitest';
 
 type Style = 'bloom' | 'flow' | 'mist';
-type Ink = { render: (progress: number) => void; dispose: () => void };
+type Ink = {
+  render: (progress: number) => void;
+  prepare: (w: number, h: number) => void;
+  dispose: () => void;
+};
 const source = readFileSync('web/public/lunjian/ink-transitions.js', 'utf8');
 const engine = runInThisContext(
   '(function(){' +
@@ -12,7 +16,10 @@ const engine = runInThisContext(
 ) as {
   resolveInkStyle: (value: string) => Style;
   inkPhase: (progress: number, style: Style) => { swap: boolean; done: boolean };
-  createInkTransition: (canvas: unknown, options: { style: Style }) => Ink | null;
+  createInkTransition: (
+    canvas: unknown,
+    options: { style: Style; workerUrl?: string; onReady?: (ready: boolean) => void },
+  ) => Ink | null;
 };
 
 function canvasFixture() {
@@ -36,6 +43,71 @@ function canvasFixture() {
 }
 
 describe('宣紙暈墨共用渲染器', () => {
+  it('背景計算尚未完成時使用備援，忽略過期尺寸並在離頁終止工作', () => {
+    const workers: FakeWorker[] = [];
+    class FakeWorker {
+      onmessage?: (event: { data: unknown }) => void;
+      onerror?: () => void;
+      postMessage = vi.fn<(request: { revision: number }) => void>();
+      terminate = vi.fn();
+      constructor() {
+        workers.push(this);
+      }
+    }
+    vi.stubGlobal('Worker', FakeWorker);
+    try {
+      const fixture = canvasFixture();
+      Object.assign(fixture.canvas, {
+        parentElement: { getBoundingClientRect: () => ({ width: 1000, height: 700 }) },
+        getBoundingClientRect: () => ({ width: 0, height: 0 }),
+      });
+      const ready = vi.fn();
+      const ink = engine.createInkTransition(fixture.canvas, {
+        style: 'flow',
+        workerUrl: '/ink-worker.js',
+        onReady: ready,
+      })!;
+      const worker = workers[0]!;
+      ink.prepare(500, 320);
+      const first = worker.postMessage.mock.calls[0]![0];
+      ink.prepare(1000, 700);
+      ink.render(0.2);
+      ink.render(0.3);
+      ink.render(1);
+      expect(worker.postMessage).toHaveBeenCalledTimes(2);
+      worker.onmessage!({ data: { revision: first.revision, map: {} } });
+      expect(ready.mock.calls.every(([value]) => value === false)).toBe(true);
+      const next = worker.postMessage.mock.calls[1]![0];
+      worker.onmessage!({ data: { revision: next.revision, map: {} } });
+      expect(ready).toHaveBeenLastCalledWith(true);
+      ink.dispose();
+      expect(worker.terminate).toHaveBeenCalledOnce();
+      ready.mockClear();
+      worker.onmessage!({ data: { revision: next.revision, map: {} } });
+      expect(ready).not.toHaveBeenCalled();
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
+  it('瀏覽器沒有 Worker 時不退回阻塞主執行緒的墨紋生成', () => {
+    vi.stubGlobal('Worker', undefined);
+    try {
+      const fixture = canvasFixture();
+      const ready = vi.fn();
+      const ink = engine.createInkTransition(fixture.canvas, {
+        style: 'flow',
+        workerUrl: '/ink-worker.js',
+        onReady: ready,
+      })!;
+      ink.render(0.46);
+      expect(fixture.pixels()).toHaveLength(0);
+      expect(ready).toHaveBeenLastCalledWith(false);
+      ink.dispose();
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
   it.each<Style>(['bloom', 'flow', 'mist'])(
     '%s 在換頁點完整覆蓋，兩端清空，釋放後停止繪製',
     (style) => {

@@ -1,0 +1,542 @@
+/* UI palettes are separate from the original 3D world and faction artwork. */
+/* A plaque window (paper-window.css) keeps the day paper in both modes. */
+html[data-theme],
+html[data-theme] body [data-paper-window='plaque'] {
+  --surface-paper-texture: url('/lunjian/art/bracket-card-light.webp');
+}
+html[data-theme] {
+  color-scheme: light;
+  background-color: var(--surface-auth-canvas);
+}
+html[data-theme][data-color-mode='dark'] {
+  --surface-paper-texture: url('/lunjian/art/bracket-card-dark.webp');
+  color-scheme: dark;
+}
+/* Resolved again inside a plaque window, whose source slots stay at their day values (paper-window.css). */
+html[data-theme] body,
+html[data-theme] body [data-paper-window='plaque'] {
+  --accent-money: var(--accent-status-money);
+  --state-live: var(--state-status-live);
+  --state-win: var(--state-status-win);
+  --text-danger: var(--state-status-live);
+  --surface-base: var(--surface-auth-paper);
+  --surface-raised: var(--surface-auth-field);
+  --surface-overlay: color-mix(in srgb, var(--surface-auth-paper) 80%, var(--border-auth));
+  --text-primary: var(--text-auth-ink);
+  --text-secondary: var(--text-auth-muted);
+  --border-subtle: var(--border-auth);
+  --text-on-paper-muted: var(--text-auth-muted);
+  color: var(--text-primary);
+}
+html[data-color-mode='dark'] body {
+  color-scheme: dark !important;
+}
+html[data-color-mode='light'] body [data-world-backdrop] {
+  --surface-base: var(--surface-auth-canvas);
+}
+html[data-theme][data-color-mode] body header[data-site-nav] .lj-nav__member {
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
+  border-color: var(--accent-action-primary);
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--text-auth-ink) 15%, transparent);
+}
+html[data-theme][data-color-mode]
+  body
+  header[data-site-nav]
+  .lj-nav__member:is([data-nav-hover], :focus-visible) {
+  background: var(--accent-action-hover);
+  color: var(--text-on-action);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__theme {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  padding: 10px;
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.lj-nav__theme svg {
+  overflow: visible;
+}
+.lj-nav__theme :is(.lj-nav__sun, .lj-nav__moon) {
+  transform-origin: center;
+  transition:
+    transform 320ms ease,
+    opacity 220ms ease;
+}
+.lj-nav__theme .lj-nav__sun {
+  opacity: 0;
+  transform: scale(0.4) rotate(-60deg);
+}
+.lj-nav__theme[aria-pressed='true'] .lj-nav__sun {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+.lj-nav__theme[aria-pressed='true'] .lj-nav__moon {
+  opacity: 0;
+  transform: scale(0.4) rotate(45deg);
+}
+html[data-theme] body header[data-site-nav] .lj-nav__inner {
+  grid-template-columns: 176px minmax(0, 1fr) 176px;
+}
+/* An aligned frame and two equal strokes replace the tilted diamond. */
+html[data-theme]
+  body
+  header[data-site-nav][data-nav-motion]
+  :is(.lj-nav__toggle, .lj-nav__close)::before {
+  inset: 0;
+  border: 1px solid currentColor;
+  opacity: calc(0.25 + var(--nav-hover) * 0.5);
+  transform: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-nav-motion]
+  :is(.lj-nav__toggle, .lj-nav__close)::after {
+  content: none;
+}
+html[data-theme]
+  body
+  header[data-site-nav][data-nav-motion]
+  .lj-nav__toggle:not([aria-expanded='true'])
+  span {
+  transform: scaleX(calc(1 - var(--nav-press) * 0.15));
+}
+@media (max-width: 1023px) {
+  html[data-theme][data-color-mode] body header[data-site-nav] .lj-nav__inner {
+    grid-template-columns: 44px minmax(0, 1fr) 44px auto;
+    gap: 12px;
+  }
+  html[data-theme][data-color-mode] body header[data-site-nav] .lj-nav__theme {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  html[data-theme][data-color-mode] body header[data-site-nav] .lj-nav__actions > .lj-nav__member {
+    grid-column: 4;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lj-nav__theme :is(.lj-nav__sun, .lj-nav__moon) {
+    transition: none;
+  }
+}
+@media (max-width: 359px) {
+  html[data-theme][data-color-mode] body header[data-site-nav] .lj-nav__inner {
+    gap: 8px;
+    padding-inline: 12px;
+  }
+}
+
+html[data-theme] body:has(#build-card) {
+  --bg: var(--surface-auth-canvas);
+  --panel: var(--surface-auth-paper);
+  --panel-2: var(--surface-auth-field);
+  --panel-3: var(--surface-overlay);
+  --ink: var(--text-auth-ink);
+  --dim: var(--text-auth-muted);
+  --faint: var(--text-auth-muted);
+  --line: var(--border-auth);
+  --line-soft: color-mix(in srgb, var(--border-auth) 35%, transparent);
+  --line-hard: var(--border-auth);
+}
+
+html[data-theme] body,
+html[data-theme] body [data-paper-window='plaque'] {
+  --surface-paper: var(--surface-auth-paper);
+  --text-on-paper: var(--text-auth-ink);
+  --paper-faint: var(--text-auth-muted);
+  /* Legacy chapter ink is decorative; PaperCard keeps danger separate. */
+  --paper-live: var(--accent-brand);
+}
+/* Chapter stamps are brand marks, not error indicators. */
+html[data-theme] body [data-chapter-seal]::after {
+  color: var(--text-on-action);
+}
+html[data-theme] body:has(#build-card) {
+  --gold: var(--accent-action-primary);
+  --gold-soft: var(--accent-action-primary);
+  --red-soft: var(--text-danger);
+  --jade: var(--state-status-win);
+}
+html[data-theme] body:has(#build-card) .top {
+  padding-block: 6px;
+  background: color-mix(in srgb, var(--surface-auth-paper) 92%, transparent);
+  color: var(--text-auth-ink);
+}
+/* The shared page-heading rules must not enlarge the compact toolbar brand. */
+html[data-theme] body:has(#build-card) .top h1.brand {
+  margin-block: 0 !important;
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+}
+html[data-theme] body:has(#build-card) :is(input, textarea, select) {
+  background: var(--surface-auth-field);
+  color: var(--text-auth-ink);
+  color-scheme: inherit;
+}
+html[data-color-mode='light'] body:has(#build-card) .chip {
+  background: var(--surface-auth-field);
+  color: var(--text-auth-ink);
+  border-color: var(--border-auth);
+}
+
+/* Native controls, portals and disabled controls share the same readable pairs. */
+html[data-theme] body select,
+html[data-theme] body select option,
+html[data-theme] body select optgroup {
+  color-scheme: inherit;
+  background-color: var(--text-on-action);
+  color: var(--text-auth-ink);
+}
+html[data-theme] body select option:checked {
+  background-color: var(--accent-action-primary);
+  color: var(--text-on-action);
+}
+html[data-theme] body :is(input, textarea)::placeholder {
+  color: var(--text-auth-muted);
+  opacity: 1;
+}
+html[data-theme][data-color-mode]
+  body
+  :is(button, input, select, textarea):disabled:not(.tt-player):not(.tt-node):not(.tt-champion) {
+  opacity: 1;
+  color: var(--text-auth-muted);
+  -webkit-text-fill-color: var(--text-auth-muted);
+  background-color: var(--text-on-action);
+  border-color: var(--border-auth);
+  border-style: dashed;
+  cursor: not-allowed;
+}
+/* Artwork seats keep their dark red/blue foreground pair, including placeholders. */
+html[data-color-mode='light'] body :is(.tt-side-heading, .tt-column-title) {
+  color: var(--text-auth-ink);
+}
+html[data-color-mode='light'] body #schedule .tt-column-title[data-side='final'] {
+  color: var(--text-auth-ink);
+}
+html[data-theme] body .chapter-nav__direction {
+  opacity: 1;
+}
+html[data-theme] body ::selection {
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
+}
+/* The legacy picker formerly mixed fixed dark-mode text with paper surfaces. */
+html[data-theme] body:has(#build-card) :is(.eqopt, .stepb) {
+  background: var(--surface-auth-field);
+  color: var(--text-auth-ink);
+  border-color: var(--border-auth);
+}
+html[data-theme] body:has(#build-card) .eqopt::before {
+  background: none;
+}
+html[data-theme] body:has(#build-card) .eqopt-t small {
+  color: var(--text-auth-muted);
+}
+html[data-theme]
+  body:has(#build-card)
+  :is(.eqopt:hover, .eqopt[data-on], .qcard[data-on], .filtsel[data-on], .io-row[data-me]) {
+  border-color: var(--accent-action-primary);
+  background: var(--surface-overlay);
+  color: var(--text-auth-ink);
+}
+html[data-theme]
+  body:has(#build-card)
+  :is(
+    .pop-grid button:not([data-on]):hover,
+    .pop-foot button.ok:hover,
+    .qadd-modes button[data-on],
+    .qcard[data-on] .tick,
+    .spanel-h h4,
+    .io-row[data-me] .tag,
+    .tabs button[data-on] .n
+  ) {
+  color: var(--accent-action-primary);
+  border-color: currentColor;
+}
+html[data-theme] body:has(#build-card) .io-row[data-add] .tag {
+  color: var(--state-status-win);
+  border-color: currentColor;
+}
+html[data-theme]
+  body:has(#build-card)
+  :is(.pop-menu button.danger:hover, .pop-menu button.danger small) {
+  color: var(--text-danger);
+}
+html[data-theme] body:has(#build-card) .stars button {
+  color: var(--text-auth-muted);
+}
+html[data-theme] body:has(#build-card) .stars button[data-on],
+html[data-theme] body:has(#build-card) .stars button:hover {
+  color: var(--accent-action-primary);
+}
+html[data-theme] body:has(#build-card) .stars button:hover ~ button {
+  color: var(--text-auth-muted);
+}
+html[data-theme] body:has(#build-card) .thumb[data-empty] {
+  background: var(--surface-auth-field);
+  border-color: var(--border-auth);
+}
+html[data-theme] body:has(#build-card) .thumb[data-empty]::before {
+  background: none;
+}
+html[data-theme] body:has(#build-card) .thumb[data-empty] :is(.plus, .t) {
+  color: var(--text-auth-muted);
+  opacity: 1;
+  text-shadow: none;
+}
+html[data-theme] body:has(#build-card) .thumb:not([data-empty]) .t {
+  color: var(--text-arena);
+  background: var(--surface-scene-glass);
+  opacity: 1;
+}
+html[data-theme] body:has(#build-card) .sheet {
+  background: var(--surface-auth-field);
+  color: var(--text-auth-ink);
+}
+/* The add action uses UI surfaces; blue artwork is reserved for content, not controls. */
+html[data-theme] body:has(#build-card) .addcard {
+  background: var(--surface-auth-field);
+  border-color: var(--border-auth);
+}
+html[data-theme] body:has(#build-card) .addcard::before {
+  background: none;
+}
+html[data-theme] body:has(#build-card) .addcard :is(b, small, .plus) {
+  text-shadow: none;
+}
+html[data-theme] body:has(#build-card) .addcard b {
+  color: var(--text-primary);
+}
+html[data-theme] body:has(#build-card) .addcard small {
+  color: var(--text-secondary);
+}
+html[data-theme] body:has(#build-card) .addcard .plus,
+html[data-theme] body:has(#build-card) .addcard::after {
+  color: var(--accent-action-primary);
+}
+html[data-theme] body:has(#build-card) #edit .trow .val input:disabled {
+  opacity: 1;
+  color: var(--text-auth-muted);
+  border-style: dashed;
+}
+/* Equipment art always has a pale stats sheet, independent of the page mode. */
+html[data-theme] body:has(#build-card) :is(.ecard .foot .pct[data-low], .ecard .foot) {
+  color: var(--text-equipment-muted);
+}
+html[data-theme]
+  body:has(#build-card)
+  :is(
+    .ecard .tunes .arow[data-roll='1'],
+    .tip[data-paper] .arow.t[data-roll='1'],
+    .tip[data-paper] .tal .rate[data-full] .k,
+    .tip[data-paper] .tal .rate[data-full] .v
+  ) {
+  color: var(--state-equipment-win);
+}
+html[data-theme]
+  body:has(#build-card)
+  :is(.ecard .tunes .arow[data-roll='2'], .tip[data-paper] .arow.t[data-roll='2']) {
+  color: var(--accent-equipment-blue);
+}
+html[data-theme]
+  body:has(#build-card)
+  :is(.ecard .tunes .arow[data-roll='3'], .tip[data-paper] .arow.t[data-roll='3']) {
+  color: var(--accent-equipment-purple);
+}
+html[data-theme] body:has(#build-card) #edit .ecard.preview .tunes .arow[data-roll] {
+  color: var(--text-primary);
+}
+html[data-theme] body:has(#build-card) #edit .ecard.preview :is(.foot, .foot .pct) {
+  color: var(--text-secondary);
+}
+html[data-theme] body:has(#build-card) .secbar {
+  background: var(--surface-auth-paper);
+  color: var(--text-auth-ink);
+}
+html[data-theme]
+  body:has(#build-card)
+  :is(
+    .act[data-primary],
+    .reg-go:enabled,
+    .pop-grid button[data-on],
+    .filters button[data-on],
+    .send button:enabled,
+    .pick-foot .ok:not([data-danger]):enabled,
+    .pick-foot .save:enabled,
+    .roles button[data-on],
+    .rm-chips button[data-on],
+    .seg button[data-on]
+  ) {
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
+  border-color: var(--accent-action-primary);
+}
+/* Accent backgrounds and their foregrounds are a pair in both color modes. */
+html[data-theme] body:has(#build-card) .slotwrap[data-main]::after,
+html[data-theme] body:has(#build-card) .pop-menu button[role='menuitemcheckbox'][data-on]::before {
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
+  border-color: var(--accent-action-primary);
+}
+html[data-theme] body:has(#build-card) .pop-grid button[data-on] :is(small, .pf-caret) {
+  color: var(--text-on-action);
+}
+html[data-color-mode='light'] body:has(#build-card) .ready li[data-ok] b {
+  color: var(--state-auth-ready);
+}
+html[data-color-mode='light'] body:has(#build-card) .ready li[data-no] b {
+  color: var(--accent-brand);
+}
+html[data-color-mode='dark'] body :is(dialog, [data-registration-scroll]) {
+  color-scheme: dark;
+}
+
+html[data-theme][data-color-mode]
+  body:has(#build-card)
+  :is(
+    .act-gold,
+    .vault-head .kicker,
+    .rtabs button[data-on],
+    .tabs button[data-on],
+    .secbar button[data-on]
+  ) {
+  color: var(--accent-action-primary);
+  border-color: var(--border-auth);
+}
+
+/* Interaction roles are shared across pages; faction and rarity colors stay independent. */
+html[data-theme] body :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline-color: var(--accent-action-primary);
+}
+html[data-theme] body :is(input[type='checkbox'], input[type='radio']) {
+  accent-color: var(--accent-action-primary);
+}
+
+html[data-theme] body:has(#build-card) #edit #edit-save:enabled {
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
+  border-color: var(--accent-action-primary);
+}
+html[data-theme] body:has(#build-card) #edit #edit-save:enabled:hover,
+html[data-theme]
+  body:has(#build-card)
+  :is(.reg-go, .pick-foot .ok:not([data-danger]), .pick-foot .save):enabled:hover {
+  background: var(--accent-action-hover);
+  color: var(--text-on-action);
+  border-color: var(--accent-action-hover);
+}
+/* Illustrated equipment cards retain a pale sheet in either page mode. */
+html[data-theme][data-color-mode] body:has(#build-card) .ecard:not(.preview) .act-gold {
+  color: var(--accent-brand-on-paper);
+}
+
+/* The home scene is artwork; its action rail uses the shared UI palette. */
+html[data-theme] body .baiye-home .home-actions a:not(.home-plaque) {
+  background: var(--surface-auth-paper);
+  color: var(--text-auth-ink);
+  border-color: var(--border-auth);
+}
+html[data-theme] body .baiye-home .home-actions a:not(.home-plaque):last-child {
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
+  border-color: var(--accent-action-primary);
+}
+html[data-theme] body .baiye-home .home-actions a:not(.home-plaque):last-child:hover {
+  background: var(--accent-action-hover);
+  border-color: var(--accent-action-hover);
+}
+html[data-theme] body .baiye-home :focus-visible {
+  outline-color: var(--accent-action-primary);
+}
+
+/* The original chapters and their portalled sheets use the same action pair. */
+html[data-theme] body:has([data-paper-site]) {
+  --red: var(--accent-brand);
+  --red-soft: var(--accent-brand);
+}
+html[data-theme] body :is(#register-cta, .schedule-refresh),
+html[data-theme] body .bracket-switch button[aria-selected='true'] {
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
+  border-color: var(--accent-action-primary);
+}
+html[data-theme] body :is(#register-cta, .schedule-refresh):hover {
+  background: var(--accent-action-hover);
+  color: var(--text-on-action);
+  border-color: var(--accent-action-hover);
+}
+
+/* Scene dimming never follows the paper surface or its text color. */
+
+html[data-theme] body dialog::backdrop {
+  background: var(--surface-modal-scrim) !important;
+}
+html[data-theme] body #boot {
+  --paper: var(--text-on-scene);
+  --paper-dim: var(--text-on-scene-muted);
+  --muted: var(--text-on-scene-muted);
+  color: var(--text-on-scene);
+}
+html[data-theme]
+  body
+  #boot
+  :is(.boot-title, #boot-hint, .ignite-note, #load-label, #load-number, .load-meta) {
+  color: var(--text-on-scene);
+}
+.stage-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.stage-modes a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-auth);
+}
+.stage-modes a[aria-current='true'] {
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
+}
+
+.scene-choice {
+  position: relative;
+  flex: none;
+}
+.scene-choice > summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid var(--border-auth);
+  list-style: none;
+  color: var(--text-auth-ink);
+}
+.scene-choice[open] .stage-modes {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: 220px;
+  padding: 8px;
+  background: var(--surface-auth-paper);
+  border: 1px solid var(--border-auth);
+  z-index: 50;
+}
+.scene-choice .stage-modes a {
+  flex: 1;
+  justify-content: center;
+  white-space: nowrap;
+}
+@media (max-width: 1023px) {
+  .lj-nav__actions > .scene-choice {
+    display: none;
+  }
+}

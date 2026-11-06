@@ -1,6 +1,8 @@
 'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { mountHomeOpening } from '../../features/chrome/homeOpening';
+import '../../features/chrome/home-opening.css';
 export function HomeRuntime({ revision }: { revision: string }) {
   const router = useRouter();
   useEffect(() => {
@@ -22,6 +24,22 @@ export function HomeRuntime({ revision }: { revision: string }) {
         new URL(a.href).pathname === '/' &&
         new URL(a.href).hash,
     );
+    // The opening owns navigation timing: chapter portals prepare the route behind their cover.
+    document.querySelector('.baiye-home')?.addEventListener(
+      'lunjian:editorial-navigate',
+      (event) => {
+        const destination = new URL((event as CustomEvent<{ href: string }>).detail.href);
+        if (destination.origin !== location.origin) return;
+        // Switching the renderer needs a fresh document to release the old scene.
+        if (destination.searchParams.get('intro') === '1') return;
+        event.preventDefault();
+        document.dispatchEvent(new Event('lunjian:home-handoff'));
+        router.push(destination.pathname + destination.search + destination.hash, {
+          scroll: false,
+        });
+      },
+      { signal: lifetime.signal },
+    );
     for (const href of new Set(chapterLinks.map((a) => a.pathname + a.search)))
       router.prefetch(href);
     for (const anchor of chapterLinks)
@@ -38,6 +56,13 @@ export function HomeRuntime({ revision }: { revision: string }) {
           )
             return;
           event.preventDefault();
+          // Chapter links leave an already-visible home, including intro=0 previews.
+          // Do not start another curtain while preparing the destination chapter.
+          try {
+            sessionStorage.setItem('lunjian:opening-seen:v1', '1');
+          } catch {
+            /* Storage may be unavailable. */
+          }
           document.dispatchEvent(new Event('lunjian:home-handoff'));
           router.push(anchor.pathname + anchor.search + anchor.hash, { scroll: false });
         },
@@ -75,7 +100,10 @@ export function HomeRuntime({ revision }: { revision: string }) {
     const token = crypto.randomUUID();
     module.dataset.token = token;
     module.textContent = `import {mountHomeStage} from '/lunjian/home-stage.js?v=${encodeURIComponent(revision)}';if(document.getElementById('home-stage-mount')?.dataset.token===${JSON.stringify(token)}){const controller=new AbortController();document.addEventListener('lunjian:home-unmount',e=>{if(e.detail===${JSON.stringify(token)})controller.abort();},{once:true});mountHomeStage(document.getElementById('home-world'),controller.signal);}`;
-    document.body.appendChild(module);
+    mountHomeOpening(document.querySelector('.baiye-home'), lifetime.signal, () => {
+      if (!lifetime.signal.aborted) document.body.appendChild(module);
+    });
+    document.querySelector('[data-home-entry-pending]')?.removeAttribute('data-home-entry-pending');
     return () => {
       lifetime.abort();
       document.dispatchEvent(new CustomEvent('lunjian:home-unmount', { detail: token }));

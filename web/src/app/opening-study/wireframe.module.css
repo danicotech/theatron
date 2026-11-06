@@ -1,0 +1,741 @@
+.cover {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+  container-type: size;
+  background: var(--text-on-scene);
+  color: var(--text-on-scene);
+  --window-x: 14.054%;
+  --window-y: 5.195%;
+  --window-w: 38.378%;
+  --window-h: 79.221%;
+  --frame-offset: 2px;
+}
+.base,
+.grayPerson {
+  position: absolute;
+  inset: 0;
+}
+.base {
+  z-index: 0;
+}
+.grayPerson {
+  z-index: 10;
+}
+.background {
+  position: absolute;
+  inset: -2%;
+  background: color-mix(in srgb, var(--surface-scene-glass) 32%, var(--text-on-scene));
+}
+.background img,
+.sceneBackground {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 61% center;
+  filter: none;
+}
+.base .background {
+  filter: grayscale(1) brightness(0.76);
+}
+.person img {
+  position: absolute;
+  bottom: 0;
+  left: calc(3% - 24px);
+  width: 94%;
+  height: 94%;
+  object-fit: contain;
+  object-position: center bottom;
+}
+.grayPerson .person img {
+  filter: grayscale(1);
+}
+.foregroundLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 36;
+  pointer-events: none;
+}
+.foreground {
+  position: absolute;
+  bottom: -4%;
+  right: -4%;
+  width: 100%;
+  height: auto;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.background i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--surface-scene-glass) 18%, transparent);
+  transform: rotate(-4deg);
+}
+.background i:nth-child(1) {
+  top: 42%;
+}
+.background i:nth-child(2) {
+  top: 55%;
+}
+.background i:nth-child(3) {
+  top: 74%;
+}
+.person {
+  position: absolute;
+  inset: 0;
+}
+.person svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+  fill: color-mix(in srgb, var(--surface-scene-glass) 72%, var(--text-on-scene));
+  stroke: color-mix(in srgb, var(--text-on-scene) 65%, transparent);
+  stroke-width: 0.5;
+}
+.colorFrame {
+  position: absolute;
+  z-index: 20;
+  left: var(--window-x);
+  top: var(--window-y);
+  width: var(--window-w);
+  height: var(--window-h);
+  overflow: hidden;
+}
+/* Counter-offset the full-size duplicate: clipping never reframes the person. */
+.registeredScene {
+  position: absolute;
+  width: 100cqw;
+  height: 100cqh;
+  left: var(--registration-x, -14.054cqw);
+  top: -5.195cqh;
+}
+.registeredScene .background {
+  background: color-mix(in srgb, var(--accent-brand-on-paper) 18%, var(--text-on-scene));
+}
+.registeredScene .person svg,
+.sleeveBreakout .person svg {
+  fill: color-mix(in srgb, var(--accent-brand-on-paper) 60%, var(--surface-scene-glass));
+}
+.frameEdge {
+  position: absolute;
+  z-index: 30;
+  left: var(--window-x);
+  top: var(--window-y);
+  width: var(--window-w);
+  height: var(--window-h);
+  pointer-events: none;
+}
+.darkFrame,
+.lightFrame {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--text-on-scene);
+  pointer-events: none;
+}
+.darkFrame {
+  border-color: var(--surface-scene-glass);
+  transform: translate(var(--frame-offset), var(--frame-offset));
+}
+.sleeveBreakout {
+  position: absolute;
+  inset: 0;
+  z-index: 35;
+  /* Only the sleeve crosses the left rule; the color seam remains registered. */
+  clip-path: polygon(0 24%, 15% 24%, 15% 66%, 0 66%);
+  pointer-events: none;
+}
+.spine {
+  position: absolute;
+  z-index: 40;
+  left: 53.3%;
+  top: 5%;
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
+  font-family: var(--font-display);
+  font-size: 10cqw;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+.details {
+  position: absolute;
+  z-index: 50;
+  left: 57%;
+  right: 5%;
+  top: 75.2%;
+  height: 9.2%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8%;
+}
+.details figure {
+  position: relative;
+  margin: 0;
+  isolation: isolate;
+  overflow: visible;
+}
+.portraitBack {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--surface-scene-glass);
+}
+.portraitCrop {
+  position: absolute;
+  /* Only the crown breaks the top edge. Shoulders stay within the side rules. */
+  inset: -55% 1px 1px;
+  overflow: hidden;
+  z-index: 1;
+}
+.portraitPerson {
+  position: absolute;
+  width: 140%;
+  height: 140%;
+  left: -20%;
+  bottom: -40%;
+  overflow: visible;
+  stroke: var(--surface-scene-glass);
+  stroke-width: 0.7;
+}
+.portraitRest,
+.portraitArmed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+.hair {
+  fill: color-mix(in srgb, var(--accent-brand-on-paper) 60%, var(--surface-scene-glass));
+}
+.face {
+  fill: color-mix(in srgb, var(--accent-brand-on-paper) 32%, var(--text-on-scene));
+}
+.coat {
+  fill: var(--surface-scene-glass);
+  stroke: color-mix(in srgb, var(--text-on-scene) 65%, transparent);
+}
+.seam {
+  fill: none;
+  stroke: var(--text-on-scene);
+  opacity: 0.45;
+}
+.secondPortrait .portraitCrop {
+  top: -55%;
+}
+.details figure:not(.secondPortrait) .portraitPerson {
+  /* The black opponent looks inward toward the white opponent. GSAP owns y. */
+  scale: -1 1;
+}
+.secondPortrait .portraitBack {
+  background: var(--surface-scene-glass);
+}
+.secondPortrait figcaption {
+  color: var(--text-on-scene);
+}
+.secondPortrait .hair {
+  fill: color-mix(in srgb, var(--accent-brand-on-paper) 30%, var(--surface-scene-glass));
+}
+.portraitLip {
+  position: absolute;
+  inset: auto 0 0;
+  height: 12%;
+  z-index: 2;
+  border: 1px solid var(--text-on-scene);
+  border-top: 0;
+}
+.portraitLip::after {
+  content: '';
+  position: absolute;
+  left: var(--frame-offset);
+  right: calc(-1 * var(--frame-offset));
+  bottom: calc(-1 * var(--frame-offset) - 1px);
+  border-bottom: 1px solid var(--surface-scene-glass);
+}
+.details figcaption {
+  position: absolute;
+  bottom: 1px;
+  left: 3px;
+  z-index: 3;
+  font: 400 2.2cqw var(--font-mono);
+  line-height: 1.1;
+  color: var(--text-on-scene);
+}
+.portalOutline {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+}
+.portalOutline i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  transform-origin: 0 0;
+  background: var(--surface-scene-glass);
+}
+.portalOutline [data-outline-tone='1'] i {
+  background: var(--text-on-scene);
+}
+@container (max-width: 380px) {
+  .darkFrame {
+    transform: translate(1.5px, 1.5px);
+  }
+  .details {
+    left: 56%;
+    right: 4%;
+    gap: 8%;
+  }
+  .portraitCrop {
+    top: -55%;
+  }
+  .secondPortrait .portraitCrop {
+    top: -55%;
+  }
+}
+.footer {
+  position: absolute;
+  z-index: 60;
+  left: 14.054%;
+  right: 4%;
+  top: 85.3%;
+  display: grid;
+  grid-template-columns: 46% 1fr;
+  gap: 3%;
+}
+.headline {
+  font: 900 7.3cqw/0.92 var(--font-body);
+  letter-spacing: -0.045em;
+}
+.microcopy {
+  padding-top: 1%;
+}
+.microcopy i {
+  display: block;
+  height: 0.65cqw;
+  margin-bottom: 1.2cqw;
+  background: color-mix(in srgb, var(--text-on-scene) 75%, transparent);
+}
+.microcopy i:nth-child(2) {
+  width: 91%;
+}
+.microcopy i:nth-child(4) {
+  width: 95%;
+}
+.microcopy i:nth-child(5) {
+  width: 75%;
+}
+.microcopy span {
+  font: 400 2.5cqw/1.1 var(--font-body);
+}
+.cover[data-published] a {
+  color: inherit;
+  text-decoration: none;
+}
+.cover[data-published] a:focus-visible {
+  outline: 2px solid var(--text-on-scene);
+  outline-offset: 4px;
+}
+.cover[data-published] .spine {
+  font-size: 8.6cqw;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+.portraitLink {
+  position: absolute;
+  inset: -55% 0 -8px;
+  z-index: 4;
+  display: flex;
+  align-items: flex-end;
+  min-height: 44px;
+}
+.portraitLink span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 5px 3px;
+  background: var(--surface-scene-glass);
+  font: 500 clamp(11px, 2.8cqw, 16px)/1.3 var(--font-body);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--text-on-scene);
+}
+.portraitLink b {
+  font-weight: 400;
+}
+.frameLink {
+  position: absolute;
+  z-index: 38;
+  left: var(--window-x);
+  top: var(--window-y);
+  width: var(--window-w);
+  height: var(--window-h);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.frameLink::before,
+.frameLink::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border: 1px solid var(--text-on-scene);
+  opacity: 0;
+  transform: scaleY(0.94);
+  transition:
+    transform 320ms ease,
+    opacity 220ms ease;
+  pointer-events: none;
+}
+.frameLink::after {
+  inset: -3px -7px -7px -3px;
+  border-color: var(--surface-scene-glass);
+}
+.frameLink span {
+  position: absolute;
+  right: 10px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 10px;
+  background: var(--surface-scene-glass);
+  color: var(--text-on-scene);
+  font: 500 12px/1.4 var(--font-body);
+  opacity: 0;
+  transform: translateY(7px);
+  transition:
+    transform 240ms ease,
+    opacity 180ms ease;
+}
+.frameLink b {
+  font-size: 18px;
+  font-weight: 400;
+  transition: transform 240ms ease;
+}
+.cover[data-published] .person img {
+  transform-origin: center bottom;
+  transition: scale 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.frameLink:focus-visible::before,
+.frameLink:focus-visible::after,
+.frameLink:focus-visible span,
+.frameLink:active span {
+  opacity: 1;
+  transform: none;
+}
+.cover:has(.frameLink:focus-visible) .person img {
+  scale: 1.012;
+}
+.frameLink:active::before,
+.frameLink:active::after {
+  opacity: 1;
+  transform: scale(0.985);
+}
+.frameLink:active b {
+  transform: translate(3px, -3px);
+}
+.cover:has(.frameLink:active) .person img {
+  scale: 0.997;
+}
+.cover[data-published] .footer {
+  top: 86.5%;
+}
+.cover[data-published] .headline {
+  font-size: 6.4cqw;
+  white-space: nowrap;
+  align-self: start;
+  line-height: 1.15;
+}
+.cover[data-published] .microcopy {
+  border-top: 1px solid var(--text-on-scene);
+  padding-top: 5px;
+  font: 400 clamp(11px, 2.6cqw, 16px)/1.5 var(--font-body);
+  text-shadow: 0 1px 3px var(--surface-scene-glass);
+}
+.microcopy p {
+  margin: 0;
+}
+.cover[data-published] .microcopy a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+.cover[data-published] .microcopy a span {
+  font: inherit;
+}
+@container (max-width: 599px) {
+  /* Reserve a full text row inside the artwork on narrow screens. */
+  .cover[data-published] {
+    --window-h: 74.221%;
+  }
+  .cover[data-published] :is(.base, .grayPerson, .foregroundLayer) {
+    overflow: hidden;
+  }
+  .cover[data-published] .microcopy {
+    font-size: 12px;
+  }
+  .cover[data-published] .footer {
+    top: 81.5%;
+  }
+  .cover[data-published] .details {
+    top: 70.2%;
+  }
+}
+@media (hover: hover) {
+  .frameLink:hover::before,
+  .frameLink:hover::after,
+  .frameLink:hover span {
+    opacity: 1;
+    transform: none;
+  }
+  .cover:has(.frameLink:hover:not(:active)) .person img {
+    scale: 1.012;
+  }
+  .cover[data-published] a:hover {
+    color: var(--accent-brand-on-paper);
+  }
+  .portraitLink:hover span {
+    color: var(--text-on-scene);
+    background: var(--accent-brand-on-paper);
+  }
+}
+@media (hover: none) {
+  .frameLink span {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover[data-published] .person img,
+  .frameLink::before,
+  .frameLink::after,
+  .frameLink span,
+  .frameLink b {
+    transition: none;
+  }
+  .cover:has(.frameLink) .person img {
+    scale: 1;
+  }
+}
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--surface-scene-glass);
+  color: var(--text-on-scene);
+}
+.sceneBackground {
+  position: absolute;
+  inset: 0;
+  transform: scale(1.02);
+}
+.sceneShade {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--surface-scene-glass) 35%, transparent);
+}
+.scene span {
+  position: absolute;
+  font: 500 10px var(--font-mono);
+  opacity: 0.65;
+}
+.far {
+  position: absolute;
+  inset: 8% 5% 12%;
+  border: 1px solid color-mix(in srgb, var(--text-on-scene) 20%, transparent);
+}
+.far span,
+.middle span {
+  top: 10px;
+  left: 10px;
+}
+.middle {
+  position: absolute;
+  inset: 25% 24% 0;
+  border: 1px solid color-mix(in srgb, var(--text-on-scene) 45%, transparent);
+  background: color-mix(in srgb, var(--text-on-scene) 4%, transparent);
+}
+.nearLeft,
+.nearRight {
+  position: absolute;
+  top: 12%;
+  bottom: -5%;
+  width: 12%;
+  border: 1px solid color-mix(in srgb, var(--text-on-scene) 65%, transparent);
+  background: color-mix(in srgb, var(--text-on-scene) 8%, transparent);
+  transform: rotate(-8deg);
+}
+.nearLeft {
+  left: -4%;
+}
+.nearRight {
+  right: -4%;
+  transform: rotate(8deg);
+}
+
+/* Wide composition: keep the person at its original aspect ratio, move the
+ * editorial columns instead of stretching the portrait cover. */
+@container (min-width: 600px) {
+  .cover {
+    --window-x: 20.331%;
+    --window-w: 17.29%;
+    --registration-x: -20.331cqw;
+  }
+  .person {
+    inset: 0 auto 0 14%;
+    width: 80.0866cqh;
+  }
+  .sleeveBreakout {
+    clip-path: polygon(0 24%, 20.9% 24%, 20.9% 66%, 0 66%);
+  }
+  .spine {
+    left: 38.1%;
+    font-size: 4.5cqw;
+  }
+  .details {
+    left: 67%;
+    right: 10%;
+    top: 70.9%;
+    height: 13.5%;
+    gap: 8%;
+  }
+  .details figcaption {
+    font-size: 1.1cqw;
+  }
+  .footer {
+    left: 20.331%;
+    right: 10%;
+    grid-template-columns: 61% 1fr;
+    gap: 5%;
+  }
+  .headline {
+    font-size: 3.6cqw;
+  }
+  .microcopy i {
+    height: 0.25cqw;
+    margin-bottom: 0.4cqw;
+  }
+  .microcopy span {
+    font-size: 1.1cqw;
+  }
+  .cover[data-published] .spine {
+    font-size: 3.8cqw;
+  }
+  .cover[data-published] .headline {
+    font-size: 2.8cqw;
+  }
+  .portraitLink span {
+    font-size: clamp(13px, 1.3cqw, 18px);
+    padding: 6px;
+  }
+  .cover[data-published] .microcopy {
+    font-size: clamp(12px, 1.1cqw, 16px);
+  }
+}
+
+/* Fixed side mask: only the portrait moves; the panel and hit area stay put. */
+.cover[data-published] .details figure {
+  --portrait-surface: var(--text-on-notice);
+  --portrait-ink: var(--text-on-scene);
+  clip-path: inset(-110% 0 -10px);
+}
+.cover[data-published] .portraitBack {
+  inset-block-end: -8px;
+  background: var(--portrait-surface);
+}
+.cover[data-published] .portraitBack :is(.darkFrame, .lightFrame) {
+  display: none;
+}
+/* Foreground L rule stays visible over both the portrait and the caption. */
+.cover[data-published] .portraitLip {
+  display: block;
+  inset: 0 0 -8px;
+  height: auto;
+  z-index: 5;
+  border: 0 solid var(--portrait-ink);
+  border-left-width: 4px;
+  border-bottom-width: 4px;
+  pointer-events: none;
+}
+.cover[data-published] .portraitLip::after {
+  content: none;
+}
+.cover[data-published] .portraitCrop {
+  transform-origin: 50% 100%;
+}
+.cover[data-published] :is(.portraitRest, .portraitArmed) {
+  object-position: center top;
+}
+.cover[data-published] .portraitLink span {
+  justify-content: center;
+  color: var(--portrait-ink);
+  background: var(--portrait-surface);
+  border-bottom: 0;
+}
+.cover[data-published] .portraitLink:focus-visible {
+  outline: 2px solid var(--accent-brand-on-paper);
+  outline-offset: -3px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cover[data-published] .portraitCrop {
+    transition: transform 320ms cubic-bezier(0.2, 0.7, 0.25, 1);
+  }
+  .cover[data-published] .details figure:has(.portraitLink:focus-visible) .portraitCrop {
+    transform: translateY(-8px) scale(1.08);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .cover[data-published] .details figure:has(.portraitLink:hover) .portraitCrop {
+      transform: translateY(-8px) scale(1.08);
+    }
+  }
+  @media (hover: none) {
+    .cover[data-published] .details figure:has(.portraitLink:active) .portraitCrop {
+      transform: translateY(-5px) scale(1.04);
+    }
+  }
+}
+
+/* The pose is independent of the exit timeline on its parent. Failed or pending
+   artwork keeps the resting character visible, including on slow connections. */
+.portraitArmed {
+  opacity: 0;
+  object-fit: contain;
+  height: 90%;
+}
+.cover[data-published] .details figure:has(.portraitLink:focus-visible) [data-armed-ready] {
+  --portrait-rest-opacity: 0;
+  --portrait-armed-opacity: 1;
+}
+.portraitRest {
+  opacity: var(--portrait-rest-opacity, 1);
+}
+.portraitArmed {
+  opacity: var(--portrait-armed-opacity, 0);
+}
+@media (hover: hover) and (pointer: fine) {
+  .cover[data-published] .details figure:has(.portraitLink:hover) [data-armed-ready] {
+    --portrait-rest-opacity: 0;
+    --portrait-armed-opacity: 1;
+  }
+}
+@media (hover: none) {
+  .cover[data-published] .details figure:has(.portraitLink:active) [data-armed-ready] {
+    --portrait-rest-opacity: 0;
+    --portrait-armed-opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .portraitRest,
+  .portraitArmed {
+    transition: opacity 160ms ease-out;
+  }
+}

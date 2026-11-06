@@ -29,7 +29,7 @@ describe('備戰方案', () => {
      `SiteChrome` 的 OWN_CHROME 名單就是為了這件事，見 MERGE.md 第三輪。 */
   it('自帶的工具列四顆鈕都在', () => {
     render(<LoadoutPage />);
-    for (const name of ['規則', '匯入', '匯出 JSON', '複製配置']) {
+    for (const name of ['規則說明', '匯入配置', '匯出配置', '複製配置']) {
       expect(screen.getAllByRole('button', { name }).length).toBeGreaterThan(0);
     }
   });

@@ -4,14 +4,16 @@ import { useEffect } from 'react';
 import type { SportsPresentation } from '../features/sportsbook/SportsbookBridge';
 import { activityDisplay, type ActivityDisplay } from '../features/landing/activityDisplay';
 import { tournamentDisplay, type TournamentDisplay } from '../features/landing/tournamentDisplay';
-import { activityApi } from '../lib/api/activity';
-import type { RankInfo } from '../lib/api/gen/hestia/activity/v1/common_pb';
-import type { GetBracketResponse } from '../lib/api/gen/hestia/activity/v1/tournament_pb';
+import { tournamentRealtime } from '../features/realtime/tournamentRealtime';
+import { mountChapterOpening } from '../features/chrome/homeOpening';
+import { performanceProbe } from '../features/chrome/performanceProbe';
+import '../features/chrome/home-opening.css';
 
 declare global {
   interface Window {
     __LUNJIAN?: {
       destroy: () => void;
+      enterStage?: () => void;
       applySportsbookEvent?: (view: SportsPresentation) => void;
       updateActivity: (view: ActivityDisplay) => void;
       updateTournament: (view: TournamentDisplay) => void;
@@ -30,6 +32,11 @@ export function LunjianRuntime({ revision = '' }: { revision?: string }) {
   useEffect(() => {
     const version = revision ? `?v=${encodeURIComponent(revision)}` : '';
     const controller = new AbortController();
+    performanceProbe(controller.signal);
+    // The server primes this gate before the first paint, including client navigation.
+    // Release only after the requested chapter and its animation start states exist.
+    const revealEntry = () =>
+      document.querySelector('.chapter-entry')?.removeAttribute('data-entry-pending');
     // React retains precedence stylesheets across refreshes. Retire earlier lab
     // revisions only after this revision loads, so removed CSS cannot survive.
     const styles = [...document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]')].filter(
@@ -56,85 +63,37 @@ export function LunjianRuntime({ revision = '' }: { revision?: string }) {
     const slug = (process.env.NEXT_PUBLIC_TOURNAMENT_SLUG ?? '').trim();
     let view = activityDisplay(slug);
     let bracketView = tournamentDisplay(slug);
-    let request: AbortController | undefined;
-    let bracketRequest: AbortController | undefined;
-    let bracketPoll: ReturnType<typeof setTimeout> | undefined;
-    let bracketData: GetBracketResponse | undefined;
-    let ranks: RankInfo[] = [];
-    let bestOf = 0;
+    const store = tournamentRealtime(slug);
     const publish = () => window.__LUNJIAN?.updateActivity(view);
     const publishBracket = () => window.__LUNJIAN?.updateTournament(bracketView);
-    const projectBracket = () => {
-      if (!bracketData) return;
-      bracketView = tournamentDisplay(slug, { bracket: bracketData, ranks, bestOf });
+    const sync = () => {
+      const state = store.getSnapshot();
+      view = activityDisplay(
+        slug,
+        state.status === 'ready' && state.tournament
+          ? state.tournament.phase
+          : state.status === 'error' || state.status === 'reconnecting'
+            ? 'error'
+            : 'loading',
+      );
+      if (state.status === 'reconnecting') view.status = '連線中斷，正在重新同步';
+      if (state.bracket && state.tournament)
+        bracketView = tournamentDisplay(slug, {
+          bracket: state.bracket,
+          ranks: state.ranks,
+          bestOf: state.tournament.bestOf,
+        });
+      if (!state.bracket && state.status === 'error')
+        bracketView = tournamentDisplay(slug, 'error');
+      publish();
       publishBracket();
     };
-    const refreshBracket = async (background = false) => {
-      if (bracketPoll !== undefined) clearTimeout(bracketPoll);
-      bracketRequest?.abort();
-      bracketRequest = new AbortController();
-      const current = bracketRequest;
-      if (!background) {
-        bracketData = undefined;
-        bracketView = tournamentDisplay(slug);
-        publishBracket();
-      }
-      if (!slug) return;
-      try {
-        const [bracket, rankList] = await Promise.all([
-          activityApi.tournament.getBracket({ tournamentSlug: slug }, { signal: current.signal }),
-          activityApi.tournament.listRanks({ tournamentSlug: slug }, { signal: current.signal }),
-        ]);
-        if (current.signal.aborted || controller.signal.aborted) return;
-        bracketData = bracket;
-        ranks = rankList.ranks;
-        projectBracket();
-      } catch {
-        if (current.signal.aborted || controller.signal.aborted) return;
-        bracketData = undefined;
-        bracketView = tournamentDisplay(slug, 'error');
-        publishBracket();
-      }
-      if (!current.signal.aborted && !controller.signal.aborted) {
-        bracketPoll = setTimeout(() => void refreshBracket(true), 10_000);
-      }
-    };
-    const refresh = async () => {
-      request?.abort();
-      request = new AbortController();
-      const current = request;
-      view = activityDisplay(slug);
-      publish();
-      if (!slug) return;
-      try {
-        const response = await activityApi.tournament.getTournament(
-          { slug },
-          { signal: current.signal },
-        );
-        if (!response.tournament) throw new Error('Tournament missing');
-        if (current.signal.aborted || controller.signal.aborted) return;
-        view = activityDisplay(slug, response.tournament.phase);
-        bestOf = response.tournament.bestOf;
-        projectBracket();
-      } catch {
-        if (current.signal.aborted || controller.signal.aborted) return;
-        view = activityDisplay(slug, 'error');
-      }
-      publish();
-    };
-    document.addEventListener(
-      'lunjian:retry',
-      () => {
-        void refresh();
-        void refreshBracket();
-      },
-      { signal: controller.signal },
-    );
-    document.addEventListener('lunjian:retry-tournament', () => void refreshBracket(), {
+    const unsubscribe = slug ? store.subscribe(sync) : () => {};
+    document.addEventListener('lunjian:retry', store.reconnect, { signal: controller.signal });
+    document.addEventListener('lunjian:retry-tournament', store.reconnect, {
       signal: controller.signal,
     });
-    void refresh();
-    void refreshBracket();
+    sync();
     const one = (src: string) =>
       new Promise<void>((resolve, reject) => {
         // Classic dependencies include lexical globals (INK). Keep one copy per
@@ -177,8 +136,14 @@ export function LunjianRuntime({ revision = '' }: { revision?: string }) {
         await one(src);
       }
       if (controller.signal.aborted) return;
+      revealEntry();
       publish();
       publishBracket();
+      mountChapterOpening(
+        document.getElementById('boot')?.parentElement ?? null,
+        controller.signal,
+        () => window.__LUNJIAN?.enterStage?.(),
+      );
       const module = document.createElement('script');
       module.type = 'module';
       module.id = 'lunjian-stage-mount';
@@ -199,13 +164,12 @@ export function LunjianRuntime({ revision = '' }: { revision?: string }) {
           });
         const boot = document.getElementById('boot');
         if (boot) boot.hidden = true;
+        revealEntry();
       }
     });
     return () => {
       controller.abort();
-      request?.abort();
-      bracketRequest?.abort();
-      if (bracketPoll !== undefined) clearTimeout(bracketPoll);
+      unsubscribe();
       window.__LUNJIAN?.destroy();
       for (const script of added) script.remove();
     };

@@ -1,0 +1,221 @@
+.study {
+  position: relative;
+  z-index: 1;
+  max-width: 1460px;
+  margin: auto;
+  padding: 110px 32px 56px;
+  color: var(--text-primary);
+  background: var(--surface-base);
+  min-height: 100svh;
+}
+.study h1 {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 52px);
+  margin: 12px 0 20px;
+  font-weight: 500;
+}
+.eyebrow {
+  letter-spacing: 0.18em;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.study header > p:last-child,
+.study footer {
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding: 20px 0;
+  border-block: 1px solid var(--border-subtle);
+}
+.study button,
+.study select {
+  color: var(--text-primary);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  min-height: 44px;
+  padding: 9px 15px;
+  font: inherit;
+  cursor: pointer;
+}
+.study button:hover {
+  border-color: var(--accent-action-primary);
+}
+.study button:focus-visible,
+.study input:focus-visible,
+.study select:focus-visible {
+  outline: 2px solid var(--accent-action-primary);
+  outline-offset: 3px;
+}
+.study button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.toolbar > button:first-child,
+.sample[data-selected='true'] .sampleTitle button {
+  background: var(--accent-action-primary);
+  color: var(--text-on-action);
+}
+.toolbar label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.selection {
+  padding: 20px 0;
+  color: var(--text-secondary);
+  min-height: 60px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px 24px;
+}
+.sample {
+  min-width: 0;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 20px;
+  scroll-margin-top: 90px;
+}
+.sampleTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.sampleTitle h2 {
+  font-family: var(--font-display);
+  font-size: 25px;
+  margin: 0;
+  font-weight: 500;
+}
+.sampleTitle h2 span {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--accent-action-primary);
+  margin-right: 14px;
+}
+.sample > p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  min-height: 30px;
+  margin: 15px 0;
+}
+.study .stage {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: var(--surface-base) url('/lunjian/art/bg/scene-gate.webp') center/cover;
+  isolation: isolate;
+  cursor: crosshair;
+}
+.stage canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+.reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 65px);
+  color: var(--text-on-scene);
+  background: color-mix(in srgb, var(--accent-fire-soot) 35%, transparent);
+  letter-spacing: 0.1em;
+}
+.reveal small {
+  font-size: 14px;
+  letter-spacing: 0.4em;
+  margin-top: 16px;
+}
+.prompt {
+  position: absolute;
+  z-index: 3;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  color: var(--text-on-scene);
+  background: var(--surface-scene-scrim);
+  padding: 8px 16px;
+  font-size: 13px;
+  pointer-events: none;
+}
+.localControls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.localControls button {
+  padding: 7px 12px;
+  font-size: 13px;
+}
+.localControls label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  font-size: 13px;
+  min-width: 150px;
+  white-space: nowrap;
+}
+.localControls input {
+  width: 100%;
+  min-width: 70px;
+  accent-color: var(--accent-action-primary);
+}
+.study footer {
+  margin-top: 40px;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 20px;
+  font-size: 13px;
+}
+.study footer a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (max-width: 760px) {
+  .study {
+    padding: 92px 16px 40px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .toolbar {
+    gap: 8px;
+  }
+  .toolbar button {
+    font-size: 13px;
+  }
+  .sampleTitle h2 {
+    font-size: 23px;
+  }
+  .reveal {
+    font-size: 40px;
+  }
+  .sample > p {
+    font-size: 14px;
+  }
+  .selection {
+    font-size: 14px;
+  }
+}

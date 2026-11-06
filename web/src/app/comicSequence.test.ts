@@ -398,7 +398,8 @@ describe('漫畫逐格入場佇列', () => {
           duration: 420,
         }),
       );
-      expect(calls[0]![1]).toBe(880);
+      // Scene 240ms + character 360ms + the existing 560ms caption.
+      expect(calls[0]![1]).toBe(1160);
       const allTargets = timelines.flatMap((item) =>
         item.add.mock.calls.flatMap(([options]) =>
           Array.isArray(options.targets) ? options.targets : [options.targets],
@@ -454,4 +455,13 @@ describe('漫畫逐格入場佇列', () => {
     expect(timelines).toHaveLength(1);
     expect(panels.every((panel) => panel.style.opacity === '')).toBe(true);
   });
+});
+
+it('keeps every panel visible when a portrait portal owns the chapter reveal', () => {
+  history.replaceState(null, '', '/?stage=2d&intro=0#rules');
+  document.body.innerHTML = LUNJIAN_MARKUP + '<div data-editorial-transition="#rules"></div>';
+  runInThisContext(source);
+  expect(frames().length).toBeGreaterThan(0);
+  frames().forEach((frame) => expect(frame.style.opacity).not.toBe('0'));
+  expect(running()).toHaveLength(0);
 });

@@ -1,0 +1,194 @@
+/* One information window for every page that sits on a scene (all but 比武 and 賽程):
+   the 規則說明 oil paper — ink-cloud card texture under a 70% paper wash — inside a 1px rule.
+   Containers opt in with [data-paper-window]; the stage chapters share the same values in
+   design/lunjian/lab/paper-theme.css. Colours come from the paper/auth slots only. */
+html[data-theme] body [data-paper-window] {
+  position: relative;
+  box-sizing: border-box;
+  border: 1px solid var(--border-auth);
+  border-radius: 0;
+  background-color: var(--surface-auth-paper);
+  background-image:
+    linear-gradient(
+      color-mix(in oklab, var(--surface-auth-paper) 70%, transparent),
+      color-mix(in oklab, var(--surface-auth-paper) 70%, transparent)
+    ),
+    var(--surface-paper-texture);
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 18px 40px color-mix(in oklab, var(--surface-wood) 28%, transparent);
+  color: var(--text-auth-ink);
+  padding: clamp(20px, 3vw, 32px);
+}
+/* The old handscroll rollers are retired; the window is a flat mounted sheet. */
+html[data-theme] body [data-paper-window]::before,
+html[data-theme] body [data-paper-window]::after {
+  content: none;
+}
+html[data-theme] body [data-paper-window] :is(h1, h2, h3, label, p, dt, dd, legend) {
+  color: var(--text-auth-ink);
+}
+
+/* Scene behind the React routes: the same ink landscape as the stage chapters. Pages whose content sits in
+   a paper window show it bare (user, 2026-11-03); pages that write straight onto the scene (the judge
+   console, 讓武) keep a wash so their text stays legible. */
+html[data-theme] body:has([data-site-chrome]):not(:has([data-page-nav-offset])) {
+  --scene-wash: linear-gradient(
+    color-mix(in oklab, var(--surface-base) 38%, transparent),
+    color-mix(in oklab, var(--surface-base) 62%, transparent)
+  );
+  --scene-backdrop: var(--scene-wash), url('/lunjian/art/bg/kuwahara/scene-arena.webp');
+  background-color: var(--surface-base);
+  background-image: var(--scene-backdrop);
+  background-position: center top;
+  background-size: cover;
+  background-attachment: fixed;
+}
+html[data-theme]
+  body:has([data-site-chrome]):has([data-paper-window]):not(:has([data-page-nav-offset])) {
+  --scene-wash: none;
+}
+/* Member entry and workspace pages painted their own flat canvas over the scene. */
+html[data-theme] body :is([data-member-access], [data-member-workspace]) {
+  background: none;
+}
+@media (max-width: 767px) {
+  html[data-theme] body [data-paper-window] {
+    padding: 20px 16px;
+  }
+  /* Phones ignore a fixed body background, and a scrolling one tiles down a tall page; a fixed layer
+     keeps one scene behind the whole page. body isolates so its own colour paints under that layer, and the
+     layer is ::after so it also paints over any earlier fixed backdrop in body (WorldBackdrop), as on desktop. */
+  html[data-theme] body:has([data-site-chrome]):not(:has([data-page-nav-offset])) {
+    background-image: none;
+    isolation: isolate;
+  }
+  html[data-theme] body:has([data-site-chrome]):not(:has([data-page-nav-offset]))::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: var(--scene-backdrop) center top / cover;
+  }
+}
+
+/* A window may instead be one wood plaque (data-paper-window="plaque"; user, 2026-11-03), as the 比武
+   loadout sheet (.psheet in paper-theme.css). Its paper stays light in both colour modes, so it holds every
+   theme slot that turns at night (darkExtras in lunjian.json) at a fixed value: the notice's ink and surfaces
+   where the slot is paper or ink, the nearest fixed colour on paper where the theme has no day-only twin (the
+   sums of money take the wood). color-mode.css then resolves the generic slots from these again, and
+   everything inside, site-wide rules included, keeps its day look. */
+html[data-theme] body [data-paper-window='plaque'] {
+  --text-auth-ink: var(--text-on-notice);
+  --text-auth-muted: color-mix(in srgb, var(--text-on-notice) 72%, transparent);
+  --border-auth: color-mix(in srgb, var(--text-on-notice) 34%, transparent);
+  --border-crease: var(--border-auth);
+  --surface-auth-canvas: var(--surface-notice);
+  --surface-auth-paper: var(--surface-notice);
+  --surface-auth-field: color-mix(in srgb, var(--text-on-notice) 6%, var(--surface-notice));
+  --surface-dialogue: var(--surface-auth-field);
+  --accent-brand: var(--accent-brand-on-paper);
+  --accent-action-primary: var(--accent-brand-on-paper);
+  --accent-auth-action: var(--accent-action-primary);
+  --accent-action-hover: color-mix(
+    in oklab,
+    var(--accent-brand-on-paper) 80%,
+    var(--text-on-notice)
+  );
+  --text-on-action: var(--surface-notice);
+  --accent-info: var(--accent-equipment-blue);
+  --accent-contrast: var(--accent-equipment-blue);
+  --accent-secondary: var(--surface-wood);
+  --accent-status-money: var(--accent-secondary);
+  --state-status-live: var(--accent-brand-on-paper);
+  --state-status-win: var(--state-equipment-win);
+  --state-auth-ready: var(--state-status-win);
+  color-scheme: light;
+  border: solid transparent;
+  border-width: 22px 34px;
+  border-image: url('/navigation-02/plaque.webp') 65 100 fill / 22px 34px / 0 stretch;
+  background: none;
+  box-shadow: none;
+  filter: drop-shadow(0 24px 40px var(--surface-modal-scrim));
+  color: var(--text-auth-ink);
+}
+/* Form parts that pick the night scheme for themselves. */
+html[data-theme] body [data-paper-window='plaque'] :is(input, select, textarea, fieldset) {
+  color-scheme: light;
+}
+/* The main moves inside a plaque are smaller wood plaques (data-plaque; "accent" letters them in red). They
+   carry data-ink-wave="off": the site's ink wave would paint over the wood. */
+[data-paper-window='plaque'] [data-plaque] {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 60px;
+  padding: var(--space-3) var(--space-6);
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--text-auth-ink);
+  font: 600 var(--text-lg) / 1.3 var(--font-display);
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  cursor: pointer;
+}
+[data-paper-window='plaque'] [data-plaque='accent'] {
+  color: var(--accent-brand-on-paper);
+}
+[data-paper-window='plaque'] [data-plaque]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border: solid transparent;
+  border-image: url('/navigation-02/plaque.webp') 65 100 fill / 12px 18px / 0 stretch;
+}
+/* The ink stroke the chapter plaques write under their lettering. */
+[data-paper-window='plaque'] [data-plaque]::after {
+  content: '';
+  position: absolute;
+  inset: auto 22px 13px;
+  block-size: 3px;
+  pointer-events: none;
+  background: var(--accent-brand-on-paper);
+  clip-path: polygon(0 45%, 45% 0, 100% 35%, 97% 75%, 25% 100%, 1% 80%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+[data-paper-window='plaque'] [data-plaque]:not(:disabled):is(:hover, :focus-visible, :active) {
+  transform: none;
+  box-shadow: none;
+  color: var(--accent-brand-on-paper);
+}
+[data-paper-window='plaque']
+  [data-plaque]:not(:disabled):is(:hover, :focus-visible, :active)::after {
+  transform: scaleX(1);
+}
+/* Disabled controls take the site-wide dashed look (color-mode.css), whose paper fill would show past a
+   plaque's ragged edges; the repeated attributes out-rank that rule. */
+html[data-theme][data-color-mode]
+  body
+  [data-paper-window='plaque'][data-paper-window]
+  [data-plaque][data-plaque]:disabled {
+  background-color: transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-paper-window='plaque'] [data-plaque]::after {
+    transition: none;
+  }
+}
+@media (max-width: 767px) {
+  html[data-theme] body [data-paper-window='plaque'] {
+    border-width: 14px 20px;
+    border-image-width: 14px 20px;
+    padding: var(--space-4) var(--space-3);
+  }
+}

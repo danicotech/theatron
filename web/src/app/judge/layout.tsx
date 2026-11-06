@@ -1,3 +1,4 @@
+import { AdminGuard } from '../../features/admin/AdminGuard';
 import type { ReactNode } from 'react';
 
 import { WorldBackdrop } from '../../features/chrome/WorldBackdrop';
@@ -10,7 +11,7 @@ export default function JudgeLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <WorldBackdrop />
-      {children}
+      <AdminGuard>{children}</AdminGuard>
     </>
   );
 }

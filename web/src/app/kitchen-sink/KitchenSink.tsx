@@ -125,10 +125,14 @@ export function KitchenSink({ themes }: KitchenSinkProps) {
         className={styles.stage}
         style={width === 0 ? undefined : { maxInlineSize: `${width}px` }}
       >
-        <Section name="Button" note="三個 variant 對應三種語意,不是三種重要程度">
+        <Section
+          name="Button · 長浪填滿＋A 款水波"
+          note="滑入填墨並起漣漪，水波隨游標流動，不必按住。支援鍵盤與減少動態設定。"
+        >
           <Specimen label="variant">
             <div className={styles.column}>
               <Button>加入注單</Button>
+              <Button variant="primary">報名參賽</Button>
               <Button variant="money">送出注單</Button>
               <Button variant="danger">判定勝者</Button>
             </div>

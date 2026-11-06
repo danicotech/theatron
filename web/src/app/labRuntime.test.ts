@@ -49,6 +49,28 @@ describe('lab 首頁執行期回歸', () => {
     document.body.innerHTML = LUNJIAN_MARKUP;
     runInThisContext(homeSource);
   }
+  it('初次瀏覽預設輕量場景，不嘗試載入 WebGL，切換連結保留目前章節', async () => {
+    history.replaceState(null, '', '/?intro=0#rules');
+    mount();
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const factory = runInThisContext(
+      '(function(){' +
+        stageSource.replace(/export /g, '') +
+        ';return {mountStage3D,stageMode};})()',
+    ) as { mountStage3D: () => Promise<unknown>; stageMode: () => string };
+    expect(factory.stageMode()).toBe('2d');
+    await factory.mountStage3D();
+    expect(document.body.dataset.stage).toBe('2d');
+    expect(warn).not.toHaveBeenCalled();
+    expect(document.querySelector('[data-stage-mode="3d"]')?.getAttribute('href')).toContain(
+      'stage=3d#rules',
+    );
+    localStorage.setItem('lunjian:stage-mode:v1', '3d');
+    expect(factory.stageMode()).toBe('3d');
+    history.replaceState(null, '', '/?stage=2d#rules');
+    expect(factory.stageMode()).toBe('2d');
+    warn.mockRestore();
+  });
   it('React 已移除內頁 DOM 後仍能清理 runtime，不阻斷返回首頁', () => {
     mount();
     document.body.replaceChildren();
@@ -195,7 +217,7 @@ describe('lab 首頁執行期回歸', () => {
       expect(document.querySelector('.chapter[data-on]')?.id).toBe('rules');
       expect(Number(document.querySelector<HTMLElement>('#ink-wipe')?.dataset.progress)).toBe(0.46);
       finish();
-      await vi.advanceTimersByTimeAsync(40);
+      await vi.advanceTimersByTimeAsync(100);
       expect(document.querySelector('.chapter[data-on]')?.id).toBe('invitation');
       await vi.advanceTimersByTimeAsync(2000);
       expect(document.body.hasAttribute('data-cut')).toBe(false);
@@ -433,10 +455,14 @@ describe('lab 首頁執行期回歸', () => {
   });
   it('所有 CTA 同源更新，失敗可重試，非 preview 不展示假選手', () => {
     mount();
+    window.__LUNJIAN!.updateActivity(activityDisplay(''));
+    expect(document.querySelector('#register-status')?.textContent).toBe('報名資訊尚未公布');
+    expect(document.querySelector('#register-cta')).not.toHaveAttribute('data-registration-entry');
+    expect(document.querySelector('#register-cta')).toHaveAttribute('href', '#rules');
     window.__LUNJIAN!.updateActivity(activityDisplay('test-event', TournamentPhase.SIGNUP));
     for (const a of document.querySelectorAll('[data-activity-cta]')) {
       expect(a.textContent).toBe('報名參賽');
-      expect(a.getAttribute('href')).toBe('/t/test-event/signup');
+      expect(a.getAttribute('href')).toBe('/t/test-event/enroll');
     }
     window.__LUNJIAN!.updateActivity(activityDisplay('test-event', 'error'));
     expect(document.querySelector<HTMLElement>('.activity-retry')!.hidden).toBe(false);
@@ -482,9 +508,7 @@ describe('lab 首頁執行期回歸', () => {
     const warning = vi.spyOn(console, 'warn').mockImplementation(() => {});
     // VM has no dynamic import loader: this exercises the real failure branch.
     const mountStage = runInThisContext(
-      '(function(){' +
-        stageSource.replace('export async function', 'async function') +
-        ';return mountStage3D;})()',
+      '(function(){' + stageSource.replace(/export /g, '') + ';return mountStage3D;})()',
     ) as () => Promise<unknown>;
     await mountStage();
     expect(document.body.dataset.stage).toBe('2d');
@@ -636,12 +660,29 @@ describe('lab 配裝執行期回歸', () => {
         .querySelector<HTMLButtonElement>('.act-ghost')!
         .click();
     openWeapon();
+    const mainTune = document.querySelector<HTMLSelectElement>(
+      '#edit select[aria-label="主詞條"]',
+    )!;
+    mainTune.value = mainTune.options[1]!.value;
+    mainTune.dispatchEvent(new Event('change'));
+    expect(document.activeElement?.getAttribute('data-tune-key')).toBe('主詞條');
+    const tuneValue = document.querySelector<HTMLInputElement>(
+      '#edit input[aria-label="主詞條數值"]',
+    )!;
+    expect(tuneValue.disabled).toBe(false);
+    tuneValue.value = '77';
+    tuneValue.dispatchEvent(new Event('input'));
+    expect(document.querySelector('#edit-side .tunes')!.textContent).toContain('77');
+    tuneValue.dispatchEvent(new Event('change'));
+    expect(document.activeElement?.getAttribute('data-value-key')).toBe('主詞條');
+    expect(document.querySelector('#edit-side .tunes')!.textContent).toContain('77');
+    expect(localStorage.getItem('lunjian.loadout.v3')).toBe(before);
     const placement = document.querySelector<HTMLSelectElement>(
-      '#edit select[data-focus-key="掛在哪一格"]',
+      '#edit select[data-focus-key="裝備位置"]',
     )!;
     placement.value = 'w_main';
     placement.dispatchEvent(new Event('change'));
-    click('#edit [data-focus-key="裝備類別"]');
+    click('#edit [data-focus-key="武器類型"]');
     [...document.querySelectorAll<HTMLButtonElement>('#pop-box button')].at(-1)!.click();
     click('#edit-clear');
     expect(document.querySelector<HTMLDialogElement>('#edit')!.open).toBe(true);
@@ -650,7 +691,7 @@ describe('lab 配裝執行期回歸', () => {
     expect(localStorage.getItem('lunjian.loadout.v3')).toBe(before);
     openWeapon();
     const next = document.querySelector<HTMLSelectElement>(
-      '#edit select[data-focus-key="掛在哪一格"]',
+      '#edit select[data-focus-key="裝備位置"]',
     )!;
     next.value = 'w_main';
     next.dispatchEvent(new Event('change'));
@@ -737,9 +778,15 @@ describe('lab 配裝執行期回歸', () => {
     await mount('current-event');
     expect(document.querySelector('#sheet')!.textContent).toBe(before);
     expect(document.querySelectorAll('#secbar button')).toHaveLength(3);
-    click('#step-check');
+    click('#secbar [data-k=power]');
     expect(document.querySelector('#main')!.getAttribute('data-sec')).toBe('power');
-    expect(document.querySelector('[data-pane="sheet"]')!.hasAttribute('data-on')).toBe(true);
+    expect(document.querySelector('#rtabs')).toBeNull();
+    expect(
+      [...document.querySelectorAll('.col-3 > [data-pane]')].map((x) =>
+        x.getAttribute('data-pane'),
+      ),
+    ).toEqual(['power', 'goal', 'sheet']);
+    expect(document.querySelector('[data-pane="goal"] > .hint')).toBeNull();
   });
   it('JSON 匯出後匯入保持相同文字；無活動代號不產生預設報名連結', async () => {
     await mount();
@@ -770,7 +817,7 @@ describe('lab 配裝執行期回歸', () => {
     await Promise.resolve();
     expect(document.querySelector<HTMLDialogElement>('#io-modal')!.open).toBe(false);
     expect(document.querySelector('#sheet')!.textContent).toBe(before);
-    click('#step-check');
+    click('#secbar [data-k=power]');
     const slug = document.querySelector<HTMLInputElement>('#slug')!;
     slug.value = 'test-event';
     slug.dispatchEvent(new Event('input', { bubbles: true }));
@@ -779,7 +826,7 @@ describe('lab 配裝執行期回歸', () => {
       .find((b) => b.textContent === '複製報名連結')!
       .click();
     expect(writeText).toHaveBeenCalledWith(
-      location.origin + '/t/test-event/signup?arts=' + encodeURIComponent(before),
+      location.origin + '/t/test-event/enroll?arts=' + encodeURIComponent(before),
     );
   });
   it('剪貼簿失敗在匯出視窗內保留可聚焦提示，晚到回覆不污染新視窗', async () => {
