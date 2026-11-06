@@ -4,10 +4,13 @@
   /* 紙是反相的表面。整個元件內部只准用這三個,不准用 --text-primary。 */
   --paper-ink: var(--text-on-paper);
   --paper-crease: var(--border-crease);
-  --paper-faint: color-mix(in oklab, var(--paper-ink) 62%, transparent);
+  --paper-faint: var(--text-auth-muted, color-mix(in oklab, var(--paper-ink) 62%, transparent));
   /* 朱紅在紙上要往墨的方向壓。值在**外層**先算好 —— 裡面要把 --state-live
      重新定義成這個值,而自我參照在 CSS 裡解不開。 */
-  --paper-live: color-mix(in oklab, var(--state-live) 62%, var(--text-on-paper));
+  --paper-live: var(
+    --state-status-live,
+    color-mix(in oklab, var(--state-live) 62%, var(--text-on-paper))
+  );
 
   /* 紙不會正。左右各一個小角度,同一畫面上的幾張紙可以歪向不同邊。 */
   --paper-tilt: 0deg;
@@ -281,4 +284,18 @@
   .rowValue {
     text-align: start;
   }
+}
+
+.titleLine {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: 0.06em;
 }

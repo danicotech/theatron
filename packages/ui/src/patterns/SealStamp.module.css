@@ -8,7 +8,7 @@
 
 .body {
   /* 朱紅。印泥不是均勻的一塊 —— 邊緣重、中間薄,所以印身與內邊用不同的濃度。 */
-  fill: color-mix(in oklab, var(--state-live) 88%, transparent);
+  fill: color-mix(in oklab, var(--accent-brand, var(--state-live)) 88%, transparent);
 }
 
 .inner {

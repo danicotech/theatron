@@ -29,19 +29,24 @@
   appearance: none;
 }
 
-.button:hover:not(:disabled) {
-  background-color: var(--button-bg-hover);
-}
+/* G owns wave fill and clipped inverse lettering; the resting semantic palette stays here. */
 
-/* focus 一律用文字色,不借用語意色 —— 金色是錢,不是「你正在這裡」。 */
+/* 焦點與主要操作共用品牌色，金額與危險操作仍保留獨立語意。 */
 .button:focus-visible {
-  outline: 2px solid var(--text-primary);
+  outline: 2px solid var(--accent-action-primary, var(--text-primary));
   outline-offset: 2px;
 }
 
 .button:disabled {
   cursor: not-allowed;
   opacity: 0.45;
+}
+
+.primary {
+  --button-bg: var(--accent-action-primary, var(--text-primary));
+  --button-bg-hover: var(--accent-action-hover, var(--text-secondary));
+  --button-fg: var(--text-on-action, var(--surface-base));
+  --button-border: var(--accent-action-primary, var(--text-primary));
 }
 
 /* 動錢的操作。金色永遠代表錢。 */
@@ -59,10 +64,6 @@
   --button-bg-hover: var(--state-live);
   --button-fg: var(--state-live);
   --button-border: var(--state-live);
-}
-
-.danger:hover:not(:disabled) {
-  color: var(--surface-base);
 }
 
 .sm {

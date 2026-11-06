@@ -23,7 +23,7 @@
 /* 一個畫面上只該有一條是朱紅。它在紙上會自動變深 —— 那條修正住在 PaperCard,
    不在這裡重寫一次。 */
 .vermilion {
-  --ink-link: var(--state-live);
+  --ink-link: var(--accent-action-primary, var(--state-live));
 }
 
 .text {

@@ -34,8 +34,10 @@ export interface PaperCardProps {
   index?: string | undefined;
   /** 置中大標。 */
   title?: ReactNode | undefined;
-  /** 大標底下的一行副標。 */
+  /** 補充副標：純文字收進標題旁的說明提示。 */
   subtitle?: ReactNode | undefined;
+  /** 標題旁的補充說明；重要狀態與規則仍使用正文／note。 */
+  help?: string | undefined;
   /** 標題的層級。紙可能是頁面的第二層,也可能是一段裡的第三層。 */
   headingLevel?: 2 | 3 | 4 | undefined;
   /** 條目列:標籤靠左、值靠右,每列一條折痕。 */
@@ -62,6 +64,7 @@ export function PaperCard({
   index,
   title,
   subtitle,
+  help,
   headingLevel = 3,
   rows,
   note,
@@ -71,6 +74,7 @@ export function PaperCard({
   children,
 }: PaperCardProps) {
   const Heading = HEADINGS[headingLevel];
+  const helpText = [typeof subtitle === 'string' ? subtitle : '', help].filter(Boolean).join(' ');
   const hasTop = kicker !== undefined || index !== undefined;
 
   return (
@@ -82,15 +86,41 @@ export function PaperCard({
 
         {hasTop ? (
           <div className={styles.top}>
-            <span className={styles.kicker}>{kicker}</span>
+            <span className={styles.kicker}>
+              {kicker}{' '}
+              {helpText && kicker !== undefined ? (
+                <button
+                  type="button"
+                  data-help={helpText}
+                  data-ink-wave="off"
+                  aria-label={`${typeof title === 'string' ? title : '卡片'}說明`}
+                >
+                  <span aria-hidden="true">!</span>
+                </button>
+              ) : null}
+            </span>
             {index === undefined ? null : <span className={styles.index}>{index}</span>}
           </div>
         ) : null}
 
         {title === undefined ? null : (
           <Heading className={styles.title}>
-            {title}
-            {subtitle === undefined ? null : <small className={styles.subtitle}>{subtitle}</small>}
+            <span className={styles.titleLine}>
+              {title}
+              {helpText && kicker === undefined ? (
+                <button
+                  type="button"
+                  data-help={helpText}
+                  data-ink-wave="off"
+                  aria-label={`${typeof title === 'string' ? title : '卡片'}說明`}
+                >
+                  <span aria-hidden="true">!</span>
+                </button>
+              ) : null}
+            </span>
+            {subtitle === undefined || typeof subtitle === 'string' ? null : (
+              <small className={styles.subtitle}>{subtitle}</small>
+            )}
           </Heading>
         )}
 

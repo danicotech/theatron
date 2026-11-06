@@ -35,16 +35,17 @@
   --weight-display-max: 900;
   --weight-body: 400;
   --weight-body-medium: 500;
-  --weight-body-bold: 700;
+  --weight-body-bold: 600;
   --weight-mono: 500;
   --weight-mono-bold: 600;
 
   /* 字級。不開放主題自訂 —— 一旦可調,每個活動的版面都會壞掉。 */
-  --text-micro: 11px;
-  --text-xs: 12px;
-  --text-sm: 13px;
-  --text-md: 15px;
-  --text-lg: 18px;
+  --text-micro: 14px;
+  --text-xs: 14px;
+  --text-sm: 15px;
+  --text-md: 16px;
+  --text-base: var(--text-md);
+  --text-lg: 20px;
   --text-xl: 24px;
   --text-2xl: 32px;
 

@@ -38,7 +38,7 @@
   font-weight: var(--weight-display);
   font-size: var(--text-sm);
   letter-spacing: 0.1em;
-  color: var(--state-live);
+  color: var(--accent-brand, var(--state-live));
 }
 
 .eyebrow {

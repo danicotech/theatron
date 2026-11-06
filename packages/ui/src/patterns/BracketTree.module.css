@@ -317,7 +317,7 @@
 }
 
 .empty .name {
-  color: var(--border-subtle);
+  color: var(--text-secondary);
 }
 
 /* 段位用刻度不用顏色 —— 與 RankSigil 同一個理由:顏色沒有順序。 */

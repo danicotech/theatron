@@ -158,5 +158,5 @@
 
 .todo .label,
 .todo .index {
-  color: var(--border-subtle);
+  color: var(--text-secondary);
 }

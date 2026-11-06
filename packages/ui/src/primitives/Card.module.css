@@ -91,3 +91,12 @@
     opacity: 0.25;
   }
 }
+
+.title {
+  margin: 0;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+.header > div:first-child {
+  min-width: 0;
+}

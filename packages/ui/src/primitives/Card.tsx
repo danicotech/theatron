@@ -27,13 +27,22 @@ export interface CardHeaderProps {
   /** 單據標頭的全大寫小字:第 3 輪、票號、商品類別。 */
   label?: ReactNode;
   title?: ReactNode;
+  /** 卡片在頁面大綱中的層級；預設在章節 h2 之下。 */
+  headingLevel?: 2 | 3 | 4;
   /** 標頭右側:賠率、倒數、狀態。 */
   aside?: ReactNode;
   /** 在標頭左側顯示脈動的紅點。 */
   live?: boolean;
 }
 
-export function CardHeader({ label, title, aside, live = false }: CardHeaderProps) {
+export function CardHeader({
+  label,
+  title,
+  aside,
+  live = false,
+  headingLevel = 3,
+}: CardHeaderProps) {
+  const Heading = ({ 2: 'h2', 3: 'h3', 4: 'h4' } as const)[headingLevel];
   return (
     <header className={styles.header}>
       <div>
@@ -43,7 +52,7 @@ export function CardHeader({ label, title, aside, live = false }: CardHeaderProp
             {label}
           </div>
         )}
-        {title === undefined ? null : <div className={styles.title}>{title}</div>}
+        {title === undefined ? null : <Heading className={styles.title}>{title}</Heading>}
       </div>
       {aside === undefined ? null : <div>{aside}</div>}
     </header>

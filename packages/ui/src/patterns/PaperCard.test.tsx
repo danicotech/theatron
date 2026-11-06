@@ -32,10 +32,15 @@ describe('PaperCard', () => {
   });
 
   // 副標是標題的一部分,不是第二個標題 —— 多一層標題會讓大綱多一個沒有內容的節點。
-  it('副標唸在標題裡,不另外成為一個標題', () => {
+  it('副標收進標題旁的說明按鈕，不佔額外文字列', () => {
     render(<PaperCard title="論劍" subtitle="武俠競技大會" />);
     const heading = screen.getByRole('heading');
-    expect(heading.textContent).toBe('論劍武俠競技大會');
+    expect(heading.textContent).toBe('論劍!');
+    expect(screen.getByRole('button', { name: '論劍說明' })).toHaveAttribute(
+      'data-help',
+      '武俠競技大會',
+    );
+    expect(screen.queryByText('武俠競技大會')).toBeNull();
     expect(screen.getAllByRole('heading')).toHaveLength(1);
   });
 

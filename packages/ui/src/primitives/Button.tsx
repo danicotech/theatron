@@ -2,14 +2,8 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 import styles from './Button.module.css';
 
-/**
- * 三個 variant 對應三種語意,不是三種「重要程度」。
- *
- * 語意色的職責是唯一的(tokens.md):金色是錢,玫瑰是「正在發生 / 危險」。
- * 所以這裡沒有 primary —— 一顆「報名參賽」的主要按鈕不該是金色的,
- * 金色一出現使用者就會以為要付錢。
- */
-export type ButtonVariant = 'default' | 'money' | 'danger';
+/** 主要操作、金額與危險操作各自使用語意色；取消與次要操作維持中性。 */
+export type ButtonVariant = 'default' | 'primary' | 'money' | 'danger';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> {
@@ -38,6 +32,7 @@ export function Button({
     <button
       {...rest}
       type={type}
+      data-ink-variant={variant}
       className={classes.join(' ')}
       disabled={disabled || loading}
       aria-busy={loading || undefined}
