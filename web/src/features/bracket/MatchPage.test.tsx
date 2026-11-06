@@ -226,7 +226,7 @@ describe('MatchPage', () => {
 
     const nav = screen.getByRole('navigation', { name: '相關頁面' });
     const links = within(nav).getAllByRole('link');
-    expect(links.map((a) => a.getAttribute('href'))).toEqual(['/t/s/bracket', '/t/s/rules']);
+    expect(links.map((a) => a.getAttribute('href'))).toEqual(['/#schedule', '/t/s/rules']);
     links.forEach((a) => {
       a.focus();
       expect(a).toHaveFocus();

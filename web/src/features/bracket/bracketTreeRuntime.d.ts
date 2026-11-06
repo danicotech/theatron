@@ -10,6 +10,7 @@ export function createBracketTree(options: {
   onPlayer?: (playerId: string, matchId: string, trigger: HTMLButtonElement) => void;
   signal?: AbortSignal;
   previewEmpty?: boolean;
+  showJudgeLink?: boolean;
   championArt?: string;
   matchActionLabel?: string;
   playerActionLabel?: string;

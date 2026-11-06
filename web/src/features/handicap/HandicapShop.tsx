@@ -1,4 +1,5 @@
 'use client';
+import { HelpTip } from '../chrome/HelpTip';
 
 import { Code, ConnectError } from '@connectrpc/connect';
 import { ChapterHead } from '@theatron/ui';
@@ -339,10 +340,13 @@ function Body({
 
       {locked ? null : (
         <section className={styles.catalogue} aria-label="讓武項目">
-          <p className={styles.hint}>
-            BP 夠就能買,同一項可以重複買。由隨機決定的項目,系統在封盤那一刻抽選,
-            結果封盤後才會出現在讓武單上。
-          </p>
+          <h2 className="help-heading">
+            讓武項目
+            <HelpTip
+              label="讓武項目"
+              text="BP 足夠即可購買，同一項可以重複買。隨機項目會在封盤時抽選，結果於封盤後顯示在讓武單。"
+            />
+          </h2>
           {itemsError === null ? null : (
             <p className={styles.error} role="alert">
               {itemsError}

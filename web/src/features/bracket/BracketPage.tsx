@@ -134,7 +134,7 @@ export function BracketPage({ slug }: BracketPageProps) {
             index="BRACKET / PENDING"
             headingLevel={2}
             title="對戰表還沒公布。"
-            note="裁判確認抽籤結果的那一刻,晉級樹會直接出現在這裡,不用重新整理。等的時候可以先看段位怎麼分、讓武能買什麼。"
+            help="裁判確認抽籤結果的那一刻,晉級樹會直接出現在這裡,不用重新整理。等的時候可以先看段位怎麼分、讓武能買什麼。"
             tilt="left"
           />
         </section>

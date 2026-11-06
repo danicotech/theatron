@@ -255,7 +255,7 @@ function MatchContent({ slug, matchId, selectedPlayerId = '' }: MatchPageProps) 
       )}
 
       <nav className={styles.links} aria-label="相關頁面">
-        <InkLink href={`/t/${slug}/bracket`}>回對戰表</InkLink>
+        <InkLink href="/#schedule">返回賽程</InkLink>
         <InkLink href={`/t/${slug}/rules`}>規則與讓武項目</InkLink>
       </nav>
     </div>
