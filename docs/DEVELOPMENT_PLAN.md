@@ -1,5 +1,7 @@
 # Theatron 後續開發規劃
 
+2026-10-28：依使用者選定 02 懸賞雙榜重構賽程與其頂部導覽；獨立無字圖層、紅藍雙榜、決賽／冠軍揭榜、桌機三欄與手機單欄分輪。保留資料、編輯橋接與鍵盤操作；128 項相關測試及八組 RWD／明暗檢查通過。詳見 [SCHEDULE_NOTICE_DESIGN.md](SCHEDULE_NOTICE_DESIGN.md)。
+
 2026-09-29 UI 驗收追加：隔離 Chromium 已完成 1440／768／375px 報名流程及雙分頁同步，修復錯誤文字對比與步驟定位。24 個狀態實際 axe／幾何檢查通過；首頁、備戰、注單和管理的完整視覺驗收仍進行中。詳細證據與重跑指令见 [UI_INTERACTION_PLAN.md](UI_INTERACTION_PLAN.md)。
 
 2026-09-29 備戰追加：十類原生對話框、角色／匯入／套裝／鍵盤修正已生成，三尺寸 45 狀態及相關 33 測試通過；手機編輯預覽改為可展開。完整待驗範圍仍見 UI_INTERACTION_PLAN。
@@ -690,3 +692,702 @@ PNG 原稿在 lab/art/_src/awards-quiet，WebP 在 lab/art；舊圖保留但卡�
 - 依最新標註移除獎賞區的「我的參賽與角色設定／我的武學配置」入口，以及其箭頭、分隔和操作欄 CSS。兩段說明改為等寬緊湊文字列，寬螢幕左右排、手機自動換行；不保留空操作欄。
 - 1198／786／375px 瀏覽器確認無獎賞操作連結、兩段文字與頒獎席等寬且無溢出／pageerror；高度為 58／58／87px。證據 docs/previews/awards-note/，labRuntime 34 測試通過。
 - 經來源與目的資產核對後生成，並同步來源快照。
+
+## 2026-10-12 會員專區與多人小工具
+
+- 右上會員相關入口統一為「會員專區」；頂部標題 + 左側個人總覽／我的報名／角色配置，手機改收合切換。
+- 四項配置及規則確認仍保存於正式報名。單改配置保留其餘個人資料；配置器方案本機保存並提供返回會員區。
+- 小工具支援邀請碼房間、2～12 人、猜拳及每人 1～4 骰，後端封存與一起揭曉。2D 彈出骰面、斷線重連；不改正式賽果。
+- 使用者已核准 rooms/participants/rounds/submissions 儲存設計；已新增 migration 00010。
+- 驗收：前端 95 檔 917 項測試、lint/token/typecheck/build；後端全套與帶 integration tag 的房間並發／持久化測試；三個獨立瀏覽器互動驗收通過。實體跨裝置尚未測試。
+
+## 2026-10-13 會員登入入口
+
+- MyPlayer 先確認本屆 session，再掛載 MemberShell，未登入／查詢中不建立會員側欄。
+- MemberAccess 提供獨立登入／註冊頁；登入成功後進會員區，登出移除會員版面。沿用現有遊戲 ID 識別契約並明示未設密碼。
+- 27 項會員／報名回歸、lint、token、production build 通過；9 項獨立資料庫瀏覽器驗收涵蓋匿名直接網址、註冊、登入失敗、登入成功、重整、登出及手機。
+- 已部署 .next-member-auth-release，正式 HTTPS /me 顯示登入頁，登入／註冊導覽通過，原 Windows 登入排程已恢復。
+
+## 2026-10-13 油紙會員入口重設計
+
+1. 已完成：依 Taste、Impeccable 與 Awesome DESIGN.md 方法整理油紙入口設計，範圍限登入／註冊與會員查詢狀態。
+2. 已完成：單一 h1、新背景與配色、桌機分欄／手機單欄、表單焦點與主操作樣式；登入狀態切換恢復賽事導覽。
+3. 已完成：30 項相關回歸、lint、token、正式 build；9 項隔離瀏覽器驗收、12 項響應式／鍵盤檢查，axe AA 無違規。
+4. 已部署 .next-member-paper-release；正式 HTTPS 與三項服務健康確認，Windows 登入排程沿用新版本。
+
+設計與驗收範圍見 [會員入口 DESIGN.md](member-access/DESIGN.md)。本次未修改後端，沿用遊戲 ID 識別；未執行實體重開機。
+
+## 2026-10-13 會員工作區與原論劍導覽修正
+
+1. 已完成：檢查原論劍網站與使用者指定導覽；品牌 /home，宗旨、規則說明、讓武、報名、比武、賽程、獎賞連到原根路徑章節，移除返回賽事。
+2. 已完成：登入與已登入三頁共用油紙樣式，桌面左側切換、手機展開選單；報名與角色分開編輯，完整保存另一組資料。
+3. 已完成：33 項相關測試、lint、token 與正式 build；隔離後端 9 項入口、16 項工作區與 3 項導覽檢查，320～1440px 六種寬度無頁面溢出，axe AA 無違規。独立視覺審查可發布。
+4. 已部署 .next-member-workspace-release；公開網站 1074／815／375px、登入註冊及原規則章節導覽確認。三項服务健康，Windows 登入排程沿用新版本。
+
+正式資料未用於寫入測試；未修改後端與資料表，未進行實體重開機。設計規格見 [DESIGN.md](member-access/DESIGN.md)。
+
+## 2026-10-13 全站導覽與會員書卷完成
+
+1. 已完成：全站共用導覽幾何與控制器，保留原論劍七章；手機左側抽屜、開關動態、hover／按壓回饋、焦點及 reduced-motion。
+2. 已完成：登入、註冊、會員總覽／報名／角色及等待狀態採裝裱書卷；全站 Google Noto TC 字體與集中 h1–h3 規格。
+3. 已完成：56 項回歸測試、lint／token／build，16 項瀏覽器組合檢查＋2 項完整註冊欄位檢查；320～1440px 無溢出，axe AA 零違規。獨立視覺審查 ship。
+4. 已部署 .next-nav-scroll-release；公開 root/home/member 1074／375px 對齊、登入註冊及原章節抽屜驗收通過，三項服務健康。
+
+未修改資料契約，正式資料僅讀取驗證；未執行實體重開機。設計與字體規格見 [DESIGN.md](member-access/DESIGN.md)。
+
+
+## 2026-10-13 前景油紙 UI 與原 3D 背景保留
+
+已完成 SVG 劍形朱印、移除登入引言、七章前景油紙面板、集中 Noto 標題與按鈕 hover／按壓／焦點／減少動態回饋。原 3D 世界及首頁場景保留，只調整前景 UI。
+56 項相關回歸、32 項瀏覽器檢查及 8 項修正複驗通過，axe/runtime 零錯誤，正式 build 完成；實際 Codex 瀏覽器確認本機與公開網站 Three r170 3D canvas 可見，headless 3D 逾時未列為通過。
+已部署 .next-paper-site-release，公開登入／SVG／導覽驗收通過，三項服務 ready。沿用 Windows 登入啟動排程，未實體重開機、未修改後端資料契約。驗收紀錄：ops/releases/paper-site-20261013.json。
+
+
+## 2026-10-13 主頁透明與玻璃導覽（最新覆蓋）
+
+/home 主標及雙按鈕不再使用油紙底板；保留原 3D 山門、月亮、前景、雪景與 Noto 字體。僅主頁 nav 使用 38% 深色半透明玻璃與 14px 背景模糊，手機原左側油紙抽屜保留。七章內容與會員油紙不受影響。
+已確認 lab 梅花總數 240（176 紅瓣、64 白花），但凍結 public 模組原為 0。生成器只把來源數量套到原 public 模組，產生 particles-plum.js，保留凍結雪粒子參數；layout importmap 使用新資產 URL。原 particles.js 不覆寫。
+60 項既有回歸、token/ESLint/build 通過；375／572／1440px 導覽、焦點、CTA、透明樣式、reduced-motion 及會員入口驗收通過，axe/runtime 零錯誤。預覽與公開實際瀏覽器均目視確認立體紅瓣／白花。已部署 .next-home-glass-release，三項服務 ready，未實體重開機。驗收見 ops/releases/home-glass-20261013.json。
+
+
+2026-10-13 梅花減量：依使用者要求由總數 240 減為 48（36 紅瓣、12 白花），減少 80%。保留雪景、3D 場景及玻璃導覽；資產版本 ?v=48 避免沿用舊快取。已建置並部署 .next-home-sparse-release，公開資產與 importmap 檢查通過、三項服務 ready。本輪未重跑先前 UI 回歸測試。
+
+
+## 2026-10-13 導覽 CSS＋GSAP 互動
+
+使用者指定華麗互動及每個導覽控制項的完整滑鼠事件。新增 navigationMotion.ts，由既有 navigationRuntime.ts 掛載，GSAP 控制抽屜 520ms 展開、260ms 關閉、45ms 項目錯開進場與 pointer/focus 狀態；CSS 負責漢堡旋轉細框、光線鋪展、箭頭位移、按壓及釋放回彈。涵蓋品牌、章節、會員／報名、開關與更多功能，所有公開同系統導覽共用。
+使用 AbortController 清理事件、reset/killTweensOf 與 context.revert 清理動畫；取消按壓／移出／失焦恢復，reduced-motion 與執行期間設定切換即時處理。修正旧項目 blur 不能取消新項目的按壓。保留原生 dialog、Escape、焦點還原及鎖捲動。
+16 項回歸、ESLint、token、TypeScript/build 通過；375／833／1440px 預覽與公開站所有可見導覽 hover／按壓／移出、快速三次開關、減少動態及首頁／七章／會員頁驗收通過，axe/runtime 零錯誤。已部署 .next-nav-motion-release，三項服務 ready。3D 背景、48 個梅花與玻璃主頁未修改。
+
+
+## 2026-10-13 七章毛筆題字恢復
+
+依使用者最新指定，宗旨、規則說明、讓武、報名、比武、賽程、獎賞改回原有 SVG 逐筆書寫及落印動畫。移除 web/src/app/typography.css 隱藏筆畫與偽元素文字替代的覆蓋，原 lab 引擎及字形資料無修改。七章題字為最新 Noto 字體統一規則的例外；其餘內文、表單及 h1–h3 設計系統維持。保留油紙區塊、原 3D 場景、48 個梅花與 GSAP 導覽。
+48 項章節／lab 回歸、token 檢查、TypeScript／正式 build 通過。375／833px 本機及公開七章逐筆寫完、切章重播、無橫向溢出、reduced-motion 與靜態閱讀通過；1440px 本機規則與獎賞題字通過。這次未重跑 axe，也未重啟電腦。已部署 .next-brush-title-release，前台、後端與 Discord 閘道健康檢查 ready。
+
+
+## 2026-10-13 全站閱讀與入口美術調整
+
+依最新五項要求：全站 scrollbar-width:none 與 WebKit 捲軸隱藏，保留 overflow／原生滾輪／鍵盤。導覽寬度達 900px 時只顯示完整七章與會員入口，窄螢幕才顯示漢堡；開抽屜後放大視窗會關閉並把焦點放回可见品牌。登入書卷 1120px 上限、視窗對應高度，較窄標題欄與較寬表單、56px 操作區；手機單欄與 540px 卷面上限。會員印章改雙框直式論劍 SVG 字印。
+首頁依 Taste 保留式重設與本地 KAGE 參考，採大比例 Noto 題字（桌機最高 144px）及主次按鈕（桌機高 64px、手機高 56px），主報名明亮實底、次了解賽制底線，原山門與 3D 場景未改。漫畫對白以 surface-dialogue 白色 token 與銳角邊框／偏移陰影統一，原序列的 caption 改為左右 24／48px、560ms 橫向淡入；保留順序、清理與 reduced-motion／靜態閱讀。
+44 項回歸、ESLint、token、TypeScript/build 通過。320–1520px 視覺檢查；本機及公開站導覽斷點、抽屜 Escape／焦點／放大視窗、登入必填、三章真實橫向淡入、滾輪及 PageDown、減少動態與入口路由驗收通過，登入 axe AA 無違規。實際 Codex 瀏覽器為 reduced-motion，確認靜態備援；本輪未另重測 3D 性能及實體重開機。部署 .next-ui-refinement-release，三項服務 ready。
+
+
+## 2026-10-13 報名整理、原版場景與明暗模式
+
+依使用者要求精簡正式報名：移除賽事名稱展示及冗長說明，新增前往登入入口，桌機雙欄／手機單欄，四項角色配置與規則版本契約不變。沒有重新命名後端活動。比武移除紙面幾何覆蓋，恢復滿版雙俠、中央 VS 及腳下資料；賽程保留原紅藍名帖與分輪邏輯，改用 72% 紙色及 12% 紋理的半透明遮罩。
+右上角新增明暗切換，localStorage 保存並同步同源分頁；首次繪製前恢復色盤。主導覽、抽屜、會員、表單、卡片與舊備戰主要表面共用語意色彩。太陽／月亮交換，尊重 reduced-motion；原 3D 與 48 個梅花配置未改。會員入口改高對比實底，漢堡改正方框等長雙線，取消傾斜菱形。
+71 項相關回歸、ESLint、token、TypeScript／build 通過；同版預覽與公開站 51 項檢查涵蓋 320／375／900／1280／1440px、模式保存與分頁同步、導覽邊界、抽屜 Escape／焦點／resize、表單必填、比武及賽程幾何。淺／深色報名頁 axe AA 無違規，runtime 無錯誤。場景測試採顯式 2D 備援，本輪未重測實際 3D 性能或重開機。部署 .next-interface-ready-release，三項服務 ready。
+
+
+## 2026-10-14 夜鴉閣品牌標題與 Logo 選稿
+
+首頁與根路由 title 更新為「夜鴉閣 | 論劍試鋒」，子頁保留功能名並沿用新品牌後綴，清除重複舊名稱。Logo 已提供鴉首融劍 B2–B6 與翼形劍閣 C2–C6 共十張黑白概念，等待使用者選定後才製作 SVG／favicon；本輪保留原 icon。
+ESLint、TypeScript／正式 build 通過；本機與公開瀏覽器驗證首頁、七章、會員登入、會員專區、小工具 title 與 icon，共各六項檢查通過，頁面 runtime 零錯誤。本輪僅 metadata，不重跑業務回歸或視覺／axe；部署 .next-brand-title-release，三項服務 ready。紀錄見 ops/releases/brand-title-20261014.json。
+
+
+## 2026-10-14 硃砂藏劍 Logo 定稿（取代待選）
+
+使用者選定 C3 負空間劍形，再確認左右爪尖向內收、兩側短、中央長，配色硃砂紅。重建對稱 SVG 主稿與加寬中央留白的小尺寸版本，主色 #9C342C，深色背景 #E37864。網站 icon.svg 依瀏覽器明暗偏好切換，新增 180px Apple 圖示；公開 /brand 提供定稿 SVG。未變更首頁場景、導覽文字或 loading 動畫。
+正式 build／TypeScript 通過；本機與公開頁面檢查圖示 metadata、SVG/PNG 位元內容及明暗色值各八項通過，runtime 零錯誤。已檢視 16／24／32／48／64px 向量輸出，單色與透明 PNG 可交付；未做金屬實體打樣，本輪不重跑業務測試。部署 .next-cinnabar-logo-release，網站、後端與 Discord 健康狀態 ready。驗收見 ops/releases/cinnabar-logo-20261014.json。
+
+
+## 2026-10-14 全站 favicon.ico
+
+依使用者要求補上根層 app/favicon.ico，沿用硃砂紅比例修正版，包含 16／24／32／48／64／128／256px 七個透明 RGBA 圖層。64px 以下沿用加寬留白的小尺寸圖；SVG 明暗版與 Apple 圖示保留。
+七尺寸均經獨立影像解碼驗證；正式 build／TypeScript 通過，本機與公開瀏覽器各驗證 12 個頁面的共用 ICO 及 SVG metadata、ICO 完整位元內容與瀏覽器解碼，共 14 項通過。未重跑業務測試。部署 .next-favicon-ico-release，三服務 ready；紀錄 ops/releases/favicon-ico-20261014.json。
+
+
+## 2026-10-14 品牌整合與互動修正（本機完成，等待上線授權）
+
+共用導覽、首頁／七章導覽、手機抽屜、會員書卷與功能頁頁尾改用核准的硃砂藏劍 Logo。品牌採夜鴉閣＋論劍試鋒，小螢幕省略副標。新增獨立品牌語意色，深色背景採亮硃砂。登入提示改為單一完整連結，文字與箭頭不再形成分離控制項。
+比武人物的矩形半透明底來自 interaction.css 通用按鈕的巨大 inset box-shadow；排除 duelist／vs-fig／fighter，保留原距離縮放與鍵盤焦點。賽程移除 panel 重複上框，保留標題下框；刷新按鈕靠右，採明暗模式高對比實底，並修正非預覽模式原 display:block 造成的對齊失效。原場景、賽程資料與更新動作不變。
+47 項相關回歸、TypeScript、ESLint、token 檢查與 .next-brand-ui-release 正式建置通過。本機 30 項主要＋9 項補充瀏覽器驗收包含 320／375／900／1440px、明暗模式、抽屜 Escape 與焦點還原、單一登入入口跳轉、人物 hover／按下透明及鍵盤開關詳情、賽程單線與右對齊、其他功能頁品牌及手機 reduced-motion。登入明暗模式 axe AA 零違規、runtime 零錯誤。場景驗收採 2D 備援，未重測 3D 效能。
+正式部署操作遭自動核准審核拒絕：需要使用者明確授權切換正式版本與服務重啟。尚未執行部署，線上維持 .next-favicon-ico-release；本機預覽 http://127.0.0.1:3002。驗收檔位於此任務工作區 brand-ui-fixes/。
+
+
+### 2026-10-14 品牌與互動修正：已獲授權並上線
+
+使用者明確回覆「同意，現在更新」後，部署 .next-brand-ui-release。取代上節待授權狀態；原版本與部署設定保存在 C:\Users\daniel\Desktop\discordBot\ops\backups\brand-ui-20261014-150415。正式網站 30 項主要＋9 項補充瀏覽器驗收全部通過，登入明暗模式 axe AA 零違規，runtime 零錯誤。Logo、登入單一點擊區、人物 hover／按下透明、鍵盤詳情開關、賽程單線及高對比刷新按鈕靠右、手機 reduced-motion 均已線上確認。三服務 ready。紀錄 ops/releases/brand-ui-20261014.json。
+
+
+### 2026-10-14 晚間服務中斷恢復
+公開站 502，排程 Ready 且最後結束碼 0xC000013A，監控與三服務均已退出。直接啟動回報 0xC0000142（程序初始化失敗），沒有進入 launcher／supervisor。備份並重新註冊相同排程設定後成功恢復；未更動應用程式版本、帳號、權限或資料。公開 HTTP 200、9 項功能頁與手機賽程瀏覽器檢查通過，三服務 ready，實際應用瀏覽器可開啟原網址。原始中止來源無足夠事件紀錄確認，不宣稱已找出觸發者或永久排除。紀錄 ops/releases/recovery-20261014.json。
+
+
+## 2026-10-14 場景毛玻璃與首頁對比（本機完成，等待本次部署授權）
+首頁與七章導覽改為 78% 夜藍半透明、18px blur、月白文字及高對比會員入口，與油紙色盤分離。移除可見品牌副標，保留 Logo 與夜鴉閣；頁面 metadata 不變。首頁標題與按鈕亮色，減淡陰影和遮罩；原 3D 模型與光源未改。已修正前綴順序導致 Chromium blur 無效，以及舊手機樣式隱藏主品牌的問題。40 項測試、token、ESLint、TypeScript/build 通過，本機 19 項場景與 RWD 檢查通過，導覽 axe AA 零違規。產出 .next-scene-contrast-release。
+正式部署遭自動審核拒絕，理由為之前同意僅涵蓋前一批改動，需要本次明確授權；未執行切換或重啟，線上仍為 .next-brand-ui-release。預覽 http://127.0.0.1:3002/home?stage=2d&intro=0 。
+
+
+## 2026-10-14 場景導覽毛玻璃與首頁對比
+
+首頁與七章場景導覽採 78% 夜藍半透明底、18px 毛玻璃、固定月白文字；一般與目前章節、主會員按鈕、切換模式、Logo 均獨立於油紙 light/dark 色盤。抽屜沿用紙面色盤，功能頁不套場景玻璃。加入減少透明度及不支援 blur 時的實底備援。前綴放在標準 backdrop-filter 前，避免建置最佳化只保留 WebKit 屬性使 Chromium 無模糊。
+移除導覽、手機抽屜與頁尾的論劍試鋒副標，只留 Logo 與夜鴉閣；網站 metadata 標題不變。修正舊手機 CSS 隱藏主品牌字標。首頁主標及次入口用月白，主要報名按鈕亮底深字，光暈縮為細陰影；前景遮罩 20% 降到 8%，2D 備援亮度 .58 提至 .78，3D 模型及光源不改。
+40 項相關測試、token、ESLint、TypeScript 與正式 build 通過。本機及公開站各 19 項驗收涵蓋 320/375/900/1440px、兩種色盤、毛玻璃計算樣式、首頁文字與按鈕、主品牌可見、抽屜 Escape、功能頁邊界；導覽 axe AA 無違規、runtime 零錯誤。場景視覺驗收使用 2D 備援，未重測 3D 效能。部署 .next-scene-contrast-release，三服務 ready。紀錄 ops/releases/scene-contrast-20261014.json。
+
+
+## 2026-10-14 賽程密度與說明精簡
+
+四席賽程改依容器寬度放大（上限 2 倍），八席上限 1.3 倍，更多席位維持緊湊。卡片、字級、比分、印章、中央冠軍及晉級線同步量測排列；縮放後清除舊高度，長名字不裁切。決賽操作與冠軍卡保留至少 16px 間距。手機維持分輪閱讀，四席姓名 20px、卡片最小高度 88px。移除重複公布提示；空白賽程使用原生 details「說明」18px，展開才顯示未公布提示，保留錯誤／載入狀態。
+使用 web-design-guidelines 檢查鍵盤焦點、可讀性、長內容、縮減動態及主題。82 項相關測試、TypeScript、ESLint、token 與 build 通過；22 項瀏覽器檢查涵蓋 320/375/900/1440/1600px、明暗色系、4/8/16/32 席、長名字、無卡片重疊及決賽操作間距，axe AA 無違規、runtime 零錯誤。視覺檢查使用 2D 備援，3D 資產與光源未改。
+可預覽版本 .next-bracket-density-release，http://127.0.0.1:3002/?stage=2d&intro=0#schedule 。此記錄為本機驗收；正式部署狀態以 ops/releases 紀錄為準。
+
+正式部署遭自動審核拒絕：本批賽程改動沒有明確上線授權，切換版本及重啟共用服務可能短暫中斷。未執行切換，線上仍為 .next-scene-contrast-release；已向使用者詢問本次部署同意。
+
+
+### 2026-10-14 賽程更新正式上線（最終覆蓋）
+
+使用者同意本批上線，並追加說明直接呈現、場次小按鈕縮小；移除 details/summary，以 18px 文字直接顯示「此為賽程示意，實際對戰待公布。」場次控制相對卡片縮小約 20%，仍保留最小操作尺寸及中央冠軍間距，選手卡片不縮小。82 項測試、build、token 通過，本機與正式網站各 22 項不同人數與尺寸的驗收通過，axe AA 無違規，runtime 零錯誤。正式版本 .next-bracket-density-final-release，三服務 ready。驗收使用 2D 備援，沒有重測 3D 效能。紀錄 ops/releases/bracket-density-20261014.json。
+
+
+## 2026-10-14 賽程內縮、獎賞一致性與主題導覽
+
+四席賽程放大上限從 2 降為 1.75，960px 以上容器漸增左右留白、總內縮上限 160px，手機分輪不變。獎賞章節改為全寬 72% 紙面遮罩及 12% 紙紋，保留後方場景；移除獨立不透明紙板，內容與章節導覽共同置中、上限 1184px。場景導覽依使用者最新要求隨主題切換，Light 淺紙玻璃／深墨字，Dark 夜藍玻璃／亮字，會員按鈕及品牌圖示同步色盤；維持 18px blur 與減少透明度備援，首頁主標仍使用原亮字。
+46 項賽程測試、TypeScript、ESLint、token、build 通過，本機與正式站各 38 項瀏覽器驗收（22 賽程及 16 獎賞／導覽），兩種主題 axe AA 無違規、runtime 零錯誤。驗收使用 2D 備援，未修改 3D 資產，未重測 3D 效能。使用者已明確核准本批上線，正式版本 .next-layout-palette-release；紀錄 ops/releases/layout-palette-20261014.json。
+驗收期間發現前一版共用排程已停止，LastTaskResult 0xC000013A；重新啟動後三服務恢復 ready。排程 ExecutionTimeLimit 為無限、未設電池停止，未從現有日誌找到中止來源，未擅改排程設定。
+
+
+## 2026-10-14 正式角色配置改用武庫選取
+
+RegistrationFields 的流派、武器、裝備、武學自由文字欄改為 CharacterArsenal，共用到 SignupForm 與 MyPlayer，personalOnly 保持不受影響。按需讀取既有 /loadout/data/catalog.json 與原始圖示：流派單選 builds、武器複選 weapons、裝備套裝複選 sets、武學分 martials/minds/arts。選擇、取消及清除透過 hidden fields 沿用 CharacterConfig 字串契約；未編輯的舊配置完整保留，不推測或覆蓋舊數值，不改後端 API。開啟後焦點移到選區，完成／Escape 返回觸發按鈕；支援讀取失敗重試、字數限制、手機與明暗色盤。個人經驗與時段備註仍維持文字欄。
+26 項報名／會員／武庫測試、TypeScript、ESLint、token、production build 通過。本機 7 項瀏覽器驗收涵蓋 375/900/1440px、兩色盤、四項設定、武學分類、取消選擇、圖示、無水平溢位、焦點返回、失敗重試；axe AA 無違規、runtime 零錯誤。實際瀏覽器驗收未送出真實報名，送出契約由整合測試驗證。
+預覽版本 .next-character-arsenal-release；http://127.0.0.1:3002/t/2026-baiye-shifeng/signup 。本段為本機驗收，正式上線狀態見 ops/releases。驗收時共用排程再次以 0xC000013A 中止，重啟原排程後恢復，尚無足夠證據判定中止來源。
+
+
+### 2026-10-14 武庫選取與雙武器連動已上線
+
+使用者明確同意武庫功能上線，並追加流派附上雙武器。依武庫 martials.build / weaponKey 關聯至 weapons 正式名稱，10 個完整流派呈現雙武器並在選取時一併帶入，不清除既有裝備及武學；破竹樽現有來源沒有對應武學武器資料，標示「武器資料待補」並停用該候選，不臆測配對。既有資料仍保留。
+27 項報名／會員／武庫測試、型別、lint、token、production build 通過。本機與正式站各 7 項驗收涵蓋 375/900/1440px 兩色盤、四項設定、雙武器連動、分類選取、圖示、焦點返回、讀取失敗重試；axe AA 無違規、runtime 零錯誤，未向正式後端提交測試報名。正式版本 .next-character-arsenal-paired-release，三服務 ready，紀錄 ops/releases/character-arsenal-20261014.json。
+
+
+## 2026-10-14 會員註冊、武庫報名與選手卡片（本機驗收）
+
+註冊僅收名稱、Discord @使用者名稱與密碼，報名另於 /enroll 選擇並確認已保存武庫，再填遊戲 ID、自評組別、論劍段位、常用武學及日曆時段。移除積分 UI；段位與武學使用下拉選單，時段可增減並檢查不完整、倒序及重疊。從武庫返回會員時需再確認與儲存。比武選手卡片改成獨立明暗色盤，修正淡字配淺底，統一關閉／返回按鈕及手機間距。
+
+42 項前端相關測試、ESLint、token 檢查及 Next production build（含 TypeScript）通過。後端 transport、signup、session、identitypg、signuppg 與 server 編譯通過，涵蓋原始密碼、會員 Cookie、匿名拒絕、報名所有權、舊活動 token 拒絕及不啟用 OAuth 時的會員入口。瀏覽器驗證選手卡 Light／Dark、390px 無水平溢位及原生日期時間欄位。未向正式站提交測試帳號或報名，未變更資料庫結構或重啟正式服務。
+
+前後端須同批部署。既有未綁定報名不可僅憑公開遊戲 ID 自動認領；正式切換前須安排身份核對與資料綁定。細節見 MEMBER_ENROLLMENT.md。
+
+
+2026-10-15：Discord 驗證登入、管理員環境名單與會員／報名／注單回程整合完成。四人完整賽事與結算於隔離資料庫驗收；詳細流程與限制見 MEMBER_ENROLLMENT.md 最新章節。
+
+### 2026-10-15 會員側欄、武庫鎖定與實際流程驗收（已部署，分支驗收待補）
+
+會員頁移除以 view 為 key 的重建，保留會員工作階段；未報名會員也可進入個人武庫。個人武庫可隨時編輯，確認的參賽配置在開賽前可更換、開賽後鎖定。評段用個人資料仍於報名截止鎖定，後端保留交易鎖與精確階段條件，沒有 schema 變更。
+
+24 項前端測試、型別、lint、production build 及 Go signup 測試通過。隔離資料庫完成四人、四場 BO3、抽籤、開封盤、測試注單冪等與結算；另外驗證評段期可換武庫而不可偷改段位、開賽後不可換參賽配置。
+
+實際登入管理員網頁確認裁判入口／報名名冊／空注單，並透過房主及訪客兩個來源完成工具邀請加入、擲骰、猜拳及即時揭曉。原先把取消操作逾時歸因於確認視窗是誤判；使用者沒有看到視窗，工具也未取得對話框。重連後已確認取消成功，訪客離開成功。
+
+2026-10-15 補完：隔離 ui-check-20261015 已透過畫面完成建立、截止、四人評段、抽籤換籤、兩場四強及決賽開封盤／核對設定／開打／判勝／晉級，最後結束賽事。無價值測試注單成立並結算；參賽者由 API 備妥，不是 UI 註冊驗收。未報名會員可進武庫選流派及返回，390px Light／Dark 已驗收。
+
+正式版本 .next-member-validation-release 與後端同批更新，三服務 ready，管理授權維持 DB-only，無 schema 或正式賽果／注單變更。部署後武庫入口已顯示。工具關閉房間後操作工具持續逾時，關閉結果及部署後側欄點擊未確認；讓武、棄賽、違規等分支尚未完整 UI 驗收，不宣稱全部通過。詳細證據見 ChatGPT 專案 flow-audit/member-validation/最終驗收.md，部署紀錄 ops/releases/member-validation-20261015.json。
+
+
+## 2026-10-15 會員入口與武庫操作精簡（本次修正）
+
+此節取代舊「既有帳號」入口：註冊上方直接輸入 Email、帳號與密碼，成功即登入並返回原目的頁；登入為帳號與密碼。兩頁下方都提供 Discord 快速註冊／登入。Email 寫入既有 platform.users.email，不另加 schema，不依 Email 自動連結帳號。管理權仍只由經 Discord 驗證的身分及資料庫授權決定。
+
+會員報名武庫為響應式兩欄：左側配置入口與四格預覽，右側個人段位、論劍段位及自己的 BP。未配置顯示線框；武庫保存返回後顯示所選方案，明確確認才套用參賽配置。開賽後個人武庫仍可編輯，參賽快照不可修改。BP 未配對或讀取失敗不補造數值。
+
+武庫主工作區放寬至最多 1800px，頂部改三步驟列及可鍵盤操作、有無障礙名稱的匯入／匯出圖示。奇術選單與已選槽位共用古籍書冊外觀，保留完整名稱。手機工具列分行，44px 步驟與圖示維持可點擊；桌機三欄、手機分區既有流程保留。江湖雅戲入口改成置中卡片，移除重複介紹。
+
+72 項相關前端回歸、TypeScript、ESLint、token 檢查通過。後端 identity、transport、server 測試通過；隔離資料庫實測 Email 保存、註冊自動登入、原始密碼、重複帳號拒絕及不授管理權。identitypg 的 Docker 測試套件在本機沙箱無法啟動，已用隔離服務與真實資料庫補驗本次註冊路徑。瀏覽器確認武庫選擇返回會員、375px 無水平溢位、Light／Dark 書冊與工具列。Discord 外部授權本輪未重跑；正式賽事、注單及管理員資料未改動。
+
+正式部署完成：2026-10-15 使用 .next-member-armory-refined-release，前後端同批更新，三服務健康檢查通過。正式 HTTPS 已確認古籍書冊、1800px 工作區、44px 步驟列、江湖雅戲置中卡片，以及 Email／帳號／密碼註冊與 Discord 快速入口。部署記錄：ops/releases/member-armory-refined-20261015.json；原始碼與服務版本皆已備份。
+
+
+## 2026-10-15 裝備編輯視窗重構
+
+左側基本設定／調律詞條／定音詞條分區，右側即時預覽；桌機基本欄位兩欄，手機單欄及預設收合預覽。欄位改稱裝備位置、武器類型、所屬套裝、自訂名稱（選填）；主／副詞條及數值都有可見標籤。批次上限／基準收進次要選單，儲存裝備保持底部主操作。預覽取消亮白卡面及品質光暈，依 Light／Dark 語意色盤呈現。重設裝備只更新草稿，取消不寫入；詞條輸入即時更新預覽，重畫保留焦點。
+
+34 項 labRuntime 回歸、型別及 ESLint 通過。瀏覽器確認桌機明暗模式、375px 無水平溢位、固定操作列、數值即時預覽及取消恢復。未改 schema、API、資料格式或正式參賽配置。
+
+本次建置已完成（.next-equipment-editor-release），但尚未部署。2026-10-15 自動核准審查因本批正式部署未取得明確同意而拒絕重啟及切版；正式服務仍使用 .next-member-armory-refined-release。可審閱本機預覽 http://127.0.0.1:3010/loadout?t=member-flow-e2e&returnTo=member&loadoutRole=1。待使用者批准後可執行已備妥且具回復機制的 deploy-editor.ps1。正式資料未變動。
+
+### 2026-10-15 裝備編輯正式部署完成
+
+使用者明確同意本批上線後，已切換至 .next-equipment-editor-release。部署腳本完成服務重啟與健康檢查，正式網站回應正常；瀏覽器確認新版基本設定、調律詞條、定音詞條、右側即時預覽及固定儲存操作列已生效。正式資料與後端版本未變動。正式驗收畫面：flow-audit/editor-live.png（本次工作目錄）。本紀錄取代前述待部署狀態。
+
+
+## 2026-10-15 報名登入入口精簡
+未登入報名卡片只保留主要按鈕「使用帳號註冊／登入」，透過 memberLoginHref 保留登入後返回本屆 enroll 的目的地；Discord 快速入口保留於登入頁。尚未部署。
+
+
+驗證：SignupPage 既有兩項測試、ESLint 與正式建置通過，版本 .next-signup-gate-release。瀏覽器的匿名預覽連線失敗，未完成本輪桌機／手機視覺驗收。部署腳本 flow-audit/deploy-signup-gate.ps1 已備妥；正式服務尚未切換。
+
+
+正式部署完成（2026-10-15）：使用者批准後切換 .next-signup-gate-release，三服務均 ready；正式報名頁 HTTP 200，公開載入的腳本確認保留「使用帳號註冊／登入」且已移除「使用 Discord 繼續報名」。瀏覽器已登入狀態仍可正常進入報名武庫；未登出使用者以驗證匿名畫面。此紀錄取代前述尚未部署狀態。
+
+
+
+## 2026-10-15 報名登入直返與移除武庫步驟列
+
+帳號登入、註冊沿用成功後 router.replace 直接返回 next 的 enroll；登入／註冊分頁保留目的地。Discord 有合法明確目的地時由既有後端 callback 直接導回，不再經過 /auth/continue；無目的地仍保留原本依權限導向，未更動身分驗證與站內路徑白名單。
+
+移除武庫 1／2／3 進度列及成功勾號，避免多餘畫面區塊；保留讀屏儲存狀態，僅保存失敗才顯示錯誤與重試。原本的準備報名分頁、行動版分區與保存返回均保留。來源修改後生成三個武庫輸出，沒有改寫同步專案 sources。
+
+68 項相關測試及 ESLint 通過；隔離後端驗證註冊立即有會員工作階段、重新登入相同會員。瀏覽器實測登入／註冊切換保留 next，帳號登入直接抵達報名頁；桌機及 375px 武庫不再顯示步驟列，手機頁面寬度 375px 無水平溢出。Discord 外部授權未重跑，不宣稱已完成真人授權驗收。正式資料未變動，本批尚未部署。
+
+補充驗收：實機從報名進入武庫，按保存並返回報名後直接到 enroll?loadoutRole=1、原配置已選中，確認武庫即原頁展開參賽資料。既有後端 TestBrowserCallback 通過。正式建置 .next-enrollment-return-release（含 TypeScript）完成；本批尚未部署。
+
+
+
+## 2026-10-15 Light 對比與武庫緊湊工具列
+
+依使用者最新要求，Light 共用語意色票改為冷灰畫布、白色卡片、淺灰欄位、深墨文字與青藍操作色；Dark 色票不變。導航、會員、報名及武庫共用同一組色票，不改 3D 世界與陣營美術。武庫等級按鈕消除灰字疊半透明黑底。
+
+武庫 h1.brand 明確排除全站大標題尺寸／下邊距，桌機工具列從約 117px 減至 57px，保留 44px 點擊範圍。375px 手機分成兩行（109px），無水平溢位。已檢視桌機 Light／Dark 及手機 Light；原本移除步驟列、登入與註冊直接返回報名的修改一併保留。
+
+色票對比：主要文字／白卡 14.55:1、次要文字／白卡 6.80:1、次要文字／畫布 5.56:1、主按鈕文字 7.17:1、欄位邊界 3.35:1。77 項主題、武庫、報名與登入回歸通過，修正 AdminGuard 舊文案及中轉網址斷言；token 與 ESLint 通過。這些數值僅代表列出的共用色票組合，不代表藝術圖像內文字均已量測。
+
+本批尚未部署；將與登入直返與移除步驟列合併為 .next-light-contrast-release。正式資料、schema、後端版本不變。
+
+正式候選建置 .next-light-contrast-release 已完成（含 TypeScript）。另實際檢視報名頁，白卡、欄位與導覽均套用新色票；尚未切換正式服務。
+
+
+
+## 2026-10-15 油紙背景方向覆蓋
+
+使用者同意 .next-light-contrast-release 上線後，該版本部署成功、服務健康；同輪追加要求 Light 以油紙色背景為準。本節取代前節冷灰背景方向：畫布 #e6d7b8、紙白卡片 #fffaf0、欄位 #f3eddf，沿用深墨文字與青藍操作色。功能頁場景遮罩使用 canvas slot，導航及卡片維持 paper slot；Dark、陣營美術與資料格式不變。工具列縮高、移除步驟列及登入直返仍保留。
+
+調整集中於共用色票和 Light 場景遮罩，token、格式與 ESLint 通過。局部色票對比（並非全站圖片內文字量測）：
+text-auth-ink/surface-auth-paper: 13.99:1
+text-auth-muted/surface-auth-canvas: 4.79:1
+surface-auth-field/accent-auth-action: 6.72:1
+border-auth/surface-auth-field: 3.14:1
+
+預備版本 .next-paper-theme-release，待正式建置及切版驗收。
+
+正式完成（2026-10-15）：依同輪部署同意及油紙背景追加指示，已部署 .next-paper-theme-release，全部服務 ready。正式瀏覽器確認油紙背景 rgb(230,215,184)、紙白卡片 #fffaf0、工具列 57px、步驟列已移除；本機 375px 無水平溢位。部署記錄 ops/releases/paper-theme-20261015.json，正式畫面 flow-audit/paper-theme-live.png。本節取代前述待切版狀態。
+
+
+
+## 2026-10-15 武庫右側功能可見性修正
+
+舊版在 901–1340px 把 col-3 放到整個倉庫下方，1280px 實測起點 y=1267，導致戰力／目標／準備報名難以發現。改為 1100px 以上保持三欄，901–1099px 左側配置與倉庫上下排列、右側功能從頂部開始；900px 以下維持分區操作。來源 loadout.html 修改後生成，未手改生成 CSS。
+
+手機底部分區列改用主題紙面背景，修正 Light 下深字疊黑底。準備報名主按鈕改用主操作文字色，完成／未完成狀態套用綠／紅語意色。保留油紙色、57px 工具列、無步驟列與登入直返。
+
+瀏覽器已檢查 1280px 三欄同列 y=143、1024px 右欄 y=143，皆無水平溢位；375px 可經底部戰力入口切換三個右側分頁且寬度仍為 375px。三個桌面分頁切換正常。本次未改資料與業務行為。
+
+右側功能修正已部署 .next-right-panel-release，全部服務 ready，正式 1280px 視窗右欄位於 x=917、y=143，無水平溢位，已確認準備報名分頁。正式建置（含 TypeScript）、token、格式檢查通過；桌面明暗模式及手機分區已視覺驗證。部署記錄 ops/releases/right-panel-20261015.json，驗收畫面 flow-audit/right-panel-live.png。
+
+
+
+## 2026-10-15 武庫三欄視覺對齊
+
+依使用者要求重新整理三欄：共用紙面外框、16px 內距及間距；左欄新增角色配置標題，中央移除 EQUIPMENT 副標，右欄分頁納入同一面板。三欄頂部為同高 64px 標題區，標題分隔線及內容起點對齊。左欄原多張小卡改為面板內分區線，標題層級統一；內容依需要自然延伸，不強迫短欄填滿長欄高度。武學名稱在窄欄可換行，避免省略重要名稱。
+
+保留上一版桌機右側功能可見性與手機分區、油紙配色、工具列縮高及直接返回報名流程。來源 loadout.html 修改並生成；業務與儲存邏輯不變。34 項 labRuntime 回歸通過；1280px 與 1100px 三欄標題區均為 y=160–224，375px 倉庫無水平溢位。正式候選版本 .next-aligned-columns-release。
+
+三欄對齊正式部署完成：.next-aligned-columns-release，全部服務健康。正式 1280px 實測三欄外框頂端皆為 y=143，標題區皆 y=160–224，頁寬等於視窗寬。34 項武庫回歸、token 及正式建置（含 TypeScript）通過，明暗模式與手機版已檢查。部署記錄 ops/releases/aligned-columns-20261015.json；驗收畫面 flow-audit/aligned-columns-live.png。
+
+
+## 2026-10-15 強調色前景對比修正
+武庫舊樣式將 --gold 換成青藍背景，卻保留固定深色前景。主修標籤、選單勾號、等級選單已選項、分類篩選、送出及確認／儲存按鈕改為同一組 accent-auth-action／surface-auth-field；選單副文字同步處理，危險操作保留紅色語意。Light 實測主修與選中數值為 rgb(243,237,223) 字／rgb(22,89,107) 底（6.72:1）；Dark 反相為深字淺底。會員側欄與報名入口的主要按鈕既有配對已核對。token 與格式檢查通過；未更動功能資料。
+
+
+正式已部署 .next-accent-contrast-release，全部服務健康；正式頁面主修標記已確認為紙白字／青藍底。正式建置（含 TypeScript）通過。驗收畫面 flow-audit/accent-contrast-live.png；部署記錄 ops/releases/accent-contrast-20261015.json。
+
+
+
+## 2026-10-15 全站雙主題對比檢查
+
+保留油紙 Light 與夜藍 Dark。新增分模式的金額、成功、危險文字色，避免淺色介面仍沿用深色狀態色。原生選單、選中選項、提示文字、停用欄位採成對前景／背景；停用以虛線與操作限制辨識，不再整體淡化到難以閱讀。既有賽程美術按鈕保留其獨立紅藍與人物底圖。
+
+武庫修正裝備類型選項、空裝備格、星等、批次選取、匯入標記、配置文字、裝備詞條及預覽的深淺色混用。半透明賽程標題與章節導覽文字不再靠降低透明度表現次要層級。表單提示與階段標記改用文字 token，避免邊框色被當成文字。
+
+新增 41 項主題對比回歸；一般文字配色至少 4.5:1、欄位邊界至少 3:1。連同登入／註冊／導覽／管理權限相關回歸共 59 項通過；430 檔 token 檢查通過。瀏覽器已檢查登入、註冊、報名欄位、會員武庫、注單、賽程空狀態、首頁七章、完整規則／選手資料／裝備編輯／武器類型／觀局登入彈窗及雅戲入口，均切換 Light／Dark；手機另行驗證。管理進階階段以樣式審查及共享色票測試覆蓋，不為配色驗收推進正式賽事或提交注單。詳見 THEME_CONTRAST_AUDIT.md 的驗證範圍與限制。
+
+### 雙主題最終驗收與發佈
+
+最終版 `.next-theme-audit-final-release` 已上線，三個服務健康檢查通過。手機 375px 實測另發現主題／會員按鈕因樣式權重覆蓋而重疊，以及會員 hover 透明底配深字；已修正並在雙主題複驗。新增圖案卡片穩定暗罩。七章靜態閱讀最終各 295 段純色文字配對檢查無低於門檻結果；圖片／漸層另目視核對。驗證限制及逐畫面範圍見 [THEME_CONTRAST_AUDIT.md](THEME_CONTRAST_AUDIT.md)。
+
+## 2026-10-15 朱紅品牌與語意色統一
+
+使用者指定主色為朱紅。本節覆蓋先前青藍操作色與夜藍功能介面方向：Light 保留油紙底，Dark 採中性墨底；朱紅主操作、枯金輔色、青色資訊對照、綠色成功與莓紅危險各自獨立。色值與別名以 lunjian.json 為唯一來源，完整規格見 [COLOR_SYSTEM.md](COLOR_SYSTEM.md)。
+
+新增 accent-action-primary／hover、text-on-action、accent-secondary／contrast，舊 accent-auth-action 僅作相容別名。修正會員／報名／雅戲／本機參賽的主要動作、武庫儲存與選中分頁、首頁章印與導覽。新增裝備卡使用中性底與朱紅圖示；固定淺色裝備圖卡以 accent-brand-on-paper 保持兩種主題下的可讀性。陣營紅藍、裝備品質、3D 布景與插畫保持獨立。
+
+71 項相關回歸通過（含 53 項色票與別名測試）；430 檔 token 檢查、ESLint 與正式建置通過。實機檢視 1280px 武庫、登入、裝備彈窗、首頁規則及 375px 導覽抽屜的 Light／Dark；最終武庫各 150 段純色文字掃描無低於門檻結果，圖片與半透明面另行目視。未操作正式報名、下注、賽果或資料庫。未宣稱本次重測所有業務流程／未啟用賽事階段。
+
+最終正式版本 .next-vermilion-theme-final-release 已切換且服務健康，發佈記錄 ops/releases/vermilion-theme-final-20261015.json。原版保留可回復。
+
+最終文字清晰度補修：新增裝備卡取消舊深藍底圖的文字陰影，避免中性淺底上文字模糊。正式有效版本為 .next-vermilion-theme-polished-release，服務健康；此記錄取代前述 final 版本。發佈記錄 ops/releases/vermilion-theme-polished-20261015.json。
+
+
+## 2026-10-15 全站朱紅 token 覆蓋補齊
+
+補上共用 Button.primary、首頁入口／章節 CTA、選手彈窗操作、會員與報名送出／武庫確認，以及後台建立賽事、推進、評段、抽籤、開盤、開回合、直播儲存的語意色。報名與評段／抽籤選中標記接回主操作 token；品牌連結與印章不再借用危險色；移除會員頁強制 light 的原生控制項設定。
+
+17 個測試檔 158 項通過，430 檔 token 檢查、變更檔 ESLint、正式 build 通過。首頁、會員、報名欄位、規則／選手／裝備彈窗與當前正式後台兩種主題實測；未啟用後台階段使用原始碼與元件測試覆蓋，未推進正式賽事。完整範圍及限制見 SITE_COLOR_TOKEN_AUDIT.md。
+
+已發佈 .next-site-color-system-release，所有服務健康。正式後台主要動作 Light 配對 rgb(156,52,44)／rgb(255,250,240)，Dark 配對 rgb(233,137,116)／rgb(32,24,21)，與色票一致。保留原版可回復，未改資料庫與正式參賽資料。
+
+## 2026-10-15 報名／會員武庫圖像預覽
+
+SelectedLoadout 共用 LoadoutPreview：流派圖章、主副武器圖、六個裝備位置及武學／心法／奇術書冊，保留名稱、類別和主修標記。圖片來自既有 catalog；無素材使用書冊輪廓，載入失敗不顯示破圖。淺色圖示使用 surface-wood 襯底，正文與互動保持全站 Light／Dark token。
+
+loadoutPreviewModel 是唯讀投影：依選中方案來源與 id 讀取裝備，只顯示 equip 指向的物品，不把倉庫備品當成參賽裝備；舊版確認摘要保留文字 fallback。未改原本 ready、確認鎖定及送出資料格式。報名與會員共用同一元件；手機裝備及書冊改三欄。
+
+16 項預覽／報名／會員相關測試通過，ESLint、434 檔 token 檢查與正式建置通過。瀏覽器以隔離測試帳號檢視已配置預覽與會員兩欄，所有 catalog 圖片載入成功；375px 無橫向溢出，明暗可見文字對比檢查無問題。未提交正式報名或修改正式帳號配置。版本 .next-visual-loadout-release。
+
+最終驗收補上主／副武器固定位置：只有副武器時不誤標為主武器，空位顯示待配置。新增對應回歸，最終 17 項測試通過；正式版本 .next-visual-loadout-final-release。瀏覽器正式頁面確認預覽已載入，圖片成功顯示；完整測試方案展示截圖為 flow-audit/visual-loadout-preview.png（隔離測試資料）。
+
+
+## 2026-10-15 完整裝備卡與右欄直排
+
+報名與會員共用預覽拆成流派、武器、裝備、武學、心法、奇術六區。三類秘籍使用書冊；奇術無圖時以直排書名呈現。主副武器與六個裝備部位採完整卡片，包含品質、等級、套裝、基礎屬性、六條詞條及與原武庫相同的滾值比例。唯讀投影只讀 equip 指向物品，保留舊摘要無明細的狀態，未改報名確認和提交格式。修正武器摘要帶等級／套裝時配圖失敗。
+
+武庫右欄移除分頁，以戰力 → 屬性目標 → 準備報名順序直排；移除目標底下長說明及其說明按鈕。目標名稱與數字分行，窄欄保留完整文字與輸入寬度。原目標值、增刪、匯入匯出和保存返回仍沿用既有行為。
+
+相關 4 個測試檔共 53 項通過，變更檔 ESLint 通過。實機以隔離測試方案驗證八件完整裝備、三類書冊、Light／Dark 與 375px 無橫向溢出。未提交正式報名或更動正式帳號武庫。
+
+已發佈 .next-equipment-preview-cards-release，三個服務健康。正式報名頁已確認六區與八個裝備位置，武庫已確認無右欄分頁、戰力／目標／準備報名均顯示，無瀏覽器執行錯誤。434 檔 token 檢查與正式 TypeScript 建置通過；預覽 207 段、手機右欄 109 段可見文字在 Light／Dark 掃描均無低對比結果，圖片另行目視。完整裝備示例截圖使用隔離測試資料；未修改正式報名或使用者配置。
+
+## 2026-10-17 — Compact registration equipment cards
+- Shared registration/member preview: compact images and spacing, retain all stat rows and numeric font sizes.
+- Desktop weapons/equipment share equal-width auto-fill columns; base stat rows and card footers align.
+- Mobile <=600px uses one column and wider stat row spacing.
+- Isolated fixture verified at 1280px and 375px in Light/Dark; all eight gear values unchanged, no horizontal overflow or contrast findings. Build and release verification pending.
+
+
+- Verification complete: semantic token lint (434 files) and production build passed. Deployed .next-compact-equipment-cards-release; all services healthy. Production preview confirms 108px headers / 88px images with no horizontal overflow. Full isolated 8-card fixture preserves all displayed numbers; desktop cards approximately 30% shorter. No schema or tournament data changes.
+
+
+## 2026-10-17 會員登出與選手彈窗共用卡片
+- 會員固定頁首新增登出，未報名／已報名／武庫頁共用；失敗保留內容可重試，成功移除會員內容。沿用後端登出端點撤銷登入並清除會員與活動 cookie。
+- 彈窗透過事件與 React portal 共用 LoadoutPreview；只讀公開角色／明標示範資料，不讀觀看者私有武庫。保留完整公開數值，無公開明細保持待公開；示範資料沒有完整詞條比例時不推算。
+- 會員與彈窗 375px 單欄無橫向溢出，桌機同圖高、行距與欄位；登出實測重新整理仍為匿名。測試補正先前四區舊預期為六類配置。
+
+
+- 已完成：7 個相關測試檔共 79 項通過、ESLint、438 檔語意 token 檢查與正式 TypeScript 建置通過。已發佈 .next-member-dossier-cards-release，服務健康；正式會員頁確認登出位於固定頁首。
+- 實機：會員與示範選手彈窗桌機／375px、Light／Dark 完成；八張卡片保持完整來源數值，手機無水平溢出。隔離帳號登出後重新整理仍回到登入畫面。正式管理員登入保留。正式公開 API 未供應的配裝明細維持待公開，未從私人武庫補資料。
+
+
+## 2026-10-17 — Confirmed database loadout and member overview
+- CharacterConfig.snapshot_json is a versioned, validated equipped-item display snapshot in the existing character JSONB. No schema migration. Includes selected style, two weapons, six gear slots, martial skills, minds and arts, with complete displayed base/affix values. Excludes unequipped warehouse items and private registration notes. Legacy summary-only rows remain readable; missing numeric details are never fabricated.
+- Register and UpdateRegistration persist the same snapshot; phase guards still reject changes after competition starts. GetBracket and GetMatch explicitly project each stored player's confirmed character. ListPlayers does not expose unpublished loadouts. The frontend public projection passes the payload through to the shared cards; a valid saved snapshot needs no browser storage or catalog substitution.
+- Member armory uses the confirmed snapshot when saved/locked. Returning to edit or choosing a new draft still requires explicit confirmation. Public formal dossier does not fall back to demo data.
+- MemberProfile returns the existing users.avatar_url; account overview shows avatar/name/handle/account type/enrollment/Discord state (and game ID/rank when enrolled). Initials fallback handles missing or failed images. Removed repeated overview links; administrator entry now resides in the sidebar. Header logout retained.
+- Verification: 10 related frontend test files / 95 tests passed, core tournament/signup/identity and transport tests passed, PostgreSQL storage tests passed. Separate API→PostgreSQL→own/public match/bracket roundtrip passed for two isolated players, including invalid snapshot rejection, private-note exclusion and post-start locking. No production registrations were written.
+- Browser verification: actual database-backed public player popup for both isolated players, Light/Dark desktop and 390px single-column mobile; member armory reads the same snapshot without a local library. Overview verified desktop/mobile, Light/Dark; formal administrator avatar, sidebar management entry and logout are visible. No browser errors on formal member page.
+- ESLint and semantic token checks (442 files), production TypeScript/build passed. Deployed .next-confirmed-dossier-release plus the matching backend with rollback backups; all services healthy. Production bracket is currently unpublished, so full player-popup verification used the isolated database, not production fixtures. Older summary-only registrations require the player to confirm their loadout again before the match starts to save complete numeric details.
+
+
+## 2026-10-17 — 實機武庫到公開配置驗收與會員名帖
+- 隔離賽事 ui-snapshot-mvcbom64：瀏覽器登入直接回報名，從報名進武庫，經匯入視窗建立八件裝備，實際編輯主武器詞條為 101.5，再保存返回、確認武庫並提交報名。沒有修改正式參賽資料。
+- 逐項比對武庫、報名預覽、資料庫來源的公開選手彈窗：八件裝備、62 列基礎／詞條數值相符；等級、詞條數與比例一致。公開／報名卡片文字完全相同。
+- 隔離活動排入對戰後，私人武庫仍可編輯，主武器改為 77.7 並保存；會員已確認配置、重新開啟公開彈窗與後端讀回均維持原始 101.5，全部八張卡片未變。
+- 個人總覽改為江湖名帖：雙線題頭、環形頭像框、朱印、淡山線與分欄資料；使用既有語意 token，保留真實頭像／姓名／身分／報名狀態，不增加重複導覽或虛構成就。
+- 桌機及 390px 手機 Light/Dark 目視通過、無水平溢出；4 個相關測試檔 15 項通過，ESLint、442 檔 token 檢查與正式建置通過。
+- 已發布 .next-ornate-overview-release，服務健康。此次只更新前端會員外觀，未修改後端二進位或資料結構。
+
+## 2026-10-17 — 開賽前後參賽配置狀態
+- 會員武庫分開顯示「個人武庫」與本屆參賽配置。私人編輯入口始終開放；開賽前顯示可更換／待確認，按「確認更新參賽配置」才寫入。開賽後顯示鎖定提示與鎖頭，移除方案選單與確認按鈕。
+- 實測發現成功更新後，即時狀態同步會重新消費 loadoutRole，造成已保存卻回到待確認。修正為每次掛載只接受一次交接；確認成功後清除交接參數，重新整理維持已確認顯示。失敗不清除交接、不顯示成功。
+- 隔離賽事 lock-flow-mvcc58jr：原參賽 101.5，個人武庫 88.8，選擇後未確認時後端維持 101.5；確認後保存 88.8。報名截止後再次確認成功，後端讀回 phase SIGNUP_CLOSED。經評段／抽籤／確認賽程進 IN_PROGRESS，畫面自動移除更換操作。
+- 開賽後 UpdateRegistration 更換請求被拒絕且快照不變。私人武庫經編輯視窗改為 66.6，保存返回後參賽仍 88.8；個人編輯不受鎖定影響。正式資料未修改。
+- 前端 5 個相關測試檔共 38 項通過（其中鎖定選單預期修正後重跑該檔通過），後端 TestCompetitionLoadoutLocksAtStart 通過；ESLint、443 檔 token 檢查與正式建置通過。
+- 已發布 .next-loadout-lock-release，服務健康。桌機開賽前／後與 390px Light/Dark 實機驗證，無水平溢出。
+
+## 2026-10-17 — 已確認參賽配置與開啟中的選手彈窗同步
+- 隔離賽事 popup-sync-mvccokfm，兩位測試選手，使用真實 API 與隔離資料庫，抽籤後維持 DRAWING。確認前公開配置仍為 101.5；實際操作匯入及確認更新後，會員、GetBracket、GetMatch 都為 92.4。
+- 實機發現已開啟的選手彈窗未隨即時資料更新。修正 lab 正本：記錄目前檢視的選手／場次，公開賽程更新後重新投影該選手的已確認配置；保持捲動位置與焦點，未變資料不重繪，選手不再屬於該場時關閉面板。正式資料與示範路徑保持分離。
+- 修正後再次實際編輯主武器並確認：已開著的公開彈窗從 92.4 自動更新成 84.2，無須關閉或重整。八張裝備卡完整文字與會員配置一致，共 62 列基礎／詞條數值。
+- ConfirmBracket 後進入 IN_PROGRESS。個人武庫透過裝備編輯器改為 63.7 並儲存，會員及重新開啟的公開彈窗仍固定 84.2；公開賽程／單場 API 與已確認快照逐項一致，UpdateRegistration 更換被拒絕。正式資料未變動。
+- 390px 手機 Light／Dark 實機檢查：八張卡片單欄 324px，頁面 scrollWidth 等於 390px，卡片不溢出；向下捲動可閱讀完整詞條且關閉按鈕可用。既有主題與卡片樣式未改。
+- 回歸先重現失敗，再修正：scheduleDuel、duelInteraction、DossierLoadoutBridge、tournamentRealtime、labRuntime 共 67 項通過；ESLint、443 檔語意 token 檢查與正式 TypeScript 建置通過。
+
+- 已發布 .next-popup-sync-release；服務健康，正式公開腳本已包含 refreshDossier。無後端二進位或資料結構變更。
+
+
+## 2026-10-17 — 奇術統一線裝書樣式
+- 盤點：武庫編輯器的已選奇術與奇術選擇器本來使用 skill-book；會員報名武庫、報名預覽、比武選手彈窗共用 LoadoutPreview，先前仍是朱紅書脊的通用武學卡。
+- 共用預覽對 arts 類別固定使用完整名稱的線裝書：紙／墨封面、裝訂線、雙線書頁、側緣厚度與直排書籤。移除奇術的朱紅書脊；即使資料含圖片也維持相同書冊形式。武學、心法保留原本圖像，參賽快照與數值不變。
+- 所有顏色使用現有語意 token。會員桌機與 390px 手機 Light/Dark 實機檢查；手機三欄自動換行、書名完整、頁面與卡片無水平溢出。公開比武彈窗四本奇術與會員相同。
+- 既有 DossierLoadoutBridge、SelectedLoadout、PersonalArmory 共 9 項測試通過；ESLint、443 檔 token 檢查與正式 TypeScript/build 通過。
+- 已發布 .next-art-books-release，服務健康；只有前端顯示變更，無資料或後端修改。
+
+## 2026-10-17 — 可讀字級與奇術無外框書冊
+
+- 使用者最新規則：可讀性優先、正文與導覽放大、標題與粗體有一致層級；取代原先 11–13px 的共用小字基準。
+- 語意字級集中在 packages/ui/src/tokens/semantic.css：輔助 14px、次要正文 15px、正文／欄位／按鈕 16px、小標 18–20px、區塊 24–32px、頁面 36–44px。新增 text-base 作為 text-md 別名，修正原有引用未定義的情況。字重：正文 400、操作與標籤 500、強調與標題 600。
+- typography.css 定義 H1/H2 使用 Noto Serif TC；H3–H6、正文與操作使用 Noto Sans TC。保留現有首頁藝術題字例外，不更換主題色。
+- 全站共用導覽：18px、4px 項目間距、44px 點擊高度，導覽列縮為 64px；會員入口 16px、手機抽屜章節 20px。響應式及 JS 關閉抽屜的斷點同步為 1024px，320px 額外縮邊距、保留品牌與按鈕間隙。
+- 會員側欄 16px、資訊標籤 16px、個人武庫小標 20px、配置分類 18px；說明跟隨語意字級，減少不必要粗體。
+- 奇術外層改為無框透明，書本由 66×108 放大為 88×132；直排書名 16px，保留縫線、書頁厚度。共用 LoadoutPreview，會員／報名／比武彈窗同步。
+- 實機：首頁 Light/Dark、會員桌機、1024px、375px、320px、手機抽屜均檢查。320px 頁面 scrollWidth=320，品牌與主題按鈕無重疊；375px 奇術三欄換行，書本不溢出。字級讀回正文16、導覽18、頁面44、區塊32、配置小標20、分類18。
+- 既有 SiteNav、PersonalArmory、SelectedLoadout、contrast 共63項通過；ESLint、443檔語意token檢查及正式建置通過。只更新前端，未修改正式資料或後端。
+
+- 已發布 .next-readable-type-release，服務健康。正式會員頁實測正文16px、導覽18px、奇術書冊88px且外框0px；已保存正式Light畫面。
+
+## 2026-10-17 — 賽程／比武注單整合與全站提示
+- 公開對戰入口統一使用首頁賽程；比武內開啟正式盤口／投注單與我的注單彈窗，會員注單保留會員框架。舊對戰表、單場、注單與重複賽事／規則頁改為相容轉向。本機試玩必須明確 preview=1。
+- 共用藍色圈驚嘆號提示支援滑鼠、鍵盤與觸控；操作說明移至標題／欄位旁，實際狀態、數值、錯誤、確認與不可逆後果保留。首頁及武庫舊字級（含簡寫）納入共用規則。
+- 手機下注 sheet 限制在彈窗內且保留關閉按鈕；會員選單不再因最小高度拉出多餘留白。登入回程保留首頁比武的場次及彈窗參數。
+- 主回歸 219 項通過，後續補齊回歸 55 項與最終登入／首頁／彈窗 54 項通過（有重複回歸）。ESLint、450 檔 token 檢查、正式 TypeScript 與建置通過。
+- 桌機／375px、Light／Dark：會員與比武注單、提示、武庫選擇器、註冊、工具及後台檢查完成；無水平溢出。正式入口已確認，公開場次尚未公布，場次互動使用既有隔離資料庫驗證；未送出正式投注或改動參賽資料。
+- 已發布 .next-help-bets-final-release，服務健康。沒有資料庫 migration 或後端二進位變更。分類與路由清單見 [HELP_AND_ARENA_FLOW.md](HELP_AND_ARENA_FLOW.md)。
+
+## 2026-10-17 — 流派長卡片與觀局入口統一
+- 流派展示統一使用 BuildCard（流派徽記、名稱、兩門對應武學、家族印記），涵蓋會員、報名、選手詳情、角色選擇、後台及本機試玩。細項武學仍取玩家原配置；不修改已確認快照。輕量 buildCards.json 由原武庫 catalog 生成，測試核對全目錄一致。未知流派不借用其他資料。
+- 武庫空狀態為整張朱紅邊框「＋ 選擇流派 →」按鈕，選定後保留更換流派與獨立等級控制。手機按容器改為武學直排；不截名稱。
+- 會員入口改稱觀局雅集，紀錄改稱觀局紀錄。比武中央原返回賽程改為觀局雅集，原地開啟選場下注與紀錄切換。場次來自正式 getBracket，保留原 MarketBoard／BetSlip 及金額與確認流程；未公布賽程有明確空狀態。
+- 漫畫分鏡標籤統一桌機20px／手機18px，保留朱紅與原文字、動畫；非更改獎賞落印時序。
+- 相關主回歸82項通過；觀局／首頁追加回歸47項通過（有重複）。ESLint、454檔語意token檢查、TypeScript與正式建置通過。隔離賽事實機：1280、375、320px與Light／Dark，卡片圖示完整、手機無水平溢出、觀局視窗可選場與切換紀錄，沒有提交投注或變更正式參賽資料。
+- 額外擴大測試發現既有 comicSequence 獎賞落印時間測試仍期待880ms，現有原始碼回傳1160ms；本批未修改動畫段落，記錄為既有測試落差。
+
+- 正式驗收：2026-10-17 已切換 .next-build-cards-release，服務健康檢查及公開頁面通過；正式武庫的「選擇流派」按鈕可開啟選單，漫畫標籤實測 20px，觀局雅集可在比武原頁開啟。未修改正式參賽或投注資料。
+
+
+## 2026-10-17 — 密碼最少八字元
+- 依使用者指定，正式會員註冊密碼最低長度由 12 改為 8 個字元，無字元類型組合要求。前端欄位、藍色提示、無障礙說明與後端驗證／錯誤訊息一致。保留現有長度上限、密碼原文處理及登入行為。
+- 身分驗證邊界及 transport 測試通過；前端註冊／回程 13 項通過，修改檔案 ESLint 通過。
+
+
+- 已發布 .next-password-eight-release 與對應 Hestia；健康檢查通過，正式註冊頁 minlength=8、提示為至少 8 個字元。建置與 TypeScript 通過。未新增正式帳號、未更改既有密碼或資料庫結構。
+
+
+## 2026-10-17 — 房間分享與加入回饋
+- 問題重現：只填邀請碼且稱呼空白時，原加入按鈕被停用而無原因提示。現在優先帶入會員顯示名稱（不覆蓋手動輸入），空白／代碼不完整時顯示錯誤並聚焦欄位。房間仍使用原訪客 cookie，並未改為正式參賽身分。
+- 分享區拆為複製連結／複製代碼；按鈕名稱固定，另顯示短暫成功狀態。新連線顯示連接中，失效身分回加入表單，保留原重連與封存規則。
+- 隔離 API 兩個獨立登入會員：加入同房、房主串流成員更新、訪客訂閱／重連、重複加入不重建身分通過。正式新建驗收房同步正常；使用者截圖當時中斷未重現，未推定為帳號權限問題。
+- 11 項前端回歸、ESLint、455檔 token 檢查、TypeScript／正式建置通過。瀏覽器驗證複製內容、缺少稱呼回饋、會員名稱預填、375px Dark 與 320px Light；320px 無水平溢出。
+
+
+## 2026-10-21 — G 型反向墨水互動
+- 使用者選定 G：雙層墨浪與短暫氣泡。後續修正採反向實色墨水：Light 深墨、Dark 暖紙墨；主要／已選、金額及危險操作各自保留語意配色，文字沿浪面反轉。
+- 全站由 SiteChrome 共用掛載，保留原始內容、按鈕尺寸及事件；移除舊 hover 灰色遮罩與導覽位移。觸控、鍵盤、動態表單、關窗、換頁、主題切換、reduced-motion 與卸載均有清理。
+- 共 22 項回歸通過（動效／導覽 15＋共用 Button 7），TypeScript、ESLint、全案 token 檢查通過。1280px／375px 深淺主題導覽與登入表單實機驗證，配裝 Dark 手機彈窗正常；登入按鈕動畫前後維持 520×48、相同座標。
+- 規格與限制見 [INK_INTERACTION.md](INK_INTERACTION.md)。管理者登入後操作未逐一實機驗證；未部署、未送出交易或修改正式資料。
+
+## 2026-10-21 — 選定長浪追湧
+- 使用者選定右側長浪追湧；共用按鈕已採左側延後 0.20 秒的平緩斜浪、hover 持續細泡及加強版點擊回彈／漣漪／9 顆浮泡。
+- 重用 SVG 節點、填滿後停止波面運算；離開、換頁、關窗與失焦清理，減少動態設定不持續動畫。13 項動效／導覽回歸及 TypeScript、ESLint、token 檢查通過。詳見 INK_INTERACTION.md。
+
+
+2026-10-21 長浪追湧速度更新：全站共用效果與試映預設改為 1.5 倍速，保留形狀與配色。
+
+
+2026-10-21 互動修訂：修正填滿瞬間舊 CSS 換色與圖層交接造成閃動，保留同一渲染圖層。速度累計 2.25 倍、氣泡放大 35%，試映同步。13 項回歸及型別／樣式檢查通過。
+
+
+## 2026-10-21 — A 款連續水波正式接入
+- 採用使用者選定的 A 細浪連環，光影淡化 15%，保留長浪填滿；正式按鈕與 Demo 共用水面模擬，取代舊點擊圓環和整顆回彈。
+- 按住拖曳同一水面，放開平息，原生點擊與鍵盤語意保留；按需建立小型 Canvas、共用 RAF，減少動態及頁面生命週期完整清理。
+- 16 項動效／導覽回歸及型別、ESLint、主題 token 檢查通過；桌機／手機共用按鈕與首頁導覽已實機檢查，未部署。詳見 INK_INTERACTION.md。
+
+2026-10-21 氣泡尺寸定案：正式按鈕與 Demo 預設實際直徑 14–22px，包含 hover 與點擊浮泡；不隨按鈕高度縮放。14 項互動回歸、型別及 ESLint 通過。
+
+2026-10-21 氣泡微調：正式網頁與 Demo 預設縮為 12–18px，沿用已選 A 水波。
+
+2026-10-21 首次拖曳修正：連結與圖片的原生拖曳攔截不依賴動畫狀態，正常點擊與明確拖放功能保留。15 項回歸通過。
+
+2026-10-21 按住冒泡修正：氣泡獨立置於水面光影上層，固定輪廓線粗細；Playwright 實機檢查與 16 項互動回歸通過。
+
+## 2026-10-21 — 滑入水波、圖示專用動效與 2D 揭幕
+- 水面改為滑入即施力、游標移動形成連續波；移出釋放，仍保留 12–18px 氣泡與 reduced-motion。觸控仍以接觸啟動，不會殘留 hover。
+- 選單 X 與漢堡鍵、點燃布幕排除共用填墨。X 保持 44px 命中範圍，23px 雙線以 GSAP 控制展開／收線、滑入轉動及按壓收縮；關閉恢復焦點。靈感參考 CodyHouse Animated Menu Button 與 Material Motion，保留本站交叉劍線語彙。
+- 首頁 React 掛載層改用 homeOpening.ts + home-opening.css：2D Canvas 火舌、火星與不規則燒蝕洞口，GSAP 2.5 秒揭幕。先呈現靜態首頁，再啟動選用場景；不修改生成來源。背景保持 inert，完成／Escape／離頁及 reduced-motion 清理。火焰配色新增 accent-fire-char／flame／core 語意 slot。
+- favicon 改為固定硃砂紅 #B53527，取消深色偏好下的淡紅；SVG、七尺寸 ICO 與 Apple icon 同步。scripts/build-favicon.mjs 可重建並驗證每一尺寸的不透明像素。
+- 25 項互動／掛載／生命週期測試、TypeScript、ESLint 與 467 檔 token 檢查通過。瀏覽器確認火焰洞口露出首頁、結束後可操作；X 不建立填墨圖層，關閉後 aria-expanded=false 且焦點回到選單鍵。favicon metadata 已換新雜湊。本機預覽，未部署。
+
+
+## 2026-10-22 — 共用點燃入口、紙張燒蝕與人物裁切
+- 修正 / 原先只走舊備援動畫的漏接：保留真實讀取進度，ready 後交給 homeOpening 的共用 GSAP 流程；捕捉點擊取代舊 5.2 秒計時器，結束仍走 enterStage。intro=1 明確重播，不再被 session 已看過記錄略過。
+- 使用者最後指定 Three.js + GSAP、黑煙與火焰。paperBurn 以局部纖維阻力及向上熱流建立連通的抵達時間場，從真實點擊位置蔓延，不用半徑動畫。紙邊焦化／灰邊仍以 Canvas 和 clip-path 組合；Three.js ShaderMaterial 粒子負責火焰、黑煙及火星，另保留飄動碎灰。
+- GSAP 單一 3.4 秒時序，後段讓煙灰消退；Three.js 僅實際開場時動態載入，無持續粒子 RAF。桌機粒子上限 1040、手機 545、密度上限 1.25；完成／離頁 dispose 幾何、材質、renderer、WebGL context。WebGL 不可用時仍可完成 Canvas 備援；reduced-motion 不建立粒子。
+- 保留歪斜漫畫框，宗旨白衣人物加入與背景一致的 figure-window 裁切；人物 1、內框 3、對白 4，手機／深淺主題確認沒有衣襬壓框。
+- sources/ 保持唯讀。此次以 design/lunjian/lab 作為可編輯文字來源，再執行其原生成器；資產沿用 public 中已驗證版本。詳見 design/lunjian/README.md。
+- 54 項相關測試通過；TypeScript、ESLint、470 檔 token 檢查通過。瀏覽器實測 / 與 /home、390px 與桌機；播放時存在 Three 粒子畫布，結束後畫布為 0，無瀏覽器錯誤。未部署。
+- 燃燒視覺參考：[Joji Graison 紙張燃燒實拍](https://www.pexels.com/video/close-up-video-of-a-paper-burning-10229380/)，採焦邊、上升火焰與煙灰的視覺特徵；此為即時視覺近似，並非物理火災模擬。
+
+## 2026-10-22 — 四款燃燒試映
+新增 /fire-study，比較薄紙細焰、厚紙旺焰、側風捲焰、低焰餘燼。獨立 Three.js 火舌著色與 GSAP 七秒控制，支援點選起火、慢放、暫停、拖曳進度與選款；正式開場保持原設定。3 項回歸、型別及 lint 通過，桌機／390px 手機實機檢查完成。規格與限制見 FIRE_STUDY.md，待使用者選型，未部署。
+
+
+## 2026-10-22 — 選定 D 低焰餘燼與 3D 粒子融合
+使用者選定 D 與原 3D 燃燒結合。新增共用 fireSheet.ts，試映 D 與首頁共用短火舌／餘燼著色；首頁在同一 Three.js 場景疊加黑煙、零星熱粒子、火星，Canvas 保留飛灰。火苗粒子縮小減量，桌機／手機粒子上限 420／225；同一 WebGL context，解析度上限 1152×800，GSAP 沿用 3.4 秒。
+洞口、低焰與粒子共用同一燃燒抵達時間場和真實點擊座標，避免邊緣錯位；不恢復連續描邊。預設輕量場景保留；/ 與 /home 的共用開場已接入，獨立舊 3D 場景布幕不在本次範圍。
+23 項相關回歸、TypeScript、ESLint、476 檔 token 檢查通過；桌機 /home 與 390px / 首頁實測，無新增瀏覽器錯誤，完成後畫布歸零且解除 intro。已完成本機整合，未部署。
+
+
+## 2026-10-22 — 移除宗旨正文底部重複分隔
+僅調整宗旨全文展開狀態：移除 details 底線、正文額外下留白及章節導覽上線／上留白，保留末段收尾線與返回首頁／下一章連結。修改 design/lunjian/lab 來源後重新生成 CSS 與版面版本；瀏覽器確認，35 項 labRuntime 回歸通過。未部署。
+
+
+## 2026-10-22 — 新版介面與低焰開場正式發布
+使用者明確要求發布至 arena.gengflow.com；已切換 .next-ink-opening-20261022-release。正式建置含 TypeScript、87 項相關測試、ESLint 與 476 檔 token 檢查通過。處理原先脫離服務管理且佔用 8088 的後端殘留程序後，既有排程接管三項服務並全部 ready。後端二進位及資料格式未變；未寫入測試報名。公開首頁點燃後可進站、宗旨導覽正常且無瀏覽器錯誤，新分隔樣式已由 HTTPS 確認。設定備份與正式紀錄見 ops/releases/ink-opening-20261022.json。
+
+
+## 2026-10-22 — 輕量首頁視差與章節首幀
+修正 home-stage 在 2D／scene-fallback 時直接返回造成運鏡完全未啟動。2D 新增單一 30fps 分層視差迴圈、64／32 顆雪粒子，背景保留 8% 裁切餘裕，近景與標題依深度平滑跟隨游標；hidden、離頁、reduced-motion 停止，卸載回收。未載入 3D 世界。
+章節 SSR 容器預置 entry-pending，待既有 runtime 完成錨點選擇與 Anime.js 起始姿態後才放行；載入失敗、8 秒保險與無 JS 保留可讀性。首頁 CTA 交接已看過開場狀態，intro=0 也不重播布幕。同步修正獎賞佇列測試舊 880ms 斷言為既有 560ms 對白後的 1160ms，動畫本身未改。
+89 項回歸、TypeScript、ESLint、476 檔 token 檢查與 production build 通過。1280px 左右游標移動確認近遠景差速；390px 無水平溢出；兩個入口首幀 main opacity=0，初始化後目標章節正確且 opacity=1，瀏覽器無錯誤。
+
+正式已發布 .next-home-motion-20261022-release；三服務 ready。公開 HTTPS 實測前景與背景位移不同、飄雪存在，報名入口由 pending／opacity 0 到 register／opacity 1，瀏覽器無錯誤。備份與切版紀錄：ops/releases/home-motion-20261022.json。
+
+## 2026-10-22 — 開場模式選擇與純 2D 燃燒
+在 /home 雙俠布幕及 / 章節讀取畫面加入 2D 輕量／3D 華麗開場選擇。預設 2D，沿用場景偏好記憶；明確 URL 優先。切換重新載入同一路徑並保留參數、錨點，以回收舊場景，intro=1 確保仍停在待點燃狀態；選項不會誤觸點燃，鍵盤焦點包含兩個選項與點燃。
+輕量開場不再 import Three.js 燃燒模組，使用 Canvas 火舌、煙灰與紙張燒蝕，限制 1024×720、30fps、80 粒子及較疏的燃燒網格。3D 保留低焰餘燼與立體黑煙粒子；WebGL 備援及 reduced-motion 可正常進站。
+38 項相關回歸、TypeScript、ESLint、477 檔 token 檢查通過。桌機驗證 2D 無粒子 WebGL 畫布、3D 有粒子畫布，完成後回收；390px 根頁開場兩模式可切換且無水平溢出。正式發布驗證待本輪完成。
+
+正式發布 .next-opening-choice-20261022-release 完成，三服務 ready，公開首頁／章節／登入 HTTP 200；正式 HTTPS 已確認兩模式切換及 2D 燃燒無 WebGL 粒子。設定備份與發布紀錄見 ops/releases/opening-choice-20261022.json。
+
+## 2026-10-22 — 宗旨與共用動畫效能改善
+完成規畫並實作，細節見 CHAPTER_PERFORMANCE.md。墨紋 field 轉 module Worker；非目前章節／背景 shot 不繪製；共用場景 30fps、hidden 停止，視差變數只作用場景容器且值未變不寫；移除隱藏 wordmark 與逐幀規則樣式寫入。3D 模型分批建造、頂點合併分段讓出主執行緒、材質／shader 分批準備，匾額 GLB 外置；直接進章節跳過布幕 prepare／render，閱讀模式停止 3D。新增受維護 lab 引擎快照並由既有生成器同步，未全面替換凍結引擎。
+全按鈕水波與填墨遮罩分離，法線折射作用於底色、原文字及圖示，保留節點／點擊；最大 180×90、30fps 法線更新、失焦與離頁回收。
+同一內建瀏覽器 1280×720、進頁 10 秒：2D 最長幀 187→34ms，>50ms 幀 2→0，Long Tasks 270→0ms；3D 最長幀 1656→490ms，Long Tasks 3355→1457ms。已載入圖片節點 64→37，非下載／解碼次數。rAF 觀測約 30fps，不能當作所有裝置 FPS 保證；3D 首次 GPU／光影仍有約 0.5 秒峰值成本。
+133 項相關回歸通過；Three.js 大網格比對原焊接索引、屬性、morph 完全一致且有 7 次事件迴圈機會。TypeScript、相關 ESLint 通過；桌機切章、390px 無水平溢出及全控制項 filter／回收已檢查。瀏覽器測量檔保留 flow-audit/perf-before-*.json、perf-after-*.json。正式發布待建置完成。
+
+
+正式發布 .next-chapter-performance-v2-20261022-release 完成，三服務 ready，首頁／章節／登入 HTTP 200。正式驗證追加修正：Worker 準備期間改量穩定容器，避免 canvas 隱藏時零尺寸觸發重算；墨紋模組加內容版本號。追加 43 項相關回歸與 production build 通過。完整回歸仍共 133 項。發布紀錄 ops/releases/chapter-performance-v2-20261022.json，前版設定與來源備份均保留。
+
+
+
+## 2026-10-22 — 3D 開場恢復原立體布幕
+首頁 3D 開場直接交由 home-intro／mountStage3D 的原布料場景控制，取消先播平面燃燒後才啟動 3D 的路徑；布幕起伏、點擊座標燃洞與進站沿用原引擎。intro=1 明確重播優先於本次已看過記錄。WebGL 失敗仍可使用 2D Canvas 開場，再解除 inert 進入輕量首頁；2D 不匯入額外的 Three 火焰效果。
+開場模式切換縮為約 206×52px，位於右上 20px／安全區，保留 44px 點擊高度；移除兩行副說明，保留鍵盤選擇與選中狀態。此樣式共用首頁與章節載入畫面。
+43 項開場、回到首頁與場景回歸通過；TypeScript、相關 ESLint、478 檔 token 檢查與獨立 production build 通過。內建瀏覽器桌機／390px 驗證 2D、3D 點燃進站、模式切換、原立體布幕及無水平溢出；未新增第三方依賴。
+發布版本 .next-cloth-opening-20261022-release；來源逐檔備份於 flow-audit/cloth-opening-source-backup，服務配置與健康紀錄位於 ops/releases/cloth-opening-20261022.json。
+
+
+## 2026-10-22 — 2D 燃燒改為預先繪製的單一畫布
+使用者回報輕量開場仍不順。實測主因之一是繪製再次以 1/30 秒門檻限速：瀏覽器約 30Hz 的更新中只繪製 54 次／3.425 秒。原路徑另有每幀尋找燃燒輪廓、DOM clip-path 與即時火焰漸層。
+新 lightPaperBurn 將原色盤與雙俠輪廓預先繪到上限 800×600 的 Canvas；燃燒用固定 80 點不規則外擴洞口、預繪火焰／煙霧小圖，最多 40 個熱點。不再修改 DOM clip-path，不掃描抵達時間網格，不在逐幀建立漸層，也不重複限制更新頻率。維持 GSAP 3.4 秒、點擊座標起火、2D／WebGL 失敗備援，3D 原立體布幕不變。
+新增 opt-in perf=1 開場計量，資料只存在隱藏 output、沒有上傳。1280×720 同一瀏覽器：繪製 54→104 次；繪圖 JS 累計 42→13ms、最長單次 1.5→0.6ms；兩者均無 Long Task，rAF P95 均 33ms，故不能稱裝置實際 FPS 翻倍或以 JS 時間代替 GPU 成本。390×844 新版 105 次／3.421 秒、最長幀 34ms、無 >50ms 幀，畫布 277×600，無水平溢出。
+分頁隱藏暫停 timeline，返回續播；結束／卸載清除畫布與 backing store，resize 不會重新分配已完成開場。46 項相關回歸、TypeScript、相關 ESLint、481 檔 token 檢查通過；桌機／手機點燃與完成後 canvas=0、inert=false 已驗證。量測檔保留 flow-audit/burn-before.json、burn-after.json、burn-mobile.json。
+發布版本 .next-raster-opening-20261022-release；逐檔來源備份 flow-audit/raster-opening-source-backup，服務記錄 ops/releases/raster-opening-20261022.json。
+
+## 2026-10-22 — 2D 開場改版試映（尚未選定）
+使用者決定停止改善 2D 燃燒美術，要求先看簡易過場，再補充雜誌封面、景深錯覺、負片遮片及負空間參考。新增獨立 /opening-study，正式 homeOpening、lightPaperBurn、3D 布幕仍維持原樣，等待選款。
+A 月霧散幕、B 留白開境、C 墨相反轉、D 折景歸一、E 朱印啟幕；後續 F 人物刊首、G 異色切片、H 凝視成刊依使用者五張封面參考及 Dazed／Surface 設計案例加入人物前後層、大字、特寫、負片切片與菱形聚焦。採既有獨立透明人物、劍與山門素材，沒有使用外站攝影；不新增套件。
+每款 1.2–1.5 秒，GSAP 只動 transform／opacity；負片為固定濾鏡，裁切由固定 overflow 完成，不載入 Canvas／WebGL 引擎。提供慢放、暫停、重播、進度拖曳、暫選與深淺色 UI；切款清理舊 timeline，離開畫面／分頁暫停，reduced-motion 改短淡化。試映入口文案「點擊入境」，metadata noindex。藝術／心理學用作構圖解釋，不宣稱固定情緒效果。
+10 項回歸、TypeScript、相關 ESLint 與 token 規則通過。桌機檢查八款、390px 檢查新款與無水平溢出；正式取代仍待使用者挑選。
+
+已發布獨立試映頁 https://arena.gengflow.com/opening-study#F，版本 .next-opening-study-20261022-release。10 項測試與正式 build 通過；首頁、章節、登入與試映 HTTP 200，正式開場來源雜湊未變。發布記錄 ops/releases/opening-study-20261022.json。
+
+### 2026-10-22 — Magazine opening continuity study
+- Added I (warm vertical portrait slice) and J (portrait/detail montage) to /opening-study, using existing owned illustrations.
+- Replaced F–H editorial exits with focal-frame transitions: existing crop becomes a landscape window; tilted/diamond windows unfold while the scenery remains upright and undistorted. J gathers detail crops toward the main frame before expansion.
+- Per-frame animation uses transforms and opacity; geometry is read only during initialization. Resize rebuilds geometry. Reduced-motion and offscreen pausing remain supported.
+- Validation: 16 targeted tests pass, TypeScript and production build pass, scoped ESLint and token checks pass. Desktop and 390px mobile reviewed; no browser errors during local playback. Formal opening sources retained.
+- Published study release: .next-opening-continuity-20261022-v2-release; candidates I/J remain previews awaiting user selection.
+
+### 2026-10-22 — I 空框優先驗收（覆蓋前述貼圖規畫）
+使用者要求先完成網頁框位及動畫，待確認後才貼圖。I 改成無圖片的互動原型：獨立背景框、灰階透明人物框、彩色裁切窗、直排刊名、兩張局部特寫、刊語及入口。下一幕也用遠／中／近景佔位；與其他版本共用連貫展窗動畫，加入背景與人物差速，保留慢放、暫停、進度拖曳及 reduced-motion。
+新生成圖片僅作未採用草稿，不部署、不綁到頁面。正式 2D／3D 開場保持原樣。手機重新分配框寬與文字位置，不縮放整張桌面版。
+驗證：17 項互動及幾何測試、TypeScript、production build、scoped ESLint 與 token 檢查通過；桌面與 390px 手機檢查空框及轉場中段。發布候選為 .next-opening-wireframe-20261022-release。
+
+### 2026-10-22 — 依原圖七層分析重構 I
+使用者核准依逆向分析重構範例，仍維持未貼圖驗收階段。I 保留 185:231 比例，桌面最大寬 420px、手機等比縮放；不再拉成橫向 hero。七層 0/10/20/30/40/50/60 對應背景、灰階人物、彩窗、細框、刊名、雙特寫及底部文字。
+人物用簡化定位輪廓，兩份共用 185×231 幾何及相同動畫；彩窗左 14.054%、上 5.195%、寬 38.378%、高 79.221%，內部完整場景反向偏移，不能獨立重取景。保留 MAKIMA、CONTROL/DEVIL 字樣以比對原圖，無法辨識的小字僅畫排版線，不補寫內容。參考圖的藝術素材尚未置入；正式首頁與3D未改。
+17 項回歸、scoped ESLint、token 檢查通過；瀏覽器量測桌面與 390px 比例約 0.80087，兩份人物在初始與轉場中途的矩形完全一致，手機沒有水平溢出。發布版本 .next-opening-grid-20261022-release。
+
+### 2026-10-22 — I 黑白雙框與人物越框定位稿
+主窗與雙特寫拆成錯位黑框／白框；主窗增加獨立衣袖越框層，與灰階及彩色人物共用座標。兩張特寫以不同高度越過上緣，前景底線收住身體，底部與主窗對齊。保持無圖片、無 Canvas，素材待使用者確認後才置入。
+特寫人物先回落、框線再收束；主窗以八條獨立邊線接到展窗轉場，擴張時維持 1px 線寬，終點無殘留。375px 手機加寬特寫、縮小雙線錯位距離，頭部保留出框量；桌機 420px 畫布維持 185:231。
+驗證：18 項互動／幾何回歸，scoped ESLint 與 token 檢查；1280px 桌機及 375px 手機實際播放、進度回拖、終點與重播檢查，無水平溢出或瀏覽器錯誤。正式編譯與發布結果另記。
+發布完成：.next-opening-frames-20261022-release。production build／TypeScript 通過，三服務 ready，試映、首頁、章節及登入 HTTP 200；發布記錄 ops/releases/opening-frames-20261022.json。
+
+### 2026-10-22 — I 桌機橫向配置預覽
+使用者已授權後續分開生成景深背景及透明柔和人物，隨即補充先查看桌機橫向配置。本輪先展示定位稿：>=1024px 採16:9橫版，主角偏左、右側雙特寫、中央與右上留背景空間；主角保持185:231自身比例，三份人物座標一致，窄窗與衣袖越框隨布局對位。手機仍採185:231直版。
+1280px桌機、375px手機檢查無水平溢出，展窗中段8條線維持1px，production build與TypeScript、token檢查通過。素材尚未生成／貼入，待此配置試看後接續素材工作。候選版本 .next-opening-wide-20261022-release。
+
+## 2026-10-22 — Opening study I: independent artwork and opposing gaze
+- Generated five independent assets using built-in image_gen: depth background, transparent main heroine, black portrait, white opponent, plum foreground. Original PNGs and prompts are in docs/artwork/opening-layered-v1.
+- Black portrait faces right; white opponent faces left. Main heroine also faces right. Three main figure registrations share one source. Preserve dual black/white frames, pop-out sleeves and portrait heads, existing portal transition.
+- Desktop 16:9 and mobile 185:231 verified; 5 WebP assets total 380464 bytes. Fixed background softness, no animated filters or Canvas/WebGL. Images decode before playback.
+- Related study tests: 18 passed; ESLint and design token checks passed. Local desktop/mobile playback and reset verified, no browser errors. Demo only; formal opening remains unchanged.
+
+## 2026-10-22 — I 主角朝向與近景肖像框修正
+使用者指定主角朝左，直排刊名疊在右側頭髮，避開五官；選回已生成的原始左向 hero，另存 hero-left.png / hero-left.webp，不覆蓋右向版本。三層人物仍共用相同座標。
+右下兩人維持黑右看／白左看，改為黑底橫向近景胸像框；放大人物、裁去腰身，左右與底邊收在框內，頭頂越過上緣，縮小兩框間距。黑白雙線及框後人前、原有 GSAP 收框動畫保留。
+驗證：18 項相關測試、ESLint、491 檔 token 檢查通過；1280px／375px 畫面與播放確認，未新增依賴或渲染層。僅更新 I 範例。
+
+### 2026-10-22 — 主人像向左 8px
+依使用者要求，三份共用主人物圖片的 left 改為 calc(3% - 8px)，保持彩窗、黑白底圖與出框衣袖同座標；文字、框線與右下特寫位置不變。
+
+
+### 2026-10-22 — 主人像再向左 16px
+依最新要求在前次 8px 基礎上再左移 16px，累計 24px。三份主人物共同 left 為 calc(3% - 24px)。
+
+
+### 2026-10-22 — 核准 I 開場正式接入 2D 首頁
+使用者核准構圖與展窗轉場，指定轉場後須回到清晰的原山門主畫面。正式 /home 2D 改為分層刊首，保留主人像左移 24px、黑白雙框、近景對視與出框。正式文字改為 BAIYE／百業試鋒／點擊入境，3D 仍走原立體布幕與燃燒。
+展窗與試映共用 GSAP timeline；窗口改用正式 scene-gate 及原竹／梅／松前景，僅保留既有亮度處理，不使用 blur。封面自身保留柔焦景深；結束卸載序幕 React root、釋放 inert、焦點移至了解賽制、啟動原 2D 視差與雪景，停留首頁。載圖解碼後才啟用點擊，支援中止／隱藏分頁暫停／reduced-motion，沒有新增 2D 燃燒或 WebGL。
+SSR 到客戶端決策前先隱藏首頁，避免先閃現；noscript 可見。只修改 React 掛載與獨立元件，未修改生成物或 sources。
+驗證：46 項相關回歸、scoped ESLint、496 檔 token 檢查通過。桌機／375px 手機實際進場，首頁背景 filter 僅 brightness(0.78)，無 blur；清理後標題 opacity 恢復，CTA 可用。正式建置與部署另記。
+
+發布完成：.next-editorial-home-20261022-release。正式 build／TypeScript 通過，健康檢查 ready，首頁、試映、章節及登入 HTTP 200。正式網址 /home?intro=1&stage=2d 已確認刊首與入境，原圖首頁持續可操作。
+
+
+### 2026-10-22 — 2D loading 與同景連續展窗
+依使用者要求恢復既有月環／山峰／梅枝 Canvas loading，使用原 createBootSymbol，進度取自本次封面與首頁圖片解碼；最低顯示 1100ms 避免快取閃屏，100% 後 450ms 淡入刊首，才啟用點擊。取消時清除 timer、GSAP 與繪圖 observer。
+正式刊首的兩份背景皆改為首頁 scene-gate.webp；人物、雙框、24px 左移和對視配置保留。正式轉場不再渲染 SharpHomeScene 複本，由既有畫框的反向遮罩直接揭露真正 .home-hero，無最後替換景物的動作；展窗延至 1.6s，文案及導覽延後淡入，約 1.95s 完成。試映頁仍用原 portal 模式，3D 流程維持。
+驗證：桌機 1280x720、手機 375x844 實際 loading／封面／轉場／收尾；首頁清晰、標題 opacity=1、無橫向溢位及 console error。48 項相關回歸、scoped ESLint、497 檔 tokens、正式 build/TypeScript 通過。修改僅 React 整合與研究頁共用時間軸，沒有改動 generated sources、API 或資料。
+
+### 2026-10-22 — 高細節人物與刊首傳送門
+依最新標註重製三張透明人物至 opening-art/v2，保留抬手、朝向、對視、24px 左移、黑白雙框及頭部出框；背景沿用首頁 scene-gate，移除額外 blur。生成方法與提示詞見 artwork/opening-layered-v2/README.md。
+正式刊首直排為 BAIYE SHIFENG（前往首頁並播放原展窗），左下「夜鴉閣 · 以武會友／百業試鋒／宗旨」，雙人卡為規則說明及報名，補齊介紹與賽程入口，移除點擊入境。章節連結沿用 Next 路由並保留活動查詢參數；載圖前 inert，離頁清理。手機縮短主框、上移雙人卡以完整容納文案，不裁切文字。
+48 項相關測試、scoped ESLint、token 檢查通過；本機 375×844 實測規則與報名路由。正式 build／部署結果另記。
+
+正式發布完成：.next-editorial-portals-20261022-release。Next production build／TypeScript 通過，48 項相關測試通過，服務健康 ready，公開首頁、章節、試映與登入 HTTP 200。桌機 1280×720 與手機 375×844 已驗收人物細節、黑白雙框、出框、完整文案與規則／報名導向；桌機展窗收尾 boot hidden、首頁標題 opacity=1、無橫向溢出與 console error。人物三張 WebP 合計約 1.25MB，保持原尺寸與透明邊緣。未更動後端、資料或 schema。
+
+### 2026-10-22 — 彩色人物畫框互動與橫式標題
+使用者指定主彩框本身為首頁入口。新增對齊 window 幾何的原生連結（z38），保留出框及黑白雙框；hover／focus 展開雙框、三份對位人物同步微幅縮放，active 回壓及箭頭移動，取消／離開恢復。以 CSS transform／opacity 回饋，無新增 RAF／Canvas／WebGL。點擊／Enter 接原展窗，只播放一次；載入與轉場期間 inert，轉場淡出入口提示。觸控顯示首頁提示、reduced-motion 停止微動。
+左下改為單行純文字「百業試鋒」，移除副標、宗旨及連結。修正 openingMode 舊焦點圈僅包含模式選項／隱藏 ignite 的問題，ready 時納入封面入口；3D 仍保留可見 ignite。
+48 項相關測試、scoped ESLint、497 檔 token 檢查通過。桌機鍵盤選中主框與 Enter 展窗已確認；正式建置與發布結果另記。
+
+發布完成：.next-frame-entry-20261022-release。正式 build／TypeScript、48 項測試通過，服務健康與公開路由正常。1280×720 鍵盤 Tab／Enter 主框轉場、375×844 整框點擊收尾皆確認，boot hidden、首頁標題 opacity=1、無橫向溢出及瀏覽器錯誤。使用者後續不互動要求只作用在左下標題，標題已是純 strong；範圍證據見本次工作區 flow-audit/frame-entry-scope-review.md。
+
+### 2026-10-26 — 2D 首頁待機減負
+使用者反映首頁卡頓，允許簡化。移除 2D 全螢幕雪花 Canvas 與持續 dolly／標題變形；桌機 fine pointer 且寬度至少 768px 才依輸入啟動微幅分層景深，收斂即停止 RAF；觸控／窄螢幕靜態，清理 resize／hidden／pagehide／偏好變更／abort。保留原山門與前景素材、文字清晰度、CTA 及 3D 版本。來源為 design/lunjian/lab/home-stage.js，已由原生成器同步與更新 HOME_REVISION。
+51 項 homeStage／labRuntime 測試、scoped ESLint、497 檔 token 檢查、正式 build／TypeScript 通過。發布 .next-home-light-20261026-release，服務 ready、公開路由 HTTP 200。1138×884、375×844 正式瀏覽器無雪花 Canvas／橫向溢出；2D 初始無動畫排幀由測試確認。手機為窄視窗檢查，未量測實體低階裝置 FPS。檢查詳記工作區 flow-audit/home-light-verification-20261026.md。
+
+### 2026-10-26 — B1 木底告示，純 CSS 元件
+使用者選 B1、移除印章、整牌向右下傾斜，並要求不使用按鈕圖片。最終以 CSS 靜態木紋／厚度／紙邊／釘點完成，文字用既有 Noto Serif TC 800 display role；沒有新字體、圖片請求、Canvas 或 RAF。固定 hit area 與獨立 face，hover／focus 傾斜，active 下壓，reduced-motion 靜態。新增 surface-notice／text-on-notice 主題 slot，確保固定淺紙在深色模式仍有墨色文字。首頁及章節導覽移除 18px 毛玻璃，改不透明紙色／墨色。
+55 項首頁／lab／導航及 59 項主題測試通過；最後 CSS 變更重跑 lab＋contrast 94 項通過。497 檔 token、scoped ESLint、正式 build／TypeScript 通過。本機桌機及 375×844 手機視窗驗證，按鈕 164.5×64px、無溢出，賽制入口正常。詳見 HOME_PLAQUE.md。發布版本 .next-css-plaque-20261026-release 的正式結果另記。
+正式發布完成：.next-css-plaque-20261026-release；服務健康 ready、公開路由 HTTP 200。正式瀏覽器確認 Noto Serif TC、紙上墨色正確、按鈕背景無圖片 URL、nav backdrop-filter:none、無橫向溢出及 console error。
+
+### 2026-10-26 — 木紙細節改用響應式無字底材
+使用者以提供的木紙圖要求更高細節，允許使用圖片。新要求取代純 CSS 材質：原始2038×771 PNG留在design/lunjian/assets；透明裁切、quality94 WebP輸出520／1040／1560寬，約31／125／308KB。img srcset＋sizes按密度選圖，object-fit:contain保持比例；兩顆共用素材快取，文字維持Noto Serif TC 800網頁字體，右下傾斜、固定hit area、reduced-motion與不透明導覽保留。生成器同步三種尺寸，避免只存在public。
+52項相關測試、497檔token、正式build／TypeScript通過。桌機1138×884及手機375×844確認載入與比例、無橫向溢出；DPR1選520圖。高DPR實體裝置未量測，不宣稱點陣材質可無限放大。版本.next-plaque-detail-20261026-release，發布健康結果另記。詳見HOME_PLAQUE.md最新段落。
+發布完成：.next-plaque-detail-20261026-release。健康 ready、公開路由 HTTP 200；正式瀏覽器確認兩個底材完整載入並共用520版本、文字為Noto Serif TC、nav模糊none、無console error。
+
+2026-10-31：待公布賽程已換用核准的紅黑藍整合背景；修復 CSS 版本引用鏈未更新導致既有分頁仍顯示舊圖。已發布並以原分頁及 Playwright 三尺寸驗證。後續素材發布必須同步父引用版本並等待圖片解碼後驗收，詳見 UI_UX_VERIFICATION.md。
+
+
+2026-11-01：待公布通知卡片納入檢視／編輯／重新整理既有操作列，手機分兩行。正式隔離映像 pending-actions-in-card 已發布；全新正式網址 Playwright 四尺寸與操作列編輯還原檢查通過。管理員按鈕版面採 fixture，登入實際流程未驗證，詳見 UI_UX_VERIFICATION.md。
+
+2026-11-01：比武 1v1 依 C 參考調整為戰局標題、紅藍人物名牌與中央比分三欄；手機保留雙方同時可見。隔離映像 duel-c-layout 已發布，35 項測試及正式四尺寸檢查通過。真實資料與互動保留，其他賽制未改。詳見 UI_UX_VERIFICATION.md。
+
+
+2026-11-01：待公布賽程重新整理加高至96px、文字放大，檢視／編輯油紙按鈕移至上排；既有紅黑藍圖以遮罩融入山景。僅賽程範圍，隔離映像 blend-refine 已發布且健康，35項測試、production build、正式四尺寸檢查通過。管理員按鈕使用匿名fixture驗證版面，詳見 UI_UX_VERIFICATION.md。
+
+2026-11-01：待公布通知卡片三顆油紙按鈕移除導覽底線，改微幅浮起/陰影/按壓與鍵盤焦點，其他區域不改。來源與生成檔同步，35項測試通過；正式網站四尺寸、深淺色及互動驗證通過。管理員按鈕使用匿名fixture，詳細限制與證據見 UI_UX_VERIFICATION.md。
+
+
+## 2026-11-03 — 讓武、比武、獎賞視窗高度
+
+僅調整 invitation / duel / rewards。桌機與平板（至少 1024×700）依導覽高度分配一屏；手機、短視窗、閱讀模式保留自然捲動。讓武六類限制改由點擊開啟原有 36 項詳情，可 Escape 關閉、返回觸發按鈕，未刪除內容。獎賞移除外層遮色與大紙底，三張名次卡各自使用木框油紙。
+
+驗證：Playwright 1366×768、1024×768 三頁 clientHeight=scrollHeight；390×844 無水平溢出。六類詳情項目數 5/8/6/4/6/7，獎賞進場後三卡完整。部署與正式站複驗另記結果。
+
+正式發布完成：隔離映像 tournament/theatron:viewport-chapters-20261103 已部署，服務 running / healthy。原映像保留為 before-viewport-chapters-20261103。35 項 labRuntime 測試及 production build 通過。正式網址無攔截 Playwright 複驗：1366×768、深淺色各三頁高度均 768 / scrollHeight 768；詳情視窗對比正常，閱讀模式六組共 36 項仍在，pageerror 為 0。候選版另驗 1024×768 與 390×844。證據：ChatGPT 專案鏡像 output/viewport-chapters/live-check.json、live-light.png、live-dark.png、checked.json。比武驗證的是目前正式頁的既有 fallback 畫面，未宣稱涵蓋 art-ready 分支或全部賽制。
+
+## 2026-11-05 獎賞三圖共用匾額
+- 依使用者標記，將木框與油紙移至 podium-board；三張 podium-frame 不再各自使用木框。保留冠軍左大、亞季軍右側上下配置與原有內容。
+- 僅修改 design/lunjian/lab/viewport-chapters.css 對應獎賞規則，並執行 canonical generator；發布使用隔離 CSS 修正，避免夾帶工作樹其他修改。
+- 正式站 Playwright 驗證：1366×768、1024×768、390×844，light/dark 共六組通過；三圖均無獨立木框、共同容器有匾額，無橫向溢出與頁面錯誤。桌機/平板維持一屏；手機保留自然捲動以維持可讀性。
+- 正式發布映像 tournament/theatron:shared-rewards-20261105；服務 healthy。驗證紀錄位於本聊天工作目錄 output/viewport-chapters/shared-live.json。
+
+## 2026-11-06 獎賞沿用規則說明紙面與同步進場
+- 僅獎賞頁：使用共用 awards-stage 紙面及完整外框，取消 podium-board 的按鈕拉伸木框；三張圖保留 2px 墨色框線。保留所有圖片、文字、章節導覽。
+- playComicScene 對 rewards 跳過個別滑入與蓋章，隨整張章節轉場進場。
+- labRuntime 35 項通過；正式站 Playwright 1366×768、1024×768、390×844 明暗模式共六組，無 pageerror，桌機/平板一屏、手機可閱讀捲動。
+- 隔離映像 rewards-paper-20261106 已發布；備份 before-rewards-paper-20261106。證據：聊天工作區 output/viewport-chapters/shared-live.json 與 shared-live*.png。
+- 使用者回報 detail: Bad Request 尚未重現，未宣稱已修復；需確認出現於 Codex 或網站何項操作。

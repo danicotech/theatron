@@ -1,0 +1,38 @@
+[
+  {
+    "desktop": {
+      "font": "\"Noto Serif TC\", serif",
+      "size": "23px"
+    },
+    "tilt": -0.052336
+  },
+  {
+    "mobile": "open, close, focus restoration, theme switch passed",
+    "ink": {
+      "origin": "0px 1.5px",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)",
+      "clip": "polygon(0px 45%, 45% 0px, 100% 35%, 97% 75%, 25% 100%, 1% 80%)",
+      "width": "320px",
+      "height": "3px"
+    }
+  },
+  {
+    "route": "/?intro=0&stage=2d#prologue",
+    "nav": "desktop and mobile passed"
+  },
+  {
+    "route": "/tools",
+    "nav": "desktop and mobile passed"
+  },
+  {
+    "route": "/loadout",
+    "nav": "desktop and mobile passed"
+  },
+  {
+    "inventory": {
+      "count": 487,
+      "searchResults": 65,
+      "mobileOverflow": false
+    }
+  }
+]

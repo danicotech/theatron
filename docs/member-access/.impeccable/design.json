@@ -1,0 +1,509 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-13T13:47:17.0353733+08:00",
+  "title": "Design System: 論劍全站導覽與會員卷軸",
+  "extensions": {
+    "colorMeta": {
+      "surface-auth-canvas": {
+        "role": "neutral",
+        "displayName": "茶褐畫布",
+        "tonalRamp": [
+          "oklch(15.00% 0.0406 76.04)",
+          "oklch(26.43% 0.0406 76.04)",
+          "oklch(37.86% 0.0406 76.04)",
+          "oklch(49.29% 0.0406 76.04)",
+          "oklch(60.71% 0.0406 76.04)",
+          "oklch(72.14% 0.0406 76.04)",
+          "oklch(83.57% 0.0406 76.04)",
+          "oklch(95.00% 0.0406 76.04)"
+        ]
+      },
+      "surface-auth-paper": {
+        "role": "neutral",
+        "displayName": "油紙",
+        "tonalRamp": [
+          "oklch(15.00% 0.0385 85.34)",
+          "oklch(26.43% 0.0385 85.34)",
+          "oklch(37.86% 0.0385 85.34)",
+          "oklch(49.29% 0.0385 85.34)",
+          "oklch(60.71% 0.0385 85.34)",
+          "oklch(72.14% 0.0385 85.34)",
+          "oklch(83.57% 0.0385 85.34)",
+          "oklch(95.00% 0.0385 85.34)"
+        ]
+      },
+      "surface-auth-field": {
+        "role": "neutral",
+        "displayName": "淡紙欄位",
+        "tonalRamp": [
+          "oklch(15.00% 0.0262 82.39)",
+          "oklch(26.43% 0.0262 82.39)",
+          "oklch(37.86% 0.0262 82.39)",
+          "oklch(49.29% 0.0262 82.39)",
+          "oklch(60.71% 0.0262 82.39)",
+          "oklch(72.14% 0.0262 82.39)",
+          "oklch(83.57% 0.0262 82.39)",
+          "oklch(95.00% 0.0262 82.39)"
+        ]
+      },
+      "text-auth-ink": {
+        "role": "neutral",
+        "displayName": "墨黑",
+        "tonalRamp": [
+          "oklch(15.00% 0.0165 74.99)",
+          "oklch(26.43% 0.0165 74.99)",
+          "oklch(37.86% 0.0165 74.99)",
+          "oklch(49.29% 0.0165 74.99)",
+          "oklch(60.71% 0.0165 74.99)",
+          "oklch(72.14% 0.0165 74.99)",
+          "oklch(83.57% 0.0165 74.99)",
+          "oklch(95.00% 0.0165 74.99)"
+        ]
+      },
+      "text-auth-muted": {
+        "role": "neutral",
+        "displayName": "淡墨",
+        "tonalRamp": [
+          "oklch(15.00% 0.0340 71.93)",
+          "oklch(26.43% 0.0340 71.93)",
+          "oklch(37.86% 0.0340 71.93)",
+          "oklch(49.29% 0.0340 71.93)",
+          "oklch(60.71% 0.0340 71.93)",
+          "oklch(72.14% 0.0340 71.93)",
+          "oklch(83.57% 0.0340 71.93)",
+          "oklch(95.00% 0.0340 71.93)"
+        ]
+      },
+      "border-auth": {
+        "role": "neutral",
+        "displayName": "茶線",
+        "tonalRamp": [
+          "oklch(15.00% 0.0460 77.35)",
+          "oklch(26.43% 0.0460 77.35)",
+          "oklch(37.86% 0.0460 77.35)",
+          "oklch(49.29% 0.0460 77.35)",
+          "oklch(60.71% 0.0460 77.35)",
+          "oklch(72.14% 0.0460 77.35)",
+          "oklch(83.57% 0.0460 77.35)",
+          "oklch(95.00% 0.0460 77.35)"
+        ]
+      },
+      "accent-auth-action": {
+        "role": "primary",
+        "displayName": "茶墨行動",
+        "tonalRamp": [
+          "oklch(15.00% 0.0491 58.87)",
+          "oklch(26.43% 0.0491 58.87)",
+          "oklch(37.86% 0.0491 58.87)",
+          "oklch(49.29% 0.0491 58.87)",
+          "oklch(60.71% 0.0491 58.87)",
+          "oklch(72.14% 0.0491 58.87)",
+          "oklch(83.57% 0.0491 58.87)",
+          "oklch(95.00% 0.0491 58.87)"
+        ]
+      },
+      "state-auth-ready": {
+        "role": "semantic",
+        "displayName": "就緒綠",
+        "tonalRamp": [
+          "oklch(15.00% 0.0673 144.36)",
+          "oklch(26.43% 0.0673 144.36)",
+          "oklch(37.86% 0.0673 144.36)",
+          "oklch(49.29% 0.0673 144.36)",
+          "oklch(60.71% 0.0673 144.36)",
+          "oklch(72.14% 0.0673 144.36)",
+          "oklch(83.57% 0.0673 144.36)",
+          "oklch(95.00% 0.0673 144.36)"
+        ]
+      },
+      "state-live": {
+        "role": "semantic",
+        "displayName": "錯誤紅",
+        "tonalRamp": [
+          "oklch(15.00% 0.1847 28.81)",
+          "oklch(26.43% 0.1847 28.81)",
+          "oklch(37.86% 0.1847 28.81)",
+          "oklch(49.29% 0.1847 28.81)",
+          "oklch(60.71% 0.1847 28.81)",
+          "oklch(72.14% 0.1847 28.81)",
+          "oklch(83.57% 0.1847 28.81)",
+          "oklch(95.00% 0.1847 28.81)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "purpose": "全站 h1，共用響應式字級。",
+        "displayName": "主標"
+      },
+      "headline": {
+        "purpose": "全站 h2。",
+        "displayName": "章節標題"
+      },
+      "title": {
+        "purpose": "全站 h3。",
+        "displayName": "小節標題"
+      },
+      "body": {
+        "purpose": "所有正文與操作文字使用 Noto Sans TC。",
+        "displayName": "正文"
+      },
+      "label": {
+        "purpose": "可見欄位名稱。",
+        "displayName": "表單標籤"
+      },
+      "game-id": {
+        "purpose": "Noto Sans TC 輸入，取代原等寬字體。",
+        "displayName": "遊戲 ID"
+      }
+    },
+    "shadows": [
+      {
+        "value": "0 20px 60px color-mix(in oklab, var(--surface-wood) 18%, transparent)",
+        "name": "paper-container",
+        "purpose": "入口與工作區容器既有樣式；與卷軸共用樣式的優先序以實際載入為準。"
+      },
+      {
+        "value": "0 18px 36px color-mix(in oklab, var(--surface-wood) 25%, transparent), inset 0 0 32px color-mix(in oklab, var(--border-auth) 12%, transparent)",
+        "name": "mounted-scroll",
+        "purpose": "MemberScroll 共用紙面樣式。"
+      },
+      {
+        "value": "3px 4px 8px color-mix(in oklab, var(--surface-wood) 20%, transparent)",
+        "name": "wooden-roller",
+        "purpose": "木桿投影。"
+      },
+      {
+        "value": "12px 0 40px color-mix(in oklab, var(--surface-wood) 24%, transparent)",
+        "name": "drawer",
+        "purpose": "行動抽屜向右投影。"
+      }
+    ],
+    "motion": [
+      {
+        "value": "380ms cubic-bezier(0.22, 1, 0.36, 1)",
+        "name": "nav-enter",
+        "purpose": "抽屜從左側進場，遮罩同步淡入。"
+      },
+      {
+        "value": "230ms cubic-bezier(0.4, 0, 1, 1)",
+        "name": "nav-exit",
+        "purpose": "抽屜退場；控制器 240ms 後清理。"
+      },
+      {
+        "value": "180ms cubic-bezier(0.22, 1, 0.36, 1)",
+        "name": "nav-feedback",
+        "purpose": "懸停、底線與釋放回復。"
+      },
+      {
+        "value": "70ms",
+        "name": "nav-press",
+        "purpose": "按下下移 1px、縮至 .97。"
+      },
+      {
+        "value": "none",
+        "name": "reduced-motion",
+        "purpose": "停用導覽動畫及過渡；控制器立即關閉。"
+      },
+      {
+        "purpose": "全站懸停與釋放回復；專用導覽仍保留自身進退場。",
+        "value": "180ms ease",
+        "name": "site-interaction"
+      },
+      {
+        "purpose": "通用操作項按下縮至 .975；減少動態時無縮放。",
+        "value": "70ms",
+        "name": "site-press"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "single-column",
+        "value": "767px"
+      },
+      {
+        "name": "compact",
+        "value": "380px"
+      },
+      {
+        "name": "narrow-workspace",
+        "value": "1023px"
+      }
+    ],
+    "scope": {
+      "ramps": "保留既有 OKLCH 展示色階；不是新增的產品色彩 token。",
+      "routes": [
+        "/",
+        "/home",
+        "/t/[slug]/login",
+        "/t/[slug]/signup",
+        "/t/[slug]/me (anonymous/pending/overview/registration/character)",
+        "/loadout",
+        "/sportsbook"
+      ],
+      "textureProvenance": "/lunjian/art/bracket-card-light.webp：既有主題水墨紙面圖，本次僅引用，未複製或新增生成。",
+      "excludes": "保留原 3D 世界、首頁場景與引擎，不以紙面覆蓋整個場景；不改登入及資料更新契約。",
+      "tokenAuthority": "DESIGN.md frontmatter；既有 lunjian.json 色盤，typography.css 字級、site-navigation.css 導覽、interaction.css 操作回饋。",
+      "applies": "全站共用導覽、字體及操作回饋；會員使用裝裱卷軸；原首頁七章 UI 內容面板及抽屜共用油紙墨色。"
+    },
+    "memberWorkspace": {
+      "maxWidth": "1200px",
+      "sidebar": "200px",
+      "feedback": "已儲存，資料已更新。 (role=status)",
+      "editing": "personalOnly / characterOnly; full-record updates preserve other fields",
+      "sidebarNarrow": "176px at max-width 1023px",
+      "mobile": "below 768px: single column and workspace disclosure navigation, separate from site drawer"
+    },
+    "siteNavigation": {
+      "chapters": [
+        {
+          "label": "宗旨",
+          "href": "/#prologue"
+        },
+        {
+          "label": "規則說明",
+          "href": "/#rules"
+        },
+        {
+          "label": "讓武",
+          "href": "/#invitation"
+        },
+        {
+          "label": "報名",
+          "href": "/#register"
+        },
+        {
+          "label": "比武",
+          "href": "/#duel"
+        },
+        {
+          "label": "賽程",
+          "href": "/#schedule"
+        },
+        {
+          "label": "獎賞",
+          "href": "/#rewards"
+        }
+      ],
+      "behavior": "同一寬度保持相同逐項位置；桌面完整七章，1023px 以下漢堡開啟左側原生 dialog 抽屜。",
+      "brand": "/home",
+      "removed": "登入頁專用品牌列及返回賽事",
+      "memberShortcut": "既有 /t/[slug]/me",
+      "geometry": {
+        "mobilePadding": "16px",
+        "desktopPadding": "32px",
+        "desktopHeight": "72px",
+        "maxWidth": "1440px",
+        "mobileHeight": "64px",
+        "desktopColumns": "160px minmax(0, 1fr) 160px",
+        "safeArea": "標頭高度與側邊留白包含安全區。",
+        "mobileColumns": "100px minmax(0, 1fr) 100px",
+        "chapterMinimum": "44px"
+      },
+      "controller": {
+        "focus": "Native dialog trap; initial close-button focus; restore trigger on ordinary close.",
+        "closeTimer": "240ms",
+        "cleanup": "Breakpoint change and unmount close the dialog and clear timers/listeners.",
+        "closeTriggers": ["Escape", "backdrop", "close button", "link/action"],
+        "scroll": "Save body overflow and restore it on close.",
+        "source": "web/src/features/chrome/navigationRuntime.ts"
+      },
+      "offsets": "/loadout 與 /sportsbook 的正文及工具列預留標頭高度。"
+    },
+    "headingPolicy": {
+      "source": "web/src/app/typography.css",
+      "marginBlock": "0 0.6em",
+      "numericStyle": "tabular-nums for code, pre, .mono",
+      "fonts": "Google Fonts stylesheet; Noto Sans TC body/numbers, Noto Serif TC headings/brand."
+    },
+    "validation": {
+      "headless3D": "渲染檢查逾時，不能記為通過。",
+      "visible3D": "實際 Codex 瀏覽器確認 Three r170 canvas 可見。",
+      "note": "本輪結果與上輪 .next-nav-scroll-release 部署分開記錄。",
+      "asOf": "2026-10-13",
+      "completed": "56 項回歸、32 項瀏覽器檢查（375／572／1074px）、8 項修正複驗；axe 零違規、runtime 零錯誤。",
+      "deployment": "已部署 .next-paper-site-release；公開 UI 驗收及實際瀏覽器 3D 可見確認通過，三項服務 ready。"
+    },
+    "paperSite": {
+      "surface": "既有 auth 油紙與墨色 token、既有 art/bracket-card-light.webp；章節及場景外層保持透明。",
+      "source": "sources/lunjian/lab/paper-theme.css",
+      "preserved": "原 3D 世界、首頁場景、引擎、章節內容與既有互動。",
+      "delivery": "generator 附加至原首頁產生結果。",
+      "duel": "保留角色插畫；可讀資訊置於圖像下方，透明剪影按鈕使用 drop-shadow 回饋。",
+      "scope": "原七章及首頁文字的前景 UI 內容面板。"
+    },
+    "memberSeal": {
+      "copy": "登入刪除「查看報名資料與角色配置。」；註冊引言保留。",
+      "source": "web/src/features/member/MemberSeal.tsx",
+      "accessibility": "aria-hidden=true; focusable=false; pointer-events:none; adjacent heading provides meaning",
+      "color": "color-mix(in oklab, var(--state-live) 58%, var(--surface-wood))",
+      "size": "52px desktop / 44px at max-width 767px",
+      "shape": "SVG 實心朱印、鏤空劍形、角部幾何。",
+      "rotation": "-3deg"
+    },
+    "interaction": {
+      "focus": "2px currentColor outline, 4px offset",
+      "targets": "a[href], button, summary, input submit/button",
+      "reducedMotion": "停用過渡與按下縮放。",
+      "source": "web/src/app/interaction.css",
+      "hover": "8% currentColor 內陰影墨色覆層；排除 disabled 與 aria-disabled。",
+      "silhouetteException": "paper-theme.css 的比武剪影按鈕移除 hover/active box-shadow，hover 使用 0 2px 2px、25% text-auth-ink 的 drop-shadow。",
+      "release": "180ms 恢復",
+      "press": "scale .975, 70ms, 14% currentColor 覆層"
+    }
+  },
+  "components": [
+    {
+      "name": "茶墨提交按鈕",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "原生登入／報名提交按鈕，保留停用、焦點及全站操作回饋。",
+      "html": "<button type=\"button\" class=\"ds-submit\">登入</button>",
+      "css": ".ds-submit{min-height:48px;width:100%;padding:8px 24px;border:1px solid var(--accent-auth-action,#654a35);border-radius:0;color:var(--surface-auth-field,#f7eddb);background:var(--accent-auth-action,#654a35);font:700 15px/1.2 'Noto Sans TC',sans-serif;cursor:pointer;transition:color 180ms ease,background-color 180ms ease,box-shadow 180ms ease,scale 180ms ease}.ds-submit:hover:not(:disabled){background:var(--text-auth-ink,#322c24);box-shadow:inset 0 0 0 100vmax color-mix(in oklab,currentColor 8%,transparent)}.ds-submit:active:not(:disabled){scale:.975;transition-duration:70ms;box-shadow:inset 0 0 0 100vmax color-mix(in oklab,currentColor 14%,transparent)}.ds-submit:focus-visible{outline:2px solid currentColor;outline-offset:4px}.ds-submit:disabled{opacity:.45;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-submit{transition:none}.ds-submit:active{scale:none}}"
+    },
+    {
+      "name": "遊戲 ID 欄位",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "可見標籤與身分識別限制說明。",
+      "html": "<div class=\"ds-field\"><label for=\"ds-game-id\">遊戲ID</label><input id=\"ds-game-id\" aria-describedby=\"ds-help\" required autocomplete=\"off\" spellcheck=\"false\"><p id=\"ds-help\">填寫本屆報名使用的遊戲 ID。目前使用遊戲 ID 識別，未設密碼驗證。</p></div>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:8px;color:var(--text-auth-ink, #322c24);font-family:'Noto Sans TC',system-ui,sans-serif;}.ds-field label{font-size:13px;font-weight:700;}.ds-field input{min-height:48px;max-width:100%;padding:8px 12px;border:1px solid var(--border-auth, #9b886c);border-radius:0;background:var(--surface-auth-field, #f7eddb);color:var(--text-auth-ink, #322c24);font:16px 'Noto Sans TC',sans-serif;caret-color:var(--accent-auth-action, #654a35);}.ds-field p{margin:0;color:var(--text-auth-muted, #675846);font-size:12px;line-height:1.7;}.ds-field input:focus-visible { outline:2px solid var(--accent-auth-action, #654a35); outline-offset:4px; }"
+    },
+    {
+      "name": "入口頁籤導覽",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "以原生連結與 aria-current 表示登入／註冊位置。",
+      "html": "<nav class=\"ds-tabs\" aria-label=\"登入與註冊\"><a href=\"#login\" aria-current=\"page\">登入</a><a href=\"#signup\">註冊</a></nav>",
+      "css": ".ds-tabs{display:flex;gap:32px;border-bottom:1px solid var(--border-auth, #9b886c);font:15px/1.7 'Noto Sans TC',system-ui,sans-serif;}.ds-tabs a{display:flex;align-items:center;min-height:48px;padding:0 12px;border-bottom:2px solid transparent;color:var(--text-auth-muted, #675846);text-decoration:none;}.ds-tabs a[aria-current=page]{color:var(--text-auth-ink, #322c24);border-color:var(--accent-auth-action, #654a35);font-weight:700;}.ds-tabs a:hover{color:var(--text-auth-ink, #322c24);background:color-mix(in oklab,var(--surface-auth-paper, #ede0c5) 85%,var(--border-auth, #9b886c));}.ds-tabs a:focus-visible { outline:2px solid var(--accent-auth-action, #654a35); outline-offset:4px; }"
+    },
+    {
+      "name": "中式裝裱卷軸",
+      "kind": "card",
+      "refersTo": "paper",
+      "description": "自包含片段展示紙色與 CSS 裝裱幾何；實作引用既有水墨圖，展示片段不複製或內嵌素材。",
+      "html": "<section class=\"ds-scroll\" aria-label=\"會員卷軸\"><h2>會員專區</h2><p>本屆報名資料與角色配置。</p></section>",
+      "css": ".ds-scroll{position:relative;margin:24px 28px;padding:32px;color:var(--text-auth-ink,#322c24);background:var(--surface-auth-paper,#ede0c5);border-inline:20px solid color-mix(in oklab,var(--border-auth,#9b886c) 44%,var(--surface-auth-paper,#ede0c5));border-block:12px solid color-mix(in oklab,var(--border-auth,#9b886c) 32%,var(--surface-auth-paper,#ede0c5));font:15px/1.7 'Noto Sans TC',sans-serif;box-shadow:0 18px 36px color-mix(in oklab,var(--surface-wood,#4b3c31) 25%,transparent);}.ds-scroll::before,.ds-scroll::after{content:'';position:absolute;inset-block:-24px;width:16px;border-radius:4px;border-block:10px solid var(--surface-wood,#4b3c31);background:linear-gradient(90deg,var(--surface-wood,#4b3c31),var(--border-auth,#9b886c) 42%,var(--accent-auth-action,#654a35) 72%,var(--surface-wood,#4b3c31));pointer-events:none;}.ds-scroll::before{left:-28px}.ds-scroll::after{right:-28px}.ds-scroll h2{font:700 clamp(26px,3vw,32px)/1.4 'Noto Serif TC',serif;letter-spacing:.08em;margin:0 0 .6em}.ds-scroll p{margin:0}@media(max-width:767px){.ds-scroll{padding:24px 16px;border-inline-width:10px;border-block-width:8px}.ds-scroll::before,.ds-scroll::after{width:12px;inset-block:-18px;border-block-width:7px}.ds-scroll::before{left:-18px}.ds-scroll::after{right:-18px}}"
+    },
+    {
+      "name": "表單錯誤",
+      "kind": "custom",
+      "refersTo": "alert",
+      "description": "會員範圍的 1px 錯誤邊框，搭配可讀文字與 alert 語意。",
+      "html": "<p class=\"ds-alert\" role=\"alert\">請填寫遊戲ID。</p>",
+      "css": ".ds-alert{margin:0;padding:12px;border:1px solid var(--state-live,#b8241c);background:color-mix(in oklab,var(--state-live,#b8241c) 8%,transparent);color:var(--text-auth-ink, #322c24);font:13px/1.7 'Noto Sans TC',system-ui,sans-serif;}"
+    },
+    {
+      "name": "抽屜章節連結",
+      "description": "抽屜章節的靜態可操作展示；實際 dialog 開關由共用控制器負責。",
+      "kind": "nav",
+      "html": "<nav class=\"ds-drawer-links\" aria-label=\"賽事章節\"><a href=\"/#prologue\" aria-current=\"page\">宗旨<svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\"><path d=\"M6 18 18 6M6 6h12v12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a><a href=\"/#rules\">規則說明<svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\"><path d=\"M6 18 18 6M6 6h12v12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a></nav>",
+      "css": ".ds-drawer-links{display:grid;padding:16px 24px;background:var(--surface-auth-paper,#ede0c5);font:19px/1.5 'Noto Sans TC',sans-serif;letter-spacing:.08em}.ds-drawer-links a{display:flex;align-items:center;justify-content:space-between;min-height:56px;padding:8px 12px;border-bottom:1px solid var(--border-auth,#9b886c);color:var(--text-auth-ink,#322c24);text-decoration:none;transition:transform 180ms cubic-bezier(.22,1,.36,1),background-color 180ms ease}.ds-drawer-links a[aria-current]{background:var(--accent-auth-action,#654a35);color:var(--surface-auth-field,#f7eddb)}.ds-drawer-links a:hover:not([aria-current]){background:color-mix(in oklab,var(--border-auth,#9b886c) 15%,transparent)}.ds-drawer-links a:focus-visible{outline:2px solid currentColor;outline-offset:3px}.ds-drawer-links a:active{transform:translateY(1px) scale(.97);transition-duration:70ms}.ds-drawer-links svg{transition:transform 180ms ease}.ds-drawer-links a:hover svg{transform:translate(3px,-2px)}@media(prefers-reduced-motion:reduce){.ds-drawer-links a,.ds-drawer-links svg{transition:none}}",
+      "refersTo": "navigation-drawer"
+    },
+    {
+      "kind": "custom",
+      "css": ".ds-member-seal{display:block;flex:0 0 auto;width:52px;height:52px;color:color-mix(in oklab,var(--state-live,#b8241c) 58%,var(--surface-wood,#4b3c31));transform:rotate(-3deg);transform-origin:center;pointer-events:none;user-select:none}@media(max-width:767px){.ds-member-seal{width:44px;height:44px}}",
+      "name": "劍形朱印",
+      "refersTo": "member-seal",
+      "html": "<svg class=\"ds-member-seal\" viewBox=\"0 0 56 56\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><rect x=\"2\" y=\"2\" width=\"52\" height=\"52\" rx=\"2\" fill=\"currentColor\"/><g stroke=\"var(--surface-auth-paper, #ede0c5)\" stroke-width=\"1.5\" stroke-linecap=\"square\" stroke-linejoin=\"miter\"><path d=\"M18 7H7v11m31-11h11v11M7 38v11h11m31-11v11H38\"/><path d=\"M12 22v12m32-12v12\" opacity=\".65\"/><path d=\"m28 10-4 7v17h8V17Z\"/><path d=\"M28 17v17M19 33l3 4h12l3-4M26 38v6h4v-6M24 47h8\"/></g></svg>",
+      "description": "登入與註冊題款的純裝飾 SVG 印記，由相鄰主標提供語意。"
+    }
+  ],
+  "narrative": {
+    "northStar": "茶案上的中式卷軸",
+    "overview": "延續茶褐、淺紙與墨色。原 3D 世界與首頁場景保留，原七章前景內容面板共用油紙與 Noto 標題。會員裝裱卷軸保留木桿，登入及註冊使用 SVG 劍形朱印；全站操作回饋由 interaction.css 統一。",
+    "donts": [
+      "Do not 恢復手機橫向章節列。",
+      "Do not 改寫既有紙色盤及展示色階。",
+      "Do not 加回 feTurbulence、手繪山形或 Unicode 導覽箭頭。",
+      "Do not 新增不存在的登入驗證承諾。",
+      "Do not 移除或替換原 3D 世界、場景及引擎。",
+      "Do not 將 headless 3D 渲染逾時記為通過。"
+    ],
+    "keyCharacteristics": [
+      "相同視窗寬度的全站導覽位置一致。",
+      "Noto Serif TC 標題、Noto Sans TC 正文與數字。",
+      "裝裱卷軸、既有水墨紙面、原生表單。",
+      "操作動態尊重減少動態設定。",
+      "原 3D 世界可見，油紙只承接首頁前景內容面板。",
+      "會員入口使用 SVG 劍形朱印，登入刪去冗餘引言。",
+      "剪影按鈕沿透明輪廓回饋，避免矩形背景。"
+    ],
+    "dos": [
+      "Do 使用共用導覽控制器與集中字級。",
+      "Do 對齊各頁每個導覽項。",
+      "Do 保留焦點、標籤、狀態語意及資料契約。",
+      "Do 引用既有水墨紙面，裝裱與木桿用 CSS 幾何。",
+      "Do 在 lab 的 paper-theme.css 維護首頁前景覆寫，由 generator 附加。",
+      "Do 以 interaction.css 提供全站操作回饋，對透明剪影使用輪廓陰影例外。"
+    ],
+    "rules": [
+      {
+        "section": "colors",
+        "name": "The Scoped Paper Rule",
+        "body": "會員與首頁前景內容面板共用 auth 油紙墨色；保留原 3D 世界、場景與引擎，場景外層保持透明。"
+      },
+      {
+        "section": "typography",
+        "name": "The One Heading Rule",
+        "body": "會員頁唯一 h1；h1–h3 使用集中管理的尺度與層級。"
+      }
+    ]
+  },
+  "homeLandingOverride": {
+    "asOf": "2026-10-13",
+    "surface": "No paper backing on /home title/actions",
+    "navigation": "Home-only glass: dark 38% alpha, backdrop blur 14px; paper drawer retained",
+    "particles": "36 red petals and 12 white blossoms; 80% reduction, original snow retained",
+    "release": ".next-home-sparse-release"
+  },
+  "navigationMotion": {
+    "engine": "GSAP + CSS custom properties",
+    "openMs": 520,
+    "closeMs": 260,
+    "staggerMs": 45,
+    "events": [
+      "pointerenter",
+      "pointermove",
+      "pointerleave",
+      "pointerdown",
+      "pointerup",
+      "pointercancel",
+      "click",
+      "focus",
+      "blur",
+      "keydown",
+      "keyup"
+    ],
+    "reducedMotion": true,
+    "cleanup": "AbortController, killTweensOf, context.revert",
+    "release": ".next-nav-motion-release"
+  },
+  "chapterTitleOverride": {
+    "engine": "Original lab SVG brush strokes and seal",
+    "chapters": ["宗旨", "規則說明", "讓武", "報名", "比武", "賽程", "獎賞"],
+    "normalText": "Noto TC unchanged",
+    "reducedMotion": "Readable static text",
+    "release": ".next-brush-title-release"
+  },
+  "uiRefinement": {
+    "mode": "preserve",
+    "references": [
+      "Taste preserved local skill",
+      "Awesome DESIGN.md reference catalog",
+      "references/kage-optimise/index.html"
+    ],
+    "dials": {
+      "DESIGN_VARIANCE": 4,
+      "MOTION_INTENSITY": 6,
+      "VISUAL_DENSITY": 3
+    },
+    "rationale": "Temple-centered editorial hero; preserve Noto, oil paper, dark world and existing navigation gestures",
+    "navBreakpoint": 900,
+    "scrollbar": "hidden, native scroll retained",
+    "dialogue": "white, sharp corners, offset shadow, horizontal sequential fade",
+    "memberSeal": "vertical outlined SVG name seal",
+    "release": ".next-ui-refinement-release"
+  }
+}

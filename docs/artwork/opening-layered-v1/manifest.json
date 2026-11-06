@@ -1,0 +1,45 @@
+{
+  "method": "Built-in image_gen; five separate generations. WebP resize/encoding only; alpha preserved.",
+  "assets": [
+    {
+      "name": "background",
+      "width": 1440,
+      "height": 810,
+      "alpha": false,
+      "bytes": 92120,
+      "url": "/opening-art/v1/background.webp"
+    },
+    {
+      "name": "hero-left",
+      "width": 960,
+      "height": 1200,
+      "alpha": true,
+      "bytes": 248812,
+      "url": "/opening-art/v1/hero-left.webp"
+    },
+    {
+      "name": "foreground",
+      "width": 960,
+      "height": 540,
+      "alpha": true,
+      "bytes": 61838,
+      "url": "/opening-art/v1/foreground.webp"
+    },
+    {
+      "name": "portrait-a",
+      "width": 320,
+      "height": 480,
+      "alpha": true,
+      "bytes": 38926,
+      "url": "/opening-art/v1/portrait-a.webp"
+    },
+    {
+      "name": "portrait-white",
+      "width": 320,
+      "height": 480,
+      "alpha": true,
+      "bytes": 38116,
+      "url": "/opening-art/v1/portrait-white.webp"
+    }
+  ]
+}

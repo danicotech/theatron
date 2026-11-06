@@ -1,6 +1,29 @@
 # Theatron 本機開發服務
 
-## 啟動
+## 2026-10-12 報名系統接入（目前有效）
+
+本機完整專案位於 C:/Users/daniel/Desktop/discordBot。Theatron 使用 3001、Hestia 使用 8088/api；3000 是 Grafana。以下歷史段落的 3000 前端網址請改為 3001。
+
+- 正式報名：https://arena.gengflow.com/t/2026-baiye-shifeng/signup
+- 我的報名：https://arena.gengflow.com/t/2026-baiye-shifeng/me
+- 裁判名冊：https://arena.gengflow.com/judge/2026-baiye-shifeng
+- 本機報名：http://localhost:3001/t/2026-baiye-shifeng/signup
+
+web/.env.local 已設定 HESTIA_URL=http://127.0.0.1:8088 與 NEXT_PUBLIC_TOURNAMENT_SLUG=2026-baiye-shifeng。環境檔不提交，帳密不要放入 NEXT_PUBLIC 變數。
+
+啟動順序：在根目錄啟動 Docker Compose 基礎設施；載入根目錄 .env 執行 Hestia migration 與 server；在 theatron 設定 THEATRON_DIST_DIR=.next-build 後執行 pnpm build，再以同一變數執行 pnpm --filter @theatron/web start --hostname 127.0.0.1 --port 3001；在 stentor 執行既有啟動指令。Stentor 啟動會註冊 Discord 指令並處理待發公告，這次使用者已明確授權。
+
+目前前台使用成功建置的 Next production server（.next-build），公開 HTTPS 報名頁和串流已驗證成功；開發模式會擋公開網域的開發資源，不應拿來提供外部服務。前端 93 個測試檔、910 項測試全部通過，lint、lint:custom、typecheck、production build 通過。
+
+目前服務為背景程序，沒有新增開機自啟。停止或重新啟動前先核對程序與連接埠，避免影響其他應用。Cloudflare 前台 ingress 已依使用者授權由 3000 改為 3001；/api 保持 8088，原設定備份於 ~/.cloudflared/config.pre-registration-20261012.yml。
+
+報名已使用真實 Hestia/Postgres：四項角色配置、規則版本與伺服器確認時間可保存、修改及重新登入讀回。活動 migration 9 已套用，舊資料保留且不偽造已確認狀態。首頁與 /t/[slug]/signup 共用正式表單，明確帶 preview 或 sportsEvent 才走本機試玩。
+
+共享 WatchTournament 等首個 heartbeat 後重讀資料；報名改動透過交易通知和 outbox 觸發失效，讀取最新公開狀態及有權限的私人資料。Next compress=false 避免本機轉送 gzip 緩衝首包；公開流不含私人報名內容。
+
+隔離資料庫 registration_e2e_20261012 的瀏覽器驗收通過：報名與自動進站、重讀四項配置、修改即時反映裁判名冊、另一登入工作階段讀回、重複報名與舊規則拒絕、未登入私人資料拒絕、斷線重連、手機無橫向溢出、登出、報名截止禁止修改。未在正式活動新增測試選手。獨立瀏覽器工作階段已驗證，尚未以兩台實體裝置驗收。雙人骰子／猜拳房間仍依 REALTIME_INTEGRATION 規格待開發。
+
+## 歷史啟動說明
 
 以下命令在 `theatron/` 目錄執行。
 
@@ -100,7 +123,7 @@ pnpm build
 
 預覽原服務已停止，已以隱藏 Node 程序重新啟動 Next dev（127.0.0.1:3000）。`/`、`/sportsbook`、`/loadout`、`/lunjian/lunjian.js`、`/loadout/loadout.js` 均 HTTP 200，服務保持運行。從 `/sportsbook?mode=manage` →「另開一屆試玩」→「開放會員報名（空白名單）」開始；參賽入口會帶活動 ID。操作見 SPORTSBOOK_DEMO。此為本機資料流程，不需 Hestia。
 
-## 2026-10-12 環境移轉：已有後端，待串接
+## 2026-10-12 環境移轉紀錄（已由上方報名接入狀態更新）
 
 使用者已確認 Hestia 後端存在，將換環境後再開發；上文「工作區未見」僅表示目前 checkout 沒有後端，不表示需要重建。
 
@@ -111,3 +134,7 @@ pnpm build
 首頁／配置頁的生成物及 [lab 來源快照](../sources/lunjian/README.md) 已隨倉庫保存。單獨 clone 可以跑 pnpm dev、pnpm test、pnpm build，不依賴兄弟 scrollcraft。來源解析可用 LUNJIAN_SOURCE_ROOT 指定；正式 API 生成仍需 Hestia。
 
 目前 scripts/verify-*-browser.mjs 的歷史驗收腳本含原開發機 Playwright 路徑，換機需要先調整為可用的安裝路徑；這不影響前端啟動與 Vitest 測試。
+
+## 2026-10-12 會員與多人小工具正式更新
+
+網站使用 web/.next-member-tools-release，Hestia 使用 ops/bin/hestia.exe；原登入排程保持啟用並已重新啟動驗收。正式會員區 /t/2026-baiye-shifeng/me、小工具 /tools。房間 schema 00010 已套用。三個獨立身分隔離互動驗收、公開 HTTPS 兩身分同步與 Discord ready 通過，測試房間已關閉。舊程式與資料庫在 ops/backups，驗收紀錄在 ops/releases/member-tools-20261012.json。未實際重開電腦或以兩台實體裝置測試。
