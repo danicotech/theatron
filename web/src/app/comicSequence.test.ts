@@ -415,6 +415,18 @@ describe('漫畫逐格入場佇列', () => {
     expect(running()).toHaveLength(0);
   });
 
+  it('印章收在自己的靜止姿勢，動畫結束時不跳動', () => {
+    const rest = document.createElement('style');
+    rest.textContent = '[data-comic-layer="stamp"]{transform:matrix(0.75,0,0,0.75,0,0)}';
+    document.head.append(rest);
+    mount('rewards');
+    observer('rewards').emit(frames('rewards'));
+    const [stamp] = running()[0]!.add.mock.calls.find(([options]) => options.scale)!;
+    rest.remove();
+    expect(stamp.scale).toEqual([0.75 * 1.55, 0.75]);
+    expect(stamp.rotate).toEqual([-2, 0]);
+  });
+
   it('reduced-motion 保留三席與印章完整可見，不預先藏印或排入動畫', () => {
     motion.matches = true;
     mount('rewards');

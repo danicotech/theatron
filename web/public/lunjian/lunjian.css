@@ -3293,6 +3293,10 @@ html[data-theme] body:has([data-paper-site]) #main #rewards .chapter-sticky{back
 html[data-theme] body:has([data-paper-site]) #main #rewards .chapter-sticky::before{content:none}
 html[data-theme] body:has([data-paper-site]) #main #rewards .awards-stage{padding:12px 20px;box-sizing:border-box;color:var(--text-on-paper)}
 html[data-theme] body:has([data-paper-site]) #main #rewards .awards-heading{text-shadow:none;color:var(--text-on-paper)}
+/* The panels' slide-in reaches past the reader on narrow screens and must not flash a horizontal scrollbar. */
+html[data-theme] body:has([data-paper-site]):not(.reading) #main #rewards>.chapter-sticky{overflow-x:hidden}
+/* A caption slides in from its own panel's edge, not from over the panel beside it. */
+html[data-theme] body:has([data-paper-site]) #main #rewards .podium-frame{overflow:clip}
 html[data-theme] body:has([data-paper-site]) #main #rewards .podium-board{box-sizing:border-box;border:0;border-image:none;padding:0;background:none;isolation:isolate}
 html[data-theme] body:has([data-paper-site]) #main #rewards .podium-frame{border:2px solid var(--text-on-paper);border-image:none;box-shadow:none;background:transparent;color:var(--text-on-paper);isolation:isolate}
 html[data-theme] body:has([data-paper-site]) #main #rewards .podium-art{box-shadow:none}

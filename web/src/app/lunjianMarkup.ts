@@ -1,6 +1,6 @@
 // 由 scrollcraft/builds/lunjian/lab/tools/to-theatron.py 生成，不要手改。
 // 來源是 lab/lunjian-layout.html 的 <body>；改版面請改那一份再重跑腳本。
-export const LUNJIAN_REVISION = "27b3616f8dc3";
+export const LUNJIAN_REVISION = "c79c68f21279";
 export const LUNJIAN_MARKUP = String.raw`
 
 <a class="visually-hidden skip-link" href="#main">跳到內容</a>

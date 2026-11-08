@@ -1387,7 +1387,7 @@ SSR 到客戶端決策前先隱藏首頁，避免先閃現；noscript 可見。�
 
 ## 2026-11-06 獎賞沿用規則說明紙面與同步進場
 - 僅獎賞頁：使用共用 awards-stage 紙面及完整外框，取消 podium-board 的按鈕拉伸木框；三張圖保留 2px 墨色框線。保留所有圖片、文字、章節導覽。
-- playComicScene 對 rewards 跳過個別滑入與蓋章，隨整張章節轉場進場。
+- 2026-11-07 依使用者要求取代：獎賞恢復三格依序滑入與蓋章，章節轉場後由 playComicScene 逐格播放。
 - labRuntime 35 項通過；正式站 Playwright 1366×768、1024×768、390×844 明暗模式共六組，無 pageerror，桌機/平板一屏、手機可閱讀捲動。
 - 隔離映像 rewards-paper-20261106 已發布；備份 before-rewards-paper-20261106。證據：聊天工作區 output/viewport-chapters/shared-live.json 與 shared-live*.png。
 - 使用者回報 detail: Bad Request 尚未重現，未宣稱已修復；需確認出現於 Codex 或網站何項操作。

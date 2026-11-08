@@ -1285,10 +1285,15 @@ function stopComicMotion(){
   comicTargets.forEach(el => { el.style.removeProperty('opacity'); el.style.removeProperty('transform'); el.removeAttribute('data-comic-state'); });
   comicTimelines = []; comicTargets = [];
 }
+// A seal lands on its own resting transform, which differs by screen size, so nothing jumps when the inline styles clear.
+function stampRest(stamp){
+  const matrix=/matrix\(([^,]+),\s*([^,]+)/.exec(getComputedStyle(stamp).transform);
+  if(!matrix) return {scale:1,rotate:-5};
+  const [a,b]=[Number(matrix[1]),Number(matrix[2])];
+  return {scale:Math.hypot(a,b),rotate:Math.atan2(b,a)*180/Math.PI};
+}
 function playComicScene(section,underCover=false){
   stopComicMotion();
-  // Rewards enter as one paper surface with the chapter transition.
-  if(section.id==='rewards')return;
   // An editorial portrait already owns the reveal; do not hide panels inside its window.
   if(document.querySelector(`[data-editorial-transition="#${section.id}"]`)) return;
   if (reduced.matches || body.classList.contains('reading') || body.hasAttribute('data-intro') || (body.hasAttribute('data-cut') && !underCover) || typeof anime.timeline !== 'function') return;
@@ -1330,7 +1335,11 @@ function playComicScene(section,underCover=false){
         ...(kind === 'caption' ? {translateX:[entrySide*(innerWidth < 768 ? 24 : 48),0],easing:'easeOutCubic'} : {}),duration},layerAt);
       layerAt+=duration;
     }
-    if(layers('stamp').length) timeline.add({targets:layers('stamp'),opacity:[0,1],scale:[1.55,1],rotate:[-7,-5],duration:420,easing:'cubicBezier(.34,1.56,.64,1)'},layerAt);
+    const [stamp]=layers('stamp');
+    if(stamp){
+      const rest=stampRest(stamp);
+      timeline.add({targets:[stamp],opacity:[0,1],scale:[rest.scale*1.55,rest.scale],rotate:[rest.rotate-2,rest.rotate],duration:420,easing:'cubicBezier(.34,1.56,.64,1)'},layerAt);
+    }
     timeline.play();
   };
   sequence.drain = () => {
