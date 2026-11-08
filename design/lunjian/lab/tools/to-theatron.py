@@ -178,7 +178,7 @@ for rel in ['art', 'type', 'vendor']:
     # _src 是轉檔前的原圖，不上線
     shutil.copytree(s0, d0, ignore=shutil.ignore_patterns('_src'), dirs_exist_ok=True)
     copied += sum(len(f) for _, _, f in os.walk(s0) if '_src' not in _)
-for f in ['ink-field-worker.js', 'boot-symbol.js', 'dossier-demo.json', 'home-stage.js', 'home-intro.js', 'home-return.js', 'glyphs.json', 'brush.js', 'ink-title.js', 'ink-wave.js', 'ink-transitions.js', 'motion-study.html', 'ink-interaction-study.html', 'chapter-titles.js', 'bracket-tree.js', 'arena-ticket.js', 'bracket-editor.js', 'stage3d.js']:
+for f in ['ink-field-worker.js', 'boot-symbol.js', 'dossier-demo.json', 'home-stage.js', 'home-intro.js', 'home-return.js', 'glyphs.json', 'brush.js', 'ink-title.js', 'ink-wave.js', 'ink-transitions.js', 'motion-study.html', 'ink-interaction-study.html', 'chapter-titles.js', 'arena-ticket.js', 'bracket-editor.js', 'stage3d.js']:
     p = os.path.join(LAB, f)
     if os.path.exists(p):
         if f == 'home-intro.js':
